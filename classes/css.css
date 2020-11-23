@@ -1,0 +1,125 @@
+body {
+    
+ 	
+	
+	scrollbar-face-color: #F5F5F5; 
+	scrollbar-shadow-color: #2D2D73; 
+    scrollbar-highlight-color: #2D2D73; 
+	scrollbar-3dlight-color: #F5F5F5; 
+    scrollbar-darkshadow-color: #F5F5F5; 
+	scrollbar-track-color: #FFFFFF; 
+    scrollbar-arrow-color: #2D2D73;
+}
+
+.texto {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	color: #000000;
+	text-align: left;
+	
+}
+.login {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: 333333;
+	text-decoration: none;
+	text-align: center;
+}
+.caixatexto {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: 333333;
+	border: 1px solid;
+	text-decoration: none;
+	text-align: left;
+
+}
+.rodape {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #FFFFFF;
+	text-decoration: none;
+	text-align: center;
+}
+.botao {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: none;
+	background-color: #999999;
+	border-top: 1px double #FFFFFF;
+	border-right: 1px double #999999;
+	border-bottom: 1px double #999999;
+	border-left: 1px double #FFFFFF;
+}
+.caminho {
+	font-family: tahoma;
+	font-size: 9px;
+	font-weight: normal;
+	color: #999999;
+	text-decoration: none;
+	text-align: right;
+}
+.titulo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}
+a:link {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; 
+    color: #666666;
+    font-weight: bold;
+	text-decoration: none;
+
+}
+a:visited {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serifl;
+    font-size: 11px; 
+    color: #666666;
+    font-weight: bold;
+	
+}
+a:hover {
+	text-decoration: none;  
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; 
+    color: #313177;
+    font-weight: bold;
+}
+a:active {
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; 
+    color: #313177;
+    font-weight: bold;
+}
+.style1 {
+		font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; 
+    color: #313177;
+    font-weight: bold;
+	text-decoration: none;
+
+}
+.style2 {
+		font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; 
+    color: #666666;
+    font-weight: bold;
+	text-decoration: none;
+
+}
+
+
+  
+   
+   
+   
+   
+   
