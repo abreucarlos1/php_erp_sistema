@@ -1,0 +1,9 @@
+** xajax Error Log - Aug 25 2006 03:17:07 PM **
+----
+[WARNING] include(file_doesnt_exist.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory
+error in line 14 of file /home/dvmsys/dvmsys/xajax/tests/errorHandlingTest.php
+----
+[WARNING] include() [<a href='function.include'>function.include</a>]: Failed opening 'file_doesnt_exist.php' for inclusion (include_path='.:/opt/lampp/lib/php')
+error in line 14 of file /home/dvmsys/dvmsys/xajax/tests/errorHandlingTest.php
+
+

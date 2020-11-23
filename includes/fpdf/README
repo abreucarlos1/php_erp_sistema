@@ -1,0 +1,118 @@
+/*     
+    PanaChart - PHP Chart Generator -  October 2003    
+	
+    Copyright (C) 2003 Eugen Fernea - eugenf@panacode.com
+    Panacode Software - info@panacode.com
+    http://www.panacode.com/
+    
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation;
+    
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.    
+*/  
+
+PanaChart - PHP Chart Generator
+
+DOCUMENTATION
+
+# Features Bandwidth friendly, the average image size for a 450*250 image is around 2K
+# Small and fast library source code
+# Can be used to create plots with few lines of code
+# Can output to a file or directly to an HTTP stream
+# Supports several plot types: bars, lines, dots, areas, step, impuls
+# Supports multiple series plots on the same image
+# Supports automatic scaling of plot area by axis labels size
+
+Requirements
+# PHP scripting engine, version 4 or greater
+# GD image manipulation library, version 2 or greater
+
+Class METHODS
+
+# [object] chart($width, $height, $margin, $background) - constructor
+   $width	Chart's image width
+   $height	Chart's image height
+   $margin	Left/top/right/bottom margin
+   $background	Background color
+
+# [void] setFormat($numberOfDecimals, $thousandsSeparator, $decimalSeparator) - set values format
+   $numberOfDecimals	
+   $thousandsSeparator	
+   $decimalSeparator	
+
+# [void] setTitle($title, $textColor, $font) - set the title of the chart
+   $title	Chart's title
+   $textColor	Chart's title color ["#FFFFFF"]
+   $font	Title font size [1,2,3,4,5]
+
+# [void] setPlotArea($style, $strokeColor, $fillColor) - set plot area attributes
+   $style	Plot area border style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+   $strokeColor	Border color ["#FFFFFF"]
+   $fillColor	Plot area background color ["#FFFFFF"]
+
+# [void] setXAxis($color, $style, $font, $title)
+   $values	Axis Y color ["#FFFFFF"]
+   $style	Axis X stroke style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+   $font	X title font [1,2,3,4,5]
+   $title	X axis title
+
+# [void] setYAxis($color, $style, $font, $title)
+   $color	Axis Y color ["#FFFFFF"]
+   $style	Axis Y stroke style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+   $font	Y title font [1,2,3,4,5]
+   $title	Y axis title
+
+# [void] setGrid($colorHorizontal, $styleHorizontal, $colorVertical, $styleVertical) - set grid attributes
+   $colorHorizontal	Grid's horizontal lines color ["#FFFFFF"]. If empty string, the H lines will not be plotted
+   $styleHorizontal	Grid's horizontal lines style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+   $colorVertical	Grid's vertical lines color ["#FFFFFF"]. If empty string, the V lines will not be plotted
+   $styleVertical	Grid's vertical lines style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+
+# [void] addSeries(&$values, $plotType, $title, $style, $strokeColor, $fillColor) - add a new series to the chart
+   $values	Array of values
+   $plotType	Plot type ["bar", "line", "dot", "area", "step" or "impuls"]
+   $title	Series title
+   $style	Stroke style [SOLID,DASHED,DOTTED, MEDIUM_SOLID,MEDIUM_DASHED,MEDIUM_DOTTED, LARGE_SOLID,LARGE_DASHED,LARGE_DOTTED]
+   $strokeColor	Stroke drawing color of the series (lines)
+   $fillColor	Fill drawing color of the series
+
+# [void] setLabels(&$labels, $textColor, $textFont, $direction)
+   $arrayLabels	Array of labels
+   $textColor	Text color of the axis labels
+   $textFont	Font size of the axis labels
+   $direction	X labels direction. [HORIZONTAL, VERTICAL]
+
+# [void] plot($file) - plot the chart to a file
+   $file	File path to store image (if "" image will be output to STD)
+   
+   
+# Coding example
+<?php
+    Header('Content-Type: image/png');
+    require('./panachart.php');
+    
+    $vCht4 = array(60,40,20,34,5,52,41,20,34,43,64,40);
+    $vCht5 = array(12,21,36,27,14,23,3,5,29,23,12,5);
+    $vCht6 = array(5,7,3,15,7,8,2,2,2,11,22,3);
+    $vLabels = array('Jan','Feb','Mar','Apr','May','Jun','Jul'
+    ,'Aug','Sep','Oct','Nov','Dec');
+    
+    $ochart = new chart(250,130,5, '#eeeeee');
+    $ochart->setTitle('Title','#000000',2);
+    $ochart->setPlotArea(SOLID,'#444444', '#dddddd');
+    $ochart->setFormat(0,',','.');    
+    $ochart->setXAxis('#000000', SOLID, 1, 'X Axis');
+    $ochart->setYAxis('#000000', SOLID, 2, '');
+    $ochart->setLabels($vLabels, '#000000', 1, VERTICAL);
+    $ochart->setGrid('#bbbbbb', DASHED, '#bbbbbb', DOTTED);        
+    $ochart->addSeries($vCht4,'area','Series1', SOLID,'#000000', '#0000ff');    
+    $ochart->plot('');        
+?>

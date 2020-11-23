@@ -1953,6 +1953,7 @@ fim_contrato_proximo();
 
 //ARQUIVO TECNICO
 verifica_pacotes();
+
 //verifica_devolucao();
 verifica_retorno();
 
@@ -1962,7 +1963,6 @@ if(ult_dia_mes(date('d/m/Y'))==date('d/m/Y'))
 {
     verifica_docs_fin();
 }
-
 
 aprova_solicitacoes_escopo();
 
