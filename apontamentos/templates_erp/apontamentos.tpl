@@ -18,7 +18,7 @@
         				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
 					</tr>
         			<tr>
-        			  <td valign="middle"><label for="periodo" class="labels">Periodo</label><br />
+        			  <td valign="middle"><label for="periodo" class="labels">Período</label><br />
                       <select name="periodo" class="caixa" id="periodo" onkeypress="return keySort(this);" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));">
 						<smarty>html_options values=$option_periodo_values selected=$mesano output=$option_periodo_output</smarty>
 		            </select>

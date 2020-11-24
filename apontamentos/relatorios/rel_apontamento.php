@@ -23,7 +23,7 @@ class PDF extends FPDF
 //Page header
 function Header()
 {    
-	$this->Image(DIR_IMAGENS.'logo_doc_tecnicos_pb.png',26,16,40);
+	$this->Image(DIR_IMAGENS.'logo_pb.png',26,16,40);
 
 	$this->Ln(1);
 	$this->SetFont('Arial','',6);
@@ -99,8 +99,8 @@ $db->select($sql,'MYSQL',true);
 
 $regs = $db->array_select[0];
 
-//Seta o cabe�alho
-$pdf->departamento="ADMINISTRATIVO";
+//Seta o cabeçaalho
+$pdf->departamento=NOME_EMPRESA;
 $pdf->titulo="RELATÓRIO MENSAL DE HORAS - SIMPLES CONFERÊNCIA";
 $pdf->setor="ADM";
 $pdf->codigodoc="999"; //"00"; //"02";
