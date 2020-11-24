@@ -12,9 +12,11 @@ define('DIAS_LIMITE',90); //dias de limite para senhas
 
 define('TAMANHO_SENHA',7); //tamanho padrão de senhas
 
-define('CHAVE','ENGENHARIA'); //CHAVE DE ENCRIPTAÇÃO NO SISTEMA
+define('CHAVE','SISTEMA_ERP'); //CHAVE DE ENCRIPTAÇÃO NO SISTEMA
 
 define('PREFIXO_DOC_GED','INT-'); ///PREFIXO UTILIZADO NO GED
+
+define('NOME_EMPRESA','EMPRESA'); ///NOME DA EMPRESA PARA APRESENTAR NOS RELATÓRIOS
 
 //DEFINE ROOT DIR
 define('ROOT_DIR',dirname(__FILE__));
@@ -27,27 +29,27 @@ $uri = explode('/', $_SERVER['REQUEST_URI']);
 //DEFINE NOME HOST
 define('HOST', $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST']:gethostname());
 
-define('AMBIENTE', !in_array(HOST, array('localhost','localhost:81','teste', '192.168.10.13')) ? 2 : 1);
+define('AMBIENTE', !in_array(HOST, array('localhost','localhost:8888','teste', '192.168.10.13')) ? 2 : 1);
 
 //Para evitar enganos na hora de mandar email de teste e tiver alterado o ambiente para produção
-define('AMBIENTE_EMAIL', !in_array(HOST, array('localhost','teste','192.168.10.13')) ? 2 : 1);
+define('AMBIENTE_EMAIL', !in_array(HOST, array('localhost','localhost:8888','teste','192.168.10.13')) ? 2 : 1);
 
-define('HOST_MAIL',"smtp.domain.com");
+define('HOST_MAIL',"smtp.dominio.com.br");
 
 define('DATABASE',"sistema_erp");
 
 define('FROM_NAME', "Sistema ERP");
 
-define('FROM_MAIL', "mail@domain.com.br");
+define('FROM_MAIL', "mail@dominio.com.br");
 
-define('SUPORTE_MAIL', "suporte@domain.com.br");
+define('SUPORTE_MAIL', "suporte@dominio.com.br");
 
-define('SISTEMAS_MAIL', "sistemas@domain.com.br");
+define('SISTEMAS_MAIL', "sistemas@dominio.com.br");
 
 //Apenas enquanto estivermos desenvolvendo, poderemos usar estes
-define('TI', "ti@domain.com.br");
+define('TI', "ti@dominio.com.br");
 
-//define('ti', "ti@domain.com.br");
+//define('ti', "ti@dominio.com.br");
 
 //DEFINE ROOT WEB
 define('ROOT_WEB','http://'.HOST.'/'.$uri[1]);
@@ -66,21 +68,28 @@ define('CSS_FILE',ROOT_WEB.'/classes/classes.css');
 //DEFINE IMAGENS DIR (a partir do web root)
 define('DIR_IMAGENS',ROOT_WEB.'/imagens/');
 
-//DEFINE O DIRETORIO RAIZ DA MONTAGEM (GUARDA DE ARQUIVOS)
-if(HOST == 'localhost')
-{
-	define('MOUNT_DIR','./');
+
+if(strtoupper(PHP_OS)=='LINUX')
+{	
+	$raiz = '/';
 }
 else
 {
-	if(strtoupper(PHP_OS)=='LINUX')
-	{	
-		$raiz = '/';
-	}
-	else
-	{
-		$raiz = 'C:\/';
-	}
+	$raiz = 'C:\\';
+}
+
+//DEFINE O DIRETORIO RAIZ DA MONTAGEM (GUARDA DE ARQUIVOS)
+if(stripos(HOST, "localhost") !== false)
+{
+	//DEFINE O DIRETÓRIO LOCAL DOS ARQUIVOS DENTRO DO WEBSERVER
+
+	$diretorio = DIRECTORY_SEPARATOR ."arquivos_sistema" . DIRECTORY_SEPARATOR;
+
+	define('MOUNT_DIR',ROOT_DIR.$diretorio);
+}
+else
+{
+	//DEFINE O DIRETORIO REMOTO/LOCAL PARA GRAVAÇÃO DE ARQUIVOS
 	
 	define('MOUNT_DIR',$raiz.implode(DIRECTORY_SEPARATOR,array('mnt','hd2','')));
 }
@@ -160,7 +169,11 @@ require_once(INCLUDE_DIR."conectdb.inc.php"); //OK
 
 //CONFIGURA A ESTRUTURA DO BANCO BASE
 
+@ini_set(max_execution_time, 300);
+
 require_once(INCLUDE_DIR."database.inc.php");
+
+@ini_set(max_execution_time, 120);
 
 //require_once(INCLUDE_DIR."include_email.inc.php"); 
 

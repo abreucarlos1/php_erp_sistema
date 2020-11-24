@@ -126,7 +126,7 @@
     $sql .= "(104,'nao_conformidades_internas',0,0,'0000-00-00'),(105,'desempenhocustos',0,0,'0000-00-00'),(106,'relatorio_previsao_custo',0,0,'0000-00-00'),(107,'login_clientes',0,0,'0000-00-00'),(108,'inicio_area_cliente',0,0,'0000-00-00'),(109,'relatorio_margem_lucro',0,0,'0000-00-00'),(110,'relatorio_produtividade',0,0,'0000-00-00'),";
     $sql .= "(111,'menuobjetivos',0,0,'0000-00-00'),(112,'menuplaneta',0,0,'0000-00-00'),(113,'menuprogsugestao',0,0,'0000-00-00'),(114,'menu5s',0,0,'0000-00-00'),(115,'menumass',0,0,'0000-00-00'),(116,'menuaipr',0,0,'0000-00-00'),(117,'acessosila',0,0,'0000-00-00'),(118,'menuinstitucional',0,0,'0000-00-00'),(119,'menupapelaria',0,0,'0000-00-00'),";
     $sql .= "(120,'menulogotipos',0,0,'0000-00-00'),(121,'menulogoempresa',0,0,'0000-00-00'),(122,'menulogoplaneta',0,0,'0000-00-00'),(123,'menugestaopessoas',0,0,'0000-00-00'),(124,'menutreinamento',0,0,'0000-00-00'),(125,'menudesligamento',0,0,'0000-00-00'),(126,'menuintegracaocliente',0,0,'0000-00-00'),(127,'menulideranca',0,0,'0000-00-00'),";
-    $sql .= "(128,'menuprocedimentosclientes',0,0,'0000-00-00'),(129,'acessoespecial',0,0,'0000-00-00'),(130,'integracao_clientes',0,0,'0000-00-00'),(131,'quadro_ausencias',0,0,'0000-00-00'),(132,'numint',0,0,'0000-00-00'),(133,'ged_pacotes',0,0,'0000-00-00'),(134,'cadastroequipamento',0,0,'0000-00-00'),(135,'menuprocedimentosti',0,0,'0000-00-00'),";
+    $sql .= "(128,'menuprocedimentosclientes',0,0,'0000-00-00'),(129,'acessoespecial',0,0,'0000-00-00'),(130,'integracao_clientes',0,0,'0000-00-00'),(131,'quadro_ausencias',0,0,'0000-00-00'),(132,'numero_documentos',0,0,'0000-00-00'),(133,'ged_pacotes',0,0,'0000-00-00'),(134,'cadastroequipamento',0,0,'0000-00-00'),(135,'menuprocedimentosti',0,0,'0000-00-00'),";
     $sql .= "(136,'menurotinasti',0,0,'0000-00-00'),(137,'menuconfiguracoes',0,0,'0000-00-00'),(138,'ged',0,0,'0000-00-00'),(139,'normas',0,0,'0000-00-00'),(140,'menuorcamento',0,0,'0000-00-00'),(141,'ged_documentos_referencia',0,0,'0000-00-00'),(142,'documentos_aprovados',0,0,'0000-00-00'),(143,'book_documentos_projeto',0,0,'0000-00-00'),";
     $sql .= "(144,'proposta_tecnica',0,0,'0000-00-00'),(145,'acomp_os',0,0,'0000-00-00'),(146,'funcionario_funcao',0,0,'0000-00-00'),(147,'grafico_consumo_horas_protheus',0,0,'0000-00-00'),(148,'acomp_os_func_protheus',0,0,'0000-00-00'),(149,'controle_saldo_tarefas_protheus',0,0,'0000-00-00'),(150,'acomp_os_status_protheus',0,0,'0000-00-00'),";
     $sql .= "(151,'controle_saldo_disciplinas_protheus',0,0,'0000-00-00'),(152,'controle_acumulado_custo_os_protheus',0,0,'0000-00-00'),(153,'apont_coord_os_func',0,0,'0000-00-00'),(154,'dias_trabalhados',0,0,'0000-00-00'),(155,'controle_coord_os_func',0,0,'0000-00-00'),(156,'controle_func_os',0,0,'0000-00-00'),(157,'controle_hh_os',0,0,'0000-00-00'),";
@@ -529,7 +529,7 @@
       id_sub_modulo int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_sub_modulo_pai int(5) NOT NULL,
       id_modulo int(2) unsigned NOT NULL,
-      sub_modulo varchar(255) NOT NULL COMMENT 'Nome do boÃ£o a ser apresentado',
+      sub_modulo varchar(255) NOT NULL COMMENT 'Nome do botão a ser apresentado',
       caminho_sub_modulo varchar(255) NOT NULL COMMENT 'caminho relativo do arquivo. Ex: /rh/funcionarios.php /ti/modulos.php/apontamento_horas.php',
       tipo tinyint(1) unsigned NOT NULL COMMENT 'tipo de interface: 1 - Interface / 2 - Menu',
       target tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'tipo de janela: 0 - mesma / 1 - em outra janela / 2 - outra janela com tamanho definido por largura e altura / 3 - Outra janela endereço externo',
@@ -553,7 +553,7 @@
 
     $db->exec_query($sql, 'MYSQL');
 
-    $sql = "INSERT INTO sub_modulos VALUES (1,0,3,'ARQUIVO TÉCNICO','arquivotec/menuarquivo.php',2,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),(2,0,1,'APONTAMENTO DE HORAS','apontamentos/apontamentos.php',1,0,0,0,1,1,2,31,0,0,'0000-00-00'),(3,1,0,'NÚMERO DE DOCUMENTOS','arquivotec/numint.php',0,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),";
+    $sql = "INSERT INTO sub_modulos VALUES (1,0,3,'ARQUIVO TÉCNICO','arquivotec/menuarquivo.php',2,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),(2,0,1,'APONTAMENTO DE HORAS','apontamentos/apontamentos.php',1,0,0,0,1,1,2,31,0,0,'0000-00-00'),(3,1,0,'NÚMERO DE DOCUMENTOS','arquivotec/numero_documentos.php',0,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),";
     $sql .= "(4,0,1,'FECHAMENTO','financeiro/menupj.php',1,0,0,0,1,1,1,16,0,0,'0000-00-00'),(5,0,1,'FINANCEIRO','financeiro/menufinanceiro.php',0,0,0,0,1,0,0,NULL,0,0,'0000-00-00'),(6,0,1,'MANUTENÇÃO','manutencao/menumanutencao.php',0,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),(7,0,1,'ORGANOGRAMA','qualidade/documento.php?documento=SISTEMA_GESTAO_INTEGRADA/MANUAL_SGI/ORGANO.pdf',0,1,0,0,0,0,0,NULL,0,0,'0000-00-00'),";
     $sql .= "(8,0,1,'PLANEJAMENTO','planejamento/menuplanejamento.php',0,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),(9,0,4,'PROCEDIMENTOS DO SGI','qualidade/menuqualidade.php',0,0,0,0,1,1,2,16,0,0,'0000-00-00'),(10,0,5,'RECURSOS HUMANOS','rh/menurh.php',0,0,0,0,1,0,0,NULL,0,0,'0000-00-00'),(11,0,1,'TELEFONES','telefones/telefones.php',0,0,0,0,1,1,2,16,0,0,'0000-00-00'),";
     $sql .= "(12,0,1,'DESPESAS SEMANAIS','financeiro/escolha_adiantamento.php',0,0,0,0,0,0,2,31,0,0,'0000-00-00'),(13,0,1,'COMUNICAÇÃO','comunicacao/menucomunicacao.php',0,0,NULL,NULL,1,0,0,NULL,0,0,'0000-00-00'),(14,0,1,'REQUISITAR DESPESAS1','financeiro/requisicao_despesas.php',0,0,0,0,0,1,2,24,0,0,'0000-00-00'),(15,0,1,'TECNOLOGIA E SISTEMAS','ti/menuti.php',2,0,0,0,1,0,0,NULL,0,0,'0000-00-00'),";
@@ -3089,7 +3089,7 @@
 
     $sql = "CREATE TABLE servicos (
       servico_id int(2) unsigned NOT NULL AUTO_INCREMENT COMMENT '1/Codigo',
-      os int(5) unsigned NOT NULL COMMENT '2/SELECIONE',
+      id_os int(5) unsigned NOT NULL COMMENT '2/SELECIONE',
       servico varchar(50) NOT NULL,
       servico_descricao varchar(100) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
