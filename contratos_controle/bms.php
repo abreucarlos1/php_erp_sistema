@@ -1761,7 +1761,7 @@ function inserePedidoAutomatico($AF5Orcame, $idOs)
 						$virgula = '';
 						$idItem = $db2->insert_id;
 						
-						//TOTAIS PARA AS PREVIS�ES DE MEDI��O
+						//TOTAIS PARA AS PREVIS�ES DE MEDIÇÃO
 						$totalDividido = $item['AF5_TOTAL'] / count($diasMedicoes);
 						$qtdDividida = $item['AF5_QUANT'] / count($diasMedicoes);
 						$percentDividido = $totalDividido / $item['AF5_TOTAL'] * 100; 

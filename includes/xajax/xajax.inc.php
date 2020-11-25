@@ -47,7 +47,8 @@
  */
 if (!defined ('XAJAX_DEFAULT_CHAR_ENCODING'))
 {
-	define ('XAJAX_DEFAULT_CHAR_ENCODING', 'ISO-8859-1' );
+	//define ('XAJAX_DEFAULT_CHAR_ENCODING', 'ISO-8859-1' );
+	define ('XAJAX_DEFAULT_CHAR_ENCODING', 'UTF-8' );
 }
 
 require_once(dirname(__FILE__)."/xajaxResponse.inc.php");

@@ -227,7 +227,7 @@ foreach($array_os as $cont_os_coord)
 	$pdf->Cell(225,3,sprintf("%010d",$cont_os_coord["os"]) . " - " . substr($cont_os_coord["descricao"],0,100),0,1,'L',0);
 	
 	$pdf->Cell(225,3,"CLIENTE: ". $cont_os_coord["abreviacao"] ,0,1,'L',0);
-	$pdf->Cell(225,3,"COORD. DVM.: ".$coordenador["funcionario"] ,0,1,'L',0);
+	$pdf->Cell(225,3,"COORD.: ".$coordenador["funcionario"] ,0,1,'L',0);
 	$pdf->Cell(225,3,$cont_os_coord["os_status"] ,0,1,'L',0);
 	
 	$pdf->SetFont('Arial','',8);	

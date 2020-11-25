@@ -32,7 +32,7 @@ function Header()
 	$this->Cell(12,4,$this->setor() . '-' . $this->codigodoc() . '-' .$this->codigo(),0,1,'R',0);
 	$this->SetLineWidth(0.3);
 	$this->Line(172,19.5,195,19.5);
-	$this->Cell(158,4,'EMISS�O:',0,0,'R',0); //aqui
+	$this->Cell(158,4,'EMISSÃO:',0,0,'R',0); //aqui
 	$this->Cell(12,4,$this->Emissao(),0,1,'R',0); //aqui
 	$this->Line(172,23.5,195,23.5);
 	$this->Cell(146,4,'',0,0,'L',0);

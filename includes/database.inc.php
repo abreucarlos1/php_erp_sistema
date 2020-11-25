@@ -3471,7 +3471,7 @@
       id_bms_item int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_pedido int(5) unsigned NOT NULL DEFAULT '0',
       id_bms_controle int(2) unsigned NOT NULL DEFAULT '1',
-      os int(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Número da OS',
+      id_os int(5) unsigned NOT NULL DEFAULT '0' COMMENT 'ID da OS',
       numero_item varchar(5) NOT NULL DEFAULT '',
       descricao varchar(100) NOT NULL DEFAULT '',
       quantidade decimal(10,2) unsigned NOT NULL DEFAULT '0.00',
@@ -3563,7 +3563,7 @@
 
     $sql = "CREATE TABLE bms_pedido (
       id_bms_pedido int(5) unsigned NOT NULL AUTO_INCREMENT,
-      os int(5) unsigned NOT NULL DEFAULT '0' COMMENT 'Numero da OS',
+      id_os int(5) unsigned NOT NULL DEFAULT '0' COMMENT 'ID da OS',
       valor_pedido decimal(10,2) NOT NULL DEFAULT '0.00',
       obs text,
       condicao_pgto varchar(3) NOT NULL,
@@ -3621,7 +3621,7 @@
     $sql = "CREATE TABLE bms_pedidos_informacoes (
       id_bms_pedidos_informacoes int(5) NOT NULL AUTO_INCREMENT,
       id_bms_pedido int(5) DEFAULT NULL,
-      os int(5) DEFAULT NULL,
+      id_os int(5) DEFAULT NULL,
       cond_pgto varchar(100) DEFAULT NULL,
       forma_pgto varchar(100) DEFAULT NULL,
       recebimento varchar(100) DEFAULT NULL,

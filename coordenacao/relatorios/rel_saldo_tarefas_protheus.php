@@ -1,11 +1,11 @@
 <?php
 /*
-	 Relat�rio Saldo de Disciplinas
+	 Relatório Saldo de Disciplinas
 	 
 	 Criado por Carlos Abreu  
 	 
-	 Vers�o 0 --> VERS�O INICIAL : 10/06/2014
-	 Vers�o 1 --> Inclus�o dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
+	 Versão 0 --> VERSÃO INICIAL : 10/06/2014
+	 Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */
 
 ini_set('max_execution_time', 0); // No time limit
@@ -20,9 +20,9 @@ require_once(INCLUDE_DIR."include_pdf.inc.php");
 class PDF extends FPDF
 {
 
-var $permit_cust  = false; //PERMITE VISUALIZA��O DE CUSTO
+var $permit_cust  = false; //PERMITE VISUALIZAÇÃO DE CUSTO
 
-var $revisao_orc = '1'; //revis�o de or�amento
+var $revisao_orc = '1'; //revisão de orçamento
 
 var $revisao_rel = ''; //versao_documento de apontamentos
 
@@ -49,7 +49,7 @@ function Header()
 	$this->Cell(270,4,$this->Titulo(),0,1,'R',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(175,4,'',0,0,'R',0);
-	$this->Cell(55,4,'PER�ODO ',0,0,'R',0);
+	$this->Cell(55,4,'PERÍODO ',0,0,'R',0);
 	$this->Cell(40,4,$this->Revisao(),0,1,'C',0);
 	$this->SetFont('Arial','',9);
 	$this->SetLineWidth(1);
@@ -63,7 +63,7 @@ function Header()
 	
 	$this->Cell(140,5,"DISCIPLINAS - TAREFAS - RECURSOS ",1,0,'C',0);
 	
-	$this->Cell(20,5,"AVAN�O",1,0,'C',0);
+	$this->Cell(20,5,"AVANÇO",1,0,'C',0);
 	$this->HCell(25,5,"HORAS PREV.",1,0,'C',0);	
 	$this->HCell(25,5,"HORAS APONT.",1,0,'C',0);
 	$this->Cell(25,5,"SALDO",1,0,'C',0);
@@ -95,7 +95,7 @@ $pdf->SetLineWidth(0.5);
 if($_POST["intervalo"]=='1')
 {
 	$filtro1 = "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
-	$pdf->versao_documento="DE: ".$_POST["data_ini"] . " A " . $_POST["datafim"];
+	$pdf->versao_documento="DE: ".$_POST["dataini"] . " A " . $_POST["datafim"];
 }
 else
 {
@@ -111,24 +111,24 @@ if($_POST["escolhaos"]=='-1')
 }
 else
 {
-	$filtro .= " AND OS.id_os = '". $_POST["escolhaos"] . "' ";
+	$filtro .= " AND ordem_servico.id_os = '". $_POST["escolhaos"] . "' ";
 }
 
 //N�o tem acesso ao combo coordenador
 if($_POST["escolhacoord"]=='')
 {
-	$filtro .= " AND (OS.id_cod_coord = '".$_SESSION["id_funcionario"]."' OR OS.id_coord_aux = '".$_SESSION["id_funcionario"]."') ";
+	$filtro .= " AND (ordem_servico.id_cod_coord = '".$_SESSION["id_funcionario"]."' OR ordem_servico.id_coord_aux = '".$_SESSION["id_funcionario"]."') ";
 }
 else
 {
 	//Todos os coordenadores
 	if($_POST["escolhacoord"]!='-1')
 	{
-		$filtro .= " AND (OS.id_cod_coord = '".$_POST["escolhacoord"]."' OR OS.id_coord_aux = '".$_POST["escolhacoord"]."') ";
+		$filtro .= " AND (ordem_servico.id_cod_coord = '".$_POST["escolhacoord"]."' OR ordem_servico.id_coord_aux = '".$_POST["escolhacoord"]."') ";
 	}
 }
 
-$pdf->departamento="ADMINISTRA��O";
+$pdf->departamento=NOME_EMPRESA;
 $pdf->titulo="ACOMPANHAMENTO DE SALDO - TAREFAS - PROTHEUS";
 $pdf->setor="COR";
 $pdf->codigodoc="202"; //"00"; //"02";
@@ -138,7 +138,7 @@ $pdf->emissao=date("d/m/Y");
 
 $pdf->AliasNbPages();
 
-$sql = "SELECT * FROM ".DATABASE.".setores ";
+$sql = "SELECT id_setor, abreviacao, setor FROM ".DATABASE.".setores ";
 $sql .= "WHERE setores.reg_del = 0 ";
 
 $db->select($sql,'MYSQL',true);
@@ -156,18 +156,17 @@ $filtro_setor = implode(",",$setor);
 
 $filtro_setor_d = implode(",",$setor_d);
 
-$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico_status, ".DATABASE.".OS ";
-$sql .= "LEFT JOIN ".DATABASE.".apontamento_horas ON (OS.id_os = apontamento_horas.id_os AND apontamento_horas.reg_del = 0) ";
-$sql .= "WHERE OS.id_os_status = ordem_servico_status.id_os_status ";
+$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
+$sql .= "LEFT JOIN ".DATABASE.".apontamento_horas ON (ordem_servico.id_os = apontamento_horas.id_os AND apontamento_horas.reg_del = 0) ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (3,8,9,12) ";
-$sql .= "AND os.os > '2000' ";
-$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
 $sql .= $filtro1;
 $sql .= $filtro;
-$sql .= "GROUP BY OS.id_os ORDER BY os.os ";
+$sql .= "GROUP BY ordem_servico.id_os ORDER BY ordem_servico.os ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -192,6 +191,7 @@ foreach($array_os as $cont_os_coord)
 	$pdf->SetDrawColor(0,0,0);
 	$pdf->SetLineWidth(0.3);
 	
+	/*
 	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 WITH (NOLOCK) ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
@@ -216,11 +216,13 @@ foreach($array_os as $cont_os_coord)
 
 	$pdf->revisao_rel = $regs_os["AF8_REVISA"];
 	
-	$pdf->revisao_orc = $regs_ult_rev["ULT_REVISA"];	
+	$pdf->revisao_orc = $regs_ult_rev["ULT_REVISA"];
+	
+	*/
 	
 	$pdf->AddPage();
 	
-	$sql = "SELECT Funcionario FROM ".DATABASE.".funcionarios ";
+	$sql = "SELECT funcionario FROM ".DATABASE.".funcionarios ";
 	$sql .= "WHERE funcionarios.id_funcionario = '".$cont_os_coord["id_cod_coord"]."' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	
@@ -232,11 +234,12 @@ foreach($array_os as $cont_os_coord)
 	$pdf->Cell(225,3,sprintf("%010d",$cont_os_coord["os"]) . " - " . substr($cont_os_coord["descricao"],0,100),0,1,'L',0);
 	
 	$pdf->Cell(225,3,"CLIENTE: ". $cont_os_coord["abreviacao"] ,0,1,'L',0);
-	$pdf->Cell(225,3,"COORD. DVM.: ".$coordenador["Funcionario"] ,0,1,'L',0);
+	$pdf->Cell(225,3,"COORD.: ".$coordenador["funcionario"] ,0,1,'L',0);
 	$pdf->Cell(225,3,$cont_os_coord["os_status"],0,1,'L',0);
 	
 	$pdf->SetFont('Arial','',8);	
 	
+	/*
 	//Percorre a tabela de EDT PAI (REALIZADO)
 	$sql = "SELECT AFC_PROJET, AFC_REVISA, AFC_EDT, AFC_DESCRI FROM AFC010 WITH (NOLOCK), AF9010 WITH (NOLOCK) ";
 	$sql .= "WHERE AFC010.D_E_L_E_T_ = '' ";
@@ -344,7 +347,6 @@ foreach($array_os as $cont_os_coord)
 			if($edtpai==$codigo)
 			{				
 				//OBTEM OS HORAS (ULTIMA REVIS�O OR�AMENTO)
-				//FEITO A PARTIR DA ID�IA DE WAGNER ROCHA E EWERTON PAIVA
 				//OBTEM A SOMA DAS HORAS DOS RECURSOS ALOCADOS NA TAREFA (ULTIMA REVIS�O)				
 				$sql = "SELECT SUM(AFA_QUANT) AS AF9_HESF FROM AFA010 WITH (NOLOCK), AE8010 WITH (NOLOCK) ";
 				$sql .= "WHERE AFA010.D_E_L_E_T_ = '' ";
@@ -501,6 +503,7 @@ foreach($array_os as $cont_os_coord)
 
 	}
 	
+	
 	//OBTEM O AVAN�O F�SICO DO PROJETO
 	$sql = "SELECT AFQ010.AFQ_QUANT FROM AFQ010 WITH (NOLOCK) ";
 	$sql .= "WHERE AFQ010.D_E_L_E_T_ = '' ";
@@ -512,6 +515,8 @@ foreach($array_os as $cont_os_coord)
 	$db->select($sql, 'MSSQL',true);
 	
 	$regs_avc_proj = $db->array_select[0];
+
+	*/
 	
 	//Imprime os totais por projeto
 	$pdf->SetFont('Arial','B',8);
