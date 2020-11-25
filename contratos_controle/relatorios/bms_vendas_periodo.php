@@ -32,19 +32,19 @@ $dataRelatorio = php_mysql($_GET['data']);
 
 $sql = 
 "SELECT
-    bms_pedido.os, ordem_servico.os, valor_pedido, data_pedido data, id_bms_pedido, condicao_pgto, id_empresa_erp, empresa, id_cliente_protheus, bms_pedido.id_loja_protheus, bairro,
+    bms_pedido.id_os, ordem_servico.os, valor_pedido, data_pedido data, id_bms_pedido, condicao_pgto, id_empresa_erp, empresa, id_cliente_protheus, bms_pedido.id_loja_protheus, bairro,
     bms_pedido.tp_orc_protheus
   FROM
   	(SELECT DISTINCT id_bms_pedido, data_pedido, valor_pedido, os, condicao_pgto, id_cliente_protheus, id_loja_protheus, tp_orc_protheus FROM ".DATABASE.".bms_pedido WHERE bms_pedido.reg_del = 0 AND reembolso_despesa = 0) bms_pedido
-    LEFT JOIN (SELECT id_os, id_empresa_erp, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON os.os = bms_pedido.os 
+    LEFT JOIN (SELECT id_os, id_empresa_erp, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON os.os = bms_pedido.id_os 
     LEFT JOIN (SELECT empresa, id_empresa_erp codEmp, id_cod_protheus, id_loja_protheus, bairro FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0) empresas 
     ON id_cod_protheus = id_cliente_protheus AND empresas.id_loja_protheus = bms_pedido.id_loja_protheus 
 WHERE
 	data_pedido >= '{$dataRelatorio}' ".$complDataFim."
 GROUP BY
-  bms_pedido.os, id_bms_pedido
+  bms_pedido.id_os, id_bms_pedido
 ORDER BY
-	bms_pedido.id_cliente_protheus, bms_pedido.id_loja_protheus, bms_pedido.os";
+	bms_pedido.id_cliente_protheus, bms_pedido.id_loja_protheus, bms_pedido.id_os";
 
 $objPHPExcel = PHPExcel_IOFactory::load('../modelos_excel/bms_vendas_periodo.xls');
 

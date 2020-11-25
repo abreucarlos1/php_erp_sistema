@@ -464,20 +464,20 @@ foreach($array_horas as $regs6)
 	$sql .= "AND bms_item.reg_del = 0 ";
 	$sql .= "AND bms_item.id_bms_item = bms_medicao.id_bms_item ";
 	$sql .= "AND bms_pedido.id_bms_pedido = bms_medicao.id_bms_pedido ";
-	$sql .= "AND bms_pedido.os = '".intval($regs6["AF8_ORCAME"])."' ";
+	$sql .= "AND bms_pedido.id_os = '".intval($regs6["AF8_ORCAME"])."' ";
 	$sql .= "AND bms_medicao.id_bms_controle IN (2,3,5) "; //MEDIDO, FATURADO, BMS GERADO
 	*/	
 }
 
-$sql = "SELECT bms_medicao.valor_medido, bms_medicao.data, bms_pedido.os FROM ".DATABASE.".bms_pedido, ".DATABASE.".bms_medicao, ".DATABASE.".bms_item ";
+$sql = "SELECT bms_medicao.valor_medido, bms_medicao.data, bms_pedido.id_os FROM ".DATABASE.".bms_pedido, ".DATABASE.".bms_medicao, ".DATABASE.".bms_item ";
 $sql .= "WHERE bms_pedido.reg_del = 0 ";
 $sql .= "AND bms_medicao.reg_del = 0 ";
 $sql .= "AND bms_item.reg_del = 0 ";
 $sql .= "AND bms_item.id_bms_item = bms_medicao.id_bms_item ";
 $sql .= "AND bms_pedido.id_bms_pedido = bms_medicao.id_bms_pedido ";
-$sql .= "AND bms_pedido.os IN (".implode(",",$a_projetos_med).") ";
+$sql .= "AND bms_pedido.id_os IN (".implode(",",$a_projetos_med).") ";
 $sql .= "AND bms_medicao.id_bms_controle IN (2,3,5) "; //MEDIDO, FATURADO, BMS GERADO
-$sql .= "ORDER BY bms_pedido.os ";
+$sql .= "ORDER BY bms_pedido.id_os ";
 
 $db->select($sql,'MYSQL',true);
 

@@ -121,16 +121,16 @@ foreach ($db->array_select as $regs1)
 }
 
 //filtra as OS com pedidos e itens, excluindo as excess�es
-$sql = "SELECT bms_pedido.os, OS.id_os, OS.id_cod_coord FROM ".DATABASE.".bms_pedido, ".DATABASE.".bms_item, ".DATABASE.".OS "; 
+$sql = "SELECT bms_pedido.id_os, OS.id_os, OS.id_cod_coord FROM ".DATABASE.".bms_pedido, ".DATABASE.".bms_item, ".DATABASE.".OS "; 
 $sql .= "WHERE bms_pedido.reg_del = 0 "; 
 $sql .= "AND bms_item.reg_del = 0 ";
 $sql .= "AND OS.reg_del = 0 ";
-$sql .= "AND bms_pedido.os = os.os ";
+$sql .= "AND bms_pedido.id_os = os.os ";
 $sql .= "AND OS.id_os_status IN (1,2,3,7,14,15,16,17,18,19) ";
 $sql .= "AND bms_pedido.id_bms_pedido = bms_item.id_bms_pedido ";
 $sql .= "AND (bms_pedido.data_pedido >= '2017-07-01' ";
-$sql .= "OR bms_pedido.os IN (SELECT bms_excecoes.os FROM ".DATABASE.".bms_excecoes WHERE bms_excecoes.reg_del = 0)) ";
-$sql .= "GROUP BY bms_pedido.os ";
+$sql .= "OR bms_pedido.id_os IN (SELECT bms_excecoes.os FROM ".DATABASE.".bms_excecoes WHERE bms_excecoes.reg_del = 0)) ";
+$sql .= "GROUP BY bms_pedido.id_os ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -154,10 +154,10 @@ $sql .= "WHERE bms_item.reg_del = 0 ";
 $sql .= "AND OS.reg_del = 0 ";
 $sql .= "AND bms_medicao.reg_del = 0 ";
 $sql .= "AND bms_pedido.reg_del = 0 ";
-$sql .= "AND bms_pedido.os = os.os ";
+$sql .= "AND bms_pedido.id_os = os.os ";
 $sql .= "AND bms_item.id_bms_item = bms_medicao.id_bms_item ";
 $sql .= "AND bms_pedido.id_bms_pedido = bms_item.id_bms_pedido ";
-$sql .= "AND bms_pedido.os IN (".$array_os_medicao.") ";
+$sql .= "AND bms_pedido.id_os IN (".$array_os_medicao.") ";
 $sql .= "AND bms_medicao.id_bms_controle IN (1,2,3,5) "; //planejada, medido, faturado, bms gerado
 
 $db->select($sql,'MYSQL',true);
@@ -311,7 +311,7 @@ foreach($array_proj as $regs0)
 	$sql .= "AND bms_pedido.reg_del = 0 ";
 	$sql .= "AND bms_item.id_bms_item = bms_medicao.id_bms_item ";
 	$sql .= "AND bms_pedido.id_bms_pedido = bms_item.id_bms_pedido ";
-	$sql .= "AND bms_pedido.os = '".$os."' ";
+	$sql .= "AND bms_pedido.id_os = '".$os."' ";
 	$sql .= "AND DATE_FORMAT(data, '%Y-%m') BETWEEN '".$data_ini."' AND '".$data_fim."' ";
 	$sql .= "AND bms_medicao.id_bms_controle IN (1,2,3,5) "; //planejada, medido, faturado, bms gerado
 	
