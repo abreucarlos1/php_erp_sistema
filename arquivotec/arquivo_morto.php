@@ -541,9 +541,9 @@ if (in_array($_SESSION['id_setor_aso'], array(2,17)))
     
 $smarty->assign("body_onload","tab(".$_SESSION['id_setor_aso'].");xajax_atualizatabela_versoes();".$scripts);
 ?>
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
 <script language="javascript">
 // function liberarBotoes()
@@ -587,7 +587,7 @@ function grid(tabela, autoh, height, xml)
 
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
-	mygrid.setImagePath("<?php echo ROOT_WEB.'/includes/'; ?>dhtmlx_403/codebase/imgs/");
+	mygrid.setImagePath("<?php echo INCLUDE_JS; ?>dhtmlx_403/codebase/imgs/");
 
 	var colunaExtra = new Array('','','','','');
 			

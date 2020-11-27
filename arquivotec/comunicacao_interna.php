@@ -411,9 +411,9 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 ?>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
 <script language="javascript">
 

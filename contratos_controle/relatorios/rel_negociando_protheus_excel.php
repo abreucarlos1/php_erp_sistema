@@ -121,7 +121,7 @@ if($db->erro!='')
 
 if ($db->numero_registros_ms == 0)
 {
-	echo '<script>alert("N�o foram encontradas informa��es para gerar o relat�rio");window.close();</script>';
+	echo '<script>alert("N�o foram encontradas informa��es para gerar o Relatório");window.close();</script>';
 	exit;
 }
 
@@ -285,7 +285,7 @@ $objPHPExcel->getActiveSheet()->insertNewRowBefore(5,count($array_proj));
 
 if (count($array_proj) == 0)
 {
-	echo '<script>alert("N�o foram encontradas informa��es para gerar o relat�rio");history.back(1);</script>';
+	echo '<script>alert("N�o foram encontradas informa��es para gerar o Relatório");history.back(1);</script>';
 }
 
 foreach($array_proj as $projeto=>$descricao)

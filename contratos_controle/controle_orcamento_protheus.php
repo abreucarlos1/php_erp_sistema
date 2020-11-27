@@ -85,7 +85,7 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 ?>
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 <?php
 
 $db = new banco_dados;
@@ -146,7 +146,7 @@ $db->select($sql,'MSSQL', true);
 
 if ($db->erro != '')
 {
-	exit("N&atilde;o foi poss&iacute;vel realizar a sele&ccedil;&atilde;o. ".$sql);
+	exit("Não foi possível realizar a seleção. ".$sql);
 }
 
 if($db->numero_registros_ms > 0)

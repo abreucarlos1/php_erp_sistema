@@ -3590,9 +3590,9 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 $smarty->assign("body_onload","tab();xajax_atualizatabela();xajax_preenche_combo_status();xajax_preenche_combo_item_medicoes()");
 ?>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
 <script language="javascript">
 function showModalTexto(texto)
@@ -3960,7 +3960,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent('onRowSelect', doOnRowSelected);
 		break;
 		case 'div_medicoes':
-			mygrid.setImagePath("<?php echo ROOT_WEB.'/includes/'; ?>dhtmlx_403/codebase/imgs/");
+			mygrid.setImagePath("<?php echo INCLUDE_JS; ?>dhtmlx_403/codebase/imgs/");
 			
 			var chkAll = '<input type="checkbox" id="chkTodos" style="margin:0;" onclick="mygrid.checkAll(this.checked);desbloquearBotaoExcluir();" />';
 			

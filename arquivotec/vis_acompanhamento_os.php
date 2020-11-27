@@ -31,7 +31,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 ?>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>datetimepicker.js"></script>
+<script src="<?php echo INCLUDE_JS ?>datetimepicker.js"></script>
 
 <script>
 

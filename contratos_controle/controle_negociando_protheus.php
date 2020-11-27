@@ -72,7 +72,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 ?>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <?php
 $filtro = '';

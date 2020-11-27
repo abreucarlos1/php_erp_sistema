@@ -1437,11 +1437,11 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 $smarty->assign("body_onload","tab();");
 ?>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script src="<?php echo ROOT_WEB.'/includes/' ?>datetimepicker/datetimepicker_css.js"></script>
+<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
 
 <script language="javascript">
 

@@ -294,4 +294,4 @@ switch ($acao){
         break;
 }
 ?>
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
