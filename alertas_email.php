@@ -1868,12 +1868,12 @@ function pedidos_sem_anexo()
     $body .= '<table><tr><th>Pedido</th><th>data</th></tr>';
     
     $sql = "SELECT 
-				bms_pedido.os, bms_pedido.data_pedido
+				bms_pedido.id_os, bms_pedido.data_pedido
 			FROM
 				".DATABASE.".ordem_servico 
 				JOIN ".DATABASE.".ordem_servico_status ON ordem_servico_status.id_os_status = ordem_servico.id_os_status AND ordem_servico_status.reg_del = 0 
 				JOIN ".DATABASE.".empresas ON empresas.id_empresa_erp = ordem_servico.id_empresa_erp AND empresas.reg_del = 0 
-				JOIN ".DATABASE.".bms_pedido ON bms_pedido.os = os.os AND bms_pedido.reg_del = 0
+				JOIN ".DATABASE.".bms_pedido ON bms_pedido.id_os = os.os AND bms_pedido.reg_del = 0
 				LEFT JOIN(
 					SELECT
 						id_bms_pedido idPedido, SUM(progresso_medido) totalMedido, MAX(numero_nf) nf, SUM(dif_faturado) difFaturado

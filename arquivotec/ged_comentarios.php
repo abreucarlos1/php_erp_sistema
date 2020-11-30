@@ -387,7 +387,7 @@ function preenche_info_os($id_os)
     
     foreach($db->array_select as $regs)
     {
-        $nome_funcionario[$regs["id_funcionario"]] = $regs["Funcionario"];
+        $nome_funcionario[$regs["id_funcionario"]] = $regs["funcionario"];
     }
     
     $sql = "SELECT id_cod_coord, empresa, nome_contato FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas, ".DATABASE.".contatos ";

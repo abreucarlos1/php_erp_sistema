@@ -698,11 +698,11 @@ function enviar($dados_form)
 					
 					$params 			= array();
 					$params['from']		= $pedido["email"];
-					$params['from_name']= $pedido["Funcionario"];
+					$params['from_name']= $pedido["funcionario"];
 					$params['subject'] 	= sprintf("%05d",$array_dados['os'])." - " . $array_dados['descricao'] . " - SOLICITAÇÃO DE DOCUMENTOS";
 					
 					$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
-					$params['emails']['to'][] = array('email' => $pedido["email"], 'nome' => $pedido["Funcionario"]);
+					$params['emails']['to'][] = array('email' => $pedido["email"], 'nome' => $pedido["funcionario"]);
 
 					$mail = new email($params, 'solicitacao_documentos');
 					

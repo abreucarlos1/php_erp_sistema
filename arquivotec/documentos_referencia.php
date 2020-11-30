@@ -1472,7 +1472,7 @@ function concluir($dados_form)
 		$sql .= "WHERE os_x_funcionarios.id_os = '".$dados_form["inc_id_os"]."'  ";
 		$sql .= "AND os_x_funcionarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
-		$sql .= "AND Usuarios.reg_del = 0 ";
+		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
 		$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
 		$sql .= "ORDER BY funcionario ";

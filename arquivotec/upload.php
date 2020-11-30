@@ -1014,7 +1014,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 										//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICAÇÃO INTERNA	
 																						
 										//Obtém os Nomes/e-mails da equipe do projeto
-										$sql = "SELECT Funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+										$sql = "SELECT funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE os_x_funcionarios.id_os = '".$_POST["id_os"]."'  ";
 										$sql .= "AND os_x_funcionarios.reg_del = 0 ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
@@ -1294,7 +1294,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 										}													
 					
 										//Obt�m o funcionario emissor
-										$sql = "SELECT Funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+										$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
 										$sql .= "AND usuarios.reg_del = 0 ";

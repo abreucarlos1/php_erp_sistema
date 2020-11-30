@@ -1409,7 +1409,7 @@ function editar($os)
 	{
 		$resposta->addAssign('id_cliente', 'value', $reg['id_empresa_erp']);
 		$resposta->addAssign('coord_cli', 'value', $reg['nome_contato']);
-		$resposta->addAssign('coord_dvm', 'value', $reg['Funcionario']);
+		$resposta->addAssign('coord_dvm', 'value', $reg['funcionario']);
 		
 		$resposta->addAssign('valor_total', 'value', number_format($reg['valor_pedido'], 2, ',', '.'));
 		$resposta->addAssign('data_pedido', 'value', mysql_php($reg['data_pedido']));
@@ -1986,7 +1986,7 @@ function altera_pedido($id)
 	$resposta->addScript("seleciona_combo('14', 'id_unidade'); ");
 	
 	$sql = "SELECT 
-				Funcionario, nome_contato
+				funcionario, nome_contato
 			FROM 
 				".DATABASE.".ordem_servico
 			    LEFT JOIN(SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcs ON id_funcionario = id_cod_coord

@@ -987,7 +987,7 @@
     $sql = "CREATE TABLE pj_contratos (
      id_contrato int(5) unsigned NOT NULL AUTO_INCREMENT,
      id_tipo_contratacao int(2) unsigned NOT NULL,
-     id_funcionario int(5) unsigned NOT NULL COMMENT 'Funcionario ',
+     id_funcionario int(5) unsigned NOT NULL COMMENT 'funcionario ',
      nome_subcontratado varchar(100) NOT NULL COMMENT 'Subcontratado (Tabela SA2_NOME)',
      id_empresa int(6) unsigned zerofill NOT NULL DEFAULT '000000' COMMENT 'Fornecedor (Tabela SA2_COD)',
      id_clausula_reajuste int(3) unsigned NOT NULL,
@@ -5703,7 +5703,7 @@
 
     $sql = "CREATE TABLE cliente_exigencias (
       id_exigencia int(5) unsigned NOT NULL AUTO_INCREMENT,
-      id_funcionario int(5) unsigned NOT NULL COMMENT 'id Funcionario',
+      id_funcionario int(5) unsigned NOT NULL COMMENT 'id funcionario',
       id_adicional_refeicao int(3) unsigned NOT NULL DEFAULT '0',
       id_adicional_transporte int(3) unsigned NOT NULL DEFAULT '0',
       id_adicional_hotel int(3) unsigned NOT NULL DEFAULT '0',

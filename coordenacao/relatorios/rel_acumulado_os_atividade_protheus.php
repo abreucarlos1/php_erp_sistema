@@ -167,7 +167,7 @@ else
 }
 
 
-//Seta o cabe�alho
+//Seta o cabeçalho
 $pdf->departamento=NOME_EMPRESA;
 $pdf->titulo="ACOMPANHAMENTO DE OS - TAREFAS - PROTHEUS";
 $pdf->setor="COR";

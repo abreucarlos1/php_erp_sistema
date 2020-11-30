@@ -1098,10 +1098,10 @@ function enviaPacote($dados_form)
 				  $id_os = $reg_verif_os["id_os"];
 				  
 				  //lista de usuarios para e-mail
-				  $sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
-				  $sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
+				  $sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+				  $sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
 				  $sql .= "AND funcionarios.reg_del = 0 ";
-				  $sql .= "AND Usuarios.reg_del = 0 ";
+				  $sql .= "AND usuarios.reg_del = 0 ";
 				  $sql .= "AND funcionarios.situacao = 'ATIVO' ";
 				  
 				  $db->select($sql,'MYSQL',true);
@@ -1891,10 +1891,10 @@ function retornaCliente($dados_form)
 	$db = new banco_dados();
 	
 	//lista de usuarios para e-mail
-	$sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
+	$sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND Usuarios.reg_del = 0 ";
+	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -2572,10 +2572,10 @@ function atualizaPropriedades($dados_form)
 					}									
 					
 					//Seleciona o Coordenadores
-					$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
-					$sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
+					$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+					$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
 					$sql .= "AND funcionarios.reg_del = 0 ";
-					$sql .= "AND Usuarios.reg_del = 0 ";
+					$sql .= "AND usuarios.reg_del = 0 ";
 					$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 					
 					$db->select($sql,'MYSQL',true);
@@ -2754,14 +2754,14 @@ function liberar_versao($id_ged_versao)
 	$db = new banco_dados();
 
 	//Seleciona os dados:
-	$sql = "SELECT * FROM ".DATABASE.".ged_versoes, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_pacotes, ".DATABASE.".setores, ".DATABASE.".ordem_servico, ".DATABASE.".Usuarios, ".DATABASE.".funcionarios ";
+	$sql = "SELECT * FROM ".DATABASE.".ged_versoes, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_pacotes, ".DATABASE.".setores, ".DATABASE.".ordem_servico, ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
 	$sql .= "WHERE numeros_interno.reg_del = 0 ";
 	$sql .= "AND ged_arquivos.reg_del = 0 ";
 	$sql .= "AND ged_versoes.reg_del = 0 ";
 	$sql .= "AND ged_pacotes.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND Usuarios.reg_del = 0 ";
+	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND numeros_interno.id_disciplina = setores.id_setor ";
 	$sql .= "AND ged_pacotes.id_os = ordem_servico.id_os ";
@@ -2769,8 +2769,8 @@ function liberar_versao($id_ged_versao)
 	$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 	$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 	$sql .= "AND ged_versoes.id_ged_versao = '" . $id_ged_versao . "' ";
-	$sql .= "AND ged_pacotes.id_autor = Usuarios.id_funcionario ";
-	$sql .= "AND Usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND ged_pacotes.id_autor = usuarios.id_funcionario ";
+	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
 
 	$db->select($sql,'MYSQL',true);
 
@@ -3085,9 +3085,9 @@ function desbloquear($id_ged_versao, $status)
 	$params['from_name'] = 'Arquivo Tecnico';	
 	
 	//Preenche um array com dados de Usuários
-	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".Usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
-	$sql .= "AND Usuarios.reg_del = 0 ";
+	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADODVM','CANCELADO') ";
 		
@@ -3291,9 +3291,9 @@ function bloquear($id_ged_versao)
 	$params['from_name'] = 'Arquivo Tecnico';
 	
 	//Preenche um array com dados de Usuários
-	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".Usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
-	$sql .= "AND Usuarios.reg_del = 0 ";
+	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO', 'CANCELADODVM') ";
 

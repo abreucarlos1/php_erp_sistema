@@ -42,7 +42,7 @@ $filtroCoord = !empty($_GET['idFuncionario']) ? 'AND f.id_funcionario = '.$_GET[
 //Todas as Os's aprovadas para o Arquivo Morto
 $sql =
 "SELECT 
-	f.id_funcionario, f.Funcionario Coordenador, a.os, a.descricao, e.empresa, grd.ultima_emissao, b.data
+	f.id_funcionario, f.funcionario Coordenador, a.os, a.descricao, e.empresa, grd.ultima_emissao, b.data
 FROM
 	".DATABASE.".ordem_servico a
 	JOIN ".DATABASE.".arquivo_morto_aprovadas b ON b.reg_del = 0 AND b.id_os = a.id_os
@@ -59,7 +59,7 @@ WHERE
 	a.reg_del = 0
 	AND b.status = 1
 ORDER BY
-    Funcionario, OS DESC";
+    funcionario, OS DESC";
 
 $pdf=new PDF();
 $pdf->SetAutoPageBreak(false,30);

@@ -35,11 +35,11 @@ function enviar($dados_form)
 		$enc = new Crypter(CHAVE);
 	
 		/*
-		$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
-		$sql .= "WHERE funcionarios.Funcionario = '". maiusculas(trim($dados_form["nome"])). "' ";
+		$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+		$sql .= "WHERE funcionarios.funcionario = '". maiusculas(trim($dados_form["nome"])). "' ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
-		$sql .= "AND Usuarios.reg_del = 0 ";
-		$sql .= "AND funcionarios.id_funcionario = Usuarios.id_funcionario ";
+		$sql .= "AND usuarios.reg_del = 0 ";
+		$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
 		*/
 
 		$sql = "SELECT id_usuario, login, email FROM ".DATABASE.".usuarios ";
@@ -131,7 +131,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 
 ?>
-<script src="<?php echo ROOT_WEB.'/includes/' ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <?php
 

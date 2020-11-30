@@ -746,7 +746,7 @@ class GRD
 		
 		$this->pdf->Cell(95,4,"   " . $reg_info["nome_contato"],0,0,'C',0);
 		
-		$this->pdf->Cell(95,4,"ENGº " . $reg_info["Funcionario"],0,0,'C',0);
+		$this->pdf->Cell(95,4,"ENGº " . $reg_info["funcionario"],0,0,'C',0);
 		
 		$this->pdf->Ln(15);		
 		

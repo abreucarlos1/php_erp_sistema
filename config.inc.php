@@ -18,6 +18,8 @@ define('PREFIXO_DOC_GED','INT-'); ///PREFIXO UTILIZADO NO GED
 
 define('NOME_EMPRESA','EMPRESA'); ///NOME DA EMPRESA PARA APRESENTAR NOS RELATÓRIOS
 
+define('CIDADE','Cidade da empresa'); ///NOME DA CIDADE DA EMPRESA PARA APRESENTAR NOS RELATÓRIOS
+
 //DEFINE ROOT DIR
 define('ROOT_DIR',dirname(__FILE__));
 
@@ -49,13 +51,13 @@ define('SISTEMAS_MAIL', "sistemas@dominio.com.br");
 //Apenas enquanto estivermos desenvolvendo, poderemos usar estes
 define('TI', "ti@dominio.com.br");
 
-//define('ti', "ti@dominio.com.br");
-
 //DEFINE ROOT WEB
 define('ROOT_WEB','http://'.HOST.'/'.$uri[1]);
 
 //DEFINE INCLUDE DIR (a partir da raiz)
 define('INCLUDE_DIR',implode(DIRECTORY_SEPARATOR,array(ROOT_DIR,'includes','')));
+
+define('INCLUDE_JS',ROOT_WEB.'/includes/');
 
 define('TEMPLATES_DIR',implode(DIRECTORY_SEPARATOR,array(ROOT_DIR,'templates_erp','')));
 

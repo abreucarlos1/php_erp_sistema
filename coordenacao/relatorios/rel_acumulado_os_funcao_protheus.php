@@ -120,7 +120,7 @@ else
 	}
 }
 
-//Seta o cabe�alho
+//Seta o cabeçalho
 $pdf->departamento=NOME_EMPRESA;
 $pdf->titulo="ACOMPANHAMENTO DE OS - FUNÇÃO - PROTHEUS";
 $pdf->setor="COR";

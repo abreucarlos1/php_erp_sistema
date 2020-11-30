@@ -1870,7 +1870,7 @@ function insere($dados_form)
 					$params['emails']['to'][] = array('email' => "planejamento@dominio.com.br", 'nome' => "Planejamento");
 					
 					$corpoEmail = '<b>Apontamento realizado na OS '.$proposta[0].'</b><br />';
-					$corpoEmail .= '<b>Funcionário</b>: '.$regs1["Funcionario"].'<br />';
+					$corpoEmail .= '<b>Funcionário</b>: '.$regs1["funcionario"].'<br />';
 					$corpoEmail .= '<b>data</b>: '.$dados_form["data"].'<br />';
 					$corpoEmail .= '<b>Período</b>: '.$hainicial.' - '.$hafinal.'<br />';
 					$corpoEmail .= '<b>complemento</b>: '.$somenteObs.'<br />';

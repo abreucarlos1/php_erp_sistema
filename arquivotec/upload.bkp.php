@@ -342,9 +342,9 @@ if($_POST["funcao"]=='desbloqueio')
 	else
 	{
 		//Preenche um array com dados de Usu�rios
-		$sql = "SELECT funcionarios.id_funcionario, email, Funcionario FROM ".DATABASE.".Usuarios, ".DATABASE.".funcionarios ";
-		$sql .= "WHERE funcionarios.id_funcionario = Usuarios.id_funcionario ";
-		$sql .= "AND Usuarios.reg_del = 0 ";
+		$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO') ";
 	
@@ -364,7 +364,7 @@ if($_POST["funcao"]=='desbloqueio')
 		foreach($db->array_select as $reg_usuarios)
 		{
 			$array_usremail[$reg_usuarios["id_funcionario"]] = $reg_usuarios["email"];
-			$array_usrnome[$reg_usuarios["id_funcionario"]] = $reg_usuarios["Funcionario"];		
+			$array_usrnome[$reg_usuarios["id_funcionario"]] = $reg_usuarios["funcionario"];		
 		}	
 			
 		//filtra as versoes do arquivo	
@@ -993,14 +993,14 @@ if($_POST["funcao"]=='comunicacao_interna')
 										//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICA��O INTERNA	
 																						
 										//Obt�m os Nomes/e-mails da equipe do projeto
-										$sql = "SELECT Funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
+										$sql = "SELECT funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE os_x_funcionarios.id_os = '".$_POST["id_os"]."'  ";
 										$sql .= "AND os_x_funcionarios.reg_del = 0 ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
-										$sql .= "AND Usuarios.reg_del = 0 ";
+										$sql .= "AND usuarios.reg_del = 0 ";
 										$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
-										$sql .= "AND os_x_funcionarios.id_funcionario = Usuarios.id_funcionario ";
-										$sql .= "ORDER BY Funcionario ";
+										$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
+										$sql .= "ORDER BY funcionario ";
 										
 										$db->select($sql,'MYSQL',true);
 										
@@ -1015,27 +1015,27 @@ if($_POST["funcao"]=='comunicacao_interna')
 											{							
 												if($reg_equipe["email"]!='')
 												{
-													$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_equipe["Funcionario"]);
+													$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_equipe["funcionario"]);
 												}											
 											}												
 										
 											//Obt�m o funcionario emissor
-											$sql = "SELECT Funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
+											$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 											$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 											$sql .= "AND funcionarios.reg_del = 0 ";
-											$sql .= "AND Usuarios.reg_del = 0 ";
-											$sql .= "AND Usuarios.id_funcionario = funcionarios.id_funcionario ";
+											$sql .= "AND usuarios.reg_del = 0 ";
+											$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
 									
 											$db->select($sql,'MYSQL',true);
 									
 											$reg_fun = $db->array_select[0];
 											
-											$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_fun["Funcionario"]);
+											$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_fun["funcionario"]);
 											
 											$texto = "<p>Inclu&iacute;do CI no sistema:</p>";
 											$texto .= "<div id='div_doc'><strong>N&deg;:&nbsp;</strong> " . $cod_dvm . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas($titulo). "</div>";
-											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["Funcionario"]. "</div>";
+											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>data:</strong> " . date("d/m/Y") . "</div>";
 											$texto .= "<p>".maiusculas(addslashes($_POST["texto_ci"]))."</p>";
 											
@@ -1243,14 +1243,14 @@ if($_POST["funcao"]=='comunicacao_interna')
 									
 									//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICA��O						
 									//Obt�m os Nomes/e-mails da equipe do projeto
-									$sql = "SELECT Funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
+									$sql = "SELECT funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 									$sql .= "WHERE os_x_funcionarios.id_os = '".$_POST["id_os"]."'  ";
 									$sql .= "AND os_x_funcionarios.reg_del = 0 ";
 									$sql .= "AND funcionarios.reg_del = 0 ";
-									$sql .= "AND Usuarios.reg_del = 0 ";
+									$sql .= "AND usuarios.reg_del = 0 ";
 									$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
-									$sql .= "AND os_x_funcionarios.id_funcionario = Usuarios.id_funcionario ";
-									$sql .= "ORDER BY Funcionario ";
+									$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
+									$sql .= "ORDER BY funcionario ";
 									
 									$db->select($sql,'MYSQL',true);
 									
@@ -1268,16 +1268,16 @@ if($_POST["funcao"]=='comunicacao_interna')
 										{							
 											if($reg_equipe["email"]!='')
 											{
-												$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_equipe["Funcionario"]);
+												$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_equipe["funcionario"]);
 											}
 										}													
 					
 										//Obt�m o funcionario emissor
-										$sql = "SELECT Funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".Usuarios ";
+										$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
-										$sql .= "AND Usuarios.reg_del = 0 ";
-										$sql .= "AND funcionarios.id_funcionario = Usuarios.id_funcionario ";
+										$sql .= "AND usuarios.reg_del = 0 ";
+										$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
 								
 										$db->select($sql,'MYSQL',true);
 										
@@ -1290,12 +1290,12 @@ if($_POST["funcao"]=='comunicacao_interna')
 											$reg_fun = $db->array_select[0];
 											
 											$params['subject'] = "COMUNICA��O INTERNA: " . $reg_ver["numero_registro"] . " ALTERADA";
-											$params['emails']['to'][] = array('email' => $reg_fun["email"], 'nome' => $reg_fun["Funcionario"]);
+											$params['emails']['to'][] = array('email' => $reg_fun["email"], 'nome' => $reg_fun["funcionario"]);
 																							
 											$texto = "<p>Alterada CI no sistema:</p>";
 											$texto .= "<div id='div_doc'><strong>N&deg;:&nbsp;</strong> " . $_POST["numero_registro"] . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas(addslashes($_POST["titulo"])). "</div>";
-											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["Funcionario"]. "</div>";
+											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>data:</strong> " . date("d/m/Y") . "</div>";
 											$texto .= "<p>".maiusculas(addslashes($_POST["texto_ci"]))."</p>";
 											

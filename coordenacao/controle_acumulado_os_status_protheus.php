@@ -144,7 +144,7 @@ if(!$coordenador)
 
 $sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 $sql .= "GROUP BY funcionarios.id_funcionario ";
-$sql .= "ORDER BY funcionarios.Funcionario ";
+$sql .= "ORDER BY funcionarios.funcionario ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -156,7 +156,7 @@ if ($db->erro != '')
 foreach ($db->array_select as $regs)
 {
 	$array_coordenador_values[] = $regs["id_funcionario"];
-	$array_coordenador_output[] = $regs["Funcionario"];
+	$array_coordenador_output[] = $regs["funcionario"];
 }
 
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
