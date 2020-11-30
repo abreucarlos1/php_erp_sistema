@@ -107,11 +107,11 @@ define('DOCUMENTOS_FINANCEIRO',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('fina
 
 define('DOCUMENTOS_PROJETO',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('projetos','')));
 
-//define('DOCUMENTOS_CONTRATOS',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('contratos','')));
+define('DOCUMENTOS_CONTRATOS',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('contratos','')));
 
-//define('DOCUMENTOS_CONTROLE',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('controle','')));
+define('DOCUMENTOS_CONTROLE',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('controle','')));
 
-//define('DOCUMENTOS_ORCAMENTO',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('orcamento','')));
+define('DOCUMENTOS_ORCAMENTO',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('orcamento','')));
 
 //define('DOCUMENTOS_MARKETING',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('marketing','_ERP','')));
 
@@ -121,7 +121,7 @@ define('DOCUMENTOS_RH',MOUNT_DIR.implode(DIRECTORY_SEPARATOR,array('rh','')));
 
 define("DOCUMENTOS_FINANCEIRO_TEMP",ROOT_DIR.implode(DIRECTORY_SEPARATOR,array('','financeiro','documentos','')));
 
-//define("COMPROVANTES_PJ",implode(DIRECTORY_SEPARATOR,array('comprovantes_sistema','certidoes_pj','')));
+define("COMPROVANTES_PJ",implode(DIRECTORY_SEPARATOR,array('comprovantes_sistema','certidoes_pj','')));
 
 define("MANUAIS_SISTEMAS",'..'.implode(DIRECTORY_SEPARATOR,array('','manuais_sistemas','documentos',''))); //;"../manuais_sistemas/documentos/");
 

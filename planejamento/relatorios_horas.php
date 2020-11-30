@@ -1,0 +1,142 @@
+<?php
+/*
+		Formul�rio de HORAS POR PER�ODO	
+		
+		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		
+		local/Nome do arquivo:
+		../planejamento/relatorios_horas.php
+		
+		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
+		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
+		Vers�o 2 --> Atualiza��o Layout - 01/04/2015 - Eduardo
+		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 03/04/2017
+		Vers�o 4 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+*/	
+
+require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
+	
+require_once(INCLUDE_DIR."include_form.inc.php");
+
+//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//previne contra acesso direto	
+if(!verifica_sub_modulo(50) && !verifica_sub_modulo(270) && !verifica_sub_modulo(290) && !verifica_sub_modulo(261))
+{
+	nao_permitido();
+}
+
+$conf = new configs();
+
+$db = new banco_dados;
+
+function escolhaos($id_funcionario)
+{
+	$resposta = new xajaxResponse();
+
+	$db = new banco_dados;
+	
+	$resposta->addScript("combo_destino = document.getElementById('os');");
+	
+	$resposta->addScriptCall("limpa_combo('os')");
+	
+	$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('TODAS', '-1');");
+	
+	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+	$sql .= "WHERE apontamento_horas.id_funcionario = '".$id_funcionario."' ";
+	$sql .= "AND apontamento_horas.reg_del = 0 ";
+	$sql .= "AND OS.reg_del = 0 ";
+	$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+	$sql .= "GROUP BY OS.id_os ";
+	$sql .= "ORDER BY OS ";
+
+	$db->select($sql,'MYSQL',true);
+	
+	foreach ($db->array_select as $regs)
+	{
+		$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('".sprintf("%05d",$regs["os"])."', '".$regs["id_os"]."');");
+	}		
+	
+	return $resposta;
+}
+
+$xajax->registerFunction("escolhaos");
+
+$xajax->processRequests();
+
+$smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
+
+?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
+
+<script language="javascript">
+function alternaAction()
+{
+	cmb_formato = document.getElementById('formato');
+	frm_horas = document.getElementById('frm_rel');
+	
+	switch(cmb_formato.options[cmb_formato.options.selectedIndex].value)
+	{
+		case "1":
+			frm_horas.action = 'relatorios/rel_controlehoras_periodo.php';
+		break;
+		
+		case "2":
+			frm_horas.action = 'relatorios/controlehorasperiodo_assinaturas.php';	
+		break;
+	}
+	
+	frm_horas.submit();
+}
+</script>
+
+<?php
+$array_funcionario_values = NULL;
+$array_funcionario_output = NULL;
+
+$array_funcionario_values[] = '';
+$array_funcionario_output[] = 'ESCOLHA O COLABORADOR';
+
+$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO', 'CANCELADODVM') ";
+$sql .= "AND funcionarios.reg_del = 0 ";
+$sql .= "ORDER BY funcionario ";
+
+$db->select($sql,'MYSQL',true);
+ 
+foreach ($db->array_select as $regs)
+{
+	$array_funcionario_values[] = $regs["id_funcionario"];
+	$array_funcionario_output[] = $regs["funcionario"];
+}
+
+$array = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+
+for($i=1;$i<=12;$i++)
+{
+	$array_per_values[] = sprintf("%02d",$i);
+	$array_per_output[] = $array[$i-1];
+	if(date("m")==$i)
+	{
+		$index = sprintf("%02d",$i);
+	}
+}
+
+$smarty->assign("option_per_values",$array_per_values);
+$smarty->assign("option_per_id",$index);
+$smarty->assign("option_per_output",$array_per_output);
+
+$smarty->assign("option_funcionario_values",$array_funcionario_values);
+$smarty->assign("option_funcionario_output",$array_funcionario_output);
+
+$smarty->assign("data",date("d/m/Y"));
+
+$smarty->assign('campo', $conf->campos('horas_periodo'));
+
+$smarty->assign('revisao_documento', 'V4');
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('relatorio_horas.tpl');
+?>
