@@ -56,7 +56,7 @@ $chars = array("'","\"",")","(","\\","/",".",":","&","%","´","`","'","?");
 
 if($_POST["intervalo"]=='periodo')
 {
-	$data_ini = substr(php_mysql($_POST["data_ini"]),0,4).'-'.substr(php_mysql($_POST["data_ini"]),5,2); //ano/mes
+	$data_ini = substr(php_mysql($_POST["dataini"]),0,4).'-'.substr(php_mysql($_POST["dataini"]),5,2); //ano/mes
 	$data_fim = substr(php_mysql($_POST["datafim"]),0,4).'-'.substr(php_mysql($_POST["datafim"]),5,2); //ano/mes;
 }
 
@@ -199,9 +199,9 @@ if($_POST["intervalo"]=='periodo')
 {
 	//$sql .= "AND DATE_FORMAT(AF1_DTAPRO, '%Y-%m') BETWEEN '".$data_ini."' AND '".$data_fim."' ";
 	
-	$sql .= "AND MONTH(AF1_DTAPRO) BETWEEN ".substr(php_mysql($_POST["data_ini"]),5,2)." AND ".substr(php_mysql($_POST["datafim"]),5,2)."
+	$sql .= "AND MONTH(AF1_DTAPRO) BETWEEN ".substr(php_mysql($_POST["dataini"]),5,2)." AND ".substr(php_mysql($_POST["datafim"]),5,2)."
 				AND 
-			 YEAR(AF1_DTAPRO) BETWEEN ".substr(php_mysql($_POST["data_ini"]),0,4)." AND ".substr(php_mysql($_POST["datafim"]),0,4)." ";		
+			 YEAR(AF1_DTAPRO) BETWEEN ".substr(php_mysql($_POST["dataini"]),0,4)." AND ".substr(php_mysql($_POST["datafim"]),0,4)." ";		
 }
 
 if($_POST["escolhacoord"]!='-1')

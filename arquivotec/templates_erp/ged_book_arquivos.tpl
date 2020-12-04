@@ -7,7 +7,7 @@
           <td width="116" rowspan="3" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-				  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Book" onclick="if(document.getElementById('id_os').value!=''){xajax_gerabook(xajax.getFormValues('frm'));}else{alert('… necess·rio preencher todos os campos!');}" /></td>
+				  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Book" onclick="if(document.getElementById('id_os').value!=''){xajax_gerabook(xajax.getFormValues('frm'));}else{alert('ÔøΩ necessÔøΩrio preencher todos os campos!');}" /></td>
 			  </tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
@@ -38,8 +38,8 @@
             </tr>
             <tr>
             	<td>
-            		<label class="labels" style="float:left;width:70px;">Impress&atilde;o</label><input style="float:left;" type="radio" name="rdoImpressao" id="rdoImpressao" value="1" /><br />
-            		<label class="labels" style="float:left;width:70px;">Padr&atilde;o</label><input style="float:left;" type="radio" name="rdoImpressao" id="rdoImpressao" checked="checked" value="0" />
+            		<label class="labels" style="float:left;width:70px;">Impress√£o</label><input style="float:left;" type="radio" name="rdoImpressao" id="rdoImpressao" value="1" /><br />
+            		<label class="labels" style="float:left;width:70px;">Padr√£o</label><input style="float:left;" type="radio" name="rdoImpressao" id="rdoImpressao" checked="checked" value="0" />
             	</td>
             </tr>
             </table>          

@@ -50,22 +50,22 @@
                             <smarty>html_options values=$option_tipo_values output=$option_tipo_output</smarty>
                         </select></td>
                         <td width="18%"><label for="numdocumento" class="labels">N&ordm;&nbsp;Documento</label><br />
-                            <input name="numdocumento" type="text" class="caixa" id="numdocumento" placeholder="Número documento" size="30" maxlength="50" />
+                            <input name="numdocumento" type="text" class="caixa" id="numdocumento" placeholder="Nï¿½mero documento" size="30" maxlength="50" />
                         </td>
                         <td width="17%"><label for="titulo" class="labels">T&iacute;tulo/Assunto</label><br />
-                        	<input name="titulo" type="text" class="caixa" id="titulo" placeholder="Título" size="30" /></td>
+                        	<input name="titulo" type="text" class="caixa" id="titulo" placeholder="Tï¿½tulo" size="30" /></td>
                         <td width="65%"><label for="palavras_chave" class="labels">Palavras-chave</label><br />
                         <input name="palavras_chave" type="text" class="caixa" id="palavras_chave" placeholder="Palavras-chave" size="30" /></td>
                       </tr>
                     </table>
                     <table border="0" width="100%">
                       <tr>
-                        <td width="10%"><label for="perm_rev" class="labels">Nova&nbsp;Revis&atilde;o</label><br />
+                        <td width="10%"><label for="perm_rev" class="labels">Nova&nbsp;RevisÃ£o</label><br />
                           <select name="perm_rev" class="caixa"  id="perm_rev" onkeypress="return keySort(this);" disabled="disabled" onchange="xajax_lib_rev(this.options[this.selectedIndex].value)">
                             <option value="0">N&Atilde;O</option>
                             <option value="1">SIM</option>
                           </select></td>
-                        <td width="6%"><label for="revisao" class="labels">Revis&atilde;o</label><br />
+                        <td width="6%"><label for="revisao" class="labels">RevisÃ£o</label><br />
                           <input name="revisao" type="text" class="caixa" id="revisao" size="5" value="0" />
                         </td>
                         <td width="9%"><label for="data_registro" class="labels">Data&nbsp;Registro</label><br />                         
@@ -79,7 +79,7 @@
                     </table>
                     <table border="0" width="100%">
                             <tr>
-                            <td width="10%"><label for="servico" class="labels">Serviço</label><br /> 
+                            <td width="10%"><label for="servico" class="labels">Serviï¿½o</label><br /> 
                                 <select name="servico" class="caixa" id="servico" onkeypress="return keySort(this);">
                                     <smarty>html_options values=$option_servico_values output=$option_servico_output</smarty>
                                 </select>
@@ -100,7 +100,7 @@
                             </select>
                         </td>
                         <td width="5%"><label for="num_grd" class="labels">GRD N&ordm;</label><br />
-                            <input type="text" name="num_grd" id="num_grd" class="caixa" placeholder="Número GRD" size="15" />
+                            <input type="text" name="num_grd" id="num_grd" class="caixa" placeholder="Nï¿½mero GRD" size="15" />
                         </td>
                       </tr>
                     </table>
@@ -156,13 +156,13 @@
                             <smarty>html_options values=$option_tipo_values output=$option_tipo_output</smarty>
                         </select></td>
                         <td width="20%"><label for="inc_numdocumento" class="labels">N&ordm;&nbsp;Documento</label><br />
-                            <input name="inc_numdocumento" type="text" class="caixa" id="inc_numdocumento" placeholder="Número documento" size="30" maxlength="50" />
+                            <input name="inc_numdocumento" type="text" class="caixa" id="inc_numdocumento" placeholder="Nï¿½mero documento" size="30" maxlength="50" />
                         </td>
                         <td width="20%"><label for="inc_titulo" class="labels">T&iacute;tulo/Assunto</label><br />
-                        	<input name="inc_titulo" type="text" class="caixa" id="inc_titulo" placeholder="Título" size="30" /></td>
+                        	<input name="inc_titulo" type="text" class="caixa" id="inc_titulo" placeholder="Tï¿½tulo" size="30" /></td>
                         <td width="20%"><label for="inc_palavras_chave" class="labels">Palavras-chave</label><br />
                        		<input name="inc_palavras_chave" type="text" class="caixa" id="inc_palavras_chave" placeholder="Palavras-chave" size="30" /></td>
-                        <td width="28%"><label for="inc_revisao" class="labels">Revis&atilde;o</label><br />
+                        <td width="28%"><label for="inc_revisao" class="labels">RevisÃ£o</label><br />
                           <input name="inc_revisao" type="text" class="caixa" id="inc_revisao" size="5" value="0" />
                         </td>
                       </tr>
@@ -192,7 +192,7 @@
                             </select>
                         </td>
                         <td width="13%"><label for="inc_num_grd" class="labels">GRD N&ordm;</label><br />
-                            <input type="text" name="inc_num_grd" id="inc_num_grd" size="20" placeholder="Número GRD" class="caixa" />
+                            <input type="text" name="inc_num_grd" id="inc_num_grd" size="20" placeholder="Nï¿½mero GRD" class="caixa" />
                         </td>
                         <td width="11%"><label for="inc_id_formato" class="labels">Formato</label><br />
                           <select name="inc_id_formato" class="caixa"  id="inc_id_formato" onkeypress="return keySort(this);">

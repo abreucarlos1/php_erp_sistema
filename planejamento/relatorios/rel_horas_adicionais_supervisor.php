@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Horas Adicionais x supervisor
+		Relatório Horas Adicionais x supervisor
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_horas_adicionais_supervisor.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -63,8 +63,8 @@ $pdf->SetLineWidth(0.2);
 
 $db = new banco_dados;
 
-$pdf->departamento="ADMINISTRA��O";
-$pdf->titulo="RELAT�RIO SUPERVIS�O / HORAS ADICIONAIS";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="RELATÓRIO SUPERVISÃO / HORAS ADICIONAIS";
 $pdf->setor="SUP";
 $pdf->codigodoc="001"; //"00"; //"02";
 $pdf->codigo="01"; //Numero OS
@@ -85,7 +85,7 @@ switch($_POST["intervalo"])
 		else
 		{ 
 			$mesant = $_POST["mes"] - 1;
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Ot�vio
+			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
 			$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}
@@ -93,7 +93,7 @@ switch($_POST["intervalo"])
 	
 	case "periodo":
 		
-		$data_ini = $_POST["data_ini"];
+		$data_ini = $_POST["dataini"];
 		$datafim = $_POST["datafim"];
 		
 	break;
@@ -107,7 +107,7 @@ switch($_POST["intervalo"])
 
 
 
-$pdf->versao_documento=$data_ini . " � " . $datafim;
+$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 $pdf->AddPage();

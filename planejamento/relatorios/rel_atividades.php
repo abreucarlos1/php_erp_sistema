@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de atividades	
+		Relatório de atividades	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_atividades.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versão 1 --> atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -62,7 +62,7 @@ function HCell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link=''
     if($w==0)
         $w=$this->w-$this->rMargin-$this->x;
     $s='';
-// begin change Cell function 12.08.2003 
+    // begin change Cell function 12.08.2003 
     if($fill==1 or $border>0)
     {
         if($fill==1)
@@ -159,7 +159,7 @@ function HCell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link=''
                 $this->Link($this->x+$dx, $this->y+.5*$h-.5*$this->FontSize, $w_txt, $this->FontSize, $link);
         }
     }
-// end change Cell function 12.08.2003
+    // end change Cell function 12.08.2003
     if($s)
         $this->_out($s);
     $this->lasth=$h;
@@ -183,7 +183,7 @@ function Header()
 	$this->SetFont('Arial','',6);
 	$this->Cell(146,4,'',0,0,'L',0);
 	$this->Cell(12,4,'DOC:',0,0,'L',0);
-	$this->Cell(12,4,"",0,1,'R',0); //setor - C�digo Documento - Sequencia
+	$this->Cell(12,4,"",0,1,'R',0);
 	$this->SetLineWidth(0.3);
 	$this->Line(172,19.5,195,19.5);
 	$this->Cell(158,4,'EMISSÃO:',0,0,'R',0); //aqui
@@ -245,9 +245,9 @@ foreach($array_setores as $regcc)
 	$pdf->SetLineWidth(0.5);
 	$pdf->Line(25,50,195,50);
 	$pdf->Ln(4);
-	$pdf->Cell(20,5,"C�DIGO",0,0,'C',0);
+	$pdf->Cell(20,5,"CÓDIGO",0,0,'C',0);
 	$pdf->Cell(3);
-	$pdf->Cell(100,5,"DESCRI��O",0,1,'L',0);
+	$pdf->Cell(100,5,"DESCRIÇÃO",0,1,'L',0);
 	$pdf->Ln(4);
 	$pdf->SetFont('Arial','',8);
 	

@@ -104,7 +104,7 @@ function preencheos($dados_form)
 		$sql .= "AND (AF1010.AF1_COORD1 = '". $dados_form["escolhacoord"] ."' OR AF1010.AF1_COORD2 = '". $dados_form["escolhacoord"] ."') " ;
 	}
 	
-	//Inclus�o pedida pelo Ewerton Paiva no chamado #1896
+	//Inclusão pedida pelo Ewerton Paiva no chamado #1896
 	//Tentei incluir na consulta acima a OS 900 e ficou extremamente lento, da forma abaixo est� bem r�pido
 	$sql .= "UNION ALL ";
 	$sql .= " SELECT AF1_ORCAME, AF1_DESCRI FROM AF1010 WITH(NOLOCK) ";

@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Apontamentos por periodo
+		Relatório Apontamentos por periodo
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_diastrabalhados.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 ini_set('memory_limit', '512M');
@@ -57,7 +57,7 @@ class PDF extends FPDF
 		$this->SetLineWidth(0.3);
 		$this->SetXY(5,45);
 
-		$this->Cell(40,15,"NOME DO FUNCION�RIO",1,0,'C',0);
+		$this->Cell(40,15,"NOME DO FUNCIONÁRIO",1,0,'C',0);
 
 		$this->HCell(210,5,"SEMANA / DATA",1,0,'C',0);
 		$y = $this->GetY();
@@ -84,16 +84,16 @@ class PDF extends FPDF
 			$data_ini = "26/" . $mesant . "/" . $ano;
 		}
 		
-		// 3 ser� o mes corrente (fevereiro)
+		// 3 será o mes corrente (fevereiro)
 		//$m = 2;
 		$temp = explode("/",$data_ini);
 		
 		$d = $temp[0]; //26
-		$m = $temp[1]; //02 //mar�o
+		$m = $temp[1]; //02 //março
 		$a = $temp[2]; //2006
 		
 		$d1 = $temp[0]; //26
-		$m1 = $temp[1]; //02 //mar�o
+		$m1 = $temp[1]; //02 //março
 		$a1 = $temp[2]; //2006
 		
 		$mm = $m;
@@ -199,7 +199,7 @@ class PDF extends FPDF
 
 $db = new banco_dados;
 
-$arrTitulo = array('JANEIRO', 'FEVEREIRO', 'MAR�O', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO');
+$arrTitulo = array('JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO');
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
 $sql .= "WHERE setores.reg_del = 0 ";
@@ -229,8 +229,7 @@ $filtro_setor = implode(",",$setor);
 $filtro_setord = implode(",",$setord);
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE situacao NOT IN ('CANCELADODVM') ";
-$sql .= "AND funcionarios.reg_del = 0 ";
+$sql .= "WHERE funcionarios.reg_del = 0 ";
 $sql .= "GROUP BY situacao ";
 
 $db->select($sql,'MYSQL',true);
@@ -271,9 +270,9 @@ $os_rev = explode("#",$_POST["id_os"]); //0 - id_os / 1 - versao_documento
 
 if($os_rev[0])
 {
-	$sql = "SELECT * FROM ".DATABASE.".OS ";
-	$sql .= "WHERE OS.id_os = '" . $os_rev[0] . "' ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico ";
+	$sql .= "WHERE ordem_servico.id_os = '" . $os_rev[0] . "' ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 
 	$db->select($sql,'MYSQL',true);
 
@@ -292,9 +291,6 @@ $sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".salarios ";
 $sql .= "WHERE funcionarios.id_funcionario = salarios.id_funcionario ";
 $sql .= "AND salarios.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
-//retirado conforme chamado #1286 - Paulo Henrique Marque
-//retornado em 27/01/2017 - Sandra
-//$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') ";
 
 if(count($status)>0)
 {
@@ -354,7 +350,7 @@ else
 $temp = explode("/",$data_ini);
 
 $d = $temp[0]; //26
-$m = $temp[1]; //02 //mar�o
+$m = $temp[1]; //02 //março
 $a = $temp[2]; //2006
 
 $diasestampa = mktime(0,0,0,$m+1,0,$ano);
@@ -391,6 +387,7 @@ $dataf = $data[count($data)];
 
 //PROTHEUS
 //Monta as datas/funcionarios
+/*
 $sql = "SELECT * FROM AFU010 WITH(NOLOCK), AE8010 WITH(NOLOCK), AF8010 WITH(NOLOCK) ";
 $sql .= "WHERE AFU_DATA BETWEEN '" . mysql_protheus($datai) . "' AND '" . mysql_protheus($dataf) . "' ";
 $sql .= "AND AFU010.D_E_L_E_T_ = '' ";
@@ -501,8 +498,8 @@ foreach ($db->array_select as $regs)
 	
 	$i++;
 }
+*/
 
-//DVMSYS
 //Monta as datas/funcionarios
 $sql = "SELECT *, TIME_TO_SEC(hora_normal) AS HN, TIME_TO_SEC(hora_adicional) AS HA, TIME_TO_SEC(hora_adicional_noturna) AS HAN ";
 $sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".funcionarios ";
@@ -511,7 +508,7 @@ $sql .= "AND apontamento_horas.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "AND apontamento_horas.data BETWEEN '" . $datai . "' AND '" . $dataf . "' ";
 
-if($os_rev[0]) //Filtro por OS - Sol. Fernando 04/03/2010
+if($os_rev[0]) //Filtro por OS
 {
 	$sql .= "AND apontamento_horas.id_os = '" . $os_rev[0] . "' ";
 }
@@ -562,7 +559,7 @@ $sql .= "AND funcionarios.situacao IN (".$filtro_status.") ";
 $sql .= "AND apontamento_horas.data BETWEEN '" . $datai . "' AND '" . $dataf . "' ";
 $sql .= "AND funcionarios.id_local = local.id_local ";
 
-if($_POST["id_os"]) //Filtro por OS - Sol. Fernando 04/03/2010
+if($_POST["id_os"]) //Filtro por OS
 {
 	$sql .= "AND apontamento_horas.id_os = '" . $os_rev[0] . "' ";
 }
@@ -621,7 +618,6 @@ for($i=1;$i<=count($funcionarios);$i++)
 
 	if($filtro_contrato=="" && false)
 	{
-		//dvmsys
 		$pdf->HCell(10,5,sprintf("%03d",$funcid[$i]),1,0,'C',0);
 		
 		$pdf->HCell(60,5,$funcionarios[$i],1,0,'C',0);
@@ -658,6 +654,7 @@ for($i=1;$i<=count($funcionarios);$i++)
 		$pdf->HCell(15,5,$funcht[$i],1,1,'C',0);
 		
 		//PROTHEUS
+		/*
 		$pdf->HCell(80,5,'APONTAMENTOS CONFIRMADOS',1,0,'C',0);
 		
 		$pdf->SetFillColor(235,235,235);
@@ -688,7 +685,8 @@ for($i=1;$i<=count($funcionarios);$i++)
 	
 		$pdf->HCell(10,5,$funchn_p[$funcid[$i]],1,0,'C',0);
 		$pdf->HCell(10,5,$funcha_p[$funcid[$i]],1,0,'C',0);
-		$pdf->HCell(15,5,$funcht_p[$funcid[$i]],1,1,'C',0);		
+		$pdf->HCell(15,5,$funcht_p[$funcid[$i]],1,1,'C',0);
+		*/		
 	}
 	else
 	{
@@ -752,11 +750,13 @@ for($i=1;$i<=count($funcionarios);$i++)
 					$pdf->HCell(210/$diasdomes,5,'',1,0,'C',0);
 				}						
 			}
-		
+			
+			/*
 			$pdf->HCell(10,5,$funchn_p[$funcid[$i]],1,0,'C',0);
 			$pdf->HCell(10,5,$funcha_p[$funcid[$i]],1,0,'C',0);
 			$pdf->HCell(15,5,$funcht_p[$funcid[$i]],1,1,'C',0);
-			
+			*/
+
 			$pdf->Ln(1);		
 		}		
 	}

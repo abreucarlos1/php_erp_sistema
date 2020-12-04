@@ -86,7 +86,7 @@ $pdf->codigo=01;
 	
 $mespassado_stamp = mktime(0,0,0,date("m"),0,date("Y"));
 
-$data_ini = $_POST["data_ini"];
+$data_ini = $_POST["dataini"];
 $datafim = $_POST["data_fim"];
 
 $array_dataini = explode("/",$data_ini);
@@ -127,7 +127,7 @@ $sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".funcionarios ";
 $sql .= "WHERE apontamento_horas.id_funcionario = funcionarios.id_funcionario ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
-$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
+$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
 $sql .= "AND funcionarios.situacao IN ('ATIVO','FECHAMENTO FOLHA') ";
 $sql .= "GROUP BY funcionarios.id_funcionario ";
 $sql .= "ORDER BY funcionarios.funcionario ";
@@ -164,7 +164,7 @@ foreach($array_select1 as $regs)
 		
 		$contrato = $tipocont[" tipo_contrato"];
 		
-		$periodo = $_POST["data_ini"] .' a '. $_POST["data_fim"];
+		$periodo = $_POST["dataini"] .' a '. $_POST["data_fim"];
 		
 		$htotal_normal = $shora_normal;
 		

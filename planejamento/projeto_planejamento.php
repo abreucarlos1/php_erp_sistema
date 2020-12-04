@@ -1,15 +1,15 @@
 <?php
 /*
-	Formul�rio de Planejamento Projeto	
+	Formulário de Planejamento Projeto	
 	
-	Criado por Carlos Abreu / Carlos M�xim ia
+	Criado por Carlos Abreu / Carlos Máximo
 	
 	local/Nome do arquivo:
 	../planejamento/projeto_planejamento.php
 	
-	Vers�o 0 --> VERS�O INICIAL - Carlos Abreu - 01/03/2017
-	Vers�o 1 --> atualiza��o layout - Carlos Abreu - 03/04/2017	
-	Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+	Versão 0 --> VERSÃO INICIAL - Carlos Abreu - 01/03/2017
+	Versão 1 --> Atualização layout - Carlos Abreu - 03/04/2017	
+	Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -128,13 +128,13 @@ function atualizatabela($dados_form)
 		
 		switch ($cont["id_status_projeto"])
 		{
-			case 1:	//N�O IMPORTADO
+			case 1:	//NÃO IMPORTADO
 					
 				$status = '<img src="'.DIR_IMAGENS.'led_vm.png">';
 				
-				$titulo = utf8_encode('OR�AMENTO N�O IMPORTADO');
+				$titulo = 'ORÇAMENTO NÃO IMPORTADO';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;or�amento&nbsp;t�cnico&nbsp;para&nbsp;o&nbsp;Aloca&ccedil;&atilde;o?")){xajax_importar("'.$cont["id_proposta"].'");}>';
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Alocação?")){xajax_importar("'.$cont["id_proposta"].'");}>';
 				
 							
 			break;
@@ -143,9 +143,9 @@ function atualizatabela($dados_form)
 			
 				$status = '<img src="'.DIR_IMAGENS.'led_am.png">';
 				
-				$titulo = utf8_encode('OR�AMENTO IMPORTADO');
+				$titulo = 'ORÇAMENTO IMPORTADO';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;or�amento&nbsp;t�cnico&nbsp;para&nbsp;o&nbsp;Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
 	
 			break;
 			
@@ -153,7 +153,7 @@ function atualizatabela($dados_form)
 			
 				$status = '<img src="'.DIR_IMAGENS.'led_vd.png">';
 				
-				$titulo = utf8_encode('OR�AMENTO EXPORTADO');
+				$titulo = 'ORÇAMENTO EXPORTADO';
 				
 				$importar = '&nbsp;'; 
 	
@@ -164,7 +164,7 @@ function atualizatabela($dados_form)
 		{
 			$status = '<img src="'.DIR_IMAGENS.'led_az.png">';
 			$importar = '&nbsp;';
-			$titulo = utf8_encode('OR�AMENTO EXPORTADO CONCLU&Iacute;DO');	
+			$titulo = 'ORÇAMENTO EXPORTADO CONCLUÍDO';	
 		}
 		
 		$xml->startElement('row');
@@ -241,7 +241,7 @@ function editar($id)
 				$resposta->addAssign("btnimprimir","disabled","disabled");
 			}
 			
-			//se status projeto for exportado, desabilita os bot�es
+			//se status projeto for exportado, desabilita os botões
 			if($cont["id_status_projeto"]==3)
 			{
 				$resposta->addAssign("btn_escopo","disabled","disabled");
@@ -268,7 +268,7 @@ function editar($id)
 		case 'escopgeral':
 
 			//seleciona os escopos gerais
-			$sql = "SELECT * FROM ".DATABASE.".propostas, planejamento.escopo_geral ";
+			$sql = "SELECT * FROM ".DATABASE.".propostas, ".DATABASE.".escopo_geral ";
 			$sql .= "WHERE escopo_geral.reg_del = 0 ";
 			$sql .= "AND propostas.reg_del = 0 ";
 			$sql .= "AND escopo_geral.id_escopo_geral = '".$id."' ";
@@ -278,7 +278,7 @@ function editar($id)
 			
 			$cont = $db->array_select[0];
 			
-			//se status projeto for exportado, desabilita os bot�es
+			//se status projeto for exportado, desabilita os botões
 			if($cont["id_status_projeto"]==3)
 			{
 				$resposta->addAssign("btn_escopo","disabled","disabled");
@@ -320,12 +320,12 @@ function inc_escopogeral($dados_form)
 	
 	$regs = $db->array_select[0];
 	
-	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","�","`");
+	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","´","`");
 	
-	//n�o existe o escopo, insere
+	//não existe o escopo, insere
 	if($dados_form["h_escopogeral"]=='' || $dados_form["h_escopogeral"]==0)
 	{
-		$isql = "INSERT INTO planejamento.escopo_geral (id_proposta, escopo_geral ) VALUES (";
+		$isql = "INSERT INTO ".DATABASE.".escopo_geral (id_proposta, escopo_geral ) VALUES (";
 		$isql .= "'" . $dados_form["id_proposta"] . "', ";
 		$isql .= "'" . maiusculas(addslashes(trim(str_replace($chars,"",$dados_form["escopogeral"])))). "') ";
 		
@@ -333,7 +333,7 @@ function inc_escopogeral($dados_form)
 	}
 	else
 	{
-		$usql = "UPDATE planejamento.escopo_geral SET ";
+		$usql = "UPDATE ".DATABASE.".escopo_geral SET ";
 		$usql .= "escopo_geral = '" . maiusculas(addslashes(trim(str_replace($chars,"",$dados_form["escopogeral"])))) . "' ";
 		$usql .= "WHERE id_escopo_geral = '".$dados_form["h_escopogeral"]."' ";
 		$usql .= "AND reg_del = 0 ";
@@ -368,7 +368,7 @@ function del_escopogeral($id)
 	if($conf->checa_permissao(2,$resposta))
 	{	
 		//pega o numero da proposta
-		$sql = "SELECT * FROM ".DATABASE.".propostas, planejamento.escopo_geral ";
+		$sql = "SELECT * FROM ".DATABASE.".propostas, ".DATABASE.".escopo_geral ";
 		$sql .= "WHERE escopo_geral.reg_del = 0 ";
 		$sql .= "AND propostas.reg_del = 0 ";
 		$sql .= "AND escopo_geral.id_escopo_geral = '".$id."' ";
@@ -378,12 +378,12 @@ function del_escopogeral($id)
 		
 		$regs = $db->array_select[0];
 		
-		//se status projeto for exportado, desabilita os bot�es
+		//se status projeto for exportado, desabilita os botões
 		if($cont["id_status_projeto"]!=3)
 		{					
 			if(!empty($id))
 			{				
-				$usql = "UPDATE planejamento.escopo_geral SET ";
+				$usql = "UPDATE ".DATABASE.".escopo_geral SET ";
 				$usql .= "reg_del = 1, ";
 				$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 				$usql .= "data_del = '".date("Y-m-d")."' ";
@@ -392,7 +392,7 @@ function del_escopogeral($id)
 			
 				$db->update($usql,'MYSQL');
 				
-				$usql = "UPDATE planejamento.escopo_detalhado SET ";
+				$usql = "UPDATE ".DATABASE.".escopo_detalhado SET ";
 				$usql .= "reg_del = 1, ";
 				$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 				$usql .= "data_del = '".date("Y-m-d")."' ";
@@ -401,7 +401,7 @@ function del_escopogeral($id)
 			
 				$db->update($usql,'MYSQL');
 				
-				$usql = "UPDATE planejamento.recursos SET ";
+				$usql = "UPDATE ".DATABASE.".recursos SET ";
 				$usql .= "reg_del = 1, ";
 				$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 				$usql .= "data_del = '".date("Y-m-d")."' ";
@@ -434,7 +434,7 @@ function preencheEscopoGeral($dados_form)
 
 	$db = new banco_dados;
 	
-	//se proposta estiver exportado, desabilita a exclus�o
+	//se proposta estiver exportado, desabilita a exclusão
 	if(status_proposta($dados_form["id_proposta"])==3)
 	{
 		$visivel = "visibility:hidden;";	
@@ -445,7 +445,7 @@ function preencheEscopoGeral($dados_form)
 	}	
 
 	//seleciona os escopos gerais
-	$sql = "SELECT * FROM planejamento.escopo_geral ";
+	$sql = "SELECT * FROM ".DATABASE.".escopo_geral ";
 	$sql .= "WHERE escopo_geral.reg_del = 0 ";
 	$sql .= "AND escopo_geral.id_proposta = '".$dados_form["id_proposta"]."' ";
 	$sql .= "ORDER BY escopo_geral ";
@@ -458,7 +458,7 @@ function preencheEscopoGeral($dados_form)
 	
 	foreach($db->array_select as $cont1)
 	{			
-		$sql = "SELECT * FROM planejamento.escopo_detalhado ";
+		$sql = "SELECT * FROM ".DATABASE.".escopo_detalhado ";
 		$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 		$sql .= "AND escopo_detalhado.id_escopo_geral = '".$cont1["id_escopo_geral"]."' ";
 		
@@ -470,7 +470,7 @@ function preencheEscopoGeral($dados_form)
 		}
 		else
 		{
-			$txt = 'if(confirm("Existem&nbsp;tarefas&nbsp;associadas&nbsp;a&nbsp;este&nbsp;escopo,&nbsp;tem&nbsp;certeza&nbsp;que&nbsp;ir�&nbsp;excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
+			$txt = 'if(confirm("Existem&nbsp;tarefas&nbsp;associadas&nbsp;a&nbsp;este&nbsp;escopo,&nbsp;tem&nbsp;certeza&nbsp;que&nbsp;irá&nbsp;excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
 		}
 		
 		$xml->startElement('row');
@@ -505,7 +505,7 @@ function seleciona_escopo_geral($dados_form)
 	
 	$regs0 = $db->array_select[0];
 	
-	$sql = "SELECT * FROM planejamento.escopo_geral ";
+	$sql = "SELECT * FROM ".DATABASE.".escopo_geral ";
 	$sql .= "WHERE escopo_geral.reg_del = 0 ";
 	$sql .= "AND escopo_geral.id_proposta = '". $dados_form["id_proposta"]."' ";
 	$sql .= "ORDER BY escopo_geral ";
@@ -531,7 +531,7 @@ function seleciona_escopo_geral($dados_form)
 			$selected = '';	
 		}
 		
-		$sql = "SELECT * FROM planejamento.escopo_detalhado ";
+		$sql = "SELECT * FROM ".DATABASE.".escopo_detalhado ";
 		$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 		$sql .= "AND escopo_detalhado.id_escopo_geral = '". $regs["id_escopo_geral"]."' ";
 
@@ -610,7 +610,7 @@ function mostra_tarefas($dados_form)
 		$id_escopo_detalhado = 0;
 		
 		//verifica se existe registro no escopo detalhado
-		$sql = "SELECT * FROM planejamento.escopo_detalhado ";
+		$sql = "SELECT * FROM ".DATABASE.".escopo_detalhado ";
 		$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 		$sql .= "AND escopo_detalhado.id_escopo_geral = '".$dados_form["sel_escopo_geral"]."' ";
 		$sql .= "AND escopo_detalhado.id_tarefa = '".$regs["id_atividade"]."' ";
@@ -674,7 +674,7 @@ function mostra_tarefas($dados_form)
 					$xml->writeAttribute('id',$regs["id_atividade"].'_'.$indice);
 					
 					$xml->startElement ('cell');
-						$xml->writeAttribute('title',utf8_encode('DUPLICAR&nbsp;TAREFA'));
+						$xml->writeAttribute('title','DUPLICAR&nbsp;TAREFA');
 						$xml->writeAttribute('style','background-color:#FFFFFF');
 						$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_check.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"))} >');
 					$xml->endElement();
@@ -738,7 +738,7 @@ function mostra_tarefas($dados_form)
 				$xml->writeAttribute('id',$regs["id_atividade"].'_0');
 				
 				$xml->startElement ('cell');
-					$xml->writeAttribute('title',utf8_encode($regs["descricao"]));
+					$xml->writeAttribute('title',$regs["descricao"]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
 					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_ckeck.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_0"))} >');
 				$xml->endElement();				
@@ -776,7 +776,7 @@ function inc_escopodetalhado($dados_form)
 	
 	$conf = new configs();
 	
-	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","�","`");
+	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","´","`");
 	
 	$msg = $conf->msg($resposta);
 
@@ -800,7 +800,7 @@ function inc_escopodetalhado($dados_form)
 				
 				if(!empty($dados_form["txt_qtd"][$id][$index]) && !empty($dados_form["txt_horas"][$id][$index]))
 				{
-					$sql = "SELECT * FROM planejamento.escopo_detalhado ";
+					$sql = "SELECT * FROM ".DATABASE.".escopo_detalhado ";
 					$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 					$sql .= "AND escopo_detalhado.id_tarefa = '".$id."' ";
 					$sql .= "AND escopo_detalhado.item = '".$index."' ";
@@ -813,8 +813,8 @@ function inc_escopodetalhado($dados_form)
 					{
 						$regs = $db->array_select[0];
 
-						$usql = "UPDATE planejamento.escopo_detalhado SET ";
-						$usql .= "descricao_escopo = '" . maiusculas(addslashes(trim(utf8_decode(str_replace($chars,"",$dados_form["txt_descativ"][$id][$index]))))) . "', ";
+						$usql = "UPDATE ".DATABASE.".escopo_detalhado SET ";
+						$usql .= "descricao_escopo = '" . maiusculas(addslashes(trim(str_replace($chars,"",$dados_form["txt_descativ"][$id][$index])))) . "', ";
 						$usql .= "quantidade = '" . number_format(str_replace(",",".",$dados_form["txt_qtd"][$id][$index]),2,'.','') . "', ";
 						$usql .= "horas = '" . number_format(str_replace(",",".",$dados_form["txt_horas"][$id][$index]),2,'.','') . "', ";
 						$usql .= "id_formato = '" . $dados_form["cb_fmt"][$id][$index] . "' ";
@@ -834,11 +834,11 @@ function inc_escopodetalhado($dados_form)
 						
 						$tarefa_orc = $db->array_select[0];						
 						
-						$isql = "INSERT INTO planejamento.escopo_detalhado (id_escopo_geral, id_tarefa, item, descricao_escopo, quantidade_orcada, horas_orcada, id_formato_orcado, quantidade, horas, id_formato) VALUES (";
+						$isql = "INSERT INTO ".DATABASE.".escopo_detalhado (id_escopo_geral, id_tarefa, item, descricao_escopo, quantidade_orcada, horas_orcada, id_formato_orcado, quantidade, horas, id_formato) VALUES (";
 						$isql .= "'" . $id_escopo_geral . "', ";
 						$isql .= "'" . $id . "', ";
 						$isql .= "'" . $index . "', ";
-						$isql .= "'" . maiusculas(addslashes(trim(utf8_decode(str_replace($chars,"",$dados_form["txt_descativ"][$id][$index]))))). "', ";
+						$isql .= "'" . maiusculas(addslashes(trim(str_replace($chars,"",$dados_form["txt_descativ"][$id][$index])))). "', ";
 						$isql .= "'" . number_format(str_replace(",",".",$dados_form["hd_qtd"][$id][$index]),2,'.',''). "', ";
 						$isql .= "'" . number_format(str_replace(",",".",$dados_form["hd_horas"][$id][$index]),2,'.',''). "', ";
 						$isql .= "'" . $tarefa_orc["id_formato"] . "', ";
@@ -870,7 +870,7 @@ function inc_escopodetalhado($dados_form)
 							$calc = $horas*($reg_por["porcentagem"]/100);
 							
 							//insere os recursos
-							$isql = "INSERT INTO planejamento.recursos (id_escopo_detalhado, id_recurso_orcamento, id_escopo_geral, id_tarefa, item_escopo, item, horas_orcamento) VALUES ( ";
+							$isql = "INSERT INTO ".DATABASE.".recursos (id_escopo_detalhado, id_recurso_orcamento, id_escopo_geral, id_tarefa, item_escopo, item, horas_orcamento) VALUES ( ";
 							$isql .= "'".$id_escopo_det."', ";
 							$isql .= "'".$reg_por["id_cargo_grupo"]."', ";
 							$isql .= "'".$id_escopo_geral."', ";
@@ -910,7 +910,7 @@ function inc_escopodetalhado($dados_form)
 		if(count($array_del)>0)
 		{
 			//exclui o escopo detalhado
-			$usql = "UPDATE planejamento.escopo_detalhado SET ";
+			$usql = "UPDATE ".DATABASE.".escopo_detalhado SET ";
 			$usql .= "reg_del = 1, ";
 			$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 			$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -920,7 +920,7 @@ function inc_escopodetalhado($dados_form)
 			$db->update($usql,'MYSQL');
 			
 			//exclui os recursos
-			$usql = "UPDATE planejamento.recursos SET ";
+			$usql = "UPDATE ".DATABASE.".recursos SET ";
 			$usql .= "reg_del = 1, ";
 			$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 			$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -934,11 +934,11 @@ function inc_escopodetalhado($dados_form)
 
 		if($camp_vazio || $no_check)
 		{
-			$resposta->addAlert("Campos n�o preenchidos/selecionados n�o ser�o inclu�dos.");
+			$resposta->addAlert("Campos não preenchidos/selecionados não serão incluídos.");
 		}
 		else
 		{
-			$resposta->addAlert("Itens inclu�dos.");	
+			$resposta->addAlert("Itens incluídos.");	
 		}
 		
 	}
@@ -964,7 +964,7 @@ function preenche_resumo($dados_form)
 		$array_formatos[$regs["id_formato"]] = $regs["formato"];	
 	}	
 	
-	$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, planejamento.escopo_geral, planejamento.escopo_detalhado ";
+	$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".escopo_geral, ".DATABASE.".escopo_detalhado ";
 	$sql .= "WHERE escopo_geral.reg_del = 0 ";
 	$sql .= "AND escopo_detalhado.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
@@ -1023,7 +1023,7 @@ function preenche_resumo($dados_form)
 		}
 		
 		//seleciona a tabela de recursos cadastrados
-		$sql = "SELECT * FROM planejamento.recursos ";
+		$sql = "SELECT * FROM ".DATABASE.".recursos ";
 		$sql .= "WHERE recursos.reg_del = 0 ";
 		$sql .= "AND recursos.id_escopo_detalhado = '".$regs["id_escopo_detalhado"]."' ";
 		$sql .= "AND recursos.id_recurso <> 0 "; //recurso alocado
@@ -1055,7 +1055,7 @@ function preenche_resumo($dados_form)
 			$xml->writeElement ('cell',number_format($regs["horas"],2,",","."));
 			
 			$xml->startElement ('cell');
-				$xml->writeAttribute('title',utf8_encode('RECURSOS'));
+				$xml->writeAttribute('title','RECURSOS');
 				$xml->writeAttribute('style',$color);
 				$xml->text('<img lang="'.$regs["id_atividade"].'_'.$regs["item"].'" class="img_rec_'.$regs["id_atividade"].'" id="img_rec[' . $regs["id_atividade"] . ']['.$regs["item"].']" src="'.DIR_IMAGENS.'bt_canais_2.png" onclick=adiciona_recursos(this.lang,'.$regs["id_escopo_geral"].','.$regs["id_escopo_detalhado"].') >');
 			$xml->endElement();
@@ -1125,7 +1125,7 @@ function exportar($id_proposta)
 	
 	$msg = $conf->msg($resposta);
 	
-	$chars = array("'","\"",")","(","\\","/",".",":","&","%","�","`","'");
+	$chars = array("'","\"",")","(","\\","/",".",":","&","%","´","`","'");
 
 	$edt = 1;
 	
@@ -1152,7 +1152,7 @@ function exportar($id_proposta)
 	
 	if($db->numero_registros_ms>0)
 	{
-		$resposta->addAlert("Este projeto j� tem apontamentos e n�o ser� modificado.");
+		$resposta->addAlert("Este projeto já tem apontamentos e não será modificado.");
 	}
 	else
 	{
@@ -1345,7 +1345,7 @@ function exportar($id_proposta)
 		
 		$db->insert($isql,'MSSQL');
 		
-		//INSERE A REVISAO (CONTROLE REVIS�O)
+		//INSERE A REVISAO (CONTROLE REVISÃO)
 		$sql = "SELECT TOP 1 R_E_C_N_O_ FROM AFE010 WITH(NOLOCK) ";			
 		$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 	
@@ -1415,7 +1415,7 @@ function exportar($id_proposta)
 		$db->insert($isql,'MSSQL');			
 		
 		//seleciona os escopos gerais da proposta
-		$sql = "SELECT * FROM planejamento.escopo_geral, planejamento.escopo_detalhado ";
+		$sql = "SELECT * FROM ".DATABASE.".escopo_geral, ".DATABASE.".escopo_detalhado ";
 		$sql .= "WHERE escopo_geral.reg_del = 0 ";
 		$sql .= "AND escopo_detalhado.reg_del = 0 ";
 		$sql .= "AND escopo_geral.id_escopo_geral = escopo_detalhado.id_escopo_geral ";
@@ -1484,7 +1484,7 @@ function exportar($id_proposta)
 			$edt_dis = 1;
 			
 			//seleciona as disciplinas
-			$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, planejamento.escopo_detalhado ";
+			$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".escopo_detalhado ";
 			$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND atividades.reg_del = 0 ";
@@ -1508,14 +1508,6 @@ function exportar($id_proposta)
 			
 			foreach($array_detalhado as $regs5)
 			{
-				//if($regs5["setor"]!='DESPESAS')
-				//{
-					$setor = $regs5["setor"];
-				//}
-				//else
-				//{
-					//$setor = 'MOBILIZA��O';
-				//}
 				
 				//INSERE AS DISCIPLINAS --> EDTS
 				$sql = "SELECT TOP 1 R_E_C_N_O_ FROM AFC010 WITH(NOLOCK) ";			
@@ -1565,7 +1557,7 @@ function exportar($id_proposta)
 				$edt_tar = 1;
 				
 				//seleciona as tarefas
-				$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".formatos, planejamento.escopo_detalhado ";
+				$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".formatos, ".DATABASE.".escopo_detalhado ";
 				$sql .= "WHERE escopo_detalhado.reg_del = 0 ";
 				$sql .= "AND setores.reg_del = 0 ";
 				$sql .= "AND atividades.reg_del = 0 ";
@@ -1593,15 +1585,7 @@ function exportar($id_proposta)
 				{
 					$titulo1 = "";
 										
-					//se mobiliza��o
-					//if(substr($regs6["codigo"],0,3)=='DES')
-					//{
-						//$horas = $regs6["horasestimadas"]*$regs6["quantidade"]; //////VERIFICAR AQUI - 23/02/2017
-					//}
-					//else
-					//{
-						$horas = $regs6["horas"];
-					//}
+					$horas = $regs6["horas"];
 					
 					//obtem o ultimo codigo exclusivo
 					$sql = "SELECT TOP 1 AF9_CODIGO FROM AF9010 WITH(NOLOCK) ";
@@ -1684,7 +1668,7 @@ function exportar($id_proposta)
 						return $resposta;
 					}
 
-					$sql = "SELECT * FROM planejamento.recursos ";
+					$sql = "SELECT * FROM ".DATABASE.".recursos ";
 					$sql .= "WHERE recursos.reg_del = 0 ";
 					$sql .= "AND recursos.id_escopo_detalhado = '".$regs6["id_escopo_detalhado"]."' ";
 					
@@ -1781,7 +1765,6 @@ function exportar($id_proposta)
 									case 'SC':
 									case 'SC+CLT':
 
-										//$custo = round($regs_sal["salario_hora"]*$regs_rec["horas"]*(0.975),2);
 										$custo = round($regs_sal["salario_hora"],2);
 										
 									break;
@@ -1789,7 +1772,6 @@ function exportar($id_proposta)
 									case 'CLT':
 									case 'EST':
 
-										//$custo = round((($regs_sal["salario_clt"]/176)*1.84*$regs_rec["horas"]),2);
 										$custo = round((($regs_sal["salario_clt"]/176)*1.84),2);
 										
 									break;
@@ -1797,7 +1779,6 @@ function exportar($id_proposta)
 									case 'SC+MENS':
 									case 'SC+CLT+MENS':
 
-										//$custo = round((($regs_sal["salario_mensalista"]/176)*$regs_rec["horas"]*(0.975)),2);
 										$custo = round((($regs_sal["salario_mensalista"]/176)),2);
 										
 									break;
@@ -1805,7 +1786,7 @@ function exportar($id_proposta)
 							}
 						}
 						
-						//SE RECURSO N�O TIVER ASSOCIADO, PEGA AS HORAS DO ORCADO
+						//SE RECURSO NÃO TIVER ASSOCIADO, PEGA AS HORAS DO ORÇADO
 						if($regs_rec["id_recurso"]!=0)
 						{
 							$horas_rec = $regs_rec["horas"];
@@ -2158,7 +2139,7 @@ function exportar($id_proposta)
 				$isql .= "'004', ";
 				$isql .= "'".tiraacentos($regs10["subcontratado"])."-".tiraacentos($regs10["descritivo"])."', ";
 				$isql .= "'VB', ";
-				$isql .= "'1', ";//ATEN��O A ESTE ITEM
+				$isql .= "'1', ";//ATENÇÃO A ESTE ITEM
 				$isql .= "'SUP', ";
 				$isql .= "'SUP12', ";
 				$isql .= "'0', ";
@@ -2278,7 +2259,7 @@ function exportar($id_proposta)
 			$resposta->addAlert('ERRO');
 		}
 		
-		$resposta->addAlert("Or�amento exportado com sucesso.");
+		$resposta->addAlert("Orçamento exportado com sucesso.");
 		
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
 		
@@ -2305,7 +2286,7 @@ function importar($id_proposta)
 	foreach($array_escopo_geral as $reg_escopo)
 	{
 		//insere o escopo geral		
-		$isql = "INSERT INTO planejamento.escopo_geral (id_proposta,escopo_geral) VALUES ( ";
+		$isql = "INSERT INTO ".DATABASE.".escopo_geral (id_proposta,escopo_geral) VALUES ( ";
 		$isql .= "'".$reg_escopo["id_proposta"]."',";
 		$isql .= "'".$reg_escopo["escopo_geral"]."') ";
 		
@@ -2327,7 +2308,7 @@ function importar($id_proposta)
 		foreach($array_escopo_detalhado as $reg_escopo_det)
 		{
 			//insere o escopo detalhado
-			$isql = "INSERT INTO planejamento.escopo_detalhado (id_escopo_geral, id_tarefa, item, descricao_escopo, valor, quantidade_orcada, horas_orcada, id_formato_orcado, quantidade, horas, id_formato) VALUES ( ";
+			$isql = "INSERT INTO ".DATABASE.".escopo_detalhado (id_escopo_geral, id_tarefa, item, descricao_escopo, valor, quantidade_orcada, horas_orcada, id_formato_orcado, quantidade, horas, id_formato) VALUES ( ";
 			$isql .= "'".$id_escopo_geral."', ";
 			$isql .= "'".$reg_escopo_det["id_tarefa"]."', ";
 			$isql .= "'".$reg_escopo_det["item"]."', ";
@@ -2362,7 +2343,7 @@ function importar($id_proposta)
 				$calc = $reg_escopo_det["totaliza_categoria"]*($reg_por["porcentagem"]/100);
 				
 				//insere os recursos
-				$isql = "INSERT INTO planejamento.recursos (id_escopo_detalhado, id_recurso_orcamento, id_escopo_geral, id_tarefa, item_escopo, item, horas_orcamento)VALUES ( ";
+				$isql = "INSERT INTO ".DATABASE.".recursos (id_escopo_detalhado, id_recurso_orcamento, id_escopo_geral, id_tarefa, item_escopo, item, horas_orcamento)VALUES ( ";
 				$isql .= "'".$id_escopo_detalhado."', ";
 				$isql .= "'".$reg_por["id_cargo_grupo"]."', ";
 				$isql .= "'".$id_escopo_geral."', ";
@@ -2430,7 +2411,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 	}
 	
 	//seleciona a tabela de recursos
-	$sql = "SELECT * FROM planejamento.recursos ";
+	$sql = "SELECT * FROM ".DATABASE.".recursos ";
 	$sql .= "WHERE recursos.reg_del = 0 ";
 	$sql .= "AND recursos.id_escopo_geral = '".$id_escopo_geral."' ";
 	
@@ -2442,9 +2423,9 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 		$array_recursos['horas_orcamento'][$regs["id_tbl_recursos"]] = $regs["horas_orcamento"];
 	}
 	
-	//seleciona para obter o id_escopo_detalhado e qual a descri��o			
+	//seleciona para obter o id_escopo_detalhado e qual a descrição			
 	$sql = "SELECT * FROM ".DATABASE.".atividades_orcamento, ".DATABASE.".atividades ";
-	$sql .= "LEFT JOIN planejamento.escopo_detalhado ON (escopo_detalhado.id_tarefa = atividades.id_atividade  ";
+	$sql .= "LEFT JOIN ".DATABASE.".escopo_detalhado ON (escopo_detalhado.id_tarefa = atividades.id_atividade  ";
 	$sql .= "AND escopo_detalhado.id_escopo_geral = '".$id_escopo_geral."' ";
 	$sql .= "AND escopo_detalhado.id_escopo_detalhado = '".$id_escopo_detalhado."' ";
 	$sql .= "AND escopo_detalhado.reg_del = 0) ";
@@ -2463,7 +2444,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 	$resposta->addAssign("horas","innerHTML",'<strong>HORAS:</strong>&nbsp;'.$escopo_det["horas"]);
 	
 	//seleciona para obter o id_proposta		
-	$sql = "SELECT id_proposta FROM planejamento.escopo_geral ";
+	$sql = "SELECT id_proposta FROM ".DATABASE.".escopo_geral ";
 	$sql .= "WHERE escopo_geral.reg_del = 0 ";
 	$sql .= "AND escopo_geral.id_escopo_geral = '".$id_escopo_geral."' ";
 	$sql .= "LIMIT 1";			
@@ -2490,7 +2471,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 	$xml->startElement('rows');				
 
 	//seleciona a tabela de recursos cadastrados
-	$sql = "SELECT * FROM planejamento.recursos ";
+	$sql = "SELECT * FROM ".DATABASE.".recursos ";
 	$sql .= "WHERE recursos.reg_del = 0 ";
 	$sql .= "AND recursos.id_escopo_geral = '".$id_escopo_geral."' ";
 	$sql .= "AND recursos.id_escopo_detalhado = '".$id_escopo_detalhado."' ";
@@ -2499,7 +2480,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 	
 	$db->select($sql,'MYSQL',true);
 	
-	//j� existe cadastro em recursos (tarefas importadas)
+	//jÁ existe cadastro em recursos (tarefas importadas)
 	if($db->numero_registros>0)
 	{
 		$array_rec = $db->array_select;
@@ -2562,7 +2543,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 				$xml->writeAttribute('id',$escopo_det["id_atividade"].'_'.$reg_rec["item"]);
 				
 				$xml->startElement ('cell');
-					$xml->writeAttribute('title',utf8_encode($array_recs_orc[$reg_rec["id_recurso_orcamento"]]));
+					$xml->writeAttribute('title',$array_recs_orc[$reg_rec["id_recurso_orcamento"]]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
 					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;o&nbsp;recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$reg_rec["item"].'"))} >');
 				$xml->endElement();
@@ -2639,7 +2620,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 				$xml->writeAttribute('id',$escopo_det["id_atividade"].'_'.$indice);
 				
 				$xml->startElement ('cell');
-					$xml->writeAttribute('title',utf8_encode($array_recs_orc[$reg_rec["id_cargo"]]));
+					$xml->writeAttribute('title',$array_recs_orc[$reg_rec["id_cargo"]]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
 					$xml->text('<img src="'.DIR_IMAGENS.'add.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;o&nbsp;recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$indice.'"))} >');
 				$xml->endElement();	
@@ -2685,7 +2666,7 @@ function inc_recursos($dados_form)
 	
 	$conf = new configs();
 	
-	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","�","`");
+	$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","´","`");
 	
 	$msg = $conf->msg($resposta);
 
@@ -2700,7 +2681,7 @@ function inc_recursos($dados_form)
 	$id_modal = $dados_form["id_modal"];
 	
 	//seleciona o escopo detalhado para calculo do quantitativo orcamento
-	$sql = "SELECT * FROM planejamento.escopo_detalhado ";
+	$sql = "SELECT * FROM ".DATABASE.".escopo_detalhado ";
 	$sql .= "WHERE escopo_detalhado.id_escopo_detalhado = '".$id_escopo_detalhado."' ";
 	$sql .= "AND escopo_detalhado.reg_del = 0 ";
 	
@@ -2716,7 +2697,7 @@ function inc_recursos($dados_form)
 			if(!empty($dados_form["funcionario"][$id][$index]) && !empty($dados_form["rec_horas"][$id][$index]))
 			{
 				//verifica se existe o registro										
-				$sql = "SELECT * FROM planejamento.recursos ";
+				$sql = "SELECT * FROM ".DATABASE.".recursos ";
 				$sql .= "WHERE recursos.reg_del = 0 ";
 				$sql .= "AND recursos.id_tbl_recursos = '".$dados_form["id_rec"][$id][$index]."' ";
 
@@ -2740,7 +2721,7 @@ function inc_recursos($dados_form)
 					
 					$horas = $escopo_det["horas"]*($array_orc["porcentagem"]/100);
 					
-					$usql = "UPDATE planejamento.recursos SET ";
+					$usql = "UPDATE ".DATABASE.".recursos SET ";
 					$usql .= "id_recurso = '" . $dados_form["funcionario"][$id][$index] . "', ";
 					$usql .= "horas = '" . number_format(str_replace(",",".",$dados_form["rec_horas"][$id][$index]),2,'.','') . "', ";
 					$usql .= "id_recurso_orcamento = '" . $dados_form["rec_orc"][$id][$index] . "', ";
@@ -2765,7 +2746,7 @@ function inc_recursos($dados_form)
 					
 					$horas = $escopo_det["horas"]*($array_orc["porcentagem"]/100);
 					
-					$isql = "INSERT INTO planejamento.recursos (id_escopo_geral, id_escopo_detalhado, id_tarefa, item, id_recurso_orcamento, horas_orcamento, id_recurso, horas) VALUES (";
+					$isql = "INSERT INTO ".DATABASE.".recursos (id_escopo_geral, id_escopo_detalhado, id_tarefa, item, id_recurso_orcamento, horas_orcamento, id_recurso, horas) VALUES (";
 					$isql .= "'" . $id_escopo_geral . "', ";
 					$isql .= "'" . $id_escopo_detalhado . "', ";
 					$isql .= "'" . $id . "', ";
@@ -2787,7 +2768,7 @@ function inc_recursos($dados_form)
 	
 	if($camp_vazio)
 	{
-		$resposta->addAlert("Recurso com quantidade vazia n�o ser� inclu�do.");
+		$resposta->addAlert("Recurso com quantidade vazia não será incluído.");
 	}
 	
 	//exclui os itens desselecionados
@@ -2807,7 +2788,7 @@ function inc_recursos($dados_form)
 	
 	if(count($array_del)>0)
 	{
-		$usql = "UPDATE planejamento.recursos SET ";
+		$usql = "UPDATE ".DATABASE.".recursos SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -2816,7 +2797,7 @@ function inc_recursos($dados_form)
 		
 		$db->update($usql,'MYSQL');			
 		
-		$resposta->addAlert("Existem itens n�o preenchidos, e n�o ser�o cadastrados.");	
+		$resposta->addAlert("Existem itens não preenchidos, e não serão cadastrados.");	
 	}
 	
 	$resposta->addScript("divPopupInst.destroi(".$id_modal.")");
@@ -2867,7 +2848,6 @@ function lib_campos(pai)
 	 
 	 if(pai.checked)
 	 {
-		//alert(parent.childNodes.item(3).childNodes.item(1).id);
 		//chk_del
 		parent.childNodes.item(3).childNodes.item(1).value = 0;		
 		//txt_descrativ
@@ -3063,11 +3043,9 @@ function adiciona_linha(row_index)
 		elements[i].lang = nid[0]+'_'+i;
 	}
 
-	//var elements = document.getElementsByClassName('txt_descativ_'+nid[0]);
 	var elements = $('.txt_descativ_'+nid[0]);
 	var idNovo = elements.length;
 
-	//var j = 0;
 	for(i = 0; i < idNovo; i ++)
 	{
 		//TR pai de todos na linha
@@ -3081,7 +3059,6 @@ function adiciona_linha(row_index)
 	var elements = $('.cb_fmt_'+nid[0]);
 	var idNovo = elements.length;
 
-	//var j = 0;
 	for(i = 0; i < idNovo; i ++)
 	{
 		//TR pai de todos na linha
@@ -3092,11 +3069,10 @@ function adiciona_linha(row_index)
 		elements[i].lang = nid[0]+'_'+i;
 	}
 	
-	//var elements = document.getElementsByClassName('txt_qtd_'+nid[0]);
+
 	var elements = $('.txt_qtd_'+nid[0]);
 	var idNovo = elements.length;
 
-	//var j = 0;
 	for(i = 0; i < idNovo; i ++)
 	{
 		//TR pai de todos na linha
@@ -3107,11 +3083,9 @@ function adiciona_linha(row_index)
 		elements[i].lang = nid[0]+'_'+i;
 	}
 
-	//var elements = document.getElementsByClassName('txt_qtd_'+nid[0]);
 	var elements = $('.txt_horas_'+nid[0]);
 	var idNovo = elements.length;
 
-	//var j = 0;
 	for(i = 0; i < idNovo; i ++)
 	{
 		//TR pai de todos na linha
@@ -3125,7 +3099,6 @@ function adiciona_linha(row_index)
 	var elements = $('.img_rec_'+nid[0]);
 	var idNovo = elements.length;
 
-	//var j = 0;
 	for(i = 0; i < idNovo; i ++)
 	{
 		//TR pai de todos na linha
@@ -3272,7 +3245,7 @@ function grid(tabela, autoh, height, xml)
 				}
 				
 				mygrid1.attachEvent("onRowSelect",doOnRowSelected1);	
-				mygrid1.setHeader("&nbsp;,Proposta, Descri��o,I/E",
+				mygrid1.setHeader("&nbsp;,Proposta, Descrição,I/E",
 					null,
 					["text-align:center","text-align:center","text-align:center","text-align:center"]);
 				mygrid1.setInitWidths("22,80,*,35");
@@ -3329,7 +3302,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid.enableAutoHeight(autoh,height);
 				mygrid.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid.setHeader("&nbsp;,&nbsp;,C&oacute;digo,Tarefa,Descri&ccedil;&atilde;o,Formato,Qtd,Horas",
+				mygrid.setHeader("&nbsp;,&nbsp;,Código,Tarefa,Descrição,Formato,Qtd,Horas",
 					null,
 					["text-align:center","text-align:center","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left"]);
 				mygrid.setInitWidths("25,25,55,*,*,60,100,100");
@@ -3379,12 +3352,12 @@ function grid(tabela, autoh, height, xml)
 		mygrid_resumo.enableAutoHeight(autoh,height);
 		mygrid_resumo.enableRowsHover(true,'cor_mouseover');
 		
-		//seta o id da linha para retornar a posi��o original
+		//seta o id da linha para retornar a posição original
 		mygrid_resumo.attachEvent("onRowSelect", function(id,ind){
     		document.getElementById("row_id").value = id;
 		});		
 		
-		mygrid_resumo.setHeader("Escopo&nbsp;Geral,Disciplina,Tarefa,Descri��o,Fmt,Qtd,Horas,R");
+		mygrid_resumo.setHeader("Escopo&nbsp;Geral,Disciplina,Tarefa,Descrição,Fmt,Qtd,Horas,R");
 		mygrid_resumo.setInitWidths("85,80,50,*,*,60,60,25");
 		mygrid_resumo.setColAlign("left,left,left,left,left,left,left,center");
 		mygrid_resumo.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -3440,7 +3413,7 @@ foreach ($db->array_select as $regs)
 	$array_disciplina_output[] = $regs["setor"];
 }
 
-$array_status = array(0=>'TODAS',3=>'EXPORTADO',2=>'IMPORTADO',1=>'N�O IMPORTADO');
+$array_status = array(0=>'TODAS',3=>'EXPORTADO',2=>'IMPORTADO',1=>'NÃO IMPORTADO');
 
 foreach ($array_status as $chave=>$valor)
 {

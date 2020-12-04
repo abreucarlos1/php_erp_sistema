@@ -1,14 +1,14 @@
 <?php
 /*
-		Relat�rio de ALOCA��O DE RECURSOS	
+		Relatório de ALOCAÇÃO DE RECURSOS	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_alocacao_recursos_protheus.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versão 1 --> atualização classe banco de dados - 22/01/2015 - Carlos Abreu
 */
 
 ini_set('max_execution_time','-1'); // No time limit
@@ -47,6 +47,7 @@ require_once(INCLUDE_DIR."PHPExcel/Classes/PHPExcel.php");
 $filtro0 = "";
 
 //filtra a os (-1 TODAS AS OS)
+/*
 if($_POST["equipe"] !=-1)
 {
 	$filtro0 .= "AND AE8_EQUIP = '".$_POST["equipe"]."' ";
@@ -57,7 +58,7 @@ if($_POST["recurso"]!=-1)
 {
 	$filtro0 .= "AND AE8_RECURS = '" . $_POST["recurso"] . "' ";
 }
-
+*/
 //COLUNA A EXCELL
 $coluna = 0;
 
@@ -83,11 +84,12 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
 
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, 1, iconv('ISO-8859-1', 'UTF-8',"DATA EMISSÃO: ".date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, 1, "DATA EMISSÃO: ".date('d/m/Y'));
 
 $db = new banco_dados();
 
 //Seleciona os recursos
+/*
 $sql = "SELECT * FROM AE8010 WITH(NOLOCK), AF8010 WITH(NOLOCK), AF9010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
 $sql .= "WHERE AE8010.D_E_L_E_T_ = '' ";
 $sql .= "AND AFA010.D_E_L_E_T_ = '' ";
@@ -241,6 +243,7 @@ foreach($array_rec as $regs0)
 	$array_custo_orc[$regs0["AF9_PROJET"]][$regs0["AF9_CODIGO"]] = $regs_orc["AF2_CUSTO"];
 
 }
+*/
 
 // Redirect output to a client's web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

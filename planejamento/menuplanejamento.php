@@ -1,23 +1,23 @@
 <?php
 /*
-	Formul�rio de Menu Planejamento
+	Formulário de Menu Planejamento
 	
 	Criado por Carlos Abreu  
 	
 	local/Nome do arquivo: 
 	../planejamento/menuplanejamento.php
 	
-	Vers�o 0 --> VERS�O INICIAL : 02/03/2006
-	Vers�o 1 --> Atualiza��o Lay-out : 28/07/2008
-	Vers�o 2 --> Atualiza��o DB / Lay-out: Carlos Abreu - 11/10/2012
-	Vers�o 3 --> Atualiza��o Lay-out: Carlos Abreu - 21/03/2017		
+	Versão 0 --> VERSÃO INICIAL : 02/03/2006
+	Versão 1 --> Atualização Lay-out : 28/07/2008
+	Versão 2 --> Atualização DB / Lay-out: Carlos Abreu - 11/10/2012
+	Versão 3 --> Atualização Lay-out: Carlos Abreu - 21/03/2017		
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(8))
 {
@@ -28,7 +28,7 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-$smarty->assign("body_onload","xajax_monta_menu(8);"); //M�DULO PLANEJAMENTO
+$smarty->assign("body_onload","xajax_monta_menu(8);"); //MÓDULO PLANEJAMENTO
 
 $conf = new configs();
 

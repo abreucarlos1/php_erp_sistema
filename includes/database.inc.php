@@ -8051,4 +8051,319 @@
 
   }
 
+  if (!in_array('candidatos',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos;";
+
+    $sql = "CREATE TABLE candidatos (
+      id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      id_req_vaga int(5) unsigned NOT NULL DEFAULT '0',
+      nome varchar(50) NOT NULL DEFAULT '',
+      email varchar(100) NOT NULL DEFAULT '',
+      status tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1 - liberado, 2 - Em preenchimento, 3 - concluído',
+      cpf varchar(14) NOT NULL DEFAULT '',
+      rash varchar(256) NOT NULL DEFAULT '',
+      cargo_pretendido varchar(10) DEFAULT NULL,
+      salario_pretendido decimal(15,2) DEFAULT NULL,
+      mod_contrato varchar(12) NOT NULL DEFAULT '0',
+      nivel_atuacao varchar(15) NOT NULL DEFAULT '0',
+      data_inicio date NOT NULL,
+      centro_custo int(10) unsigned DEFAULT NULL,
+      tipo_salario char(1) DEFAULT NULL,
+      setor_aso int(2) unsigned DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_arquivos',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_arquivos;";
+
+    $sql = "CREATE TABLE candidatos_arquivos (
+      caq_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      caq_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      caq_ctd_id int(5) unsigned DEFAULT NULL,
+      caq_arquivo varchar(100) NOT NULL DEFAULT '',
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (caq_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_cursos',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_cursos;";
+
+    $sql = "CREATE TABLE candidatos_cursos (
+      ccu_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      ccu_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      ccu_curso varchar(100) DEFAULT NULL,
+      ccu_instituicao varchar(100) DEFAULT NULL,
+      ccu_mes_inicio varchar(7) DEFAULT NULL,
+      ccu_mes_conclusao varchar(7) NOT NULL DEFAULT '',
+      ccu_nivel varchar(15) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (ccu_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_dados_pessoais',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_dados_pessoais;";
+
+    $sql = "CREATE TABLE candidatos_dados_pessoais (
+      cdp_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cdp_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      cdp_nacionalidade int(3) unsigned NOT NULL DEFAULT '0',
+      cdp_naturalidade varchar(45) NOT NULL DEFAULT '',
+      cdp_uf_nasc varchar(2) NOT NULL DEFAULT '',
+      cdp_sexo varchar(2) NOT NULL DEFAULT '',
+      cdp_idade tinyint(3) unsigned NOT NULL DEFAULT '0',
+      cdp_data_nasc date NOT NULL,
+      cdp_endereco varchar(100) DEFAULT NULL,
+      cdp_bairro varchar(100) DEFAULT NULL,
+      cdp_cidade varchar(100) DEFAULT NULL,
+      cdp_uf varchar(2) DEFAULT NULL,
+      cdp_cep varchar(9) DEFAULT NULL,
+      cdp_fone varchar(20) DEFAULT NULL,
+      cdp_cel varchar(20) DEFAULT NULL,
+      cdp_fone_recados varchar(20) DEFAULT NULL,
+      cdp_est_civil varchar(25) DEFAULT NULL,
+      cdp_data_casamento date NOT NULL,
+      cdp_n_filhos tinyint(3) unsigned DEFAULT NULL,
+      cdp_nome_conjuge varchar(45) DEFAULT NULL,
+      cdp_nome_pai varchar(45) DEFAULT NULL,
+      cdp_nome_mae varchar(45) NOT NULL,
+      cdp_peso float DEFAULT NULL,
+      cdp_tp_sangue varchar(3) DEFAULT NULL,
+      cdp_altura float DEFAULT NULL,
+      cdp_etnia varchar(45) DEFAULT NULL,
+      cdp_agencia varchar(15) DEFAULT NULL,
+      cdp_banco int(3) unsigned DEFAULT NULL,
+      cdp_cc varchar(15) DEFAULT NULL,
+      cdp_tp_contrato varchar(15) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cdp_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_interno',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_interno;";
+
+    $sql = "CREATE TABLE candidatos_interno (
+      cdvm_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cdvm_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      cdvm_email varchar(45) NOT NULL DEFAULT '',
+      cdvm_login varchar(45) NOT NULL DEFAULT '',
+      cdvm_sigla varchar(5) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cdvm_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_documentos',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_documentos;";
+
+    $sql = "CREATE TABLE candidatos_documentos (
+      cd_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cd_candidato_id int(5) unsigned DEFAULT NULL,
+      cd_ctps varchar(15) DEFAULT NULL,
+      cd_ctps_serie varchar(10) DEFAULT NULL,
+      cd_ctps_emissao date NOT NULL,
+      cd_rg varchar(15) DEFAULT NULL,
+      cd_rg_orgao varchar(5) DEFAULT NULL,
+      cd_rg_emissao date DEFAULT NULL,
+      cd_cpf varchar(14) DEFAULT NULL,
+      cd_titulo_eleitor varchar(15) DEFAULT NULL,
+      cd_titulo_zona varchar(8) DEFAULT NULL,
+      cd_titulo_secao varchar(8) DEFAULT NULL,
+      cd_pis varchar(15) DEFAULT NULL,
+      cd_reservista varchar(15) DEFAULT NULL,
+      cd_reservista_serie varchar(10) DEFAULT NULL,
+      cd_reservista_cidade varchar(45) DEFAULT NULL,
+      cd_cnpj varchar(20) DEFAULT NULL,
+      cd_opcao tinyint(3) unsigned DEFAULT NULL,
+      cd_empresa varchar(100) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cd_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_emprego_anterior',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_emprego_anterior;";
+
+    $sql = "CREATE TABLE candidatos_emprego_anterior (
+      cea_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cea_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      cea_empresa varchar(100) NOT NULL DEFAULT '',
+      cea_fone varchar(20) NOT NULL DEFAULT '',
+      cea_endereco varchar(150) NOT NULL DEFAULT '',
+      cea_cidade varchar(45) NOT NULL DEFAULT '',
+      cea_uf varchar(2) NOT NULL DEFAULT '',
+      cea_cargo varchar(45) NOT NULL DEFAULT '',
+      cea_admissao date NOT NULL,
+      cea_demissao date NOT NULL,
+      cea_sal_ini decimal(15,2) NOT NULL DEFAULT '0.00',
+      cea_sal_fim decimal(15,2) NOT NULL DEFAULT '0.00',
+      cea_descricao text NOT NULL,
+      cea_mot_saida text NOT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cea_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_epi',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_epi;";
+
+    $sql = "CREATE TABLE candidatos_epi (
+      ce_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      ce_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      ce_num_calcado varchar(10) DEFAULT NULL,
+      ce_tam_calca varchar(10) DEFAULT NULL,
+      ce_tam_jaleco varchar(10) DEFAULT NULL,
+      ce_tam_camisa varchar(10) DEFAULT NULL,
+      ce_tp_oculos tinyint(3) unsigned DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (ce_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_formacao',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_formacao;";
+
+    $sql = "CREATE TABLE candidatos_formacao (
+      cf_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cf_candidato_id int(5) unsigned DEFAULT NULL,
+      cf_curso varchar(100) DEFAULT NULL,
+      cf_instituicao int(5) unsigned DEFAULT NULL,
+      cf_mes_inicio varchar(7) DEFAULT NULL,
+      cf_mes_conclusao varchar(7) DEFAULT NULL,
+      cf_completou tinyint(3) unsigned DEFAULT NULL,
+      cf_serie varchar(15) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cf_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_informacoes_adicionais',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_informacoes_adicionais;";
+
+    $sql = "CREATE TABLE candidatos_informacoes_adicionais (
+      cia_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      cia_candidato_id int(5) unsigned NOT NULL DEFAULT '0',
+      cia_disp_viagens tinyint(3) unsigned DEFAULT NULL,
+      cia_disp_cidades tinyint(3) unsigned DEFAULT NULL,
+      cia_disp_turnos tinyint(3) unsigned DEFAULT NULL,
+      cia_vt tinyint(3) unsigned DEFAULT NULL,
+      cia_val_ida decimal(15,2) DEFAULT NULL,
+      cia_val_volta decimal(15,2) DEFAULT NULL,
+      cia_qtd_ida tinyint(3) unsigned DEFAULT NULL,
+      cia_qtd_volta tinyint(3) unsigned DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (cia_id)
+    ) ENGINE=InnoDB;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+  }
+
+  if (!in_array('candidatos_tipos_documentos',$array_tables))
+  {  
+    //EXCLUI A TABELA CASO EXISTA
+    //$sql = "DROP TABLE IF EXISTS candidatos_tipos_documentos;";
+
+    $sql = "CREATE TABLE candidatos_tipos_documentos (
+      ctd_id int(5) unsigned NOT NULL AUTO_INCREMENT,
+      ctd_tipo_funcionario char(2) DEFAULT NULL,
+      ctd_descricao varchar(150) DEFAULT NULL,
+      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
+      reg_who smallint(5) unsigned NOT NULL DEFAULT '0',
+      data_del date NOT NULL,
+      PRIMARY KEY (ctd_id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=45;";
+  
+    $db->exec_query($sql, 'MYSQL');
+
+    //INSERE O CONTEUDO DOS BANCOS
+    $sql = "LOCK TABLES candidatos_tipos_documentos WRITE;";
+    
+    $db->exec_query($sql, 'MYSQL');
+
+    $sql = "INSERT INTO candidatos_tipos_documentos VALUES (1,'PJ','FOTO 3x4',0,0,NULL),(2,'PJ','RG',0,0,NULL),(3,'PJ','CPF',0,0,NULL),(4,'PJ','CNH',0,0,NULL),(5,'PJ','TITULO DE ELEITOR',0,0,NULL),(6,'PJ','CERTIFICADO DE RESERVISTA',0,0,NULL),(7,'PJ','ATESTADO DE ANTECEDENTES CRIMINAIS',0,0,NULL),(8,'PJ','CERTIDÃO DE CASAMENTO - SE HOUVER',0,0,NULL),(9,'PJ','COMPROVANTE DE RESIDÊNCIA - ATUAL',0,0,NULL),(10,'PJ','CERTIFICADO ESCOLAR DA ÚLTIMA GRADUAÇÃO - FRENTE E VERSO',0,0,NULL),(11,'PJ','CERTIFICADOS DOS CURSOS COMPLEMENTARES  REFERENTE A ÁREA CONTRATADA  - FRENTE E VERSO',0,0,NULL),(12,'PJ','CURRÍCULO ATUALIZADO',0,0,NULL),(13,'PJ','CONTRATO SOCIAL EXCETO',0,0,NULL),(14,'PJ','CARTÃO CNPJ - ATUALIZADO',0,0,NULL),(15,'PJ','COMPROVANTE DE INSCRIÇÃO MUNICIPAL',0,0,NULL),(16,'PJ','COMPROVANTE DE INSCRIÇÃO ESTADUAL - SE HOUVER',0,0,NULL),(17,'PJ','CONSULTA SIMPLES NACIONAL - ATUALIZADO',0,0,NULL),(18,'PJ','CERTIFICADO DE REGULARIDADE DO FGTS / CRF - ATUAL ',0,0,NULL),(19,'PJ','CERTIDÕES NEGATIVAS / ISS / ESTADUAL / FEDERAL / UNIÃO INSS - ATUAIS',0,0,NULL),(20,'PJ','DADOS BANCÁRIOS DA CONTA JURÍDICA - ENVIAR FOTO DO CARTÃO',0,0,NULL),(21,'PF','CARTEIRA DE TRABALHO E PREVIDÊNCIA SOCIAL ',0,0,NULL),(22,'PF','FOTO 3X4',0,0,NULL),(23,'PF','CARTÃO DO BANCO',0,0,NULL),(24,'PF','RG',0,0,NULL),(25,'PF','CPF',0,0,NULL),(26,'PF','TÍTULO DE ELEITOR',0,0,NULL),(27,'PF','CERTIFICADO DE RESERVISTA',0,0,NULL),(28,'PF','COMPROVANTE DE RESIDÊNCIA',0,0,NULL),(29,'PF','CERTIFICADO ESCOLAR DE SUA ÚLTIMA GRADUAÇÃO',0,0,NULL),(30,'PF','CURRÍCULO ATUALIZADO',0,0,NULL),(31,'PF','ATESTADO DE ANTECEDENTES CRIMINAIS',0,0,NULL),(32,'ES','CARTEIRA DE TRABALHO E PREVIDÊNCIA SOCIAL (CTPS)',0,0,NULL),(33,'ES','CARTÃO DO BANCO',0,0,NULL),(34,'ES','RG',0,0,NULL),(35,'ES','CPF',0,0,NULL),(36,'ES','TÍTULO DE ELEITOR',0,0,NULL),(37,'ES','CERTIFICADO DE RESERVISTA',0,0,NULL),(38,'ES','COMPROVANTE DE RESIDÊNCIA',0,0,NULL),(39,'ES','CERTIFICADO ESCOLAR DO ENSINO MÉDIO',0,0,NULL),(40,'ES','COMPROVANTE DE MATRÍCULA (RECENTE)',0,0,NULL),(41,'ES','CONTRATO JUNTO A INSTITUIÇÃO DE ENSINO',0,0,NULL),(42,'ES','CERTIFICADOS DE TODOS OS CURSOS COMPLEMENTARES',0,0,NULL),(43,'ES','CURRÍCULO ATUALIZADO',0,0,NULL),(44,'ES','ATESTADO DE ANTECEDENTES CRIMINAIS',0,0,NULL);";
+
+    $db->exec_query($sql, 'MYSQL');
+
+    $sql = "UNLOCK TABLES;";
+
+    $db->exec_query($sql, 'MYSQL');
+
+
+
+  }
+
+  
+
 ?>

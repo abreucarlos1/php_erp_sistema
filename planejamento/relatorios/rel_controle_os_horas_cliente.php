@@ -1,20 +1,20 @@
 <?php
 /*
-		Relat�rio de OS x Horas x Cliente
+		Relatório de OS x Horas x Cliente
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controle_os_horas_cliente.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 	
-$data_ini = php_mysql($_POST["data_ini"]);
+$data_ini = php_mysql($_POST["dataini"]);
 
 $datafim = php_mysql($_POST["datafim"]);
 
@@ -72,7 +72,7 @@ if($_POST["chk_excel"]==0)
 	$db = new banco_dados;
 	
 	//Seta o cabeçalho
-	$pdf->departamento="ADMINISTRA��O";
+	$pdf->departamento=NOME_EMPRESA;
 	$pdf->titulo="MEDIÇÃO DE HORAS DAS OS POR CLIENTE";
 	$pdf->setor="ADM";
 	$pdf->codigodoc="402"; //"00"; //"04";
@@ -80,7 +80,7 @@ if($_POST["chk_excel"]==0)
 	$pdf->setorextenso=$setor; //"INFORMATICA"
 	$pdf->emissao=date('d/m/Y');
 	
-	$pdf->versao_documento=$_POST["data_ini"] . " � " . $_POST["datafim"];
+	$pdf->versao_documento=$_POST["dataini"] . " á " . $_POST["datafim"];
 	
 	$pdf->AliasNbPages();
 	
@@ -91,20 +91,20 @@ if($_POST["chk_excel"]==0)
 	
 	if($_POST["exibir"]!='')
 	{
-		$filtro .= "AND OS.id_os_status = '". $_POST["exibir"]. "' ";
+		$filtro .= "AND ordem_servico.id_os_status = '". $_POST["exibir"]. "' ";
 	}
 	
 	//MOSTRA CLIENTES
 	if ($_POST["escolhacliente"]==-1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND empresas.id_empresa_erp = OS.id_empresa_erp ";
-		$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= $filtro;
 		$sql .= "GROUP BY empresas.id_empresa_erp ORDER BY empresas.empresa";
 	}
@@ -112,18 +112,18 @@ if($_POST["chk_excel"]==0)
 	{
 		if($_POST["escolhaos"]!="")
 		{
-			$filtro .= "AND OS.id_os = '".$_POST["escolhaos"]."' ";
+			$filtro .= "AND ordem_servico.id_os = '".$_POST["escolhaos"]."' ";
 		}
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_empresa_erp = '" . $_POST["escolhacliente"]."' ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-		$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-		$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= $filtro;
 		$sql .= "GROUP BY empresas.empresa ORDER BY empresas.empresa";
@@ -153,13 +153,13 @@ if($_POST["chk_excel"]==0)
 		
 		//MOSTRA OS
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal) + TIME_TO_SEC(hora_adicional) + TIME_TO_SEC(hora_adicional_noturna)) AS OHT ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
-		$sql .= "WHERE apontamento_horas.id_os = OS.id_os ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "GROUP BY ordem_servico.os";
 		
 		$db->select($sql,'MYSQL',true);
 		
@@ -232,7 +232,7 @@ else
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">".$_POST["data_ini"] . " � " . $_POST["datafim"]."</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\">".$_POST["dataini"] . " á " . $_POST["datafim"]."</td>";
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
@@ -241,20 +241,20 @@ else
 	
 	if($_POST["exibir"]!='')
 	{
-		$filtro .= "AND OS.id_os_status = '". $_POST["exibir"]. "' ";
+		$filtro .= "AND ordem_servico.id_os_status = '". $_POST["exibir"]. "' ";
 	}
 	
 	//MOSTRA CLIENTES
 	if ($_POST["escolhacliente"]==-1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND empresas.id_empresa_erp = OS.id_empresa_erp ";
-		$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= $filtro;
 		$sql .= "GROUP BY empresas.id_empresa_erp ORDER BY empresas.empresa";
 	}
@@ -262,18 +262,18 @@ else
 	{
 		if($_POST["escolhaos"]!="-1")
 		{
-			$filtro .= "AND OS.id_os = '".$_POST["escolhaos"]."' ";
+			$filtro .= "AND ordem_servico.id_os = '".$_POST["escolhaos"]."' ";
 		}
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_empresa_erp = '" . $_POST["escolhacliente"]."' ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-		$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-		$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= $filtro;
 		$sql .= "GROUP BY empresas.empresa ORDER BY empresas.empresa";		
@@ -311,14 +311,14 @@ else
 	
 		//MOSTRA OS
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal) + TIME_TO_SEC(hora_adicional) + TIME_TO_SEC(hora_adicional_noturna)) AS OHT ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
-		$sql .= "WHERE apontamento_horas.id_os = OS.id_os ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
-		$sql .= "GROUP BY os.os ";
-		$sql .= "ORDER BY os.os ";
+		$sql .= "GROUP BY ordem_servico.os ";
+		$sql .= "ORDER BY ordem_servico.os ";
 		
 		$db->select($sql,'MYSQL',true);
 		

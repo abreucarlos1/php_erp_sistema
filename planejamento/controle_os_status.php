@@ -1,17 +1,17 @@
 <?php
 /*
-		Formul�rio de OS POR STATUS
+		Formulário de OS POR STATUS
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/controle_os_status.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> Atualiza��o Lay-out | Smarty : 05/08/2008
-		Versao 2 --> atualiza��o banco de dados - 22/01/2015 - Carlos Abreu	
-		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 31/03/2017
-		Vers�o 4 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização Lay-out | Smarty : 05/08/2008
+		Versao 2 --> Atualização banco de dados - 22/01/2015 - Carlos Abreu	
+		Versão 3 --> Atualização layout - Carlos Abreu - 31/03/2017
+		Versão 4 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -31,10 +31,10 @@ $db = new banco_dados;
 $array_status_values = NULL;
 $array_status_output = NULL;
 
-$sql = "SELECT * FROM ".DATABASE.".ordem_servico_status, ".DATABASE.".OS ";
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
 $sql .= "WHERE ordem_servico_status.id_os_status = OS.id_os_status ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "GROUP BY ordem_servico_status.id_os_status ";
 $sql .= "ORDER BY os_status ";
 

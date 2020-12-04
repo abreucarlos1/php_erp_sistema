@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de Gerenciador OS
+		Relatório de Gerenciador OS
 		
 		Criado por Carlos Abreu   
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_gerenciador_os_excel.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 05/01/2018 - Carlos Abreu
-		Vers�o 1 --> Inclus�o de data GRD, valor Medido, valor venda - 11/01/2018 - Carlos Abreu
-		Vers�o 2 --> Altera��o de fases chamado #2533 - 24/01/2018 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL - 05/01/2018 - Carlos Abreu
+		Versão 1 --> Inclusão de data GRD, valor Medido, valor venda - 11/01/2018 - Carlos Abreu
+		Versão 2 --> Alteração de fases chamado #2533 - 24/01/2018 - Carlos Abreu
 */
 
 /**
@@ -45,7 +45,7 @@ ini_set('memory_limit', '1024M');
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(614))
 {
@@ -73,7 +73,6 @@ $sql .= "AND bms_medicao.reg_del = 0 ";
 $sql .= "AND bms_item.reg_del = 0 "; 
 $sql .= "AND bms_pedido.id_bms_pedido = bms_medicao.id_bms_pedido "; 
 $sql .= "AND bms_medicao.id_bms_item = bms_item.id_bms_item ";
-//$sql .= "AND (bms_pedido.data_pedido >= 2017-07-01 OR bms_pedido.id_os IN (SELECT os FROM ".DATABASE.".bms_excecoes WHERE reg_del = 0)) ";
 $sql .= "GROUP BY bms_pedido.id_os ";
 $sql .= "ORDER BY bms_pedido.id_os ";
 
@@ -87,6 +86,7 @@ foreach($array_perc as $regs)
 }
 
 //TABELA AF2 - TAREFAS ORCAMENTO - HORAS PREVISTAS
+/*
 $sql = "SELECT SUM(AF3_QUANT) AS HORAS_PREV, AF2_ORCAME FROM AF2010 WITH(NOLOCK), AF3010 WITH(NOLOCK) "; 
 $sql .= "WHERE AF2010.D_E_L_E_T_ = '' "; 
 $sql .= "AND AF3010.D_E_L_E_T_ = '' "; 
@@ -111,14 +111,15 @@ foreach($array_prev as $regs)
 {
 	$array_horas_prev[trim($regs["AF2_ORCAME"])] = $regs["HORAS_PREV"]; 
 }
+*/
 
-//seleciona as GRDs (ultima emiss�o)
-$sql = "SELECT MAX(grd.data_emissao) AS emissao, os.os FROM ".DATABASE.".grd, ".DATABASE.".OS ";
+//seleciona as GRDs (última emissão)
+$sql = "SELECT MAX(grd.data_emissao) AS emissao, ordem_servico.os FROM ".DATABASE.".grd, ".DATABASE.".ordem_servico ";
 $sql .= "WHERE grd.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
-$sql .= "AND grd.id_os = OS.id_os ";
-$sql .= "GROUP BY OS.id_os ";
-$sql .= "ORDER BY os.os ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
+$sql .= "AND grd.id_os = ordem_servico.id_os ";
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY ordem_servico.os ";
 
 $db->select($sql, 'MYSQL', true);
 
@@ -130,6 +131,7 @@ foreach($array_grd as $regs)
 }
 
 //seleciona os planejadores
+/*
 $sql = "SELECT AF8_PROJET, AE8_RECURS, AE8_DESCRI FROM AF8010, AF9010, AFA010, AE8010 ";
 $sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
 $sql .= "AND AF9010.D_E_L_E_T_ = '' ";
@@ -219,6 +221,7 @@ foreach($array_projetos as $regs)
 	$array_proj['horas_prev'][trim($regs["AF1_ORCAME"])] = $array_horas_prev[trim($regs["AF1_ORCAME"])];
 	$array_proj['percentual'][trim($regs["AF1_ORCAME"])] = $array_percentual[trim($regs["AF1_ORCAME"])];
 }
+*/
 
 //die($sql . '-' . print_r($array_proj,true));
 
@@ -233,7 +236,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="gerenciador_os_'.date('dmYhis').'.xlsx"');
 header('Cache-Control: max-age=0');
@@ -246,16 +249,15 @@ $linha = 3; //linha
 
 foreach($array_proj['projeto'] as $projeto)
 {
-	//$objPHPExcel->getActiveSheet()->setCellValue('B2', iconv('ISO-8859-1', 'UTF-8', $descricao));
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha,iconv('ISO-8859-1', 'UTF-8', $projeto));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha,$projeto);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha,iconv('ISO-8859-1', 'UTF-8', $array_proj['descricao'][$projeto]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha,$array_proj['descricao'][$projeto]);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha,iconv('ISO-8859-1', 'UTF-8', $array_proj['cliente'][$projeto]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha,$array_proj['cliente'][$projeto]);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha,iconv('ISO-8859-1', 'UTF-8', $array_proj['fase'][$projeto]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha,$array_proj['fase'][$projeto]);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha,iconv('ISO-8859-1', 'UTF-8', $array_proj['coordenador'][$projeto]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha,$array_proj['coordenador'][$projeto]);
 	
 	$array_nome_plan = NULL;
 	
@@ -266,15 +268,15 @@ foreach($array_proj['projeto'] as $projeto)
 	
 	$nomes = implode(',',$array_nome_plan);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha,iconv('ISO-8859-1', 'UTF-8', $nomes));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha,$nomes);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6, $linha,iconv('ISO-8859-1', 'UTF-8', mysql_php($array_proj['data_aprov'][$projeto])));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6, $linha,mysql_php($array_proj['data_aprov'][$projeto]));
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha,iconv('ISO-8859-1', 'UTF-8', number_format($array_proj['horas_prev'][$projeto],2,'.','')));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha,number_format($array_proj['horas_prev'][$projeto],2,'.',''));
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8, $linha,iconv('ISO-8859-1', 'UTF-8', mysql_php($array_proj['data_emissao'][$projeto])));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8, $linha,mysql_php($array_proj['data_emissao'][$projeto]));
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9, $linha,iconv('ISO-8859-1', 'UTF-8', number_format($array_proj['percentual'][$projeto],2,'.','')));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9, $linha,number_format($array_proj['percentual'][$projeto],2,'.',''));
 	
 	$linha++;
 }

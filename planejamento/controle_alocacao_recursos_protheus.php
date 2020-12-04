@@ -1,24 +1,24 @@
 <?php
 /*
-		Formul�rio de Aloca��o recursos protheus
+		Formulário de Alocação recursos protheus
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		
 		../planejamento/controle_alocacao_recursos_protheus.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> Atualiza��o Lay-out | Smarty : 21/07/2008
-		Versao 2 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 31/03/2017		
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização Lay-out | Smarty : 21/07/2008
+		Versao 2 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 3 --> Atualização layout - Carlos Abreu - 31/03/2017		
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(217))
 {
@@ -28,57 +28,6 @@ if(!verifica_sub_modulo(217))
 $filtro = '';
 
 $coordenador = false;
-
-switch ($_SESSION["id_funcionario"])
-{
-	case '17': // L&Uacute;CIO
-		$coordenador = true;
-	break;
-	case '19': // KATSUMI
-		$coordenador = true;
-	break;
-	case '49': // SIMIOLI
-		$coordenador = true;
-	break;
-	case '16': // FL&Aacute;VIO
-		$coordenador = true;
-	break;
-	case '51': // JORGE
-		$coordenador = true;
-	break;
-	case '18': // FERNANDO
-		$coordenador = true;
-	break;
-	case '7': // CARLOS RODRIGUES
-		$coordenador = true;
-	break;
-	
-	case '6': // CARLOS ABREU
-		$coordenador = true;
-		//$filtro = "AND OS.id_cod_coord = '148' ";
-	break;
-	
-	case '689': //Ewerton
-		$coordenador = true;
-	break;
-	
-	case '836': //Diego Ferre
-		$coordenador = true;
-	break;
-
-	case '861': //C�lia
-		$coordenador = true;
-	break;
-	
-	case '927': //Noemi
-		$coordenador = true;
-	break;
-	
-	default:
-		$coordenador = false;
-	break;
-	
-}
 
 function preencherec($id_equipe)
 {
@@ -196,7 +145,7 @@ $smarty->assign("option_equipe_output",$array_equipe_output);
 $smarty->assign("option_recurso_values",$array_recurso_values);
 $smarty->assign("option_recurso_output",$array_recurso_output);
 
-$campo[1] = "ALOCA��O RECURSOS - PROTHEUS";
+$campo[1] = "ALOCAÇÃO RECURSOS - PROTHEUS";
 
 $smarty->assign("campo",$campo);
 

@@ -1,0 +1,42 @@
+1º - Binarios
+	Atualizar o server;
+		License;
+		ServerProtheus
+			OFICIAL
+			TESTE
+			(~/BIN/APPSERVER)
+	SmartClient;
+		OFICIAL
+		TESTE
+		(~/BIN/SMARTCLIENT)
+	ActiveX;
+		OFICIAL
+		TESTE
+		(~/BIN/SMARTCLIENTEACTICE_X)
+
+
+      DICIONARIO
+	(~/protheus_data/systemload)
+	descompactar o arquivo --sx2.unq
+				 sxsbra.txt
+
+2º REPOSITÓRIO
+	COLOCAR NO DIRETÓRIO (~/PROTHEUS_DATA/ATUALIZAÇÕES/PATCHES) OS ARQUIVOS DE PATCH E UPDATES, DESCOMPACTAR
+	STORED PROCEDURES -> *.ptm copiar para o diretório de patches
+			  -> *.sps copiar para o diretorio ~/protheus_data/system
+
+	startar os servicos e entrar no IDE do protheus
+	compilar via Ferramentas/Atualizar Repositórios
+	compilar os projetos/programas
+	copiar o arquivo do diretório APO para os outros diretórios APO2 e APOTST
+	
+	entrar no configurador (sigacfg)
+	(o arquivo *.sps DEVE estar no diretório system)
+	Base de dados/Stored Procedures
+			consulta
+			desinstalar
+			instalar
+			consultar
+
+
+

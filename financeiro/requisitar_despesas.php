@@ -604,19 +604,19 @@ function insere($dados_form)
 							
 							$texto = '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 							$texto .=' <tr>';
-							$texto .='	  <td colspan="5"><strong>Requisi&ccedil;&atilde;o de Despesa </strong></td>';
+							$texto .='	  <td colspan="5"><strong>Requisição de Despesa </strong></td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td colspan="5">Requisi��o&nbsp;n�:&nbsp;'.sprintf("%05d",$id_requisicao).'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">data solicita&ccedil;&atilde;o:&nbsp;'. $dados_form["data"] .' </td>';
+							$texto .='	<td colspan="5">data solicitação:&nbsp;'. $dados_form["data"] .' </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td colspan="5">Solicitante:&nbsp;'. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Respons&aacute;vel&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
+							$texto .='	<td colspan="5">Responsável&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td colspan="5">OS:&nbsp;'. sprintf("%010d",$os[1]) .'&nbsp;-&nbsp;'.trim($regs_client["A1_NOME"]).'&nbsp;-&nbsp;'.trim($regs_client["A1_MUN"]).'</td>';
@@ -734,7 +734,7 @@ function insere($dados_form)
 								$texto .='	<td colspan="5">&nbsp;</td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5" align="center"><strong>Funcion&aacute;rios</strong></td>';
+								$texto .='	<td colspan="5" align="center"><strong>Funcionários</strong></td>';
 								$texto .=' </tr>';
 								
 								//filtra os funcionarios da requisi��o
@@ -1523,19 +1523,19 @@ function atualizar($dados_form)
 							
 							$texto = '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 							$texto .=' <tr>';
-							$texto .='	  <td><strong>Requisi&ccedil;&atilde;o de Despesa </strong></td>';
+							$texto .='	  <td><strong>Requisição de Despesa </strong></td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td>Requisi��o&nbsp;n�:&nbsp;'.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>data solicita&ccedil;&atilde;o:&nbsp;'. $dados_form["data"] .' </td>';
+							$texto .='	<td>data solicitação:&nbsp;'. $dados_form["data"] .' </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td>Solicitante:&nbsp;'. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>Respons&aacute;vel&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
+							$texto .='	<td>Responsável&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td>OS:&nbsp;'. sprintf("%010d",$os[1]) .'&nbsp;-&nbsp;'.trim($regs_client["A1_NOME"]).'&nbsp;-&nbsp;'.trim($regs_client["A1_MUN"]).'</td>';
@@ -1632,7 +1632,7 @@ function atualizar($dados_form)
 								$texto .='	<td>&nbsp;</td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td align="center"><strong>Funcion&aacute;rios</strong></td>';
+								$texto .='	<td align="center"><strong>Funcionários</strong></td>';
 								$texto .=' </tr>';
 								
 								//filtra os funcionarios da requisi��o

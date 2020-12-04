@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de OS x Cliente x status	
+		Relatório de OS x Cliente x status	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_controle_os_cliente_status.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versão 1 --> atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -66,8 +66,8 @@ $pdf->SetLineWidth(0.5);
 $db = new banco_dados;
 
 //Seta o cabeçalho
-$pdf->departamento="ADMINISTRA��O";
-$pdf->titulo="RELAT�RIO OS / CLIENTE / STATUS";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="RELATÓRIO OS / CLIENTE / STATUS";
 $pdf->setor="ADM";
 $pdf->codigodoc="405"; //"00";
 $pdf->codigo="0"; //Numero OS
@@ -82,33 +82,33 @@ $pdf->SetFont('Arial','B',8);
 //MOSTRA CLIENTES
 if ($escolhacliente==-1)
 {
-	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".OS ";
-	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (OS.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
-	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (OS.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
+	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
+	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (ordem_servico.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
 	$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND unidades.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND empresas.id_empresa_erp = OS.id_empresa_erp ";
-	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "ORDER BY empresas.empresa, ordem_servico_status.os_status, os.os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "ORDER BY empresas.empresa, ordem_servico_status.os_status, ordem_servico.os ";
 
 }
 else
 {
-	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".OS  ";
-	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (OS.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
-	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (OS.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
+	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico  ";
+	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (ordem_servico.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
 	$sql .= "WHERE empresas.id_empresa_erp = '".$_POST["escolhacliente"]."' ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND unidades.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "ORDER BY empresas.empresa, os_status, OS  ";
+	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "ORDER BY empresas.empresa, os_status, ordem_servico.os  ";
 	
 }
 
@@ -132,7 +132,7 @@ foreach ($db->array_select as $regcliente)
 		
 		$pdf->Cell(25,3,"OS",0,0,'L',0);
 		
-		$pdf->Cell(70,3,"COORD. DVM",0,0,'L',0);
+		$pdf->Cell(70,3,"COORDENADOR",0,0,'L',0);
 		
 		$pdf->Cell(70,3,"COORD. CLIENTE",0,1,'L',0);
 		

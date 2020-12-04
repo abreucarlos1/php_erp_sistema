@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÛrio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat√≥rio"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -18,7 +18,7 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td colspan="2"><label class="labels">PERÕODO</label><br />
+					<td colspan="2"><label class="labels">PER√çODO</label><br />
 						<select name="periodo" id="periodo" class="caixa" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_periodo_values output=$option_periodo_output</smarty>
 						</select>

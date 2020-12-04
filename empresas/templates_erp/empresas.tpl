@@ -46,7 +46,7 @@
 								<smarty>html_options values=$option_atuacao_values output=$option_atuacao_output</smarty>
 							</select>
                     </td>
-					<td width="30%"><label for="endereco" class="labels">Endere&ccedil;o</label><br />
+					<td width="30%"><label for="endereco" class="labels">Endereço</label><br />
 							<input name="endereco" type="text" class="caixa" placeholder="Endereço" id="endereco" size="40" /></td>
 					<td width="48%"><label for="bairro" class="labels">Bairro</label><br />
 							<input name="bairro" type="text" class="caixa" placeholder="Bairro" id="bairro" size="20" /></td>

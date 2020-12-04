@@ -1,16 +1,16 @@
 <?php
 /*
-		Relat�rio Planilha Geral Horas
+		Relatório Planilha Geral Horas
 		
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:		
 		../planejamento/planilha_horas_geral.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2014
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> atualiza��o layout - Carlos Abreu - 31/03/2017
-		Vers�o 3 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL - 02/03/2014
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Atualização layout - Carlos Abreu - 31/03/2017
+		Versão 3 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 ini_set('max_execution_time', 0);
@@ -38,13 +38,13 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objPHPExcel->setActiveSheetIndex(0);
 
 //data de emissao
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, iconv('ISO-8859-1', 'UTF-8', date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, date('d/m/Y'));
 
-//ABA OS EM EXECU��O
+//ABA OS EM EXECUÇÃO
 $objPHPExcel->setActiveSheetIndex(1);
 
 //data de emissao
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, iconv('ISO-8859-1', 'UTF-8', date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, date('d/m/Y'));
 
 //Gerar a Planilha
 $arrResultado = popularPlanilha('2,3,7', $objPHPExcel, $db);
@@ -53,7 +53,7 @@ $arrResultado = popularPlanilha('2,3,7', $objPHPExcel, $db);
 $objPHPExcel->setActiveSheetIndex(2);
 
 //data de emissao
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, iconv('ISO-8859-1', 'UTF-8', date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, date('d/m/Y'));
 
 //Gerar a Planilha
 $arrResultado = popularPlanilha('5,11,12', $objPHPExcel, $db);
@@ -62,25 +62,25 @@ $arrResultado = popularPlanilha('5,11,12', $objPHPExcel, $db);
 $objPHPExcel->setActiveSheetIndex(3);
 
 //data de emissao
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, iconv('ISO-8859-1', 'UTF-8', date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, 3, date('d/m/Y'));
 
 $arrOrdemLista = array(
-	'AUTOMA��O' => array('linha' => '23'),
-	'INSTRUMENTA��O' => array('linha' => '24'),
-	'EL�TRICA' => array('linha' => '25'),
+	'AUTOMAÇÃO' => array('linha' => '23'),
+	'INSTRUMENTAÇÃO' => array('linha' => '24'),
+	'ELÉTRICA' => array('linha' => '25'),
 	'CIVIL' => array('linha' => '26'),
-	'ESTRUTURAS MET�LICAS' => array('linha' => '27'),		
-	'MEC�NICA' => array('linha' => '28'),
-	'SISTEMA COMBATE INC�NCIO' => array('linha' => '29'),		
-	'TUBULA��O' => array('linha' => '30'),
-	'VENTILA��O E AR CONDICIONADO' => array('linha' => '31'),		
+	'ESTRUTURAS METÁLICAS' => array('linha' => '27'),		
+	'MECÂNICA' => array('linha' => '28'),
+	'SISTEMA COMBATE INCÊNCIO' => array('linha' => '29'),		
+	'TUBULAÇÃO' => array('linha' => '30'),
+	'VENTILAÇÃO E AR CONDICIONADO' => array('linha' => '31'),		
 	'PDMS' => array('linha' => '32'),
 	'PROCESSO' => array('linha' => '33'),
-	'COORDENA��O' => array('linha' => '34'),
+	'COORDENAÇÃO' => array('linha' => '34'),
 	'PLANEJAMENTO' => array('linha' => '35')
 );
 
-//N�mero de funcion�rios por setor
+//Número de funcionários por setor
 $sql = "SELECT
 	setor, count(id_funcionario) quant
 FROM
@@ -101,7 +101,7 @@ $db->select($sql, 'MYSQL', function($reg, $i) use(&$arrOrdemLista){
 foreach($arrOrdemLista as $k => $lista)
 {
 	if (isset($lista['qtd']))
-		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $lista['linha'], iconv('ISO-8859-1', 'UTF-8', intval($lista['qtd'])));
+		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $lista['linha'], intval($lista['qtd']));
 }
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -140,7 +140,6 @@ function popularPlanilha($fases, $objPHPExcel, $db)
 		AND AFA_TAREFA = AF9_TAREFA
 		AND AF8_FASE IN(".$fases.")
 		AND AF9_GRPCOM <> ''
-		AND AF9_PROJET > 4000
 	GROUP BY AF8_PROJET, AF9_GRPCOM
 	ORDER BY AF8_PROJET";
 
@@ -199,13 +198,13 @@ function popularPlanilha($fases, $objPHPExcel, $db)
 	{
 		foreach($registro as $disciplina => $reg)
 		{
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8', $os));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8', $disciplina));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, iconv('ISO-8859-1', 'UTF-8', $reg['ORCADO']));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha, iconv('ISO-8859-1', 'UTF-8', number_format($reg['PLANEJADO'], 2, '.', '')));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, $os);
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha,  $disciplina);
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, $reg['ORCADO']);
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha, number_format($reg['PLANEJADO'], 2, '.', ''));
 		
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha, iconv('ISO-8859-1', 'UTF-8', $reg['HORAS_APONTADAS']));
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9, $linha, iconv('ISO-8859-1', 'UTF-8', '=F'.$linha.'-H'.$linha));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha, $reg['HORAS_APONTADAS']);
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9, $linha, '=F'.$linha.'-H'.$linha);
 			
 			if ($linha >= 34)
 			{

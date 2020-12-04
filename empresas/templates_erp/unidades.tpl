@@ -20,7 +20,7 @@
           <td colspan="2" valign="top" class="espacamento">
           <table border="0" width="100%">
 				<tr>
-					<td width="12%"><label for="abreviacao" class="labels">Abrevia&ccedil;&atilde;o</label><br />
+					<td width="12%"><label for="abreviacao" class="labels">Abreviação</label><br />
 							<input name="abreviacao" type="text" class="caixa" placeholder="Abreviacao" id="abreviacao" size="15" /></td>
 					<td width="88%"><label for="unidade" class="labels">Unidade</label><br />
 							<input name="unidade" type="text" class="caixa" placeholder="Unidade" id="unidade" size="50" /></td>

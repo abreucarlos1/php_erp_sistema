@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de Cliente x OS x Horas	
+		Relatório de Cliente x OS x Horas	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_cliente_os_horas_excel.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versão 1 --> atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 header("Content-Type: application/vnd.ms-excel");
@@ -20,22 +20,21 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 
 $db = new banco_dados;
 
-$dt_dataini = $_POST["data_ini"];
+$dt_dataini = $_POST["dataini"];
 $dt_datafim = $_POST["datafim"];
 
 $sql = "SELECT empresas.empresa, empresas.cidade, os.os, funcionarios.id_funcionario, funcionarios.funcionario, SUM(TIME_TO_SEC(apontamento_horas.hora_normal)) AS HN, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional)) AS HA, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional_noturna)) AS HAN ";
-$sql .= "FROM ".DATABASE.".empresas, ".DATABASE.".OS, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
+$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
 $sql .= "AND empresas.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
-$sql .= "AND OS.id_os = apontamento_horas.id_os "; 
+$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os "; 
 $sql .= "AND apontamento_horas.id_funcionario = funcionarios.id_funcionario ";
 $sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($dt_dataini) . "' AND '" . php_mysql($dt_datafim) . "' ";
-$sql .= "AND OS.id_os NOT IN (29,1126,1127,1128) "; //tira 01, 03, 04, 06
-$sql .= "GROUP BY apontamento_horas.id_funcionario, OS.id_os, empresas.id_empresa_erp ";
-$sql .= "ORDER BY empresas.empresa, empresas.cidade, os.os, funcionarios.funcionario ";
+$sql .= "GROUP BY apontamento_horas.id_funcionario, ordem_servico.id_os, empresas.id_empresa_erp ";
+$sql .= "ORDER BY empresas.empresa, empresas.cidade, ordem_servico.os, funcionarios.funcionario ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -43,20 +42,20 @@ $cont_horas = $db->array_select;
 
 $filtro = '';
 
-//CABE�ALHO
+//CABEÇALHO
 $conteudo = "<table width=\"100%\" border=\"1\">";
 
-$conteudo .= "<tr><td colspan=6>Per�odo: " . $dt_dataini . " - " . $dt_datafim . "</td></tr>";
+$conteudo .= "<tr><td colspan=6>Período: " . $dt_dataini . " - " . $dt_datafim . "</td></tr>";
 
 if(!in_array($_SESSION["id_funcionario"],array('6','1229')))
 {
-	$conteudo .= "<tr><td><b>Cliente</b></td><td><b>OS</b></td><td><b>Funcion�rio</b></td><td colspan=3><b>Horas</b></td></tr>";
+	$conteudo .= "<tr><td><b>Cliente</b></td><td><b>OS</b></td><td><b>Funcionário</b></td><td colspan=3><b>Horas</b></td></tr>";
 
 	$conteudo .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>HN</b></td><td><b>HA</b></td><td><b>Total</b></td></tr>";
 }
 else
 {
-	$conteudo .= "<tr><td><b>Cliente</b></td><td><b>OS</b></td><td><b>Funcion�rio</b></td><td><b>Contrato</b></td><td colspan=3><b>Horas</b></td></tr>";
+	$conteudo .= "<tr><td><b>Cliente</b></td><td><b>OS</b></td><td><b>Funcionário</b></td><td><b>Contrato</b></td><td colspan=3><b>Horas</b></td></tr>";
 
 	$conteudo .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>HN</b></td><td><b>HA</b></td><td><b>Total</b></td></tr>";		
 }
@@ -74,7 +73,7 @@ $int_ttha = 0;
 
 foreach($cont_horas as $reg_horas)
 {	
-	//Forma os grupos de ordena��o
+	//Forma os grupos de ordenação
 	if($str_os!==$reg_horas["os"])
 	{
 		$str_os = $reg_horas["os"];
@@ -130,6 +129,7 @@ foreach($cont_horas as $reg_horas)
 		$str_empresa = "";
 	}
 	
+	/*
 	if(in_array($_SESSION["id_funcionario"],array('6','1229')))
 	{
 		$sql = "SELECT * FROM ".DATABASE.".salarios ";
@@ -142,6 +142,7 @@ foreach($cont_horas as $reg_horas)
 		
 		$cont1 = $db->array_select[0];
 	}
+	*/
 
 	$str_funcionario = $reg_horas["funcionario"];	
 
@@ -155,14 +156,14 @@ foreach($cont_horas as $reg_horas)
 	$int_tthn += $reg_horas["HN"];
 	$int_ttha += $reg_horas["HA"]+$reg_horas["HAN"];
 
-	if(!in_array($_SESSION["id_funcionario"],array('6','1229')))
-	{
+	//if(!in_array($_SESSION["id_funcionario"],array('6','1229')))
+	//{
 		$conteudo .= "<tr><td>" . $str_empresa .  "</td><td>" . $str_os . "</td><td>" . $str_funcionario . "</td><td>" . sec_to_time($reg_horas["HN"]) . "</td><td>" . sec_to_time($reg_horas["HA"]) . "</td><td>" . sec_to_time($reg_horas["HA"]+$reg_horas["HN"])  . "</td></tr>";
-	}
-	else
-	{
-		$conteudo .= "<tr><td>" . $str_empresa .  "</td><td>" . $str_os . "</td><td>" . $str_funcionario . "</td><td>" . $cont1[" tipo_contrato"] . "</td><td>" . sec_to_time($reg_horas["HN"]) . "</td><td>" . sec_to_time($reg_horas["HA"]) . "</td><td>" . sec_to_time($reg_horas["HA"]+$reg_horas["HN"])  . "</td></tr>";
-	}
+	//}
+	//else
+	//{
+		//$conteudo .= "<tr><td>" . $str_empresa .  "</td><td>" . $str_os . "</td><td>" . $str_funcionario . "</td><td>" . $cont1[" tipo_contrato"] . "</td><td>" . sec_to_time($reg_horas["HN"]) . "</td><td>" . sec_to_time($reg_horas["HA"]) . "</td><td>" . sec_to_time($reg_horas["HA"]+$reg_horas["HN"])  . "</td></tr>";
+	//}
 
 	$str_empresa = $reg_horas["empresa"] . " - " . $reg_horas["cidade"];
 	$str_os = $reg_horas["os"];
@@ -170,44 +171,43 @@ foreach($cont_horas as $reg_horas)
 }
 
 //Apresenta o subtotal por OS
-if(!in_array($_SESSION["id_funcionario"],array('6','1229')))
-{
+//if(!in_array($_SESSION["id_funcionario"],array('6','1229')))
+//{
 	$conteudo .= "<tr><td>&nbsp;</td><td><b>SUBTOTAL OS:</b></td><td>&nbsp;</td><td><b>" . sec_to_time($int_oshn) . "</b></td><td><b>" . sec_to_time($int_osha) . "</b></td><td><b>" . sec_to_time($int_oshn+$int_osha) . "</b></td></tr>";
 	$conteudo .= "<tr><td><b>TOTAL CLIENTE:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_clihn) . "</b></td><td><b>" . sec_to_time($int_cliha) . "</b></td><td><b>" . sec_to_time($int_clihn+$int_cliha) . "</b></td></tr>";
 	$conteudo .= "<tr><td colspan=6>&nbsp;</td></tr>";
 
 	//Apresenta o subtotal por empresa
-	$conteudo .= "<tr><td><b>TOTAL DIRETO/PRODU��O:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_tthn) . "</b></td><td><b>" . sec_to_time($int_ttha) . "</b></td><td><b>" . sec_to_time($int_tthn+$int_ttha) . "</b></td></tr>";
+	$conteudo .= "<tr><td><b>TOTAL DIRETO/PRODUÇÃO:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_tthn) . "</b></td><td><b>" . sec_to_time($int_ttha) . "</b></td><td><b>" . sec_to_time($int_tthn+$int_ttha) . "</b></td></tr>";
 	$conteudo .= "<tr><td colspan=6>&nbsp;</td></tr>";
 	$conteudo .= "<tr><td colspan=6>&nbsp;</td></tr>";
-}
-else
-{
-	$conteudo .= "<tr><td>&nbsp;</td><td><b>SUBTOTAL OS:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_oshn) . "</b></td><td><b>" . sec_to_time($int_osha) . "</b></td><td><b>" . sec_to_time($int_oshn+$int_osha) . "</b></td></tr>";
-	$conteudo .= "<tr><td><b>TOTAL CLIENTE:</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_clihn) . "</b></td><td><b>" . sec_to_time($int_cliha) . "</b></td><td><b>" . sec_to_time($int_clihn+$int_cliha) . "</b></td></tr>";
-	$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
+//}
+//else
+//{
+	//$conteudo .= "<tr><td>&nbsp;</td><td><b>SUBTOTAL OS:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_oshn) . "</b></td><td><b>" . sec_to_time($int_osha) . "</b></td><td><b>" . sec_to_time($int_oshn+$int_osha) . "</b></td></tr>";
+	//$conteudo .= "<tr><td><b>TOTAL CLIENTE:</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_clihn) . "</b></td><td><b>" . sec_to_time($int_cliha) . "</b></td><td><b>" . sec_to_time($int_clihn+$int_cliha) . "</b></td></tr>";
+	//$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
 
 	//Apresenta o subtotal por empresa
-	$conteudo .= "<tr><td><b>TOTAL DIRETO/PRODU��O:</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_tthn) . "</b></td><td><b>" . sec_to_time($int_ttha) . "</b></td><td><b>" . sec_to_time($int_tthn+$int_ttha) . "</b></td></tr>";
-	$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
-	$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
-}
+	//$conteudo .= "<tr><td><b>TOTAL DIRETO/PRODU��O:</b></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_tthn) . "</b></td><td><b>" . sec_to_time($int_ttha) . "</b></td><td><b>" . sec_to_time($int_tthn+$int_ttha) . "</b></td></tr>";
+	//$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
+	//$conteudo .= "<tr><td colspan=7>&nbsp;</td></tr>";
+//}
 
 
 //CUSTOS INDIRETOS - ADMINISTRATIVO
-$sql = "SELECT empresas.empresa, empresas.cidade, os.os, funcionarios.funcionario, SUM(TIME_TO_SEC(apontamento_horas.hora_normal)) AS HN, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional)) AS HA, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional_noturna)) AS HAN ";
-$sql .= "FROM ".DATABASE.".empresas, ".DATABASE.".OS, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql = "SELECT empresas.empresa, empresas.cidade, ordem_servico.os, funcionarios.funcionario, SUM(TIME_TO_SEC(apontamento_horas.hora_normal)) AS HN, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional)) AS HA, SUM(TIME_TO_SEC(apontamento_horas.hora_adicional_noturna)) AS HAN ";
+$sql .= "FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
+$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
 $sql .= "AND empresas.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
-$sql .= "AND OS.id_os = apontamento_horas.id_os "; 
+$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os "; 
 $sql .= "AND apontamento_horas.id_funcionario = funcionarios.id_funcionario ";
 $sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($dt_dataini) . "' AND '" . php_mysql($dt_datafim) . "' ";
-$sql .= "AND OS.id_os IN (29,1126,1127,1128) "; 
-$sql .= "GROUP BY apontamento_horas.id_funcionario, OS.id_os, empresas.id_empresa_erp ";
-$sql .= "ORDER BY empresas.empresa, empresas.cidade, os.os, funcionarios.funcionario ";
+$sql .= "GROUP BY apontamento_horas.id_funcionario, ordem_servico.id_os, empresas.id_empresa_erp ";
+$sql .= "ORDER BY empresas.empresa, empresas.cidade, ordem_servico.os, funcionarios.funcionario ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -226,7 +226,7 @@ $int_ttha = 0;
 
 foreach($cont_admind as $reg_admind)
 {	
-	//Forma os grupos de ordena��o
+	//Forma os grupos de ordenação
 	if($str_os!==$reg_admind["os"])
 	{
 		$str_os = $reg_admind["os"];
@@ -279,7 +279,7 @@ foreach($cont_admind as $reg_admind)
 }
 
 //Apresenta o subtotal por OS
-$conteudo .= "<tr><td><b>TOTAL INDIRETO/PRODU��O:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_indhn) . "</b></td><td><b>" . sec_to_time($int_indha) . "</b></td><td><b>" . sec_to_time($int_indhn+$int_indha) . "</b></td></tr>";
+$conteudo .= "<tr><td><b>TOTAL INDIRETO/PRODUÇÃO:</b></td><td>&nbsp;</td><td>&nbsp;</td><td><b>" . sec_to_time($int_indhn) . "</b></td><td><b>" . sec_to_time($int_indha) . "</b></td><td><b>" . sec_to_time($int_indhn+$int_indha) . "</b></td></tr>";
 
 echo $conteudo;
 

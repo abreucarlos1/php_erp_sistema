@@ -170,13 +170,13 @@ function modal_informacoes_pedido($os)
     $html = '<form id="frm_informacoes" method="post">'.
         '<input name="os" type="hidden" id="os" value="'.$os.'">'.
         '<input name="id_bms_pedidos_informacoes" type="hidden" id="id_bms_pedidos_informacoes" value="'.$id_bms_pedidos_informacoes.'">'.
-        '<label class="labels" style="float:left;width:140px;">Condi&ccedil;&otilde;es de PGTO</label>'.
+        '<label class="labels" style="float:left;width:140px;">Condições de PGTO</label>'.
         '<input name="cond_pgto" class="caixa" type="text" placeholder="Condicoes de pgto 10DDL | 60DDL ..." id="cond_pgto" size="90" value="'.$condPgto.'" /><br />'.
         
-        '<label class="labels" style="float:left;width:140px;">Respons&aacute;vel Medi&ccedil;&atilde;o</label>'.
+        '<label class="labels" style="float:left;width:140px;">Responsável Medição</label>'.
         '<input name="responsavel_medicao" class="caixa" style="text-transform:initial;" type="text" placeholder="Nome e/ou E-mail responsavel pela aprovacao do boletim de medicao" id="responsavel_medicao" size="90" value="'.$respMed.'" /><br />'.
         
-        '<label class="labels" style="float:left;width:140px;">Respons&aacute;vel NF</label>'.
+        '<label class="labels" style="float:left;width:140px;">Responsável NF</label>'.
         '<input name="responsavel_nf" class="caixa" style="text-transform:initial;" type="text" placeholder="Nome e/ou E-mail responsavel pelo recebimento da nota fiscal" id="responsavel_nf" size="90" value="'.$respNF.'" /><br />'.
         
         '<label class="labels" style="float:left;width:140px;">Forma de PGTO</label>'.
@@ -185,20 +185,20 @@ function modal_informacoes_pedido($os)
         '<label for="recebimento" style="float:left;width:140px;" class="labels">data&nbsp;limite envio NF</label>'.
         '<input name="recebimento" type="text" class="caixa" placeholder="At&ecirc; 25/M&Ecirc;s | At&ecirc; 30/M&Ecirc;S ..." id="recebimento"  value="'.$recebimento.'" /><br />'.
         
-        '<label for="data_medicao" style="float:left;width:140px;" class="labels">data&nbsp;de&nbsp;Medi&ccedil;&atilde;o</label>'.
+        '<label for="data_medicao" style="float:left;width:140px;" class="labels">data&nbsp;de&nbsp;Medição</label>'.
         '<input name="data_medicao" placeholder="30/M&Ecirc;s | 10/M&Ecirc;S ..." type="text" class="caixa" id="data_medicao"  value="'.$medicao.'" /><br />'.
         
-        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Per&iacute;odo&nbsp;de&nbsp;Medi&ccedil;&atilde;o</label>'.
+        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Per&iacute;odo&nbsp;de&nbsp;Medição</label>'.
         '<input name="periodo_medicao" type="text" class="caixa" placeholder="26 - 25 | 11 - 10 ..." id="periodo_medicao"  value="'.$periodoMed.'" /><br />'.
         
-        '<label for="obs" style="float:left;width:140px;" class="labels">Outras informa&ccedil;&otilde;es</label>'.
+        '<label for="obs" style="float:left;width:140px;" class="labels">Outras informações</label>'.
         '<textarea id="obs" name="obs" class="caixa" cols="88" rows="7" placeholder="Outras informacoes importantes">'.$obs.'</textarea><br />'.
         
         '<input type="button" class="class_botao" onclick="xajax_salvar_informacoes_pedido(xajax.getFormValues(\'frm_informacoes\'));" value="SALVAR">'.
         '<input type="button" class="class_botao" onclick="xajax_modal_anexar_pedido('.$os.');" value="ANEXAR" />'.
         '</form>';
     
-    $resposta->addScriptCall("modal",$html, '450_850', 'Informa&ccedil;&otilde;es sobre o pedido','1');
+    $resposta->addScriptCall("modal",$html, '450_850', 'Informações sobre o pedido','1');
     
     return $resposta;
 }

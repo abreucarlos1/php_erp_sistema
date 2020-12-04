@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de Apontamentos x periodo
+		Relatório de Apontamentos x periodo
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controlehoras_periodo.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -50,7 +50,7 @@ function Header()
 	$this->SetXY(25,45);
 	
 	$this->SetFont('Arial','B',8);
-	$this->Cell(170,5,"FUNCION�RIO: " . $this->funcionario,0,1,'L',0);
+	$this->Cell(170,5,"FUNCIONÁRIO: " . $this->funcionario,0,1,'L',0);
 	$this->SetLineWidth(0.5);
 	$this->SetDrawColor(128,128,128);
 	$this->Line(25,50,195,50);
@@ -73,8 +73,8 @@ $pdf->SetLineWidth(0.5);
 $db = new banco_dados;
 
 //Seta o cabeçalho
-$pdf->departamento="ADMINISTRA��O";
-$pdf->titulo="RELAT�RIO POR PER�ODO";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="RELATÓRIO POR PERÍODO";
 $pdf->setor="ADM";
 $pdf->codigodoc="303"; //"00"; //"02";
 $pdf->codigo="01"; //Numero OS
@@ -95,8 +95,8 @@ switch($_POST["intervalo"])
 		else
 		{ 
 			$mesant = $_POST["mes"] - 1;
-			//altera��o aqui!!! 03/01/2008
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Ot�vio
+			//alteração aqui!!! 03/01/2008
+			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
 			$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}
@@ -104,7 +104,7 @@ switch($_POST["intervalo"])
 	
 	case "periodo":
 		
-		$data_ini = $_POST["data_ini"];
+		$data_ini = $_POST["dataini"];
 		$datafim = $_POST["datafim"];
 		
 	break;
@@ -116,7 +116,7 @@ switch($_POST["intervalo"])
 	break;
 }
 
-$pdf->versao_documento=$data_ini . " � " . $datafim;
+$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE id_funcionario = '" . $_POST["funcionario"] . "' ";
@@ -145,7 +145,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(20,5,"DATA",0,0,'L',0);
 $pdf->Cell(20,5,"OS",0,0,'L',0);
-$pdf->Cell(80,5,"DESCRI��O",0,0,'L',0);
+$pdf->Cell(80,5,"DESCRIÇÃO",0,0,'L',0);
 $pdf->Cell(20,5,"H. NORMAIS",0,0,'R',0);
 $pdf->Cell(20,5,"H. EXTRAS",0,1,'R',0);
 $pdf->SetFont('Arial','',8);
@@ -154,16 +154,16 @@ $data_ini = php_mysql($data_ini);
 $datafim = php_mysql($datafim);
 
 $sql = "SELECT *, TIME_TO_SEC(hora_normal) AS HN, TIME_TO_SEC(hora_adicional) AS HA, TIME_TO_SEC(hora_adicional_noturna) AS HAN ";
-$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS, ".DATABASE.".atividades  ";
+$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico, ".DATABASE.".atividades  ";
 $sql .= "WHERE apontamento_horas.id_funcionario = '" . $_POST["funcionario"] . "' ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND atividades.reg_del = 0 ";
 $sql .= "AND atividades.id_atividade = apontamento_horas.id_atividade ";
-$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 $sql .= $filtro;
 $sql .= " AND data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
-$sql .= " ORDER BY apontamento_horas.data, os.os ";
+$sql .= " ORDER BY apontamento_horas.data, ordem_servico.os ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -178,7 +178,7 @@ foreach ($db->array_select as $regs)
 	  $tam = $pdf->GetStringWidth($regs["descricao"] . " " . $complemento);
 	  
 	  $celula = ceil($tam/75); //65 caracteres em uma linha / 120 tamanho do campo
-	  // Era 83 - Alterado para 75 por Ot�vio em 03/07/2007. MOTIVO: corre��o de letras embaralhadas.
+	  // Era 83 - Alterado para 75 por Otávio em 03/07/2007. MOTIVO: correção de letras embaralhadas.
 	  
 	  if (!$celula)
 	  {
@@ -240,8 +240,8 @@ $pdf->Line(25,260,65,260);
 
 $pdf->Line(145,260,195,260);	
 $pdf->SetXY(25,261);
-$pdf->Cell(40,5,"FUNCION�RIO",0,0,'C',0);
-$pdf->Cell(210,5,"ADMINISTRA��O",0,0,'C',0);
+$pdf->Cell(40,5,"FUNCIONÁRIO",0,0,'C',0);
+$pdf->Cell(210,5,"ADMINISTRAÇÃO",0,0,'C',0);
 
 $pdf->Output('CONTROLE_HORAS_PERIODO_'.date('dmYhis').'.pdf', 'D');
 

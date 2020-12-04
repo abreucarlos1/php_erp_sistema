@@ -45,7 +45,7 @@
 						<input name="horasextras" tabindex="15" type="radio" value="1" id="horasextras1" onclick="abreHE(frm.funcionario.value,frm.dataini.value,frm.datafin.value);">
                         <label class="labels">Sim</label><br />
                           <input name="horasextras" tabindex="16" type="radio" value="0"  id="horasextras0" checked>
-                          <label class="labels">N&atilde;o</label>
+                          <label class="labels">Não</label>
                     </td>
 					<td width="70%"><label class="labels">Proporcional&nbsp;aos&nbsp;dias&nbsp;(MENS)</label><br />
 						<input name="proporcional" type="radio" value="1" id="proporcional1">

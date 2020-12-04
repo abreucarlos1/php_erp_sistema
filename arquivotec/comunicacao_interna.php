@@ -186,7 +186,7 @@ function atualizatabela($dados_form, $limparServico = false)
 			/*
 			if($_SESSION["id_funcionario"]==6 || $_SESSION["id_funcionario"]==909 || $_SESSION["id_funcionario"]==1213 || $_SESSION["id_funcionario"]==978)
 			{
-				$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Todos&nbsp;os&nbsp;dados&nbsp;referentes&nbsp;a&nbsp;esse&nbsp;documento&nbsp;de&nbsp;refer&ecirc;ncia&nbsp;ser&atilde;o&nbsp;EXCLU&Iacute;DOS&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'");} title="Excluir&nbsp;Documento">';
+				$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Todos&nbsp;os&nbsp;dados&nbsp;referentes&nbsp;a&nbsp;esse&nbsp;documento&nbsp;de&nbsp;refer&ecirc;ncia&nbsp;serão&nbsp;EXCLU&Iacute;DOS&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'");} title="Excluir&nbsp;Documento">';
 				
 				$xml->writeElement('cell',$rowHtml);
 			}

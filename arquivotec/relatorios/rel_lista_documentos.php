@@ -157,7 +157,7 @@ if($_POST["id_formato"])
 
 if($_POST["chk_periodo"])
 {
-	$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
+	$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
 }
 
 //ALTERADO - CARLOS ABREU - 09/08/2012
@@ -230,7 +230,7 @@ foreach($db->array_select as $reg_numdvm)
 	
 			if($_POST["chk_periodo"])
 			{
-				$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
+				$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
 			}
 			
 			//ALTERADO - CARLOS ABREU - 09/08/2012
@@ -359,7 +359,7 @@ if($_POST["chk_emitidos"]=="1")
 	
 	if($_POST["chk_periodo"])
 	{
-		$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
+		$sql .= "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
 	}
 	
 	//ALTERADO - CARLOS ABREU - 09/08/2012
@@ -622,7 +622,7 @@ else
 
 if(isset($_POST["chk_periodo"]))
 {
-	$periodo = "Período: " . $_POST["data_ini"] . " até " . $_POST["datafim"];
+	$periodo = "Período: " . $_POST["dataini"] . " até " . $_POST["datafim"];
 }
 else
 {

@@ -7,7 +7,7 @@
           <td width="122" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat�rio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -18,17 +18,17 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td width="10%"><label class="labels">PER&Iacute;ODO</label></td>
+					<td width="10%"><label class="labels">PERÍODO</label></td>
 					</tr>
 				<tr>
 					<td align="left">
 						<input name="dataini" type="text" class="caixa" id="dataini" size="10"  onkeypress="transformaData(this, event);" onkeyup="return autoTab(this,'datafim', 10);" />&nbsp;
-						<label class="labels">&aacute;</label>&nbsp;
+						<label class="labels">á</label>&nbsp;
 						<input name="datafim" type="text" class="caixa" id="datafim" size="10"  onkeypress="transformaData(this, event);" />
 					</td>
 					</tr>
 				<tr>
-					<td><label class="labels">TIPO&nbsp;CONTRATA&Ccedil;&Atilde;O</label></td>
+					<td><label class="labels">TIPO&nbsp;CONTRATAÇÃO</label></td>
 					</tr>
 				<tr>
 					<td>
@@ -39,11 +39,11 @@
 							</tr>
 						<tr>
 							<td height="40"><input name="tipocontrato" type="radio" value="EST" /></td>
-							<td><label class="labels">EST&Aacute;GIARIOS</label></td>
+							<td><label class="labels">ESTÁGIARIOS</label></td>
 							</tr>
 						<tr>
 							<td height="40"><input name="tipocontrato" type="radio" value="SOCIO" /></td>
-							<td><label class="labels">S&Oacute;CIOS</label></td>
+							<td><label class="labels">SÓCIOS</label></td>
 							</tr>
 					</table></td>
 				</tr>

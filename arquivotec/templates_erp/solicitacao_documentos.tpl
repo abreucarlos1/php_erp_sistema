@@ -22,7 +22,7 @@
 			  <td width="100%" valign="top" class="espacamento">
 			    <table border="0" width="100%">
                 <tr>
-                  <td colspan="2"><label class="labels">Funcion&aacute;rio&nbsp;&nbsp;<span style="font-size:12px; font-weight:bold;">
+                  <td colspan="2"><label class="labels">FuncionÃ¡rio&nbsp;&nbsp;<span style="font-size:12px; font-weight:bold;">
 					<smarty>$nome_funcionario</smarty></span></label>                  
                   </td>
                   </tr>
@@ -85,9 +85,9 @@
                                 <select name="finalidade" class="caixa" id="finalidade" disabled="disabled" onkeypress="return keySort(this);">
                                         <option value="">SELECIONE</option>
                                         <option value="CONSULTA">CONSULTA</option>
-                                        <option value="REVISÃO">REVIS&Atilde;O</option>
+                                        <option value="REVISï¿½O">REVIS&Atilde;O</option>
                                                             </select></td>
-                                <td width="74%"><label for="servico" class="labels">Serviço</label><br /> 
+                                <td width="74%"><label for="servico" class="labels">Serviï¿½o</label><br /> 
                                    <select name="servico" class="caixa" id="servico">
                                     <smarty>html_options values=$option_servico_values output=$option_servico_output</smarty>
                                   </select>
@@ -124,10 +124,10 @@
                                 </select></td>
                                 <td width="5%"><label for="folhas" class="labels">Folhas</label><br />
                                     <input name="folhas" type="text" class="caixa" id="folhas" placeholder="Folhas" size="5" maxlength="5" value="0" /></td>
-                                <td width="6%"><label for="revisao" class="labels">Revis&atilde;o*</label><br />
+                                <td width="6%"><label for="revisao" class="labels">RevisÃ£o*</label><br />
                                     <input name="revisao" type="text" class="caixa" id="revisao" size="3" placeholder="Folhas" maxlength="3" value="0" /></td>
-                                <td width="49%"><label for="txt_obs" class="labels">Observa&ccedil;&otilde;es:</label><br />
-                                  <input name="txt_obs" type="text" class="caixa" id="txt_obs" size="30" placeholder="Observação" maxlength="60">
+                                <td width="49%"><label for="txt_obs" class="labels">ObservaÃ§Ãµes:</label><br />
+                                  <input name="txt_obs" type="text" class="caixa" id="txt_obs" size="30" placeholder="Observaï¿½ï¿½o" maxlength="60">
                                </td>
                             </tr>
                         </table>

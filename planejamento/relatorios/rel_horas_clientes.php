@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Horas x Clientes
+		Relatório Horas x Clientes
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_horas_clientes.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -70,8 +70,8 @@ $pdf->SetLineWidth(0.5);
 
 $db = new banco_dados;
 
-$pdf->departamento="PLANEJAMENTO";
-$pdf->titulo="RELAT�RIO HORAS CLIENTES";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="RELATÓRIO HORAS CLIENTES";
 $pdf->setor="PLN";
 $pdf->codigodoc="000"; //"00"; //"02";
 $pdf->codigo="01"; //Numero OS
@@ -82,11 +82,10 @@ $data_ini = "01/" . $_POST["mes"] . "/" . date('Y');
 
 $datafim = date("d/m/Y",mktime(0, 0, 0, $_POST["mes"]+1, 0, date('Y')));
 
-$pdf->versao_documento=$data_ini . " � " . $datafim;
+$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $sql = "SELECT * FROM ".DATABASE.".local ";
-$sql .= "WHERE local.descricao LIKE '%VALE%' ";
-$sql .= "AND local.reg_del = 0 ";
+$sql .= "WHERE local.reg_del = 0 ";
 $sql .= "ORDER BY descricao ";
 
 $db->select($sql,'MYSQL',true);
@@ -110,7 +109,7 @@ $pdf->AddPage();
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(55,5,"LOCAL DE TRABALHO",0,0,'L',0);
-$pdf->Cell(95,5,"FUNCION�RIO",0,0,'L',0);
+$pdf->Cell(95,5,"FUNCIONÁRIO",0,0,'L',0);
 $pdf->Cell(20,5,"HH",0,1,'L',0);
 
 $pdf->SetFont('Arial','',8);
@@ -164,7 +163,7 @@ foreach ($setor as $chave=>$valor)
 
 		$pdf->Cell(30);
 		$pdf->SetFont('Arial','',5);
-		$pdf->Cell(45,5,"N� FUNCION�RIOS: ",0,0,'R',0);
+		$pdf->Cell(45,5,"Nº FUNCIONÁRIOS: ",0,0,'R',0);
 		$pdf->HCell(20,5, $total_mo[$chave],0,0,'L',0);		
 
 		$pdf->SetFont('Arial','B',8);

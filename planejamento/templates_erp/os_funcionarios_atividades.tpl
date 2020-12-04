@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÛrio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat√≥rio"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
@@ -18,7 +18,7 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td colspan="3"><label class="labels">PERÕODO</label></td>
+					<td colspan="3"><label class="labels">PER√çODO</label></td>
 					</tr>
 				<tr>
 					<td colspan="3">
@@ -50,7 +50,7 @@
                     </td>
 				</tr>
 				<tr>
-					<td colspan="3"><label for="codfuncionario" class="labels">Funcion&aacute;rio</label><br />
+					<td colspan="3"><label for="codfuncionario" class="labels">Funcion√°rio</label><br />
 					<select name="codfuncionario" class="caixa" id="codfuncionario" onkeypress="return keySort(this);">
 					</select>
                     </td>

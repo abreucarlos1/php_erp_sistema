@@ -2460,7 +2460,7 @@ function isobug($str)
 
 	/*
 	$array_padrao  = array("�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�");
-	//$replace = array("&aacute;","&uacute;","&atilde;","&ccedil;","&eacute;");
+	//$replace = array("á","&uacute;","ã","ç","&eacute;");
 	$array_replace = array("A","a","E","e","I","i","O","o","U","u","A","a","O","o","A","a","E","e","I","i","O","o","U","u","c");  
 
 	$str = str_replace($array_padrao,$array_replace,$str);

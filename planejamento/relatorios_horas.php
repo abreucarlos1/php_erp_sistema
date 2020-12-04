@@ -1,24 +1,24 @@
 <?php
 /*
-		Formul�rio de HORAS POR PER�ODO	
+		Formulário de HORAS POR PERÍODO	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios_horas.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Atualiza��o Layout - 01/04/2015 - Eduardo
-		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 03/04/2017
-		Vers�o 4 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versao 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Atualização Layout - 01/04/2015 - Eduardo
+		Versão 3 --> Atualização layout - Carlos Abreu - 03/04/2017
+		Versão 4 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(50) && !verifica_sub_modulo(270) && !verifica_sub_modulo(290) && !verifica_sub_modulo(261))
 {
@@ -41,13 +41,13 @@ function escolhaos($id_funcionario)
 	
 	$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('TODAS', '-1');");
 	
-	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE apontamento_horas.id_funcionario = '".$id_funcionario."' ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND apontamento_horas.id_os = OS.id_os ";
-	$sql .= "GROUP BY OS.id_os ";
-	$sql .= "ORDER BY OS ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
+	$sql .= "GROUP BY ordem_servico.id_os ";
+	$sql .= "ORDER BY ordem_servico.os ";
 
 	$db->select($sql,'MYSQL',true);
 	
@@ -99,7 +99,7 @@ $array_funcionario_values[] = '';
 $array_funcionario_output[] = 'ESCOLHA O COLABORADOR';
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO', 'CANCELADODVM') ";
+$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "ORDER BY funcionario ";
 
@@ -111,12 +111,13 @@ foreach ($db->array_select as $regs)
 	$array_funcionario_output[] = $regs["funcionario"];
 }
 
-$array = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+$array = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 for($i=1;$i<=12;$i++)
 {
 	$array_per_values[] = sprintf("%02d",$i);
 	$array_per_output[] = $array[$i-1];
+	
 	if(date("m")==$i)
 	{
 		$index = sprintf("%02d",$i);

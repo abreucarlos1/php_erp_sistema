@@ -695,7 +695,7 @@ function vencimento_avaliacao_eficacia()
 	foreach($db->array_select as $regs)
     {
         $corpo = '<p><table cellpadding="2" cellspacing="0" style="font-family: Verdana, Arial; font-size: 12px;" width="100%" border="1">';
-        $corpo .= '<tr><th width="30%">Colaborador</th><th width="50%">Treinamento</th><th width="10%">data Realiza&ccedil;&atilde;o</th><th width="10%">Dias Passados</th></tr>';
+        $corpo .= '<tr><th width="30%">Colaborador</th><th width="50%">Treinamento</th><th width="10%">data Realização</th><th width="10%">Dias Passados</th></tr>';
         $corpo .= '<caption><b>Gestor: '.$regs["gestor"].'</b></caption>';
         
         //$email = $funcRow[0]['email'];
@@ -1803,8 +1803,8 @@ function aprova_solicitacoes_escopo()
 			
 			//Concatena mensagem 
 			$texto = "<B><FONT FACE=ARIAL COLOR=RED>APROVA&Ccedil;&Atilde;O DE ALTERA&Ccedil;&Atilde;O DE ESCOPO - N&deg;: ".$cont["id_solicitacao_hora"]."</FONT></B><BR><br>";
-			$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicita&ccedil;&atilde;o: ".$array_motivo[$cont["id_motivo_solicitacao"]]."</FONT><br><br>";
-			$texto .= "O colaborador ".$cont["funcionario"]." solicitou altera&ccedil;&atilde;o de escopo.<br><br>";
+			$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$array_motivo[$cont["id_motivo_solicitacao"]]."</FONT><br><br>";
+			$texto .= "O colaborador ".$cont["funcionario"]." solicitou alteração de escopo.<br><br>";
 			$texto .= "Aprovada por SISTEMA em ".date('d/m/Y')."<br><br>";
 			$texto .= "Solicitada em: ".mysql_php($cont["data_solicitacao"])."<br>";
 			$texto .= "Para o projeto: ".sprintf("%010d",$cont["os"])."<br>";
@@ -1819,7 +1819,7 @@ function aprova_solicitacoes_escopo()
 				$texto .= "na tarefa: ".$reg_atividade["codigo"]." - ".$reg_atividade["descricao"]."<br><br>";						
 			//}
 			
-			$texto .= "Motivo aprova&ccedil;&atilde;o: APROVA&Ccedil;&Atilde;O AUTOM&Aacute;TICA<br><br>";
+			$texto .= "Motivo aprovação: APROVA&Ccedil;&Atilde;O AUTOM&Aacute;TICA<br><br>";
 			
 			$texto .= "Total de horas: ".number_format($cont["total_horas"],2,",","")."<br><br>";
 			
@@ -1827,7 +1827,7 @@ function aprova_solicitacoes_escopo()
 			
 			$texto .= "Observacao: ".maiusculas(addslashes($cont["observacao"]))."<br><br><br>";
 			
-			$params['fromNameCompl'] = ' - Solicita&ccedil;&atilde;o de altera&ccedil;&atilde;o de escopo - APROVADO';
+			$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
 			$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$cont["id_solicitacao_hora"];
 			
 			$mail = new email($params);

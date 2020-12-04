@@ -48,7 +48,7 @@
 	
 	$filename = "lista" . date("dMY");
 	
-	$cabecalho = "NF;empresa Func.;valor NF;valor IR\n";
+	$cabecalho = "NF;Empresa Func.;Valor NF;Valor IR\n";
 	
 	header("Content-type: application/octet-stream");
 	header("Content-Disposition: attachment; filename=$filename.csv");

@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Resumo Hh
+		Relatório Resumo Hh
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_resumo_hh_funcionarios.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -57,7 +57,7 @@ function Footer()
 }
 }
 
-$data_ini = $_POST['data_ini'];
+$data_ini = $_POST["dataini"];
 $datafim = $_POST['datafim'];
 
 $pdf=new PDF('p','mm',A4);
@@ -67,14 +67,14 @@ $pdf->SetLineWidth(0.5);
 
 $db = new banco_dados;
 
-$pdf->departamento="ADMINISTRA��O";
-$pdf->titulo="RELAT�RIO HH / FUNCION�RIO ";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="RELATÓRIO HH / FUNCIONÁRIO ";
 $pdf->setor="ADM";
 $pdf->codigodoc="109"; //"00"; //"02";
 $pdf->codigo="01"; //Numero OS
 $pdf->setorextenso=$setor; //"INFORMATICA"
 $pdf->emissao=date("d/m/Y");
-$pdf->versao_documento=$data_ini . " � " . $datafim;
+$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE id_funcionario = '" . $_POST["escolhafuncionario"] . "' ";
@@ -88,7 +88,7 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(170,5,"FUNCION�RIO: " . $regs["funcionario"],0,1,'L',0);
+$pdf->Cell(170,5,"FUNCIONÁRIO: " . $regs["funcionario"],0,1,'L',0);
 $pdf->SetLineWidth(0.5);
 $pdf->SetDrawColor(128,128,128);
 $pdf->Line(25,50,195,50);
@@ -103,14 +103,14 @@ $data_ini = php_mysql($data_ini);
 $datafim = php_mysql($datafim);
 
 $sql = "SELECT *, SUM(TIME_TO_SEC(hora_normal+hora_adicional+hora_adicional_noturna)) AS HT ";
-$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 $sql .= "WHERE apontamento_horas.id_funcionario = '" . $_POST["escolhafuncionario"] . "' ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
-$sql .= "AND OS.reg_del = 0 ";
-$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
+$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 $sql .= "AND data BETWEEN '".$data_ini."' AND '".$datafim."' ";
-$sql .= "GROUP BY OS.id_os ";
-$sql .= "ORDER BY os.os ";
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY ordem_servico.os ";
 
 $db->select($sql,'MYSQL',true);
 

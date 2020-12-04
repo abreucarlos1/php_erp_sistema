@@ -1,15 +1,15 @@
 <?php
 /*
-		Formul�rio de Acompanhamento propostas
+		Formulário de Acompanhamento propostas
 		
 		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:		
 		../planejamento/controle_propostas_protheus.php
 
-		Vers�o 0 --> VERS�O INICIAL - 08/04/2013
-		Versao 1 --> Atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		
+		Versão 0 --> VERSÃO INICIAL - 08/04/2013
+		Versao 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -22,17 +22,16 @@ function preencheos($id_coordenador)
 	
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
+	$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND os.os > 2000  ";
-	$sql .= "AND (OS.id_cod_coord = '". $id_coordenador ."' OR OS.id_coord_aux = '". $id_coordenador ."') " ;
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND (ordem_servico.id_cod_coord = '". $id_coordenador ."' OR ordem_servico.id_coord_aux = '". $id_coordenador ."') " ;
 	$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-	$sql .= "GROUP BY os.os ";
-	$sql .= "ORDER BY os.os ";
+	$sql .= "GROUP BY ordem_servico.os ";
+	$sql .= "ORDER BY ordem_servico.os ";
 	
 	$db->select($sql,'MYSQL',true);
 	
@@ -73,44 +72,6 @@ $filtro = '';
 
 $coordenador = false;
 
-switch ($_SESSION["id_funcionario"])
-{
-	case '17': // L&Uacute;CIO
-		$coordenador = true;
-	break;
-	case '19': // KATSUMI
-		$coordenador = true;
-	break;
-	case '49': // SIMIOLI
-		$coordenador = true;
-	break;
-	case '16': // FL&Aacute;VIO
-		$coordenador = true;
-	break;
-	case '51': // JORGE
-		$coordenador = true;
-	break;
-	case '18': // FERNANDO
-		$coordenador = true;
-	break;
-	case '7': // CARLOS RODRIGUES
-		$coordenador = true;
-	break;
-	
-	case '6': // CARLOS ABREU
-		$coordenador = true;
-		//$filtro = "AND OS.id_cod_coord = '148' ";
-	break;
-	
-	case '689': //Ewerton
-		$coordenador = true;
-	break;
-
-	default:
-		$coordenador = false;
-	break;	
-}
-
 $array_coordenador_values = NULL;
 $array_coordenador_output = NULL;
 
@@ -125,21 +86,20 @@ if($coordenador)
 }
 
 
-$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".funcionarios ";
-$sql .= "WHERE OS.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".funcionarios ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
-$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO','CANCELADODVM') ";
+$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') ";
 $sql .= "AND funcionarios.nivel_atuacao IN ('D','C') ";
-$sql .= "AND os.os > 2000 ";
 
 if(!$coordenador)
 {
 	$sql .= $filtro;
 }
 
-$sql .= "AND OS.id_cod_coord = funcionarios.id_funcionario ";
+$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 $sql .= "GROUP BY funcionarios.id_funcionario ";
 $sql .= "ORDER BY funcionarios.funcionario ";
 
@@ -151,17 +111,16 @@ foreach ($db->array_select as $regs)
 	$array_coordenador_output[] = $regs["funcionario"];
 }
 
-$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
+$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";
-$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND os.os > 1700 ";
+$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= $filtro;
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (3,8,9,12) ";
-$sql .= "GROUP BY os.os ";
-$sql .= "ORDER BY os.os ";
+$sql .= "GROUP BY ordem_servico.os ";
+$sql .= "ORDER BY ordem_servico.os ";
 
 $db->select($sql,'MYSQL',true);
 

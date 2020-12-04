@@ -1,12 +1,12 @@
 <?php
 /*
-	Relat�rio de vendas no per�odo selecionado
+	Relatório de vendas no per�odo selecionado
 	Criado por Carlos Eduardo  
 	
 	Obs.: Este arquivo � chamado de contratos_controle/bms.php
 	
-	Vers�o 0 --> VERS�O INICIAL : 25/06/2015
-	Vers�o 1 --> Inclus�o dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
+	Versão 0 --> VERSÃO INICIAL : 25/06/2015
+	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 

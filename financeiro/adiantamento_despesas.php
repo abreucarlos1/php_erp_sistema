@@ -395,7 +395,7 @@ function editar($id_requisicao_despesa)
 						$conteudo .= '	</tr>';
 						
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor&nbsp;or&ccedil;ado:&nbsp;R$&nbsp;</strong>'.number_format($regs_orc["ORCADO"],2,',','').'</label></td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor&nbsp;orçado:&nbsp;R$&nbsp;</strong>'.number_format($regs_orc["ORCADO"],2,',','').'</label></td>';
 						$conteudo .= '	</tr>';
 						
 						$conteudo .= '	<tr>';

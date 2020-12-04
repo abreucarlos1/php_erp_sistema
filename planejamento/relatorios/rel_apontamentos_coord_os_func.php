@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de apontamentos x coordenador x os x funcionarios	
+		Relatório de apontamentos x coordenador x os x funcionarios	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_apontamentos_coord_os_func.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versão 1 --> atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -47,7 +47,7 @@ function Header()
 	
 	$this->Cell(35,5,'COORDENADOR',0,0,'L',0);
 	$this->Cell(20,5,'OS',0,0,'L',0);
-	$this->Cell(80,5,'FUNCION�RIO',0,0,'L',0);
+	$this->Cell(80,5,'FUNCIONÁRIO',0,0,'L',0);
 	$this->Cell(15,5,'DATA',0,0,'L',0);
 	$this->Cell(20,5,'QUANT. HORAS',0,1,'L',0);
 	
@@ -65,7 +65,7 @@ function Footer()
 }
 }
 
-//Fun��o que calcula a quantidade de horas
+//Função que calcula a quantidade de horas
 function calc_total_horas($hora_inicial,$hora_final)
 {
 	$hora_almoco = TRUE;
@@ -89,7 +89,7 @@ function calc_total_horas($hora_inicial,$hora_final)
 			$hi = time_to_sec($hora_inicial); //hora inicial
 			$hf = time_to_sec($hora_final); //hora final
 			
-			if(($hi>=$md && $hf<=$ho) && $horas<$tmp) //caso esteja entre a hora do almo�o e o periodo informado < que 4 horas
+			if(($hi>=$md && $hf<=$ho) && $horas<$tmp) //caso esteja entre a hora do almoço e o período informado < que 4 horas
 			{
 				$horas -= $horas;	
 			}
@@ -116,8 +116,8 @@ $pdf->SetLineWidth(0.5);
 
 $db = new banco_dados;
 
-$pdf->departamento="PLANEJAMENTO";
-$pdf->titulo="APONTAMENTOS N�O APROVADOS X COORDENADORES";
+$pdf->departamento=NOME_EMPRESA;
+$pdf->titulo="APONTAMENTOS NÃO APROVADOS X COORDENADORES";
 $pdf->setor="PLN";
 $pdf->codigodoc="106"; //"00"; //"02";
 $pdf->codigo="0"; //Numero OS
@@ -125,7 +125,7 @@ $pdf->setorextenso=$setor; //"INFORMATICA"
 
 $pdf->emissao=date('d/m/Y');
 
-$pdf->versao_documento = $_POST["data_ini"] . " � " . $_POST["datafim"];
+$pdf->versao_documento = $_POST["dataini"] . " á " . $_POST["datafim"];
 
 $pdf->AliasNbPages();
 $pdf->AddPage();
@@ -135,26 +135,26 @@ $pdf->SetFont('Arial','',8);
 
 $pdf->Ln(5);
 
-$data_ini = php_mysql($_POST["data_ini"]);
+$data_ini = php_mysql($_POST["dataini"]);
 $datafim = php_mysql($_POST["datafim"]);
 
 //Seleciona os coordenadores
-$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
-$sql .= "WHERE OS.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
 
 if($_POST["coordenador"]!=-1)
 {
-	$sql .= "AND OS.id_cod_coord = '" . $_POST["coordenador"] . "' ";
+	$sql .= "AND ordem_servico.id_cod_coord = '" . $_POST["coordenador"] . "' ";
 }
 
-$sql .= "AND OS.id_cod_coord = funcionarios.id_funcionario ";
+$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (2,3,8,9,12) ";
-$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADODVM','CANCELADO') ";
-$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') ";
+$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 $sql .= "AND apontamento_horas.data BETWEEN '".$data_ini."' AND '".$datafim."' ";
 $sql .= "GROUP BY funcionarios.id_funcionario ";
 $sql .= "ORDER BY funcionarios.funcionario ";
@@ -168,17 +168,17 @@ foreach ($array_os as $regs1)
 	$pdf->HCell(100,5,$regs1["funcionario"],0,1,'L',0);//Coordenador
 	
 	//seleciona as OSs
-	$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".apontamento_horas ";
-	$sql .= "WHERE OS.id_cod_coord = '".$regs1["id_cod_coord"]."' ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".apontamento_horas ";
+	$sql .= "WHERE ordem_servico.id_cod_coord = '".$regs1["id_cod_coord"]."' ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
-	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND ordem_servico_status.id_os_status NOT IN (2,3,8,9,12) ";
-	$sql .= "AND apontamento_horas.id_os = OS.id_os ";
+	$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 	$sql .= "AND apontamento_horas.data BETWEEN '".$data_ini."' AND '".$datafim."' ";	
-	$sql .= "GROUP BY OS.id_os ";
-	$sql .= "ORDER BY os.os ";
+	$sql .= "GROUP BY ordem_servico.id_os ";
+	$sql .= "ORDER BY ordem_servico.os ";
 	
 	$db->select($sql,'MYSQL',true);
 	
@@ -200,7 +200,8 @@ foreach ($array_os as $regs1)
 		$array_func = $db->array_select;
 
 		foreach ($array_func as $regs3)
-		{		
+		{
+			/*		
 			$sql = "SELECT AF8_REVISA FROM AF8010 WITH(NOLOCK) ";
 			$sql .= "WHERE D_E_L_E_T_ = '' ";
 			$sql .= "AND AF8_PROJET = '" . sprintf("%010d",$regs2["os"]) ."' "; 
@@ -236,7 +237,8 @@ foreach ($array_os as $regs1)
 				$pdf->HCell(55,5," - ".$regs3["funcionario"],0,0);
 				$pdf->HCell(15,5,mysql_php($regs3["data"]),0,0,'R',0);
 				$pdf->HCell(20,5,calc_total_horas(substr($regs3["hora_inicial"],0,5),substr($regs3["hora_final"],0,5)),0,1,'R',0);
-			}	
+			}
+			*/	
 		}		
 	}	
 }

@@ -1,0 +1,6 @@
+SELECT Funcionario, DATE_FORMAT(Data,'%d/%m/%Y') AS Data, OS, Codigo, CodAtividades.Descricao AS Descricao, TIME_FORMAT(HoraInicial,'%H:%i') AS HoraIni,  TIME_FORMAT(HoraFinal,'%H:%i') AS HoraFim, TIME_FORMAT(HoraNormal,'%H:%i') AS HN, TIME_FORMAT(HoraAdicional,'%H:%i') AS HA  FROM Administrativo.Funcionarios, Administrativo.ControleHoras, Administrativo.OS, Administrativo.CodAtividades
+WHERE ControleHoras.id_os = OS.id_os
+AND ControleHoras.CodFuncionario = Funcionarios.CodFuncionario 
+AND ControleHoras.CodAtividade = CodAtividades.CodAtividade
+AND Data BETWEEN '2009-12-26' AND '2010-01-25' 
+ORDER BY Funcionarios.Funcionario, ControleHoras.Data ASC

@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de Custo x OS
+		Relatório de Custo x OS
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_custo_os_protheus_excel.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 /**
@@ -64,17 +64,17 @@ if($os!=-1)
 }
 else
 {
-	//Execu��o, Aguard. Def. Clien., As built, ADMs
-	$filtro0 .= "AND AF8_PROJET > '0000003000' ";
+	//Execução, Aguard. Def. Clien., As built, ADMs
+	//$filtro0 .= "AND AF8_PROJET > '0000003000' ";
 	$filtro0 .= "AND AF8_FASE IN ('03','05','07','09','12') ";
 	$txt = '_TODAS_OS_';
 }
 
 if($_POST["intervalo"]=='1')
 {
-	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 = "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "') ";
+	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 = "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "') ";
 }
 
 //Seleciona as OSs
@@ -86,7 +86,7 @@ $con0 = $db->select($sql, 'MSSQL', true);
 
 foreach($db->array_select as $regs0)
 {
-	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+	//PEGA A ÚLTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFE010.AFE_PROJET = '".$regs0["AF8_PROJET"]."' ";
@@ -95,7 +95,7 @@ foreach($db->array_select as $regs0)
 	$con1 = $db->select($sql, 'MSSQL', true);
 	$regs_ult_rev = $db->array_select[0];
 	
-	//Obtem o custo na ultima fase de or�amento	
+	//Obtem o custo na ultima fase de orçamento	
 	$sql = "SELECT SUM(AF9_TOTAL) AS TOTAL FROM AF9010 ";
 	$sql .= "WHERE AF9010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF9010.AF9_PROJET = '".$regs0["AF8_PROJET"]."' ";
@@ -118,7 +118,7 @@ foreach($db->array_select as $regs0)
 	$regs_datas = $db->array_select[0];
 	
 	//Pega a quantidade de dias no projeto
-	//Verifica se existe avan�o (AF8_DTATUI) DATA INI
+	//Verifica se existe avanço (AF8_DTATUI) DATA INI
 	if(trim($regs_datas["START_REAL"])!="")
 	{
 		//formato DD/MM/AAAA
@@ -138,7 +138,7 @@ foreach($db->array_select as $regs0)
 		$data_ini_proj = mysql_php(protheus_mysql($regs_datas["START_PREV"]));
 	}
 	
-	//Verifica se existe avan�o (AF8_DTATUF) DATA FIM
+	//Verifica se existe avanço (AF8_DTATUF) DATA FIM
 	if(trim($regs_datas["FINISH_REAL"])!="")
 	{
 		//formato DD/MM/AAAA
@@ -178,7 +178,7 @@ foreach($db->array_select as $regs0)
 	
 	foreach($db->array_select as $regs2)
 	{	
-		//Verifica se existe avan�o (AF9_DTATUI) DATA INI
+		//Verifica se existe avanço (AF9_DTATUI) DATA INI
 		if(trim($regs2["AF9_DTATUI"])!="")
 		{
 			//formato DD/MM/AAAA
@@ -196,7 +196,7 @@ foreach($db->array_select as $regs0)
 			$data_ini = mysql_php(protheus_mysql($regs2["AF9_START"]));
 		}
 		
-		//Verifica se existe avan�o (AF9_DTATUF) DATA FIM
+		//Verifica se existe avanço (AF9_DTATUF) DATA FIM
 		if(trim($regs2["AF9_DTATUF"])!="")
 		{
 			//formato DD/MM/AAAA
@@ -224,7 +224,7 @@ foreach($db->array_select as $regs0)
 			$qtd_dias++;
 		}
 		
-		//calcula o fator multiplicativo com rela��o entre dias do projeto/dias da tarefa
+		//calcula o fator multiplicativo com relação entre dias do projeto/dias da tarefa
 		$fator_custo = ($qtd_dias/$qtd_dias_proj) * $regs_custo["TOTAL"];
 		
 		$data = $data_ini;		
@@ -274,7 +274,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="custos_'.$txt.'.xlsx"');
 header('Cache-Control: max-age=0');
@@ -290,8 +290,8 @@ if($os!=-1)
 	$objPHPExcel->getActiveSheet()->getStyle('A2')->getNumberFormat()->setFormatCode('0000000000');			
 	$objPHPExcel->getActiveSheet()->setCellValue('A2', sprintf("%010d",$proj));
 	
-	//DESCRI��O
-	$objPHPExcel->getActiveSheet()->setCellValue('B2', iconv('ISO-8859-1', 'UTF-8', $descricao));
+	//DESCRIÇÃO
+	$objPHPExcel->getActiveSheet()->setCellValue('B2', $descricao);
 	
 	//VERSAO ORCAMENTO
 	$objPHPExcel->getActiveSheet()->getStyle('A5')->getNumberFormat()->setFormatCode('0000');			
@@ -301,8 +301,8 @@ if($os!=-1)
 	$objPHPExcel->getActiveSheet()->getStyle('C5')->getNumberFormat()->setFormatCode('0000');			
 	$objPHPExcel->getActiveSheet()->setCellValue('C5', sprintf("%04d",$ver_rea));
 	
-	//DATA EMISS�O
-	$objPHPExcel->getActiveSheet()->setCellValue('N5', iconv('ISO-8859-1', 'UTF-8',date("d/m/Y")));
+	//DATA EMISSÃO
+	$objPHPExcel->getActiveSheet()->setCellValue('N5', date("d/m/Y"));
 }
 else
 {
@@ -310,8 +310,8 @@ else
 	//$objPHPExcel->getActiveSheet()->getStyle('A2')->getNumberFormat()->setFormatCode('0000000000');			
 	$objPHPExcel->getActiveSheet()->setCellValue('A2', 'TODAS AS OS');
 	
-	//DATA EMISS�O
-	$objPHPExcel->getActiveSheet()->setCellValue('N5', iconv('ISO-8859-1', 'UTF-8',date("d/m/Y")));
+	//DATA EMISSÃO
+	$objPHPExcel->getActiveSheet()->setCellValue('N5', date("d/m/Y"));
 	
 }
 
@@ -374,3 +374,5 @@ for($i=0;$i<=count($total_mes)-1;$i++)
 $objWriter->save('php://output');
 
 exit;
+
+?>

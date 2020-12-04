@@ -1,15 +1,15 @@
 <?php
 /*
-		Formul�rio de GERENCIADOR OS
+		Formulário de GERENCIADOR OS
 		
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:		
 		../planejamento/gerenciador_os.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 05/01/2018 - Carlos Abreu
-		Vers�o 1 --> Inclus�o de data GRD, valor Medido, valor venda - 11/01/2018 - Carlos Abreu
-		Vers�o 2 --> Altera��o de fases chamado #2533 - 24/01/2018 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL - 05/01/2018 - Carlos Abreu
+		Versão 1 --> Inclusão de data GRD, valor Medido, valor venda - 11/01/2018 - Carlos Abreu
+		Versão 2 --> Alteração de fases chamado #2533 - 24/01/2018 - Carlos Abreu
 */	
 
 ini_set('max_execution_time', 0); // No time limit
@@ -21,7 +21,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(614))
 {
@@ -43,7 +43,6 @@ function atualizatabela($dados_form)
 	$sql .= "AND bms_item.reg_del = 0 "; 
 	$sql .= "AND bms_pedido.id_bms_pedido = bms_medicao.id_bms_pedido "; 
 	$sql .= "AND bms_medicao.id_bms_item = bms_item.id_bms_item ";
-	//$sql .= "AND (bms_pedido.data_pedido >= 2017-07-01 OR bms_pedido.id_os IN (SELECT os FROM ".DATABASE.".bms_excecoes WHERE reg_del = 0)) ";
 	$sql .= "GROUP BY bms_pedido.id_os ";
 	$sql .= "ORDER BY bms_pedido.id_os ";
 	
@@ -56,13 +55,13 @@ function atualizatabela($dados_form)
 		$array_percentual[sprintf("%010d",$regs["os"])] = $regs["PERCENTUAL"]; 
 	}
 	
-	//seleciona as GRDs (ultima emiss�o)
-	$sql = "SELECT MAX(grd.data_emissao) AS EMISSAO, os.os FROM ".DATABASE.".grd, ".DATABASE.".OS ";
+	//seleciona as GRDs (Última emissão)
+	$sql = "SELECT MAX(grd.data_emissao) AS EMISSAO, ordem_servico.os FROM ".DATABASE.".grd, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE grd.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND grd.id_os = OS.id_os ";
-	$sql .= "GROUP BY OS.id_os ";
-	$sql .= "ORDER BY os.os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND grd.id_os = ordem_servico.id_os ";
+	$sql .= "GROUP BY ordem_servico.id_os ";
+	$sql .= "ORDER BY ordem_servico.os ";
 	
 	$db->select($sql, 'MYSQL', true);
 	
@@ -270,7 +269,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Projeto,Descri&ccedil;&atilde;o,Cliente,Fase,Coordenador,Planejador,data&nbsp;aprov.,Horas&nbsp;Vend.,Ultima&nbsp;emiss.,%&nbsp;Medido",
+	mygrid.setHeader("Projeto,Descrição,Cliente,Fase,Coordenador,Planejador,Data&nbsp;aprov.,Horas&nbsp;Vend.,Última&nbsp;emiss.,%&nbsp;Medido",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left"]);
 	mygrid.setInitWidths("80,200,250,180,200,200,100,100,100,100");
@@ -318,7 +317,7 @@ foreach ($db->array_select as $regs)
 		case '03':
 		case '07':
 			$array_fases_values['03'] = '03';
-			$array_fases_output['03'] = 'PROJETO EM EXECU��O';
+			$array_fases_output['03'] = 'PROJETO EM EXECUÇÃO';
 		break;
 		
 		case '05':

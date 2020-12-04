@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat&oacute;rio" disabled="disabled" /></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório" disabled="disabled" /></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
@@ -28,7 +28,7 @@
           </table>
         <table width="100%" border="0">
 				<tr>
-					<td colspan="5"><label class="labels">Per&iacute;odo</label></td>
+					<td colspan="5"><label class="labels">Período</label></td>
 	      		</tr>
 				<tr>
 					<td colspan="5">

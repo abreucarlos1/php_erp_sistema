@@ -1,12 +1,12 @@
 <?php
 /*
-	Relat�rio WIP
+	Relatório WIP
 	Criado por Carlos Abreu  
 	
-	Vers�o 0 --> VERS�O INICIAL : 01/07/2017
-	Vers�o 1 --> Inclus�o dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
-	Vers�o 2 --> Altera��es em campos - 02/03/2018 - Carlos Abreu
-	Vers�o 3 --> Inclus�o de campos conforme chamado #2691 - 06/04/2018 - Carlos Abreu
+	Versão 0 --> VERSÃO INICIAL : 01/07/2017
+	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
+	Versão 2 --> Altera��es em campos - 02/03/2018 - Carlos Abreu
+	Versão 3 --> Inclusão de campos conforme chamado #2691 - 06/04/2018 - Carlos Abreu
 */
 
 ini_set('max_execution_time', 0); // No time limit

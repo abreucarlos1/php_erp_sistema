@@ -67,7 +67,7 @@
 						</table>
 						
 						<fieldset>
-							<legend class='labels'>Vers&otilde;es</legend>
+							<legend class='labels'>Versões</legend>
 							<div id="div_lista_versoes"></div>
 						</fieldset>
 					</div>

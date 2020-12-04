@@ -1,9 +1,9 @@
 <?php
 /*
-	Relat�rio de Medicao
+	Relatório de Medicao
 	Criado por Carlos Abreu  
 	
-	Vers�o 0 --> VERS�O INICIAL : 21/02/2018
+	Versão 0 --> VERSÃO INICIAL : 21/02/2018
 
 */
 

@@ -1,22 +1,22 @@
 <?php
 /*
-		Formul�rio de HORAS DE CLIENTES	
+		Formulário de HORAS DE CLIENTES	
 		
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
 		../planejamento/horas_clientes.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 11/06/2013
-		Vers�o 1 --> atualiza��o layout - Carlos Abreu - 31/03/2017
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 11/06/2013
+		Versão 1 --> Atualização layout - Carlos Abreu - 31/03/2017
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(305))
 {
@@ -33,7 +33,7 @@ $conf = new configs();
 
 $db = new banco_dados;
 
-$array = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+$array = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 for($i=1;$i<=12;$i++)
 {

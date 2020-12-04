@@ -1,10 +1,10 @@
 <?php
 /*
-	Relat�rio de Propostas
+	Relatório de Propostas
 	Criado por Carlos Abreu  
 	
-	Vers�o 0 --> VERS�O INICIAL : 19/01/2017
-	Vers�o 1 --> Inclus�o dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
+	Versão 0 --> VERSÃO INICIAL : 19/01/2017
+	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */
 
 ini_set('max_execution_time', 0); // No time limit

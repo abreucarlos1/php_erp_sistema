@@ -335,7 +335,7 @@ if(isset($_GET["id_funcionario"]) && isset($_GET["data_ini"]) && isset($_GET["da
 else
 {
 	$cod_funcionario = $_POST["id_funcionario"];
-	$data_ini = $_POST["data_ini"];
+	$data_ini = $_POST["dataini"];
 	$data_fin = $_POST["data_fim"];
 	$tipo_valor = $_POST["tipo"];
 }

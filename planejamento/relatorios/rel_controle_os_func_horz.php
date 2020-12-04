@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de MEDIÇÃO / HH / OS / FUNC horizontal
+		Relatório de MEDIÇÃO / HH / OS / FUNC horizontal
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controle_os_func_horz.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 
@@ -65,13 +65,13 @@ $db = new banco_dados;
 
 //Seta o cabeçalho
 $pdf->departamento="PLANEJAMENTO";
-$pdf->titulo="MEDIÇÃO DE Hh POR OS POR FUNCION�RIO";
+$pdf->titulo="MEDIÇÃO DE Hh POR OS POR FUNCIONÁRIO";
 $pdf->setor="PLN";
 $pdf->codigodoc="02"; //"00";
 $pdf->codigo="0"; //Numero OS
 $pdf->setorextenso=$setor; //"INFORMATICA"
 $pdf->emissao=date("d/m/Y");
-$pdf->versao_documento=$_POST["data_ini"] . " � " . $_POST["datafim"];
+$pdf->versao_documento=$_POST["dataini"] . " á " . $_POST["datafim"];
 
 $pdf->AliasNbPages();
 
@@ -81,7 +81,7 @@ $pdf->SetFont('Arial','',8);
 
 $pdf->Ln(5);
 
-$data_ini = php_mysql($_POST["data_ini"]);
+$data_ini = php_mysql($_POST["dataini"]);
 $datafim = php_mysql($_POST["datafim"]);
 
 //MOSTRA A OS E A DESCRICAO
@@ -90,21 +90,21 @@ if ($data_ini=='' || $datafim=='')
 	if ($escolhaos==-1)
 	{
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal)) AS HN, SUM( TIME_TO_SEC(hora_adicional)) AS HA, SUM( TIME_TO_SEC(hora_adicional_noturna)) AS HAN ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
-		$sql .= "WHERE apontamento_horas.id_os = OS.id_os ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "GROUP BY apontamento_horas.OS";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "GROUP BY ordem_servico.os ";
 	}
 	else
 	{
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal)) AS HN, SUM( TIME_TO_SEC(hora_adicional)) AS HA, SUM( TIME_TO_SEC(hora_adicional_noturna)) AS HAN ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '" . $_POST["escolhaos"] . "' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
+		$sql .= "GROUP BY ordem_servico.os";
 	}
 }
 else
@@ -112,23 +112,23 @@ else
 	if ($escolhaos==-1)
 	{
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal)) AS HN, SUM( TIME_TO_SEC(hora_adicional)) AS HA, SUM( TIME_TO_SEC(hora_adicional_noturna)) AS HAN ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
-		$sql .= "WHERE apontamento_horas.id_os = OS.id_os ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.data BETWEEN '" . $data_ini ."' AND '" . $datafim ."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "GROUP BY ordem_servico.os";
 	}
 	else
 	{
 		$sql = "SELECT *, SUM( TIME_TO_SEC(hora_normal)) AS HN, SUM( TIME_TO_SEC(hora_adicional)) AS HA, SUM( TIME_TO_SEC(hora_adicional_noturna)) AS HAN ";
-		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql .= "FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '". $_POST["escolhaos"] ."' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '" . $data_ini ."' AND '" . $datafim ."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "GROUP BY ordem_servico.os";
 	}
 }
 
@@ -170,7 +170,7 @@ foreach ($array_horas as $regconth)
 	
 	$pdf->Cell(170,5,"OS - " . $os . " - " . $regconth["descricao"] ,0,1,'L',0);	
 	
-	$pdf->Cell(120,5,"DATA DE INICIO: " . $_POST["data_ini"] . " - DATA FINAL: " . $_POST["datafim"] . " - HORAS CONTRATADAS: " . $contratada[0].":".$contratada[1],0,1,'L',0);
+	$pdf->Cell(120,5,"DATA DE INICIO: " . $_POST["dataini"] . " - DATA FINAL: " . $_POST["datafim"] . " - HORAS CONTRATADAS: " . $contratada[0].":".$contratada[1],0,1,'L',0);
 	
 	$pdf->Cell(20,5,"DATA",0,0,'L',0);
 	$pdf->Cell(210,5,"ATIVIDADE",0,0,'L',0);

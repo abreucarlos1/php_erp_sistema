@@ -1,24 +1,24 @@
 <?php
 /*
-		Formul�rio de progresso fisico protheus
+		Formulário de progresso fisico protheus
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		
 		../coordenacao/controle_progresso_fisico_protheus.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 21/07/2010
-		Vers�o 1 --> Atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Altera��o Lay-out - 18/02/2015 - Carlos Abreu
-		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 27/03/2017		
+		Versão 0 --> VERSÃO INICIAL - 21/07/2010
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Alteração Lay-out - 18/02/2015 - Carlos Abreu
+		Versão 3 --> Atualização layout - Carlos Abreu - 27/03/2017		
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(211))
 {

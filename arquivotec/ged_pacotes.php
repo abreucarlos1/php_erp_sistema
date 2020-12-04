@@ -1721,7 +1721,7 @@ function propriedades_comentarios($dados_form)
 						$xml->text(retornaImagem($extensao).'&nbsp;'.addslashes($reg_coment["nome_arquivo"]));
 					$xml->endElement();
 					$xml->startElement ('cell');
-						$xml->text('<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" alt="Abrir&nbsp;arquivo&nbsp;de&nbsp;coment&aacute;rio" onclick=xajax_abrir("COM_' . $reg_coment["id_ged_comentario"] .'")>');
+						$xml->text('<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" alt="Abrir&nbsp;arquivo&nbsp;de&nbsp;comentário" onclick=xajax_abrir("COM_' . $reg_coment["id_ged_comentario"] .'")>');
 					$xml->endElement();
 
 				}
@@ -1736,7 +1736,7 @@ function propriedades_comentarios($dados_form)
 				}
 				
 				$xml->startElement ('cell');
-					$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" alt="Remover&nbsp;arquivo&nbsp;de&nbsp;coment&aacute;rio" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;O&nbsp;arquivo&nbsp;de&nbsp;coment&aacute;rio&nbsp;ser&aacute;&nbsp;exclu&iacute;do&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir_comentario(' . $reg_coment["id_ged_comentario"] . ');}>');
+					$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" alt="Remover&nbsp;arquivo&nbsp;de&nbsp;comentário" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;O&nbsp;arquivo&nbsp;de&nbsp;comentário&nbsp;será&nbsp;exclu&iacute;do&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir_comentario(' . $reg_coment["id_ged_comentario"] . ');}>');
 				$xml->endElement();
 				
 			$xml->endElement();
@@ -3529,7 +3529,7 @@ function grid(tabela, autoh, height, xml)
 				
 				mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked2);
 
-				mygrid.setHeader("&nbsp;, Nome&nbsp;arquivo, Revisão&nbsp;Interna, Vers&atilde;o, Revisão&nbsp;Cli., Autor, Editor, Obs., A",
+				mygrid.setHeader("&nbsp;, Nome&nbsp;arquivo, Revisão&nbsp;Interna, Versão, Revisão&nbsp;Cli., Autor, Editor, Obs., A",
 					null,
 					["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				mygrid.setInitWidths("22,120,*,*,*,*,*,*,25");

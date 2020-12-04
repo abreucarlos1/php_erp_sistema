@@ -929,7 +929,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 			
 			if ($db->erro != '')
 			{
-				$resposta->addAlert("N&atilde;o foi poss&iacute;vel excluir o registro: ".$db->erro);
+				$resposta->addAlert("Não foi poss&iacute;vel excluir o registro: ".$db->erro);
 			}
 	
 			//seleciona o arquivo da ultima versao_documento/revisao_documento
@@ -977,7 +977,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 				
 				if ($db->erro != '')
 				{	
-					$resposta->addAlert("N&atilde;o foi poss&iacute;vel excluir o registro: ".$db->erro);
+					$resposta->addAlert("Não foi poss&iacute;vel excluir o registro: ".$db->erro);
 				}
 				
 				$copia_versao = false;
@@ -1620,7 +1620,7 @@ function tab()
 	myTabbar.attachEvent("onSelect", sel_tab);
 	
 	myTabbar.addTab("a20_", "Visualizar/Alterar", null, null, true);
-	myTabbar.addTab("a30_", "Vers&otilde;es");
+	myTabbar.addTab("a30_", "Versões");
 	myTabbar.addTab("a10_", "Incluir");
 	
 	myTabbar.tabs("a10_").attachObject("a10");

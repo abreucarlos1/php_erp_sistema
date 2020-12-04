@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat&oacute;rio" disabled="disabled" /></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório" disabled="disabled" /></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
@@ -18,7 +18,7 @@
           <td colspan="2" valign="top" class="espacamento">
           <table width="100%" border="0">
 			  <tr>
-					<td colspan="2" width="8%"><label for="mes" class="labels">Per&iacute;odo</label><br />
+					<td colspan="2" width="8%"><label for="mes" class="labels">Período</label><br />
  						<select name="mes" class="caixa" id="mes" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_per_values selected=$option_per_id output=$option_per_output</smarty>
 						</select>	

@@ -372,7 +372,7 @@ if ($_POST["acao"]=="salvar")
 	$sql = "SELECT *, SUM(TIME_TO_SEC(hora_normal)) AS HN, SUM(TIME_TO_SEC(hora_adicional)) AS HA, SUM(TIME_TO_SEC(hora_adicional_noturna)) AS HAN ";
 	$sql .= "FROM ".DATABASE.".apontamento_horas ";
 	$sql .= "WHERE apontamento_horas.id_funcionario = '" . $_POST["id_funcionario"] . "' ";
-	$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
+	$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
 	$sql .= "GROUP BY apontamento_horas.id_funcionario ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -385,7 +385,7 @@ if ($_POST["acao"]=="salvar")
 	
 	$sql = "SELECT * FROM ".DATABASE.".fechamento_folha_extra ";
 	$sql .= "WHERE fechamento_folha_extra.id_funcionario = '" . $_POST["id_funcionario"] . "' ";
-	$sql .= "AND fechamento_folha_extra.data_ini = '".php_mysql($_POST["data_ini"])."' ";
+	$sql .= "AND fechamento_folha_extra.data_ini = '".php_mysql($_POST["dataini"])."' ";
 	$sql .= "ORDER BY id_fechamento_horaextra DESC LIMIT 1 ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -396,7 +396,7 @@ if ($_POST["acao"]=="salvar")
 	$sql = "SELECT *, SUM(TIME_TO_SEC(hora_normal))/3600 AS HN, SUM(TIME_TO_SEC(hora_adicional))/3600 AS HA, SUM(TIME_TO_SEC(hora_adicional_noturna))/3600 AS HAN ";
 	$sql .= "FROM ".DATABASE.".OS, ".DATABASE.".apontamento_horas ";
 	$sql .= "WHERE apontamento_horas.id_funcionario = '" . $_POST["id_funcionario"] . "' ";
-	$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
+	$sql .= "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["data_fim"]) . "' ";
 	$sql .= "AND OS.id_os = apontamento_horas.id_os ";
 	$sql .= "GROUP BY OS.id_os, apontamento_horas.data ";
 	$sql .= "ORDER BY apontamento_horas.data ";
@@ -644,9 +644,9 @@ if ($_POST["acao"]=="salvar")
 	$isql .= "(id_funcionario, id_salario, data_ini, data_fim, periodo, valor_ferias, valor_rescisao, valor_fgts, valor_decimo_terceiro, total_horas_normais, total_horas_adicionais, valor_medicao, valor_total, valor_imposto, valor_pagamento, valor_pcc, inclui_hora_extra, valor_proporcional, valor_diferenca_ferias, valor_diferenca_rescisao, valor_descontos, valor_acrescimos, observacao) ";
 	$isql .= "VALUES ('". $_POST["id_funcionario"] ."', ";
 	$isql .= "'" . $cont1["id_salario"]. "', ";
-	$isql .= "'" . php_mysql($_POST["data_ini"]) ."', ";
+	$isql .= "'" . php_mysql($_POST["dataini"]) ."', ";
 	$isql .= "'" . php_mysql($_POST["data_fim"]) ."', ";
-	$isql .= "'" . substr(php_mysql($_POST["data_ini"]),0,7) . "," . substr(php_mysql($_POST["data_fim"]),0,7) . "', ";
+	$isql .= "'" . substr(php_mysql($_POST["dataini"]),0,7) . "," . substr(php_mysql($_POST["data_fim"]),0,7) . "', ";
 	$isql .= "'" . $valor_ferias ."', ";
 	$isql .= "'" . $valor_rescisao ."', ";
 	$isql .= "'" . $valor_fgts ."', ";
@@ -682,7 +682,7 @@ if ($_POST["acao"]=="salvar")
 	?>
 	<script>
 		alert('Fechamento de folha de funcionário inserido com sucesso.');
-		location.href='<?= $_SERVER["PHP_SELF"] ?>?data_ini=<?= $_POST["data_ini"] ?>&data_fin=<?= $_POST["data_fim"] ?>';
+		location.href='<?= $_SERVER["PHP_SELF"] ?>?data_ini=<?= $_POST["dataini"] ?>&data_fin=<?= $_POST["data_fim"] ?>';
 	</script>
 	<?php
 		

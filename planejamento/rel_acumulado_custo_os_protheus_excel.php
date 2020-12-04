@@ -52,17 +52,15 @@ if($os!=-1)
 }
 else
 {
-	//Execu��o, Aguard. Def. Clien., As built, ADMs
-	$filtro0 .= "AND AF8_PROJET > '0000003000' ";
 	$filtro0 .= "AND AF8_FASE IN ('03','09','07') ";
 }
 
 if($_POST["intervalo"]=='1')
 {
-	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 .= "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "') ";
-	$filtro2 .= "AND AFU_DATA >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
+	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 .= "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "') ";
+	$filtro2 .= "AND AFU_DATA >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
 }
 
 
@@ -76,7 +74,7 @@ $con0 = $db->select($sql, 'MSSQL', true);
 
 foreach($db->array_select as $regs0)
 {	
-	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+	//PEGA A ÚLTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFE010.AFE_PROJET = '".$regs0["AF8_PROJET"]."' ";
@@ -137,7 +135,7 @@ foreach($db->array_select as $regs0)
 	$registro = $db->select($sql, 'MSSQL');
 	$dataprojet = $db->array_select[0];
 	
-	//Obtem a data do 1� e ultimo apontamento confirmado
+	//Obtem a data do 1º e último apontamento confirmado
 	$sql = "SELECT MIN(AFU_DATA) AS DATAINI, MAX(AFU_DATA) AS DATAFIM, SUM(AFU_HQUANT) AS HorasApont FROM AFU010, AF8010 ";
 	$sql .= "WHERE AFU_PROJET = AF8_PROJET ";
 	$sql .= "AND AFU_REVISA = AF8_REVISA ";
@@ -276,7 +274,6 @@ foreach($array_proj as $projeto)
 	//SUB-TOTAL custo real
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+13, $linha, $array_cust_real[$projeto]);
 	//SUB-TOTAL DESPESAS
-	//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+16, $linha, $array_desp[$projeto]);
 	
 	$tot_cust_prev += $array_cust_prev[$projeto];
 	

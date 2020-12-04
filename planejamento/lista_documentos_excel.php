@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de lista documentos excel
+		Formulário de lista documentos excel
 		
 		Criado por Carlos Abreu  
 		
@@ -8,14 +8,14 @@
 		
 		../planejamento/lista_documentos_excel.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 09/01/2018 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL - 09/01/2018 - Carlos Abreu
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(616))
 {
@@ -38,11 +38,10 @@ $array_os_output = NULL;
 $array_os_values[] = "";
 $array_os_output[] = "SELECIONE";
 
-$sql = "SELECT * FROM ".DATABASE.".OS ";
-$sql .= "WHERE OS.reg_del = 0 ";
-$sql .= "AND os.os > 4000 ";
-$sql .= "AND OS.id_os_status IN (1,2,11,13,15,16)";
-$sql .= "ORDER BY OS ";
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico ";
+$sql .= "WHERE ordem_servico.reg_del = 0 ";
+$sql .= "AND ordem_servico.id_os_status IN (1,2,11,13,15,16)";
+$sql .= "ORDER BY ordem_servico.os ";
 
 $db->select($sql,'MYSQL', true);
 	 

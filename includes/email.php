@@ -72,7 +72,7 @@ class email extends PHPMailer
 	{
 		$html = '<table style="width:800px; height:auto; border:solid 1px black">';
 		$html .= '<tr><td>'.$texto.'</td></tr>';
-		$html .= '<tr><td><i style="color: red;">Este &eacute; um email autom&aacute;tico, por favor n&atilde;o responda.</i></td></tr>';
+		$html .= '<tr><td><i style="color: red;">Este &eacute; um email automático, por favor não responda.</i></td></tr>';
 		$html .= '</table>';
 		
 		$this->Body = $html.$this->Body;
@@ -112,7 +112,7 @@ class email extends PHPMailer
 			}
 			else
 			{
-				$texto .= "N&atilde;o existem recipientes para este e-mail!";
+				$texto .= "Não existem recipientes para este e-mail!";
 			}
 			
 			$texto .= '</p>';

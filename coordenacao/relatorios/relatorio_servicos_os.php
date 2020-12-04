@@ -1,12 +1,12 @@
 <?php
 /*
-		Relat�rio de servi�os por OS
+		Relatório de servi�os por OS
 		
 		local/Nome do arquivo:
 		../coordenacao/relatorios/relatorio_servicos_os.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 03/07/2015 - Carlos Eduardo
-		 Vers�o 1 --> Inclus�o dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL - 03/07/2015 - Carlos Eduardo
+		 Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 
@@ -33,7 +33,7 @@ if ($_POST)
 	$pdf->Ln(20);
 	$pdf->SetFont('Arial','b',9);
 	
-	$pdf->Cell(0,4,'Relat�rio de Servi�os da OS',0,1,'C',0);
+	$pdf->Cell(0,4,'Relatório de Servi�os da OS',0,1,'C',0);
 	$pdf->ln();
 	
 	$os 	 = isset($_POST['escolhaos']) ? $_POST['escolhaos'] : '';

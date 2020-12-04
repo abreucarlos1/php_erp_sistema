@@ -2,7 +2,7 @@
 /*
 		Formulário de empresas	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../empresas/empresas.php

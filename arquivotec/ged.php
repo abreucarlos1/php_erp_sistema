@@ -2748,7 +2748,7 @@ function preenchePropriedades($id_ged_versao)
     $conteudo .= '<div id="nome_arq" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome&nbsp;do&nbsp;Arquivo:&nbsp;</strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
     $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho:&nbsp;</strong>' . $tamanho . '</label></div>';
     $conteudo .= '<div id="autor" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Autor:&nbsp;' . $autor . '</label></div>';
-    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualiza&ccedil;&atilde;o:&nbsp;' . $data_modificacao . '</label></div>';
+    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualização:&nbsp;' . $data_modificacao . '</label></div>';
     $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nº&nbsp;Interno:&nbsp;</strong>' . $descricao_numdvm . '</label></div>';
     
     //Se não estiver na GRD, pode ser alterado
@@ -2769,7 +2769,7 @@ function preenchePropriedades($id_ged_versao)
         $btn_gravar = 'disabled';
     }
     
-    $conteudo .= '<div id="botoes" style="text-align:right; width:100%; padding:5px;"><input type="hidden" id="id_ged_versao" name="id_ged_versao" value="' . $reg_arquivo["id_ged_versao"] . '"><input type="button" class="class_botao" value="Gravar&nbsp;altera&ccedil;&otilde;es" onclick=if(confirm("Confirma&nbsp;as&nbsp;altera&ccedil;&otilde;es&nbsp;feitas&nbsp;nas&nbsp;vers&otilde;es?")){xajax_atualizaVersoes(xajax.getFormValues("frm_propriedades"));}>&nbsp;&nbsp;&nbsp;<input type="button" class="class_botao" value="Voltar" onclick=xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
+    $conteudo .= '<div id="botoes" style="text-align:right; width:100%; padding:5px;"><input type="hidden" id="id_ged_versao" name="id_ged_versao" value="' . $reg_arquivo["id_ged_versao"] . '"><input type="button" class="class_botao" value="Gravar&nbsp;alterações" onclick=if(confirm("Confirma&nbsp;as&nbsp;alterações&nbsp;feitas&nbsp;nas&nbsp;versões?")){xajax_atualizaVersoes(xajax.getFormValues("frm_propriedades"));}>&nbsp;&nbsp;&nbsp;<input type="button" class="class_botao" value="Voltar" onclick=xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
     
     $conteudo .= '</div>';
     
@@ -2833,11 +2833,11 @@ function preenchePropriedades($id_ged_versao)
         {
             $img_abrir = '<img style="cursor:pointer;" title="Abrir" src="'.DIR_IMAGENS.'procurar.png" onclick=xajax_abrir("ARQ_' . $reg_versoes["id_ged_versao"] . '_VER");>';
             
-            $img_restaurar = '<img style="cursor:pointer;" title="Restaurar" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(confirm("Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;restaurar&nbsp;a&nbsp;versão&nbsp;selecionada&nbsp;e&nbsp;torn&aacute;-la&nbsp;a&nbsp;atual?")){xajax_restaurar("' . $reg_versoes["id_ged_versao"] . '");}>';
+            $img_restaurar = '<img style="cursor:pointer;" title="Restaurar" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(confirm("Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;restaurar&nbsp;a&nbsp;versão&nbsp;selecionada&nbsp;e&nbsp;torná-la&nbsp;a&nbsp;atual?")){xajax_restaurar("' . $reg_versoes["id_ged_versao"] . '");}>';
             
             if(in_array($_SESSION["id_funcionario"],lista_arqtec()))
             {
-                $img_excluir = '<img style="cursor:pointer;" title="Excluir" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;EXCLUIR&nbsp;a&nbsp;vers&atilde;o&nbsp;selecionada?")){xajax_excluir_versoes("' . $reg_versoes["id_ged_versao"] . '");}>';
+                $img_excluir = '<img style="cursor:pointer;" title="Excluir" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;EXCLUIR&nbsp;a&nbsp;versão&nbsp;selecionada?")){xajax_excluir_versoes("' . $reg_versoes["id_ged_versao"] . '");}>';
             }
             else
             {
@@ -2971,7 +2971,7 @@ function preenchePropriedadesRef($id_documento_referencia)
     $conteudo .= '<div id="tipo_arquivo" style="padding:5px;" onselectstart="return false" unselectable="on">' . $imagem . '&nbsp;<label class="labels"><strong>tipo&nbsp;de&nbsp;arquivo:&nbsp;</strong></label>' . $extensao . '</div>';
     $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome&nbsp;do&nbsp;Arquivo:&nbsp;</strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
     $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho:&nbsp;</strong>' . $tamanho . '</label></div>';
-    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualiza&ccedil;&atilde;o:&nbsp;' . $data_modificacao . '</label></div>';
+    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualização:&nbsp;' . $data_modificacao . '</label></div>';
     
     $conteudo .= '<div id="div_propriedades_ref">&nbsp;</div>';
     
@@ -4545,7 +4545,7 @@ function preencheArquivosSol($id_os)
     
     if($db->numero_registros > 0) //Se existirem pacotes
     {
-        $form .= '<td><input type="checkbox" name="chk_inclusao" id="chk_inclusao" value="1" onclick=if(this.checked){if(confirm("Aten&ccedil;&atilde;o:&nbsp;Essa&nbsp;a&ccedil;&atilde;o&nbsp;ir&aacute;&nbsp;incluir&nbsp;os&nbsp;arquivos&nbsp;em&nbsp;um&nbsp;pacote&nbsp;EXISTENTE.&nbsp;Deseja&nbsp;continuar?")){xajax.$("sel_id_ged_pacote").style.visibility="visible";}else{this.checked=false;}}else{xajax.$("sel_id_ged_pacote").style.visibility="hidden";}; style="margin:0px;padding:0px" title="Incluir&nbsp;os&nbsp;documentos&nbsp;em&nbsp;um&nbsp;Pacote&nbsp;existente"><label class="labels">Incluir&nbsp;em&nbsp;pacote&nbsp;existente</label><br>';
+        $form .= '<td><input type="checkbox" name="chk_inclusao" id="chk_inclusao" value="1" onclick=if(this.checked){if(confirm("Atenção:&nbsp;Essa&nbsp;ação&nbsp;irá&nbsp;incluir&nbsp;os&nbsp;arquivos&nbsp;em&nbsp;um&nbsp;pacote&nbsp;EXISTENTE.&nbsp;Deseja&nbsp;continuar?")){xajax.$("sel_id_ged_pacote").style.visibility="visible";}else{this.checked=false;}}else{xajax.$("sel_id_ged_pacote").style.visibility="hidden";}; style="margin:0px;padding:0px" title="Incluir&nbsp;os&nbsp;documentos&nbsp;em&nbsp;um&nbsp;Pacote&nbsp;existente"><label class="labels">Incluir&nbsp;em&nbsp;pacote&nbsp;existente</label><br>';
         $form .= $cmb_pacote;
         $form .= "</td>";
     }
@@ -4801,7 +4801,7 @@ function preencheArquivosSol($id_os)
             $xml->writeElement('cell',$sel_formato);
             $xml->writeElement('cell','<input type="text" class="caixa" id="copias_' . $id_ged_arquivo . '" name="copias_' . $id_ged_arquivo . '" size="3" title="Digite a quantidade de cópias" value="1" onkeyup=pulaCampo(this,event.keyCode);>');
             $xml->writeElement('cell','<input type="text" class="caixa" id="folhas_' . $id_ged_arquivo . '" name="folhas_' . $id_ged_arquivo . '" size="3" title="Digite a quantidade de folhas" value="' . $fls_arquivo[$id_ged_arquivo] . '"  onkeyup=pulaCampo(this,event.keyCode);>');
-            $xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" title="Retirar&nbsp;da&nbsp;sele&ccedil;&atilde;o." style="cursor:pointer" onclick=xajax_selecaoCheckbox("chk_' . $id_ged_arquivo . '","false");xajax_preencheArquivosSol("'.$id_os.'");>');
+            $xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" title="Retirar&nbsp;da&nbsp;seleção." style="cursor:pointer" onclick=xajax_selecaoCheckbox("chk_' . $id_ged_arquivo . '","false");xajax_preencheArquivosSol("'.$id_os.'");>');
             
             $xml->endElement();
             

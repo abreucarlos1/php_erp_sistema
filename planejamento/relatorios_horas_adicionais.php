@@ -1,22 +1,22 @@
 <?php
 /*
-		Formul�rio de HORAS POR PER�ODO	
+		Formulário de HORAS POR PERÍODO	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios_horas_adicionais.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006		
-		Versao 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Atualiza��o Layout : 10/04/2015 - Eduardo
-		Vers�o 3 --> atualiza��o layout - Carlos Abreu - 03/04/2017
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
+		Versao 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Atualização Layout : 10/04/2015 - Eduardo
+		Versão 3 --> Atualização layout - Carlos Abreu - 03/04/2017
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(261))
 {
@@ -31,7 +31,7 @@ $conf = new configs();
 <script src="<?php echo INCLUDE_JS ?>datetimepicker.js"></script>
 
 <?php
-$array = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+$array = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 for($i=1;$i<=12;$i++)
 {

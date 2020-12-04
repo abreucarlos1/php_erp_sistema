@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Horas previstas x projetadas
+		Relatório Horas previstas x projetadas
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_horas_prevista_projetada.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 /**
@@ -63,7 +63,7 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
 
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12, 1, iconv('ISO-8859-1', 'UTF-8',"DATA EMISSÃO: ".date('d/m/Y')));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12, 1, "DATA EMISSÃO: ".date('d/m/Y'));
 
 $db = new banco_dados();
 
@@ -100,7 +100,7 @@ foreach($db->array_select as $regs)
 	$array_recs_func[$regs["id_funcionario"]] = $regs["funcionario"];	
 }
 
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna, $linha, iconv('ISO-8859-1', 'UTF-8',$cont["numero_proposta"]." - ".$cont["descricao_proposta"]));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna, $linha, $cont["numero_proposta"]." - ".$cont["descricao_proposta"]);
 
 $linha++;
 
@@ -264,7 +264,7 @@ foreach($db->array_select as $regs0)
 }
 */
 
-$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".formatos, planejamento.escopo_geral, planejamento.escopo_detalhado ";
+$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".formatos, ".DATABASE.".escopo_geral, ".DATABASE.".escopo_detalhado ";
 $sql .= "WHERE escopo_geral.reg_del = 0 ";
 $sql .= "AND escopo_detalhado.reg_del = 0 ";
 $sql .= "AND setores.reg_del = 0 ";
@@ -295,28 +295,28 @@ foreach($array_resumo as $regs)
 {
 	if($escopo_geral!=$regs["id_escopo_geral"])
 	{
-		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8',$regs["escopo_geral"]));			
+		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, $regs["escopo_geral"]);			
 		
 		$linha++;
 	}	
 	
 	if($disciplina!=$regs["id_setor"] || $escopo_geral!=$regs["id_escopo_geral"])
 	{
-		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, iconv('ISO-8859-1', 'UTF-8',$regs["setor"]));			
+		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, $regs["setor"]);			
 	
 		$linha++;
 	}
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha, iconv('ISO-8859-1', 'UTF-8',$regs["codigo"]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha, $regs["codigo"]);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha, iconv('ISO-8859-1', 'UTF-8',$regs["descricao"]." ".$regs["descricao_escopo"]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5, $linha, $regs["descricao"]." ".$regs["descricao_escopo"]);
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8, $linha, iconv('ISO-8859-1', 'UTF-8',$regs["formato"]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8, $linha, $regs["formato"]);
 
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9, $linha, number_format($regs["quantidade"],2,",","."));
 
 	//seleciona a tabela de recursos cadastrados
-	$sql = "SELECT * FROM planejamento.recursos ";
+	$sql = "SELECT * FROM ".DATABASE.".recursos ";
 	$sql .= "WHERE recursos.reg_del = 0 ";
 	$sql .= "AND recursos.id_escopo_geral = '".$regs["id_escopo_geral"]."' ";
 	$sql .= "AND recursos.id_escopo_detalhado = '".$regs["id_escopo_detalhado"]."' ";
@@ -332,20 +332,16 @@ foreach($array_resumo as $regs)
 		
 		if(!empty($reg_rec["id_recurso"]))
 		{
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, iconv('ISO-8859-1', 'UTF-8',$array_recs_func[$reg_rec["id_recurso"]]));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, $array_recs_func[$reg_rec["id_recurso"]]);
 		}
 		else
 		{
-			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, iconv('ISO-8859-1', 'UTF-8',$array_recs_orc[$reg_rec["id_recurso_orcamento"]]));
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, $array_recs_orc[$reg_rec["id_recurso_orcamento"]]);
 		}
 		
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11, $linha, number_format($reg_rec["horas_orcamento"],2,",","."));
 		
-		//$objPHPExcel->getActiveSheet()->getStyle('L'.$linha)->getNumberFormat()->setFormatCode('0,00');
-		
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12, $linha, number_format($reg_rec["horas"],2,",","."));
-		
-		//$objPHPExcel->getActiveSheet()->getStyle('M'.$linha)->getNumberFormat()->setFormatCode('0,00');
 		
 		$total_prev += $reg_rec["horas_orcamento"];
 		
@@ -363,19 +359,11 @@ foreach($array_resumo as $regs)
 
 $objPHPExcel->getActiveSheet()->getStyle('A'.$linha.":M".$linha)->getFont()->setBold(true)->setSize(10);
 
-//$objPHPExcel->getActiveSheet()->mergeCells("A".($linha).":K".($linha));
-
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, iconv('ISO-8859-1', 'UTF-8','TOTAL'));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, 'TOTAL');
 
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11, $linha, number_format($total_prev,2,",","."));
 
-//$objPHPExcel->getActiveSheet()->getStyle('L'.$linha)->getNumberFormat()->setFormatCode('0,00');
-
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12, $linha, number_format($total_proj,2,",","."));
-
-//$objPHPExcel->getActiveSheet()->getStyle('M'.$linha)->getNumberFormat()->setFormatCode('0,00');
-
-
 
 // Redirect output to a client's web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

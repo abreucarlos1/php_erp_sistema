@@ -25,7 +25,7 @@
               <tr>
                 <td width="6%" class="td_sp"><label class="labels">Proposta</label>
                 <div class="labels" style="font-weight:bold" id="nr_proposta">&nbsp;</div></td>
-                <td width="17%" class="td_sp"><label class="labels">Descri&ccedil;ao</label>
+                <td width="17%" class="td_sp"><label class="labels">Descrição</label>
                 <div class="labels" style="font-weight:bold" id="descri_proposta">&nbsp;</div></td>
                 <input type="hidden" id="id_proposta" name="id_proposta" value="" />
                 <input type="hidden" id="chk_del" name="chk_del[]" value="">
@@ -136,8 +136,6 @@
                 <div id="div_control_resumo" style="visibility:hidden"> 
                   <div id="div_resumo" style="width:99%">&nbsp;</div>
                   <div id="barra_btn_quant">
-                    <!-- <input type="button" name="btn_excel" id="btn_excel" onclick="window.open('../relatorios/rel_proposta_quantificacao.php?id_proposta='+xajax.$('id_proposta').value);" value="Excel" class="fonte_botao"> -->
-                    <!-- <input type="button" name="btn_concluir" id="btn_concluir" onclick="" value="Concluir"> -->
                   </div>
                 </div>
             </div>               

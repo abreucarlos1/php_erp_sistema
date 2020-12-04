@@ -16,7 +16,7 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-                        <input name="btnimprimir" id="btnimprimir" type="button" class="class_botao" value="Relat&oacute;rio" disabled="disabled" onclick="if(document.getElementById('id_proposta').value!=0){imprimir()};" />
+                        <input name="btnimprimir" id="btnimprimir" type="button" class="class_botao" value="Relatório" disabled="disabled" onclick="if(document.getElementById('id_proposta').value!=0){imprimir()};" />
                     	</td>
                    	</tr>
         			<tr>
@@ -31,7 +31,7 @@
               <tr>
                 <td width="19%"><label class="labels">Proposta</label><br />
                 <div class="labels" style="font-weight:bold" id="nr_proposta">&nbsp;</div></td>
-                <td width="81%"><label class="labels">Descri&ccedil;ao</label><br />
+                <td width="81%"><label class="labels">Descrição</label><br />
                 <div class="labels" style="font-weight:bold" id="descri_proposta">&nbsp;</div></td>
                 <input type="hidden" id="id_proposta" name="id_proposta" value="" />
                 
@@ -48,8 +48,7 @@
                 </select>
                 </td>
               </tr>
-            </table>                   
-                         
+            </table>                        
             </td>
         </tr>
         <tr>

@@ -1,16 +1,16 @@
 <?php
 /*
-		Relat�rio empresa funcionarios	
+		Relatório empresa funcionarios	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../financeiro/rel_empresafunc.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 20/03/2007
-		Vers�o 1 --> Atualiza��o Lay-Out - 09/11/2007
-		Vers�o 2 --> atualiza��o layout - Carlos Abreu - 28/03/2017
-		Vers�o 3 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		
+		Versão 0 --> VERSÃO INICIAL - 20/03/2007
+		Versão 1 --> Atualização Lay-Out - 09/11/2007
+		Versão 2 --> Atualização layout - Carlos Abreu - 28/03/2017
+		Versão 3 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		
 */
 
 	header("Content-Type: application/vnd.ms-excel");
@@ -37,7 +37,7 @@
 	$conteudo = "<table width=\"100%\" border=\"1\">";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"3\"><b>EMPRESAS DE FUNCION�RIOS<b></td>";
+	$conteudo .= "<td align=\"right\" colspan=\"3\"><b>EMPRESAS DE FUNCIONÁRIOS<b></td>";
 	$conteudo .= "</tr>";
 
 	$conteudo .= "<tr>";

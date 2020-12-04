@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio Diario de Obra
+		Relatório Diario de Obra
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_diario_obra.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -66,15 +66,15 @@ if($_POST["chk_excel"]==0)
 	$db = new banco_dados;
 	
 	//Seta o cabeçalho
-	$pdf->departamento="PLANEJAMENTO";
-	$pdf->titulo="RELAT�RIO DI�RIO DE OBRA";
+	$pdf->departamento=NOME_EMPRESA;
+	$pdf->titulo="RELATÓRIO DIÁRIO DE OBRA";
 	$pdf->setor="PLN";
 	$pdf->codigodoc="500"; //"00"; //"02"
 	$pdf->codigo="0"; //Numero OS
 	$pdf->setorextenso=$setor; //"INFORMATICA"
 	$pdf->emissao=date('d/m/Y');
 	
-	$pdf->versao_documento=$_POST["data_ini"] . " � " . $_POST["datafim"];
+	$pdf->versao_documento=$_POST["dataini"] . " á " . $_POST["datafim"];
 	
 	$pdf->AliasNbPages();
 	$pdf->SetXY(25,40);
@@ -83,31 +83,31 @@ if($_POST["chk_excel"]==0)
 	$pdf->SetFont('Arial','',8);
 	$pdf->Ln(5);
 	
-	$data_ini = php_mysql($_POST["data_ini"]);
+	$data_ini = php_mysql($_POST["dataini"]);
 	$datafim = php_mysql($_POST["datafim"]);
 	
 	//monta a os e as disciplinas	
 	if ($data_ini=='' || $datafim=='')
 	{
 
-		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '" . $_POST["escolhaos"] . "' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
-		$sql .= "AND OS.id_os_status = '".$_POST["exibir"]."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
+		$sql .= "AND ordem_servico.id_os_status = '".$_POST["exibir"]."' ";
+		$sql .= "GROUP BY ordem_servico.os";
 	}
 	else
 	{
-		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '" . $_POST["escolhaos"] . "' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '" . $data_ini . "' AND '" . $datafim . "' ";
-		$sql .= "AND OS.id_os_status = '".$_POST["exibir"]."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "AND ordem_servico.id_os_status = '".$_POST["exibir"]."' ";
+		$sql .= "GROUP BY ordem_servico.os";
 
 	}
 	
@@ -239,17 +239,17 @@ else
 	
 	$db = new banco_dados;
 
-	$data_ini = php_mysql($_POST["data_ini"]);
+	$data_ini = php_mysql($_POST["dataini"]);
 	$datafim = php_mysql($_POST["datafim"]);	
 	
 	$conteudo = "<table width=\"100%\" border=\"1\">";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\"><b>RELAT�RIO DI�RIO DE OBRA<b></td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\"><b>RELATÓRIO DIÁRIO DE OBRA<b></td>";
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">".$_POST["data_ini"] . " � " . $_POST["datafim"]."</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\">".$_POST["dataini"] . " á " . $_POST["datafim"]."</td>";
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
@@ -261,24 +261,24 @@ else
 	if ($data_ini=='' || $datafim=='')
 	{
 
-		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '" . $_POST["escolhaos"] . "' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
-		$sql .= "AND OS.id_os_status = '".$_POST["exibir"]."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
+		$sql .= "AND ordem_servico.id_os_status = '".$_POST["exibir"]."' ";
+		$sql .= "GROUP BY ordem_servico.os";
 	}
 	else
 	{
-		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE apontamento_horas.id_os = '" . $_POST["escolhaos"] . "' ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
-		$sql .= "AND OS.reg_del = 0 ";
-		$sql .= "AND OS.id_os = apontamento_horas.id_os ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '" . $data_ini . "' AND '" . $datafim . "' ";
-		$sql .= "AND OS.id_os_status = '".$_POST["exibir"]."' ";
-		$sql .= "GROUP BY os.os";
+		$sql .= "AND ordem_servico.id_os_status = '".$_POST["exibir"]."' ";
+		$sql .= "GROUP BY ordem_servico.os";
 
 	}
 	

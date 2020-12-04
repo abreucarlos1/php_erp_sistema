@@ -67,10 +67,10 @@ else
 
 if($_POST["intervalo"]=='1')
 {
-	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 .= "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
-	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "') ";
-	$filtro2 .= "AND AFU_DATA >= '" . mysql_protheus(php_mysql($_POST["data_ini"])) . "' ";
+	$filtro0 .= "AND AF8_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 .= "AND (AF9_START >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
+	$filtro1 .= "OR AF9_DTATUI >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "') ";
+	$filtro2 .= "AND AFU_DATA >= '" . mysql_protheus(php_mysql($_POST["dataini"])) . "' ";
 }
 
 

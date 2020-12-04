@@ -77,9 +77,9 @@ $db = new banco_dados;
 
 if($_POST["intervalo"]=='1')
 {
-	$filtro1 = "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
-	$filtro2 = "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["data_ini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
-	$pdf->versao_documento="DE: ".$_POST["data_ini"] . " A " . $_POST["datafim"];
+	$filtro1 = "AND apontamento_horas.data BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
+	$filtro2 = "AND grd.data_emissao BETWEEN '" . php_mysql($_POST["dataini"]) . "' AND '" . php_mysql($_POST["datafim"]) . "' ";
+	$pdf->versao_documento="DE: ".$_POST["dataini"] . " A " . $_POST["datafim"];
 }
 else
 {

@@ -1,15 +1,15 @@
 <?php
 /*
-		Relat�rio de OS x status
+		Relatório de OS x status
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controle_os_status.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 2 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 2 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
@@ -62,7 +62,7 @@ if($_POST["formato"]==0) //PDF
 			$this->Cell(45,4,'OS AD.',0,0,'L',0);
 			$this->Cell(30,4,'STATUS',0,0,'L',0);
 			$this->Cell(70,4,'CLIENTE',0,0,'L',0);
-			$this->Cell(85,4,'DESCRI��O',0,0,'L',0);
+			$this->Cell(85,4,'DESCRIÇÃO',0,0,'L',0);
 			$this->Cell(35,4,'COORD.',0,1,'L',0);
 	
 			$this->Line(10,$this->GetY(),280,$this->GetY());		
@@ -82,7 +82,7 @@ if($_POST["formato"]==0) //PDF
 	$pdf->SetLineWidth(0.5);
 	
 	//Seta o cabeçalho
-	$pdf->departamento="COMERCIAL";
+	$pdf->departamento=NOME_EMPRESA;
 	$pdf->titulo="OS / STATUS";
 	$pdf->setor="PLN";
 	$pdf->codigodoc="01"; //"00";
@@ -99,26 +99,25 @@ if($_POST["formato"]==0) //PDF
 	
 	$pdf->AddPage();
 	
-	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
+	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
 	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
-	$sql .= "WHERE OS.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql .= "AND OS.id_cod_coord = funcionarios.id_funcionario ";
-	$sql .= "AND os.os BETWEEN 1000 AND 60000  ";
+	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 	
 	if($_POST["status"]!=-1)
 	{
 		$sql .= "AND ordem_servico_status.id_os_status = '".$_POST["status"]."' ";
 		
-		$sql .= "ORDER BY os.os ";		
+		$sql .= "ORDER BY ordem_servico.os ";		
 	}
 	else
 	{
-		$sql .= "ORDER BY ordem_servico_status.os_status, os.os ";
+		$sql .= "ORDER BY ordem_servico_status.os_status, ordem_servico.os ";
 	}	
 
 	$db->select($sql,'MYSQL',true);
@@ -127,7 +126,7 @@ if($_POST["formato"]==0) //PDF
 	
 	foreach ($array_os as $regconth1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".os_x_adicionais, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".os_x_adicionais, ".DATABASE.".ordem_servico ";
 		
 		if($regconth1["os_status"]!='ADICIONAL')
 		{		
@@ -137,10 +136,10 @@ if($_POST["formato"]==0) //PDF
 		else
 		{
 			$sql .= "WHERE os_x_adicionais.id_os_adicional = '".$regconth1["id_os"]."' ";
-			$sql .= "AND os_x_adicionais.id_os_raiz = OS.id_os ";
+			$sql .= "AND os_x_adicionais.id_os_raiz = ordem_servico.id_os ";
 		}
 		
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND os_x_adicionais.reg_del = 0 ";
 		
 		$db->select($sql,'MYSQL',true);
@@ -186,26 +185,25 @@ else //Excel
 	</tr>
 	<?php
 		
-	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
+	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
 	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
-	$sql .= "WHERE OS.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql .= "AND OS.id_cod_coord = funcionarios.id_funcionario ";
-	$sql .= "AND os.os BETWEEN 1000 AND 60000  ";
+	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 	
 	if($_POST["status"]!=-1)
 	{
 		$sql .= "AND ordem_servico_status.id_os_status = '".$_POST["status"]."' ";
 		
-		$sql .= "ORDER BY os.os ";	
+		$sql .= "ORDER BY ordem_servico.os ";	
 	}
 	else
 	{
-		$sql .= "ORDER BY ordem_servico_status.os_status, os.os ";
+		$sql .= "ORDER BY ordem_servico_status.os_status, ordem_servico.os ";
 	}
 
 	$db->select($sql,'MYSQL',true);
@@ -216,20 +214,20 @@ else //Excel
 	
 	foreach ($db->array_select as $regconth1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".os_x_adicionais, ".DATABASE.".OS ";
+		$sql = "SELECT * FROM ".DATABASE.".os_x_adicionais, ".DATABASE.".ordem_servico ";
 		
 		if($regconth1["os_status"]!='ADICIONAL')
 		{		
 			$sql .= "WHERE os_x_adicionais.id_os_raiz = '".$regconth1["id_os"]."' ";
-			$sql .= "AND os_x_adicionais.id_os_adicional = OS.id_os ";
+			$sql .= "AND os_x_adicionais.id_os_adicional = ordem_servico.id_os ";
 		}
 		else
 		{
 			$sql .= "WHERE os_x_adicionais.id_os_adicional = '".$regconth1["id_os"]."' ";
-			$sql .= "AND os_x_adicionais.id_os_raiz = OS.id_os ";
+			$sql .= "AND os_x_adicionais.id_os_raiz = ordem_servico.id_os ";
 		}
 		
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND os_x_adicionais.reg_del = 0 ";
 		
 		$db->select($sql,'MYSQL',true);
@@ -256,7 +254,7 @@ else //Excel
                 <td width="13%"><strong>OS AD.</strong></td>
 				<td width="13%"><strong>STATUS</strong></td>
 				<td width="23%"><strong>CLIENTE</strong></td>
-				<td width="7%"><strong>DESCRI&Ccedil;&Atilde;O</strong></td>
+				<td width="7%"><strong>DESCRIÇÃO</strong></td>
 				<td width="7%"><strong>COORD.</strong></td>
 			</tr>
 			<?php			

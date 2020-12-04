@@ -4129,7 +4129,7 @@ function showModalNF(idMedicao, idItem)
 					'<label class="labels" style="float: left;">Faturar a Menor:</labels>'+
 					'<input name="valor_faturado" type="text" class="caixa" id="valor_faturado" placeholder="valor faturar" size="15" maxlength="10" onKeyDown="FormataValor(frmFaturar.valor_faturado, 10, event)" />'+
 					"<input type='button' class='class_botao' style='width: 290px;' onclick=if(numNF.value==''){alert('Por&nbsp;favor,&nbsp;digite&nbsp;o&nbsp;número&nbsp;da&nbsp;NF')}else{xajax_faturar_medicao('"+idMedicao+"','"+idItem+"',numNF.value,valor_faturado.value)} value='Marcar Como Faturado' />"+
-					"<input type='button' class='class_botao' id='btnAnexarLiberacao' style='width: 290px;' onclick=xajax_showModalAnexoLiberacao('"+idMedicao+"','"+idItem+"'); value='Anexar Doc. Libera&ccedil;&atilde;o' />"+
+					"<input type='button' class='class_botao' id='btnAnexarLiberacao' style='width: 290px;' onclick=xajax_showModalAnexoLiberacao('"+idMedicao+"','"+idItem+"'); value='Anexar Doc. Liberação' />"+
 				'</form></div>';
 	modal(html, '140_300', 'DIGITE O NÚMERO DA NF');
 }

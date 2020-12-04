@@ -1,15 +1,15 @@
-<?
+<?php
 /*
-		Formul�rio de MENU DE PLANEJAMENTO	
+		Formulário de NF	
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../planejamento/controle_nf_empresas_os_excel.php
 		
-		Vers�o 0 --> VERS�O INICIAL : 02/03/2006
-		Vers�o 1 --> Atualiza��o Lay-out | Smarty 
-		Vers�o 2 --> atualiza��o layout - Carlos Abreu - 31/03/2017		
+		Versão 0 --> VERSÃO INICIAL : 02/03/2006
+		Versão 1 --> Atualização Lay-out | Smarty 
+		Versão 2 --> Atualização layout - Carlos Abreu - 31/03/2017		
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -23,7 +23,7 @@ require_once(INCLUDE_DIR."include_form.inc.php");
 
 $conf = new configs();
 
-$campo[1] = "NOTAS FISCAIS FUNCION�RIOS POR OS";
+$campo[1] = "NOTAS FISCAIS FUNCIONÁRIOS POR OS";
 
 $smarty->assign("campo",$campo);
 

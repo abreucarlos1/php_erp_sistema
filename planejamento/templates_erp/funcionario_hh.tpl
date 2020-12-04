@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÛrio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat√≥rio"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -18,7 +18,7 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td colspan="2"><label class="labels">PERÕODO</label></td>
+					<td colspan="2"><label class="labels">PER√çODO</label></td>
 					</tr>
 				<tr>
 					<td width="42%">
@@ -37,7 +37,7 @@
 						</td>
 				</tr>
 				<tr>
-					<td colspan="2"><label for="escolhafuncionario" class="labels">FUNCION¡RIO</label><br />
+					<td colspan="2"><label for="escolhafuncionario" class="labels">FUNCION√ÅRIO</label><br />
 						<select name="escolhafuncionario" class="caixa" id="escolhafuncionario" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_coordenador_values output=$option_coordenador_output</smarty>
 						</select>	

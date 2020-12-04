@@ -1,24 +1,24 @@
 <?php
 /*
-		Formul�rio de MEDIÇÃO / HH / OS / STATUS
+		Formulário de MEDIÇÃO / HH / OS / STATUS
 		
-		Criado por Carlos Abreu / Ot�vio Pamplon ia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:		
 		../planejamento/os_funcionarios_atividades.php
 		
-		Vers�o 0 --> VERS�O INICIAL - 02/03/2006
-		Vers�o 1 --> Atualiza��o Lay-out | Smarty : 04/08/2008
-		Vers�o 2 --> atualiza��o classe banco de dados - 22/01/2015 - Carlos Abreu
-		Vers�o 3 --> Atualiza��o Layout : 02/04/2015 - Eduardo
-		Vers�o 4 --> atualiza��o layout - Carlos Abreu - 31/03/2017
-		Vers�o 5 --> Inclus�o dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
+		Versão 0 --> VERSÃO INICIAL - 02/03/2006
+		Versão 1 --> Atualização Lay-out | Smarty : 04/08/2008
+		Versão 2 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
+		Versão 3 --> Atualização Layout : 02/04/2015 - Eduardo
+		Versão 4 --> Atualização layout - Carlos Abreu - 31/03/2017
+		Versão 5 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu	
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(67) && !verifica_sub_modulo(291))
 {
@@ -33,15 +33,15 @@ function preencheos($status)
 	
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".OS, ".DATABASE.".empresas ";
-	$sql .= "WHERE apontamento_horas.id_os = OS.id_os ";
+	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
+	$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql .= "AND OS.id_os_status = '".$status."' ";
-	$sql .= "GROUP BY os.os ";
-	$sql .= "ORDER BY os.os ";
+	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_os_status = '".$status."' ";
+	$sql .= "GROUP BY ordem_servico.os ";
+	$sql .= "ORDER BY ordem_servico.os ";
 	 
 	$db->select($sql,'MYSQL',true);
 	
@@ -68,7 +68,7 @@ function preenchefunc($id_os)
 	$db = new banco_dados;
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".apontamento_horas ";
-	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO', 'CANCELADODVM', 'CANCELADO') ";
+	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO', 'CANCELADO') ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
 	$sql .= "AND apontamento_horas.id_funcionario = funcionarios.id_funcionario ";
@@ -80,7 +80,7 @@ function preenchefunc($id_os)
 	
 	$resposta->addScript("xajax.$('id_funcionario').length=0;");
 	
-	$resposta->addScript("xajax.$('id_funcionario').options[0] = new Option('TODOS OS FUNCION�RIOS','-1');");
+	$resposta->addScript("xajax.$('id_funcionario').options[0] = new Option('TODOS OS FUNCIONÁRIOS','-1');");
 		
 	foreach($db->array_select as $func)
 	{
@@ -110,7 +110,7 @@ function seleciona_atividades(checkbox)
 {
 	if(checkbox.checked)
 	{
-		if(confirm('Isso ir� organizar os dados por Atividades. Deseja continuar?'))
+		if(confirm('Isso irá organizar os dados por Atividades. Deseja continuar?'))
 		{
 			document.getElementById('div_atividades').style.visibility = 'visible';
 			document.getElementById('frm_rel').action='relatorios/rel_controle_os_atividades.php';

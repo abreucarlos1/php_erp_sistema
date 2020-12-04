@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat�rio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
@@ -32,8 +32,8 @@
                     </td>
 				</tr>
 				<tr>
-				  <td><label for="avanco" class="labels">Ignora tarefas concluidas?</label><br />
-                  <input type="checkbox" name="avanco" id="avanco" title="Ignora tarefas concluidas?" value="1" />
+				  <td><label for="avanco" class="labels">Ignora tarefas concluídas?</label><br />
+                  <input type="checkbox" name="avanco" id="avanco" title="Ignora tarefas concluídas?" value="1" />
                   </td>
 		    </tr>
 		  </table></td>
