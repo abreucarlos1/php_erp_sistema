@@ -1,9 +1,9 @@
 <?php
 /*
 
-		Formul�rio de Modelo
+		Formulário de Modelo
 		
-		Criado por Carlos Abreu / Ot�vio Pamplona parEmpresa Xia
+		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		

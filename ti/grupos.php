@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Grupos	
+		Formulário de Grupos	
 		
 		Criado por Carlos Abreu  
 		
@@ -9,7 +9,7 @@
 	
 		Versão 0 --> VERSÃO INICIAL : 28/10/2008
 		Versão 1 --> Atualização de Lay out : 06/04/2009
-		Versao 2 --> Mudan�as nos includes, smarty: 10/09/2012
+		Versao 2 --> Mudanças nos includes, smarty: 10/09/2012
 		Versão 3 --> Atualização layout - Carlos Abreu - 11/04/2017
 		Versão 4 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
 */	
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(107))
 {
@@ -75,7 +75,7 @@ function atualizatabela($filtro)
 		$sql_filtro = "AND grupos.grupo LIKE '".$sql_texto."' ";
 	}
 	
-	$sql = "SELECT * FROM ti.grupos ";
+	$sql = "SELECT * FROM ".DATABASE.".grupos ";
 	$sql .= "WHERE grupos.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY grupo ";
@@ -132,7 +132,7 @@ function insere($dados_form)
 		
 		if($dados_form["grupo"]!='')
 		{
-			$sql = "SELECT * FROM ti.grupos ";
+			$sql = "SELECT * FROM ".DATABASE.".grupos ";
 			$sql .= "WHERE grupo = '".trim(maiusculas($dados_form["grupo"]))."' ";
 			$sql .= "AND grupos.reg_del = 0 ";
 
@@ -145,7 +145,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ti.grupos ";
+				$isql = "INSERT INTO ".DATABASE.".grupos ";
 				$isql .= "(grupo) ";
 				$isql .= "VALUES ('" . maiusculas($dados_form["grupo"]) . "') ";
 
@@ -188,7 +188,7 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ti.grupos ";
+	$sql = "SELECT * FROM ".DATABASE.".grupos ";
 	$sql .= "WHERE grupos.id_grupo = '".$id."' ";
 	$sql .= "AND grupos.reg_del = 0 ";
 
@@ -229,7 +229,7 @@ function atualizar($dados_form)
 		
 		if($dados_form["grupo"]!='')
 		{
-			$sql = "SELECT * FROM ti.grupos ";
+			$sql = "SELECT * FROM ".DATABASE.".grupos ";
 			$sql .= "WHERE grupo = '".trim(maiusculas($dados_form["grupo"]))."' ";
 			$sql .= "AND id_grupo <> '".$dados_form["id_grupo"]."' ";
 			$sql .= "AND reg_del = 0 ";
@@ -243,7 +243,7 @@ function atualizar($dados_form)
 			
 			if($db->numero_registros<=0)
 			{	
-				$usql = "UPDATE ti.grupos SET ";
+				$usql = "UPDATE ".DATABASE.".grupos SET ";
 				$usql .= "grupo = '" . maiusculas($dados_form["grupo"]) . "' ";
 				$usql .= "WHERE id_grupo = '".$dados_form["id_grupo"]."' ";
 				$usql .= "AND reg_del = 0 ";
@@ -288,14 +288,7 @@ function excluir($id, $what)
 	{
 		$db = new banco_dados;
 		
-		/*
-		$dsql = "DELETE FROM ti.grupos ";
-		$dsql .= "WHERE grupos.id_grupo = '".$id."' ";
-
-		$db->delete($dsql,'MYSQL');
-		*/
-		
-		$usql = "UPDATE ti.grupos SET ";
+		$usql = "UPDATE ".DATABASE.".grupos SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -307,8 +300,7 @@ function excluir($id, $what)
 		if($db->erro!='')
 		{
 			$resposta->addAlert($db->erro);
-		}
-		
+		}		
 		
 		$resposta->addScript("xajax_atualizatabela('');");
 		
@@ -370,7 +362,6 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableMultiselect(true);
 	mygrid.enableCollSpan(true);		
 	mygrid.init();
-	//mygrid.enableSmartRendering(true,32);
 	mygrid.loadXMLString(xml);
 
 }

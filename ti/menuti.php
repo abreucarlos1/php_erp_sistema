@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Menu Tecnologia da Informa��o
+	Formulário de Menu Tecnologia da Informação
 	
 	Criado por Carlos Abreu  
 	
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(15))
 {
@@ -28,7 +28,7 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-$smarty->assign("body_onload","xajax_monta_menu(15);"); //M�DULO TECNOLOGIA DA INFORMA��O
+$smarty->assign("body_onload","xajax_monta_menu(15);");
 
 $conf = new configs();
 

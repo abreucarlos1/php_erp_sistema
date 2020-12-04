@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Telas	
+		Formulário de Telas	
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(110))
 {
@@ -294,12 +294,6 @@ function excluir($id, $what)
 	{
 		$db = new banco_dados;
 		
-		/*
-		$dsql = "DELETE FROM ".DATABASE.".tela ";
-		$dsql .= "WHERE tela.id_tela = '".$id."' ";
-
-		$db->delete($dsql,'MYSQL');
-		*/
 		$usql = "UPDATE ".DATABASE.".tela SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";

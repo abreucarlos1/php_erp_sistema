@@ -1,8 +1,8 @@
 <?php
 /*
-	Formul�rio de Invent�rio
+	Formulário de Inventário
 	
-	Criado por Carlos M�xim ia
+	Criado por Carlos Máximo
 	
 	local/Nome do arquivo:
 	../ti/inventario.php
@@ -16,7 +16,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(104) && !verifica_sub_modulo(512))
 {
@@ -55,9 +55,9 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
 		(SELECT id_funcionario codigoFuncionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcionario
 		LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_funcionario = codigoFuncionario AND usuarios.reg_del = 0)
 		JOIN(
-          SELECT * FROM ti.inventario
+          SELECT * FROM ".DATABASE.".inventario
           JOIN(
-              SELECT id_equipamento codigo_equipamento, equipamento, num_dvm patrimonio FROM ti.equipamentos WHERE equipamentos.reg_del = 0
+              SELECT id_equipamento codigo_equipamento, equipamento, num_dvm patrimonio FROM ".DATABASE.".equipamentos WHERE equipamentos.reg_del = 0
           ) equipamentos
           ON codigo_equipamento = id_equipamento
           WHERE inventario.reg_del = 0 AND inventario.id_inventario = ".$idInventario."
@@ -71,7 +71,7 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
 	if ($db->numero_registros > 0)
 	{
 		$usql = 
-		"UPDATE ti.inventario
+		"UPDATE ".DATABASE.".inventario
 			SET situacao = 0, 
 			data_devolucao = '".date('Y-m-d H:i:s')."', 
 			situacao_devolucao = '".strtoupper($obsDevolucao)."'			
@@ -92,7 +92,7 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
     			$params['from_name']= "Tecnologia e Sistemas";
     			$params['subject'] 	= "Baixa do equipamento ".$reg_usuario["patrimonio"]." - ".$reg_usuario["equipamento"];
     	
-    			$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas Devemada");
+    			$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas");
     			
     			if ($reg_usuario['situacao'] == 'ATIVO')
     				$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);
@@ -101,7 +101,7 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
     			"<html>
     				<body style='font: 11pt Arial'>
     					<p>Foi realizada baixa do equipamento <b>".$reg_usuario["patrimonio"]."</b> - <b>".$reg_usuario["equipamento"]."</b></p>
-    					<p><b>Colaborador respons�vel</b>: ".$reg_usuario["funcionario"]."</p>
+    					<p><b>Colaborador responsável</b>: ".$reg_usuario["funcionario"]."</p>
     					<p><b>data da baixa</b>: " . date("d/m/Y") . "</p>
     				</body>
     			 </html>";
@@ -113,10 +113,10 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
 			
 		    $enviado = isset($enviado) ? $enviado : HOST == 'localhost';
 		    
-			//Por enquanto, n�o teremos controle dos e-mails que ser�o ou n�o enviados
+			//Por enquanto, não teremos controle dos e-mails que serão ou não enviados
 			if (!$enviado)
 			{
-				$retorno->addAlert('E-MAIL N�O enviado, por�m, a baixa foi realizada');
+				$retorno->addAlert('E-MAIL NÃO enviado, porém, a baixa foi realizada');
 			}
 			else 
 			{
@@ -152,14 +152,14 @@ function atualizatabela()
 	
 	$sql = 
 		"SELECT id_equipamento, equipamento, num_dvm, id_funcionario, data_saida, funcionario, id_inventario,
-				CASE WHEN tipo = 1 THEN 'A2WORKS' ELSE 'DVM' END tipo, os, area, status
+				CASE WHEN tipo = 1 THEN 'ALUGADO' ELSE 'EMPRESA' END tipo, os, area, status
 		FROM
-		  ti.equipamentos
+		".DATABASE.".equipamentos
 		  JOIN(
 		    SELECT
-		      id_equipamento codigo_equipamento, id_funcionario, data_saida, funcionario, id_inventario, situacao, os.os os, status
+		      id_equipamento codigo_equipamento, id_funcionario, data_saida, funcionario, id_inventario, situacao, ordem_servico.os os, status
 		    FROM
-		      ti.inventario
+			".DATABASE.".inventario
 		      JOIN(
 		        SELECT
 		          id_funcionario, funcionario, situacao AS status
@@ -167,7 +167,7 @@ function atualizatabela()
 		          ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0 
 		      ) funcionario
 		      ON id_funcionario = id_funcionario
-              LEFT JOIN ".DATABASE.".OS on OS.id_os = inventario.os
+              LEFT JOIN ".DATABASE.".ordem_servico on ordem_servico.id_os = inventario.os
 		    WHERE
 		      inventario.reg_del = 0
 		      ".$situacao."
@@ -186,7 +186,6 @@ function atualizatabela()
 	
 	$db->select($sql,'MYSQL', function($reg, $i) use(&$xml){
 		$xml->startElement('row');
-		    //$xml->writeAttribute('id',$reg["id_equipamento"]);
 			
 		    if ($reg['status'] != 'ATIVO')
 		    {
@@ -253,7 +252,7 @@ function gravarlocal($dados_form)
 	$idInventario 	= $dados_form['local_id_inventario'];
 	$idlocal 		= $dados_form['novolocalTrabalho'];
 	
-	$usql = "UPDATE ti.inventario_locais SET ";
+	$usql = "UPDATE ".DATABASE.".inventario_locais SET ";
 	$usql .= "il_atual = 0 ";
 	$usql .= "WHERE il_id_inventario = ".$idInventario." ";
 	$usql .= "AND reg_del = 0 ";
@@ -261,7 +260,7 @@ function gravarlocal($dados_form)
 	$db->update($usql, 'MYSQL');
 	
 	$isql = 
-	"INSERT INTO ti.inventario_locais (il_id_local, il_id_inventario, il_data)
+	"INSERT INTO ".DATABASE.".inventario_locais (il_id_local, il_id_inventario, il_data)
 		VALUES (".$idlocal.",".$idInventario.", '".date('Y-m-d')."')";
 	
 	$db->insert($isql, 'MYSQL');
@@ -271,7 +270,7 @@ function gravarlocal($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('Hist�rico gravado corretamente');
+		$resposta->addAlert('Histórico gravado corretamente');
 		$resposta->addScriptCall('xajax_historico('.$idInventario.');');
 	}
 	
@@ -287,7 +286,7 @@ function historico($_id)
 	"SELECT
 	  id_local, il_id_inventario, id_local, il_data, descricao, il_atual
 	FROM
-		ti.inventario_locais
+	".DATABASE.".inventario_locais
 		JOIN(
 			SELECT id_local, descricao FROM ".DATABASE.".local WHERE local.reg_del = 0 
 		) local
@@ -351,7 +350,7 @@ function showModalhistorico($_id)
 	$html .= '</select><input type="button" onclick="xajax_gravarlocal(xajax.getFormValues(\'frmHistorico\'));" class="class_botao" id="btnGravarNovolocal" name="btnGravarNovolocal" value="GRAVAR" /></form>';
 	$html .= "</form><div id='lista_historico'></div>";
 	
-	$resposta->addScriptCall('modal', $html, '300_550', 'Hist�rico do equipamento');
+	$resposta->addScriptCall('modal', $html, '300_550', 'Histórico do equipamento');
 	$resposta->addScriptCall('xajax_historico('.$_id.');');
 	
 	return $resposta;
@@ -377,7 +376,7 @@ function insere($dados_form)
 		
 		case 'lblVerbal':
 			$tipo = 'Verbal';
-			$complemento = $dados_form['descricaoVerbal'];//Usei o mesmo textarea para outros e verbal, visto que s�o opcionais
+			$complemento = $dados_form['descricaoVerbal'];//Usei o mesmo textarea para outros e verbal, visto que são opcionais
 		break;
 		
 		case 'lblOutros':
@@ -391,7 +390,7 @@ function insere($dados_form)
 	}
 
 	$isql = 
-	"INSERT INTO ti.inventario
+	"INSERT INTO ".DATABASE.".inventario
 		(id_equipamento, situacao, id_funcionario, data_saida, complemento, tipo, os)
 	VALUES
 		(".$dados_form['equipamento'].", 1, ".$dados_form['solicitante'].", '".php_mysql($dados_form['data_retirada']).date(' H:i:s')."', '".$complemento."', '".$tipo."', '".$dados_form['os']."') ";
@@ -421,7 +420,7 @@ function insere($dados_form)
 				}
 				
 				$isql = 
-				"INSERT INTO ti.inventario_acessorios
+				"INSERT INTO ".DATABASE.".inventario_acessorios
 					(id_inventario, id_acessorio)
 				VALUES
 				".$values;
@@ -433,7 +432,7 @@ function insere($dados_form)
 					$retorno = 0;
 					
 					$usql = 
-					"UPDATE ti.inventario SET 
+					"UPDATE ".DATABASE.".inventario SET 
 						reg_del = 1,
 						reg_who = '".$_SESSION["id_funcionario"]."',
 						data_del = '".date('Y-m-d')."'					
@@ -446,7 +445,7 @@ function insere($dados_form)
 			if (!empty($dados_form['locaisTrabalho']))
 			{
 				$isql = 
-				"INSERT INTO ti.inventario_locais
+				"INSERT INTO ".DATABASE.".inventario_locais
 					(il_id_local, il_id_inventario, il_data)
 				VALUES(".$dados_form['locaisTrabalho'].", ".$codigoInventario.", '".php_mysql($dados_form['data_retirada'])."')";
 				
@@ -470,9 +469,9 @@ function insere($dados_form)
 				        ) funcionario
 				        ON codigoFuncionario = id_funcionario
 				        JOIN(
-				          SELECT * FROM ti.inventario
+				          SELECT * FROM ".DATABASE.".inventario
 				          JOIN(
-				              SELECT id_equipamento codigo_equipamento, equipamento, num_dvm patrimonio FROM ti.equipamentos WHERE equipamentos.reg_del = 0
+				              SELECT id_equipamento codigo_equipamento, equipamento, num_dvm patrimonio FROM ".DATABASE.".equipamentos WHERE equipamentos.reg_del = 0
 				          ) equipamentos
 				          ON codigo_equipamento = id_equipamento
 				          WHERE inventario.reg_del = 0 AND inventario.id_inventario = '".$codigoInventario."'
@@ -496,17 +495,17 @@ function insere($dados_form)
 						$params 			= array();
 						$params['from']		= "suporte@dominio.com.br";
 						$params['from_name']= "Tecnologia e Sistemas";
-						$params['subject'] 	= 'Empr�stimo do equipamento '.$reg_usuario["patrimonio"].' - '.$reg_usuario["equipamento"];
+						$params['subject'] 	= 'Empréstimo do equipamento '.$reg_usuario["patrimonio"].' - '.$reg_usuario["equipamento"];
 						
-						$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas Devemada");
+						$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas");
 						$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);		
 						
 						$corpo = 
 						"<html>
 							<body style='font: 11pt Arial'>
-								<p>Foi realizado o empr�stimo do equipamento <b>".$reg_usuario["patrimonio"]."</b> - <b>".$reg_usuario["equipamento"]."</b></p>
-								<p><b>Colaborador respons�vel</b>: ".$reg_usuario["funcionario"]."</p>
-								<p><b>data do empr�stimo</b>: " . date("d/m/Y") . "</p>
+								<p>Foi realizado o empréstimo do equipamento <b>".$reg_usuario["patrimonio"]."</b> - <b>".$reg_usuario["equipamento"]."</b></p>
+								<p><b>Colaborador responsável</b>: ".$reg_usuario["funcionario"]."</p>
+								<p><b>Data do empréstimo</b>: " . date("d/m/Y") . "</p>
 							</body>
 						 </html>";
 						
@@ -554,8 +553,8 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 function verificaForm()
 {
 	var itens = 0;
-	//Otimizar esta opera��o
-	//Abaixo verifico se existem itens obrigat�rios n�o preenchidos para desabilitar ou habilitar o bot�o inserir
+	//Otimizar esta operação
+	//Abaixo verifico se existem itens obrigatórios não preenchidos para desabilitar ou habilitar o botão inserir
 	$('.obrigatorio').each(function(){
 		if ($.trim($(this).val()) === '')
 		{
@@ -579,7 +578,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'listagem':
-			mygrid.setHeader("codigo,Equipamento, Proprietario, funcionario, data Retirada, OS, Baixa, Termo, Historico");
+			mygrid.setHeader("Codigo,Equipamento, Proprietário, Funcionário, Data Retirada, OS, Baixa, Termo, Histórico");
 			mygrid.setInitWidths("100,*, 100, 220, 110, 60, 60, 60, 80");
 			mygrid.setColAlign("left,left,left,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -618,7 +617,7 @@ function modal_baixa_equipamento(id)
 <?php
 $conf = new configs();
 
-//Funcion�rios
+//Funcionários
 $sql = "SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE situacao = 'ATIVO' ";
 $sql .= "AND funcionarios.reg_del = 0 ";
@@ -639,12 +638,12 @@ $smarty->assign("option_func_output", $array_func_output);
 $sql = "SELECT
 		  id_equipamento, equipamento, num_dvm
 		FROM
-		  ti.equipamentos
+		".DATABASE.".equipamentos
 		  LEFT JOIN(
 		    SELECT
 		      id_equipamento codigo_equipamento, id_funcionario, data_saida, id_inventario, situacao, os 
 		    FROM
-		      ti.inventario
+			".DATABASE.".inventario
 		      JOIN(
 		        SELECT
 		          id_funcionario, funcionario, situacao AS status
@@ -675,17 +674,17 @@ $smarty->assign("option_equip_output", $array_equip_output);
 
 $area = $_SESSION['Perfil'] == 1 ? 'TI' : 'ADM';
 
-$sql = "SELECT * FROM ti.acessorios ";
+$sql = "SELECT * FROM ".DATABASE.".acessorios ";
 $sql .= "WHERE acessorios.reg_del = 0 ";
 $sql .= "AND acessorios.area = '".$area."' ";
 
 $acessorios = $db->select($sql,'MYSQL');
 $smarty->assign('acessorios', $acessorios);
 
-$sql = "SELECT * FROM  ".DATABASE.".OS ";
+$sql = "SELECT * FROM  ".DATABASE.".ordem_servico ";
 $sql .= "WHERE id_os_status IN(1, 14) ";
-$sql .= "AND OS.reg_del = 0 ";
-$sql .= "ORDER BY os.os ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
+$sql .= "ORDER BY ordem_servico.os ";
 
 $array_os_values = array('' => '');
 $array_os_output = array('' => 'Selecione uma OS');

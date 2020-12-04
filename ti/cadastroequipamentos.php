@@ -1,14 +1,14 @@
 <?php
 /*
-	Formul�rio de Invent�rio
+	Formulário de Inventário
 	
-	Criado por Carlos Eduardo M�ximo
+	Criado por Carlos Eduardo Máximo
 	
 	local/Nome do arquivo: ../ti/cadastroequipamentos.php
 	
 	Versão 0 --> VERSÃO INICIAL : 19/09/2014
 	Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-	Versão 2 --> Refatora��o do m�dulo - Eduardo - 12/06/2017
+	Versão 2 --> Refatoração do módulo - Eduardo - 12/06/2017
 	Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
 	Versão 4 --> Layout responsivo - 06/02/2018 - Carlos Eduardo
 */
@@ -18,7 +18,7 @@ require_once(INCLUDE_DIR."include_form.inc.php");
 
 require_once(INCLUDE_DIR."antiInjection.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(496) && !verifica_sub_modulo(513))
 {
@@ -28,6 +28,7 @@ if(!verifica_sub_modulo(496) && !verifica_sub_modulo(513))
 function voltar()
 {
 	$resposta = new xajaxResponse();
+	
 	$conf = new configs();
 	
 	$botao = $conf->botoes($resposta);
@@ -63,7 +64,7 @@ function atualizatabela($filtro)
 	
 	$situacao = isset($_GET['atuais']) && $_GET['atuais'] == 0 ? '' : "AND situacao = 1";
 	
-	$sql = "SELECT * FROM ti.equipamentos ";
+	$sql = "SELECT * FROM ".DATABASE.".equipamentos ";
 	$sql .= "WHERE equipamentos.reg_del = 0 ".$sql_filtro." ";
 	$sql .= "ORDER BY equipamentos.equipamento ";
 
@@ -85,7 +86,7 @@ function atualizatabela($filtro)
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text($reg["tipo"] == 0 ? 'Pr�prio' : 'Alugado');
+				$xml->text($reg["tipo"] == 0 ? 'Próprio' : 'Alugado');
 			$xml->endElement();
 			
 			$imgExcluir = '<span class="icone icone-excluir cursor" onclick="xajax_excluir('.$reg['id_equipamento'].');"></span>';
@@ -110,7 +111,7 @@ function excluir($idEquipamento)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$usql = "UPDATE ti.equipamentos SET ";
+	$usql = "UPDATE ".DATABASE.".equipamentos SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -125,8 +126,10 @@ function excluir($idEquipamento)
 	}
 	else
 	{
-		$resposta->addAlert('Registro exclu�do corretamente!');
+		$resposta->addAlert('Registro excluído corretamente!');
+		
 		$resposta->addScript('xajax_atualizatabela(document.getElementById(\'busca\').value);');
+		
 		$resposta->addScript('frmCadastro.reset();');
 	}
 	
@@ -148,14 +151,14 @@ function salvar($dados_form)
 	{
 		if (empty($idEquipamento))
 		{
-			$isql = "INSERT INTO ti.equipamentos (equipamento, num_dvm, tipo, area) VALUES ";
+			$isql = "INSERT INTO ".DATABASE.".equipamentos (equipamento, num_dvm, tipo, area) VALUES ";
 			$isql .= "('".$desc."', '".$patrimonio."', '".$tipo."', '".$area."')";
 	
 			$db->insert($isql, 'MYSQL');
 		}
 		else
 		{
-			$usql = "UPDATE ti.equipamentos SET ";
+			$usql = "UPDATE ".DATABASE.".equipamentos SET ";
 			$usql .= "equipamento = '".$desc."', ";
 			$usql .= "num_dvm = '".$patrimonio."', ";
 			$usql .= "tipo = '".$tipo."', ";
@@ -191,7 +194,7 @@ function editar($idEquipamento)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM ti.equipamentos ";
+	$sql = "SELECT * FROM ".DATABASE.".equipamentos ";
 	$sql .= "WHERE equipamentos.reg_del = 0 ";
 	$sql .= "AND equipamentos.id_equipamento = ".$idEquipamento;
 	
@@ -237,7 +240,7 @@ function grid(tabela, autoh, height, xml)
 			xajax_editar(row);
 	}
 	
-	mygrid.setHeader("descricao, Patrimonio, tipo, E");
+	mygrid.setHeader("Descrição, Patrimônio, tipo, E");
 	mygrid.setInitWidths("*,*,60, 60");
 	mygrid.setColAlign("left,left,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro");
@@ -251,7 +254,6 @@ function grid(tabela, autoh, height, xml)
 	mygrid.init();
 	mygrid.loadXMLString(xml);
 }
-
 
 </script>
 <?php

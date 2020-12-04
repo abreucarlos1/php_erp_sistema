@@ -2077,7 +2077,7 @@ function atualizar($dados_form)
 					$usql .= "reg_del = 1, ";
 					$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 					$usql .= "data_del = '".date('Y-m-d')."' ";
-					$usql .= "WHERE id_usuario = '".$retornoUsuario["CodUsuario"]."' ";
+					$usql .= "WHERE id_usuario = '".$retornoUsuario["id_usuario"]."' ";
 					$usql .= "AND id_sub_modulo NOT IN ('2','4') ";  //apontamento, fechamento PJ
 					$usql .= "AND reg_del = 0 ";
 
@@ -2202,7 +2202,7 @@ function atualizar($dados_form)
 						$usql .= "reg_del = 1, ";
 						$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 						$usql .= "data_del = '".date('Y-m-d')."' ";
-						$usql .= "WHERE id_usuario = '". $reg_u["CodUsuario"] ."' ";
+						$usql .= "WHERE id_usuario = '". $reg_u["id_usuario"] ."' ";
 						$usql .= "AND reg_del = 0 ";
 
 						$db->update($usql,'MYSQL');

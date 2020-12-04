@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de A�oes	
+		Formulário de Ações	
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(112))
 {
@@ -73,7 +73,7 @@ function atualizatabela($filtro)
 		$sql_filtro = "AND acoes.acao LIKE '".$sql_texto."' ";
 	}
 	
-	$sql = "SELECT * FROM ti.acoes ";
+	$sql = "SELECT * FROM ".DATABASE.".acoes ";
 	$sql .= "WHERE acoes.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY acao ";
@@ -99,7 +99,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $cont_desp["id_acao"]);
 			$xml->writeElement('cell', $cont_desp["acao"]);
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclus�o?")){xajax_excluir("'.$cont_desp["id_acao"].'");}>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$cont_desp["id_acao"].'");}>');
 		$xml->endElement();
 	}
 
@@ -127,7 +127,7 @@ function insere($dados_form)
 		if($dados_form["acao"]!='')
 		{
 			
-			$sql = "SELECT * FROM ti.acoes ";
+			$sql = "SELECT * FROM ".DATABASE.".acoes ";
 			$sql .= "WHERE acao = '".trim($dados_form["acao"])."' ";
 			$sql .= "AND reg_del = 0 ";
 
@@ -140,7 +140,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ti.acoes ";
+				$isql = "INSERT INTO ".DATABASE.".acoes ";
 				$isql .= "(acao) ";
 				$isql .= "VALUES ('" . maiusculas($dados_form["acao"]) . "') ";
 
@@ -185,7 +185,7 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ti.acoes ";
+	$sql = "SELECT * FROM ".DATABASE.".acoes ";
 	$sql .= "WHERE acoes.id_acao = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 
@@ -226,7 +226,7 @@ function atualizar($dados_form)
 		if($dados_form["acao"]!='')
 		{
 		
-			$sql = "SELECT * FROM ti.acoes ";
+			$sql = "SELECT * FROM ".DATABASE.".acoes ";
 			$sql .= "WHERE acao = '".maiusculas(trim($dados_form["acao"]))."' ";
 			$sql .= "AND id_acao <> '".$dados_form["id_acao"]."' ";
 			$sql .= "AND reg_del = 0 ";
@@ -240,7 +240,7 @@ function atualizar($dados_form)
 			
 			if($db->numero_registros<=0)
 			{
-				$usql = "UPDATE ti.acoes SET ";
+				$usql = "UPDATE ".DATABASE.".acoes SET ";
 				$usql .= "acao = '" . maiusculas($dados_form["acao"]) . "' ";
 				$usql .= "WHERE id_acao = '".$dados_form["id_acao"]."' ";
 				$usql .= "AND reg_del = 0 ";
@@ -284,16 +284,11 @@ function excluir($id, $what)
 	if($conf->checa_permissao(2,$resposta)) //id_sub_modulo acoes = 112
 	{
 		$db = new banco_dados;
-		/*
-		$dsql = "DELETE FROM ti.acoes ";
-		$dsql .= "WHERE acoes.id_acao = '".$id."' ";
 
-		$db->delete($dsql,'MYSQL');
-		*/
-		$usql = "UPDATE ti.acoes SET ";
+		$usql = "UPDATE ".DATABASE.".acoes SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
-		$usql .= "data_del = 0 ";		
+		$usql .= "data_del = " . date("Ymd") . " ";		
 		$usql .= "WHERE acoes.id_acao = '".$id."' ";
 		$usql .= "AND reg_del = 0 ";
 
@@ -352,7 +347,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("A��o,D");
+	mygrid.setHeader("Ação,D");
 	mygrid.setInitWidths("*,50");
 	mygrid.setColAlign("left,center");
 	mygrid.setColTypes("ro,ro");
@@ -361,8 +356,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.attachEvent("onRowSelect",doOnRowSelected);
 	
 	mygrid.setSkin("dhx_skyblue");
-    //mygrid.enableMultiselect(true);
-    //mygrid.enableCollSpan(true);	
+
 	mygrid.init();
 	mygrid.loadXMLString(xml);
 }

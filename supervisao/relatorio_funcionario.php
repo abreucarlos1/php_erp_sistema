@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Relatorio funcionario
+		Formulário de Relatório funcionario
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -8,7 +8,7 @@
 		../supervisao/relatorios_funcionario.php
 		
 		Versão 0 --> VERSÃO INICIAL : 02/03/2006
-		Versao 1 --> Altera��o de laytou: 27/11/2014
+		Versao 1 --> Alteração de laytou: 27/11/2014
 		Versão 2 --> Atualização layout - Carlos Abreu - 11/04/2017
 		Versão 3 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu			
 */	
@@ -16,7 +16,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(215) && !verifica_sub_modulo(296) && !verifica_sub_modulo(261))
 {
@@ -37,7 +37,7 @@ $array_os_values[] = "-1";
 $array_os_output[] = "TODOS";
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "WHERE setor NOT IN ('PDMS','GERAL','OUTROS','COMISSIONAMENTO','SUPRIMENTOS','FISCALIZA��O DE MONTAGEM','ESTRUTURAS MET�LICAS','GERENCIAMENTO/DILIGENCIAMENTO','MATERIAIS E EQUIPAMENTOS') ";
+$sql .= "WHERE setor NOT IN ('PDMS','GERAL','OUTROS','COMISSIONAMENTO','SUPRIMENTOS','FISCALIZAÇÃO DE MONTAGEM','ESTRUTURAS METÁLICAS','GERENCIAMENTO/DILIGENCIAMENTO','MATERIAIS E EQUIPAMENTOS') ";
 $sql .= "AND setores.reg_del = 0 ";
 $sql .= "ORDER BY setor ";
 

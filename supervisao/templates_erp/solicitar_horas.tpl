@@ -55,28 +55,9 @@
                 </select></td>
               </tr>
             </table>
-            <!--            
-           <div id="div_colaborador">
-               <div id="div_colab_1" style="float:left">
-                <label class="labels">Colaborador</label><br />
-                  <select name="items_1" class="caixa" id="items_1" onkeypress="return keySort(this);">
-                    <smarty>html_options values=$option_funcionarios_values output=$option_funcionarios_output</smarty>
-                </select>
-                </div>
-                <div id="div_qtd_1">
-                <label class="labels">Horas</label><br />
-                <input name="qtdhoras_1" type="text" class="caixa" id="qtdhoras_1" size="10" maxlength="10" value="0" onkeypress="num_only();" onblur="calc_qtd_horas('frm_os');" />
-                 </div>
-           </div>
-           <img src="../imagens/add.png" style="cursor:pointer" onclick="add_controles('div_colaborador','frm_os')" />
-           <img src="../imagens/delete.png" style="cursor:pointer" onclick="remove_controles('frm_os')" /> 
-          <input name="qtd_itens" type="hidden" id="qtd_itens"  value="1" />
-          -->  
-
           	<table width="100%" border="0">
           	  <tr>
-          	    <td width="9%"><!-- <label for="total_horas" class="labels">Total&nbsp;Horas</label><br />
-          	      <input name="total_horas" type="text" class="caixa" id="total_horas" size="6" maxlength="10" value="0" readonly="readonly" />-->
+          	    <td width="9%">
                   <label class="labels">Horas</label><br />
                 <input name="qtdhoras" type="text" class="caixa" id="qtdhoras" size="10" maxlength="10" value="0" onkeypress="num_only();" />
                   </td>

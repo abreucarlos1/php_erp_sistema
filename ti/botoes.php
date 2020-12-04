@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Bot�es	
+		Formulário de Botões	
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(165))
 {
@@ -314,13 +314,6 @@ function excluir($id, $what)
 	if($conf->checa_permissao(2,$resposta)) //id_sub_modulo botoes = 165
 	{
 		$db = new banco_dados;
-		
-		/*
-		$dsql = "DELETE FROM ".DATABASE.".botoes ";
-		$dsql .= "WHERE botoes.id_botao = '".$id."' ";
-
-		$db->delete($dsql,'MYSQL');
-		*/
 		
 		$usql = "UPDATE ".DATABASE.".botoes SET ";
 		$usql .= "reg_del = 1, ";

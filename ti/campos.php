@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Campos	
+		Formulário de Campos	
 		
 		Criado por Carlos Abreu  
 		
@@ -22,7 +22,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(111))
 {
@@ -316,12 +316,6 @@ function excluir($id, $what)
 		
 		$regs = $db->array_select[0];
 		
-		/*
-		$dsql = "DELETE FROM ".DATABASE.".campos ";
-		$dsql .= "WHERE campos.id_campo = '".$id."' ";
-		
-		$db->delete($dsql,'MYSQL');
-		*/
 		$usql = "UPDATE ".DATABASE.".campos SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";

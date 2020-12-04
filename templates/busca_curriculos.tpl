@@ -43,7 +43,7 @@
 						<select name="funcao" class="caixa" id="funcao" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_funcao_values output=$option_funcao_output</smarty>
 						</select></td>
-					<td width="21%" class="td_sp"><label class="label_descricao_campos">Conhecimentos&nbsp;Espec&iacute;ficos</label> 
+					<td width="21%" class="td_sp"><label class="label_descricao_campos">Conhecimentos&nbsp;Específicos</label> 
 						<select name="conhecimentos" class="txt_box" id="conhecimentos" onkeypress="return keySort(this);">
 								<option value="" selected="selected" >QUALQUER</option>
 								<option value="AUTOCAD" >AUTOCAD</option>

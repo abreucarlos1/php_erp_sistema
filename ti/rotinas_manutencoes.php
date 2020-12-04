@@ -1,6 +1,6 @@
 <?php 
 /*
-		Formul�rio de rotinas x manutencoes
+		Formulário de rotinas x manutencoes
 		
 		Criado por Carlos Abreu  
 		
@@ -18,7 +18,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(322))
 {
@@ -56,7 +56,7 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;	
 
-	$sql = "SELECT * FROM ti.ti_rotinas_manutencoes, ti.ti_rotinas, ti.ti_rotinas_frequencias, ti.ti_frequencias, ".DATABASE.".funcionarios ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_manutencoes, ".DATABASE.".ti_rotinas, ".DATABASE.".ti_rotinas_frequencias, ".DATABASE.".ti_frequencias, ".DATABASE.".funcionarios ";
 	$sql .= "WHERE ti_rotinas_manutencoes.reg_del = 0 ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 	$sql .= "AND ti_rotinas_frequencias.reg_del = 0 ";
@@ -146,7 +146,7 @@ function insere($dados_form)
 		if($dados_form["data"]!='' && $dados_form["cb_rotinas"]!='' && $dados_form["analista"]!='')
 		{
 			
-			$sql = "SELECT * FROM ti.ti_rotinas_manutencoes ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_manutencoes ";
 			$sql .= "WHERE ti_rotinas_manutencoes.id_ti_analista = '".$dados_form["analista"]."' ";
 			$sql .= "AND ti_rotinas_manutencoes.id_ti_rotina = '".$dados_form["cb_rotinas"]."' ";
 			$sql .= "AND ti_rotinas_manutencoes.ti_data_manutencao = '".php_mysql($dados_form["data"])."' ";
@@ -161,7 +161,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{
-				$sql = "SELECT * FROM ti.ti_rotinas_frequencias, ti.ti_frequencias ";
+				$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_frequencias, ".DATABASE.".ti_frequencias ";
 				$sql .= "WHERE ti_rotinas_frequencias.reg_del = 0 ";
 				$sql .= "AND ti_frequencias.reg_del = 0 ";
 				$sql .= "AND ti_rotinas_frequencias.id_ti_rotina = '".$dados_form["cb_rotinas"]."' ";
@@ -178,7 +178,7 @@ function insere($dados_form)
 				
 				$regs = $db->array_select[0];
 							
-				$isql = "INSERT INTO ti.ti_rotinas_manutencoes ";
+				$isql = "INSERT INTO ".DATABASE.".ti_rotinas_manutencoes ";
 				$isql .= "(id_ti_rotina, ti_data_manutencao, ti_data_inclusao, ti_data_previsao, ti_manutencao_observacao, id_ti_analista) ";
 				$isql .= "VALUES ('" . $dados_form["cb_rotinas"] . "', ";
 				$isql .= "'" . php_mysql($dados_form["data"]) . "', ";
@@ -228,7 +228,7 @@ function excluir($id)
 	//{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ti.ti_rotinas_manutencoes SET ";
+		$usql = "UPDATE ".DATABASE.".ti_rotinas_manutencoes SET ";
 		$usql .= "ti_rotinas_manutencoes.reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -263,7 +263,7 @@ function rotinas($dados_form)
 	$db = new banco_dados;		
 	
 	//Percorre a tabela de rotinas
-	$sql = "SELECT * FROM ti.ti_rotinas, ti.ti_rotinas_frequencias, ti.ti_frequencias, ti_rotinas_analistas ";	
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas, ".DATABASE.".ti_rotinas_frequencias, ".DATABASE.".ti_frequencias, ".DATABASE.".ti_rotinas_analistas ";	
 	$sql .= "WHERE ti_rotinas.id_ti_rotina = ti_rotinas_analistas.id_ti_rotina ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 	$sql .= "AND ti_rotinas_frequencias.reg_del = 0 ";
@@ -337,7 +337,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("data,Prox.&nbsp;data,Funcionário,Rotina,Frequencia,Observação,D",
+	mygrid.setHeader("Data,Prox.&nbsp;data,Funcionário,Rotina,Frequência,Observação,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center"]);
 	mygrid.setInitWidths("100,100,200,200,200,*,25");
@@ -369,7 +369,7 @@ $conf = new configs();
 $db = new banco_dados;	
 
 //Percorre a tabela de analistas
-$sql = "SELECT * FROM ".DATABASE.".funcionarios, ti.ti_rotinas_analistas ";	
+$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".ti_rotinas_analistas ";	
 $sql .= "WHERE funcionarios.id_funcionario = ti_rotinas_analistas.id_ti_analista ";
 $sql .= "AND ti_rotinas_analistas.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
@@ -402,7 +402,7 @@ $smarty->assign("campo",$conf->campos('ti_rotinas_manutencoes'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("nome_formulario","ROTINAS X MANUTEN��ES");
+$smarty->assign("nome_formulario","ROTINAS X MANUTENÇÕES");
 
 $smarty->assign("option_analistas_values",$array_analistas_values);
 $smarty->assign("option_analistas_output",$array_analistas_output);

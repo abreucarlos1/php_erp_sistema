@@ -1,8 +1,8 @@
 <?php
 /*
-		Formul�rio de permiss�es	
+		Formulário de permissões	
 		
-		Criado por Carlos Eduardo M�xim ia
+		Criado por Carlos Eduardo Máximo
 			
 		Versão 0 --> VERSÃO INICIAL : 07/04/2017
 */
@@ -10,7 +10,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(106))
 {
@@ -77,8 +77,8 @@ function atualizatabela($filtro, $id_setor_aso)
 		$sql_filtro .= "OR sm.sub_modulo_pai LIKE '".strtoupper($sql_texto)."') ";
 	}
 	
-	$sql = "SELECT sms.id_sms, sms.id_sub_modulo, sm.sub_modulo, sms.codigo_acesso, sa.setor_aso, sm.sub_modulo, sm.caminho_sub_modulo FROM ti.sub_modulos_x_setor sms
-			JOIN ti.sub_modulos sm on sm.id_sub_modulo = sms.id_sub_modulo
+	$sql = "SELECT sms.id_sms, sms.id_sub_modulo, sm.sub_modulo, sms.codigo_acesso, sa.setor_aso, sm.sub_modulo, sm.caminho_sub_modulo FROM ".DATABASE.".sub_modulos_x_setor sms
+			JOIN ".DATABASE.".sub_modulos sm on sm.id_sub_modulo = sms.id_sub_modulo
 			JOIN ".DATABASE.".setor_aso sa ON sa.id_setor_aso = sms.id_setor_aso
 			WHERE reg_del = 0 AND sms.id_setor_aso = ".$id_setor_aso;
 
@@ -105,23 +105,23 @@ function atualizatabela($filtro, $id_setor_aso)
 			$menu = "";
 		
 		//VISUALIZA
-		$array_permissao['V']['TEXTO'] = $cont_desp["codigo_acesso"] & 16 ? 'SIM':'N�O';
+		$array_permissao['V']['TEXTO'] = $cont_desp["codigo_acesso"] & 16 ? 'SIM':'NÃO';
 		$array_permissao['V']['COR'] = $cont_desp["codigo_acesso"] & 16 ? '#006600':'#FF0000';
 		
 		//INCLUI
-		$array_permissao['I']['TEXTO'] = $cont_desp["codigo_acesso"] & 8 ? 'SIM':'N�O';
+		$array_permissao['I']['TEXTO'] = $cont_desp["codigo_acesso"] & 8 ? 'SIM':'NÃO';
 		$array_permissao['I']['COR'] = $cont_desp["codigo_acesso"] & 8 ? '#006600':'#FF0000';
 		
 		//EDITAR
-		$array_permissao['E']['TEXTO'] = $cont_desp["codigo_acesso"] & 4 ? 'SIM':'N�O';
+		$array_permissao['E']['TEXTO'] = $cont_desp["codigo_acesso"] & 4 ? 'SIM':'NÃO';
 		$array_permissao['E']['COR'] = $cont_desp["codigo_acesso"] & 4 ? '#006600':'#FF0000';
 		
 		//APAGAR
-		$array_permissao['A']['TEXTO'] = $cont_desp["codigo_acesso"] & 2 ? 'SIM':'N�O';
+		$array_permissao['A']['TEXTO'] = $cont_desp["codigo_acesso"] & 2 ? 'SIM':'NÃO';
 		$array_permissao['A']['COR'] = $cont_desp["codigo_acesso"] & 2 ? '#006600':'#FF0000';	
 	 
 		//IMPRIMIR
-		$array_permissao['P']['TEXTO'] = $cont_desp["codigo_acesso"] & 1 ? 'SIM':'N�O';
+		$array_permissao['P']['TEXTO'] = $cont_desp["codigo_acesso"] & 1 ? 'SIM':'NÃO';
 		$array_permissao['P']['COR'] = $cont_desp["codigo_acesso"] & 1 ? '#006600':'#FF0000';
 		
 		$xml->startElement('row');
@@ -156,7 +156,7 @@ function insere($dados_form)
 	
 	if (intval($permissao) == 0)
 	{
-		$resposta->addAlert('Por favor, preencha uma ou mais das op��es de permiss�o!');
+		$resposta->addAlert('Por favor, preencha uma ou mais das opções de permissão!');
 		return $resposta;
 	}
 	
@@ -173,12 +173,12 @@ function insere($dados_form)
 			$modulos 	= implode(',', $dados_form['interface']);
 			$setores_aso	= implode(',', $dados_form['setor_aso']);
 			
-			//Selecionando todos os setores que j� tem permiss�o para remover da lista que receber� as permiss�es
+			//Selecionando todos os setores que já tem permissão para remover da lista que receberá as permissões
 			$sql = 
 			"SELECT
 				codigo_acesso, id_setor_aso, id_sub_modulo, tipo_acesso_padrao
 			FROM
-				ti.sub_modulos_x_setor
+				".DATABASE.".sub_modulos_x_setor
 				JOIN (SELECT id_setor_aso idsetorAso, setor_aso setorAso FROM ".DATABASE.".setor_aso WHERE id_setor_aso IN(".$setores_aso.")) setores_aso ON idsetorAso = id_setor_aso
 			WHERE
 			 	reg_del = 0 
@@ -198,7 +198,7 @@ function insere($dados_form)
 				$arrPermissoesExistentes[$reg['id_sub_modulo']][$reg['id_setor_aso']] = $reg['id_setor_aso'];
 			}
 						
-			$isql = "INSERT INTO ti.sub_modulos_x_setor (id_setor_aso, id_sub_modulo, codigo_acesso, tipo_acesso_padrao) VALUES ";
+			$isql = "INSERT INTO ".DATABASE.".sub_modulos_x_setor (id_setor_aso, id_sub_modulo, codigo_acesso, tipo_acesso_padrao) VALUES ";
 			
 			$setoresAsoAplicacao = 0;
 			
@@ -221,7 +221,7 @@ function insere($dados_form)
 			
 			if ($setoresAsoAplicacao == 0)
 			{
-				$resposta->addAlert('As permiss�es j� haviam sido concedidas anteriormente!');
+				$resposta->addAlert('As permissões já haviam sido concedidas anteriormente!');
 				return $resposta;
 			}
 			
@@ -233,7 +233,7 @@ function insere($dados_form)
 			}
 			else
 			{
-				$resposta->addAlert($db->numero_registros.' Permiss�es concedidas corretamente!');
+				$resposta->addAlert($db->numero_registros.' Permissões concedidas corretamente!');
 			}
 			
 			$resposta->addScript("xajax_voltar();");
@@ -242,14 +242,14 @@ function insere($dados_form)
 		{
 			if($dados_form["interface"][0]!='' && $dados_form['setor_aso'][0]!='')
 			{
-				$dsql = "DELETE FROM ti.sub_modulos_x_setor ";
+				$dsql = "DELETE FROM ".DATABASE.".sub_modulos_x_setor ";
 				$dsql .= "WHERE id_setor_aso = '".$dados_form["setor_aso"][0]."' ";
 				$dsql .= "AND id_sub_modulo = '".$dados_form["interface"][0]."' ";
 				$dsql .= "AND codigo_acesso = '".$dados_form["id_permissao"]."' ";
 				
 				$db->delete($dsql,'MYSQL');
 				
-				$isql = "INSERT INTO ti.sub_modulos_x_setor ";
+				$isql = "INSERT INTO ".DATABASE.".sub_modulos_x_setor ";
 				$isql .= "(id_setor_aso, id_sub_modulo, codigo_acesso, tipo_acesso_padrao) VALUES ( ";
 				$isql .= "'".$dados_form["setor_aso"][0]."', ";
 				$isql .= "'".$dados_form["interface"][0]."', ";
@@ -283,7 +283,7 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ti.sub_modulos_x_setor ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos_x_setor ";
 	$sql .= "WHERE id_sms = '".$id."' ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -295,7 +295,7 @@ function editar($id)
 
 	$regs = $db->array_select[0];
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo"]."' ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -349,6 +349,7 @@ function atualizar($dados_form)
 	$resposta = new xajaxResponse();
 	
 	$conf = new configs();
+	
 	$msg = $conf->msg($resposta);
 	
 	$tipoAcessoPadrao = $dados_form['tipo_acesso_padrao'];
@@ -361,13 +362,13 @@ function atualizar($dados_form)
 		{
 			$permissao = $dados_form["visualiza"] + $dados_form["inclui"] + $dados_form["edita"] + $dados_form["apaga"] + $dados_form["imprime"]; 
 			
-			$usql = "UPDATE ti.sub_modulos_x_setor SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' ";
+			$usql = "UPDATE ".DATABASE.".sub_modulos_x_setor SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' ";
 			$usql .= "WHERE id_setor_aso = '".$dados_form["setor_aso"][0]."' ";
 			$usql .= "AND id_sub_modulo = '".$dados_form["interface"][0]."' ";
 			
 			$db->update($usql,'MYSQL');
 
-			$isql = "INSERT INTO ti.sub_modulos_x_setor ";
+			$isql = "INSERT INTO ".DATABASE.".sub_modulos_x_setor ";
 			$isql .= "(id_setor_aso, id_sub_modulo, codigo_acesso, tipo_acesso_padrao) VALUES ( ";
 			$isql .= "'".$dados_form["setor_aso"][0]."', ";
 			$isql .= "'".$dados_form["interface"][0]."', ";
@@ -376,7 +377,7 @@ function atualizar($dados_form)
 			
 			$db->insert($isql,'MYSQL');
 			
-			$resposta->addAlert("Permiss�o atualizado com sucesso.");
+			$resposta->addAlert("Permissão atualizado com sucesso.");
 			$resposta->addScript("xajax_voltar();");
 			$resposta->addScript("xajax_atualizatabela('',".$dados_form['setor_aso'][0].");");
 		}
@@ -394,7 +395,7 @@ function excluir($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados;
 	
-	$usql = "UPDATE ti.sub_modulos_x_setor SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' ";
+	$usql = "UPDATE ".DATABASE.".sub_modulos_x_setor SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' ";
 	$usql .= "WHERE id_sms = '".$id."' ";
 	
 	$db->update($usql,'MYSQL');
@@ -402,7 +403,7 @@ function excluir($id)
 	$resposta->addScript("xajax_atualizatabela('',xajax.$('setor_aso').value);");
 	$resposta->addScript("if(mostrarPermissoes.checked){xajax_verificaPermitidos(xajax.$('interface').value);}");
 	
-	$resposta->addAlert('Registro exclu�do corretamente!');
+	$resposta->addAlert('Registro excluído corretamente!');
 
 	return $resposta;
 }
@@ -421,7 +422,7 @@ function preenchecombo($id, $selected = 0)
 	
 	$resposta->addScriptCall("limpa_combo('interface')");	
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$id."'";
 
 	$db->select($sql,'MYSQL',true);
@@ -456,7 +457,7 @@ function preenchecombo($id, $selected = 0)
 		$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('".$menu.$reg["sub_modulo"]."', '".$reg["id_sub_modulo"]."','','".$sel."');");
 	}
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo_pai = '".$id."' ";
 	$sql .= "AND sub_modulos.visivel = '1' ";
 	$sql .= "ORDER BY id_sub_modulo_pai, sub_modulos.sub_modulo ";		
@@ -483,20 +484,21 @@ function preenchecombo($id, $selected = 0)
 function verificaPermitidos($modulo)
 {
 	$resposta = new xajaxResponse();
+	
 	$resposta->addAppend('lista_permitidos', 'innerHTML', '');
 	
 	$db = new banco_dados();
 	
 	$sql = "SELECT
-	id_permissao, id_usuario, permissao, id_sub_modulo, funcionario, sub_modulo
-FROM
-	ti.permissoes
-	JOIN(SELECT CodUsuario, id_funcionario cod_funcionario FROM ".DATABASE.".usuarios) usuarios ON CodUsuario = id_usuario
-	JOIN(SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios) funcs ON id_funcionario = cod_funcionario
-	JOIN (SELECT id_sub_modulo idSubModulo, sub_modulo FROM ti.sub_modulos) sub_modulos on idSubModulo = id_sub_modulo
-WHERE
-	id_sub_modulo = ".$modulo."
-ORDER BY funcionario";
+			id_permissao, id_usuario, permissao, id_sub_modulo, funcionario, sub_modulo
+		FROM
+			".DATABASE.".permissoes
+			JOIN(SELECT id_usuario, id_funcionario cod_funcionario FROM ".DATABASE.".usuarios) usuarios ON id_usuario = id_usuario
+			JOIN(SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios) funcs ON id_funcionario = cod_funcionario
+			JOIN (SELECT id_sub_modulo idSubModulo, sub_modulo FROM ".DATABASE.".sub_modulos) sub_modulos on idSubModulo = id_sub_modulo
+		WHERE
+			id_sub_modulo = ".$modulo."
+		ORDER BY funcionario";
 	
 	$xml = new XMLWriter();
 	$xml->setIndent(false);
@@ -507,11 +509,11 @@ ORDER BY funcionario";
 	$db->select($sql, 'MYSQL', function($reg, $i) use(&$resposta, &$xml){
 		//if (empty($subModulo))			$subModulo = $reg['sub_modulo']; 		
 		
-		$array_permissao['V'] = $reg["codigo_acesso"] & 16 ? 'SIM':'N�O';//VISUALIZA
-		$array_permissao['I'] = $reg["codigo_acesso"] & 8 ? 'SIM':'N�O';//INCLUI
-		$array_permissao['E'] = $reg["codigo_acesso"] & 4 ? 'SIM':'N�O';//EDITAR
-		$array_permissao['A'] = $reg["codigo_acesso"] & 2 ? 'SIM':'N�O';//APAGAR
-		$array_permissao['P'] = $reg["codigo_acesso"] & 1 ? 'SIM':'N�O';//IMPRIMIR
+		$array_permissao['V'] = $reg["codigo_acesso"] & 16 ? 'SIM':'NÃO';//VISUALIZA
+		$array_permissao['I'] = $reg["codigo_acesso"] & 8 ? 'SIM':'NÃO';//INCLUI
+		$array_permissao['E'] = $reg["codigo_acesso"] & 4 ? 'SIM':'NÃO';//EDITAR
+		$array_permissao['A'] = $reg["codigo_acesso"] & 2 ? 'SIM':'NÃO';//APAGAR
+		$array_permissao['P'] = $reg["codigo_acesso"] & 1 ? 'SIM':'NÃO';//IMPRIMIR
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $reg["id_permissao"]);
@@ -521,7 +523,7 @@ ORDER BY funcionario";
 			$xml->writeElement('cell', $array_permissao['E']);
 			$xml->writeElement('cell', $array_permissao['A']);
 			$xml->writeElement('cell', $array_permissao['P']);
-			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclus�o?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
+			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
 		$xml->endElement();
 	});
 	
@@ -529,7 +531,6 @@ ORDER BY funcionario";
 	$conteudo = $xml->outputMemory(false);
 	
 	$resposta->addScript("grid('lista_permitidos', true, '250', '".$conteudo."');");
-	//$resposta->addScript("document.getElementById('subModuloNome').innerHTML = '".$subModulo."'");
 	
 	return $resposta;
 }
@@ -559,6 +560,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 function modalListaPermitidos()
 {
 	var selecionado = document.getElementById('interface').selectedIndex;
+	
 	var nome = document.getElementById('interface').options[selecionado].text;
 	
 	var html = '<div id="lista_permitidos"></div>';
@@ -589,7 +591,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.enableAutoHeight(autoh,height);
 			mygrid.enableRowsHover(true,'cor_mouseover');
 		
-			mygrid.setHeader("setor Aso,Sub-Modulo,Interface,V,IN,E,A,I,D");
+			mygrid.setHeader("Setor Aso,Sub-Módulo,Interface,V,IN,E,A,I,D");
 			mygrid.setInitWidths("*,*,*,50,50,50,50,50,50,50");
 			mygrid.setColAlign("left,left,left,center,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -612,7 +614,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.enableAutoHeight(autoh,height);
 			mygrid.enableRowsHover(true,'cor_mouseover');
 		
-			mygrid.setHeader("Funcion�rio,V,IN,E,A,I,D");
+			mygrid.setHeader("Funcionário,V,IN,E,A,I,D");
 			mygrid.setInitWidths("150,50,50,50,50,50,50,50");
 			mygrid.setColAlign("left,center,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -657,7 +659,7 @@ $array_setores_aso_output = array();
 $db = new banco_dados;
 
 //SUB MODULOS PRINCIPAIS
-$sql = "SELECT * FROM ti.sub_modulos ";
+$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 $sql .= "WHERE sub_modulos.id_sub_modulo_pai = '0' ";
 $sql .= "ORDER BY sub_modulo ";
 
@@ -675,11 +677,11 @@ foreach ($db->array_select as $regs)
 }
 
 
-//SUB MODULOS secund�rios
-$sql = "SELECT * FROM ti.sub_modulos ";
+//SUB MODULOS secundários
+$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 $sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  '0' ";
 $sql .= "AND sub_modulos.id_sub_modulo IN ";
-$sql .= "(SELECT id_sub_modulo_pai FROM ti.sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0) ";
+$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0) ";
 $sql .= "ORDER BY sub_modulo ";
 
 $db->select($sql,'MYSQL',true);
@@ -693,7 +695,7 @@ $array_sub = $db->array_select;
 
 foreach ($array_sub as $regs)
 {
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -709,7 +711,7 @@ foreach ($array_sub as $regs)
 	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
 }
 
-$sql = "SELECT id_acao, acao FROM ti.acoes ORDER BY id_acao ";
+$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ORDER BY id_acao ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -737,7 +739,6 @@ foreach($db->array_select as $regs)
 	$array_setores_aso_values[] = $regs["id_setor_aso"];
 	$array_setores_aso_output[] = $regs["setor_aso"];	
 }
-
 
 $smarty->assign("option_modulo_values",$array_modulo_values);
 $smarty->assign("option_modulo_output",$array_modulo_output);

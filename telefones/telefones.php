@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Telefones	
+		Formulário de Telefones	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -10,8 +10,8 @@
 		Versão 0 --> VERSÃO INICIAL : 23/02/2007
 		Versão 1 --> Atualização Lay-out | Smarty : 22/07/2008
 		Versão 2 --> Atualização Lay-out : 05/07/2013 - Carlos Abreu
-		Versão 3 --> altera��o para realizar ordena��o pelo grid - 3.6 - 06/08/2013
-		Versão 4 --> Altera��o fun��es - 09/12/2016 - Carlos Abreu
+		Versão 3 --> alteração para realizar ordenação pelo grid - 3.6 - 06/08/2013
+		Versão 4 --> Alteração funções - 09/12/2016 - Carlos Abreu
 		Versão 5 --> Atualização layout - Carlos Abreu - 11/04/2017
 		Versão 6 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
 		
@@ -29,13 +29,13 @@ if($_GET["acao"]=='exportar')
 	if($_GET["type"]=="express")
 	{
 		$separador = ";";
-		$header = '"Nome"'.$separador.'"End. de email"'.$separador.'"telefone celular"'.$separador.'"Anivers�rio"'.$separador.'"Sigla"'.$separador.'"setor"'.$separador.'"Site"'."\r\n";
+		$header = '"Nome"'.$separador.'"End. de email"'.$separador.'"Telefone celular"'.$separador.'"Aniversário"'.$separador.'"Sigla"'.$separador.'"Setor"'.$separador.'"Site"'."\r\n";
 		$prefix = "express";
 	}
 	else
 	{
 		$separador = ",";
-		$header = '"Primeiro nome"'.$separador.'"E-mail Address"'.$separador.'"telefone celular"'.$separador.'"Birthday"'."\r\n";
+		$header = '"Primeiro nome"'.$separador.'"E-mail Address"'.$separador.'"Telefone celular"'.$separador.'"Birthday"'."\r\n";
 		$prefix = "outlook";
 	}
 	
@@ -43,7 +43,7 @@ if($_GET["acao"]=='exportar')
 	$sep = array("-");	
 	
 	$sql = "SELECT *, local.descricao AS local_descricao FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios, ".DATABASE.".local ";
-	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','CANCELADODVM','FECHAMENTO FOLHA','CANCELADO') ";
+	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','FECHAMENTO FOLHA','CANCELADO') ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
@@ -98,7 +98,7 @@ function atualizatabela($valor)
 	{	
 		if(is_numeric($valor))
 		{
-			$sql_telefones_filtro = " AND funcionarios.Ramal LIKE '" . $valor . "%' ";		
+			$sql_telefones_filtro = " AND funcionarios.ramal LIKE '" . $valor . "%' ";		
 		}
 		else
 		{
@@ -114,7 +114,7 @@ function atualizatabela($valor)
 	}
 
 	$sql = "SELECT *, local.descricao AS local_descricao FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios, ".DATABASE.".local ";
-	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','CANCELADODVM','FECHAMENTO FOLHA','CANCELADO') ";
+	$sql .= "WHERE funcionarios.situacao NOT IN ('DESLIGADO','FECHAMENTO FOLHA','CANCELADO') ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
@@ -149,7 +149,7 @@ function atualizatabela($valor)
 		    $xml->writeAttribute('id',$str);
 
 			$xml->startElement('cell');
-				$xml->text($cont["Ramal"]);
+				$xml->text($cont["ramal"]);
 			$xml->endElement();
 
 			$xml->startElement('cell');
@@ -210,7 +210,7 @@ function editar($id)
 	if($conf->checa_permissao(4,$resposta))
 	{
 		//$resposta->addScript("openpage('edita_telefones','telefones_editar.php?id=" . $id . "','620','250');");
-		$sql = "SELECT funcionarios.id_funcionario, funcionario, Ramal, celular, email, telefone_corporativo ";
+		$sql = "SELECT funcionarios.id_funcionario, funcionario, ramal, celular, email, telefone_corporativo ";
 		$sql .= "FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";	
 		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
@@ -232,7 +232,7 @@ function editar($id)
 		$conteudo .= '  <table width="100%" border="0">';
         $conteudo .= '    <tr>';
         $conteudo .= '      <td width="10%"><label class="labels">Ramal</label><br />
-							<input name="ramal" type="text" class="caixa" id="ramal" size="15" value="'. $reg_telefones["Ramal"] .'" />
+							<input name="ramal" type="text" class="caixa" id="ramal" size="15" value="'. $reg_telefones["ramal"] .'" />
 							</td>';
         $conteudo .= '      <td width="10%"><label class="labels">celular</label><br />
 							<input name="celular" type="text" class="caixa" id="celular" size="15" value="'. $reg_telefones["celular"] .'" onkeypress=\'return txtBoxFormat(document.frm_edit, "celular", "(99) 99999-9999", event);\' maxlength="15" />
@@ -253,7 +253,6 @@ function editar($id)
         $conteudo .= '    <tr>';
         $conteudo .= '      <td width="47%"><div>';
         $conteudo .= '        <input type="button" class="class_botao" value="Salvar" style="width:50px;" onclick=xajax_salva(xajax.getFormValues("frm_edit"));divPopupInst.destroi(); />';
-        //$conteudo .= '        <input type="button" class="fonte_botao" value="Sair" style="width:50px;" onclick=window.close(); />
         $conteudo .= '      	<input type="hidden" name="id_funcionario" value="'. $reg_telefones["id_funcionario"] .'" />';
 		$conteudo .= '	  </div></td>';
         $conteudo .= '    </tr>';
@@ -273,7 +272,7 @@ function salva($dados_form)
 	$db = new banco_dados;
 
 	$usql = "UPDATE ".DATABASE.".funcionarios SET ";
-	$usql .= "Ramal = '" . trim($dados_form["ramal"]) ."', ";
+	$usql .= "ramal = '" . trim($dados_form["ramal"]) ."', ";
 	$usql .= "telefone_corporativo = '" . $dados_form["cel_corp"] ."', ";
 	$usql .= "celular = '" . trim($dados_form["celular"]) ."' ";
 	$usql .= "WHERE id_funcionario = '" . $dados_form["id_funcionario"] ."' ";
@@ -375,7 +374,7 @@ function grid(tabela, autoh, height, xml)
 		return false;
 	}
 
-	mygrid.setHeader("telefone/Ramal,Funcionário,setor,E-mail,local,celular,celular&nbsp;corp.,Sigla",
+	mygrid.setHeader("Telefone/Ramal,Funcionário,Setor,E-mail,Local,Celular,Celular&nbsp;corp.,Sigla",
 		null,
 		["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("100,220,130,200,150,100,100,50");
@@ -389,7 +388,6 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableCollSpan(true);		
 	mygrid.init();
 	mygrid.loadXMLString(xml);
-
 }
 
 function tira_foto(id)

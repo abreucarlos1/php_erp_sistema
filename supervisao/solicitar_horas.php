@@ -1,6 +1,6 @@
 <?php
 /*
-	  Formul�rio de SOLICITA��O DE HORAS - SALDO ZERO	
+	  Formulário de SOLICITAÇÃO DE HORAS - SALDO ZERO	
 	  
 	  Criado por Carlos Abreu  
 	  
@@ -8,22 +8,22 @@
 	  ../supervisao/solicitar_horas.php
 	  
 	  Versão 0 --> VERSÃO INICIAL : CARLOS ABREU - 21/08/2012
-	  Versão 1 --> Altera��o de descri��o atividade quando motivo > 1
+	  Versão 1 --> Alteração de descrição atividade quando motivo > 1
 	  Versão 2 --> Incluido Filtro por periodo conforme sugest�o do chamado #1210 spiceworks
-	  Versão 3 --> Altera��o de layout: 09/12/2014
-	  Versão 4 --> Retirar os campos de motivo e formato (Celso Ratto) - 18/05/2015 - Carlos Abreu
+	  Versão 3 --> Alteração de layout: 09/12/2014
+	  Versão 4 --> Retirar os campos de motivo e formato - 18/05/2015 - Carlos Abreu
 	  Versão 5 --> Atualização layout - Carlos Abreu - 11/04/2017
-	  Versão 6 --> reativa��o e adequa��o proposta por Hugo Castilho - chamado #1620 - 28/04/2017 - Carlos Abreu
+	  Versão 6 --> reativação e adequação da proposta - chamado #1620 - 28/04/2017 - Carlos Abreu
 	  Versão 7 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 	  Versão 8 --> Inclusão do campo tarefa - 04/01/2018 - Carlos Abreu
-	  Versão 9 --> Altera��o da forma de solicitar horas, sera pelos colaboradores e aprova��o por SUP/COORD - 22/01/2018 - Carlos Abreu	
+	  Versão 9 --> Alteração da forma de solicitar horas, sera pelos colaboradores e aprovação por SUP/COORD - 22/01/2018 - Carlos Abreu	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(265) && !verifica_sub_modulo(266))
 {
@@ -40,10 +40,10 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;
 	
-	$sql = "SELECT id_os, OS FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status ";
-	$sql .= "WHERE OS.reg_del = 0 ";
+	$sql = "SELECT id_os, os FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+	$sql .= "WHERE ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND ordem_servico_status.fase_protheus IN ('01','02','03','09','07','12') ";
 				
 	$db->select($sql,'MYSQL', true);
@@ -57,12 +57,6 @@ function atualizatabela($dados_form)
 	{
 		$array_projetos[$regs["os"]] = $regs["id_os"];
 	}
-	
-	/*
-	$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
-	$sql .= "AND funcionarios.reg_del = 0 ";
-	*/
 	
 	//obtem o setor do funcionario
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".setores ";
@@ -89,7 +83,7 @@ function atualizatabela($dados_form)
 		$sql .= "AND AFA010.D_E_L_E_T_ = '' ";
 		$sql .= "AND AF9010.AF9_PROJET = AF8_PROJET ";
 		$sql .= "AND AF9010.AF9_REVISA = AF8_REVISA ";
-		$sql .= "AND AF8010.AF8_ENCPRJ = 2 "; //N�O ENCERRADOS
+		$sql .= "AND AF8010.AF8_ENCPRJ = 2 "; //NÃO ENCERRADOS
 		$sql .= "AND AF8_FASE IN ('01','02','03','09','07','12') ";
 		$sql .= "AND AF9010.AF9_COMPOS <> '' ";
 		$sql .= "AND AFA_RECURS NOT LIKE '%ORC_%' ";	
@@ -166,17 +160,17 @@ function atualizatabela($dados_form)
 			$array_disc[] = $array_nivel["id_setor"];
 	}
 	
-	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".OS ";
+	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE solicitacao_hora.id_solicitante = funcionarios.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND solicitacao_hora.reg_del = 0 ";
 	$sql .= "AND atividades.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND solicitacao_hora.id_os = OS.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 	$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
 	$sql .= "AND solicitacao_hora.id_aprovacao = '".$dados_form["status"]."' ";
 	
-	//FILTRA AS SOLICITA��ES CONFORME O NIVEL DE ATUA��O
+	//FILTRA AS SOLICITAÇÕES CONFORME O NÍVEL DE ATUAÇÃO
 	switch($array_nivel["nivel_atuacao"])
 	{
 		case 'D':
@@ -233,13 +227,13 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', $cont["funcionario"]);
 			$xml->writeElement('cell', mysql_php($cont["data_solicitacao"]));
 
-			//SUPERVIS�O APROVA
+			//SUPERVISÃO APROVA
 			if($cont["id_aprovacao"]==0 && in_array($array_nivel['nivel_atuacao'], array('S','D','G','C','CA')))
 			{
 				$conteudo = '<img src="'.DIR_IMAGENS.'accept.png" style="cursor:pointer;" onclick=popupUp("'.$cont["id_solicitacao_hora"].'","S"); />';
 			}
 			else
-			{	//aprovado pela supervis�o e for coordenador
+			{	//aprovado pela supervisÃo e for coordenador
 				if($cont["id_aprovacao"]==3 && in_array($array_nivel['nivel_atuacao'], array('D','G','C','CA')))
 				{
 					$conteudo = '<img src="'.DIR_IMAGENS.'accept.png" style="cursor:pointer;" onclick=popupUp("'.$cont["id_solicitacao_hora"].'","C"); />';
@@ -252,8 +246,8 @@ function atualizatabela($dados_form)
 			
 			$xml->writeElement('cell', $conteudo);
 			
-			//s� exclui se n�o avaliado e for o solicitante ou permitidos
-			if($cont["id_aprovacao"]==0 && (in_array($_SESSION["id_funcionario"], array(6,978)) || $_SESSION["id_funcionario"]==$cont["id_solicitante"]))
+			//Só exclui se não avaliado e for o solicitante ou permitidos
+			if($cont["id_aprovacao"]==0 && $_SESSION["id_funcionario"]==$cont["id_solicitante"])
 			{
 				$conteudo = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma?")){xajax_excluir("'.$cont["id_solicitacao_hora"].'");} />';
 			}
@@ -313,7 +307,6 @@ function insere($dados_form)
 		{
 			$array_func[$regs["id_funcionario"]] = $regs["funcionario"];
 			$array_email[$regs["id_funcionario"]] = $regs["email"];
-			//$array_status[$regs["id_funcionario"]][$regs["abreviacao"]] = $regs["nivel_atuacao"];
 			$array_nivel[$regs["id_funcionario"]] = $regs["nivel_atuacao"];
 			$array_setor[$regs["id_funcionario"]] = $regs["abreviacao"];
 		}
@@ -331,7 +324,7 @@ function insere($dados_form)
 		
 		$cont = $db->array_select[0];
 		
-		//Obtem o valor do salario na data para composi��o do custo
+		//Obtem o valor do salario na data para composição do custo
 		$sql = "SELECT * FROM ".DATABASE.".salarios ";
 		$sql .= "WHERE salarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 		$sql .= "AND DATE_FORMAT(data , '%Y%m%d') <= '".date('Ymd')."' ";
@@ -432,9 +425,9 @@ function insere($dados_form)
 		}
 		
 		//OS
-		$sql = "SELECT * FROM ".DATABASE.".OS ";
-		$sql .= "WHERE OS.id_os = '".$dados_form["os"]."' ";
-		$sql .= "AND OS.reg_del = 0 ";
+		$sql = "SELECT * FROM ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE ordem_servico.id_os = '".$dados_form["os"]."' ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
 
 		$db->select($sql,'MYSQL',true);
 			
@@ -515,10 +508,10 @@ function insere($dados_form)
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm_os'));");
 		
 		//Concatena mensagem de urg�ncia
-		$texto = "<B><FONT FACE=ARIAL COLOR=RED>SOLICITA��O DE ALTERA��O DE ESCOPO - N�: ".$id_solicitacao_horas."</FONT></B><BR><br>";
-		$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicita��o: ".$reg_motivo["motivo_solicitacao"]."</FONT><br><br>";
+		$texto = "<B><FONT FACE=ARIAL COLOR=RED>SOLICITAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_solicitacao_horas."</FONT></B><BR><br>";
+		$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$reg_motivo["motivo_solicitacao"]."</FONT><br><br>";
 		$texto .= "<FONT FACE=ARIAL COLOR=RED>Custo: R$&nbsp;".number_format($custo,2,",",".")."</FONT><br><br>";
-		$texto .= "O colaborador ".$array_func[$_SESSION["id_funcionario"]]." solicitou altera��o de escopo.<br><br>";
+		$texto .= "O colaborador ".$array_func[$_SESSION["id_funcionario"]]." solicitou alteração de escopo.<br><br>";
 		$texto .= "na data: ".date("d/m/Y")."<br>";
 		$texto .= "para o projeto: ".sprintf("%010d",$reg_os["os"])."<br>";
 		$texto .= $tarefa;
@@ -526,8 +519,8 @@ function insere($dados_form)
 		$texto .= $formato;		
 		$texto .= "Observacao: ".maiusculas(addslashes($dados_form["observacao"]))."<br><br><br>";
 
-		$params['fromNameCompl'] = " - Solicita��o de hora adicional - altera��o de escopo";		
-		$params['subject'] = 'SOLICITA��O DE ALTERA��O DE ESCOPO - N�: '.$id_solicitacao_horas;
+		$params['fromNameCompl'] = " - Solicitação de hora adicional - alteração de escopo";		
+		$params['subject'] = 'SOLICITAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_solicitacao_horas;
 		
 		//seleciona os supervisores da OS alocados para email
 		$sql = "SELECT AFA_RECURS, AF9_COMPOS FROM AF8010 WITH(NOLOCK), AF9010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
@@ -591,7 +584,7 @@ function insere($dados_form)
 		{
 			$array_sup = explode("_",$regs["AFA_RECURS"]);			
 			
-			//verifica se o colaborador � supervisor e da disciplina do solicitante
+			//verifica se o colaborador é supervisor e da disciplina do solicitante
 			//if($array_status[intval($array_sup[1])][$dados_form["disciplina"]]=='S')
 			//{
 				if($array_email[intval($array_sup[1])]!="" && in_array(substr($regs["AF9_COMPOS"],0,3),$array_disc))
@@ -613,16 +606,16 @@ function insere($dados_form)
 		//se for coordenador a solicitacao
 		if($id_aprovacao == 1)
 		{
-			$sql = "SELECT *, setores.abreviacao AS CODSETOR FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".OS ";
+			$sql = "SELECT *, setores.abreviacao AS CODSETOR FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".ordem_servico ";
 			$sql .= "WHERE solicitacao_hora.id_solicitante = funcionarios.id_funcionario ";
 			$sql .= "AND funcionarios.reg_del = 0 ";
 			$sql .= "AND usuarios.reg_del = 0 ";
 			$sql .= "AND solicitacao_hora.reg_del = 0 ";
 			$sql .= "AND atividades.reg_del = 0 ";
-			$sql .= "AND OS.reg_del = 0 ";
+			$sql .= "AND ordem_servico.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND atividades.cod = setores.id_setor ";
-			$sql .= "AND solicitacao_hora.id_os = OS.id_os ";
+			$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 			$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
 			$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
 			$sql .= "AND solicitacao_hora.id_solicitacao_hora = '".$id_solicitacao_horas."' ";
@@ -680,10 +673,10 @@ function insere($dados_form)
 			
 			$reg_atv = $db->array_select[0];			
 			
-			//Concatena mensagem de urg�ncia
-			$textoc = "<B><FONT FACE=ARIAL COLOR=RED>APROVA��O DE ALTERA��O DE ESCOPO - N�: ".$id_solicitacao_horas."</FONT></B><BR><br>";
-			$textoc .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicita��o: ".$reg_motivo["motivo_solicitacao"]."</FONT><br><br>";
-			$textoc .= "O colaborador ".$cont["funcionario"]." solicitou altera��o de escopo.<br><br>";
+			//Concatena mensagem de urgência
+			$textoc = "<B><FONT FACE=ARIAL COLOR=RED>APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_solicitacao_horas."</FONT></B><BR><br>";
+			$textoc .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$reg_motivo["motivo_solicitacao"]."</FONT><br><br>";
+			$textoc .= "O colaborador ".$cont["funcionario"]." solicitou alteração de escopo.<br><br>";
 			$textoc .= "Aprovada por ".$array_func[$_SESSION["id_funcionario"]]." em ".date('d/m/Y')."<br><br>";
 			$textoc .= "Solicitada em: ".mysql_php($cont["data_solicitacao"])."<br>";
 			$textoc .= "Para o projeto: ".sprintf("%010d",$cont["os"])."<br>";
@@ -698,11 +691,11 @@ function insere($dados_form)
 				$textoc .= "na tarefa: ".$reg_atividade["codigo"]." - ".$reg_atividade["descricao"]."<br><br>";						
 			}
 			
-			$textoc .= "Motivo aprova��o: ".maiusculas(addslashes($motivo))."<br><br>";
+			$textoc .= "Motivo aprovação: ".maiusculas(addslashes($motivo))."<br><br>";
 			
 			$textoc .= "Total de horas: ".number_format($cont["total_horas"],2,",","")."<br><br>";
 			
-			//aprovado pela supervisao, envia e-mail para coordena��o
+			//aprovado pela supervisao, envia e-mail para coordenação
 			//aprovado pela coordenacao, envia ao planejamento
 
 			$params['emails']['to'][] = array('email' => 'planejamento@dominio.com.br', 'nome' => 'Grupo Planejamento');
@@ -710,8 +703,8 @@ function insere($dados_form)
 			
 			$texto .= "Observacao: ".maiusculas(addslashes($cont["observacao"]))."<br><br><br>";
 			
-			$params['fromNameCompl'] = ' - Solicita��o de altera��o de escopo - APROVADO';
-			$params['subject'] = 'APROVA��O DE ALTERA��O DE ESCOPO - N�: '.$id_solicitacao_horas;
+			$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
+			$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_solicitacao_horas;
 			
 			$mail = new email($params);
 			
@@ -719,7 +712,7 @@ function insere($dados_form)
 			
 			if(!$mail->Send())
 			{
-				$resposta->addAlert("Horas aprovadas, por�m, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+				$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
 			}
 
 		}
@@ -766,15 +759,15 @@ function excluir($id_solicitacao)
 	}
 	
 	//seleciona a hora adicional
-	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".solicitacao_hora_motivos, ".DATABASE.".atividades, ".DATABASE.".formatos, ".DATABASE.".OS ";
+	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".solicitacao_hora_motivos, ".DATABASE.".atividades, ".DATABASE.".formatos, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE solicitacao_hora.id_solicitante = funcionarios.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND solicitacao_hora.reg_del = 0 ";
 	$sql .= "AND solicitacao_hora_motivos.reg_del = 0 ";
 	$sql .= "AND atividades.reg_del = 0 ";
 	$sql .= "AND formatos.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND solicitacao_hora.id_os = OS.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 	$sql .= "AND solicitacao_hora.id_motivo_solicitacao = solicitacao_hora_motivos.id_solicitacao_motivo ";
 	$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
 	$sql .= "AND solicitacao_hora.id_formato = formatos.id_formato ";
@@ -832,8 +825,8 @@ function excluir($id_solicitacao)
 	
 	$params = array();
 		
-	$texto = "<B><FONT FACE=ARIAL COLOR=RED>EXCLUS�O DE ALTERA��O DE ESCOPO - N�: ".$id_solicitacao."</FONT></B><BR><br><br>";
-	$texto .= "Motivo solicita��o: ".$cont["motivo_solicitacao"]."<br><br><br>";
+	$texto = "<B><FONT FACE=ARIAL COLOR=RED>EXCLUSÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_solicitacao."</FONT></B><BR><br><br>";
+	$texto .= "Motivo solicitação: ".$cont["motivo_solicitacao"]."<br><br><br>";
 	$texto .= "O colaborador ".$array_func[$cont["id_funcionario"]]." solicitou horas adicionais saldo zero<br>";
 	$texto .= "que foi excluida por ".$array_func[$_SESSION["id_funcionario"]]." em ".date('d/m/Y').".<br><br>";
 	$texto .= "no projeto: ".sprintf("%010d",$cont["os"])."<br>";
@@ -848,8 +841,8 @@ function excluir($id_solicitacao)
 	}
 	
 	
-	$params['subject'] = 'EXCLUS�O DE ALTERA��O DE ESCOPO - N�: '.$id_solicitacao;
-	$params['fromNameCompl'] = ' - Exclus�o de altera��o de escopo';
+	$params['subject'] = 'EXCLUSÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_solicitacao;
+	$params['fromNameCompl'] = ' - Exclusão de alteração de escopo';
 	
 	//seleciona os supervisores da OS alocados para email
 	/*
@@ -924,7 +917,7 @@ function excluir($id_solicitacao)
 	{
 		$array_sup = explode("_",$regs["AFA_RECURS"]);
 		
-		//verifica se o colaborador � supervisor da disciplina (Nivel atua��o)
+		//verifica se o colaborador é supervisor da disciplina (Nivel atuação)
 		//if($array_status[intval($array_sup[1])][$reg_atividade["abreviacao"]]=='S')
 		//{
 			if($array_email[intval($array_sup[1])]!="" && in_array(substr($regs["AF9_COMPOS"],0,3),$array_disc))
@@ -977,10 +970,10 @@ function excluir($id_solicitacao)
 	
 	if ($erroEmail)
 	{
-		$compRetorno = ' Por�m, os e-mails n�o puderam ser enviados!';
+		$compRetorno = ' Porém, os e-mails não puderam ser enviados!';
 	}
 	
-	$resposta->addAlert("Solicita��o exclu�da com sucesso!".$compRetorno);
+	$resposta->addAlert("Solicitação excluída com sucesso!".$compRetorno);
 
 	return $resposta;
 }
@@ -1053,10 +1046,10 @@ function disciplinas($dados_form)
 		
 		if($dados_form["motivo"]>1)
 		{
-			//MOTIVO N�O FOR ADICIONAL DE ESCOPO		
-			$sql = "SELECT * FROM ".DATABASE.".OS ";
-			$sql .= "WHERE OS.id_os = '".$dados_form["os"]."' ";
-			$sql .= "AND OS.reg_del = 0 ";
+			//MOTIVO NÃO FOR ADICIONAL DE ESCOPO		
+			$sql = "SELECT * FROM ".DATABASE.".ordem_servico ";
+			$sql .= "WHERE ordem_servico.id_os = '".$dados_form["os"]."' ";
+			$sql .= "AND ordem_servico.reg_del = 0 ";
 
 			$db->select($sql,'MYSQL',true);
 
@@ -1163,9 +1156,9 @@ function atividades($dados_form)
 	{
 		if($dados_form["motivo"]>1)
 		{		
-			$sql = "SELECT * FROM ".DATABASE.".OS ";
-			$sql .= "WHERE OS.id_os = '".$dados_form["os"]."' ";
-			$sql .= "AND OS.reg_del = 0 ";
+			$sql = "SELECT * FROM ".DATABASE.".ordem_servico ";
+			$sql .= "WHERE ordem_servico.id_os = '".$dados_form["os"]."' ";
+			$sql .= "AND ordem_servico.reg_del = 0 ";
 
 			$db->select($sql,'MYSQL',true);
 
@@ -1243,7 +1236,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 	{
 		if($aprovacao=='')
 		{
-			$resposta->addAlert("Deve escolher a aprova��o/reprova��o.");
+			$resposta->addAlert("Deve escolher a aprovação/reprovação.");
 		}
 		else
 		{
@@ -1271,7 +1264,6 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			{
 				$array_func[$regs["id_funcionario"]] = $regs["funcionario"];
 				$array_email[$regs["id_funcionario"]] = $regs["email"];
-				//$array_status[$regs["id_funcionario"]][$regs["abreviacao"]] = $regs["nivel_atuacao"];
 				$array_setor[$regs["id_funcionario"]] = $regs["abreviacao"];
 			}
 	
@@ -1306,16 +1298,16 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				$array_motivo[$cont1["id_solicitacao_motivo"]] = $cont1["motivo_solicitacao"];
 			}			
 
-			$sql = "SELECT *, setores.abreviacao AS CODSETOR FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".OS ";
+			$sql = "SELECT *, setores.abreviacao AS CODSETOR FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".ordem_servico ";
 			$sql .= "WHERE solicitacao_hora.id_solicitante = funcionarios.id_funcionario ";
 			$sql .= "AND funcionarios.reg_del = 0 ";
 			$sql .= "AND usuarios.reg_del = 0 ";
 			$sql .= "AND solicitacao_hora.reg_del = 0 ";
 			$sql .= "AND atividades.reg_del = 0 ";
-			$sql .= "AND OS.reg_del = 0 ";
+			$sql .= "AND ordem_servico.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND atividades.cod = setores.id_setor ";
-			$sql .= "AND solicitacao_hora.id_os = OS.id_os ";
+			$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 			$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
 			$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
 			$sql .= "AND solicitacao_hora.id_solicitacao_hora = '".$id_horas."' ";
@@ -1378,10 +1370,10 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			{
 				$params = array();
 				
-				//Concatena mensagem de urg�ncia
-				$texto = "<B><FONT FACE=ARIAL COLOR=RED>APROVA��O DE ALTERA��O DE ESCOPO - N�: ".$id_horas."</FONT></B><BR><br>";
-				$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicita��o: ".$array_motivo[$cont["id_motivo_solicitacao"]]."</FONT><br><br>";
-				$texto .= "O colaborador ".$cont["funcionario"]." solicitou altera��o de escopo.<br><br>";
+				//Concatena mensagem de urgência
+				$texto = "<B><FONT FACE=ARIAL COLOR=RED>APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_horas."</FONT></B><BR><br>";
+				$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$array_motivo[$cont["id_motivo_solicitacao"]]."</FONT><br><br>";
+				$texto .= "O colaborador ".$cont["funcionario"]." solicitou alteração de escopo.<br><br>";
 				$texto .= "Aprovada por ".$array_func[$_SESSION["id_funcionario"]]." em ".date('d/m/Y')."<br><br>";
 				$texto .= "Solicitada em: ".mysql_php($cont["data_solicitacao"])."<br>";
 				$texto .= "Para o projeto: ".sprintf("%010d",$cont["os"])."<br>";
@@ -1396,11 +1388,11 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 					$texto .= "na tarefa: ".$reg_atividade["codigo"]." - ".$reg_atividade["descricao"]."<br><br>";						
 				}
 				
-				$texto .= "Motivo aprova��o: ".maiusculas(addslashes($motivo))."<br><br>";
+				$texto .= "Motivo aprovação: ".maiusculas(addslashes($motivo))."<br><br>";
 				
 				$texto .= "Total de horas: ".number_format($cont["total_horas"],2,",","")."<br><br>";
 				
-				//aprovado pela supervisao, envia e-mail para coordena��o
+				//aprovado pela supervisao, envia e-mail para coordenação
 				//aprovado pela coordenacao, envia ao planejamento
 				if($tipo_aprovador=='S')
 				{
@@ -1429,8 +1421,8 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				
 				$texto .= "Observacao: ".maiusculas(addslashes($cont["observacao"]))."<br><br><br>";
 				
-				$params['fromNameCompl'] = ' - Solicita��o de altera��o de escopo - APROVADO';
-				$params['subject'] = 'APROVA��O DE ALTERA��O DE ESCOPO - N�: '.$id_horas;
+				$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
+				$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_horas;
 				
 				$mail = new email($params);
 				
@@ -1438,7 +1430,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				
 				if(!$mail->Send())
 				{
-					$resposta->addAlert("Horas aprovadas, por�m, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+					$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
 				}
 				else
 				{
@@ -1447,14 +1439,14 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			}
 			else
 			{
-				$texto = "<B><FONT FACE=ARIAL COLOR=RED>REPROVA��O DE ALTERA��O DE ESCOPO - N�: ".$id_horas."</FONT></B><BR><br>";
-				$texto .= "O colaborador ".$cont["funcionario"]." solicitou altera��o de escopo<br>";
+				$texto = "<B><FONT FACE=ARIAL COLOR=RED>REPROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_horas."</FONT></B><BR><br>";
+				$texto .= "O colaborador ".$cont["funcionario"]." solicitou alteração de escopo<br>";
 				$texto .= "Reprovada por ".$array_func[$_SESSION["id_funcionario"]]." em ".date('d/m/Y')." <br><br>";
 				$texto .= "No projeto: ".sprintf("%010d",$cont["os"])."<br>";
-				$texto .= "Motivo rejei��o: ".maiusculas(addslashes($motivo))."<br><br><br>";
+				$texto .= "Motivo rejeição: ".maiusculas(addslashes($motivo))."<br><br><br>";
 			
-				$params['fromNameCompl'] = ' - Solicita��o de horas adicionais - REPROVADO';
-				$params['subject'] = 'REPROVA��O DE ALTERA��O DE ESCOPO - N�: '.$id_horas;
+				$params['fromNameCompl'] = ' - Solicitação de horas adicionais - REPROVADO';
+				$params['subject'] = 'REPROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_horas;
 				
 				//reprovado pela supervisao, envia e-mail para solicitante
 				//reprovado pela coordenacao, envia ao supervisor
@@ -1539,7 +1531,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 					{
 						$array_sup = explode("_",$regs["AFA_RECURS"]);
 						
-						//verifica se o colaborador � supervisor da disciplina (Nivel atua��o)
+						//verifica se o colaborador é supervisor da disciplina (Nivel atuação)
 						//if($array_status[intval($array_sup[1])][$cont["CODSETOR"]]=='S')
 						//{
 							if($array_email[intval($array_sup[1])]!="" && in_array(substr($regs["AF9_COMPOS"],0,3),$array_disc))
@@ -1590,7 +1582,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			
 			if ($db->erro != '')
 			{
-				$resposta->addAlert("N�o foi poss�vel fazer a Atualização.".$usql);
+				$resposta->addAlert("Não foi possível fazer a Atualização.".$usql);
 			}
 						
 			$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm_os'));");
@@ -1598,7 +1590,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 	}
 	else
 	{
-		$resposta->addAlert("Erro na aprova��o.");
+		$resposta->addAlert("Erro na aprovação.");
 	}
 	
 	return $resposta;
@@ -1610,15 +1602,15 @@ function detalhes($id_horas)
 	
 	$db = new banco_dados;
 	
-	$sql = "SELECT *, atividades.descricao AS atividade FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".solicitacao_hora_motivos, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".OS ";
+	$sql = "SELECT *, atividades.descricao AS atividade FROM ".DATABASE.".funcionarios, ".DATABASE.".solicitacao_hora, ".DATABASE.".solicitacao_hora_motivos, ".DATABASE.".atividades, ".DATABASE.".setores, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE solicitacao_hora.id_solicitante = funcionarios.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND solicitacao_hora.reg_del = 0 ";
 	$sql .= "AND solicitacao_hora_motivos.reg_del = 0 ";
 	$sql .= "AND atividades.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
-	$sql .= "AND OS.reg_del = 0 ";
-	$sql .= "AND solicitacao_hora.id_os = OS.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 	$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
 	$sql .= "AND solicitacao_hora.id_solicitacao_hora = '".$id_horas."' ";
 	$sql .= "AND solicitacao_hora_motivos.id_solicitacao_motivo = solicitacao_hora.id_motivo_solicitacao ";
@@ -1662,7 +1654,7 @@ function detalhes($id_horas)
 	}
 	
 	$conteudo = '<table>';
-	$conteudo .= '<tr><td><label class="labels"><strong>N�&nbsp;Solicitação:</strong>&nbsp;'.$id_horas.'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Nº&nbsp;Solicitação:</strong>&nbsp;'.$id_horas.'</label></td></tr>';
 	$conteudo .= '<tr><td><label class="labels"><strong>Projeto:</strong>&nbsp;'.sprintf("%010d",$regs["os"]).' - '.$regs["descricao"].'</label></td></tr>';
 	$conteudo .= '<tr><td><label class="labels"><strong>Motivo:</strong>&nbsp;'.$regs["motivo_solicitacao"].'</label></td></tr>';
 	$conteudo .= '<tr><td><label class="labels"><strong>Disciplina:</strong>&nbsp;'.$regs["setor"].'</label></td></tr>';
@@ -1723,7 +1715,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 	
-	mygrid.setHeader("N�, Projeto, Atividade, Total&nbsp;Horas,Solicitado&nbsp;por, data, A, D");
+	mygrid.setHeader("Nº, Projeto, Atividade, Total&nbsp;Horas,Solicitado&nbsp;por, Data, A, D");
 	mygrid.setInitWidths("50,80,470,80,180,80,30,30");
 	mygrid.setColAlign("center,left,left,center,left,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1740,13 +1732,13 @@ function popupUp(id_horas,tipo_aprovador)
 {
 	conteudo = '<table border="0" width="100%">';
 	conteudo += '<tr>';
-	conteudo += '<td><label class="labels">Aprova��o</label><input name="tipo" type="hidden" class="caixa" id="tipo" size="50" value="'+tipo_aprovador+'"/></td>';
+	conteudo += '<td><label class="labels">Aprovação</label><input name="tipo" type="hidden" class="caixa" id="tipo" size="50" value="'+tipo_aprovador+'"/></td>';
 	conteudo += '</tr><tr>';
-	conteudo += '<td><select name="aprovacao" class="caixa" id="aprovacao" onkeypress="return keySort(this);" onchange="if(true){div_motivo.style.display=\'inline\'}else{div_motivo.style.display=\'none\'};"><option value="">SELECIONA</option><option value="1">APROVA</option><option value="2">N�O APROVA</option></select></td></tr>';
+	conteudo += '<td><select name="aprovacao" class="caixa" id="aprovacao" onkeypress="return keySort(this);" onchange="if(true){div_motivo.style.display=\'inline\'}else{div_motivo.style.display=\'none\'};"><option value="">SELECIONA</option><option value="1">APROVA</option><option value="2">NÃO APROVA</option></select></td></tr>';
 	conteudo += '<tr><td width="10%"><div id="div_motivo" style="display:none;"><label class="labels">Motivo&nbsp;:</label><br><input name="motivo_rejeicao" type="text" class="caixa" id="motivo_rejeicao" size="50" maxlength="200" /></div></td><td width="90%">&nbsp;</td></tr>';
 	conteudo += '<tr><td><input id="btn_checkout_enviar" type="button" value="Enviar" class="class_botao" onclick="xajax_aprovar('+id_horas+',document.getElementById(\'aprovacao\').value,document.getElementById(\'tipo\').value,document.getElementById(\'motivo_rejeicao\').value);">&nbsp;<input type="button" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
 	
-	modal(conteudo, 'p', 'APROVA��O');	
+	modal(conteudo, 'p', 'APROVAÇÃO');	
 }
 
 function popupUp_detalhes(id_horas)
@@ -1785,7 +1777,7 @@ function ativa_campos(id_motivo)
 
 $db = new banco_dados;
 
-//verifica o nivel atua��o para popular o combobox de filtro
+//verifica o nivel atuação para popular o combobox de filtro
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE funcionarios.reg_del = 0 ";
 $sql .= "AND funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
@@ -1801,11 +1793,11 @@ $nivel_atuacao = $db->array_select[0];
 
 if(in_array($nivel_atuacao["nivel_atuacao"],array('D','G','C','CA')))
 {
-	$array_status = array(1=>'APROVADO COORD',2=>'N&Atilde;O APROVADO COORD',3=>'APROVADO SUP',4=>'N&Atilde;O APROVADO SUP');		
+	$array_status = array(1=>'APROVADO COORD',2=>'NÃO APROVADO COORD',3=>'APROVADO SUP',4=>'NÃO APROVADO SUP');		
 }
 else
 {
-	$array_status = array(0=>'N&Atilde;O AVALIADO',1=>'APROVADO COORD',2=>'N&Atilde;O APROVADO COORD',3=>'APROVADO SUP',4=>'N&Atilde;O APROVADO SUP');	
+	$array_status = array(0=>'NÃO AVALIADO',1=>'APROVADO COORD',2=>'NÃO APROVADO COORD',3=>'APROVADO SUP',4=>'NÃO APROVADO SUP');	
 }
 
 foreach($array_status as $id => $valor)
@@ -1814,9 +1806,9 @@ foreach($array_status as $id => $valor)
 	$array_status_output[] = $valor;
 }
 
-$sql = "SELECT * FROM  ".DATABASE.".OS ";
-$sql .= "WHERE OS.id_os_status IN (16,14,1) ";
-$sql .= "AND OS.reg_del = 0 ";
+$sql = "SELECT * FROM  ".DATABASE.".ordem_servico ";
+$sql .= "WHERE ordem_servico.id_os_status IN (16,14,1) ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
 
 $db->select($sql,'MYSQL', true);
 

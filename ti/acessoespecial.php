@@ -2,7 +2,7 @@
 /*
 		Acesso Especial	
 		
-		Criado por Carlos Eduardo M�xim ia
+		Criado por Carlos Eduardo Máximo
 		
 		local/Nome do arquivo:
 		../ti/acessoespecial.php
@@ -19,7 +19,7 @@ require_once(INCLUDE_DIR."include_form.inc.php");
 
 require_once(INCLUDE_DIR."encryption.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(493))
 {
@@ -45,7 +45,7 @@ function autenticacao($dados_form)
 	$db = new banco_dados;
 	
 	//senha do administrador
-	$pass_adm = $enc->encrypt('DvmTi@2016');
+	$pass_adm = $enc->encrypt('123456');
 	
 	// Recupera o login
 	$login = isset($dados_form["login"]) ? addslashes(trim($dados_form["login"])) : FALSE;
@@ -77,14 +77,14 @@ function autenticacao($dados_form)
 		}
 		else
 		{
-			// Caso o usu�rio tenha digitado um login v�lido o n�mero de linhas ser� 1..
+			// Caso o usuário tenha digitado um login válido o número de linhas será 1..
 			if($db->numero_registros>=1)
 			{
-				// Agora verifica a sess�o do usu�rio administrador
+				// Agora verifica a sessão do usuário administrador
 				if(isset($_SESSION['Perfil']) && $_SESSION['Perfil'] == 1)
 				{	
-					//C�pia tempor�ria da sess�o do usu�rio administrador para dentro de admin
-					//O objetivo � voltar para o usu�rio administrador depois que clicar em sair
+					//Cópia temporária da sessão do usuário administrador para dentro de admin
+					//O objetivo é voltar para o usuário administrador depois que clicar em sair
 					$_SESSION['adminTemp']['login'] = $_SESSION["login"];					
 					$_SESSION['adminTemp']["nivel_atuacao"] = $_SESSION["nivel_atuacao"];					
 					$_SESSION['adminTemp']["id_usuario"] = $_SESSION["id_usuario"];					
@@ -94,11 +94,11 @@ function autenticacao($dados_form)
 					$_SESSION['adminTemp']["admin"] = $_SESSION["admin"];
 					$_SESSION['adminTemp']["id_setor_aso"] = $_SESSION["id_setor_aso"];
 					
-					//Sess�o do sistema
+					//Sessão do sistema
 					$_SESSION["admin"] = FALSE;
 					$_SESSION["login"] = $dados["Login"];					
 					$_SESSION["nivel_atuacao"] = $dados["nivel_atuacao"];					
-					$_SESSION["id_usuario"] = $dados["CodUsuario"];					
+					$_SESSION["id_usuario"] = $dados["id_usuario"];					
 					$_SESSION["id_funcionario"] = $dados["id_funcionario"];
 					$_SESSION["Perfil"] = $dados["Perfil"];					
 					$_SESSION["id_setor_aso"] = $dados["id_setor_aso"];
@@ -113,15 +113,14 @@ function autenticacao($dados_form)
 						else
 						{
 							$resposta->addRedirect("../inicio.php");
-						}
-						
+						}						
 					}
 					else
 					{
 						$resposta->addRedirect("../firstpass.php");
 					}						
 				}
-				// Senha inv�lida
+				// Senha inválida
 				else
 				{
 					$resposta->addAssign("mensagem","innerHTML",$msg[12]);
@@ -129,7 +128,7 @@ function autenticacao($dados_form)
 					return $resposta;
 				}
 			}
-			// Login inv�lido
+			// Login inválido
 			else
 			{
 				$resposta->addAssign("mensagem","innerHTML",$msg[13]);
@@ -148,16 +147,16 @@ function carrega_senha($usuario)
 	
 	$crypter = new Crypter(CHAVE);
 	
-	$sql = "SELECT Senha, id_funcionario, data_troca FROM ".DATABASE.".usuarios ";
-	$sql .= "WHERE Login = '".$usuario."' ";
+	$sql = "SELECT senha, id_funcionario, data_troca FROM ".DATABASE.".usuarios ";
+	$sql .= "WHERE login = '".$usuario."' ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	
 	$db->select($sql, 'MYSQL',true);
 	
 	$reg = $db->array_select[0];
 	
-	$resposta->addAssign('senhaHidden', 'value', $crypter->decrypt($reg['Senha']));
-	$resposta->addAssign('senha', 'value', $reg['Senha']);
+	$resposta->addAssign('senhaHidden', 'value', $crypter->decrypt($reg['senha']));
+	$resposta->addAssign('senha', 'value', $reg['senha']);
 	$resposta->addAssign('dataTroca', 'value', mysql_php($reg['data_troca']));
 	
 	return $resposta;
@@ -175,8 +174,8 @@ function alterar_usuario($dados_form)
 	
 	$usql = "UPDATE ".DATABASE.".usuarios SET ";
 	$usql .= "data_troca = '".date('Y-m-d')."', ";
-	$usql .= "Senha = '".$senha."' ";
-	$usql .= "WHERE Login = '".$dados_form['login']."' ";
+	$usql .= "senha = '".$senha."' ";
+	$usql .= "WHERE login = '".$dados_form['login']."' ";
 	$usql .= "AND reg_del = 0 ";
 	
 	$db->update($usql, 'MYSQL');

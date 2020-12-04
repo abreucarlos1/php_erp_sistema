@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de permiss�es	
+		Formulário de permissões	
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(106))
 {
@@ -62,7 +62,7 @@ function atualizatabela($filtro, $id_usuario)
 	
 	$sql_texto = "";
 	 
-	$filtro_funcionario = " AND usuarios.CodUsuario = '".$id_usuario."' ";
+	$filtro_funcionario = " AND usuarios.id_usuario = '".$id_usuario."' ";
 	
 	if($filtro!="")
 	{
@@ -83,9 +83,9 @@ function atualizatabela($filtro, $id_usuario)
 			FROM
 				".DATABASE.".usuarios
 				JOIN (SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcionarios ON usuarios.id_funcionario = funcionarios.id_funcionario
-				JOIN (SELECT id_permissao, id_usuario, permissao, id_sub_modulo FROM ti.permissoes WHERE permissoes.reg_del = 0) permissoes ON permissoes.id_usuario = usuarios.CodUsuario
+				JOIN (SELECT id_permissao, id_usuario, permissao, id_sub_modulo FROM ".DATABASE.".permissoes WHERE permissoes.reg_del = 0) permissoes ON permissoes.id_usuario = usuarios.id_usuario
 				JOIN (SELECT * FROM ti.sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulos on sub_modulos.id_sub_modulo = permissoes.id_sub_modulo
-				LEFT JOIN (SELECT id_sub_modulo, sub_modulo sub_modulo_pai FROM ti.sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulo_pai on sub_modulo_pai.id_sub_modulo = sub_modulos.id_sub_modulo_pai
+				LEFT JOIN (SELECT id_sub_modulo, sub_modulo sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulo_pai on sub_modulo_pai.id_sub_modulo = sub_modulos.id_sub_modulo_pai
 				WHERE usuarios.reg_del = 0 
 			".$filtro_funcionario."
 			".$sql_filtro."
@@ -119,23 +119,23 @@ function atualizatabela($filtro, $id_usuario)
 		}
 		
 		//VISUALIZA
-		$array_permissao['V']['TEXTO'] = $cont_desp["permissao"] & 16 ? 'SIM':'N�O';
+		$array_permissao['V']['TEXTO'] = $cont_desp["permissao"] & 16 ? 'SIM':'NÃO';
 		$array_permissao['V']['COR'] = $cont_desp["permissao"] & 16 ? '#006600':'#FF0000';
 		
 		//INCLUI
-		$array_permissao['I']['TEXTO'] = $cont_desp["permissao"] & 8 ? 'SIM':'N�O';
+		$array_permissao['I']['TEXTO'] = $cont_desp["permissao"] & 8 ? 'SIM':'NÃO';
 		$array_permissao['I']['COR'] = $cont_desp["permissao"] & 8 ? '#006600':'#FF0000';
 		
 		//EDITAR
-		$array_permissao['E']['TEXTO'] = $cont_desp["permissao"] & 4 ? 'SIM':'N�O';
+		$array_permissao['E']['TEXTO'] = $cont_desp["permissao"] & 4 ? 'SIM':'NÃO';
 		$array_permissao['E']['COR'] = $cont_desp["permissao"] & 4 ? '#006600':'#FF0000';
 		
 		//APAGAR
-		$array_permissao['A']['TEXTO'] = $cont_desp["permissao"] & 2 ? 'SIM':'N�O';
+		$array_permissao['A']['TEXTO'] = $cont_desp["permissao"] & 2 ? 'SIM':'NÃO';
 		$array_permissao['A']['COR'] = $cont_desp["permissao"] & 2 ? '#006600':'#FF0000';	
 	 
 		//IMPRIMIR
-		$array_permissao['P']['TEXTO'] = $cont_desp["permissao"] & 1 ? 'SIM':'N�O';
+		$array_permissao['P']['TEXTO'] = $cont_desp["permissao"] & 1 ? 'SIM':'NÃO';
 		$array_permissao['P']['COR'] = $cont_desp["permissao"] & 1 ? '#006600':'#FF0000';
 		
 		$xml->startElement('row');
@@ -169,7 +169,7 @@ function insere($dados_form)
 	
 	if (intval($permissao) == 0)
 	{
-		$resposta->addAlert('Por favor, preencha uma ou mais das op��es de permiss�o!');
+		$resposta->addAlert('Por favor, preencha uma ou mais das opções de permissão!');
 		
 		return $resposta;
 	}
@@ -187,13 +187,13 @@ function insere($dados_form)
 			$modulos 	= implode(',', $dados_form['interface']);
 			$usuarios	= implode(',', $dados_form['usuario']);
 			
-			//Selecionando todos os usu�rios que j� tem permiss�o para remover da lista que receber� as permiss�es
+			//Selecionando todos os usuários que já tem permissão para remover da lista que receberá as permissões
 			$sql = 
 			"SELECT
 				id_permissao, id_usuario, id_sub_modulo
 			FROM
-				ti.permissoes
-				JOIN (SELECT id_funcionario usuario, CodUsuario FROM ".DATABASE.".usuarios WHERE CodUsuario IN(".$usuarios.") AND usuarios.reg_del = 0) usuarios ON CodUsuario = id_usuario
+				".DATABASE.".permissoes
+				JOIN (SELECT id_funcionario usuario, id_usuario FROM ".DATABASE.".usuarios WHERE id_usuario IN(".$usuarios.") AND usuarios.reg_del = 0) usuarios ON id_usuario = id_usuario
 			WHERE
 				reg_del = 0
 				AND id_sub_modulo IN(".$modulos.")";
@@ -212,7 +212,7 @@ function insere($dados_form)
 				$arrPermissoesExistentes[$reg['id_sub_modulo']][$reg['id_usuario']] = $reg['id_usuario'];
 			}
 						
-			$isql = "INSERT INTO ti.permissoes (id_usuario, id_sub_modulo, permissao) VALUES ";
+			$isql = "INSERT INTO ".DATABASE.".permissoes (id_usuario, id_sub_modulo, permissao) VALUES ";
 			
 			$usuariosAplicacao = 0;
 			
@@ -235,7 +235,7 @@ function insere($dados_form)
 			
 			if ($usuariosAplicacao == 0)
 			{
-				$resposta->addAlert('As permiss�es j� haviam sido concedidas anteriormente!');
+				$resposta->addAlert('As permissões já haviam sido concedidas anteriormente!');
 				return $resposta;
 			}
 			
@@ -247,7 +247,7 @@ function insere($dados_form)
 			}
 			else
 			{
-				$resposta->addAlert($db->numero_registros.' Permiss�es concedidas corretamente!');
+				$resposta->addAlert($db->numero_registros.' Permissões concedidas corretamente!');
 			}
 			
 			$resposta->addScript("xajax_voltar();");
@@ -256,15 +256,8 @@ function insere($dados_form)
 		{
 			if($dados_form["interface"][0]!='' && $dados_form['usuario'][0]!='')
 			{
-				/*
-				$dsql = "DELETE FROM ti.permissoes ";
-				$dsql .= "WHERE id_usuario = '".$dados_form["usuario"][0]."' ";
-				$dsql .= "AND id_sub_modulo = '".$dados_form["interface"][0]."' ";
-				$dsql .= "AND id_permissao = '".$dados_form["id_permissao"]."' ";
-				
-				$db->delete($dsql,'MYSQL');
-				*/
-				$usql = "UPDATE ti.permissoes SET ";
+
+				$usql = "UPDATE ".DATABASE.".permissoes SET ";
 				$usql .= "reg_del = 1, ";
 				$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 				$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -275,7 +268,7 @@ function insere($dados_form)
 				
 				$db->update($usql,'MYSQL');				
 				
-				$isql = "INSERT INTO ti.permissoes ";
+				$isql = "INSERT INTO ".DATABASE.".permissoes ";
 				$isql .= "(id_usuario, id_sub_modulo, permissao) VALUES ( ";
 				$isql .= "'".$dados_form["usuario"][0]."', ";
 				$isql .= "'".$dados_form["interface"][0]."', ";
@@ -309,7 +302,7 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ti.permissoes ";
+	$sql = "SELECT * FROM ".DATABASE.".permissoes ";
 	$sql .= "WHERE permissoes.id_permissao = '".$id."' ";
 	$sql .= "AND permissoes.reg_del = 0 ";
 	
@@ -322,7 +315,7 @@ function editar($id)
 
 	$regs = $db->array_select[0];
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo"]."' ";
 	$sql .= "AND sub_modulos.visivel = '1' ";
 	$sql .= "AND sub_modulos.reg_del = 0 ";
@@ -389,33 +382,15 @@ function atualizar($dados_form)
 		{
 			$permissao = $dados_form["visualiza"] + $dados_form["inclui"] + $dados_form["edita"] + $dados_form["apaga"] + $dados_form["imprime"]; 
 			
-			/*
-			$dsql = "DELETE FROM ti.permissoes ";
-			$dsql .= "WHERE id_usuario = '".$dados_form["usuario"][0]."' ";
-			$dsql .= "AND id_sub_modulo = '".$dados_form["interface"][0]."' ";
-			$dsql .= "AND id_permissao = '".$dados_form["id_permissao"]."' ";
-			
-			$db->delete($dsql,'MYSQL');
-			*/
-			
-			$usql = "UPDATE ti.permissoes SET ";
+			$usql = "UPDATE ".DATABASE.".permissoes SET ";
 			$usql .= "permissao = '".$permissao."' ";
 			$usql .= "WHERE id_permissao = '".$dados_form["id_permissao"]."' ";
 			$usql .= "AND reg_del = 0 ";
 			
 			$db->update($usql,'MYSQL');			
 			
-			/*
-			$isql = "INSERT INTO ti.permissoes ";
-			$isql .= "(id_usuario, id_sub_modulo, permissao) VALUES ( ";
-			$isql .= "'".$dados_form["usuario"][0]."', ";
-			$isql .= "'".$dados_form["interface"][0]."', ";
-			$isql .= "'".$permissao. "') ";
-	
-			$db->insert($isql,'MYSQL');
-			*/
-			
-			$resposta->addAlert("Permiss�o atualizado com sucesso.");
+
+			$resposta->addAlert("Permissão atualizado com sucesso.");
 			$resposta->addScript("xajax_voltar();");
 			$resposta->addScript("xajax_atualizatabela('',".$dados_form['usuario'][0].");");
 		}
@@ -438,7 +413,7 @@ function excluir($id)
 	{
 		$db = new banco_dados;
 		
-		$sql = "SELECT * FROM ti.permissoes ";
+		$sql = "SELECT * FROM ".DATABASE.".permissoes ";
 		$sql .= "WHERE id_permissao = '".$id."' ";
 		$sql .= "AND reg_del = 0 ";
 		
@@ -451,13 +426,7 @@ function excluir($id)
 		
 		$regs = $db->array_select[0];
 		
-		/*
-		$dsql = "DELETE FROM ti.permissoes ";
-		$dsql .= "WHERE permissoes.id_permissao = '".$id."' ";
-		
-		$db->delete($dsql,'MYSQL');
-		*/
-		$usql = "UPDATE ti.permissoes SET ";
+		$usql = "UPDATE ".DATABASE.".permissoes SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -465,10 +434,7 @@ function excluir($id)
 		
 		$db->update($usql,'MYSQL');		
 		
-		//$resposta->addScript("xajax_atualizatabela('',xajax.getFormValues('frm_permissao'));");
-		//$resposta->addScript("if(mostrarPermissoes.checked){xajax_verificaPermitidos(xajax.$('interface').value);}");
-		
-		$resposta->addAlert('Registro exclu�do corretamente!');
+		$resposta->addAlert('Registro excluído corretamente!');
 	}
 
 	return $resposta;
@@ -488,7 +454,7 @@ function preenchecombo($id, $selected = 0)
 	
 	$resposta->addScriptCall("limpa_combo('interface')");	
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$id."' ";
 	$sql .= "AND sub_modulos.reg_del = 0 ";
 	$sql .= "AND sub_modulos.visivel = '1' ";
@@ -525,7 +491,7 @@ function preenchecombo($id, $selected = 0)
 		$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('".$menu.$reg["sub_modulo"]."', '".$reg["id_sub_modulo"]."','','".$sel."');");
 	}
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo_pai = '".$id."' ";
 	$sql .= "AND sub_modulos.reg_del = 0 ";
 	$sql .= "AND sub_modulos.visivel = 1 ";
@@ -559,16 +525,16 @@ function verificaPermitidos($modulo)
 	$db = new banco_dados();
 	
 	$sql = "SELECT
-	id_permissao, id_usuario, permissao, id_sub_modulo, funcionario, sub_modulo
-FROM
-	ti.permissoes
-	JOIN(SELECT CodUsuario, id_funcionario cod_funcionario FROM ".DATABASE.".usuarios WHERE usuarios.reg_del = 0) usuarios ON CodUsuario = id_usuario
-	JOIN(SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcs ON id_funcionario = cod_funcionario
-	JOIN (SELECT id_sub_modulo idSubModulo, sub_modulo FROM ti.sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulos on idSubModulo = id_sub_modulo
-WHERE
-	reg_del = 0
-	AND id_sub_modulo = ".$modulo."
-ORDER BY funcionario";
+			id_permissao, id_usuario, permissao, id_sub_modulo, funcionario, sub_modulo
+		FROM
+			".DATABASE.".permissoes
+			JOIN(SELECT id_usuario, id_funcionario cod_funcionario FROM ".DATABASE.".usuarios WHERE usuarios.reg_del = 0) usuarios ON id_usuario = id_usuario
+			JOIN(SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcs ON id_funcionario = cod_funcionario
+			JOIN (SELECT id_sub_modulo idSubModulo, sub_modulo FROM ".DATABASE.".sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulos on idSubModulo = id_sub_modulo
+		WHERE
+			reg_del = 0
+			AND id_sub_modulo = ".$modulo."
+		ORDER BY funcionario";
 	
 	$xml = new XMLWriter();
 	$xml->setIndent(false);
@@ -579,11 +545,11 @@ ORDER BY funcionario";
 	
 	foreach($db->array_select as $reg)
 	{		
-		$array_permissao['V'] = $reg["permissao"] & 16 ? 'SIM':'N�O';//VISUALIZA
-		$array_permissao['I'] = $reg["permissao"] & 8 ? 'SIM':'N�O';//INCLUI
-		$array_permissao['E'] = $reg["permissao"] & 4 ? 'SIM':'N�O';//EDITAR
-		$array_permissao['A'] = $reg["permissao"] & 2 ? 'SIM':'N�O';//APAGAR
-		$array_permissao['P'] = $reg["permissao"] & 1 ? 'SIM':'N�O';//IMPRIMIR
+		$array_permissao['V'] = $reg["permissao"] & 16 ? 'SIM':'NÃO';//VISUALIZA
+		$array_permissao['I'] = $reg["permissao"] & 8 ? 'SIM':'NÃO';//INCLUI
+		$array_permissao['E'] = $reg["permissao"] & 4 ? 'SIM':'NÃO';//EDITAR
+		$array_permissao['A'] = $reg["permissao"] & 2 ? 'SIM':'NÃO';//APAGAR
+		$array_permissao['P'] = $reg["permissao"] & 1 ? 'SIM':'NÃO';//IMPRIMIR
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $reg["id_permissao"]);
@@ -593,7 +559,7 @@ ORDER BY funcionario";
 			$xml->writeElement('cell', $array_permissao['E']);
 			$xml->writeElement('cell', $array_permissao['A']);
 			$xml->writeElement('cell', $array_permissao['P']);
-			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclus�o?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
+			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
 		$xml->endElement();
 	}
 	
@@ -649,7 +615,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.enableAutoHeight(autoh,height);
 			mygrid.enableRowsHover(true,'cor_mouseover');
 		
-			mygrid.setHeader("Funcion�rio,V,IN,E,A,I,D");
+			mygrid.setHeader("Funcionário,V,IN,E,A,I,D");
 			mygrid.setInitWidths("150,50,50,50,50,50,50,50");
 			mygrid.setColAlign("left,center,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -680,7 +646,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.enableAutoHeight(autoh,height);
 			mygrid.enableRowsHover(true,'cor_mouseover');
 			
-			mygrid.setHeader("Funcion�rio,Sub-Modulo,Interface,V,IN,E,A,I,D");
+			mygrid.setHeader("Funcionário,Sub-Módulo,Interface,V,IN,E,A,I,D");
 			mygrid.setInitWidths("*,*,*,50,50,50,50,50,50,50");
 			mygrid.setColAlign("left,left,left,center,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -724,7 +690,7 @@ $array_usuario_output = array();
 $db = new banco_dados;
 
 //SUB MODULOS PRINCIPAIS
-$sql = "SELECT * FROM ti.sub_modulos ";
+$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 $sql .= "WHERE sub_modulos.id_sub_modulo_pai = 0 ";
 $sql .= "AND sub_modulos.reg_del = 0 ";
 $sql .= "AND sub_modulos.visivel = 1 ";
@@ -744,13 +710,13 @@ foreach ($db->array_select as $regs)
 }
 
 
-//SUB MODULOS secund�rios
-$sql = "SELECT * FROM ti.sub_modulos ";
+//SUB MODULOS secundários
+$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 $sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  0 ";
 $sql .= "AND sub_modulos.reg_del = 0 ";
 $sql .= "AND sub_modulos.visivel = 1 ";
 $sql .= "AND sub_modulos.id_sub_modulo IN ";
-$sql .= "(SELECT id_sub_modulo_pai FROM ti.sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0 AND sub_modulos.visivel = 1 AND sub_modulos.reg_del = 0) ";
+$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0 AND sub_modulos.visivel = 1 AND sub_modulos.reg_del = 0) ";
 $sql .= "ORDER BY sub_modulo ";
 
 $db->select($sql,'MYSQL',true);
@@ -764,7 +730,7 @@ $array_sub = $db->array_select;
 
 foreach ($array_sub as $regs)
 {
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
 	$sql .= "AND sub_modulos.reg_del = 0 ";
 	$sql .= "AND sub_modulos.visivel = 1 ";
@@ -782,7 +748,7 @@ foreach ($array_sub as $regs)
 	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
 }
 
-$sql = "SELECT id_acao, acao FROM ti.acoes ";
+$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ";
 $sql .= "WHERE acoes.reg_del = 0 ";
 $sql .= "ORDER BY id_acao ";
 
@@ -799,7 +765,7 @@ foreach($db->array_select as $regs)
 	$array_acoes_output[] = $regs["acao"];	
 }
 
-$sql = "SELECT funcionario, CodUsuario FROM ".DATABASE.".funcionarios ";
+$sql = "SELECT funcionario, id_usuario FROM ".DATABASE.".funcionarios ";
 $sql .= "JOIN ".DATABASE.".usuarios ON funcionarios.id_funcionario = usuarios.id_funcionario AND usuarios.reg_del = 0 ";
 $sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
 $sql .= "AND funcionarios.reg_del = 0 ";
@@ -814,7 +780,7 @@ if($db->erro!='')
 
 foreach($db->array_select as $regs)
 {
-	$array_usuario_values[] = $regs["CodUsuario"];
+	$array_usuario_values[] = $regs["id_usuario"];
 	$array_usuario_output[] = $regs["funcionario"];	
 }
 

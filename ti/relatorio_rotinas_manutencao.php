@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Relatorio Rotinas Manuten��es	
+		Formulário de Relatório Rotinas Manutenções	
 		
 		Criado por Carlos Abreu  
 		
@@ -18,7 +18,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(323))
 {
@@ -42,7 +42,7 @@ $array_ano_output = NULL;
 $array_ano_values[] = "-1";
 $array_ano_output[] = "SELECIONE";
 
-$sql = "SELECT DATE_FORMAT(ti_data_manutencao,'%Y') AS ano FROM ti.ti_rotinas_manutencoes ";
+$sql = "SELECT DATE_FORMAT(ti_data_manutencao,'%Y') AS ano FROM ".DATABASE.".ti_rotinas_manutencoes ";
 $sql .= "WHERE ti_rotinas_manutencoes.reg_del = 0 ";
 $sql .= "GROUP BY DATE_FORMAT(ti_data_manutencao,'%Y') ";
 $sql .= "ORDER BY ti_data_manutencao DESC ";

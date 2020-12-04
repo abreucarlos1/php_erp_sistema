@@ -8,7 +8,7 @@
 <meta http-equiv="expires" content="0" />
 	<smarty>$xajax_javascript</smarty>
 
-<title>::.. Empresa X (DVMSYS)  - <smarty>$nome_formulario</smarty>  ..::</title>
+<title>::.. Empresa X (SISTEMA)  - <smarty>$nome_formulario</smarty>  ..::</title>
 <link href="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="stylesheet" type="text/css" />
 <link href="../includes/dhtmlx/dhtmlxTabbar/codebase/dhtmlxtabbar.css" rel="stylesheet" type="text/css" />
 <link href="../classes/css_geral.css" rel="stylesheet" type="text/css" />
@@ -28,16 +28,16 @@
 			<td width="2" rowspan="4" class="<smarty>$classe</smarty>">&nbsp;</td>
 		  </tr>
 		  <tr>
-			<td colspan="2" rowspan="2"><img src="/dvmsys/images/logo_devemada_h.jpg" width="200" height="56" class="imagem_sp" /></td>
-			<td align="right" valign="middle"><img src="/dvmsys/images/setas.gif" width="22" height="13" class="imagem_sp" />
+			<td colspan="2" rowspan="2"><img src="../images/logo_h.jpg" width="200" height="56" class="imagem_sp" /></td>
+			<td align="right" valign="middle"><img src="../images/setas.gif" width="22" height="13" class="imagem_sp" />
 				<label class="fonte_14"><smarty>$nome_formulario</smarty></label>&nbsp;</td>
 			</tr>
 		  <tr>
-			<td align="right" valign="middle"><img src="/dvmsys/images/setas_menor.gif" width="18" height="10" class="imagem_sp" />
+			<td align="right" valign="middle"><img src="../images/setas_menor.gif" width="18" height="10" class="imagem_sp" />
 				<label  class="fonte_12_az">
 				<smarty>$smarty.session.login</smarty>
 				</label>&nbsp;
-				<img src="/dvmsys/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../inicio.php" class="fonte_12_az">&nbsp;Inicio&nbsp;</a> <img src="/dvmsys/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../logout.php" class="fonte_12_az">&nbsp;Sair</a>&nbsp;</td>
+				<img src="../images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../inicio.php" class="fonte_12_az">&nbsp;Inicio&nbsp;</a> <img src="../images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../logout.php" class="fonte_12_az">&nbsp;Sair</a>&nbsp;</td>
 			</tr>
 		  <tr>
 			<td class="fundo_cinza">&nbsp;</td>

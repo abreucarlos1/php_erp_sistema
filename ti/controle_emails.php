@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Controle de Emails
+	Formulário de Controle de Emails
 	Criado por Carlos Eduardo  
 	
 	local/Nome do arquivo: ../ti/controle_emails.php
@@ -108,7 +108,7 @@ function editar($leId, $valor, $colunaAlterada)
 	}
 	else
 	{
-		$resposta->addAlert('Altera��o realizada corretamente!');
+		$resposta->addAlert('Alteração realizada corretamente!');
 		
 		$resposta->addScript('xajax_atualiza_tabela(xajax.getFormValues("frm"));');
 	}
@@ -143,7 +143,7 @@ function insere($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('Altera��o realizada corretamente!');
+		$resposta->addAlert('AlteraÇÃo realizada corretamente!');
 		$resposta->addScript('window.location="./controle_emails.php"');
 	}
 	
@@ -171,7 +171,7 @@ function excluir($leId)
 	}
 	else
 	{
-		$resposta->addAlert('Registro exclu�do corretamente!');
+		$resposta->addAlert('Registro excluído corretamente!');
 		$resposta->addScript('xajax_atualiza_tabela(xajax.getFormValues("frm"));');
 	}
 	
@@ -205,7 +205,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Grupo, funcionario, email, Envio, E");
+	mygrid.setHeader("Grupo, Funcionário, E-mail, Envio, E");
 	mygrid.setInitWidths("*,*,*,100,50");
 	mygrid.setColAlign("left,left,left,left,center");
 	mygrid.setColTypes("ed,ed,ed,ed,ro");
@@ -217,7 +217,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
 		if (stage == 2 && nValue != oValue)
 		{
-			if(confirm('Confirma a altera��o!'))
+			if(confirm('Confirma a alteração!'))
 				xajax_editar(rId, nValue, cInd);
 		}
 	});

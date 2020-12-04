@@ -37,7 +37,7 @@ if($_POST["incluir"]=="incluir")
 		$atributos = $visualizar . $editar . $deletar . $acrescentar . $imprimir;
 		
 		// Seleciona as permiss�es do funcionario e qual modulo ele possue
-		$sql = "SELECT * FROM ".DATABASE.".Acesso WHERE CodUsuario = '". $_POST["funcionario"] ."' AND Modulo = '".$modulo."' ";
+		$sql = "SELECT * FROM ".DATABASE.".Acesso WHERE id_usuario = '". $_POST["funcionario"] ."' AND Modulo = '".$modulo."' ";
 		
 		$regacesso = $db->select($sql,'MYSQL');
 		
@@ -52,7 +52,7 @@ if($_POST["incluir"]=="incluir")
 		{
 			$sql = "UPDATE ".DATABASE.".Acesso SET ";
 			$sql .= "Atributos = '".$atributos."' ";
-			$sql .= "WHERE CodUsuario = '". $_POST["funcionario"] ."' AND Modulo = '".$modulo."' ";
+			$sql .= "WHERE id_usuario = '". $_POST["funcionario"] ."' AND Modulo = '".$modulo."' ";
 			
 			$db->update($sql,'MYSQL');
 			
@@ -60,7 +60,7 @@ if($_POST["incluir"]=="incluir")
 		else
 		{
 			$incsql = "INSERT INTO ".DATABASE.".Acesso ";
-			$incsql .= "(CodUsuario, Modulo, Atributos) ";
+			$incsql .= "(id_usuario, Modulo, Atributos) ";
 			$incsql .= "VALUES ('". $_POST["funcionario"] ."', ";
 			$incsql .= "'".$modulo."', ";
 			$incsql .= "'".$atributos."') ";
@@ -127,7 +127,7 @@ function altera()
 <table width="100%" height="54" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000" bgcolor="#FFFFFF">
   <?php
   	// Preenche o combobox com os funcion�rios ativos
-	$sql = "SELECT CodUsuario,funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+	$sql = "SELECT id_usuario,funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
 	$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	$sql .= "ORDER BY funcionario ";
@@ -143,7 +143,7 @@ function altera()
 		  	while ($cont = mysqli_fetch_assoc($registro))
 				{
 		?>
-					<option value="<?= $cont["CodUsuario"] ?>" <? if ($_POST["funcionario"]==$cont["CodUsuario"]){echo "selected";} ?>><?= $cont["funcionario"] ?></option>
+					<option value="<?= $cont["id_usuario"] ?>" <? if ($_POST["funcionario"]==$cont["id_usuario"]){echo "selected";} ?>><?= $cont["funcionario"] ?></option>
 			<?
 				}
 			?>
@@ -187,7 +187,7 @@ function altera()
 		$modulo = $cont["Modulo"];
 		
 		// Seleciona os modulos correspondentes ao funcionario e obt�m os atributos
-		$sql2 = "SELECT * FROM ".DATABASE.".Acesso WHERE CodUsuario='". $_POST["funcionario"] ."' AND Modulo='".$modulo."' ";
+		$sql2 = "SELECT * FROM ".DATABASE.".Acesso WHERE id_usuario='". $_POST["funcionario"] ."' AND Modulo='".$modulo."' ";
 		
 		$regs = $db->select($sql2,'MYSQL');
 		

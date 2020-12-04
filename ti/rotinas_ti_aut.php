@@ -25,7 +25,7 @@ $array_apont = $db->array_select;
 
 foreach($array_apont as $regs)
 {
-	$sql = "SELECT * FROM ti.ti_rotinas_manutencoes ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_manutencoes ";
 	$sql .= "WHERE 	id_ti_analista = '".$regs["id_funcionario"]."' ";
 	$sql .= "AND ti_data_manutencao = '".$regs["data"]."' ";
 	
@@ -33,18 +33,8 @@ foreach($array_apont as $regs)
 	
 	if($db->numero_registros==0)
 	{
-		/*
-		if($regs["id_funcionario"]==6)
-		{
-			$rotina = 8;
-		}
-		else
-		{
-			$rotina = 4;
-		}
-		*/
 		
-		$sql = "SELECT * FROM ti.ti_rotinas_analistas, ti.ti_rotinas ";
+		$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_analistas, ".DATABASE.".ti_rotinas ";
 		$sql .= "WHERE ti_rotinas_analistas.ti_delete = 0 ";
 		$sql .= "AND ti_rotinas.ti_delete = 0 ";
 		$sql .= "AND ti_rotinas_analistas.id_ti_analista = '".$regs["id_funcionario"]."' ";
@@ -56,7 +46,7 @@ foreach($array_apont as $regs)
 		
 		foreach($array_analistas as $regs1)
 		{		
-			$isql = "INSERT INTO ti.ti_rotinas_manutencoes ";
+			$isql = "INSERT INTO ".DATABASE.".ti_rotinas_manutencoes ";
 			$isql .= "(id_ti_rotina, ti_data_manutencao, ti_data_inclusao, ti_data_previsao, ti_manutencao_observacao, id_ti_analista) ";
 			$isql .= "VALUES ('" . $regs1["id_ti_rotina"] . "', ";
 			$isql .= "'" . $regs["data"] . "', ";

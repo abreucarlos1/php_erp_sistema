@@ -1,8 +1,8 @@
 <?php
 /*
 		Formulário de Gestão de Mudanças
-			Permite solicitar alterações em módulos já existentes DVMSYS ou Protheus(talvez);
-			Permite solicitar novas implementações de projetos no DVMSYS (Módulos, relatórios, etc)
+			Permite solicitar alterações em módulos já existentes;
+			Permite solicitar novas implementações de projetos
 			Isto eliminaria a necessidade de Termo de Abertura de Projetos (TAP)
 		
 		Criado por Carlos Eduardo Máximo  
@@ -22,14 +22,6 @@ require_once(INCLUDE_DIR."antiInjection.php");
 require("./models/gestao_mudancas.php");
 
 $conf = new configs();
-
-//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
-//previne contra acesso direto	
-/*if(!verifica_sub_modulo(496) && !verifica_sub_modulo(513))
-{
-	die("ACESSO PROIBIDO!");	
-}*/
-//error_reporting(E_ERROR);
 
 if (isset($_POST['acao']))
 {

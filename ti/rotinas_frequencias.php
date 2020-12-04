@@ -1,6 +1,6 @@
 <?php 
 /*
-		Formul�rio de rotinas x frequencias
+		Formulário de rotinas x frequencias
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(320))
 {
@@ -53,7 +53,7 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;	
 
-	$sql = "SELECT * FROM ti.ti_rotinas_frequencias, ti.ti_rotinas, ti.ti_frequencias ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_frequencias, ".DATABASE.".ti_rotinas, ".DATABASE.".ti_frequencias ";
 	$sql .= "WHERE ti_rotinas_frequencias.reg_del = 0 ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 	$sql .= "AND ti_frequencias.reg_del = 0 ";
@@ -123,7 +123,7 @@ function insere($dados_form)
 		if($dados_form["frequencia"]!='' && $dados_form["rotina"]!='')
 		{
 			
-			$sql = "SELECT * FROM ti.ti_rotinas_frequencias ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_frequencias ";
 			$sql .= "WHERE ti_rotinas_frequencias.id_ti_frequencia = '".$dados_form["frequencia"]."' ";
 			$sql .= "AND ti_rotinas_frequencias.id_ti_rotina = '".$dados_form["rotina"]."' ";
 			$sql .= "AND ti_rotinas_frequencias.reg_del = 0 ";
@@ -137,7 +137,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ti.ti_rotinas_frequencias ";
+				$isql = "INSERT INTO ".DATABASE.".ti_rotinas_frequencias ";
 				$isql .= "(id_ti_rotina, id_ti_frequencia) ";
 				$isql .= "VALUES ('" . $dados_form["rotina"] . "', ";
 				$isql .= "'" . $dados_form["frequencia"] . "') ";
@@ -183,7 +183,7 @@ function excluir($id)
 	{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ti.ti_rotinas_frequencias SET ";
+		$usql = "UPDATE ".DATABASE.".ti_rotinas_frequencias SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -223,9 +223,9 @@ function rotinas_frequencia($dados_form)
 	$resposta->addAssign("dv_rotina","innerHTML",$comboi);
 	
 	//Percorre a tabela de rotinas
-	$sql = "SELECT * FROM ti.ti_rotinas ";	
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";	
 	$sql .= "WHERE ti_rotinas.id_ti_rotina NOT IN "; 
-	$sql .= "(SELECT id_ti_rotina FROM ti.ti_rotinas_frequencias WHERE ti_rotinas_frequencias.reg_del = 0) ";
+	$sql .= "(SELECT id_ti_rotina FROM ".DATABASE.".ti_rotinas_frequencias WHERE ti_rotinas_frequencias.reg_del = 0) ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 
 	$db->select($sql,'MYSQL',true);
@@ -247,7 +247,7 @@ function rotinas_frequencia($dados_form)
 	$combof = '<select name="frequencia" class="caixa" id="frequencia">';
 
 	//Percorre a tabela de frequencias
-	$sql = "SELECT * FROM ti.ti_frequencias ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_frequencias ";
 	$sql .= "WHERE reg_del = 0 ";	
 
 	$db->select($sql,'MYSQL',true);
@@ -318,7 +318,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Rotina,Frequencia,D",
+	mygrid.setHeader("Rotina,Frequência,D",
 		null,
 		["text-align:left","text-align:left","text-align:center"]);
 	mygrid.setInitWidths("*,100,25");

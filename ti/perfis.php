@@ -1,14 +1,14 @@
 <?php
 /*
-	Formul�rio de c�pia de perfis de usu�rios
+	Formulário de cópia de perfis de usuários
 	
-	Criado por Carlos Eduardo M�ximo
+	Criado por Carlos Eduardo Máximo
 	
 	local/Nome do arquivo: ../ti/perfis.php
 	
 	Versão 0 --> VERSÃO INICIAL : 20/03/2014
 	Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-	Versão 2 --> Layout responsivo + refatora��o do m�dulo - 05/02/2018 - Carlos Eduardo
+	Versão 2 --> Layout responsivo + refatoração do módulo - 05/02/2018 - Carlos Eduardo
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -16,7 +16,7 @@ require_once(INCLUDE_DIR."include_form.inc.php");
 
 require_once(INCLUDE_DIR."antiInjection.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(498))
 {
@@ -26,7 +26,8 @@ if(!verifica_sub_modulo(498))
 function atualizatabela_permissoes($idUsuario, $origemDestino)
 {
     $resposta = new xajaxResponse();
-    $db = new banco_dados();
+	
+	$db = new banco_dados();
     
     $divLista = $origemDestino == 1 ? 'divListaOrigem' : 'divListaDestino';
  
@@ -41,9 +42,9 @@ function atualizatabela_permissoes($idUsuario, $origemDestino)
     "SELECT
 			DISTINCT submodulos.id_sub_modulo, submodulos.sub_modulo
 		FROM
-			ti.permissoes
+			".DATABASE.".permissoes
 	      	JOIN(
-	        	SELECT sub_modulo, id_sub_modulo FROM ti.sub_modulos WHERE visivel = 1 AND reg_del = 0
+	        	SELECT sub_modulo, id_sub_modulo FROM ".DATABASE.".sub_modulos WHERE visivel = 1 AND reg_del = 0
 	      	) submodulos
 	      	ON submodulos.id_sub_modulo = permissoes.id_sub_modulo
 			WHERE id_usuario = {$idUsuario}
@@ -85,22 +86,22 @@ function copiar($dados_form)
     
     if (empty($idUsuarioOrigem) || empty($idUsuarioDestino))
     {
-        $resposta->addAlert('Por favor, selecione o usu�rio de Origem e usu�rio de Destino corretamente! ');
+        $resposta->addAlert('Por favor, selecione o usuário de Origem e usuário de Destino corretamente! ');
     }
     else
     {
-        //Copia todas as permiss�es do usu�rio de origem para o usu�rio destino ignorando as j� existentes
+        //Copia todas as permissões do usuário de origem para o usuário destino ignorando as já existentes
         $isql =
         "INSERT INTO
-			ti.permissoes
+			".DATABASE.".permissoes
 			(id_usuario, id_sub_modulo, permissao)
 		SELECT
 			".$idUsuarioDestino.", id_sub_modulo, permissao
 		FROM
-			ti.permissoes
+		".DATABASE.".permissoes
 		WHERE
 			id_usuario = ".$idUsuarioOrigem."
-			AND id_sub_modulo NOT IN (SELECT id_sub_modulo FROM ti.permissoes WHERE reg_del = 0 AND id_usuario = ".$idUsuarioDestino.");";
+			AND id_sub_modulo NOT IN (SELECT id_sub_modulo FROM ".DATABASE.".permissoes WHERE reg_del = 0 AND id_usuario = ".$idUsuarioDestino.");";
         
         $db->insert($isql, 'MYSQL');
         
@@ -110,7 +111,7 @@ function copiar($dados_form)
             $resposta->addScript("xajax_atualizatabela_permissoes(document.getElementById('selUsuariosDestino').value)");
         }
         else
-            $resposta->addAlert('Houve uma falha ao tentar copiar as permissoes do perfil! ');
+            $resposta->addAlert('Houve uma falha ao tentar copiar as permissões do perfil! ');
     }
     
     return $resposta;
@@ -122,8 +123,6 @@ $xajax->registerFunction("copiar");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-
-//$smarty->assign("body_onload","xajax_atualiza_tabela(xajax.getFormValues('frm'));");
 
 ?>
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -171,16 +170,15 @@ $array_func_values[] = "0";
 $array_func_output[] = "SELECIONE";
 
 $sql = "SELECT
-			funcionario, CodUsuario
+			funcionario, id_usuario
 		FROM
 			".DATABASE.".funcionarios
 			JOIN(
-				SELECT id_funcionario, CodUsuario, email FROM ".DATABASE.".usuarios #WHERE reg_del = 0
+				SELECT id_funcionario, id_usuario, email FROM ".DATABASE.".usuarios #WHERE reg_del = 0
 			) usuarios
 			ON usuarios.id_funcionario = funcionarios.id_funcionario
 		WHERE
-			/*situacao = 'ATIVO'
-			AND */reg_del = 0
+			reg_del = 0
 		ORDER BY
 			funcionario";
 
@@ -193,8 +191,8 @@ if($db->erro!='')
 
 foreach($db->array_select as $regs)
 {
-    $array_func_values[] = $regs["CodUsuario"];
-    $array_func_output[] = $regs["funcionario"].' - '.$regs["CodUsuario"];
+    $array_func_values[] = $regs["id_usuario"];
+    $array_func_output[] = $regs["funcionario"].' - '.$regs["id_usuario"];
 }
 
 $smarty->assign("option_func_values",$array_func_values);

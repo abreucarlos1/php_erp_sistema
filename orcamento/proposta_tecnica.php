@@ -1752,7 +1752,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 			if($user!="")
 			{
 				$sql = "SELECT * FROM ti.permissoes ";
-				$sql .= "WHERE id_usuario = '".$user["CodUsuario"]."' ";
+				$sql .= "WHERE id_usuario = '".$user["id_usuario"]."' ";
 				$sql .= "AND id_sub_modulo = '506' ";
 				
 				$db->select($sql,'MYSQL',true);
@@ -1768,7 +1768,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 				
 					$isql = "INSERT INTO ti.permissoes ";
 					$isql .="(id_usuario, id_sub_modulo, permissao)";
-					$isql .="VALUES ('".$user["CodUsuario"]."', '506','31')";
+					$isql .="VALUES ('".$user["id_usuario"]."', '506','31')";
 
 					$db->insert($isql,'MYSQL');
 
@@ -1798,7 +1798,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 			if($user!="")
 			{			
 				$dsql = "DELETE FROM ti.permissoes ";
-				$dsql .= "WHERE id_usuario = '".$user["CodUsuario"]."' ";
+				$dsql .= "WHERE id_usuario = '".$user["id_usuario"]."' ";
 				$dsql .= "AND id_sub_modulo = '506' ";
 				
 				$db->delete($dsql,'MYSQL');				

@@ -1,6 +1,6 @@
 <?php
 /*
-	M�dulo de cria��o de Relatórios r�pidos baseados em sql
+	Módulo de criação de Relatórios rápidos baseados em sql
 	Criado por Carlos Eduardo  
 	
 	Versão 0 --> VERSÃO INICIAL - 25/10/2017
@@ -33,12 +33,12 @@ function salvarConsulta($dados_form)
         if (empty($dados_form['id_consulta']))
         {
             //Salvando a consulta para usar posteriormente
-            $isql = "INSERT INTO ti.consultas_sql_relatorios (csr_consulta, csr_banco, csr_descricao) VALUES ('".$sql."', '".$tipo."', '".maiusculas(AntiInjection::clean($dados_form['nome_consulta']))."')";
+            $isql = "INSERT INTO ".DATABASE.".consultas_sql_relatorios (csr_consulta, csr_banco, csr_descricao) VALUES ('".$sql."', '".$tipo."', '".maiusculas(AntiInjection::clean($dados_form['nome_consulta']))."')";
             $db->insert($isql, 'MYSQL');
         }
         else
         {
-            $usql = "UPDATE ti.consultas_sql_relatorios
+            $usql = "UPDATE ".DATABASE.".consultas_sql_relatorios
                  SET csr_consulta = '".$sql."', csr_banco = '".$tipo."', csr_descricao = '".maiusculas(AntiInjection::clean($dados_form['nome_consulta']))."'
                  WHERE csr_id = ".$dados_form['id_consulta'];
             $db->update($usql, 'MYSQL');
@@ -120,7 +120,7 @@ function editar($idConsulta)
     if (empty($idConsulta))
         return $resposta;
         
-    $sql = "SELECT * FROM ti.consultas_sql_relatorios WHERE reg_del = 0 AND csr_id = ".$idConsulta;
+    $sql = "SELECT * FROM ".DATABASE.".consultas_sql_relatorios WHERE reg_del = 0 AND csr_id = ".$idConsulta;
     $db->select($sql, 'MYSQL', true);
     
     $resposta->addAssign('id_consulta', 'value', $db->array_select[0]['csr_id']);
@@ -168,7 +168,7 @@ $conf = new configs();
 $array_sql_values = array("");
 $array_sql_output = array("SELECIONA");
 
-$sql = "SELECT csr_id, csr_descricao FROM ti.consultas_sql_relatorios WHERE reg_del = 0 ";
+$sql = "SELECT csr_id, csr_descricao FROM ".DATABASE.".consultas_sql_relatorios WHERE reg_del = 0 ";
 $sql .= "ORDER BY csr_descricao ";
 
 $db->select($sql,'MYSQL',true);

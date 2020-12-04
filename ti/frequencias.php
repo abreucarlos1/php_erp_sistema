@@ -1,15 +1,13 @@
 <?php 
 /*
-		Formul�rio de frequencias
+		Formulário de frequencias
 		
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
 		../ti/frequencias.php
 		
-		data de cria��o: 20/02/2014
-		
-		Versão 0 --> VERSÃO INICIAL
+		Versão 0 --> VERSÃO INICIAL - 20/02/2014
 		Versão 1 -> Atualização layout - Carlos Abreu - 11/04/2017
 		Versão 2 --> Inclusão dos campos reg_del nas consultas - Carlos Abreu - 13/11/2017
 		Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
@@ -19,13 +17,12 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(319))
 {
 	nao_permitido();
 }
-
 
 function voltar()
 {
@@ -57,7 +54,7 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;	
 
-	$sql = "SELECT * FROM ti.ti_frequencias ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_frequencias ";
 	$sql .= "WHERE ti_frequencias.reg_del = 0 ";
 	$sql .= "ORDER BY ti_frequencia ";
 
@@ -118,7 +115,7 @@ function insere($dados_form)
 		
 		if($dados_form["frequencia"]!='' && $dados_form["dias"]!='')
 		{			
-			$sql = "SELECT * FROM ti.ti_frequencias ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_frequencias ";
 			$sql .= "WHERE ti_frequencia = '".trim($dados_form["frequencia"])."' ";
 			$sql .= "AND ti_frequencias.ti_frequencia_dias = '".trim($dados_form["dias"])."' ";
 			$sql .= "AND ti_frequencias.reg_del = 0 ";
@@ -132,7 +129,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ti.ti_frequencias ";
+				$isql = "INSERT INTO ".DATABASE.".ti_frequencias ";
 				$isql .= "(ti_frequencia, ti_frequencia_dias) ";
 				$isql .= "VALUES ('" . maiusculas($dados_form["frequencia"]) . "', ";
 				$isql .= "'" . $dados_form["dias"] . "') ";
@@ -178,7 +175,7 @@ function editar($id)
 	
 	$msg = $conf->msg($resposta);	
 	
-	$sql = "SELECT * FROM ti.ti_frequencias ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_frequencias ";
 	$sql .= "WHERE ti_frequencias.id_ti_frequencia = '".$id."' ";
 	$sql .= "AND ti_frequencias.reg_del = 0 ";
 	
@@ -220,7 +217,7 @@ function atualizar($dados_form)
 		
 		if($dados_form["frequencia"]!='' && $dados_form["dias"]!='')
 		{
-			$sql = "SELECT * FROM ti.ti_frequencias ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_frequencias ";
 			$sql .= "WHERE ti_frequencia = '".trim($dados_form["frequencia"])."' ";
 			$sql .= "AND ti_frequencia_dias = '".$dados_form["dias"]."' ";
 			$sql .= "AND ti_frequencias.reg_del = 0 ";
@@ -237,7 +234,7 @@ function atualizar($dados_form)
 			
 			if($db->numero_registros<=0)
 			{
-				$usql = "UPDATE ti.ti_frequencias SET ";
+				$usql = "UPDATE ".DATABASE.".ti_frequencias SET ";
 				$usql .= "ti_frequencia = '" . maiusculas($dados_form["frequencia"]) . "', ";
 				$usql .= "ti_frequencia_dias = '" . $dados_form["dias"] . "' ";
 				$usql .= "WHERE id_ti_frequencia = '".$dados_form["id_ti_frequencia"]."' ";
@@ -283,7 +280,7 @@ function excluir($id)
 	{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ti.ti_frequencias SET ";
+		$usql = "UPDATE ".DATABASE.".ti_frequencias SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -362,7 +359,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Frequencia,Dias,D",
+	mygrid.setHeader("Frequência,Dias,D",
 		null,
 		["text-align:left","text-align:left","text-align:left"]);
 	mygrid.setInitWidths("*,150,25");
@@ -390,7 +387,7 @@ $smarty->assign("campo",$conf->campos('ti_frequencias'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("nome_formulario","FREQU�NCIA");
+$smarty->assign("nome_formulario","FREQUÊNCIA");
 
 $smarty->assign("classe",CSS_FILE);
 

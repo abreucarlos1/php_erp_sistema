@@ -1,6 +1,6 @@
 <?php 
 /*
-		Formul�rio de Rotinas
+		Formulário de Rotinas
 		
 		Criado por Carlos Abreu  
 		
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(318))
 {
@@ -56,7 +56,7 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;	
 
-	$sql = "SELECT * FROM ti.ti_rotinas ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";
 	$sql .= "WHERE ti_rotinas.reg_del = 0 ";
 	$sql .= "ORDER BY ti_rotina ";
 
@@ -116,7 +116,7 @@ function insere($dados_form)
 		if($dados_form["rotina"]!='')
 		{
 			
-			$sql = "SELECT * FROM ti.ti_rotinas ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";
 			$sql .= "WHERE ti_rotina = '".trim($dados_form["rotina"])."' ";
 			$sql .= "AND ti_rotinas.reg_del = 0 ";
 
@@ -129,7 +129,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ti.ti_rotinas ";
+				$isql = "INSERT INTO ".DATABASE.".ti_rotinas ";
 				$isql .= "(ti_rotina) ";
 				$isql .= "VALUES ('" . maiusculas($dados_form["rotina"]) . "') ";
 
@@ -174,7 +174,7 @@ function editar($id)
 	
 	$msg = $conf->msg($resposta);	
 	
-	$sql = "SELECT * FROM ti.ti_rotinas ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";
 	$sql .= "WHERE ti_rotinas.id_ti_rotina = '".$id."' ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 	
@@ -214,7 +214,7 @@ function atualizar($dados_form)
 		
 		if($dados_form["rotina"]!='')
 		{
-			$sql = "SELECT * FROM ti.ti_rotinas ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";
 			$sql .= "WHERE ti_rotina = '".trim($dados_form["rotina"])."' ";
 			$sql .= "AND ti_rotinas.reg_del = 0 ";
 			$sql .= "AND id_ti_rotina <> '".$dados_form["id_ti_rotina"]."' ";
@@ -230,7 +230,7 @@ function atualizar($dados_form)
 			
 			if($db->numero_registros<=0)
 			{
-				$usql = "UPDATE ti.ti_rotinas SET ";
+				$usql = "UPDATE ".DATABASE.".ti_rotinas SET ";
 				$usql .= "ti_rotina = '" . maiusculas($dados_form["rotina"]) . "' ";
 				$usql .= "WHERE id_ti_rotina = '".$dados_form["id_ti_rotina"]."' ";
 				$usql .= "AND reg_del = 0 ";
@@ -275,7 +275,7 @@ function excluir($id)
 	{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ti.ti_rotinas SET ";
+		$usql = "UPDATE ".DATABASE.".ti_rotinas SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";

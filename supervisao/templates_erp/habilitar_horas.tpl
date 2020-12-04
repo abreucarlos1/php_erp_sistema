@@ -16,9 +16,9 @@
                 <tr>
 					<td width="16%"><label for="status" class="labels">Visualizar&nbsp;Status</label><br />
                     <select name="status" class="caixa" id="status" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
-						<option value="0" selected="selected">N�O AVALIADO</option>
+						<option value="0" selected="selected">NÃO AVALIADO</option>
                         <option value="2">APROVADO</option>
-                        <option value="1">N�O APROVADO</option>
+                        <option value="1">NÃO APROVADO</option>
                     </select>
 					</td>
                 </tr>
@@ -27,7 +27,7 @@
           
           	<table width="100%" border="0" style="<smarty>$display</smarty>">
 				<tr>
-					<td width="8%"><label for="funcionario" class="labels">funcionario</label><br /> 
+					<td width="8%"><label for="funcionario" class="labels">Funcionário</label><br /> 
 						<select name="funcionario" class="caixa" id="funcionario" onkeypress="return keySort(this);" onkeyup="if (event.keyCod == 9){xajax_tarefas_colaborador(xajax.getFormValues('frm'));}" onchange="xajax_tarefas_colaborador(xajax.getFormValues('frm'));xajax_atualizatabela(xajax.getFormValues('frm'));" >
 						<smarty>html_options values=$option_funcionario_values output=$option_funcionario_output</smarty>
 						</select></td>
@@ -168,34 +168,11 @@
             </table>
           	<table border="0" width="100%">
 				<tr>
-                	<!--
-					<td width="7%" class="td_sp"><label class="labels">Per&iacute;odo</label>
-					  <select name="periodo" class="caixa" id="periodo" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
-                        <smarty>html_options values=$option_per_values selected=$option_per_id output=$option_per_output</smarty>
-                      </select>
-					</td> -->
-                    <!--
-					<td width="18%"><label for="busca" class="labels">Busca</label><br />
-						<input name="busca" type="text" class="caixa" id="busca" onkeyup="if(this.value.length >= 3){xajax_atualizatabela(xajax.getFormValues('frm'));}" placeholder="Busca" size="25" />
-					</td>
-                    -->
-                    <!--
-					<td width="16%"><label for="status" class="labels">Visualizar&nbsp;Status</label><br />
-                    <select name="status" class="caixa" id="status" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
-						<option value="0" selected="selected">N�O AVALIADO</option>
-                        <option value="2">APROVADO</option>
-                        <option value="1">N�O APROVADO</option>
-                    </select>
-					</td>
-                    -->
-					<!-- <td width="11%" class="labels"><div id="inicial">&nbsp;</div></td>
-				    <td width="55%" class="labels"><div id="final">&nbsp;</div></td> -->
 				</tr>
 		  </table></td>
         </tr>
       </table>
     <div id="habilitados" style="width:100%;">&nbsp;</div>
-    <!-- <div id="gridPaginacao" style="width:100%; text-align:left;">&nbsp;</div> -->
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

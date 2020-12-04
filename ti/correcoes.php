@@ -18,7 +18,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO Mï¿½DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(550))
 {

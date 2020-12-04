@@ -31,9 +31,9 @@ function Header()
 	
 	$this->SetFont('Arial','B',8);
 	$this->Cell(25,5,"DISCIPLINA",1,0,'C',0);
-	$this->Cell(25,5,"C�DIGO",1,0,'C',0);
+	$this->Cell(25,5,"CÓDIGO",1,0,'C',0);
 	$this->Cell(70,5,"FUNCIONÁRIO",1,0,'C',0);
-	$this->Cell(50,5,"FUN��O",1,1,'C',0);
+	$this->Cell(50,5,"FUNÇÃO",1,1,'C',0);
 	
 	$this->SetXY(10,30);
 }
@@ -53,7 +53,7 @@ $pdf->SetMargins(10,15);
 $pdf->SetLineWidth(0.2);
 $pdf->SetDrawColor(0,0,0);
 
-$pdf->titulo="FUNCIONÁRIOS POR FUN��O";
+$pdf->titulo="FUNCIONÁRIOS POR FUNÇÃO";
 
 $pdf->AliasNbPages();
 

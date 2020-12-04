@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de sub_modulos	
+		Formulário de sub_modulos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -18,7 +18,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(109))
 {
@@ -83,8 +83,8 @@ function atualizatabela($filtro, $page = 0)
 	}
 	
 	$sql = "SELECT a.*, b.modulo
-			FROM ti.sub_modulos a ";
-	$sql .= "LEFT JOIN ti.modulos b ON(b.id_modulo = a.id_modulo AND b.reg_del = 0 ) ";
+			FROM ".DATABASE.".sub_modulos a ";
+	$sql .= "LEFT JOIN ".DATABASE.".modulos b ON(b.id_modulo = a.id_modulo AND b.reg_del = 0 ) ";
 	$sql .= "WHERE a.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY a.id_sub_modulo DESC ";
@@ -134,17 +134,17 @@ function atualizatabela($filtro, $page = 0)
 		
 		switch ($cont_desp["visivel"])
 		{
-			case 0: $visivel = "N�O";
+			case 0: $visivel = "NÃO";
 			break;
 			
 			case 1: $visivel = "SIM";
 			break;
 		}
 		
-		$padrao = $cont_desp['acesso_padrao'] == 1 ? 'SIM' : 'N�O';
+		$padrao = $cont_desp['acesso_padrao'] == 1 ? 'SIM' : 'NÃO';
 		$permissao = $cont_desp['codigo_acesso'];
 		
-		$sql = "SELECT sub_modulo FROM ti.sub_modulos ";
+		$sql = "SELECT sub_modulo FROM ".DATABASE.".sub_modulos ";
 		$sql .= "WHERE sub_modulos.id_sub_modulo = '".$cont_desp["id_sub_modulo_pai"]."' ";
 		$sql .= "AND sub_modulos.reg_del = 0 ";
 
@@ -247,7 +247,7 @@ function insere($dados_form)
 				return $resposta;
 			}
 			
-			$sql = "SELECT * FROM ti.sub_modulos ";
+			$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 			$sql .= "WHERE id_modulo = '".$dados_form["modulo"]."' ";
 			$sql .= "AND sub_modulo = '".trim(maiusculas($dados_form["sub_modulo"]))."' ";
 			$sql .= "AND id_sub_modulo_pai = '".$dados_form["sub_modulo_pai"]."' ";
@@ -271,7 +271,7 @@ function insere($dados_form)
 					$dados_form['tipo_acesso_padrao'] = 'null';
 				}
 				
-				$isql = "INSERT INTO ti.sub_modulos ";
+				$isql = "INSERT INTO ".DATABASE.".sub_modulos ";
 				$isql .= "(id_modulo, sub_modulo, id_sub_modulo_pai, caminho_sub_modulo, target, altura, largura, visivel, acesso_padrao, codigo_acesso, tipo_acesso_padrao) VALUES ( ";
 				$isql .= "'" . $dados_form["modulo"] . "', ";
 				$isql .= "'" . trim(maiusculas($dados_form["sub_modulo"])) . "', ";
@@ -327,7 +327,7 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -405,11 +405,11 @@ function atualizar($dados_form)
 		
 			if (intval($permissao) == 0 && $dados_form['acesso_padrao'] == 1)
 			{
-				$resposta->addAlert('Por favor, preencha uma ou mais das op��es de permiss�o!');
+				$resposta->addAlert('Por favor, preencha uma ou mais das opções de permissão!');
 				return $resposta;
 			}
 			
-			$sql = "SELECT * FROM ti.sub_modulos ";
+			$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 			$sql .= "WHERE id_modulo = '".$dados_form["modulo"]."' ";
 			$sql .= "AND sub_modulo = '".trim(maiusculas($dados_form["sub_modulo"]))."' ";
 			$sql .= "AND id_sub_modulo_pai = '".$dados_form["sub_modulo_pai"]."' ";
@@ -434,7 +434,7 @@ function atualizar($dados_form)
 					$dados_form['tipo_acesso_padrao'] = 'null';
 				}
 				
-				$usql = "UPDATE ti.sub_modulos SET ";
+				$usql = "UPDATE ".DATABASE.".sub_modulos SET ";
 				$usql .= "sub_modulo = '" . trim(maiusculas($dados_form["sub_modulo"])) . "', ";
 				$usql .= "id_modulo = '" . $dados_form["modulo"] . "', ";
 				$usql .= "id_sub_modulo_pai = '" . $dados_form["sub_modulo_pai"] . "', ";
@@ -484,13 +484,7 @@ function excluir($id, $what)
 	{
 		$db = new banco_dados;
 		
-		/*
-		$dsql = "DELETE FROM ti.sub_modulos ";
-		$dsql .= "WHERE sub_modulos.id_sub_modulo = '".$id."' ";
-		
-		$db->delete($dsql,'MYSQL');
-		*/
-		$usql = "UPDATE ti.sub_modulos SET ";
+		$usql = "UPDATE ".DATABASE.".sub_modulos SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -546,7 +540,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Modulo,Id,Sub-modulo,Sub-pai,Caminho,Target,Alt,Larg,Vis,Padrao,Perm,D",
+	mygrid.setHeader("Módulo,Id,Sub-módulo,Sub-pai,Caminho,Target,Alt,Larg,Vis,Padrão,Perm,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("90,40,200,150,200,100,30,45,35,40,40,25");
@@ -612,7 +606,7 @@ $array_sub_modulo_output[] = "SELECIONE";
 
 $db = new banco_dados;
 
-$sql = "SELECT * FROM ti.modulos ";
+$sql = "SELECT * FROM ".DATABASE.".modulos ";
 $sql .= "WHERE reg_del = 0 ";
 $sql .= "ORDER BY modulo ";
 
@@ -624,7 +618,7 @@ foreach ($db->array_select as $regs)
 	$array_modulo_output[] = $regs["modulo"];
 }
 
-$sql = "SELECT * FROM ti.sub_modulos ";
+$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 $sql .= "WHERE reg_del = 0 ";
 $sql .= "ORDER BY id_sub_modulo_pai";
 
@@ -634,7 +628,7 @@ $array_sub = $db->array_select;
 
 foreach ($array_sub as $regs)
 {
-	$sql = "SELECT * FROM ti.sub_modulos ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
 	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
 	$sql .= "AND reg_del = 0 ";
 	$sql .= "ORDER BY sub_modulo ";

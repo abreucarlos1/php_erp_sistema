@@ -1,6 +1,6 @@
 <?php 
 /*
-		Formul�rio de rotinas x analistas
+		Formulário de rotinas x analistas
 		
 		Criado por Carlos Abreu  
 		
@@ -18,7 +18,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(321))
 {
@@ -54,7 +54,7 @@ function atualizatabela($dados_form)
 	
 	$db = new banco_dados;	
 
-	$sql = "SELECT * FROM ti.ti_rotinas_analistas, ti.ti_rotinas, ".DATABASE.".funcionarios ";
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_analistas, ".DATABASE.".ti_rotinas, ".DATABASE.".funcionarios ";
 	$sql .= "WHERE ti_rotinas_analistas.reg_del = 0 ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
@@ -124,7 +124,7 @@ function insere($dados_form)
 		if($dados_form["rotina"]!='' && $dados_form["analista"]!='')
 		{
 			
-			$sql = "SELECT * FROM ti.ti_rotinas_analistas ";
+			$sql = "SELECT * FROM ".DATABASE.".ti_rotinas_analistas ";
 			$sql .= "WHERE ti_rotinas_analistas.id_ti_analista = '".$dados_form["analista"]."' ";
 			$sql .= "AND ti_rotinas_analistas.id_ti_rotina = '".$dados_form["rotina"]."' ";
 			$sql .= "AND ti_rotinas_analistas.reg_del = 0 ";
@@ -138,7 +138,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{				
-				$isql = "INSERT INTO ti.ti_rotinas_analistas ";
+				$isql = "INSERT INTO ".DATABASE.".ti_rotinas_analistas ";
 				$isql .= "(id_ti_rotina, id_ti_analista) ";
 				$isql .= "VALUES ('" . $dados_form["rotina"] . "', ";
 				$isql .= "'" . $dados_form["analista"] . "') ";
@@ -185,7 +185,7 @@ function excluir($id)
 	{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ti.ti_rotinas_analistas SET ";
+		$usql = "UPDATE ".DATABASE.".ti_rotinas_analistas SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -225,7 +225,7 @@ function rotinas_analista($dados_form)
 	$resposta->addAssign("dv_rotina","innerHTML",$comboi);		
 	
 	//Percorre a tabela de rotinas
-	$sql = "SELECT * FROM ti.ti_rotinas ";	
+	$sql = "SELECT * FROM ".DATABASE.".ti_rotinas ";	
 	$sql .= "WHERE ti_rotinas.id_ti_rotina NOT IN "; 
 	$sql .= "(SELECT id_ti_rotina FROM ti.ti_rotinas_analistas WHERE ti_rotinas_analistas.reg_del = 0) ";
 	$sql .= "AND ti_rotinas.reg_del = 0 ";

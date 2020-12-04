@@ -1,8 +1,8 @@
 <?php
 /*
-	Formul�rio de Menu Procedimentos
+	Formulário de Menu Procedimentos
 	
-	Criado por Carlos M�xim ia
+	Criado por Carlos Máximo
 	
 	local/Nome do arquivo: 
 	../ti/menu_procedimentos_ti.php	
@@ -14,7 +14,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO
 //previne contra acesso direto
 if(!verifica_sub_modulo(499))
 {
@@ -25,7 +25,7 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-$smarty->assign("body_onload","xajax_monta_menu(499);"); //M�DULO PROCEDIMENTOS TI
+$smarty->assign("body_onload","xajax_monta_menu(499);");
 
 $conf = new configs();
 
