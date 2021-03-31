@@ -1423,19 +1423,19 @@ function StartProgressBarOutput($mode=1) {
 			<span class="barheading">Writing HTML code</span> <br/>
 
 			<div class="progressBar">
-			<div id="element1"  class="innerBar">&nbsp;</div>
+			<div id="element1"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box1"></span>
 			</td><td style="width: 50%;">
 			<span class="barheading">Autosizing elements</span> <br/>
 			<div class="progressBar">
-			<div id="element4"  class="innerBar">&nbsp;</div>
+			<div id="element4"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box4"></span>
 			<br/><br/>
 			<span class="barheading">Writing Tables</span> <br/>
 			<div class="progressBar">
-			<div id="element7"  class="innerBar">&nbsp;</div>
+			<div id="element7"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box7"></span>
 			</td></tr>
@@ -1444,7 +1444,7 @@ function StartProgressBarOutput($mode=1) {
 	'; }
 	echo '			<span class="barheading">Writing PDF file</span> <br/>
 			<div class="progressBar">
-			<div id="element2"  class="innerBar">&nbsp;</div>
+			<div id="element2"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box2"></span>
 	   ';
@@ -1452,13 +1452,13 @@ function StartProgressBarOutput($mode=1) {
 			</td><td style="width: 50%;">
 			<span class="barheading">Memory usage</span> <br/>
 			<div class="progressBar">
-			<div id="element5"  class="innerBar">&nbsp;</div>
+			<div id="element5"  class="innerBar"> </div>
 			</div>
 			<span id="box5">0</span> '.ini_get("memory_limit").'<br />
 			<br/><br/>
 			<span class="barheading">Memory usage (peak)</span> <br/>
 			<div class="progressBar">
-			<div id="element6"  class="innerBar">&nbsp;</div>
+			<div id="element6"  class="innerBar"> </div>
 			</div>
 			<span id="box6">0</span> '.ini_get("memory_limit").'<br />
 			</td></tr>
@@ -16786,7 +16786,7 @@ function OpenTag($tag,$attr,&$ahtml,&$ihtml) {	// mPDF 6
 				break;
 			}
 
-			// change to &nbsp; spaces
+			// change to   spaces
 			if ($this->usingCoreFont) { 
 				$ls = str_repeat(chr(160).chr(160),($this->listlvl-1)*2) . $blt . ' '; 
 			}
@@ -17885,7 +17885,7 @@ function OpenTag($tag,$attr,&$ahtml,&$ihtml) {	// mPDF 6
 		$objattr['ID'] = $info['i'];
 		$texto = 'X';
 		if ($this->useActiveForms) {
-			if (isset($attr['ONCLICK'])) { $objattr['onClick'] = $attr['ONCLICK']; }
+			if (isset($attr['ONCLICK'])) { $objattr['onclick'] = $attr['ONCLICK']; }
 			$objattr['type'] = 'input';
 			$type = 'IMAGE';
 		}
@@ -17907,7 +17907,7 @@ function OpenTag($tag,$attr,&$ahtml,&$ihtml) {	// mPDF 6
 			$width = $this->GetStringWidth($texto) + ($this->mpdfform->form_element_spacing['button']['outer']['h']*2)+($this->mpdfform->form_element_spacing['button']['inner']['h']*2);
 			$height = $this->FontSize + ($this->mpdfform->form_element_spacing['button']['outer']['v']*2)+($this->mpdfform->form_element_spacing['button']['inner']['v']*2);
 			if ($this->useActiveForms) {
-				if (isset($attr['ONCLICK'])) { $objattr['onClick'] = $attr['ONCLICK']; }
+				if (isset($attr['ONCLICK'])) { $objattr['onclick'] = $attr['ONCLICK']; }
 			}
 			break;
 

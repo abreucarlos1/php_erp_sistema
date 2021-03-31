@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
@@ -16,9 +16,9 @@ $db->conexao_ms_db();
 
 $sql = "SELECT * FROM ".DATABASE.".contatos ";
 $sql .= "WHERE contatos.situacao = '1' ";
-$sql .= "AND contatos.id_empresa_erp IN ('48','49','147','166','1044','169','167','74','1226','1241','1244','1262','1243','1246','1291','46','1289','1311','344','342','1046','108','109','1290','1339','246','1023','1102','412') ";
+$sql .= "AND contatos.id_empresa IN ('48','49','147','166','1044','169','167','74','1226','1241','1244','1262','1243','1246','1291','46','1289','1311','344','342','1046','108','109','1290','1339','246','1023','1102','412') ";
 
-$cont = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+$cont = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 
 $i = 1;
 

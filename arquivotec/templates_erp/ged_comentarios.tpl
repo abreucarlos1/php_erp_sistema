@@ -19,7 +19,7 @@
       			  </tr>
         			<tr>
         				<td valign="middle">
-                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
                     	</td>
                    	</tr>
        			</table>
@@ -41,25 +41,25 @@
                 </table>
                 <table width="100%" border="0">
                   <tr>
-                    <td width="16%"><label class="labels">Coordenador&nbsp;DVM:</label></td>
-                    <td width="84%"><div class="labels" id="div_coordenador">&nbsp;</div></td>
+                    <td width="16%"><label class="labels">Coordenador INT:</label></td>
+                    <td width="84%"><div class="labels" id="div_coordenador"> </div></td>
                   </tr>
                   <tr>
                     <td><label class="labels">Cliente:</label></td>
-                    <td><div class="labels" id="div_cliente">&nbsp;</div></td>
+                    <td><div class="labels" id="div_cliente"> </div></td>
                   </tr>
                   <tr>
-                    <td><label class="labels">Coordenador&nbsp;Cliente:</label></td>
-                    <td><div class="labels" id="div_coordenador_cliente">&nbsp;</div></td>
+                    <td><label class="labels">Coordenador Cliente:</label></td>
+                    <td><div class="labels" id="div_coordenador_cliente"> </div></td>
                   </tr>
                   <tr>
                     <td valign="top" colspan="2" style="border-width:1px; border-style:solid; border-color:#EDEDED; height:200px;">
-                    <div id="div_versoes" style="height:200px; overflow:scroll-y;">&nbsp;</div></td>
+                    <div id="div_versoes" style="height:200px; overflow:scroll-y;"> </div></td>
                   </tr>
                 </table></td>
         </tr>
       </table>      
-      <div id="div_arquivos" style="height:300px;">&nbsp;</div>
+      <div id="div_arquivos" style="height:300px;"> </div>
 
 </form>
 </div>

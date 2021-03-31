@@ -284,8 +284,8 @@ if ($avaliacao)
 	
 	$arrTemp = array(0 => 'Reprovado: ', 1 => 'Aprovado: ');
 	
-	$avaliacoes[2]['comentarios'] = empty($avaliacoes[2]['comentarios']) && $avaliacoes[2]['aprovado'] == 1 ? 'N�O PREENCHIDO' : $avaliacoes[2]['comentarios'];
-	$avaliacoes[1]['comentarios'] = empty($avaliacoes[1]['comentarios']) && $avaliacoes[1]['aprovado'] == 1 ? 'N�O PREENCHIDO' : $avaliacoes[1]['comentarios'];
+	$avaliacoes[2]['comentarios'] = empty($avaliacoes[2]['comentarios']) && $avaliacoes[2]['aprovado'] == 1 ? 'NÃO PREENCHIDO' : $avaliacoes[2]['comentarios'];
+	$avaliacoes[1]['comentarios'] = empty($avaliacoes[1]['comentarios']) && $avaliacoes[1]['aprovado'] == 1 ? 'NÃO PREENCHIDO' : $avaliacoes[1]['comentarios'];
 	
 	$pdf->padding(5);
 	$pdf->WriteTag(190, 3,'<p align="left"><b>TÉRMINO DO 1° PERÍODO:</b> '.$dataPeriodo1.'</p><p align="left"><b>'.$arrTemp[$avaliacoes[1]['aprovado']]."</b><br />".$avaliacoes[1]['comentarios'].'</p>', 1,'L',0,1);

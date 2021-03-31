@@ -60,7 +60,7 @@ function autenticacao($dados_form)
 		$sql .= "WHERE login = '" . $login . "' ";
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
-		$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+		$sql .= "AND usuarios.id_usuario = funcionarios.id_usuario ";
 
 		$db->select($sql,'MYSQL',true);
 
@@ -96,7 +96,7 @@ function autenticacao($dados_form)
 					
 					//Sessão do sistema
 					$_SESSION["admin"] = FALSE;
-					$_SESSION["login"] = $dados["Login"];					
+					$_SESSION["login"] = $dados["login"];					
 					$_SESSION["nivel_atuacao"] = $dados["nivel_atuacao"];					
 					$_SESSION["id_usuario"] = $dados["id_usuario"];					
 					$_SESSION["id_funcionario"] = $dados["id_funcionario"];
@@ -128,7 +128,7 @@ function autenticacao($dados_form)
 					return $resposta;
 				}
 			}
-			// Login inválido
+			// login inválido
 			else
 			{
 				$resposta->addAssign("mensagem","innerHTML",$msg[13]);
@@ -256,7 +256,7 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-	$array_usu_values[] = $regs["Login"];
+	$array_usu_values[] = $regs["login"];
 	$array_usu_output[] = substr($regs["funcionario"],0,1)." - ".sprintf('%05d', $regs["id_funcionario"])." - ".$regs['funcionario'];	
 }
 

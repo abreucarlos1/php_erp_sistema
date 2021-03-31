@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de Endere�os (Sinais)
+		Formulário de Endereços (Sinais)
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/enderecos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -105,7 +105,7 @@ if($_GET["acao"]=="xmlenderecos")
 	<nr_canal><?= $reg_ends["nr_canal"] ?></nr_canal>
 	<id_componente><?= $reg_ends["id_componente"] ?></id_componente>
 	
-	<?
+	<?php
 	}
 	
 	
@@ -117,18 +117,18 @@ if($_GET["acao"]=="xmlenderecos")
 
 
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
 
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
 	
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar':
 	
 	$i = 0;
@@ -165,21 +165,21 @@ switch ($_POST["acao"])
 	}
 
 		
-	//Formata o campo de Endere�o.		
+	//Formata o campo de Endereço.		
 	//$endereco_comp = "%Z" . $cont_verifica_comp["nr_rack"] . $cont_verifica_comp["nr_slot"] . $numero_canal;
 
-		//Cria senten�a de Inclusão no bd
+		//Cria sentença de Inclusão no bd
 		
-		$incsql = "INSERT INTO Projetos.enderecos ";
-		$incsql .= "(id_componente, cd_atributo, id_slots, cd_endereco, nr_canal) VALUES (";
-		$incsql .= "'". $e ."', ";
-		$incsql .= "'". $atr . "', ";
-		$incsql .= "'". $_POST["id_slots"] . "', ";
-		$incsql .= "'". $end . "', ";
-		$incsql .= "'". $i . "') ";
+		$isql = "INSERT INTO Projetos.enderecos ";
+		$isql .= "(id_componente, cd_atributo, id_slots, cd_endereco, nr_canal) VALUES (";
+		$isql .= "'". $e ."', ";
+		$isql .= "'". $atr . "', ";
+		$isql .= "'". $_POST["id_slots"] . "', ";
+		$isql .= "'". $end . "', ";
+		$isql .= "'". $i . "') ";
 
 		//Carrega os registros
-		$registro = mysql_query($incsql,$db->conexao) or die("Não foi possível a inserção dos dados".$incsql);
+		$registro = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados".$isql);
 
 		$i++;
 	
@@ -191,7 +191,7 @@ switch ($_POST["acao"])
 		location.href = 'enderecos.php?id_slots=<?= $_POST["id_slots"] ?>&nr_canais=<?= $_POST["nr_canais"] ?>&id_racks=<?= $_POST["id_racks"] ?>';
 
 	</script>		
-	<?	
+	<?php	
 	break;
 	
 
@@ -200,21 +200,21 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . ENDERE�OS . : :</title>
+<title>: : . ENDEREÇOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 <script language="javascript" src="../includes/ajax/xmlhttp.js" type="text/javascript"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -228,25 +228,25 @@ function maximiza()
 function xmlAlteraCombos_Startup()
 {
 
-//Seta o formul�rio
+//Seta o formulário
 frm=document.forms[0];
 
 //frm.elements['cargos'].value
 
-//Seta a URL de onde vir� os dados em XML
+//Seta a URL de onde virá os dados em XML
 url="enderecos_ajax.php?id_slots=<?= $_GET["id_slots"] ?>&acao=xmlenderecos";
 
 //Abre a URL
 xmlhttp.open("GET",url,true);
 
-	//Na mudan�a de status do objeto xmlhttp, executa a fun��o
+	//Na mudança de status do objeto xmlhttp, executa a função
 	xmlhttp.onreadystatechange=function() 
 	{
 	
 		//Se o objeto xmlhttp obteve uma resposta
 		if (xmlhttp.readyState==4) 
 		{
-			//Se o c�digo HTTP for 200 (sucesso)
+			//Se o código HTTP for 200 (sucesso)
 			if(xmlhttp.status==200)
 			{
 	
@@ -258,12 +258,10 @@ xmlhttp.open("GET",url,true);
 				{
 				
 				
-				//Armazena os valores dos objetos em vari�veis
+				//Armazena os valores dos objetos em variáveis
 				id_componente = xmlresposta.getElementsByTagName('id_componente')[x].firstChild.data;
 				componente = xmlresposta.getElementsByTagName('processo')[x].firstChild.data  + xmlresposta.getElementsByTagName('dispositivo')[x].firstChild.data + " - " + xmlresposta.getElementsByTagName('nr_malha')[x].firstChild.data + xmlresposta.getElementsByTagName('modificador')[x].firstChild.data;
 				nr_canal = xmlresposta.getElementsByTagName('nr_canal')[x].firstChild.data;
-
-
 				
 				combo_destino = document.getElementById(nr_canal);
 				
@@ -291,27 +289,22 @@ return false
 
 }
 
-
-
-
-
-
 function AlteraCombos_Startup()
 {
 
-/* Fun��o para remover itens dos combos ao abrir a p�gina.
+/* Função para remover itens dos combos ao abrir a página.
 */
 
 		i=0;
 		y=0;
 		
-		//Array para armazenar o nome do combo j� preenchido do banco de dados.
+		//Array para armazenar o nome do combo já preenchido do banco de dados.
 		preenchidos_nome = new Array();
 		
-		//Array para armazenar o valor do combo j� preenchido do banco de dados.
+		//Array para armazenar o valor do combo já preenchido do banco de dados.
 		preenchidos_valor = new Array();
 		
-		//Array para armazenar o �ndice do combo j� preenchido do banco de dados.
+		//Array para armazenar o índice do combo já preenchido do banco de dados.
 		preenchidos_indice = new Array();
 
 		while(document.forms["slot"].elements[i])
@@ -328,7 +321,7 @@ function AlteraCombos_Startup()
 					//Pega o nome do combo.
 					preenchidos_nome[y] = document.forms["slot"].elements[i].name;
 					
-					//Pega o �ndice do combo.
+					//Pega o índice do combo.
 					preenchidos_indice[y] = document.forms["slot"].elements[i].selectedIndex;
 					
 					//Pega o valor do combo.
@@ -386,12 +379,12 @@ function AlteraCombos_Startup()
 
 function AlteraCombos(comboatual, indice, evento)
 {
-	//Fun��o para excluir alguns valores dos combos de canais, ao clique do usu�rio.
+	//Função para excluir alguns valores dos combos de canais, ao clique do usuário.
 	
-	if(evento=='onClick')
+	if(evento=='onclick')
 	{
 
-		//Pega os valores atuais do combo clicado pelo usu�rio.
+		//Pega os valores atuais do combo clicado pelo usuário.
 		indice_atual = comboatual.selectedIndex;
 		valor_atual = comboatual.options[indice].value;
 		texto_atual = comboatual.options[indice].text;
@@ -409,7 +402,7 @@ function AlteraCombos(comboatual, indice, evento)
 		while(document.forms["slot"].elements[i])
 		{
 			
-			//SE o elemento do form atual no loop for um combo simples E o elemento atual no loop for DIFERENTE do combo selecionado pelo usu�rio E o valor do combo selecionado pelo usu�rio for igual ao valor do combo no loop.
+			//SE o elemento do form atual no loop for um combo simples E o elemento atual no loop for DIFERENTE do combo selecionado pelo usuário E o valor do combo selecionado pelo usuário for igual ao valor do combo no loop.
 			if(document.forms["slot"].elements[i].type=="select-one" && document.forms["slot"].elements[i]!=comboatual && document.forms["slot"].elements[i].name.substr(0,1)!="%")
 			{
 			x=0;
@@ -437,17 +430,17 @@ function AlteraCombos(comboatual, indice, evento)
 			//Quantidade de itens no combo atual no loop.
 			tamanho_combo = document.forms["slot"].elements[i].options.length;
 			
-			//Diferen�a entre a quantidade de itens do combo no loop x e o combo no loop i.
+			//Diferença entre a quantidade de itens do combo no loop x e o combo no loop i.
 			diferenca_destino = x-tamanho_combo;
 
-			//Insere o valor antigo do combo nos outros combos, por �ltimo (x).
+			//Insere o valor antigo do combo nos outros combos, por último (x).
 			document.forms["slot"].elements[i].options[x-diferenca_destino] = new Option(texto_atual, valor_atual);				
 			
 			}
 			//sortSelect(document.forms["slot"].elements[i]);
 
 
-/*	M�TODO ANTIGO - 20/02/2006		
+/*	MÉTODO ANTIGO - 20/02/2006		
 valor = document.forms["slot"].elements[i].options.length;
 			tamanho_diferenca = valor - tamanho_atual;
 	
@@ -480,10 +473,6 @@ valor = document.forms["slot"].elements[i].options.length;
 
 </script>
 
-
-
-
-
 <link href="../classes/estilos.css" rel="stylesheet" type="text/css">
 </head>
 <body class="body" onLoad="xmlAlteraCombos_Startup()">
@@ -494,13 +483,13 @@ valor = document.forms["slot"].elements[i].options.length;
   <tr>
     <td align="center">	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" class="label1" bgcolor="#BECCD9">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" class="label1" bgcolor="#BECCD9"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9"> <?php //menu() ?></td>
       </tr>
 <tr>
 <td>
@@ -508,7 +497,7 @@ valor = document.forms["slot"].elements[i].options.length;
       <tr>
         <td>
 
-<?
+<?php
 
 	$sql = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area ";
 	$sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -558,18 +547,14 @@ valor = document.forms["slot"].elements[i].options.length;
 
 			$y++;
 	}
-	
-	
-
-	
-				
+			
 	
  ?>	
  <div id="editar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;" >	
   <table width="100%" bgcolor="#FFFFFF" class="corpo_tabela">
     <tr>
       <td colspan="6" class="kks_nivel1">
-	  <? 
+	  <?php 
 		if($_POST["id_racks"] && $_POST["id_slots"])
 		{
 			$idracks = $_POST["id_racks"];
@@ -596,34 +581,34 @@ valor = document.forms["slot"].elements[i].options.length;
       </tr>
 
 			<tr>
-			  <td width="1%" height="37" class="label1">&nbsp;</td>
+			  <td width="1%" height="37" class="label1"> </td>
 			  <td width="99%" colspan="5" class="label1">
 			  <table width="100%" border="0">
                 <tr class="label1">
                   <td class="label1">CANAL</td>
-                  <td>&nbsp;</td>
-                  <td>ENDERE&Ccedil;O</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td>ENDEREÇO</td>
+                  <td> </td>
                   <td>ATRIBUTO</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>COMPONENTES</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
                 <tr class="label1">
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
-				<?
+				<?php
 				$i = 0;
 				
 				$sql2 = "SELECT * FROM Projetos.enderecos WHERE id_slots='" . $_GET["id_slots"] . "' ORDER BY nr_canal ";
@@ -635,32 +620,32 @@ valor = document.forms["slot"].elements[i].options.length;
 					$canal = mysql_fetch_array($regist);
 				?>
                 <tr>
-				  <td width="9%" class="label1">&nbsp;<?= $i ?></td>
-                  <td width="3%">&nbsp;</td>
+				  <td width="9%" class="label1"> <?= $i ?></td>
+                  <td width="3%"> </td>
                   <td width="3%"><input name="#<?= $i ?>" type="text" class="txt_box" size="50" maxlength="15" value="<?= $canal["cd_endereco"] ?>"></td>
-                  <td width="3%">&nbsp;</td>
+                  <td width="3%"> </td>
                   <td width="3%">
 
 				  <select name="%<?= $i ?>" class="txt_box" id="cd_atributo" onkeypress="return keySort(this);">
-					<option value="" <? if($canal["cd_atributo"]==''){ echo 'selected';} ?>>SELECIONE</option>
-					<option value="AI" <? if($canal["cd_atributo"]=='AI'){ echo 'selected';} ?>>AI - ENTRADA ANAL&Oacute;GICA</option>
-                    <option value="AO" <? if($canal["cd_atributo"]=='AO'){ echo 'selected';} ?>>AO - SA&Iacute;DA ANAL&Oacute;GICA</option>
-                    <option value="DI" <? if($canal["cd_atributo"]=='DI'){ echo 'selected';} ?>>DI - ENTRADA DIGITAL</option>
-                    <option value="DO" <? if($canal["cd_atributo"]=='DO'){ echo 'selected';} ?>>DO - SA&Iacute;DA DIGITAL</option>
+					<option value="" <?php if($canal["cd_atributo"]==''){ echo 'selected';} ?>>SELECIONE</option>
+					<option value="AI" <?php if($canal["cd_atributo"]=='AI'){ echo 'selected';} ?>>AI - ENTRADA ANALÓGICA</option>
+                    <option value="AO" <?php if($canal["cd_atributo"]=='AO'){ echo 'selected';} ?>>AO - SAÍDA ANALÓGICA</option>
+                    <option value="DI" <?php if($canal["cd_atributo"]=='DI'){ echo 'selected';} ?>>DI - ENTRADA DIGITAL</option>
+                    <option value="DO" <?php if($canal["cd_atributo"]=='DO'){ echo 'selected';} ?>>DO - SAÍDA DIGITAL</option>
                     </select> 
 
 				  </td>
                               
-                  <td width="3%">&nbsp;</td>
-                  <td width="12%"><select name="<?= $i ?>" class="txt_box" onclick="AlteraCombos(this, this.selectedIndex, 'onClick')" onChange="AlteraCombos(this, this.selectedIndex, 'onChange');" onkeypress="return keySort(this);">
+                  <td width="3%"> </td>
+                  <td width="12%"><select name="<?= $i ?>" class="txt_box" onclick="AlteraCombos(this, this.selectedIndex, 'onclick')" onChange="AlteraCombos(this, this.selectedIndex, 'onChange');" onkeypress="return keySort(this);">
                     <option value="">NENHUM</option>
                   </select>
                     <input name="num_canais" type="hidden" value="<?= $_GET["nr_canais"] ?>"></td>
-                  <td width="3%">&nbsp;</td>
-                  <td width="64%">&nbsp;</td>
-                  <td width="9%">&nbsp;</td>
+                  <td width="3%"> </td>
+                  <td width="64%"> </td>
+                  <td width="9%"> </td>
                 </tr>
-				<?
+				<?php
 				$i++;
 				}
 				?>
@@ -671,20 +656,20 @@ valor = document.forms["slot"].elements[i].options.length;
 
     
 	<tr>
-      <td>&nbsp;</td>
+      <td> </td>
       <td colspan="6">
 	  	<input name="id_cartao" type="hidden" value="<?= $_GET["id_cartao"] ?>">
 		<input name="id_slots" type="hidden" id="id_slots" value="<?= $_GET["id_slots"] ?>">
 		<input name="id_racks" type="hidden" id="id_racks" value="<?= $_GET["id_racks"] ?>">
         <input name="nr_canais" type="hidden" id="nr_canais" value="<?= $_GET["nr_canais"] ?>">
         <input name="acao" type="hidden" value="salvar">
-        <input name="Alterar" type="button" class="btn" id="Alterar" value="ALTERAR" onClick="requer('slot')">
+        <input name="Alterar" type="button" class="btn" id="Alterar" value="ALTERAR" onclick="requer('slot')">
         <span class="label1">
-        <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='slots.php';">
+        <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='slots.php';">
         </span></td>
       </tr>
     <tr>
-      <td colspan="7">&nbsp;    </td>
+      <td colspan="7">     </td>
       </tr>
   </table>
   </div>
@@ -699,7 +684,7 @@ valor = document.forms["slot"].elements[i].options.length;
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>
 

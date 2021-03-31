@@ -80,7 +80,7 @@ function atualizatabela($dados_form)
 			$xml->writeAttribute('id', $regs["id_outros"]);			
 			$xml->writeElement('cell', $regs["descricao"]);
 			$xml->writeElement('cell', number_format($regs["valor"],2,',','.'));
-			$xml->writeElement('cell', '<img style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir("'.$regs['id_outros'].'")}; src="'.DIR_IMAGENS.'apagar.png">');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" onclick=if(confirm("Deseja excluir?")){xajax_excluir("'.$regs['id_outros'].'")}; src="'.DIR_IMAGENS.'apagar.png">');
 		$xml->endElement();
 	}
 	

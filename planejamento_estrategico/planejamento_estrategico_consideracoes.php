@@ -394,7 +394,7 @@ if (document.all)
                       <td height=34 class=xl6513623 style='height:25.5pt;border-top:none'>F3b</td>
                       <td class=xl6613623 width=658 style='border-top:none;border-left:none;
                       width:494pt'>(1) Criar mecanismo de apuração de horas de totais gastas, bem
-                      como de número de documentos produzidos.<span style='mso-spacerun:yes'>�
+                      como de número de documentos produzidos.<span style='mso-spacerun:yes'>
                       </span>(2) Efetuar medida mensal do índice.</td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
@@ -643,7 +643,7 @@ if (document.all)
 </table>
 	<table width="100%" border="0">
   <tr>
-    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onClick="window.close()"></td>
+    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onclick="window.close()"></td>
   </tr>
 </table>
 

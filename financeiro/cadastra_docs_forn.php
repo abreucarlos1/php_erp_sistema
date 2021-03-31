@@ -95,14 +95,14 @@ function atualizatabela($dados_form)
 				$conteudo ='<form style="margin:0;" name="frm_'.$reg['id_fechamento_tipos_tributos'].'" id="frm_'.$reg['id_fechamento_tipos_tributos'].'" action="upload.php" target="upload_target_'.$reg['id_fechamento_tipos_tributos'].'" method="post" enctype="multipart/form-data" >';						
 				$conteudo .='<iframe id="upload_target_'.$reg['id_fechamento_tipos_tributos'].'" name="upload_target_'.$reg['id_fechamento_tipos_tributos'].'" src="#" style="border:0px solid #fff;display:none;"></iframe>';
 				$conteudo .='<span id="txtup_'.$reg['id_fechamento_tipos_tributos'].'" >';
-				$conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$reg['id_fechamento_tipos_tributos'].'").submit(); name="myfile_'.$reg['id_fechamento_tipos_tributos'].'" type="file" size="30" style="width: 60%;" />&nbsp;&nbsp;';
+				$conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$reg['id_fechamento_tipos_tributos'].'").submit(); name="myfile_'.$reg['id_fechamento_tipos_tributos'].'" type="file" size="30" style="width: 60%;" />  ';
 				$conteudo .='</span>';
 				$conteudo .='<input name="id_fechamento" type="hidden" id="id_fechamento" value="'.$_GET["id_fechamento"].'">';
 				$conteudo .='<input name="tipo_tributo" type="hidden" id="tipo_tributo" value="'.$reg["id_fechamento_tipos_tributos"].'">';		
 				$conteudo .='</form>';
 				
 				$xml->writeElement('cell', $conteudo);
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 			else
 			{
@@ -119,12 +119,12 @@ function atualizatabela($dados_form)
 						$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'bt_relogio.png" />');
 					}
 					
-					$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;documento?")){xajax_excluir("'.$reg['id_fechamento_docs'].'");}; />');
+					$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir o documento?")){xajax_excluir("'.$reg['id_fechamento_docs'].'");}; />');
 				}
 				else
 				{
 					$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'bt_relogio.png" />');
-					$xml->writeElement('cell', '&nbsp;');
+					$xml->writeElement('cell', ' ');
 				}
 			}
 			

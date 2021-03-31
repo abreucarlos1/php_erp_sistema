@@ -140,10 +140,10 @@ $sql .= "WHERE requisicao_despesas.id_requisicao_despesa = adiantamento_funciona
 $sql .= "AND adiantamento_funcionario.id_adiantamento_funcionario = despesas_funcionario.id_adiantamento_funcionario ";
 $sql .= "AND adiantamento_funcionario.status_adiantamento = 1 ";
 $sql .= "AND requisicao_despesas.id_os = ordem_servico.id_os ";
-$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa_erp ";
+$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa ";
 $sql .= $filtro1;
 $sql .= $filtro;
-$sql .= "GROUP BY ordem_servico.id_os, empresas.id_empresa_erp, adiantamento_funcionario.data_adiantamento "; //sites.id_site,
+$sql .= "GROUP BY ordem_servico.id_os, empresas.id_empresa, adiantamento_funcionario.data_adiantamento "; //sites.id_site,
 $sql .= "ORDER BY adiantamento_funcionario.data_adiantamento, ordem_servico.os ";
 
 $reg = $db->select($sql,'MYSQL');	

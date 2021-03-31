@@ -56,7 +56,7 @@ function Header()
 	
 	$this->SetFont('Arial','B',8);
 
-	$this->Cell(20,5,"NR. NF",0,0,'L',0);
+	$this->Cell(20,5,"Nº NF",0,0,'L',0);
 
 	$this->Cell(90,5,"EMPRESA",0,0,'L',0);
 	

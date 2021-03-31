@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -32,17 +32,17 @@
                     </td>
 				</tr>
 				<tr>
-		  			<td align="left" colspan="2"><label class="labels">PER�ODO</label><br />
+		  			<td align="left" colspan="2"><label class="labels">PERÍODO</label><br />
                     
                     </td>
 		  		</tr>
 		  		<tr>
-		  			<td width="10%" align="left"><label for="dataIni" class="labels">Data&nbsp;inicio</label><br />
+		  			<td width="10%" align="left"><label for="dataIni" class="labels">Data inicio</label><br />
                         <input type="text" name="dataIni" id="dataIni" class="caixa" placeholder="Data inicio" onkeypress="transformaData(this, event);" />
 		  			</td>
 		  		</tr>
 		  		<tr>
-		  			<td align="left"><label for="dataFim" class="labels">Data&nbsp;fim</label><br />
+		  			<td align="left"><label for="dataFim" class="labels">Data fim</label><br />
                         <input type="text" name="dataFim" id="dataFim" class="caixa" placeholder="Data fim" onkeypress="transformaData(this, event);" />
 		  			</td>
 		  		</tr>

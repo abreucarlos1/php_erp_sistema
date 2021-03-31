@@ -31,7 +31,7 @@
         </tr>
       </table>
       <label class='labels' id='numRegistros' style='float:center;width:100%;'></label>
-	  <div id="div_lista" style="width:100%;float:left;">&nbsp;</div>
+	  <div id="div_lista" style="width:100%;float:left;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de MENU DE PROJETOS	
+		Formulário de MENU DE PROJETOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/menuprojetos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -53,13 +53,13 @@ $_SESSION["OSdesc"] = $descos["descricao"];
 <title>: : . MENU DE PROJETOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -97,10 +97,10 @@ a:active {
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
 
@@ -110,11 +110,11 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="7%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="32%">&nbsp;</td>
-              <td width="7%">&nbsp;</td>
+              <td width="7%"> </td>
+              <td width="27%"> </td>
+              <td width="27%"> </td>
+              <td width="32%"> </td>
+              <td width="7%"> </td>
             </tr>
             <tr>
               <td colspan="5"><div align="left" class="kks_nivel1">
@@ -122,14 +122,14 @@ a:active {
               </div></td>
               </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"equipamentos_mec.php\" class=\"btnlink\">EQUIPAMENTOS MEC.</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"locais_mec.php\" class=\"btnlink\">LOCAIS MEC.</a>";
 
@@ -140,97 +140,97 @@ a:active {
 							echo "<a href=\"equipamentos_tub.php\" class=\"btnlink\">EQUIPAMENTOS TUB.</a>";
 
 				?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php
 
 							echo "<a href=\"materiais.php\" class=\"btnlink\">MATERIAIS</a>";
 
 				?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
-							echo "<a href=\"valvulas.php\" class=\"btnlink\">V&Aacute;LVULAS</a>";
+							echo "<a href=\"valvulas.php\" class=\"btnlink\">VÁLVULAS</a>";
 
 				?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
-					echo "<a href=\"lista_valvulas.php\" class=\"btnlink\">LISTA DE V&Aacute;LVULAS</a>";
+					echo "<a href=\"lista_valvulas.php\" class=\"btnlink\">LISTA DE VÁLVULAS</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"tipos_suportes.php\" class=\"btnlink\">TIPOS DE SUPORTES</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
-					echo "<a href=\"suportes_acessorios.php\" class=\"btnlink\">ACESS&Oacute;RIOS DE SUPORTES</a>";
+					echo "<a href=\"suportes_acessorios.php\" class=\"btnlink\">ACESSÓRIOS DE SUPORTES</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"lista_suportes.php\" class=\"btnlink\">LISTA DE SUPORTES</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php
 
 							echo "<a href=\"acionamentos.php\" class=\"btnlink\">ACIONAMENTOS</a>";
 
 				?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
-							echo "<a href=\"conexoes.php\" class=\"btnlink\">CONEX&Otilde;ES</a>";
+							echo "<a href=\"conexoes.php\" class=\"btnlink\">CONEXÕES</a>";
 
 				?></td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
-					echo "<a href=\"especificacao_padrao_topico.php\" class=\"btnlink\">T&Oacute;PICO</a>";
+					echo "<a href=\"especificacao_padrao_topico.php\" class=\"btnlink\">TÓPICO</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
-					echo "<a href=\"especificacao_padrao_variavel.php\" class=\"btnlink\">VARI&Aacute;VEL</a>";
+					echo "<a href=\"especificacao_padrao_variavel.php\" class=\"btnlink\">VARIÁVEL</a>";
 
 				
 			?></td>
               <td class="btn"><a href="rel_escolhasub_mectub.php"></a></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td><span class="btn">
-                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
+                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
               </span></td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

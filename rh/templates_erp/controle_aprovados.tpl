@@ -66,21 +66,21 @@ div.gridbox table.row20px tr td
 								<table>
 									<tr>
 										<td>
-											<label for="salario" class='labels' style='float:left;'>Sal·rio *</label><br />
-											<input type='text' size='30' class='caixa _currency' name='salario' id='salario' placeholder="Sal·rio" />
+											<label for="salario" class='labels' style='float:left;'>Sal√°rio *</label><br />
+											<input type='text' size='30' class='caixa _currency' name='salario' id='salario' placeholder="Sal√°rio" />
 										</td>
 										<td>
 											<input type='radio' name='rdoTpSalario' id='rdoTpSalarioH' value='h' /><label class='labels'>Hora</label>
-											<input type='radio' name='rdoTpSalario' id='rdoTpSalarioM' value='m' /><label class='labels'>MÍs</label>
+											<input type='radio' name='rdoTpSalario' id='rdoTpSalarioM' value='m' /><label class='labels'>M√™s</label>
 										</td>
 										<td>
-											<label for="nivel_atuacao" class="labels" style='float:left;'>Nivel&nbsp;de&nbsp;atuaÁ„o*</label><br />
+											<label for="nivel_atuacao" class="labels" style='float:left;'>Nivel de atua√ß√£o*</label><br />
 											<select name="nivel_atuacao" class="caixa" id="nivel_atuacao" onkeypress="return keySort(this);">
 												<option value="A">P / ADM. M.O.</option>
-												<option value="D">DIRE«√O</option>
-												<option value="C">COORDENA«√O</option>
-												<option value="S">SUPERVIS√O</option>
-												<option value="G">GER NCIA</option>
+												<option value="D">DIRE√á√ÉO</option>
+												<option value="C">COORDENA√á√ÉO</option>
+												<option value="S">SUPERVIS√ÉO</option>
+												<option value="G">GER√äNCIA</option>
 												<option value="E" selected="selected">EXECUTANTE / INTERNO</option>
 												<option value="P">PACOTE</option>
 											</select>
@@ -93,16 +93,16 @@ div.gridbox table.row20px tr td
 								<table width="100%">
 									<tr>
 										<td width="20%">
-											<label for="tipo_contrato" class="labels" style='float:left;'>Modalid.&nbsp;de&nbsp;Contrato*</label><br />
+											<label for="tipo_contrato" class="labels" style='float:left;'>Modalid. de Contrato*</label><br />
 											<select name="tipo_contrato" class="caixa" id="tipo_contrato" onkeypress="return keySort(this);">
 												<option value="" selected="selected">SELECIONE</option>
 												<option value="CLT">CLT</option>
-												<option value="EST">ESTAGI&Aacute;RIO</option>
+												<option value="EST">ESTAGI√ÅRIO</option>
 												<option value="SC">SOCIEDADE CIVIL (HORISTA)</option>
 												<option value="SC+CLT">SOCIEDADE CIVIL + CLT</option>
 												<option value="SC+MENS">SOCIEDADE CIVIL (MENSALISTA)</option>
 												<option value="SC+CLT+MENS">SOCIEDADE CIVIL + CLT (MENSALISTA)</option>
-												<option value="SOCIO">S&Oacute;CIO</option>
+												<option value="SOCIO">S√ìCIO</option>
 											</select>
 										</td>
 										<td width="20%">			
@@ -133,7 +133,7 @@ div.gridbox table.row20px tr td
 											</select>
 										</td>
 										<td>
-											<label for="data_inicio" class="labels" style='float:left;'>Data&nbsp;de&nbsp;Inicio *</label><br />
+											<label for="data_inicio" class="labels" style='float:left;'>Data de Inicio *</label><br />
 											<input name="data_inicio" type="text" class="caixa" id="data_inicio" size="10" maxlength="10" onkeypress="return txtBoxFormat(document.frm, 'data_inicio', '99/99/9999', event);" value="<smarty>$data_inicio</smarty>" />
 										</td>
 									</tr>

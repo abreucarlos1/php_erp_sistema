@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 		Relatório TERMO DE RESPONSABILIDADE
 		
@@ -136,7 +136,7 @@ $pdf->SetLineWidth(0.3);
 $pdf->SetDrawColor(0,0,0);
 $pdf->Line(10,$pdf->GetY(),200,$pdf->GetY());
 
-//obtem as despesas cadastradas no or�amento
+//obtem as despesas cadastradas no orçamento
 /*	
 $sql = "SELECT AF2010.AF2_COMPOS, AF2010.AF2_DESCRI, AF2010.AF2_QUANT FROM AF1010 WITH(NOLOCK), AF2010 WITH(NOLOCK) ";
 $sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";

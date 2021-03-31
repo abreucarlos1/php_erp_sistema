@@ -25,7 +25,7 @@ Copyright UAB Dinamenta http://www.dhtmlx.com
 
 var globalActiveDHTMLGridObject;
 String.prototype._dhx_trim=function(){
-	return this.replace(/&nbsp;/g, " ").replace(/(^[ \t]*)|([ \t]*$)/g, "");
+	return this.replace(/ /g, " ").replace(/(^[ \t]*)|([ \t]*$)/g, "");
 }
 
 function dhtmlxArray(ar){
@@ -4556,9 +4556,9 @@ dhtmlXGridObject.prototype={
 				w.appendChild(data[0][i]);
 			else {
 				if (this.forceDivInHeader)
-					w.innerHTML="<div class='hdrcell'>"+(data[0][i]||"&nbsp;")+"</div>";
+					w.innerHTML="<div class='hdrcell'>"+(data[0][i]||" ")+"</div>";
 				else
-					w.innerHTML=(data[0][i]||"&nbsp;");
+					w.innerHTML=(data[0][i]||" ");
 		
 				if ((data[0][i]||"").indexOf("#") != -1){
 					var t = data[0][i].match(/(^|{)#([^}]+)(}|$)/);
@@ -5178,7 +5178,7 @@ dhtmlXGridObject.prototype={
 
 				if (aeditor) aeditor.setValue(val)
 			} else {
-				r.childNodes[i].innerHTML="&nbsp;";
+				r.childNodes[i].innerHTML=" ";
 				r.childNodes[i]._clearCell=true;
 			}
 		}
@@ -6235,7 +6235,7 @@ dhtmlXGridObject.prototype={
 		for (var i=0; i<header.length; i++)
 			for (var j=0; j<header[0].length; j++){
 				var h=header[i][j];
-				header[i][j]=(h||"").toString()||"&nbsp;";
+				header[i][j]=(h||"").toString()||" ";
 				if (h&&h.colspan)
 					for (var k=1; k < h.colspan; k++) add(j+k,i,"#cspan");
 				if (h&&h.rowspan)
@@ -6249,7 +6249,7 @@ dhtmlXGridObject.prototype={
 	
 	//defenitions
 	var columns_map=[
-		{name:"label", 	def:"&nbsp;", 	operation:"setHeader",		type:header_set		},
+		{name:"label", 	def:" ", 	operation:"setHeader",		type:header_set		},
 		{name:"id", 	def:"", 		operation:"columnIds",		type:direct_set		},
 		{name:"width", 	def:"*", 		operation:"setInitWidths", 	type:joined_call	},
 		{name:"align", 	def:"left", 	operation:"cellAlign",		type:direct_set		},
@@ -6764,7 +6764,7 @@ dhtmlXGridCellObject.prototype={
 */
 dhtmlXGridCellObject.prototype.setValue=function(val){
 	if (( typeof (val) != "number")&&(!val||val.toString()._dhx_trim() == "")){
-		val="&nbsp;"
+		val=" "
 		this.cell._clearCell=true;
 	} else
 		this.cell._clearCell=false;
@@ -7000,7 +7000,7 @@ eXcell_edn.prototype=new eXcell_ed;
 eXcell_edn.prototype.setValue=function(val){ 
 	if (!val||val.toString()._dhx_trim() == ""){
 		this.cell._clearCell=true;
-		return this.setCValue("&nbsp;",0);
+		return this.setCValue(" ",0);
 	} else {
 		this.cell._clearCell=false;
 		this.cell._orig_value = val;
@@ -7373,7 +7373,7 @@ eXcell_txt.prototype.setValue=function(val){
 	this.cell._brval=val;
 
 	if (!val||val.toString()._dhx_trim() == ""){
-		val="&nbsp;"
+		val=" "
 		this.cell._clearCell=true;
 	} else
 		this.cell._clearCell=false;
@@ -7589,7 +7589,7 @@ eXcell_co.prototype.setValue=function(val){
 		var label = (this.cell._combo||this.grid.getCombo(this.cell._cellIndex)).get(val);
 		this.setCValue(label===null?val:label, val);
 	}else
-		this.setCValue("&nbsp;", val);
+		this.setCValue(" ", val);
 
 	
 }
@@ -7703,7 +7703,7 @@ function eXcell_cp(cell){
 						this.toolDNum(R.toString(16))+""+this.toolDNum(G.toString(16))+""+this.toolDNum(B.toString(16));
 					var c = r.insertCell(i);
 					c.width="10px";
-					c.innerHTML="&nbsp;"; //R+":"+G+":"+B;//
+					c.innerHTML=" "; //R+":"+G+":"+B;//
 					c.title=rgb.toUpperCase()
 					c.style.backgroundColor="#"+rgb
 					c._bg="#"+rgb;
@@ -7737,7 +7737,7 @@ function eXcell_cp(cell){
 eXcell_cp.prototype=new eXcell;
 eXcell_cp.prototype.setValue=function(val){
 	this.setCValue("<div style='width:100%;height:"+((this.grid.multiLine?this.cell.offsetHeight-2:16))+";background-color:"+(val||"")
-		+";border:0px;'>&nbsp;</div>",
+		+";border:0px;'> </div>",
 		val);
 	this.cell.firstChild._bg=val;
 }
@@ -7939,7 +7939,7 @@ eXcell_ron.prototype=new eXcell;
 eXcell_ron.prototype.setValue=function(val){ 
 	if (val === 0){}
 	else if (!val||val.toString()._dhx_trim() == ""){
-		this.setCValue("&nbsp;");
+		this.setCValue(" ");
 		return this.cell._clearCell=true;
 	}
 	this.cell._clearCell=false;

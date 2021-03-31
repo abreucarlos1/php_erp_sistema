@@ -133,7 +133,7 @@ foreach($array_tarefas as $regs2)
 			$array_disc[4] = 'MECÂNICA';
 		break;
 		
-		case 'TUB': //TUBULA��O
+		case 'TUB': //TUBULAÇÃO
 			$discip = 5;
 			$array_disc[5] = 'TUBULAÇÃO';
 		break;

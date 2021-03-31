@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Unidades - materiais
+	Formulário de Unidades - materiais
 	
 	Criado por Carlos Abreu / Otávio Pamplona
 	
@@ -53,7 +53,7 @@ function atualizatabela($ajax,$complemento = 0)
 				$xml->writeElement('cell', $reg["desc_portugues"]);
 				$xml->writeElement('cell', $reg["desc_ingles"]);
 				$xml->writeElement('cell', $reg["desc_espanhol"]);
-				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_unidade'].");};></span>";
+				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_unidade'].");};></span>";
 				$xml->writeElement('cell', $img);
 				if (!empty($ajax))
 				{
@@ -94,22 +94,22 @@ function insere($dados_form)
 			$dados_form['codigo'] = sprintf('%02d', intval($db->array_select[0]['ultimo']) + 1);
 		}
 		
-		$incsql = "INSERT INTO materiais_old.unidade ";
-		$incsql .= "(codigo_unidade, unidade, desc_portugues, desc_ingles, desc_espanhol) VALUES ( ";
-		$incsql .= "'" . $dados_form["codigo"] . "', ";
-		$incsql .= "'" . $dados_form["unidade"] . "', ";
-		$incsql .= "'" . $dados_form["descPort"] . "', ";
-		$incsql .= "'" . $dados_form["descIngles"] . "', ";
-		$incsql .= "'" . $dados_form["descEsp"] . "') ";
+		$isql = "INSERT INTO materiais_old.unidade ";
+		$isql .= "(codigo_unidade, unidade, desc_portugues, desc_ingles, desc_espanhol) VALUES ( ";
+		$isql .= "'" . $dados_form["codigo"] . "', ";
+		$isql .= "'" . $dados_form["unidade"] . "', ";
+		$isql .= "'" . $dados_form["descPort"] . "', ";
+		$isql .= "'" . $dados_form["descIngles"] . "', ";
+		$isql .= "'" . $dados_form["descEsp"] . "') ";
 
 		//Carrega os registros
-		$db->insert($incsql,'MYSQL');
+		$db->insert($isql,'MYSQL');
 			
 		$resposta->addScript("xajax_atualizatabela(document.getElementById('campoRef').value);");
 		
 		$resposta->addScript("xajax_voltar();");
 	
-		//Avisa o usu�rio do sucesso no cadastro das horas.		
+		//Avisa o usuário do sucesso no cadastro das horas.		
 		$resposta->addAlert("unidade cadastrado com sucesso.");	
 
 	}
@@ -235,7 +235,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("C�digo, unidade,Desc.&nbsp;Portugu�s,Desc.&nbsp;Ingl�s,Desc&nbsp;Espanhol, D, S");
+	mygrid.setHeader("Código, unidade,Desc. Português,Desc. Inglês,Desc Espanhol, D, S");
 	mygrid.setInitWidths("60,*,*,*,*,50,50");
 	mygrid.setColAlign("left,left,left,left,left,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
@@ -266,7 +266,7 @@ function seleciona(codigo_unidade, complemento)
 <?php
 $conf = new configs();
 
-//Esta parte s� � executada de fora do programa principal ex; materiais/produtos.php
+//Esta parte só é executada de fora do programa principal ex; materiais/produtos.php
 if (isset($_GET['ajax']))
 {
 	$smarty->assign('ocultarCabecalhoRodape', 'style="display:none;"');

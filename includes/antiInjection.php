@@ -4,7 +4,7 @@ class AntiInjection
 	/**
 	 * Função para limpar strings antes de passar para o banco de dados
 	 * @param mixed $_value - valor para tratar
-	 * @param boolean $_escapeQuotes - Se o m�todo deve escapar aspas e caracteres n�o imprimiveis
+	 * @param boolean $_escapeQuotes - Se o método deve escapar aspas e caracteres não imprimiveis
 	 * @param string $_allowedHtmlTags - String com a lista de tags html para manter na hora da limpeza
 	 * @return mixed O valor tratado
 	 * @static
@@ -76,7 +76,7 @@ class AntiInjection
 	}
 
 	/**
-	 * Mantem os numeros na string e verifica se a quantidade de digitos � v�lida
+	 * Mantem os numeros na string e verifica se a quantidade de digitos é válida
 	 * @param mixed $_val
 	 * @param int $_qtdDigitos
 	 * @return mixed
@@ -113,7 +113,7 @@ class AntiInjection
 	}
 
 	public static function cleanValue($_value, $_escapeQuotes=true, $_allowedHtmlTags=null) {
-		$value = str_replace('�', '-', $_value);//Substitui o travess�o do word por um tra�o
+		$value = str_replace('-', '-', $_value);//Substitui o travessão do word por um traço
 		$value = str_replace('\\', '', $_value);
 
 		$value = trim(preg_replace('/(\t|\n|\r)/', ' ', $value));
@@ -155,7 +155,7 @@ class AntiInjection
 		$fT = strlen($ff); //tamanho sem caracteres
 
 		if (strlen($_v) > 0) {
-			//cria o valor completando com 0 � esquerda
+			//cria o valor completando com 0 á esquerda
 			if ($vT < $fT){
 				$v = sprintf("%0" . $fT . "s", $v);
 			}

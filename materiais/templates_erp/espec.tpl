@@ -8,10 +8,10 @@
           <td width="116" rowspan="3" valign="top" class="td_sp">
 		  <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onClick="xajax_insere(xajax.getFormValues('frm'));" /></td>
+				  <td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onclick="xajax_insere(xajax.getFormValues('frm'));" /></td>
 			  </tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 				<tr>
 				  <td valign="middle"><input name="id_espec_cabecalho" type="hidden" id="id_espec_cabecalho" value=""></td>
@@ -42,7 +42,7 @@
 				  </tr>
                   <tr>
                     <td>
-                    	<label class="labels">Descrição ESPEC *</label>
+                    	<label class="labels">DescriÃ§Ã£o ESPEC *</label>
                     </td>
                     <td>
                     	<input type='text' id='nome' name='nome' size="40" class="caixa" />

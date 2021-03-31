@@ -32,8 +32,8 @@
 							<smarty>html_options values=$option_funcionarios_values output=$option_funcionarios_output</smarty>
 							</select>
 						</td>
-						<td valign="top"><label for="contratoColaboradorNumero" class="labels">Contrato&nbsp;Nº</label><br />
-							<input type="text" class="caixa" style="text-align:right;" name="contratoColaboradorNumero" id="contratoColaboradorNumero" value='<smarty>$proximo_contrato</smarty>' size="3" />&nbsp;
+						<td valign="top"><label for="contratoColaboradorNumero" class="labels">Contrato NÂº</label><br />
+							<input type="text" class="caixa" style="text-align:right;" name="contratoColaboradorNumero" id="contratoColaboradorNumero" value='<smarty>$proximo_contrato</smarty>' size="3" /> 
 							<select name="contratoColaboradorAno" class="caixa" id="contratoColaboradorAno" onkeypress="return keySort(this);">
 								<smarty>html_options values=$option_anos_values output=$option_anos_values</smarty>
 							</select>
@@ -49,7 +49,7 @@
 		<tr>
 			<td>
 				<fieldset>
-					<legend class="labels">Docs. de contratação <i>Para os documentos em branco, clicar sobre o nome do documento</i></legend><br />
+					<legend class="labels">Docs. de contrataÃ§Ã£o <i>Para os documentos em branco, clicar sobre o nome do documento</i></legend><br />
 				  	<table border="0">
 						<tr>
 							<td width="180px">
@@ -72,7 +72,7 @@
 					<table border="0">
 						<tr>
 							<td width="180px">
-								<input name="tipo_contrato" type="radio" class="caixa" id="tipo_contrato_2" value="2" /> <label class="labels">Contrato Técnico</label>
+								<input name="tipo_contrato" type="radio" class="caixa" id="tipo_contrato_2" value="2" /> <label class="labels">Contrato TÃ©cnico</label>
 							</td>
 							<td width="150px">
 								<input name="tipo_contrato" type="radio" class="caixa" id="tipo_contrato_1" value="1" /> <label class="labels">Contrato ADM</label>
@@ -110,7 +110,7 @@
 			</td>
 		</tr>
       </table>
-	  <div id="divListaContratados" style="width:100%;">&nbsp;</div>
+	  <div id="divListaContratados" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

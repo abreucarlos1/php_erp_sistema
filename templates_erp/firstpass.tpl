@@ -30,7 +30,7 @@
         </table>
 		<table width="100%" border="0" align="center">
           <tr>
-            <td width="91%"><div class="alerta_erro" id="mensagem">&nbsp;</div></td>
+            <td width="91%"><div class="alerta_erro" id="mensagem"> </div></td>
           </tr>
         </table>
 		<table width="100%" border="0" align="center">
@@ -41,7 +41,7 @@
 				</div></td>
 			</tr>
 		</table></td>
-		<td width="4%">&nbsp;</td>
+		<td width="4%"> </td>
 	  </tr>	  
 	</table>
 </form>

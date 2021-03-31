@@ -4,16 +4,16 @@
 		Criado por Carlos Abreu / Otávio Pamplona
 
 	
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 	
 */	
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-    // Usu�rio n�o logado! Redireciona para a p�gina de login
+    // Usuário não logado! Redireciona para a página de login
     header("Location: ../index.php");
     exit;
 }
@@ -123,8 +123,8 @@ $reg = mysqli_fetch_array($registro);
 //Seta o cabeçalho
 /*
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->numeros_interno = $_POST["numeros_interno"];
@@ -139,17 +139,17 @@ $pdf->titulo = '';
 $pdf->titulo2 = $reg1["osdesc"];
 
 $pdf->emissao=date('d/m/Y');
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 */
 
 $flag = 0;
 
 /*
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(10,70);
 
 $pdf->SetFont('Arial','BU',20);
-$pdf->Cell(280,10,"LISTA DE ENTRADAS E SA�DAS",0,1,'C',0);
+$pdf->Cell(280,10,"LISTA DE ENTRADAS E SAÍDAS",0,1,'C',0);
 $pdf->SetFont('Arial','BU',16);
 $pdf->Cell(280,10,$disciplina,0,1,'C',0);
 $pdf->Ln(5);
@@ -159,21 +159,21 @@ $pdf->Ln(5);
 $pdf->Cell(280,10, $reg["ds_area"] ,0,1,'C',0);
 $pdf->Ln(5);
 
-//REVIS�ES
+//REVISÕES
 $pdf->SetFont('Arial','B',8);
 
 $y = 155;
 
 $pdf->SetXY(25,$y);
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(50,4,'CONTROLE DE REVIS�ES',0,1,'L',0);
+$pdf->Cell(50,4,'CONTROLE DE REVISÕES',0,1,'L',0);
 $pdf->SetFont('Arial','',6);
 
 $pdf->Ln(1);
 
 $numregs = 4 - mysql_num_rows($reg_rev);
 
-//c�lulas em branco
+//células em branco
 for($a=0;$a<=$numregs;$a++)
 {
 	$y += 4;
@@ -191,17 +191,17 @@ while($revis = mysql_fetch_array($reg_rev))
 {
 	$sql_exe = "SELECT abreviacao FROM Funcionarios ";
 	$sql_exe .= "WHERE id_funcionario = '".$revis["id_executante"]."' ";
-	$regexe = mysql_query($sql_exe,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe);
+	$regexe = mysql_query($sql_exe,$conexao) or die("Não foi possível a seleção dos dados" . $sql_exe);
 	$executante = mysql_fetch_array($regexe);
 	
 	$sql_ver = "SELECT abreviacao FROM Funcionarios ";
 	$sql_ver .= "WHERE id_funcionario = '".$revis["id_verificador"]."' ";
-	$regver = mysql_query($sql_ver,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+	$regver = mysql_query($sql_ver,$conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 	$verificador = mysql_fetch_array($regver);
 	
 	$sql_apr = "SELECT abreviacao FROM Funcionarios ";
 	$sql_apr .= "WHERE id_funcionario = '".$revis["id_aprovador"]."' ";
-	$regapr = mysql_query($sql_apr,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+	$regapr = mysql_query($sql_apr,$conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 	$aprovador = mysql_fetch_array($regapr);
 	
 	$y += 4;
@@ -220,19 +220,19 @@ while($revis = mysql_fetch_array($reg_rev))
 include ("../includes/conectdb.inc");
 $sql_exe0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_exe0 .= "WHERE id_funcionario = '".$revis0["id_executante"]."' ";
-$regexe0 = mysql_query($sql_exe0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe0);
+$regexe0 = mysql_query($sql_exe0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_exe0);
 $contexe = mysql_fetch_array($regexe0);
 $executante0 = $contexe["abreviacao"];
 
 $sql_ver0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_ver0 .= "WHERE id_funcionario = '".$revis0["id_verificador"]."' ";
-$regver0 = mysql_query($sql_ver0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+$regver0 = mysql_query($sql_ver0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 $contver = mysql_fetch_array($regver0);
 $verificador0 = $contver["abreviacao"];
 
 $sql_apr0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_apr0 .= "WHERE id_funcionario = '".$revis0["id_aprovador"]."' ";
-$regapr0 = mysql_query($sql_apr0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+$regapr0 = mysql_query($sql_apr0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 $contapr = mysql_fetch_array($regapr0);
 $aprovador0 = $contapr["abreviacao"];
 
@@ -251,13 +251,13 @@ $pdf->SetXY(25,$y+4);
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10,4,'REV.',1,0,'C',0);
-$pdf->Cell(70,4,'ALTERA��O',1,0,'C',0);
+$pdf->Cell(70,4,'ALTERAÇÃO',1,0,'C',0);
 $pdf->Cell(20,4,'DATA',1,0,'C',0);
 $pdf->Cell(20,4,'EXEC.',1,0,'C',0);
 $pdf->Cell(20,4,'VERIF.',1,0,'C',0);
 $pdf->Cell(20,4,'APROV.',1,0,'C',0);		
 
-//REVIS�ES
+//REVISÕES
 
 $pdf->SetXY(10,48);
 
@@ -267,14 +267,14 @@ $pdf->AddPage();
 /*
 $pdf->SetXY(10,48);
 
-// T�TULOS
+// TÍTULOS
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(33,4,"LOCAL",0,0,'L',0);
 $pdf->Cell(50,4,"DEVICE",0,0,'L',0);
-$pdf->Cell(40,4,"N� RACK",0,0,'L',0);
+$pdf->Cell(40,4,"Nº RACK",0,0,'L',0);
 $pdf->Cell(40,4,"SLOT",0,0,'L',0);
 $pdf->Cell(30,4,"CAPACIDADE.",0,0,'L',0);
-$pdf->Cell(35,4,"CART�O",0,0,'L',0);
+$pdf->Cell(35,4,"CARTÃO",0,0,'L',0);
 $pdf->Cell(30,4,"TIPO",0,1,'L',0);
 $pdf->SetFont('Arial','',8);
 
@@ -288,7 +288,7 @@ $pdf->Ln(2);
 </head>
 
 <body>
-<?
+<?php
 
 $sql = "SELECT * FROM Projetos.locais, Projetos.racks, Projetos.devices, Projetos.slots, Projetos.cartoes, ".DATABASE.".setores ";
 $sql .= "WHERE locais.id_area = '" . $_POST["id_area"] . "' ";
@@ -307,7 +307,7 @@ if($db->numero_registros>0)
 	while ($malhas = mysqli_fetch_array($regmalha))
 	{
 
-		if($malhas["setor"]=='EL�TRICA')
+		if($malhas["setor"]=='ELÉTRICA')
 		{
 			$sql = "SELECT * FROM Projetos.locais ";
 			$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -323,7 +323,7 @@ if($db->numero_registros>0)
 		}
 		else
 		{
-			if($malhas["setor"]=='MEC�NICA')
+			if($malhas["setor"]=='MECÂNICA')
 			{
 				$sql = "SELECT * FROM Projetos.locais ";
 				$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -355,7 +355,7 @@ if($db->numero_registros>0)
 		}
 		/*	
 		$pdf->SetFont('Arial','B',8);
-		$pdf->Cell(20,5,"�REA",0,0,'L',0);
+		$pdf->Cell(20,5,"ÁREA",0,0,'L',0);
 		$pdf->SetFont('Arial','',8);
 		$pdf->Cell(45,5,$reg["nr_area"],0,0,'L',0);
 		
@@ -381,7 +381,7 @@ if($db->numero_registros>0)
 		$pdf->Cell(45,5,$tag,0,0,'L',0);
 		
 		$pdf->SetFont('Arial','B',8);
-		$pdf->Cell(30,5,"CART�O",0,0,'L',0);
+		$pdf->Cell(30,5,"CARTÃO",0,0,'L',0);
 		$pdf->SetFont('Arial','',8);
 		$pdf->Cell(50,5,$malhas["cd_cartao"],0,1,'L',0);
 		
@@ -394,50 +394,50 @@ if($db->numero_registros>0)
 		<br />
 		<table width="100%" border="1" bordercolor="#333333">
 		  <tr>
-			<td width="9%"><div align="center"><strong>AREA</strong></div></td>
-			<td width="1%">&nbsp;</td>
+			<td width="9%"><div align="center"><strong>ÁREA</strong></div></td>
+			<td width="1%"> </td>
 			<td width="22%"><div align="left">
 			  <?= $reg["nr_area"] ?>
 		    </div></td>
-			<td width="1%">&nbsp;</td>
+			<td width="1%"> </td>
 			<td width="19%"><div align="center"><strong>DISPOSITIVOS</strong></div></td>
-			<td width="1%">&nbsp;</td>
+			<td width="1%"> </td>
 			<td width="38%"><div align="left">
 			  <?= $malhas["cd_dispositivo"] ?>
 		    </div></td>
-			<td width="9%">&nbsp;</td>
+			<td width="9%"> </td>
 		  </tr>
 		  <tr>
 			<td><div align="center"><strong>RACK</strong></div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 			<td><div align="left">
 			  <?= $malhas["nr_rack"] ?>
 		    </div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 			<td><div align="center"><strong>SLOTS</strong></div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 			<td><div align="left">
 			  <?= $malhas["nr_slot"] ?>
 		    </div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 		  </tr>
 		  <tr>
 			<td><div align="center"><strong>LOCAL</strong></div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 			<td><div align="left">
 			  <?= $tag ?>
 		    </div></td>
-			<td>&nbsp;</td>
-			<td><div align="center"><strong>CART&Atilde;O</strong></div></td>
-			<td>&nbsp;</td>
+			<td> </td>
+			<td><div align="center"><strong>CARTÃO</strong></div></td>
+			<td> </td>
 			<td><div align="left">
 			  <?= $malhas["cd_cartao"] ?>
 		    </div></td>
-			<td>&nbsp;</td>
+			<td> </td>
 		  </tr>
 		</table>
 		<br />
-		<?
+		<?php
 		
 		$sql2 = "SELECT * FROM Projetos.enderecos ";
 		$sql2 .= "WHERE enderecos.id_slots = '" .$malhas["id_slots"]. "' ";
@@ -506,10 +506,10 @@ if($db->numero_registros>0)
 				$pdf->SetFont('Arial','B',8);
 				//$pdf->Cell(45,5,"",0,0,'L',0);
 				$pdf->Cell(15,5,"CANAL",1,0,'C',0);
-				$pdf->Cell(30,5,"ENDERE�O",1,0,'C',0);
+				$pdf->Cell(30,5,"ENDEREÇO",1,0,'C',0);
 				$pdf->Cell(20,5,"ATRIBUTO",1,0,'C',0);
 				$pdf->Cell(35,5,"TAG",1,0,'C',0);
-				$pdf->Cell(125,5,"DESCRI��O",1,0,'C',0);
+				$pdf->Cell(125,5,"DESCRIÇÃO",1,0,'C',0);
 				$pdf->Cell(45,5,"LOCAL",1,1,'C',0);
 				$pdf->SetFont('Arial','',8);
 				//$pdf->Cell(45,5,"",0,0,'L',0);
@@ -519,16 +519,16 @@ if($db->numero_registros>0)
 				<table width="100%" border="1" bordercolor="#666666">
 				  <tr>
 					<th width="6%" scope="col">CANAL</th>
-					<th width="10%" scope="col">ENDERE&Ccedil;O</th>
+					<th width="10%" scope="col">ENDEREÇO</th>
 					<th width="9%" scope="col">ATRIBUTO</th>
 					<th width="11%" scope="col">TAG</th>
-					<th scope="col" colspan="3">DESCRI&Ccedil;&Atilde;O</th>
+					<th scope="col" colspan="3">DESCRIÇÃO</th>
 					<th width="15%" scope="col">LOCAL</th>
 				  </tr>
 				</table> 
-				<?
+				<?php
 			}
-			if($componente["setor"]=='EL�TRICA')
+			if($componente["setor"]=='ELÉTRICA')
 			{
 				$sql = "SELECT * FROM Projetos.locais ";
 				$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -544,7 +544,7 @@ if($db->numero_registros>0)
 			}
 			else
 			{
-				if($componente["setor"]=='MEC�NICA')
+				if($componente["setor"]=='MECÂNICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -604,7 +604,7 @@ if($db->numero_registros>0)
 			  </tr>
 			</table>
 
-			<?
+			<?php
 			
 			$cabecalho = 0;
 			

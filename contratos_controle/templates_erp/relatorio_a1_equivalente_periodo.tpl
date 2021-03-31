@@ -22,10 +22,10 @@
         	<td colspan="2" valign="top" class="espacamento">
 		    <table border="0" width="100%">			  
 			  <tr>
-				<td width="13%"><label for="data_inicio" class="labels">Data&nbsp;Início</label><br />
+				<td width="13%"><label for="data_inicio" class="labels">Data Início</label><br />
 					<input type="text" value="" id="data_inicio" name="data_inicio" onkeypress="transformaData(this, event);" />
 				</td>
-				<td width="13%"><label for="data_fim" class="labels">Data&nbsp;Fim</label><br />
+				<td width="13%"><label for="data_fim" class="labels">Data Fim</label><br />
 					<input type="text" value="" id="data_fim" name="data_fim" onkeypress="transformaData(this, event);" />
 				</td>
 				</tr>

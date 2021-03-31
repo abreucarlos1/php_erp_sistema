@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de MENU DE PROJETOS	
+		Formulário de MENU DE PROJETOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/menuprojetos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016	
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016	
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -52,13 +52,13 @@ $_SESSION["OSdesc"] = $descos["descricao"];
 <title>: : . MENU DE PROJETOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -96,10 +96,10 @@ a:active {
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
 
@@ -109,11 +109,11 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="7%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="32%">&nbsp;</td>
-              <td width="7%">&nbsp;</td>
+              <td width="7%"> </td>
+              <td width="27%"> </td>
+              <td width="27%"> </td>
+              <td width="32%"> </td>
+              <td width="7%"> </td>
             </tr>
             <tr>
               <td colspan="5"><div align="left" class="kks_nivel1">
@@ -121,168 +121,168 @@ a:active {
               </div></td>
               </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php
 
 							echo "<a href=\"malhas.php\" class=\"btnlink\">MALHAS</a>";
 
 				?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
 							echo "<a href=\"componentes.php\" class=\"btnlink\">COMPONENTES</a>";
 
 				?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"locais_eei.php\" class=\"btnlink\">LOCAIS EEI</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"equipamentos_eei.php\" class=\"btnlink\">EQUIPAMENTOS EEI</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"cabos_finalidades.php\" class=\"btnlink\">FINALIDADES DE CABOS</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"cabos_tipos.php\" class=\"btnlink\">TIPOS DE CABOS</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"cabos.php\" class=\"btnlink\">CABOS</a>";
 
 				
 			?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
-					echo "<a href=\"funcao.php\" class=\"btnlink\">FUN&Ccedil;&Atilde;O</a>";
+					echo "<a href=\"funcao.php\" class=\"btnlink\">FUNÇÃO</a>";
 
 				
 			?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
 					echo "<a href=\"dispositivos.php\" class=\"btnlink\">DISPOSITIVOS</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"tipo.php\" class=\"btnlink\">TIPO</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
-					echo "<a href=\"especificacao_padrao_topico.php\" class=\"btnlink\">T&Oacute;PICO</a>";
-
-				
-			?></td>
-              <td class="btn"><? 
-
-					echo "<a href=\"especificacao_padrao_variavel.php\" class=\"btnlink\">VARI&Aacute;VEL</a>";
+					echo "<a href=\"especificacao_padrao_topico.php\" class=\"btnlink\">TÓPICO</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"><?php 
+
+					echo "<a href=\"especificacao_padrao_variavel.php\" class=\"btnlink\">VARIÁVEL</a>";
+
+				
+			?></td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
-					echo "<a href=\"especificacao_padrao.php\" class=\"btnlink\">ESPEC. PADR&Atilde;O</a>";
-
-				
-			?></td>
-              <td class="btn"><? 
-
-					echo "<a href=\"especificacao_tecnica.php\" class=\"btnlink\">ESPEC. T&Eacute;CNICA</a>";
+					echo "<a href=\"especificacao_padrao.php\" class=\"btnlink\">ESPEC. PADRÃO</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
+
+					echo "<a href=\"especificacao_tecnica.php\" class=\"btnlink\">ESPEC. TÉCNICA</a>";
+
+				
+			?></td>
+              <td class="btn"><?php 
 
 					echo "<a href=\"slots.php\" class=\"btnlink\">SLOTS</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><? 
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php 
 
 					echo "<a href=\"racks.php\" class=\"btnlink\">RACKS</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
-					echo "<a href=\"cartoes.php\" class=\"btnlink\">CART&Otilde;ES</a>";
+					echo "<a href=\"cartoes.php\" class=\"btnlink\">CARTÕES</a>";
 
 				
 			?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"devices.php\" class=\"btnlink\">DEVICES</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn">&nbsp;
-			  <?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"> 
+			  <?php
 
 					echo "<a href=\"processo.php\" class=\"btnlink\">PROCESSO</a>";
 
 				
 			?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 			   
-					echo "<a href=\"isolacao_cabo.php\" class=\"btnlink\">ISOLA��O CABOS</a>";
+					echo "<a href=\"isolacao_cabo.php\" class=\"btnlink\">ISOLAÇÃO CABOS</a>";
 
 				
 			?>			</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td><span class="btn">
-                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
+                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
               </span></td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

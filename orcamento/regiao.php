@@ -80,11 +80,11 @@ function atualizatabela($dados_form)
 		
 		if($db->numero_registros>0)
 		{
-			$img = '&nbsp;';
+			$img = ' ';
 		}
 		else
 		{
-			$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados?")){xajax_excluir("'.$regs["id_regiao"].'")};>';
+			$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados?")){xajax_excluir("'.$regs["id_regiao"].'")};>';
 		}
 		
 		$xml->startElement('row');

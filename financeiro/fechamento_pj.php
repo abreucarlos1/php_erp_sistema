@@ -258,7 +258,7 @@ function atualizatabela($dados_form)
 		}
 		else
 		{
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		}
 		
 		//verifica se enviou e-mail
@@ -274,7 +274,7 @@ function atualizatabela($dados_form)
 			$resposta->addAlert($db->erro);
 		}
 		
-		//j� enviado
+		//já enviado
 		if($db->numero_registros>0)
 		{
 			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'aprovado.png" style="cursor:pointer;" onclick=telaEmail('.$cont_desp['id_fechamento'].');>');
@@ -284,7 +284,7 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'mail.png" style="cursor:pointer;" onclick=telaEmail('.$cont_desp['id_fechamento'].');>');
 		}
 		
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir('.$cont_desp['id_fechamento'].');} >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir?")){xajax_excluir('.$cont_desp['id_fechamento'].');} >');
 		
 		$xml->endElement();
 	}
@@ -499,7 +499,7 @@ function insere($dados_form)
 						
 									$data_registro = getdate(mktime(0,0,0,$temp[1],$temp[2],$temp[0]));
 									
-									//Pega o dia da semana: retorna 0-6 (de Domingo=0 a S�bado=6)
+									//Pega o dia da semana: retorna 0-6 (de Domingo=0 a Sábado=6)
 									switch ($data_registro["wday"])
 									{
 										//Adicionais Domingo
@@ -1154,7 +1154,7 @@ function envia_email($dados_form)
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND fechamento_folha.id_funcionario = funcionarios.id_funcionario ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	
 	
 	$db->select($sql,'MYSQL',true);
@@ -1268,27 +1268,39 @@ function envia_email($dados_form)
 	
 	if($envio)
 	{
-		$params = array();
-		
-		$params['subject'] = 'OBRIGAÇÕES ACESSÓRIAS';
-		$params['emails']['to'][] = array('email' => $cont_fun["email"], 'nome' => $cont_fun["funcionario"]);
+		if(ENVIA_EMAIL)
+		{
 
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail(trim($dados_form['conteudo']));//Removi o trecho á direita pois, agora o colaborador digita-ra o que quiser.'<hr />'.$texto);
-		
-		if(!$mail->Send())
-		{
-			$resposta->addAlert($mail->ErrorInfo);
+			$params = array();
+			
+			$params['subject'] = 'OBRIGAÇÕES ACESSÓRIAS';
+			
+			$params['emails']['to'][] = array('email' => $cont_fun["email"], 'nome' => $cont_fun["funcionario"]);
+
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail(trim($dados_form['conteudo']));//Removi o trecho á direita pois, agora o colaborador digita-ra o que quiser.'<hr />'.$texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert($mail->ErrorInfo);
+			}
+			else
+			{				
+				$resposta->addAlert('E-mail enviado com sucesso.');					
+			}
+			
+			$mail->ClearAddresses();
 		}
-		else
+		else 
 		{
-			$resposta->addScript('divPopupInst.destroi();');
-			$resposta->addAlert('E-mail enviado com sucesso.');
-			$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");	
+			$resposta->addScriptCall('modal', trim($dados_form['conteudo']), '300_650', 'Conteúdo email', 3);
 		}
-		
-		$mail->ClearAddresses();
+
+		$resposta->addScript('divPopupInst.destroi();');
+
+		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
+
 	}
 	
 	return $resposta;

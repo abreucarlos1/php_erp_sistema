@@ -214,7 +214,7 @@ function show_tree(xml)
 <?php
 
 
-$smarty->assign("body_onload","xajax_monta_pastas('".DOCUMENTOS_SGI."9_BRIGADA_DE_EMERG�NCIA')");
+$smarty->assign("body_onload","xajax_monta_pastas('".DOCUMENTOS_SGI."9_BRIGADA_DE_EMERGÊNCIA')");
 
 $conf = new configs();
 

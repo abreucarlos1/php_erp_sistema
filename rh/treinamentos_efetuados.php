@@ -161,7 +161,7 @@ function atualizatabela($filtro)
 		$xml->writeElement('cell', $reg['situacao']);
 		$xml->writeElement('cell', $simNao);
 		$xml->writeElement('cell', $simNaoRenovacao);
-		$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;Excluir&nbsp;este&nbsp;item?")){xajax_excluir("'.$reg['rti_id'].'")};></span>');
+		$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja Excluir este item?")){xajax_excluir("'.$reg['rti_id'].'")};></span>');
 		$xml->endElement();
 	}
 
@@ -284,13 +284,13 @@ function salvar($dados_form)
 			    if ($dados_form['situacao'] == '6' && !empty($dados_form['id_funcionario_verificacao']) && !empty($dados_form['idItem']))
 				{
 				    //Nova rotina para envio de email ao responsável por avaliar a eficácia do treinamento
-				    $sql = "SELECT DISTINCT funcionario, email, rtc_responsavel_eficacia, rti_id_funcionario, usuarios.id_funcionario, treinamento 
+				    $sql = "SELECT DISTINCT funcionario, email, rtc_responsavel_eficacia, rti_id_funcionario, funcionarios.id_funcionario, treinamento 
 							FROM ".DATABASE.".rh_treinamentos_cabecalho
 							JOIN ".DATABASE.".rh_treinamentos_itens ON rti_rtc_id = rtc_id AND rh_treinamentos_itens.reg_del = 0 
 							JOIN ".DATABASE.".rh_treinamentos ON id_rh_treinamento = rtc_id_treinamento AND rh_treinamentos.reg_del = 0
 							JOIN ".DATABASE.".funcionarios ON funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') AND funcionarios.reg_del = 0 
 							AND funcionarios.id_funcionario IN(rti_id_funcionario, rtc_responsavel_eficacia)
-							JOIN ".DATABASE.".usuarios ON usuarios.id_funcionario = funcionarios.id_funcionario AND usuarios.reg_del = 0
+							JOIN ".DATABASE.".usuarios ON usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0
 							WHERE rtc_id = ".$idCabecalho." ORDER BY funcionario ";
 				    
 				    $db->select($sql, 'MYSQL', true);
@@ -333,12 +333,16 @@ function salvar($dados_form)
 				    $params['from_name']= "RECURSOS HUMANOS";
 				    $params['subject'] 	= "AVALIAÇÃO DE EFICÁCIA DE TREINAMENTO";
 				    
-				    if (HOST != 'localhost')
+				    if (ENVIA_EMAIL)
 				    {
     				    $mail = new email($params);
     				    $mail->montaCorpoEmail($corpo);
     				    $mail->Send();
-				    }
+					}
+					else
+					{
+						$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+					}
 				    
 					/****
 					 * Abaixo toda a rotina removida a 
@@ -363,11 +367,11 @@ function salvar($dados_form)
 						
 						$corpo = CIDADE .", ".date('d/m/Y')."<br><br>";
 						$corpo .= "Prezado ".$conclFunc['funcionario'].', ';
-						$corpo .= "Voc� concluiu o treinamento de ".$conclFunc['treinamento']." em ".mysql_php($conclFunc['rtc_data_treinamento']).".<br />";
-						$corpo .= "O formul�rio que segue possui o objetivo de avaliar aspectos como, aplicabilidade dos conhecimentos adquiridos, conte�do, recursos.<br />";
-						$corpo .= "Suas respostas s�o de extrema import�ncia para verificarmos a qualidade dos treinamentos que s�o oferecidos.<br />";
-						$corpo .= "Solicito que responda o formul�rio, salve em formato PDF e envie para o RH (recrutamento@dominio.com.br).<br /><br />";
-						$corpo .= "Obs.: na parte inferior, em superior e colaborador, basta a identifica��o (nome completo).";
+						$corpo .= "Voce concluiu o treinamento de ".$conclFunc['treinamento']." em ".mysql_php($conclFunc['rtc_data_treinamento']).".<br />";
+						$corpo .= "O formulário que segue possui o objetivo de avaliar aspectos como, aplicabilidade dos conhecimentos adquiridos, conteúdo, recursos.<br />";
+						$corpo .= "Suas respostas são de extrema importância para verificarmos a qualidade dos treinamentos que são oferecidos.<br />";
+						$corpo .= "Solicito que responda o formulário, salve em formato PDF e envie para o RH (recrutamento@dominio.com.br).<br /><br />";
+						$corpo .= "Obs.: na parte inferior, em superior e colaborador, basta a identificação (nome completo).";
 						
 						$params['from']		= "recrutamento@dominio.com.br";
 						$params['from_name']= "RECURSOS HUMANOS";

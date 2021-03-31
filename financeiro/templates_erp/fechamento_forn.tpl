@@ -214,7 +214,7 @@ document.onkeyup=nokeys;
           <td colspan="2" valign="top" align="right"><smarty>$documentos</smarty></td>
         </tr>
         <tr>
-          <td colspan="2" valign="top"><input class="class_botao" type="button" name="button" id="button" value="Fechar" onClick="window.close();"></td>
+          <td colspan="2" valign="top"><input class="class_botao" type="button" name="button" id="button" value="Fechar" onclick="window.close();"></td>
         </tr>
       </table>
       

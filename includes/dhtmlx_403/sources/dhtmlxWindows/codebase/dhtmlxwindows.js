@@ -1575,7 +1575,7 @@ window.dhtmlXWindowsButton = function(wins, winId, name, title, custom) {
 	}
 	
 	this._doOnClick = function(ev) {
-		return this.callEvent("onClick", [this.conf.wins.w[this.conf.winId].cell, this]);
+		return this.callEvent("onclick", [this.conf.wins.w[this.conf.winId].cell, this]);
 	}
 	
 	this.unload = function(winClosing) {

@@ -337,7 +337,7 @@ function print_ob_imageinput($objattr,$w,$h,$texto,$rtlalign,$k,$blockdir) {
 					$flags[] = 1; 	// readonly
 					$flags[] = 3; 	// no export
 				}
-				if (isset($objattr['onClick']) && $objattr['onClick']) { $js = $objattr['onClick']; }
+				if (isset($objattr['onclick']) && $objattr['onclick']) { $js = $objattr['onclick']; }
 				else { $js = ''; }
 				$this->SetJSButton( $w, $h, $objattr['fieldname'],  (isset($objattr['value']) ? $objattr['value'] : ''), $js, $objattr['ID'], $objattr['title'], $flags, (isset($objattr['Indexed']) ? $objattr['Indexed'] : false));
 		     }
@@ -377,7 +377,7 @@ function print_ob_button($objattr,$w,$h,$texto,$rtlalign,$k,$blockdir) {
 				}
 				else if (isset($objattr['subtype']) && $objattr['subtype'] == 'BUTTON') {
 					$this->SetFormButtonText( $objattr['value'] );
-					if (isset($objattr['onClick']) && $objattr['onClick']) { $js = $objattr['onClick']; }
+					if (isset($objattr['onclick']) && $objattr['onclick']) { $js = $objattr['onclick']; }
 					else { $js = ''; }
 					$this->SetJSButton( $w, $h, $objattr['fieldname'],  $objattr['value'], $js, 0, $objattr['title'], $flags, false, (isset($objattr['background-col']) ? $objattr['background-col'] : false), (isset($objattr['border-col']) ? $objattr['border-col'] : false), (isset($objattr['noprint']) ? $objattr['noprint'] : false) );
 				}
@@ -1263,7 +1263,7 @@ function _putform_bt( $form, $hPt ) {
 			$temp .= '/TP '.$this->form_button_icon[$form['T']]['pos'].' ';
 			$temp .= '/I '.($cc + $this->mpdf->n).' 0 R ';		// Normal icon
 			$temp .= '/RI '.($cc + $this->mpdf->n).' 0 R ';		// onMouseOver
-			$temp .= '/IX '.($cc + $this->mpdf->n).' 0 R ';		// onClick / onMouseDown
+			$temp .= '/IX '.($cc + $this->mpdf->n).' 0 R ';		// onclick / onMouseDown
 			$temp .= '/IF << /SW /A /S /A /A [0.0 0.0] >> ';	// Icon fit dictionary
 			if ($this->form_button_icon[ $form['T'] ]['Indexed']) { $cc++; }
 			$put_icon = 1;

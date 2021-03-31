@@ -438,7 +438,7 @@ function editar($id)
 		break;
 		case 7:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_fornec').style.display='block';document.getElementById('outros_fornec').style.backgroundColor='white';document.getElementById('outros_fornec').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros_fornec\" type=\"text\" class=\"caixa\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros_fornec\" type=\"text\" class=\"caixa\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		default:
 			$tp_orig .= "<td align=\"left\" ".$width."><input type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('nao_conf').disabled=true;\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label></td>";
@@ -696,7 +696,7 @@ function acoes_complem($id=0)
 						break;
 						
 						case 1:
-							$texto = 'EM&nbsp;ANDAMENTO';
+							$texto = 'EM ANDAMENTO';
 						break;
 						
 						case 2:
@@ -777,7 +777,7 @@ function acoes_complem($id=0)
 		$st = '<select id="status" name="status[]" '.$disable.' class="caixa" onchange="verificar_status_acoes();">';
 		$st .= '<option value="">SELECIONE</option>';
 		$st .= '<option value="0">PENDENTE</option>';
-		$st .= '<option value="1">EM&nbsp;ANDAMENTO</option>';
+		$st .= '<option value="1">EM ANDAMENTO</option>';
 		$st .= '<option value="2">ENCERRADO</option>';
 		$st .= '</select>';
 	
@@ -848,18 +848,18 @@ function arq_anexos($id=0)
 			//permite a exclusao dos anexos ao SGI
 			if(in_array($_SESSION["id_funcionario"],$array_sgi))
 			{
-				$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;arquivo?")){xajax_excluir_arquivo("'.$regs1["id_nao_conformidade_anexo"].'","'.$regs["nome_arquivo"] . '");};>';
+				$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o arquivo?")){xajax_excluir_arquivo("'.$regs1["id_nao_conformidade_anexo"].'","'.$regs["nome_arquivo"] . '");};>';
 			}
 			else
 			{
 				//se coordenador e nao enviada
 				if(in_array($_SESSION["id_funcionario"],$array_func) && $regs1["envio_email"]==2)
 				{
-					$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;arquivo?")){xajax_excluir_arquivo("'.$regs1["id_nao_conformidade_anexo"].'","'.$regs["nome_arquivo"] . '");};>';
+					$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o arquivo?")){xajax_excluir_arquivo("'.$regs1["id_nao_conformidade_anexo"].'","'.$regs["nome_arquivo"] . '");};>';
 				}
 				else
 				{
-					$img = '&nbsp;';
+					$img = ' ';
 				}
 			}
 			
@@ -1283,8 +1283,8 @@ function email($id)
 	
 	$cont0 = $db->array_select[0];
 	
-	$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
-	$sql .= "WHERE empresas.id_empresa_erp = '".$regs["id_cliente"]."' ";
+	$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
+	$sql .= "WHERE empresas.id_empresa = '".$regs["id_cliente"]."' ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 
 	$db->select($sql,'MYSQL',true);
@@ -1298,65 +1298,65 @@ function email($id)
 	
 	$body = "<table cellspacing=\"0\" cellpadding=\"0\" border=\"1\">
 		  <tr>
-			<td colspan=\"8\" align=\"left\"><strong>Documento:</strong>&nbsp;NÃO&nbsp;CONFORMIDADES&nbsp;INTERNAS</td>
+			<td colspan=\"8\" align=\"left\"><strong>Documento:</strong> NÃO CONFORMIDADES INTERNAS</td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\"><strong>Formulário:&nbsp;</strong>".$regs["cod_nao_conformidade"]."&nbsp;</td>
+			<td colspan=\"8\"><strong>Formulário: </strong>".$regs["cod_nao_conformidade"]." </td>
 		  </tr>
 		  <tr>
-			<td colspan=\"3\"><strong>Revisão&nbsp;Nº:</strong>&nbsp;0</td>
-			<td colspan=\"5\"><strong>Data&nbsp;da&nbsp;Emissão:</strong>&nbsp;".date('d/m/Y')."&nbsp;</td>
+			<td colspan=\"3\"><strong>Revisão Nº:</strong> 0</td>
+			<td colspan=\"5\"><strong>Data da Emissão:</strong> ".date('d/m/Y')." </td>
 		  </tr>
 		  <tr>
-			<td colspan=\"3\"><strong>Originador:</strong>&nbsp;".$regs["funcionario"]."</td>
-			<td colspan=\"3\"><strong>Setor:</strong>&nbsp;".$regs["setor"]."</td>
-			<td colspan=\"2\"><strong>Data&nbsp;criação:</strong>&nbsp;".mysql_php($regs["data_criacao"])."</td>
+			<td colspan=\"3\"><strong>Originador:</strong> ".$regs["funcionario"]."</td>
+			<td colspan=\"3\"><strong>Setor:</strong> ".$regs["setor"]."</td>
+			<td colspan=\"2\"><strong>Data criação:</strong> ".mysql_php($regs["data_criacao"])."</td>
 		  </tr>
 		  <tr>
-			<td colspan=\"4\"><strong>OS:</strong>&nbsp;". $os."</td>
-			<td colspan=\"4\"><strong>Status:</strong>&nbsp;". $status ."</td>
+			<td colspan=\"4\"><strong>OS:</strong> ". $os."</td>
+			<td colspan=\"4\"><strong>Status:</strong> ". $status ."</td>
 		  </tr>			  
 		  <tr>
-			<td colspan=\"4\"><strong>Disciplina:</strong>&nbsp;". $cont0["setor"]."</td>
-			<td colspan=\"4\"><strong>Cliente:</strong>&nbsp;". $cont1["empresa"]. " - ".$cont1["unidade"] ."</td>
+			<td colspan=\"4\"><strong>Disciplina:</strong> ". $cont0["setor"]."</td>
+			<td colspan=\"4\"><strong>Cliente:</strong> ". $cont1["empresa"]. " - ".$cont1["unidade"] ."</td>
 		  </tr>
 		  <tr>
-			<td colspan=\"4\"><strong>Procedente:</strong>&nbsp;". $procedente."</td>
-			<td colspan=\"4\"><strong><!-- Plano&nbsp;de&nbsp;Ação&nbsp;Corretiva:</strong>&nbsp;". $cont3["cod_plano_acao"]. " --></td>
+			<td colspan=\"4\"><strong>Procedente:</strong> ". $procedente."</td>
+			<td colspan=\"4\"><strong><!-- Plano de Ação Corretiva:</strong> ". $cont3["cod_plano_acao"]. " --></td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\"><strong>Descrição&nbsp;da&nbsp;não&nbsp;conformidade:</strong></td>
+			<td colspan=\"8\"><strong>Descrição da não conformidade:</strong></td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\">". nl2br($regs["desc_nao_conformidade"]). "&nbsp;</td>
+			<td colspan=\"8\">". nl2br($regs["desc_nao_conformidade"]). " </td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\"><strong>Ação&nbsp;Imediata:</strong></td>
+			<td colspan=\"8\"><strong>Ação Imediata:</strong></td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\">". nl2br($regs["desc_acao_imediata"]). "&nbsp;</td>
+			<td colspan=\"8\">". nl2br($regs["desc_acao_imediata"]). " </td>
 		  </tr>
 		  <tr>
 			<td colspan=\"8\"><strong>Perdas:</strong></td>
 		  </tr>
 		  <tr>
-			<td colspan=\"8\">". nl2br($regs["desc_perdas"]) ."&nbsp;</td>
+			<td colspan=\"8\">". nl2br($regs["desc_perdas"]) ." </td>
 		  </tr>
 		  
 		  <!--
 		  
 		  <tr>
-			<td colspan=\"8\"><strong>Eficácia&nbsp;de&nbsp;Ação&nbsp;Corretiva&nbsp;/&nbsp;Preventiva:</strong></td>
+			<td colspan=\"8\"><strong>Eficácia de Ação Corretiva / Preventiva:</strong></td>
 		  </tr>
 		  
 		  <tr>
-			<td colspan=\"8\">". nl2br($regs["desc_eficacia"]) ."&nbsp;</td>
+			<td colspan=\"8\">". nl2br($regs["desc_eficacia"]) ." </td>
 		  </tr>
 		  
 		  -->
 		  
 		  <tr>		  
-				<td colspan=\"8\"><strong>Ações&nbsp;Complementares:</strong></td>
+				<td colspan=\"8\"><strong>Ações Complementares:</strong></td>
 			  </tr>			  
 			  <tr>
 				<td><strong>Item</strong></td>
@@ -1371,7 +1371,7 @@ function email($id)
 			$sql .= "WHERE planos_acoes_complementos.id_nao_conformidade = '".$id."' ";
 			$sql .= "AND planos_acoes_complementos.plano_acao_complemento_delete = 0 ";
 			$sql .= "AND planos_acoes_complementos.id_funcionario_responsavel = funcionarios.id_funcionario ";
-			$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario";
+			$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 
 			$db->select($sql,'MYSQL',true);
 
@@ -1413,12 +1413,12 @@ function email($id)
 					$texto = explode("|",utf8_decode($regs1["plano_acao"]));
 				
 					$body .= "<tr>
-								<td>".$regs1["item_acao"]."&nbsp;</td>
+								<td>".$regs1["item_acao"]." </td>
 															
 								<td >".implode("<br>\n",$texto)."</td>
-								<td colspan=\"4\">".$regs1["funcionario"]."&nbsp;</td>
-								<td >".mysql_php($regs1["prazo"])."&nbsp;</td>
-								<td >".$status_acao."&nbsp;</td>
+								<td colspan=\"4\">".$regs1["funcionario"]." </td>
+								<td >".mysql_php($regs1["prazo"])." </td>
+								<td >".$status_acao." </td>
 							  </tr>";
 				
 				}			  
@@ -1428,55 +1428,62 @@ function email($id)
 				<td colspan=\"8\"><strong>Observações:</strong></td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\">".nl2br($regs["desc_obs"])."&nbsp;</td>
+				<td colspan=\"8\">".nl2br($regs["desc_obs"])." </td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Verificação&nbsp;da&nbsp;eficácia&nbsp;da(s)&nbsp;ação(ões):</strong></td>
+				<td colspan=\"8\"><strong>Verificação da eficácia da(s) ação(ões):</strong></td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\">".nl2br($regs["desc_encerramento"])."&nbsp;</td>
+				<td colspan=\"8\">".nl2br($regs["desc_encerramento"])." </td>
 			  </tr>
 		  
 		  </table>";
 
-	$mail = new email($params, 'nao_conformidades');
-	
-	$mail->montaCorpoEmail($body);
-	
-	if(!$mail->Send())
+	if(ENVIA_EMAIL)
 	{
-		echo $mail->ErrorInfo;
+
+		$mail = new email($params, 'nao_conformidades');
+		
+		$mail->montaCorpoEmail($body);
+		
+		if(!$mail->Send())
+		{
+			$resposta->addAlert($mail->ErrorInfo);
+		}
+		else
+		{
+			$resposta->addAlert("E-mail enviado aos envolvidos.");
+		}
+
+		$mail->ClearAddresses();
 	}
 	else
 	{
-		//coordenacao ou SGI, status do e-mail
-		if(in_array($_SESSION["id_funcionario"],$array_func) || in_array($_SESSION["id_funcionario"],$array_sgi))
-		{
-			$envio_email = 3;
-		}
-		else
-		{
-			$envio_email = 1;	
-		}
-		
-		$usql = "UPDATE ".DATABASE.".nao_conformidades SET ";
-		$usql .= "envio_email = '".$envio_email."' ";
-		$usql .= "WHERE id_nao_conformidade = '".$regs["id_nao_conformidade"]."' ";
+		$resposta->addScriptCall('modal', $body, '300_650', 'Conteúdo email', 1);
+	}
 
-		$db->update($usql,'MYSQL');
-
-		if($db->erro!='')
-		{
-			$resposta->addAlert($db->erro);
-		}
-		else
-		{			
-			$resposta->addAlert("E-mail enviado aos envolvidos.");
-		}
+	
+	//coordenacao ou SGI, status do e-mail
+	if(in_array($_SESSION["id_funcionario"],$array_func) || in_array($_SESSION["id_funcionario"],$array_sgi))
+	{
+		$envio_email = 3;
+	}
+	else
+	{
+		$envio_email = 1;	
 	}
 	
-	$mail->ClearAddresses();	
-	
+	$usql = "UPDATE ".DATABASE.".nao_conformidades SET ";
+	$usql .= "envio_email = '".$envio_email."' ";
+	$usql .= "WHERE id_nao_conformidade = '".$regs["id_nao_conformidade"]."' ";
+
+	$db->update($usql,'MYSQL');
+
+	if($db->erro!='')
+	{
+		$resposta->addAlert($db->erro);
+	}
+
 	return $resposta;
 }
 
@@ -1489,11 +1496,11 @@ function clientes($id_os)
 	
 	if($id_os!=0)
 	{
-		$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico ";
-		$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND ordem_servico.id_os = '".$id_os."' ";
-		$sql .= "GROUP BY empresas.id_empresa_erp ";
+		$sql .= "GROUP BY empresas.id_empresa ";
 		$sql .= "ORDER BY empresa, unidades.descricao ";
 
 		$db->select($sql,'MYSQL',true);
@@ -1505,7 +1512,7 @@ function clientes($id_os)
 		
 		$cont = $db->array_select[0];
 	
-		$cliente = $cont["id_empresa_erp"];
+		$cliente = $cont["id_empresa"];
 	}
 	else
 	{
@@ -1773,7 +1780,7 @@ function grid(tabela, autoh, height, xml)
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected1);	
 		
-			mygrid.setHeader("&nbsp;,Nome&nbsp;Arquivo,D",
+			mygrid.setHeader(" ,Nome Arquivo,D",
 				null,
 				["text-align:center","text-align:left","text-align:left"]);
 			mygrid.setInitWidths("30,*,80");
@@ -1987,12 +1994,12 @@ foreach ($db->array_select as $cont0)
 	$array_disciplina_output[] =  $cont0["setor"];
 }
 
-$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-$sql .= "GROUP BY empresas.id_empresa_erp ";
+$sql .= "GROUP BY empresas.id_empresa ";
 $sql .= "ORDER BY empresa, unidades.descricao ";
 
 $db->select($sql,'MYSQL',true);
@@ -2004,7 +2011,7 @@ if($db->erro!='')
 
 foreach ($db->array_select as $cont1)
 {
-	$array_cliente_values[] = $cont1["id_empresa_erp"];
+	$array_cliente_values[] = $cont1["id_empresa"];
 	$array_cliente_output[] =  $cont1["empresa"]. " - ".$cont1["unidade"];
 }
 
@@ -2027,14 +2034,14 @@ foreach ($db->array_select as $cont1)
 		
 	if($i%2)
 	{
-		$doc_ref .= "<tr align=\"center\"><td width=\"18%\">&nbsp;</td>";
+		$doc_ref .= "<tr align=\"center\"><td width=\"18%\"> </td>";
 		$width = 'width=370px;';
 	}
 
 	if($cont1["id_tipo_documento"]==5)
 	{
 		$doc_ref .= "<td align=\"left\" ".$width." ><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_tipo_documento"]."\" onclick=\"trocarSufixo('".$cont1['sufixo_codigo']."');document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_documento"]."</label>";
-		$doc_ref .= "&nbsp;&nbsp;<input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" /></td>";
+		$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" /></td>";
 	}
 	else
 	{
@@ -2075,7 +2082,7 @@ foreach ($array_tipo as $cont1)
 		
 	if($i%2)
 	{
-		$tp_orig .= "<tr align=\"center\"><td width=\"18%\">&nbsp;</td>";
+		$tp_orig .= "<tr align=\"center\"><td width=\"18%\"> </td>";
 		$width = 'width=370px;';
 	}
 
@@ -2083,23 +2090,23 @@ foreach ($array_tipo as $cont1)
 	{
 		case 2:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_acidente').style.display='block';document.getElementById('outros_acidente').style.backgroundColor='white';document.getElementById('outros_acidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros_acidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_acidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros_acidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_acidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		case 3:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros').style.display='block';document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		case 4:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_incidente').style.display='block';document.getElementById('outros_incidente').style.backgroundColor='white';document.getElementById('outros_incidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros_incidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_incidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros_incidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_incidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		case 1:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_cliente').style.display='block';document.getElementById('outros_cliente').style.backgroundColor='white';document.getElementById('outros_cliente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros_cliente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_cliente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros_cliente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_cliente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		case 7:
 			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_fornec').style.display='block';document.getElementById('outros_fornec').style.backgroundColor='white';document.getElementById('outros_fornec').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "&nbsp;&nbsp;<input name=\"outros_fornec\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+			$tp_orig .= "  <input name=\"outros_fornec\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
 		break;
 		case 6:
 			

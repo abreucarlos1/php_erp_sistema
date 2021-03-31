@@ -1,8 +1,8 @@
 <?php
 /*
-	  Formul�rio de codigo inteligente de materiais
+	  Formulário de codigo inteligente de materiais
 	  
-	  Criado por Carlos Eduardo M�xim ia
+	  Criado por Carlos Eduardo Máximo
 	  
 	  local/Nome do arquivo:
 	  
@@ -131,7 +131,7 @@ function getAtributos($dados_form, $codigoInteligente = '')
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$html, &$resposta, $itenscodigo)
 		{
-			//$itenscodigo[$i+2], porque os indices 0 3 1 s�o grupo e subgrupo respectivamente
+			//$itenscodigo[$i+2], porque os indices 0 3 1 só grupo e subgrupo respectivamente
 			$htmlReferencias = buscarReferencias($reg['atributo'], $itenscodigo[$i+2], $reg['codigo_sub_grupo']);
 			$resposta->addScript('elementos.push("'.$reg['id_atributo'].'");');
 			
@@ -244,7 +244,7 @@ function inserir_valores_atributo($dados_form)
 	$db = new banco_dados();
 	
 	
-	//Edi��o do item
+	//Edição do item
 	if (!empty($dados_form['idMatriz']))
 	{
 		$usql = "UPDATE materiais_old.matriz_materiais
@@ -254,15 +254,15 @@ function inserir_valores_atributo($dados_form)
 					id_matriz = {$dados_form['idMatriz']}";
 		$db->update($usql, 'MYSQL');
 	}
-	else//Inser��o do item
+	else//Inserção do item
 	{
-		//Se j� existir, alertar o usu�rio
+		//Se já existir, alertar o usuário
 		$sql = "SELECT COUNT(id_atr_sub) TOTAL FROM materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0 AND id_atr_sub = {$dados_form['idAtrSub']}";
 		$db->select($sql, 'MYSQL');
 		
 		$valor = $db->numero_registros;
 			
-		//Quando formos inserir v�rios itens de cada vez
+		//Quando formos inserir vários itens de cada vez
 		$itens = explode("\n",$dados_form['descricaoItem']);
 		
 		$isql = "INSERT INTO
@@ -339,7 +339,7 @@ function atualizatabela($dados_form)
       	ON codAtributo = id_atributo AND a.reg_del = 0
       	ORDER BY ordem ";
 	
-	$arrSimNao = array(0 => 'N�o', 1 => 'Sim');
+	$arrSimNao = array(0 => 'Não', 1 => 'Sim');
 	
 	$count = 0;
 	$db->select($sql, 'MYSQL',
@@ -353,10 +353,10 @@ function atualizatabela($dados_form)
 				
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', 'Editar valores do atributo!');
-					$xml->text("<span class=\'icone icone-detalhes cursor\' onclick=xajax_listaValoresAtributo(".$reg['id_atr_sub'].",\'".str_replace(' ', '&nbsp;', $reg['atributo'])."\');></span>");
+					$xml->text("<span class=\'icone icone-detalhes cursor\' onclick=xajax_listaValoresAtributo(".$reg['id_atr_sub'].",\'".str_replace(' ', ' ', $reg['atributo'])."\');></span>");
 				$xml->endElement();
 				
-				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_atr_sub'].");};></span>");
+				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_atr_sub'].");};></span>");
 			$xml->endElement();
 			
 			$count++;
@@ -444,10 +444,10 @@ function excluir($id)
 	$db->update($usql, 'MYSQL'); 
 	
 	if ($db->erro != '')
-		$resposta->addAlert('N�o foi poss�vel excluir este �tem!');
+		$resposta->addAlert('Não foi possível excluir este item!');
 	else
 	{
-		$resposta->addAlert('Item exclu�do corretamente!');
+		$resposta->addAlert('Item excluído corretamente!');
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
 	}
 		
@@ -474,10 +474,10 @@ function excluir_valor($id, $idAtrSub)
 	$db->update($usql, 'MYSQL'); 
 	
 	if ($db->erro != '')
-		$resposta->addAlert('N�o foi poss�vel excluir este �tem!');
+		$resposta->addAlert('Não foi possível excluir este item!');
 	else
 	{
-		$resposta->addAlert('Item exclu�do corretamente!');
+		$resposta->addAlert('Item excluído corretamente!');
 		$resposta->addScript("xajax_atualizatabela_valores({$idAtrSub});");
 	}
 		
@@ -527,7 +527,7 @@ function atualizatabela_valores($idAtrSub)
 				$xml->writeElement('cell', $reg['id_atr_sub']);
 				$xml->writeElement('cell', trim($reg['valor']));
 				$xml->writeElement('cell', trim($reg['label']));
-				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir_valor(".$reg['id_matriz'].",".$idAtrSub.");};></span>");
+				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir_valor(".$reg['id_matriz'].",".$idAtrSub.");};></span>");
 			$xml->endElement();			
 		}
 	);
@@ -598,7 +598,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'codigos':
-			mygrid.setHeader("ORDEM, Atributo, Compoe C�digo, E, D");
+			mygrid.setHeader("ORDEM, Atributo, Compoe Código, E, D");
 			mygrid.setInitWidths("60,*,120, 50,50");
 			mygrid.setColAlign("left,left,left,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");
@@ -615,7 +615,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowSelect",carregarUnidadeSelecionada);
 		break;
 		case 'valoresAtributo':
-			mygrid.setHeader("ID, valor, Descri��o, D");
+			mygrid.setHeader("ID, valor, Descrição, D");
 			mygrid.setInitWidths("50,50,*,50");
 			mygrid.setColAlign("left,left,left,center");
 			mygrid.setColTypes("ro,ro,ro,ro");

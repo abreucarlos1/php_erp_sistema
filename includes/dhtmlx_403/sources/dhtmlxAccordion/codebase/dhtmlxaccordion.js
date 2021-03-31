@@ -1137,7 +1137,7 @@ dhtmlXAccordionCell.prototype._initDocking = function() {
 			// dock button
 			w1.addUserButton("dock", 99, "Dock");
 			w1.button("dock").show();
-			w1.button("dock").attachEvent("onClick", this._doOnDockClick);
+			w1.button("dock").attachEvent("onclick", this._doOnDockClick);
 			
 			// text update only first time
 			w1.setText(this.getText());

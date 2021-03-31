@@ -41,7 +41,7 @@
 								</tr>
 							</table>
 						</div>						
-						<div id="div_lista_os" style="width: 100%;">&nbsp;</div><br />
+						<div id="div_lista_os" style="width: 100%;"> </div><br />
 						<!-- smarty>if !$acessoTotal</smarty-->
 							<input name="btnaprovar" disabled="disabled" type="button" class="class_botao" id="btnaprovar" onclick="xajax_aprovar(xajax.getFormValues('frm'));" value="Aprovar" />
 						<!-- smarty>/if</smarty-->

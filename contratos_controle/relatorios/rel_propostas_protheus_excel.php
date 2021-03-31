@@ -157,11 +157,11 @@ foreach($array_projetos as $regs0)
 	switch ($regs0["AF1_VENDED"])
 	{
 		case 1:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Leonardo Oca';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 1';
 		break;
 		
 		case 2:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Fl�vio Freitas';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 2';
 		break;
 		
 		case 3:
@@ -306,7 +306,7 @@ foreach($array_projetos as $regs0)
 		
 		$array_custo_tot[$regs0["AF1_ORCAME"]] += $regs7["TOTALC"];
 		
-		//usado para montar o cabe�alho das disciplinas x valor		
+		//usado para montar o cabeçalho das disciplinas x valor		
 		if(!array_key_exists($regs7["AF2_GRPCOM"],$array_disciplinas_valor))
 		{
 			$array_disciplinas_valor[$regs7["AF2_GRPCOM"]] = $index_coluna_valor;
@@ -353,7 +353,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="planilha_vendas_'.date('Ymd').'.xlsx"');
 header('Cache-Control: max-age=0');
@@ -375,7 +375,7 @@ $num_colunas = alfa2num('AF');
 //salta as colunas totalizadoras
 $num_colunas += count($array_disciplinas_valor)+3;
 
-//acrescenta as colunas conforme disciplinas (Esfor�o)
+//acrescenta as colunas conforme disciplinas (Esforço)
 $objPHPExcel->getActiveSheet()->insertNewColumnBefore(num2alfa($num_colunas),count($array_disciplinas_valor));
 
 //acrescenta linhas conforme quantidade de projetos
@@ -453,7 +453,7 @@ foreach($array_proj as $projeto=>$descricao)
 		
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+2+$index, $linha, $array_custo[$projeto][$disciplinas]);
 		
-		//esfor�o
+		//esforço
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+$num_colunas+$i, 3, iconv('ISO-8859-1', 'UTF-8',$disciplinas));
 		
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+$num_colunas+$i, $linha, $array_horas[$projeto][$disciplinas]);

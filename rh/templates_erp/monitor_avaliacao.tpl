@@ -13,11 +13,11 @@
 					<table width="100%" border="0">
 					</tr>
 						<tr>
-							<td valign="middle"><input name="btnextras" id="btnextras" type="button" class="class_botao" value="Mais Opções" onClick="xajax_modalLiberarAvaliacaoAvulso();" />
+							<td valign="middle"><input name="btnextras" id="btnextras" type="button" class="class_botao" value="Mais OpÃ§Ãµes" onclick="xajax_modalLiberarAvaliacaoAvulso();" />
 							</td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 							</td>
 						</tr>
 					</table>
@@ -25,7 +25,7 @@
 				<td>
 					<table>
 						<tr>
-							<td><label for="selAvaId" class="labels">Avaliação*</label><br />
+							<td><label for="selAvaId" class="labels">AvaliaÃ§Ã£o*</label><br />
 								<select id="selAvaId" name="selAvaId" class="caixa" onchange="if (this.value!=''){xajax_atualizatabela(this.value);xajax_atualizatabelaCandidatos(this.value);}">
 									<smarty>html_options values=$option_ava_values output=$option_ava_output</smarty>
 								</select>
@@ -40,12 +40,12 @@
 			<div id="avaliacao" width="100px" name="Colaboradores">
 				<div id="div_monitor_avaliacao" style="width: 100%;">
 					<input type="hidden" id="avaId" name="avaId" value="1" />					
-					<div id="div_monitor"><h3 style="text-align:center;font-family: arial, verdana;">Nenhuma avaliação selecionada</h3></div>
+					<div id="div_monitor"><h3 style="text-align:center;font-family: arial, verdana;">Nenhuma avaliaÃ§Ã£o selecionada</h3></div>
 				</div>
 			</div>
 			<div id="avaliacao_candidatos" width="100px" name="Candidatos">
 				<div id="div_monitor_avaliacao_candidatos" style="width: 100%;">
-					<div id="div_monitor_candidatos"><h3 style="text-align:center;font-family: arial, verdana;">Nenhuma avaliação selecionada</h3></div>
+					<div id="div_monitor_candidatos"><h3 style="text-align:center;font-family: arial, verdana;">Nenhuma avaliaÃ§Ã£o selecionada</h3></div>
 				</div>
 			</div>
 		</div>

@@ -61,7 +61,7 @@
 		) as $sInclude)
 		include $sRoot . $sControls . $sInclude;
 	
-	$litNonBreakSpace = new clsLiteral('&nbsp;');
+	$litNonBreakSpace = new clsLiteral(' ');
 	
 	$divPage = new clsDiv();
 

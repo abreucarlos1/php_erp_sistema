@@ -82,7 +82,7 @@ function atualizatabela($filtro, $id_usuario)
 				*
 			FROM
 				".DATABASE.".usuarios
-				JOIN (SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcionarios ON usuarios.id_funcionario = funcionarios.id_funcionario
+				JOIN (SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcionarios ON usuarios.id_usuario = funcionarios.id_usuario
 				JOIN (SELECT id_permissao, id_usuario, permissao, id_sub_modulo FROM ".DATABASE.".permissoes WHERE permissoes.reg_del = 0) permissoes ON permissoes.id_usuario = usuarios.id_usuario
 				JOIN (SELECT * FROM ti.sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulos on sub_modulos.id_sub_modulo = permissoes.id_sub_modulo
 				LEFT JOIN (SELECT id_sub_modulo, sub_modulo sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.reg_del = 0) sub_modulo_pai on sub_modulo_pai.id_sub_modulo = sub_modulos.id_sub_modulo_pai
@@ -148,7 +148,7 @@ function atualizatabela($filtro, $id_usuario)
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['E']['COR'].'">'.$array_permissao['E']['TEXTO'].'</label>');
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['A']['COR'].'">'.$array_permissao['A']['TEXTO'].'</label>');
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['P']['COR'].'">'.$array_permissao['P']['TEXTO'].'</label>');
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$cont_desp["id_permissao"].'");}>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão?")){xajax_excluir("'.$cont_desp["id_permissao"].'");}>');
 		$xml->endElement();		
 	}
 
@@ -559,7 +559,7 @@ function verificaPermitidos($modulo)
 			$xml->writeElement('cell', $array_permissao['E']);
 			$xml->writeElement('cell', $array_permissao['A']);
 			$xml->writeElement('cell', $array_permissao['P']);
-			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
+			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma a exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
 		$xml->endElement();
 	}
 	
@@ -766,7 +766,7 @@ foreach($db->array_select as $regs)
 }
 
 $sql = "SELECT funcionario, id_usuario FROM ".DATABASE.".funcionarios ";
-$sql .= "JOIN ".DATABASE.".usuarios ON funcionarios.id_funcionario = usuarios.id_funcionario AND usuarios.reg_del = 0 ";
+$sql .= "JOIN ".DATABASE.".usuarios ON usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0 ";
 $sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "ORDER BY funcionario ";

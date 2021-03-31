@@ -47,7 +47,7 @@ function mostra_dadosfat(div)
 		
 		//Define as propriedades do <DIV> do objeto obj_dadosfat
 		obj_dadosfat.id = 'div_dadosfat';
-		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR>&nbsp;<BR>';
+		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR> <BR>';
 		obj_dadosfat.style.background = "#EEEEEE";
 		obj_dadosfat.style.position = "absolute";
 		obj_dadosfat.style.left = '-50px';
@@ -294,7 +294,7 @@ if($db->numero_registros>0)
 		{
 			$conteudo_d .= '<div class="tit">INFORMAÇÕES CLT</div>';
 			
-			//f�rias
+			//férias
 			if($fechamento_folha["valor_ferias"]>0)
 			{		
 				$conteudo_d .= '<div class="label1">Férias:</div>';
@@ -303,7 +303,7 @@ if($db->numero_registros>0)
 				$conteudo_d .= '</div>';
 			}
 			
-			//13�
+			//13º
 			if($fechamento_folha["valor_decimo_terceiro"]>0)
 			{
 				$conteudo_d .= '<div class="label1">Décimo Terceiro:</div>';
@@ -312,7 +312,7 @@ if($db->numero_registros>0)
 				$conteudo_d .= '</div>';
 			}
 		
-			//Rescis�o
+			//Rescisão
 			if($fechamento_folha["valor_rescisao"]>0)
 			{	
 				$conteudo_d .= '<div class="label1">Rescisão:</div>';
@@ -371,11 +371,11 @@ if($db->numero_registros>0)
 	
 	$data_formada = mktime(0,0,0,$data[1]+1,1,$data[0]);//mes seguinte ao fechamento
 	
-	//data emiss�o  
+	//data emissão  
 	$conteudo_n .= '<div class="label5">Data de Emissão:</div>';
 	$conteudo_n .= '<div class="label2"><font color=red><strong>'.date('d/m/Y',$data_formada).'</strong></font></div>';
 	
-	//Bot�o Dados Devemada
+	//Botão Dados  
 	$conteudo_n .= '<div id="div" style="position:relative; background-color:#CCC; border-style:outset; border-width:1px; text-align:center; cursor:hand;  margin-top: 1px; margin-bottom: 10px;" onclick="mostra_dadosfat(this);">DADOS P/ FATURAMENTO</div>';
 	
 	//DADOS DE IMPOSTOS
@@ -389,8 +389,8 @@ if($db->numero_registros>0)
 		$conteudo_n .= formatavalor($fechamento_folha["valor_imposto"]);
 		$conteudo_n .= '</div>';
 		
-		$conteudo_n .= '<div>&nbsp;</div>';
-		$conteudo_n .= '<div>&nbsp;</div>';			
+		$conteudo_n .= '<div> </div>';
+		$conteudo_n .= '<div> </div>';			
 	}
 	
 	if($fechamento_folha["valor_pcc"]>0)

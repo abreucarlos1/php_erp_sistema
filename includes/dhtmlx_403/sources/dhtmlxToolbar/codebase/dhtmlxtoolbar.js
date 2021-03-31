@@ -980,7 +980,7 @@ dhtmlXToolbarObject.prototype._buttonObject = function(that, id, data) {
 		// event
 		var id = this.idd.replace(that.idPrefix,"");
 		if (this.extAction) try {window[this.extAction](id);} catch(e){};
-		if(that&&that.callEvent) that.callEvent("onClick", [id]);
+		if(that&&that.callEvent) that.callEvent("onclick", [id]);
 	}
 	
 	this.obj[window.dhx4.isIPad?"ontouchstart":"onmousedown"] = function(e) {
@@ -998,7 +998,7 @@ dhtmlXToolbarObject.prototype._buttonObject = function(that, id, data) {
 		if (that.anyUsed != "none") { if (that.anyUsed != this.idd) return; }
 		var t = that.anyUsed;
 		this._doOnMouseUp();
-		if (window.dhx4.isIPad && t != "none") that.callEvent("onClick", [this.idd.replace(that.idPrefix,"")]);
+		if (window.dhx4.isIPad && t != "none") that.callEvent("onclick", [this.idd.replace(that.idPrefix,"")]);
 	}
 	if (window.dhx4.isIPad) {
 		this.obj.ontouchmove = function(e) {
@@ -1079,7 +1079,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 	if (this.mode == "select") {
 		this.openAll = true;
 		this.renderSelect = false;
-		if (!data.text||data.text.length==0) data.text = "&nbsp;"
+		if (!data.text||data.text.length==0) data.text = " "
 	} else {
 		this.openAll = (window.dhx4.s2b(data.openAll)==true);
 		this.renderSelect = (data.renderSelect == null ? true : window.dhx4.s2b(data.renderSelect));
@@ -1129,7 +1129,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 	this.arw = document.createElement("DIV");
 	this.arw.className = "dhx_toolbar_arw dhxtoolbar_btn_"+(this.state?"def":"dis");
 	this.arw.style.display = this.obj.style.display;
-	this.arw.innerHTML = "<div class='arwimg'>&nbsp;</div>";
+	this.arw.innerHTML = "<div class='arwimg'> </div>";
 	
 	this.arw.title = this.obj.title;
 	this.arw.onselectstart = function(e) { e = e||event; if (e.preventDefault) e.preventDefault(); else e.returnValue = false; }
@@ -1169,7 +1169,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 			// event
 			var id = self.obj.idd.replace(that.idPrefix,"");
 			if (self.obj.extAction) try {window[self.obj.extAction](id);} catch(e){};
-			that.callEvent("onClick", [id]);
+			that.callEvent("onclick", [id]);
 		}
 		this.obj[window.dhx4.isIPad?"ontouchstart":"onmousedown"] = function(e) {
 			e = e||event;
@@ -1189,7 +1189,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 			self.arw.className = String(self.obj.renderAs).replace("btn","arw");
 			if (window.dhx4.isIPad && self.callEvent) {
 				var id = self.obj.idd.replace(that.idPrefix,"");
-				that.callEvent("onClick", [id]);
+				that.callEvent("onclick", [id]);
 			}
 		}
 		
@@ -1396,7 +1396,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 			this.obj.td_a.innerHTML = "<img class='btn_sel_img' src='"+that.conf.icons_path+data.img+"' border='0'>";
 			this.obj.tr._img = data.img;
 		} else {
-			this.obj.td_a.innerHTML = "&nbsp;";
+			this.obj.td_a.innerHTML = " ";
 		}
 		
 		// text
@@ -1443,7 +1443,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 			// event
 			var id = this.idd.replace(that.idPrefix,"");
 			if (this.extAction) try {window[this.extAction](id);} catch(e){};
-			that.callEvent("onClick", [id]);
+			that.callEvent("onclick", [id]);
 		}		
 		self._listOptions[id] = this.obj;
 		
@@ -1674,7 +1674,7 @@ dhtmlXToolbarObject.prototype._buttonSelectObject = function(that, id, data) {
 		if (!this._isListButton(id)) return;
 		var td = this._listOptions[id].tr.childNodes[(that.rtl?1:0)];
 		while (td.childNodes.length > 0) td.removeChild(td.childNodes[0]);
-		td.innerHTML = "&nbsp;";
+		td.innerHTML = " ";
 		td = null;
 	}
 	// new engine

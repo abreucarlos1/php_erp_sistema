@@ -47,7 +47,7 @@ FROM
 	".DATABASE.".ordem_servico a
 	JOIN ".DATABASE.".arquivo_morto_aprovadas b ON b.reg_del = 0 AND b.id_os = a.id_os
     JOIN ".DATABASE.".funcionarios f ON f.reg_del = 0 AND f.id_funcionario = a.id_cod_coord ".$filtroCoord."
-    JOIN ".DATABASE.".empresas e ON e.reg_del = 0 AND e.id_empresa_erp = a.id_empresa_erp
+    JOIN ".DATABASE.".empresas e ON e.reg_del = 0 AND e.id_empresa = a.id_empresa
     JOIN (
 		SELECT id_os, MAX(data_emissao) ultima_emissao FROM ".DATABASE.".grd g1 
 		JOIN ".DATABASE.".grd_versoes gv ON gv.id_grd = g1.id_grd AND gv.reg_del = 0

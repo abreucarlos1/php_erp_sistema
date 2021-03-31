@@ -8,12 +8,12 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
-          <td width="132" rowspan="2" >&nbsp;</td>
-          <td colspan="2">&nbsp;</td>
-          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td width="132" rowspan="2" > </td>
+          <td colspan="2"> </td>
+          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>        
         <tr>
           <td colspan="2" valign="top">
@@ -26,28 +26,28 @@
 					<table width="63%" border="0">
 						<tr>
 							<td width="18%" align="right">
-									<input name="intervalo" id="intervalo[]" type="radio" value="0" checked="checked" onClick="xajax.$('periodo').style.display='none';" /></td>
+									<input name="intervalo" id="intervalo[]" type="radio" value="0" checked="checked" onclick="xajax.$('periodo').style.display='none';" /></td>
 							<td width="82%" align="left"><label class="labels">TOTAL</label></td>
 						</tr>
 						<tr>
 							<td align="right">
-									<input name="intervalo" id="intervalo[]" type="radio" value="1" onClick="xajax.$('periodo').style.display='inline';xajax.$('dataini').focus();" /></td>
+									<input name="intervalo" id="intervalo[]" type="radio" value="1" onclick="xajax.$('periodo').style.display='inline';xajax.$('dataini').focus();" /></td>
 							<td align="left"><label class="labels">PERÍODO</label></td>
 						</tr>
 					</table></td>
 					<td width="28%"><div id="periodo" style="display:none">
 						<table width="100%" border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td width="27%" align="right"><label class="labels">Data&nbsp;inicial</label></td>
+								<td width="27%" align="right"><label class="labels">Data inicial</label></td>
 								<td width="73%" align="left"><input name="dataini" type="text" class="caixa" id="dataini" size="12"  onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" /></td>
 							</tr>
 							<tr>
-								<td align="right"><label class="labels">Data&nbsp;final</label></td>
+								<td align="right"><label class="labels">Data final</label></td>
 								<td align="left"><input name="datafim" type="text" class="caixa" id="datafim" size="12"  onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'escolhacoord', 10);"  /></td>
 							</tr>
 						</table>
 					</div></td>
-					<td width="47%">&nbsp;</td>
+					<td width="47%"> </td>
 				</tr>
 				<tr>
 					<td colspan="3" align="left"><label class="labels">COORDENADOR</label></td>
@@ -68,7 +68,7 @@
 						</select>					</td>
 				</tr>
 				<tr>
-				  <td colspan="3">&nbsp;</td>
+				  <td colspan="3"> </td>
 			  </tr>
 				<tr>
 				  <td colspan="3" valign="top"><input type="radio" name="chk_p_atividade" id="chk_p_atividade" checked="checked" onclick="xajax.$('frm_rel').action = '../planejamento/rel_acumulado_os_status.php';"><label class="labels">Agrupar por Cargo / Calcular horas por Cargo</label></td>

@@ -16,7 +16,7 @@
 	//{
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	
 	$cont = $db->select($sql,'MYSQL');

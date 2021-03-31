@@ -12,7 +12,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 							</td>
 						</tr>
 					</table>
@@ -20,7 +20,7 @@
 				<td width="100%" class="espacamento">
 					<table width="100%">
 						<tr>
-							<td><label for="selSupId" class="labels">Respons·vel*</label><br />
+							<td><label for="selSupId" class="labels">Respons√°vel*</label><br />
                             <select id="selSupId" name="selSupId" class="caixa" onchange="xajax_getFuncionarios(this.value);" onkeypress="return keySort(this);"></select>
                             </td>
 						</tr>
@@ -34,7 +34,7 @@
 				</td>
 			</tr>
 		</table>		
-		<div id="div_perguntas" style="width:100%">&nbsp;</div>		
+		<div id="div_perguntas" style="width:100%"> </div>		
 	</form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

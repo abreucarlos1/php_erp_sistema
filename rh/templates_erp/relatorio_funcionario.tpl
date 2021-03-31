@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÛrio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat√≥rio"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -19,22 +19,22 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td colspan="9"><label class="labels"><strong>NIVEL&nbsp;ATUA&Ccedil;&Atilde;O</strong></label></td>
+					<td colspan="9"><label class="labels"><strong>NIVEL ATUA√á√ÉO</strong></label></td>
 				</tr>
 				<tr>
-				  <td width="11%"><label class="labels">ADMINISTRA«√O</label><br />
+				  <td width="11%"><label class="labels">ADMINISTRA√á√ÉO</label><br />
 			      <input type="checkbox" name="chk_1" id="chk_1" value="A" checked="checked" />
 				  </td>
-				  <td width="7%"><label class="labels">DIRE«√O</label><br />
+				  <td width="7%"><label class="labels">DIRE√á√ÉO</label><br />
                   <input type="checkbox" name="chk_2" id="chk_2" value="D" checked="checked" />
 				  </td>
-				  <td width="11%"><label class="labels">COORDENA«√O</label><br />
+				  <td width="11%"><label class="labels">COORDENA√á√ÉO</label><br />
 			      <input type="checkbox" name="chk_3" id="chk_3" value="C" checked="checked" />
 				  </td>
-				  <td width="9%"><label class="labels">SUPERVIS√O</label><br />
+				  <td width="9%"><label class="labels">SUPERVIS√ÉO</label><br />
 			      <input type="checkbox" name="chk_4" id="chk_4" value="S" checked="checked" />
 				  </td>
-				  <td width="8%"><label class="labels">GER NCIA</label><br />
+				  <td width="8%"><label class="labels">GER√äNCIA</label><br />
 			      <input type="checkbox" name="chk_5" id="chk_5" value="G" checked="checked" />
 				  </td>
 				  <td width="9%"><label class="labels">EXECUTANTE</label><br />
@@ -45,12 +45,12 @@
 				  </td>
 			</tr>
 				<tr>
-					<td colspan="9"><label for="situacao" class="labels">SITUA&Ccedil;&Atilde;O</label><br />
+					<td colspan="9"><label for="situacao" class="labels">SITUA√á√ÉO</label><br />
 					<select name="situacao" class="caixa" id="situacao" onkeypress="return keySort(this);" >
                       <option value="">TODOS</option>
                       <option value="ATIVO">ATIVO</option>
-                      <option value="FECHAMENTO FOLHA">FECHAMENTO FOLHA / AVISO PR&Eacute;VIO</option>
-                      <option value="FERIAS">EM F&Eacute;RIAS</option>
+                      <option value="FECHAMENTO FOLHA">FECHAMENTO FOLHA / AVISO PR√âVIO</option>
+                      <option value="FERIAS">EM F√âRIAS</option>
                       <option value="DESCANSO">EM DESCANSO</option>
                       <option value="DESLIGADO">DESLIGADO</option>
                       <option value="AFASTADO">AFASTADO</option>
@@ -62,12 +62,12 @@
 					<select name="tipo_contrato" class="caixa" id="tipo_contrato" onkeypress="return keySort(this);">
                     <option value="" selected="selected">TODOS</option>
                     <option value="CLT">CLT</option>
-                    <option value="EST">ESTAGI&Aacute;RIO</option>
+                    <option value="EST">ESTAGI√ÅRIO</option>
                     <option value="SC">SOCIEDADE CIVIL</option>
                     <option value="SC+CLT">SOCIEDADE CIVIL + CLT</option>
                     <option value="SC+MENS">SOCIEDADE CIVIL (MENSALISTA)</option>
                     <option value="SC+CLT+MENS">SOCIEDADE CIVIL + CLT (MENSALISTA)</option>
-                    <option value="SOCIO">S&Oacute;CIO</option>
+                    <option value="SOCIO">S√ìCIO</option>
                   </select>
                   </td>
             </tr>

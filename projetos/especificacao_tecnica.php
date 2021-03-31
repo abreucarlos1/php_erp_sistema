@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de Especifica��o T�cnica
+		Formulário de Especificação Técnica
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao_tecnica.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016		
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016		
 */
 
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -31,12 +31,12 @@ include ("../includes/tools.inc.php");
 $db = new banco_dados;
 
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
-	// Arquivo de Inclusão de conex�o com o banco
+	// Arquivo de Inclusão de conexão com o banco
 	
-	//Executa o comando DELETE onde o id � enviado via javascript
+	//Executa o comando DELETE onde o id é enviado via javascript
 	$dsql = "DELETE FROM Projetos.especificacao_tecnica WHERE id_especificacao_tecnica = '".$_GET["id_componente"]."' ";
 	
 	$db->delete($dsql,'MYSQL');
@@ -48,19 +48,19 @@ if ($_GET["acao"]=="deletar")
 	?>
 	<script>
 		// Mostra mensagem de alerta e re-envia a pagina para a Atualização da tela
-		alert('Expecifica��o exclu�da com sucesso.');
+		alert('Expecificação excluída com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar_espec':
 	
-	// Seleciona os m�dulos cadastrados
+	// Seleciona os módulos cadastrados
 	$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes WHERE id_especificacao_padrao='" . $_POST["id_especificacao_padrao"] . "' ";
 	
 	$regis = $db->select($sql,'MYSQL');
@@ -73,19 +73,19 @@ switch ($_POST["acao"])
 	
 	while ($cont_regs = mysqli_fetch_array($regis))
 		{
-			$incsql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
-			$incsql .= "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
-			$incsql .= "VALUES ('". $_POST["id_especificacao_tecnica"]. "', ";
-			$incsql .= " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
-			$incsql .= " '". $_POST[$cont_regs["id_especificacao_detalhe"]] ."') ";
+			$isql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
+			$isql .= "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
+			$isql .= "VALUES ('". $_POST["id_especificacao_tecnica"]. "', ";
+			$isql .= " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
+			$isql .= " '". $_POST[$cont_regs["id_especificacao_detalhe"]] ."') ";
 			//Carrega os registros
-			$registro = $db->insert($incsql,'MYSQL');		
+			$registro = $db->insert($isql,'MYSQL');		
 		}
 	?>
 	<script>
-		alert('Especifica��o alterada com sucesso.');
+		alert('Especificação alterada com sucesso.');
 	</script>
-	<?
+	<?php
 
 	break;	
 
@@ -94,20 +94,20 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . ESPECIFICA��O T�CNICA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"> </script> 
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script language="javascript">
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -143,18 +143,18 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 <tr>
 
 <td>
 <form name="espec_tec" method="post" action="<?= $PHP_SELF ?>">
-<?
+<?php
 
-// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 // para eventual Atualização
 
  if ($_GET["acao"]=='editar')
@@ -162,13 +162,13 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 
  ?>	
 
-<!-- MODIFICA��O AQUI-->
+<!-- MODIFICAÇÃO AQUI-->
 
 	<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 	<table width="100%" cellpadding="0" cellspacing="0" border=0>
 		<tr class="kks_nivel1">
 		  <td colspan="4"><div align="left">
-		    <?	
+		    <?php	
 				
 				/*
 				$sql = "SELECT * FROM dispositivos, funcao, tipo, especificacao_padrao ";
@@ -247,20 +247,20 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 				echo $componentes["nr_area"] . " - " .  $processo . $componentes["dispositivo"]." - ". $nrmalha.$nrseq . $modificador." / ".$componentes["ds_dispositivo"]." ". $componentes["ds_funcao"] . " " . $componentes["ds_tipo"];
 			?>
 </div></td>
-		  <td>&nbsp;</td>
+		  <td> </td>
 		  </tr>
 		<tr>
-		  <td width="8%" class="cabecalho_tabela">SEQU&Ecirc;NCIA</td>
-		  <td width="29%" class="cabecalho_tabela">T�PICO</td>
-		  <td width="36%" class="cabecalho_tabela">VARIAVEL</td>
-		  <td width="21%"  class="cabecalho_tabela">CONTE�DO</td>
-		  <td width="6%" class="cabecalho_tabela">&nbsp;</td>
+		  <td width="8%" class="cabecalho_tabela">SEQUÊNCIA</td>
+		  <td width="29%" class="cabecalho_tabela">TÓPICO</td>
+		  <td width="36%" class="cabecalho_tabela">VARIÁVEL</td>
+		  <td width="21%"  class="cabecalho_tabela">CONTEÚDO</td>
+		  <td width="6%" class="cabecalho_tabela"> </td>
 		</tr>
 	</table>
 	</div>
 	<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 	  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-		<?
+		<?php
 			
 			$sql = "SELECT * FROM Projetos.especificacao_tecnica_detalhes, Projetos.especificacao_padrao_detalhes ";
 			$sql .= "WHERE especificacao_padrao_detalhes.id_especificacao_detalhe = especificacao_tecnica_detalhes.id_especificacao_detalhe ";
@@ -319,50 +319,50 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 				  <td width="27%" class="corpo_tabela" align="center">
 				  <input name="<?= $det["id_especificacao_detalhe"] ?>" id="<?= $det["id_especificacao_detalhe"] ?>" type="text" class="txt_boxcap" value='<?= $det["conteudo"] ?>' size="50"></td>
 				</tr>
-				<?
+				<?php
 			}		
 			
-			// Libera a mem�ria
+			// Libera a memória
 				?>
 	  </table>
 	</div>
 	  <div id="alterar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 	  <table width="100%" class="corpo_tabela">
 	  <tr>
-	    <td class="label1">&nbsp;</td>
+	    <td class="label1"> </td>
 	    <td class="label1"><input type="hidden" name="id_especificacao_padrao" id="id_especificacao_padrao" value="<?= $_GET["id_especificacao_padrao"] ?>">
           <input type="hidden" name="id_especificacao_tecnica" id="id_especificacao_tecnica" value="<?= $_GET["id_especificacao_tecnica"] ?>">
           <input type="hidden" name="acao" id="acao" value="salvar_espec">
-          <input name="Submit" type="submit" class="btn" value="ALTERAR">
-          <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();"></td>
+          <input name="submit" type="submit" class="btn" value="ALTERAR">
+          <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();"></td>
 	    </tr>
 	  <tr>
-	    <td width="1%" class="label1">&nbsp;</td>
-	    <td width="23" class="label1">&nbsp;</td>
+	    <td width="1%" class="label1"> </td>
+	    <td width="23" class="label1"> </td>
 	    </tr>
 	</table>	
 	</div>
 
 
 
- <?
+ <?php
 
  }
 else
 {
   ?>
-<!-- MODIFICA��O AQUI -->
+<!-- MODIFICAÇÃO AQUI -->
 
 <div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 <table width="100%" cellpadding="0" cellspacing="0" border=0 class="cabecalho_tabela">
     <tr>
       <td width="25%" class="cabecalho_tabela"><div align="center">TAG</div></td>
-      <td width="29%" class="cabecalho_tabela">SERVI&Ccedil;O</td>
+      <td width="29%" class="cabecalho_tabela">SERVIÇO</td>
       <td width="33%" class="cabecalho_tabela"><div align="center">COMPONENTE</div></td>
       <!-- <td width="8%" class="cabecalho_tabela">V</td> -->
 	  <td width="5%" class="cabecalho_tabela">E</td>
       <td width="4%" class="cabecalho_tabela">D</td>
-	  <td width="4%" class="cabecalho_tabela">&nbsp;</td>
+	  <td width="4%" class="cabecalho_tabela"> </td>
     </tr>
 </table>
 
@@ -370,7 +370,7 @@ else
 
 <div id="tbbody" style="position:relative; width:100%; height:263px; z-index:2; overflow-y:scroll; overflow-x:hidden;">  
 <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela" border=0>
-	<?
+	<?php
 		
 		$sql = "SELECT * FROM Projetos.malhas, Projetos.subsistema, Projetos.area, Projetos.dispositivos, Projetos.componentes, Projetos.especificacao_tecnica, Projetos.especificacao_padrao, Projetos.tipo, Projetos.processo, Projetos.funcao, Projetos.locais ";
 		$sql .= "WHERE especificacao_tecnica.id_especificacao_padrao = especificacao_padrao.id_especificacao_padrao ";
@@ -459,11 +459,11 @@ else
 			    </div></td>
 			  <td width="34%" class="corpo_tabela"><div align="center"><?= $componentes["ds_dispositivo"] ."  " . $componentes["ds_funcao"] . " " . $componentes["ds_tipo"]    ?></div><div align="center"></div></td>
 			  <td width="6%" class="corpo_tabela"><div align="center">
-		  		<a href="#" onClick="editar('<?= $componentes["id_especificacao_padrao"] ?>','<?= $componentes["id_especificacao_tecnica"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a></div>			  </td>
+		  		<a href="#" onclick="editar('<?= $componentes["id_especificacao_padrao"] ?>','<?= $componentes["id_especificacao_tecnica"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a></div>			  </td>
 			  <td width="6%" class="corpo_tabela"><div align="center">
-		  		<a href="#" onClick="excluir('<?= $componentes["id_especificacao_tecnica"] ?>','<?= $componentes["ds_dispositivo"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a></div>			  </td>
+		  		<a href="#" onclick="excluir('<?= $componentes["id_especificacao_tecnica"] ?>','<?= $componentes["ds_dispositivo"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a></div>			  </td>
     		</tr>
-			<?
+			<?php
 		}
 		
 		
@@ -473,12 +473,12 @@ else
 <div id="div" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
   <table width="100%" class="corpo_tabela">
     <tr>
-      <td width="1%" class="label1">&nbsp;</td>
-      <td width="23" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();"></td>
+      <td width="1%" class="label1"> </td>
+      <td width="23" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();"></td>
     </tr>
   </table>
 </div>
-<?
+<?php
 
  }
 ?>

@@ -19,10 +19,10 @@
           <td colspan="2" valign="top" class="espacamento">
 		  <table border="0" width="100%">
 				<tr>
-				  <td width="37%"><label for="tipo_referencia" class="labels">Tipo&nbsp;Referência*</label><br />
+				  <td width="37%"><label for="tipo_referencia" class="labels">Tipo Referência*</label><br />
                     <input name="tipo_referencia" type="text" class="caixa" id="tipo_referencia" placeholder="Tipo referência" size="50" />
                 <input type="hidden" name="id_tipo" id="id_tipo" value="" /></td>
-					<td width="63%"><label class="labels">Grava&nbsp;estrutura&nbsp;disciplina</label><br />
+					<td width="63%"><label class="labels">Grava estrutura disciplina</label><br />
                       <select name="grv_disc" class="caixa" id="grv_disc" onkeypress="return keySort(this);">
                         <option value="1">SIM</option>
                         <option value="0" selected="selected">NÃO</option>
@@ -31,7 +31,7 @@
 			</table>
           	<table border="0" width="100%">
   				<tr>
-                	<td width="39%"><label class="labels">Diretório&nbsp;Base*</label><br />
+                	<td width="39%"><label class="labels">Diretório Base*</label><br />
                     <input name="pasta_base" type="text" class="caixa" id="pasta_base" placeholder="Diretório base" size="50" maxlength="30" />
                     </td>
                 </tr>
@@ -46,7 +46,7 @@
 			</table></td>
         </tr>
       </table>
-    <div id="setores" style="width:100%;">&nbsp;</div>
+    <div id="setores" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

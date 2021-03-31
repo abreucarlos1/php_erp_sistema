@@ -150,7 +150,7 @@ dhtmlXEditor.prototype.attachToolbar = function(iconsPath) {
 	}
 	var that = this;
 	
-	this.tb.attachEvent("onClick", function(id){that._doOnToolbarClick(id);});
+	this.tb.attachEvent("onclick", function(id){that._doOnToolbarClick(id);});
 	this.tb.attachEvent("onStateChange", function(id,st){that._doOnStateChange(id,st);});
 	this.tb.attachEvent("onBeforeStateChange", function(id,st){return that._doOnBeforeStateChange(id,st);});
 	

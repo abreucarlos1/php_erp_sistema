@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Grupos de materiais
+	Formulário de Grupos de materiais
 	
 	Criado por Carlos Eduardo  
 	
@@ -273,7 +273,7 @@ function atualizaTabelaFornecedor($codBarras)
 				$xml->writeElement('cell', $reg["unidade2"]);
 				$xml->writeElement('cell', mysql_php($reg["data"]));
 				$xml->writeElement('cell', '<img src='.DIR_IMAGENS.'editar.png  style=cursor:pointer; onclick=xajax_editar_preco_fornecedor('.$reg['id_for_com'].'); />');
-				$xml->writeElement('cell', '<img src='.DIR_IMAGENS.'apagar.png  style=cursor:pointer; onclick=if(confirm("Deseja&nbsp;excluir?"))xajax_excluir_fornecedor('.$reg['id_for_com'].',"'.$codBarras.'"); />');
+				$xml->writeElement('cell', '<img src='.DIR_IMAGENS.'apagar.png  style=cursor:pointer; onclick=if(confirm("Deseja excluir?"))xajax_excluir_fornecedor('.$reg['id_for_com'].',"'.$codBarras.'"); />');
 			$xml->endElement();
 		}
 	);
@@ -300,9 +300,9 @@ function editar_preco_fornecedor($idForCom)
 		{
 			$preco2 = $reg['preco2'] > 0 ? number_format($reg['preco2'], 2, ',', '.') : '';
 			$html .= "<tr>".
-						"<th>Pre�o</th>".
+						"<th>Preço</th>".
 						"<th>unidade 1</th>".
-						"<th>Pre�o 2</th>".
+						"<th>Preço 2</th>".
 						"<th>unidade 2</th>".
 					"</tr>";
 			
@@ -320,11 +320,11 @@ function editar_preco_fornecedor($idForCom)
 					"</tr>";
 		}
 	);
-	$html 	.= "<tr><td colspan='4'><input type='button' class='class_botao' value='Atualizar Pre�o' onclick=xajax_atualizar_preco(xajax.getFormValues('frm_preco')); /></td></tr>".	
+	$html 	.= "<tr><td colspan='4'><input type='button' class='class_botao' value='Atualizar Preço' onclick=xajax_atualizar_preco(xajax.getFormValues('frm_preco')); /></td></tr>".	
 			"</table>".
 		"</form>";
 	
-	$resposta->addScriptCall('modal', $html, 'p', 'ALTERA��O DE PRE�O DO FORNECEDOR');
+	$resposta->addScriptCall('modal', $html, 'p', 'ALTERAÇÃO DE PREÇO DO FORNECEDOR');
 	$resposta->addScript("document.getElementById('novoPreco').focus();");
 	
 	return $resposta;
@@ -371,7 +371,7 @@ function atualizar_preco($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('Por favor, preencha o campo Novo Pre�o!');
+		$resposta->addAlert('Por favor, preencha o campo Novo Preço!');
 	}
 	
 	return $resposta;
@@ -404,7 +404,7 @@ function atualizatabela_unidade($idCampo)
 		function($reg, $i) use(&$xml,$idCampo)
 		{
 			$xml->startElement('row');
-				//$idCampo que chamou a fun��o e receber� o retorno
+				//$idCampo que chamou a função e receberá o retorno
 				$xml->writeAttribute('id', $reg['unidade'].'_'.$idCampo);
 				$xml->writeElement('cell', $reg['unidade']);
 			$xml->endElement();
@@ -487,11 +487,11 @@ function excluir_fornecedor($id, $codComponente)
 	
 	if ($db->erro != '')
 	{
-		$resposta->addAlert('Registro exclu�do corretamente!');
+		$resposta->addAlert('Registro excluído corretamente!');
 	}
 	else
 	{
-		$resposta->addAlert('Registro exclu�do corretamente!');
+		$resposta->addAlert('Registro excluído corretamente!');
 		$resposta->addScript("xajax_atualizaTabelaFornecedor('".$codComponente."');");
 	}
 	
@@ -535,7 +535,7 @@ function salvar_familia($dados_form)
 				}
 				else
 				{
-					//Em caso de erro ou n�o inser��o do novo id, voltar o registro anterior
+					//Em caso de erro ou não inserção do novo id, voltar o registro anterior
 					$usql = "UPDATE materiais_old.familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
@@ -557,7 +557,7 @@ function salvar_familia($dados_form)
 		
 			if ($db->numero_registros > 0)
 			{
-				$resposta->addAlert('J� existe uma familia com esta descri��o cadastrada com o c�digo! '.$db->array_select[0]['id_familia']);
+				$resposta->addAlert('Já existe uma familia com esta descrição cadastrada com o código! '.$db->array_select[0]['id_familia']);
 				$resposta->addScript("document.getElementById('frmAlterarFamilia').reset();");
 			}
 			else
@@ -580,7 +580,7 @@ function salvar_familia($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('Nenhuma descri��o foi digitada!');
+		$resposta->addAlert('Nenhuma descrição foi digitada!');
 	}
 	
 	return $resposta;
@@ -649,7 +649,7 @@ function lista_familias($filtro)
 				if (empty($reg['temComponentesAgregados']))
 					$img = "<span class='icone icone-excluir cursor' onclick=excluirFamiliaSelecionada(".trim($reg["id_familia"]).");></span>";
 				else
-					$img = '&nbsp;';
+					$img = ' ';
 					
 				$xml->writeElement('cell', $img);
 			$xml->endElement();
@@ -673,7 +673,7 @@ function lista_produtos_cadastrados($filtro)
 	{
 		//$sql_texto = str_replace('  ', ' ', AntiInjection::clean($filtro));
 		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode($filtro)));
-		$sql_texto = str_replace(array('�','"'), '', $sql_texto);
+		//$sql_texto = str_replace(array('','"'), '', $sql_texto);
 		
 		$arrSqlTexto = explode(',', $sql_texto);
 		
@@ -689,12 +689,12 @@ function lista_produtos_cadastrados($filtro)
 		
 		$sql_filtro = " AND (codigo_inteligente LIKE '".$sql_texto."' ";
 		$sql_filtro .= " OR cod_barras LIKE '".$sql_texto."' ";
-		$sql_filtro .= " OR replace(replace(desc_long_por, '�', ''), '\"', '') LIKE '".$sql_texto."%' ";
-		$sql_filtro .= " OR replace(replace(descFamilia, '�', ''), '\"', '') LIKE '".$sql_texto."%' ";
-		$sql_filtro .= " OR replace(replace(descricao, '�', ''), '\"', '') LIKE '".$sql_texto."%' )";
+		$sql_filtro .= " OR replace(replace(desc_long_por, ' ', ''), '\"', '') LIKE '".$sql_texto."%' ";
+		$sql_filtro .= " OR replace(replace(descFamilia, ' ', ''), '\"', '') LIKE '".$sql_texto."%' ";
+		$sql_filtro .= " OR replace(replace(descricao, ' ', ''), '\"', '') LIKE '".$sql_texto."%' )";
 		
-		//Nova forma simplificada de busca APENAS NO M�DULO DE PRODUTO
-//		$sql_filtro = "AND (CONCAT(replace(replace(descFamilia, '�', ''), '\"', ''), replace(replace(descricao, '�', ''), '\"', '')) LIKE '%".$sql_texto."%') ";
+		//Nova forma simplificada de busca APENAS NO MÓDULO DE PRODUTO
+//		$sql_filtro = "AND (CONCAT(replace(replace(descFamilia, ' ', ''), '\"', ''), replace(replace(descricao, ' ', ''), '\"', '')) LIKE '%".$sql_texto."%') ";
 	}
 	
 	$sql = 
@@ -760,14 +760,14 @@ function agregarFamilia($filtro)
 		
 		if (empty($idFamilia))
 		{
-			exit(json_encode(array('0', utf8_encode('Por favor, selecione uma familia j� cadastrada na op��o Cadastro de Familias!'))));
+			exit(json_encode(array('0', utf8_encode('Por favor, selecione uma familia já cadastrada na opção Cadastro de Familias!'))));
 		}
 		
 		if (substr($filtro[0]['value'], -1) != ',')
 			$filtro[0]['value'] .= ',';
 			
 		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode($filtro[0]['value'])));
-		$sql_texto = str_replace('�', '', $sql_texto);
+		//$sql_texto = str_replace('', '', $sql_texto);
 		
 		for($i=1;$i<count($filtro);$i++)
 		{
@@ -775,7 +775,7 @@ function agregarFamilia($filtro)
 		}
 		
 		if (count($componentes) == 0)
-			exit(json_encode(array('0', utf8_encode('N�o foram selecionados componentes, ou os componentes selecionados j� possuem familia cadastrada!'))));
+			exit(json_encode(array('0', utf8_encode('Não foram selecionados componentes, ou os componentes selecionados já possuem familia cadastrada!'))));
 		
 		$componentes = implode("','",$componentes);		
 		
@@ -784,7 +784,7 @@ function agregarFamilia($filtro)
 		
 		if ($db->numero_registros == 0)
 		{
-			exit(json_encode(array('0', 'N�o foi encontrada a familia digitada! Voc� pode utilizar o bot�o cadatro de familias para encontrar todas as familias cadastradas!')));
+			exit(json_encode(array('0', 'Não foi encontrada a familia digitada! Voce pode utilizar o botão cadatro de familias para encontrar todas as familias cadastradas!')));
 		}
 		else
 		{
@@ -794,7 +794,7 @@ function agregarFamilia($filtro)
 
 		$usql = "UPDATE materiais_old.componentes
 					SET 
-					descricao = replace(replace(descricao, '�', ''), '".$sql_texto."', ''),
+					descricao = replace(replace(descricao, '', ''), '".$sql_texto."', ''),
 					id_familia = ".$idFamilia."
 				WHERE 
 				  	cod_barras IN('".$componentes."') 
@@ -808,7 +808,7 @@ function agregarFamilia($filtro)
 			exit(json_encode(array('1', utf8_encode('Familia agregada'))));
 	}
 	else
-		exit(json_encode(array('0', 'N�o foi definido um filtro, favor preencher o campo filtrar.')));
+		exit(json_encode(array('0', 'Não foi definido um filtro, favor preencher o campo filtrar.')));
 }
 
 function excluir_familia($idFamilia)
@@ -831,7 +831,7 @@ function excluir_familia($idFamilia)
 			exit(json_encode(array('1', 'Familia excluida corretamente!')));
 }
 
-//fun��es normais, n�o chamadas via xajax
+//funções normais, não chamadas via xajax
 function criarThumbImagem($imagem_nome, $tipo, $larg = 50, $subpasta = 'thumb', $alt = null)
 {
 	$retorno = true;
@@ -886,8 +886,8 @@ if (isset($_POST['ajax']))
 }
 else
 {
-	//Apenas entrar� aqui ser for para inserir, isto porque ser� feito um upload tamb�m.
-	//Neste caso n�o usaremos o xajax
+	//Apenas entrará aqui ser for para inserir, isto porque será feito um upload também.
+	//Neste caso não usaremos o xajax
 	if (isset($_GET['insere']) && $_GET['insere'] && !empty($_POST['codigoComponente']))
 	{
 		$retorno = array(true);
@@ -895,11 +895,11 @@ else
 		{
 			$dir_img_mat = PROJETO.'/images/images';
 			
-			$erros[0] = 'N�o houve erro';
-			$erros[1] = 'O arquivo no upload � maior do que o limite do PHP';
+			$erros[0] = 'Não houve erro';
+			$erros[1] = 'O arquivo no upload é maior do que o limite do PHP';
 			$erros[2] = 'O arquivo ultrapassa o limite de tamanho especifiado no HTML';
 			$erros[3] = 'O upload do arquivo foi feito parcialmente';
-			$erros[4] = 'N�o foi feito o upload do arquivo';
+			$erros[4] = 'Não foi feito o upload do arquivo';
 			
 			$extensoes = array('jpeg', 'jpg', 'png');
 			$limite = 2.0; // 2Mb
@@ -942,7 +942,7 @@ else
 							}
 							else
 							{
-								//Criando as c�pias menores e thumbs
+								//Criando as cópias menores e thumbs
 								criarThumbImagem($nome_final, $tipo, 250, 'small', 150);
 								criarThumbImagem($nome_final, $tipo, 50, 'thumb', 70);
 							}
@@ -954,7 +954,7 @@ else
 					}
 					else
 					{
-						$retorno = array(false, 'O tipo do arquivo '.$_FILES['imagemProduto']['name'][$k].' n�o � jpg ou png');
+						$retorno = array(false, 'O tipo do arquivo '.$_FILES['imagemProduto']['name'][$k].' não é jpg ou png');
 					}			
 				}
 				else
@@ -971,7 +971,7 @@ else
 		}
 		else
 		{
-			//tratamento das vari�veis digitadas pelo usu�rio
+			//tratamento das variáveis digitadas pelo usuário
 			$descRes[] = AntiInjection::clean(strtoupper(tiraacentos($_POST['descResIngles'])));
 			$descRes[] = AntiInjection::clean(strtoupper(tiraacentos($_POST['descResEspanhol'])));
 			
@@ -983,7 +983,7 @@ else
 
 			if (isset($_POST['id_produto']) && $_POST['id_produto'] > 0)
 			{
-				//Alterando o �ltimo produto para atual = 0
+				//Alterando o último produto para atual = 0
 				$usql = "UPDATE materiais_old.produto SET 
 							atual = 0
 						WHERE reg_del = 0 
@@ -1010,7 +1010,7 @@ else
 			}
 			else
 			{
-				//Caso tenha dado tudo certo recarrega a p�gina
+				//Caso tenha dado tudo certo recarrega a página
 				exit('<script>alert("Produto salvo corretamente!");window.location="./produtos.php";</script>');
 			}
 		}
@@ -1019,7 +1019,7 @@ else
 	{
 		if (isset($_GET['insere']))
 		{
-			$smarty->assign('mensagem_erro', 'O campo C�digo n�o foi preenchido!');
+			$smarty->assign('mensagem_erro', 'O campo Código não foi preenchido!');
 			$smarty->assign('_POST', $_POST);
 		}
 	}

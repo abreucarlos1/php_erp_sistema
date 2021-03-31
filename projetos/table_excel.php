@@ -9,43 +9,43 @@
 <table width="100%" border="0">
   <tr>
     <td width="30%"><div align="center"><strong>AREA</strong></div></td>
-    <td width="3%">&nbsp;</td>
+    <td width="3%"> </td>
     <td width="17%">area</td>
-    <td width="3%">&nbsp;</td>
+    <td width="3%"> </td>
     <td width="19%"><div align="center"><strong>DISPOSITIVOS</strong></div></td>
-    <td width="4%">&nbsp;</td>
+    <td width="4%"> </td>
     <td width="15%">dispositivos</td>
-    <td width="9%">&nbsp;</td>
+    <td width="9%"> </td>
   </tr>
   <tr>
     <td><div align="center"><strong>RACK</strong></div></td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td>rack</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td><div align="center"><strong>SLOTS</strong></div></td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td>slot</td>
-    <td>&nbsp;</td>
+    <td> </td>
   </tr>
   <tr>
     <td><div align="center"><strong>LOCAL</strong></div></td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td>local</td>
-    <td>&nbsp;</td>
-    <td><div align="center"><strong>CART&Atilde;O</strong></div></td>
-    <td>&nbsp;</td>
+    <td> </td>
+    <td><div align="center"><strong>CARTÃO</strong></div></td>
+    <td> </td>
     <td>cartão</td>
-    <td>&nbsp;</td>
+    <td> </td>
   </tr>
 </table>
 <br />
 <table width="100%" border="0">
   <tr>
     <th scope="col">CANAL</th>
-    <th scope="col">ENDERE&Ccedil;O</th>
+    <th scope="col">ENDEREÇO</th>
     <th scope="col">ATRIBUTO</th>
     <th scope="col">TAG</th>
-    <th scope="col">DESCRI&Ccedil;&Atilde;O</th>
+    <th scope="col">DESCRIÇÃO</th>
     <th scope="col">LOCAL</th>
   </tr>
   <tr>

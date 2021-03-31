@@ -121,7 +121,7 @@ if($db->erro!='')
 
 if ($db->numero_registros_ms == 0)
 {
-	echo '<script>alert("N�o foram encontradas informa��es para gerar o Relatório");window.close();</script>';
+	echo '<script>alert("Não foram encontradas informações para gerar o Relatório");window.close();</script>';
 	exit;
 }
 
@@ -154,7 +154,7 @@ foreach($array_orc as $regs0)
 	switch ($regs0["AF1_ACAO"])
 	{
 		case 0:
-			$array_acao[$regs0["AF1_ORCAME"]] = 'Novo Or�amento';
+			$array_acao[$regs0["AF1_ORCAME"]] = 'Novo Orçamento';
 		break;
 		
 		case 1:
@@ -170,7 +170,7 @@ foreach($array_orc as $regs0)
 		break;
 		
 		case 4:
-			$array_acao[$regs0["AF1_ORCAME"]] = 'Atualizar Or�amento';
+			$array_acao[$regs0["AF1_ORCAME"]] = 'Atualizar Orçamento';
 		break;
 		
 		case 5:
@@ -185,11 +185,11 @@ foreach($array_orc as $regs0)
 	switch ($regs0["AF1_VENDED"])
 	{
 		case 1:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Leonardo Oca';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 1';
 		break;
 		
 		case 2:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Fl�vio Freitas';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 2';
 		break;
 		
 		case 3:
@@ -222,7 +222,7 @@ foreach($array_orc as $regs0)
 	$array_respte_tel1[$regs0["AF1_ORCAME"]] = $regs2["U5_DDDFCO1"]." - ".$regs2["U5_FCOM1"];
 	$array_respte_email[$regs0["AF1_ORCAME"]] = $regs2["U5_EMAIL"];
 
-	//TABELA AFC - ESFOR�O E LINHA DE BASE
+	//TABELA AFC - ESFORÇO E LINHA DE BASE
 	$sql = "SELECT * FROM AF5010 WITH(NOLOCK) ";
 	$sql .= "WHERE AF5010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF5010.AF5_ORCAME = '".$regs0["AF1_ORCAME"]."' ";
@@ -240,7 +240,7 @@ foreach($array_orc as $regs0)
 	
 	if($regs0["AF1_CODMEM"]!='')
 	{
-		//TABELA SYP - CAMPO OBSERVA��O
+		//TABELA SYP - CAMPO OBSERVAÇÃO
 		$sql = "SELECT * FROM SYP010 WITH(NOLOCK) ";
 		$sql .= "WHERE SYP010.D_E_L_E_T_ = '' ";
 		$sql .= "AND SYP010.YP_CAMPO = 'AF1_CODMEM' ";
@@ -285,7 +285,7 @@ $objPHPExcel->getActiveSheet()->insertNewRowBefore(5,count($array_proj));
 
 if (count($array_proj) == 0)
 {
-	echo '<script>alert("N�o foram encontradas informa��es para gerar o Relatório");history.back(1);</script>';
+	echo '<script>alert("Não foram encontradas informações para gerar o Relatório");history.back(1);</script>';
 }
 
 foreach($array_proj as $projeto=>$descricao)
@@ -328,7 +328,7 @@ foreach($array_proj as $projeto=>$descricao)
 	//horas
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+15, $linha, $array_projet_custo[$projeto]);
 
-	//esfor�o	
+	//esforço	
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($coluna+16, $linha, $array_hesf[$projeto]);
 
 	//acao	

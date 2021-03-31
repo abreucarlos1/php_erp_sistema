@@ -1,4 +1,4 @@
-<?
+<?php
 	
 include ("../includes/conectdb.inc.php");
 include ("../includes/tools.inc.php");
@@ -10,7 +10,7 @@ $db->conexao_db();
 $count = 1;
 
 $sql = "SELECT * FROM Projetos.especpadraodet ";
-$registro = mysql_query($sql,$db->conexao) or die("N„o foi possÌvel a seleÁ„o dos dados" . $sql);
+$registro = mysql_query($sql,$db->conexao) or die("N√£o foi poss√≠vel a sele√ß√£o dos dados" . $sql);
 while($regs = mysql_fetch_array($registro))
 {
 	$sql1 = "SELECT * FROM Projetos.especificacao_padrao, Projetos.componentes, Projetos.funcao, Projetos.tipo ";
@@ -20,7 +20,7 @@ while($regs = mysql_fetch_array($registro))
 	$sql1 .= "AND componentes.ds_componente = '" . $regs["componente"] . "' ";
 	$sql1 .= "AND funcao.ds_funcao = '" . $regs["funcao"] . "' ";
 	$sql1 .= "AND tipo.ds_tipo = '" . $regs["tipo"] . "' ";
-	$registro1 = mysql_query($sql1,$db->conexao) or die("N„o foi possÌvel a seleÁ„o dos dados1" . $sql1);
+	$registro1 = mysql_query($sql1,$db->conexao) or die("N√£o foi poss√≠vel a sele√ß√£o dos dados1" . $sql1);
 	$regs1 = mysql_fetch_array($registro1);
 	
 	$isql = "INSERT INTO Projetos.especificacao_padrao_detalhes ";
@@ -29,7 +29,7 @@ while($regs = mysql_fetch_array($registro))
 	$isql .= "'" .$regs["sequencia"] . "', ";
 	$isql .= "'" .$regs["topico"] . "', ";
 	$isql .= "'" .$regs["variavel"] . "') ";
-	$registro2 = mysql_query($isql,$db->conexao) or die("N„o foi possÌvel a insercao dos dados1" . $isql);
+	$registro2 = mysql_query($isql,$db->conexao) or die("N√£o foi poss√≠vel a insercao dos dados1" . $isql);
 
 	$count++;	
 	

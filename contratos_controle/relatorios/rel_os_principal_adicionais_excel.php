@@ -102,18 +102,18 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="os_principal_x_adicionais_"'.date('His').'".xlsx"');
 header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-//1� folha
+//1ª folha
 $objPHPExcel->setActiveSheetIndex(0);
 
-//data emiss�o
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emiss�o: ".date('d/m/Y')));
+//data emissão
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"Data de emissão: ".date('d/m/Y')));
 
 $linha = 6;
 

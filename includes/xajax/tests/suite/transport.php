@@ -49,7 +49,7 @@
 			}
 			/* ]]> */
 		</script>
-<?
+<?php
 	$objTestScriptPlugin->printHeader($xajax, "Character Encoding Test | xajax Tests", ob_get_clean());
 	ob_start();
 ?>
@@ -62,7 +62,7 @@
 			<p><input type="text" value="Enter test text here" id="textField1" name="textField1" size="60" /></p>
 			<p><input type="submit" value="Submit Text" onclick="<?php $testForm->printScript() ?>;" /></p>
 		</form>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 	$objTestScriptPlugin->printStatusPanel();
 	$objTestScriptPlugin->printLogPanel();

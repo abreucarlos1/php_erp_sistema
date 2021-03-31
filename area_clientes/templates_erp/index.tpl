@@ -23,17 +23,17 @@
         </table>
 		<table width="100%" border="0" align="center">
           <tr>
-            <td><div onClick="esqueceusenha()" style="cursor:pointer; text-decoration:underline;"><label class="labels"><smarty>$campo[4]</smarty></label></div></td>
-            <td>&nbsp;</td>
+            <td><div onclick="esqueceusenha()" style="cursor:pointer; text-decoration:underline;"><label class="labels"><smarty>$campo[4]</smarty></label></div></td>
+            <td> </td>
           </tr>
         </table>
 		<table width="100%" border="0" align="center">
           <tr>
-            <td width="91%"><div class="alerta_erro" id="mensagem">&nbsp;</div></td>
+            <td width="91%"><div class="alerta_erro" id="mensagem"> </div></td>
           </tr>
         </table>
 		</td>
-		<td width="4%">&nbsp;</td>
+		<td width="4%"> </td>
 	  </tr>	  
 	</table>
 </form>

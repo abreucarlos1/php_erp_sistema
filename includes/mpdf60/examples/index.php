@@ -14,7 +14,7 @@ foreach($ff AS $f) {
 echo '<html><body><h3>mPDF Example Files</h3>';
 
 foreach($files AS $n=>$f) {
-	echo '<p>'.$n.') '.$f[0].' &nbsp; <a href="'.$f[1].'">PDF</a> </p>';
+	echo '<p>'.$n.') '.$f[0].'   <a href="'.$f[1].'">PDF</a> </p>';
 }
 
 echo '</body></html>';

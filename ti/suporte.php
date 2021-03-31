@@ -104,25 +104,25 @@ function atualizatabela($filtro = '', $encerrados = 0)
 	    $sql_filtro .= " OR DATE_FORMAT(i_data_hora,'%d/%m/%Y') LIKE '".$sql_texto."' ";
 	    $sql_filtro .= " OR a_desc LIKE '".$sql_texto."' ";
 	    $sql_filtro .= " OR c_id LIKE '".$sql_texto."' ";
-	    $sql_filtro .= " OR Login LIKE '".$sql_texto."' ";
+	    $sql_filtro .= " OR login LIKE '".$sql_texto."' ";
 	    $sql_filtro .= " OR f.funcionario LIKE '".$sql_texto."' ";
 	    $sql_filtro .= " OR usuario_ultima_alteracao LIKE '".$sql_texto."' ";
 	    $sql_filtro .= " OR status.descricao LIKE '".$sql_texto."') ";
 	}
 	
 	$sql = "SELECT
-	c_id, Login u_login, c_descricao, c_status, status.descricao, a_desc, c_data_abertura, f.id_funcionario i_user, usuario_ultima_alteracao, i_data_hora, ramal, c_telefone, 
+	c_id, login u_login, c_descricao, c_status, status.descricao, a_desc, c_data_abertura, f.id_funcionario i_user, usuario_ultima_alteracao, i_data_hora, ramal, c_telefone, 
     f.arquivo_foto, sa.setor, numAnexos
 FROM
 	suporte.chamados
     JOIN ".DATABASE.".funcionarios f ON f.reg_del = 0 AND f.id_funcionario = c_cod_funcionario
     JOIN ".DATABASE.".setores sa on sa.reg_del = 0 AND sa.id_setor = f.id_setor
-    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_funcionario = c_cod_funcionario
+    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_usuario = f.id_usuario
     JOIN suporte.status ON id_status = c_status AND status.reg_del = 0
     JOIN suporte.areas ON a_id = c_area AND areas.reg_del = 0
     LEFT JOIN(
 		SELECT
-			i_chamado, i_data_hora, Login AS usuario_ultima_alteracao
+			i_chamado, i_data_hora, login AS usuario_ultima_alteracao
 		FROM
 			suporte.interacoes
 		  JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND id_funcionario = i_cod_funcionario
@@ -198,7 +198,7 @@ ORDER BY
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-			$img = $regs['c_status'] == 1 && $_SESSION['admin'] == 1 ? "<span class=\'icone icone-seta-baixo cursor\' onclick=if(confirm(\'Deseja&nbsp;atender&nbsp;este&nbsp;chamado?\')){xajax_atender_chamado(".$regs['c_id'].");}></span>" : '';
+			$img = $regs['c_status'] == 1 && $_SESSION['admin'] == 1 ? "<span class=\'icone icone-seta-baixo cursor\' onclick=if(confirm(\'Deseja atender este chamado?\')){xajax_atender_chamado(".$regs['c_id'].");}></span>" : '';
 			$xml->text($img);
 			$xml->endElement();
 		$xml->endElement();
@@ -223,12 +223,12 @@ function show_modal_editar($id)
 FROM
 	suporte.chamados
     JOIN ".DATABASE.".funcionarios f ON f.reg_del = 0 AND f.id_funcionario = c_cod_funcionario
-    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_funcionario = c_cod_funcionario
+    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_usuario = f.id_usuario
     JOIN suporte.status ON id_status = c_status AND status.reg_del = 0
     JOIN suporte.areas ON a_id = c_area AND areas.reg_del = 0
     LEFT JOIN(
 		SELECT
-			i_chamado, i_data_hora, Login AS usuario_ultima_alteracao
+			i_chamado, i_data_hora, login AS usuario_ultima_alteracao
 		FROM
 			suporte.interacoes
 		JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND id_funcionario = i_cod_funcionario
@@ -276,18 +276,18 @@ ORDER BY
     $telefone = !empty($dadosPrincipais[0]['c_telefone']) && $dadosPrincipais[0]['c_telefone'] != $dadosPrincipais[0]['ramal'] ? $dadosPrincipais[0]['ramal'].' ('.$dadosPrincipais[0]['c_telefone'].')' : $dadosPrincipais[0]['ramal'];
     
     $html = '<iframe id="upload_target" name="upload_target" src="#" style="border:1px solid #000;display:none;width:100%;"></iframe>';
-    $html .= '<form accept-charset=utf-8 id="frmOcorrencia" action="upload_suporte.php" method="post" enctype="multipart/form-data" target="upload_target"><fieldset><legend class="labels">OCORR&Ecirc;NCIA</legend>';
+    $html .= '<form accept-charset=utf-8 id="frmOcorrencia" action="upload_suporte.php" method="post" enctype="multipart/form-data" target="upload_target"><fieldset><legend class="labels">OCORRÊNCIA</legend>';
     $html .= '<label class="labels labelTitulo" style="width:450px;height: 35px"><b>SOLICITANTE:</b> '.$dadosPrincipais[0]['funcionario'].'</label>';
     $html .= '<label class="labels labelTitulo" style="width:430px;height: 35px"><b>CONTATO:</b> '.$telefone.'</label>';
-    $html .= '<label class="labels labelTitulo" style="width:184px;height: 35px"><b>&Aacute;REA:</b> '.maiusculas($dadosPrincipais[0]['a_desc']).'</label><br />';
-    $html .= '<label class="labels"><b>DESCRI&Ccedil;&Atilde;O DO PROBLEMA</b><br /></label>';
+    $html .= '<label class="labels labelTitulo" style="width:184px;height: 35px"><b>ÁREA:</b> '.maiusculas($dadosPrincipais[0]['a_desc']).'</label><br />';
+    $html .= '<label class="labels"><b>DESCRIÇÃO DO PROBLEMA</b><br /></label>';
     $html .= '<textarea cols="139" disabled="disabled" class="caixa" rows="5">'.str_replace("<BR />","\n",maiusculas($dadosPrincipais[0]['c_descricao'])).'</textarea>';
     $html .= '<input type="hidden" value="'.$id.'" id="cId" name="cId" />';
     $html .= '<input type="hidden" value="" id="idInteracao" name="idInteracao" />';
     $html .= '</fieldset><br />';
     
     $html .= '<fieldset style="'.$hidden.'"><legend class="labels">ATENDIMENTO</legend>';
-    $html .= '<label for="textoInteracao" class="labels"><b>DESCRI&Ccedil;&Atilde;O DA INTERA&Ccedil;&Atilde;O</b>*<br /></label>';
+    $html .= '<label for="textoInteracao" class="labels"><b>DESCRIÇÃO DA INTERAÇÃO</b>*<br /></label>';
     $html .= '<textarea id="textoInteracao" name="textoInteracao" cols="139" class="caixa" rows="2" '.$disabled.'></textarea>';
     
     $html .= '<label class="labels" style="float:left; width:520px;" for="anexos">Anexar arquivos (para anexar varios arquivos, voce deve compacta-los)</label><label '.$hiddenStatus.' for="status" class="labels">status *</label><br />';
@@ -314,7 +314,7 @@ ORDER BY
         $html .= $htmlAprovacao;
     }
     
-    $html .= '</form><fieldset><legend class="labels">INTERA&Ccedil;&Otilde;ES</legend>';
+    $html .= '</form><fieldset><legend class="labels">INTERAÇÕES</legend>';
     $html .= '<div id="div_interacoes" style="width:98%;"></div>';
     $html .= '</fieldset>';
     
@@ -332,7 +332,7 @@ function show_modal_inserir()
 	funcionarios.funcionario, funcionarios.id_funcionario i_user, ramal, setor
 FROM
 	".DATABASE.".funcionarios 
-    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_funcionario = funcionarios.id_funcionario
+    JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_usuario = funcionarios.id_usuario
     JOIN ".DATABASE.".setores ON setores.id_setor = funcionarios.id_setor
 WHERE
 	funcionarios.reg_del = 0
@@ -349,11 +349,11 @@ WHERE
     });
     
     $html = '<iframe id="upload_target" name="upload_target" src="#" style="border:1px solid #000;display:none;width:100%;"></iframe>';
-    $html .= '<form accept-charset=utf-8 id="frmOcorrencia" action="upload_suporte.php" method="post" enctype="multipart/form-data" target="upload_target"><fieldset><legend class="labels">OCORR&Ecirc;NCIA</legend>';
+    $html .= '<form accept-charset=utf-8 id="frmOcorrencia" action="upload_suporte.php" method="post" enctype="multipart/form-data" target="upload_target"><fieldset><legend class="labels">OCORRÊNCIA</legend>';
     $html .= '<label class="labels labelTitulo" style="width:350px;height: 35px"><b>SOLICITANTE:</b> '.$dadosPrincipais[0]['funcionario'].'</label>';
     $html .= '<label class="labels labelTitulo" style="width:230px;height: 35px"><b>CONTATO *:</b><input type="text" class="caixa" size="15" name="txtContato" id="txtContato" value="'.$dadosPrincipais[0]['ramal'].'" /></label>';
-    $html .= '<label class="labels labelTitulo" style="width:184px;height: 35px"><b>&Aacute;REA *:</b> <select style="width:150px;" class="caixa" id="selArea" name="selArea"><option value="">Selecione</option>'.$htmlArea.'</select></label><br />';
-    $html .= '<label class="labels"><b>DESCRI&Ccedil;&Atilde;O DO PROBLEMA</b><br /></label>';
+    $html .= '<label class="labels labelTitulo" style="width:184px;height: 35px"><b>ÁREA *:</b> <select style="width:150px;" class="caixa" id="selArea" name="selArea"><option value="">Selecione</option>'.$htmlArea.'</select></label><br />';
+    $html .= '<label class="labels"><b>DESCRIÇÃO DO PROBLEMA</b><br /></label>';
     $html .= '<input type="hidden" value="" id="cId" name="cId" />';
     $html .= '<input type="hidden" value="" id="idInteracao" name="idInteracao" />';
     $html .= '<textarea id="textoInteracao" name="textoInteracao" cols="114" class="caixa" rows="5"></textarea>';
@@ -397,11 +397,12 @@ function atualizatabela_interacoes($id)
     $xml->startElement('rows');
     
     $sql = "SELECT
-                i_data_hora, c_id, Login, i_descricao, descricao, i_id, i_anexo
+                i_data_hora, c_id, login, i_descricao, descricao, i_id, i_anexo
             FROM
                 suporte.chamados
                 JOIN suporte.interacoes ON i_chamado = c_id AND interacoes.reg_del = 0
-                JOIN ".DATABASE.".usuarios ON usuarios.reg_del = 0 AND usuarios.id_funcionario = i_cod_funcionario
+                JOIN ".DATABASE.".funcionarios ON funcionarios.reg_del = 0 AND funcionarios.id_funcionario = i_cod_funcionario
+                JOIN ".DATABASE.".usuarios ON usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0
                 JOIN suporte.status ON id_status = i_status AND status.reg_del = 0
             WHERE
                 c_id = ".$id."
@@ -417,7 +418,7 @@ function atualizatabela_interacoes($id)
         $img = !empty($reg['i_anexo']) ? '<span class="icone icone-clips cursor" onclick=window.open("../includes/documento.php?documento='.DOCUMENTOS_CHAMADOS.'/'.$reg['i_anexo'].'","_blank");></span>' : '';
         $xml->writeElement('cell', $img);
         $xml->writeElement('cell', mysql_php(substr($reg['i_data_hora'], 0, 10)).' '.substr($reg['i_data_hora'], 11, 5));
-        $xml->writeElement('cell', maiusculas($reg['Login']));
+        $xml->writeElement('cell', maiusculas($reg['login']));
         $xml->writeElement('cell', str_replace("'", "", maiusculas(wordwrap(preg_replace( "/\r|\n/", " ", $reg["i_descricao"]), 85, '<br />'))));
         $xml->writeElement('cell', maiusculas(wordwrap($reg["descricao"],15,'<br />')));
         
@@ -647,7 +648,7 @@ function enviarEmail($idChamado)
     $db = new banco_dados();
     
     $sql = "SELECT
-                    f.funcionario, email, Login, i_descricao, i_data_hora, f2.funcionario nomeInteracao, s.descricao, s2.descricao statusChamado, c_descricao, f.ramal, c_telefone
+                    f.funcionario, email, login, i_descricao, i_data_hora, f2.funcionario nomeInteracao, s.descricao, s2.descricao statusChamado, c_descricao, f.ramal, c_telefone
                 FROM
                     suporte.chamados c
                     JOIN suporte.interacoes i ON i_chamado = c_id AND i.reg_del = 0
@@ -664,7 +665,7 @@ function enviarEmail($idChamado)
     
     $db->select($sql, 'MYSQL', true);
     
-    $nomeSolicitante = $db->array_select[0]['Login'];
+    $nomeSolicitante = $db->array_select[0]['login'];
     $emailSolicitante = $db->array_select[0]['email'];
     
     $telefone = !empty($db->array_select[0]['c_telefone']) && $db->array_select[0]['c_telefone'] != $db->array_select[0]['ramal'] ? $db->array_select[0]['ramal'].' ('.$db->array_select[0]['c_telefone'].')' : $db->array_select[0]['ramal'];
@@ -691,8 +692,8 @@ function enviarEmail($idChamado)
     }
     
     $params['emails']['to'][] = array('email' => $emailSolicitante, 'nome' => $nomeSolicitante);
-    $params['emails']['to'][] = array('email' => 'suporte@dominio.com.br', 'nome' => 'Suporte Tecnico');
-    $params['from_name'] = 'SUPORTE DVM';
+    $params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte Tecnico');
+    $params['from_name'] = 'SUPORTE INT';
     $params['subject'] = $subject;
     
     $mail = new email($params);
@@ -785,7 +786,7 @@ function grid(tabela, autoh, height, xml)
         
         	mygrid.attachEvent("onRowSelect", doOnRowSelected);
         	
-        	mygrid.setHeader("Num,Solicitante&nbsp;nome_contato,Ultima&nbsp;Interacao,Problema,status,Area&nbsp;de&nbsp;Atendimento, Abertura,A",
+        	mygrid.setHeader("Num,Solicitante nome_contato,Ultima Interacao,Problema,status,Area de Atendimento, Abertura,A",
                 null,
                 ["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
         	mygrid.setInitWidths("45,140,140,*,120,150,80,50");
@@ -806,7 +807,7 @@ function grid(tabela, autoh, height, xml)
         	mygrid1.enableAutoHeight(autoh,height);
         	mygrid1.enableRowsHover(true,'cor_mouseover');
         	
-			mygrid1.setHeader("&nbsp;,data,Autor,descricao,status");
+			mygrid1.setHeader(" ,data,Autor,descricao,status");
         	mygrid1.setInitWidths("40,120,130,*,140");
         	mygrid1.setColAlign("center,left,left,left,left");
         	mygrid1.setColTypes("ro,ro,ro,ro,ro");

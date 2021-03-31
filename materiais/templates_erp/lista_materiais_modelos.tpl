@@ -20,7 +20,7 @@
 					</td>
 				</tr>
 			  </table></td>
-	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
 	        </tr>        
 	        <tr>
 	          <td colspan="2" valign="top">
@@ -36,7 +36,7 @@
 				</tr>
 		        <tr>
 					<td valign="top">
-						<label class="labels">DescriÁ„o da lista</label><br />
+						<label class="labels">Descri√ß√£o da lista</label><br />
 						<input type='text' class='caixa' size="50" name='desc_lista' id='desc_lista' value='<smarty>if isset($post["desc_lista"])</smarty><smarty>$post["desc_lista"]</smarty><smarty>/if</smarty>' />
 						<input type='hidden' name='id_lista' id='id_lista' />
 					</td>
@@ -53,7 +53,7 @@
 						<select name="id_cliente[]" multiple="multiple" size="8" class="caixa" id="id_cliente" onkeypress="return keySort(this);">
 							<smarty>html_options values=$option_values output=$option_output selected=$post['id_cliente']</smarty>
 		            	</select>
-						<br /><i><sub>Esta lista pode ser aplicada a v·rios clientes, basta utilizar CTRL ao selecionar</sub></i>
+						<br /><i><sub>Esta lista pode ser aplicada a v√°rios clientes, basta utilizar CTRL ao selecionar</sub></i>
 					</td>
 				</tr>
 			  </table>

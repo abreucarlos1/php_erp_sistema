@@ -9,7 +9,7 @@
 	  
 	  Versão 0 --> VERSÃO INICIAL : CARLOS ABREU - 21/08/2012
 	  Versão 1 --> Alteração de descrição atividade quando motivo > 1
-	  Versão 2 --> Incluido Filtro por periodo conforme sugest�o do chamado #1210 spiceworks
+	  Versão 2 --> Incluido Filtro por periodo conforme sugestão do chamado #1210 spiceworks
 	  Versão 3 --> Alteração de layout: 09/12/2014
 	  Versão 4 --> Retirar os campos de motivo e formato - 18/05/2015 - Carlos Abreu
 	  Versão 5 --> Atualização layout - Carlos Abreu - 11/04/2017
@@ -240,7 +240,7 @@ function atualizatabela($dados_form)
 				}
 				else
 				{
-					$conteudo = '&nbsp;';
+					$conteudo = ' ';
 				}
 			}
 			
@@ -253,7 +253,7 @@ function atualizatabela($dados_form)
 			}
 			else
 			{
-				$conteudo = '&nbsp;';
+				$conteudo = ' ';
 			}
 						
 			$xml->writeElement('cell', $conteudo);
@@ -289,7 +289,7 @@ function insere($dados_form)
 	{
 		//FUNCIONARIOS
 		$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND setores.reg_del = 0 ";
 		$sql .= "AND usuarios.reg_del = 0 ";
@@ -507,10 +507,10 @@ function insere($dados_form)
 		
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm_os'));");
 		
-		//Concatena mensagem de urg�ncia
+		//Concatena mensagem de urgência
 		$texto = "<B><FONT FACE=ARIAL COLOR=RED>SOLICITAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: ".$id_solicitacao_horas."</FONT></B><BR><br>";
 		$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$reg_motivo["motivo_solicitacao"]."</FONT><br><br>";
-		$texto .= "<FONT FACE=ARIAL COLOR=RED>Custo: R$&nbsp;".number_format($custo,2,",",".")."</FONT><br><br>";
+		$texto .= "<FONT FACE=ARIAL COLOR=RED>Custo: R$ ".number_format($custo,2,",",".")."</FONT><br><br>";
 		$texto .= "O colaborador ".$array_func[$_SESSION["id_funcionario"]]." solicitou alteração de escopo.<br><br>";
 		$texto .= "na data: ".date("d/m/Y")."<br>";
 		$texto .= "para o projeto: ".sprintf("%010d",$reg_os["os"])."<br>";
@@ -593,15 +593,24 @@ function insere($dados_form)
 				}				
 			//}			
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert($mail->ErrorInfo);
+		
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert($mail->ErrorInfo);
+			}
 		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
+		}
+
 		
 		//se for coordenador a solicitacao
 		if($id_aprovacao == 1)
@@ -617,7 +626,7 @@ function insere($dados_form)
 			$sql .= "AND atividades.cod = setores.id_setor ";
 			$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 			$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
-			$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+			$sql .= "AND usuarios.id_usuario = funcionarios.id_usuario ";
 			$sql .= "AND solicitacao_hora.id_solicitacao_hora = '".$id_solicitacao_horas."' ";
 			
 			$db->select($sql,'MYSQL',true);
@@ -706,13 +715,21 @@ function insere($dados_form)
 			$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
 			$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_solicitacao_horas;
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($texto);
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+				
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($texto);
+				
+				if(!$mail->Send())
+				{
+					$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+				}
+			}
+			else 
+			{
+				$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
 			}
 
 		}
@@ -736,7 +753,7 @@ function excluir($id_solicitacao)
 	
 	//FUNCIONARIOS
 	$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
@@ -926,16 +943,24 @@ function excluir($id_solicitacao)
 			}				
 		//}			
 	}
-	
-	$mail = new email($params);
-	
-	$mail->montaCorpoEmail($texto);
-	
-	$erroEmail = false;
-	
-	if (!$mail->Send())
+
+	if(ENVIA_EMAIL)
 	{
-		$erroEmail = true;
+	
+		$mail = new email($params);
+		
+		$mail->montaCorpoEmail($texto);
+		
+		$erroEmail = false;
+		
+		if (!$mail->Send())
+		{
+			$erroEmail = true;
+		}
+	}
+	else 
+	{
+		$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 3);
 	}
 	
 	$usql = "UPDATE ".DATABASE.".solicitacao_hora SET ";
@@ -1246,7 +1271,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			
 			//FUNCIONARIOS
 			$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-			$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+			$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 			$sql .= "AND funcionarios.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND usuarios.reg_del = 0 ";
@@ -1309,7 +1334,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 			$sql .= "AND atividades.cod = setores.id_setor ";
 			$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 			$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
-			$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+			$sql .= "AND usuarios.id_usuario = funcionarios.id_usuario ";
 			$sql .= "AND solicitacao_hora.id_solicitacao_hora = '".$id_horas."' ";
 			
 			$db->select($sql,'MYSQL',true);
@@ -1396,7 +1421,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				//aprovado pela coordenacao, envia ao planejamento
 				if($tipo_aprovador=='S')
 				{
-					$texto .= "<FONT FACE=ARIAL COLOR=RED>Custo: R$&nbsp;".number_format($cont["custo_solicitacao"],2,",",".")."</FONT><br><br>";
+					$texto .= "<FONT FACE=ARIAL COLOR=RED>Custo: R$ ".number_format($cont["custo_solicitacao"],2,",",".")."</FONT><br><br>";
 								
 					if($array_email[$cont["id_cod_coord"]]!="")
 					{
@@ -1424,18 +1449,25 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
 				$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$id_horas;
 				
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($texto);
-				
-				if(!$mail->Send())
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($texto);
+					
+					if(!$mail->Send())
+					{
+						$resposta->addAlert("Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento! ");
+					}
 				}
-				else
+				else 
 				{
-					$resposta->addAlert('Aprovado com sucesso.');	
-				}				
+					$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 4);
+				}
+
+				$resposta->addAlert('Aprovado com sucesso.');	
+								
 			}
 			else
 			{
@@ -1492,16 +1524,7 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 				
 					
 					//seleciona os supervisores da OS alocados para email
-					/*
-					$sql = "SELECT AFA_RECURS FROM AF8010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
-					$sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
-					$sql .= "AND AFA010.D_E_L_E_T_ = '' ";
-					$sql .= "AND AF8010.AF8_PROJET = '".sprintf("%010d",$cont["os"])."' ";
-					$sql .= "AND AFA010.AFA_PROJET = AF8010.AF8_PROJET ";
-					$sql .= "AND AFA010.AFA_REVISA = AF8010.AF8_REVISA ";
-					$sql .= "AND AFA010.AFA_RECURS LIKE 'FUN_%' ";
-					$sql .= "GROUP BY AFA_RECURS ";
-					*/
+
 					$sql = "SELECT AFA_RECURS, AF9_COMPOS FROM AF8010 WITH(NOLOCK), AF9010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
 					$sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
 					$sql .= "AND AFA010.D_E_L_E_T_ = '' ";
@@ -1543,19 +1566,26 @@ function aprovar($id_horas, $aprovacao, $tipo_aprovador, $motivo = '')
 					
 					$tipo_aprovacao = 2; //reprovado coordenacao
 				}
+
+				if(ENVIA_EMAIL)
+				{
 								
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($texto);
-				
-				if(!$mail->Send())
-				{
-					$resposta->addAlert("Horas reprovadas!");
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($texto);
+					
+					if(!$mail->Send())
+					{
+						$resposta->addAlert("Horas reprovadas!");
+					}
 				}
-				else
+				else 
 				{
-					$resposta->addAlert('Reprovado com sucesso.');	
-				}				
+					$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 5);
+				}
+
+				$resposta->addAlert('Reprovado com sucesso.');	
+								
 			}
 						
 			$usql = "UPDATE ".DATABASE.".solicitacao_hora SET ";
@@ -1654,15 +1684,15 @@ function detalhes($id_horas)
 	}
 	
 	$conteudo = '<table>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Nº&nbsp;Solicitação:</strong>&nbsp;'.$id_horas.'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Projeto:</strong>&nbsp;'.sprintf("%010d",$regs["os"]).' - '.$regs["descricao"].'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Motivo:</strong>&nbsp;'.$regs["motivo_solicitacao"].'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Disciplina:</strong>&nbsp;'.$regs["setor"].'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Atividade:</strong>&nbsp;'.$atividade.'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Solicitante:</strong>&nbsp;'.$regs["funcionario"].'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Observação:</strong>&nbsp;'.$regs["observacao"].'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Total&nbsp;horas:</strong>&nbsp;'.str_replace(".",",",$regs["total_horas"]).'</label></td></tr>';
-	$conteudo .= '<tr><td><label class="labels"><strong>Colaboradores/Horas:</strong>&nbsp;</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Nº Solicitação:</strong> '.$id_horas.'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Projeto:</strong> '.sprintf("%010d",$regs["os"]).' - '.$regs["descricao"].'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Motivo:</strong> '.$regs["motivo_solicitacao"].'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Disciplina:</strong> '.$regs["setor"].'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Atividade:</strong> '.$atividade.'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Solicitante:</strong> '.$regs["funcionario"].'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Observação:</strong> '.$regs["observacao"].'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Total horas:</strong> '.str_replace(".",",",$regs["total_horas"]).'</label></td></tr>';
+	$conteudo .= '<tr><td><label class="labels"><strong>Colaboradores/Horas:</strong> </label></td></tr>';
 	
 	foreach($array_detalhes as $regs_det)
 	{
@@ -1715,7 +1745,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 	
-	mygrid.setHeader("Nº, Projeto, Atividade, Total&nbsp;Horas,Solicitado&nbsp;por, Data, A, D");
+	mygrid.setHeader("Nº, Projeto, Atividade, Total Horas,Solicitado por, Data, A, D");
 	mygrid.setInitWidths("50,80,470,80,180,80,30,30");
 	mygrid.setColAlign("center,left,left,center,left,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1735,8 +1765,8 @@ function popupUp(id_horas,tipo_aprovador)
 	conteudo += '<td><label class="labels">Aprovação</label><input name="tipo" type="hidden" class="caixa" id="tipo" size="50" value="'+tipo_aprovador+'"/></td>';
 	conteudo += '</tr><tr>';
 	conteudo += '<td><select name="aprovacao" class="caixa" id="aprovacao" onkeypress="return keySort(this);" onchange="if(true){div_motivo.style.display=\'inline\'}else{div_motivo.style.display=\'none\'};"><option value="">SELECIONA</option><option value="1">APROVA</option><option value="2">NÃO APROVA</option></select></td></tr>';
-	conteudo += '<tr><td width="10%"><div id="div_motivo" style="display:none;"><label class="labels">Motivo&nbsp;:</label><br><input name="motivo_rejeicao" type="text" class="caixa" id="motivo_rejeicao" size="50" maxlength="200" /></div></td><td width="90%">&nbsp;</td></tr>';
-	conteudo += '<tr><td><input id="btn_checkout_enviar" type="button" value="Enviar" class="class_botao" onclick="xajax_aprovar('+id_horas+',document.getElementById(\'aprovacao\').value,document.getElementById(\'tipo\').value,document.getElementById(\'motivo_rejeicao\').value);">&nbsp;<input type="button" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
+	conteudo += '<tr><td width="10%"><div id="div_motivo" style="display:none;"><label class="labels">Motivo :</label><br><input name="motivo_rejeicao" type="text" class="caixa" id="motivo_rejeicao" size="50" maxlength="200" /></div></td><td width="90%"> </td></tr>';
+	conteudo += '<tr><td><input id="btn_checkout_enviar" type="button" value="Enviar" class="class_botao" onclick="xajax_aprovar('+id_horas+',document.getElementById(\'aprovacao\').value,document.getElementById(\'tipo\').value,document.getElementById(\'motivo_rejeicao\').value);"> <input type="button" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
 	
 	modal(conteudo, 'p', 'APROVAÇÃO');	
 }
@@ -1745,7 +1775,7 @@ function popupUp_detalhes(id_horas)
 {
 	
 	conteudo = '<table border="0" width="100%">';
-	conteudo += '<tr><td><div id="div_detalhes">&nbsp;</div></td></tr>';
+	conteudo += '<tr><td><div id="div_detalhes"> </div></td></tr>';
 	conteudo += '<tr><td><input type="button" name="btn_det_voltar" id="btn_det_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
 	
 	xajax_detalhes(id_horas);

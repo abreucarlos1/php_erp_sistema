@@ -140,7 +140,7 @@ else
 	$filtro .= " AND ordem_servico.id_os = '". $_POST["escolhaos"] . "' ";
 }
 
-//N�o tem acesso ao combo coordenador
+//Não tem acesso ao combo coordenador
 if($_POST["escolhacoord"]=='')
 {
 	$filtro .= " AND (ordem_servico.id_cod_coord = '".$_SESSION["id_funcionario"]."' OR ordem_servico.id_coord_aux = '".$_SESSION["id_funcionario"]."') ";
@@ -212,7 +212,7 @@ $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (3,8,9,12) ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= $filtro1;
 $sql .= $filtro;
 $sql .= "GROUP BY ordem_servico.id_os ORDER BY ordem_servico.os ";
@@ -255,7 +255,7 @@ foreach($array_os as $cont_os_coord)
 	
 	$regs_os = $db->array_select[0];	
 
-	$pdf->revisao_rel = $regs_os["AF8_REVISA"]; //imprime a ultima revis�o
+	$pdf->revisao_rel = $regs_os["AF8_REVISA"]; //imprime a ultima revisão
 	*/
 	
 	$pdf->AddPage();
@@ -295,7 +295,7 @@ foreach($array_os as $cont_os_coord)
 		//INCLUIDO EM 22/02/2018 - Carlos Abreu - #2644
 		if(trim($cont_atv["AF2_GRPCOM"])!='DES' && !in_array(trim($cont_atv["AF2_COMPOS"]),array('SUP12','SUP13','SUP14','SUP15','SUP16','SUP17')))
 		{				
-			//OBTEM AS HORAS OR�ADAS NAS TAREFAS
+			//OBTEM AS HORAS ORÇADAS NAS TAREFAS
 			$sql = "SELECT SUM(AF3010.AF3_QUANT) AS horas_orcadas FROM AF3010 WITH(NOLOCK) ";
 			$sql .= "WHERE AF3010.D_E_L_E_T_ = '' ";
 			$sql .= "AND AF3010.AF3_ORCAME = '".$cont_atv["AF2_ORCAME"]."' ";

@@ -1,6 +1,6 @@
 <?php
 /*
-	Exporta��o lista desenhos
+	Exportação lista desenhos
 	Criado por Carlos Eduardo  
 	
 	Versão 0 --> VERSÃO INICIAL - 13/05/2016
@@ -40,7 +40,7 @@ if (!$validlocale)
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-//Obtendo as configura��es da planilha selecionada
+//Obtendo as configurações da planilha selecionada
 $sql = 
 "SELECT
 	mle_campo, mle_celula, mle_formula
@@ -171,7 +171,7 @@ $ultimaLinha = $linha;
 
 $objPHPExcel->getActiveSheet()->getStyle('A'.$primeiraLinha.':'.'D'.$ultimaLinha)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename='lista_emitida_".date('Y_m_d_H_i_s').".xlsx");
 header('Cache-Control: max-age=0');

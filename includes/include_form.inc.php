@@ -408,6 +408,8 @@
 		if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 		{
 			$resposta->addAlert($msg[15]);
+			//$resposta->addAlert($_SESSION["login"]);
+
 		}
 	
 		return $resposta;
@@ -479,7 +481,7 @@
 				$linhas = FALSE;
 			}
 			
-			$conteudo .= '<td class="tabela_body" align="center"><input class="'.$class_botao.'" type="button" name="'.$cont["id_sub_modulo"].'" id="'.$cont["id_sub_modulo"].'" value="'.str_replace(" ","&nbsp;",$cont["sub_modulo"]).'" onclick=xajax_monta_tela("'.$cont["id_sub_modulo"].','.$cont["caminho_sub_modulo"].'"); '.$enabled.' /></td>';
+			$conteudo .= '<td class="tabela_body" align="center"><input class="'.$class_botao.'" type="button" name="'.$cont["id_sub_modulo"].'" id="'.$cont["id_sub_modulo"].'" value="'.str_replace(" "," ",$cont["sub_modulo"]).'" onclick=xajax_monta_tela("'.$cont["id_sub_modulo"].','.$cont["caminho_sub_modulo"].'"); '.$enabled.' /></td>';
 			
 			$colunas++;
 			
@@ -619,8 +621,8 @@
 	
 	//$xajax->decodeUTF8InputOn();
 	
-	$page = explode(DIRECTORY_SEPARATOR,$_SERVER['SCRIPT_FILENAME']);
-	
+	$page = explode("/",$_SERVER['SCRIPT_FILENAME']);
+
 	$exclusao = array('index.php','lostpass.php','firstpass.php','index_erp.php','telefones.php','busca_curriculos.php','anexar_documentos_candidatos.php','cadastro_aprovados.php');	
 		
 	if(!in_array($page[count($page)-1],$exclusao))

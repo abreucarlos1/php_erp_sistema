@@ -1,6 +1,6 @@
 <?php
 /**
- * Classe respons�vel por prover os m�todos para manuten��o do cadastro de equipamentos
+ * Classe responsável por prover os métodos para manutenção do cadastro de equipamentos
  * @author carlos.maximo
  * @since 29/06/2015
  */
@@ -46,7 +46,7 @@ class servicos
 		
 		$this->db->select($sql, 'MYSQL',true);
 		
-		//Populando a vari�vel tabela com todos os dados da tabela para montagem da tela
+		//Populando a variável tabela com todos os dados da tabela para montagem da tela
 		foreach ($this->db->array_select as $reg)
 		{
 			if (!in_array($reg['coluna'], $this->camposOcultos))
@@ -100,7 +100,7 @@ class servicos
 			}
 			else
 			{
-				//Nome da coluna para a listagem n�o est� aqui pois somente campos n�o ocultos a tem.
+				//Nome da coluna para a listagem não está aqui pois somente campos não ocultos a tem.
 				$reg['campoForm'] = "<input type='hidden' name='txt_".$reg['coluna']."' id='txt_".$reg['coluna']."' value='".$reg['padrao']."' />";
 			}
 			
@@ -109,7 +109,7 @@ class servicos
 	}
 	
 	/**
-	 * M�todo respons�vel por retornar a lista de equipamentos n�o exclu�dos
+	 * Método responsável por retornar a lista de equipamentos não excluídos
 	 */
 	public function getListaCompleta()
 	{

@@ -33,7 +33,7 @@
 				</tr>
                	<tr>
 					<td colspan="3" valign="top"><label for="descricao_clausula" class="labels"><smarty>$campo[4]</smarty></label><br />
-		        		<textarea name="descricao_clausula" id="descricao_clausula" cols="80" rows="5" placeholder="Descrição da Clausula"></textarea>
+		        		<textarea name="descricao_clausula" id="descricao_clausula" cols="80" rows="5" placeholder="DescriÃ§Ã£o da Clausula"></textarea>
 		        	</td>
                	</tr>
 			</table>
@@ -45,7 +45,7 @@
 		  </table>		  </td>
         </tr>
       </table>
-	  <div id="div_grid" style="width:100%;">&nbsp;</div>
+	  <div id="div_grid" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

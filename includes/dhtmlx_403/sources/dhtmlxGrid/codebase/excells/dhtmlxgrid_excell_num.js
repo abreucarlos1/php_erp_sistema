@@ -35,7 +35,7 @@ function eXcell_num(cell){
 	}
 	 this.setValue = function(val){
 		var re = new RegExp("[a-z]|[A-Z]","i")
-		if(val.match(re)) val = "&nbsp;";
+		if(val.match(re)) val = " ";
 				
 		this.cell.innerHTML = val;
 		

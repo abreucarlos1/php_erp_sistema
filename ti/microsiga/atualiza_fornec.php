@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 //Atualiza o banco de funcionarios PJ com o codigo
 //de fornecedor do microsiga protheus
@@ -21,7 +21,7 @@ $sql .= "AND Funcionarios.situacao = 'ATIVO' ";
 $sql .= "GROUP BY Funcionarios.id_funcionario ";
 $sql .= "ORDER BY Funcionarios.funcionario ";
 
-$cont = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+$cont = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 
 $chars = array('-','.','/');
 
@@ -41,7 +41,7 @@ while($reg = mysql_fetch_array($cont))
 	$usql .= "id_cod_fornec = '".$regs["A2_COD"]."' ";
 	$usql .= "WHERE id_funcionario = '".$reg["id_funcionario"]."' ";
 
-	$cont1 = mysql_query($usql,$db->conexao) or die("N�o foi poss�vel atualizar os dados.".$usql);
+	$cont1 = mysql_query($usql,$db->conexao) or die("Não foi possível atualizar os dados.".$usql);
 	
 	/*	
 	//Insere o funcionario no banco microsiga

@@ -243,11 +243,11 @@ function atualizatabela($dados_form)
 			//permite excluir
 			if($regs["envio_email"]==0)
 			{
-				$img_del = "<img style=\"cursor:pointer;\" src=\"".DIR_IMAGENS."apagar.png\" onClick=\"javascript:if(apagar('".$regs["cod_plano_acao"] . "')){xajax_excluir('".$regs["id_plano_acao"]."','".$regs["cod_plano_acao"] . "');}\">";
+				$img_del = "<img style=\"cursor:pointer;\" src=\"".DIR_IMAGENS."apagar.png\" onclick=\"javascript:if(apagar('".$regs["cod_plano_acao"] . "')){xajax_excluir('".$regs["id_plano_acao"]."','".$regs["cod_plano_acao"] . "');}\">";
 			}
 			else
 			{
-				$img_del = "&nbsp;";
+				$img_del = " ";
 			}
 					
 			//pega a data mais distante
@@ -637,11 +637,11 @@ function editar($id)
 					//permite a exclusão dos anexos
 					if(FALSE)
 					{
-						$del = "<img style=\"cursor:pointer;\" src=\"".DIR_IMAGENS."apagar.png\" onClick=\"javascript:if(apagar('".$regs1["nome_arquivo"] . "')){xajax_excluir_arquivo('".$regs1["id_plano_acao_anexo"]."','".$regs["nome_arquivo"] . "');}\">";
+						$del = "<img style=\"cursor:pointer;\" src=\"".DIR_IMAGENS."apagar.png\" onclick=\"javascript:if(apagar('".$regs1["nome_arquivo"] . "')){xajax_excluir_arquivo('".$regs1["id_plano_acao_anexo"]."','".$regs["nome_arquivo"] . "');}\">";
 					}
 					else
 					{
-						$del = "&nbsp;";		
+						$del = " ";		
 					}			
 					
 					$arquivo .= "<div style=\"width:20px; float:left;\">".retornaImagem($arq["extension"])."</div><div style=\"width:150px; float:left; \">".$link."</div><div style=\"width:20px; float:left; \">".$del."</div><div style=\"clear:both;\"></div>";
@@ -753,7 +753,7 @@ function editar($id)
 								break;
 								
 								case 1:
-									$texto = 'EM&nbsp;ANDAMENTO';
+									$texto = 'EM ANDAMENTO';
 								break;
 								
 								case 2:
@@ -1104,47 +1104,47 @@ function email($id)
 			<body>
 			<table cellspacing=\"0\" cellpadding=\"0\" border=\"1\">
 			  <tr>
-				<td colspan=\"8\" align=\"left\"><strong>Documento:</strong>&nbsp;PLANO&nbsp;DE&nbsp;AÇÕES&nbsp;CORRETIVAS&nbsp;/&nbsp;PREVENTIVAS</td>
+				<td colspan=\"8\" align=\"left\"><strong>Documento:</strong> PLANO DE AÇÕES CORRETIVAS / PREVENTIVAS</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Formulário:&nbsp;</strong>".$regs["cod_plano_acao"]."</td>
+				<td colspan=\"8\"><strong>Formulário: </strong>".$regs["cod_plano_acao"]."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"3\"><strong>Revisão&nbsp;Nº:</strong>&nbsp;0</td>
-				<td colspan=\"5\"><strong>Data&nbsp;da&nbsp;Emissão:</strong>&nbsp;".date('d/m/Y')."</td>
+				<td colspan=\"3\"><strong>Revisão Nº:</strong> 0</td>
+				<td colspan=\"5\"><strong>Data da Emissão:</strong> ".date('d/m/Y')."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"3\"><strong>Originador:</strong>&nbsp;".$regs["funcionario"]."</td>
-				<td colspan=\"3\"><strong>Setor:</strong>&nbsp;".$regs["setor"]."</td>
-				<td colspan=\"2\"><strong>Data&nbsp;criação:</strong>&nbsp;".mysql_php($regs["data_criacao"])."</td>
+				<td colspan=\"3\"><strong>Originador:</strong> ".$regs["funcionario"]."</td>
+				<td colspan=\"3\"><strong>Setor:</strong> ".$regs["setor"]."</td>
+				<td colspan=\"2\"><strong>Data criação:</strong> ".mysql_php($regs["data_criacao"])."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"4\"><strong>Tipo&nbsp;Ação:</strong>&nbsp;". $tipo_plano ."</td>
-				<td colspan=\"4\"><strong>Status:</strong>&nbsp;". $status ."</td>
+				<td colspan=\"4\"><strong>Tipo Ação:</strong> ". $tipo_plano ."</td>
+				<td colspan=\"4\"><strong>Status:</strong> ". $status ."</td>
 			  </tr>			    
 			  <tr>
-				<td colspan=\"8\"><strong>Documento&nbsp;Referência:</strong>&nbsp;".$plano."</td>
+				<td colspan=\"8\"><strong>Documento Referência:</strong> ".$plano."</td>
 			  </tr>			  
 			  <tr>
-				<td colspan=\"8\"><strong>Descrição&nbsp;da&nbsp;não&nbsp;conformidade:</strong></td>
+				<td colspan=\"8\"><strong>Descrição da não conformidade:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_nc"]). "</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Ação&nbsp;Imediata:</strong></td>
+				<td colspan=\"8\"><strong>Ação Imediata:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_acao"]). "</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Causa&nbsp;Raiz:</strong></td>
+				<td colspan=\"8\"><strong>Causa Raiz:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_causa_raiz"]) ."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Açães&nbsp;Complementares:</strong></td>
+				<td colspan=\"8\"><strong>Açães Complementares:</strong></td>
 			  </tr>			  
 			  <tr>
 				<td><strong>Item</strong></td>
@@ -1188,7 +1188,7 @@ function email($id)
 				}
 				
 				$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-				$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+				$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 				$sql .= "AND funcionarios.id_funcionario = '".$regs1["id_funcionario"]."' ";
 								
 				$db->select($sql,'MYSQL',true);
@@ -1227,45 +1227,53 @@ function email($id)
 				<td colspan=\"8\">".nl2br($regs["desc_obs"])."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Verificação&nbsp;da&nbsp;eficácia&nbsp;da(s)&nbsp;ação(ões):</strong></td>
+				<td colspan=\"8\"><strong>Verificação da eficácia da(s) ação(ões):</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">".nl2br($regs["desc_encerramento"])."</td>
 			  </tr>
 			</table></body></html>";
 
-		$mail->Body = $body;
+		if(ENVIA_EMAIL)
+		{
 		
+			$mail->Body = $body;
+			
+			$mail->AddAddress('qualidade@dominio.com.br', 'Qualidade');		
+			
+			foreach($array_email as $nome=>$email)
+			{
+				$mail->AddAddress($email, $nome);
+			}
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert($mail->ErrorInfo);
+			}
+			else
+			{
+				$resposta->addAlert("E-mail enviado aos envolvidos.");
+			}		
+		
+			$mail->ClearAddresses();
 
-		$mail->AddAddress('qualidade@dominio.com.br', 'Qualidade');		
-		
-		foreach($array_email as $nome=>$email)
-		{
-			$mail->AddAddress($email, $nome);
-		}
-		
-		if(!$mail->Send())
-		{
-			echo $mail->ErrorInfo;
 		}
 		else
 		{
-			$usql = "UPDATE ".DATABASE.".planos_acoes SET ";
-			$usql .= "envio_email = 1 ";
-			$usql .= "WHERE id_plano_acao = '".$regs["id_plano_acao"]."' ";
-
-			$db->update($usql,'MYSQL');
-
-			if($db->erro!='')
-			{
-				$resposta->addAlert($db->erro);
-			}
-			
-			$resposta->addAlert("E-mail enviado aos envolvidos.");
-			
+			$resposta->addScriptCall('modal', $body, '300_650', 'Conteúdo email', 1);
 		}
+
+		$usql = "UPDATE ".DATABASE.".planos_acoes SET ";
+		$usql .= "envio_email = 1 ";
+		$usql .= "WHERE id_plano_acao = '".$regs["id_plano_acao"]."' ";
 		
-		$mail->ClearAddresses();	
+		$db->update($usql,'MYSQL');
+		
+		if($db->erro!='')
+		{
+			$resposta->addAlert($db->erro);
+		}		
+	
 	}
 	
 	return $resposta;
@@ -1410,15 +1418,15 @@ function acoes_complem()
 	$st = "<select id=\"status\" name=\"status[]\" class=\"caixa\">";
 	$st .= "<option value=\"\">SELECIONE</option>";
 	$st .= "<option value=\"0\">PENDENTE</option>";
-	$st .= "<option value=\"1\">EM&nbsp;ANDAMENTO</option>";
+	$st .= "<option value=\"1\">EM ANDAMENTO</option>";
 	$st .= "<option value=\"2\">ENCERRADO</option>";
 	$st .= "</select>";
 	
 	$acao_complementar = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%\">";
 	$acao_complementar .= "<tr id=\"tr0\">";
-	$acao_complementar .= "<td type=\"ro\">N�</td>";
-	$acao_complementar .= "<td type=\"ro\">A��es</td>";
-	$acao_complementar .= "<td type=\"ro\">Respons�vel</td>";
+	$acao_complementar .= "<td type=\"ro\">Nº</td>";
+	$acao_complementar .= "<td type=\"ro\">Ações</td>";
+	$acao_complementar .= "<td type=\"ro\">Responsável</td>";
 	$acao_complementar .= "<td type=\"ro\">Prazo</td>";
 	$acao_complementar .= "<td type=\"ro\">status</td>";
 	$acao_complementar .= "</tr>";
@@ -1496,7 +1504,7 @@ function excluir_arquivo($id_anexo)
 	
 	if(!$erro)
 	{
-		$resposta->addAlert("Anexo exclu�do do sistema.");
+		$resposta->addAlert("Anexo excluído do sistema.");
 		
 		$resposta->addScript("xajax_editar(".$regs["id_plano_acao"].");");
 	}
@@ -1533,7 +1541,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 <script language="javascript">
 
 
-//fun��o que adiciona campos no div
+//função que adiciona campos no div
 function add_controles(div_container)
 {	
 	var id_item, texto, controle;
@@ -1669,7 +1677,7 @@ $smarty->assign("campo",$conf->campos('plano_acao_corretiva_preventiva'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("nome_formulario","PLANO DE A��O CORRETIVA / PREVENTIVA");
+$smarty->assign("nome_formulario","PLANO DE AÇÃO CORRETIVA / PREVENTIVA");
 
 $smarty->assign("codigo","PA-".date('YmdHi'));
 
@@ -1740,7 +1748,7 @@ foreach ($db->array_select as $cont1)
 	if($cont1["id_plano_acao_referencia"]==1)
 	{
 		$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('nao_conf').disabled=false;document.getElementById('nao_conf').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
-		$doc_ref .= "&nbsp;&nbsp;".$nc;
+		$doc_ref .= "  ".$nc;
 	}
 	else
 	{
@@ -1748,7 +1756,7 @@ foreach ($db->array_select as $cont1)
 		if($cont1["id_plano_acao_referencia"]==5)
 		{
 			$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
-			$doc_ref .= "&nbsp;&nbsp;<input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" />";
+			$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" />";
 		}
 		else
 		{

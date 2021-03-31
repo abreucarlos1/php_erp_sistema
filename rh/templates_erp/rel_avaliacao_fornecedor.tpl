@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÃ³rio"/></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -19,7 +19,7 @@
           <td colspan="2" valign="top" class="espacamento">
 		  	<table width="100%" border="0">
 		  		<tr >
-		  			<td width="5%"><label for="selAvaliacoes" class="labels">Avaliações</label><br />
+		  			<td width="5%"><label for="selAvaliacoes" class="labels">AvaliaÃ§Ãµes</label><br />
 				  		<select id="selAvaliacoes" name="selAvaliacoes" class="caixa" style="width:300px;">
 				  			<smarty>html_options values=$option_avaliacoes_values output=$option_avaliacoes_output</smarty>
 				  		</select>
@@ -35,7 +35,7 @@
 			 	</tr>
 			 	<tr>
 		  			<td colspan="2">
-		  				<label class="labels">Selecionar&nbsp;Todos</label>&nbsp;<input type="checkbox" onclick="selecionarTodos(this.checked);">
+		  				<label class="labels">Selecionar Todos</label> <input type="checkbox" onclick="selecionarTodos(this.checked);">
 				  	</td>
 			 	</tr>
 		  	</table>

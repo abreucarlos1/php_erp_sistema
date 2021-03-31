@@ -63,7 +63,7 @@ font-size:11px;
 			</tr>
 
 			<tr>
-				<td class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></td>
+				<td class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></td>
 			</tr>
 			<tr <smarty>$ocultarCabecalhoRodape</smarty>>
 				<td style="height:10px; padding-right:0px; text-align: right;">

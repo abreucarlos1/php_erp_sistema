@@ -1,6 +1,6 @@
 <?php
 /*
-	Exporta��o e importa��o de dados
+	Exportação e importação de dados
 	Criado por Carlos Eduardo  
 	
 	Versão 0 --> VERSÃO INICIAL - 13/05/2016	
@@ -40,12 +40,12 @@ while(($linha = fgets($fp)) !== false)
 	$descArquivos[] = $reg[0];
 	$codBarras[] 	= $reg[1];
 
-	//Verificando se o codigo e barras � v�lido, sen�o ignora o item
+	//Verificando se o codigo e barras é válido, senão ignora o item
 	$codBarrasTemp = intval(AntiInjection::formatarGenerico($reg[1], '#############'));
 	if ($codBarrasTemp == 0)
 		continue;	
 	
-	//Quando for tubo, dividir por 1000, visto que o PDMS e o Plant3D os exibem em milimetros e o sistema est� em metros
+	//Quando for tubo, dividir por 1000, visto que o PDMS e o Plant3D os exibem em milimetros e o sistema está em metros
 	$testeTubo = explode('.', $reg[1]);
 	$dividir = $testeTubo[0].$testeTubo[1] == '01001' ? 1000 : 1;
 	
@@ -96,16 +96,16 @@ fclose($fr);
 
 $idFunc = $_SESSION['id_funcionario'];
 
-$log = '<h2>LOGS DA OPERA��O DE IMPORTA��O DA(s) LISTA(s)</h2>';
+$log = '<h2>LOGS DA OPERAÇÃO DE IMPORTAÇÃO DA(s) LISTA(s)</h2>';
 
-//Come�ando a importa��o
+//Começando a importação
 foreach($arquivos as $descArq => $produto)
 {
 	$produtosLista = array_keys($produto);
 
 	if (!isset($arquivosCompl[$descArq]['id_os']))
 	{
-		$log .= '<h3><font color="red">O documento '.$descArq.' N�O EST� NO GED</font></h3>';
+		$log .= '<h3><font color="red">O documento '.$descArq.' NÃO ESTA NO GED</font></h3>';
 	}
 	else
 	{
@@ -133,7 +133,7 @@ foreach($arquivos as $descArq => $produto)
 		
 		$listaSemFamilia = array();
 		
-		//A consulta acima neste momento serve apenas para verificar se a OS desejada tem especs, permitindo assim a inser��o de uma lista
+		//A consulta acima neste momento serve apenas para verificar se a OS desejada tem especs, permitindo assim a inserção de uma lista
 		if ($db->numero_registros > 0)
 		{
 			//Montando a lista de produtos da espec 
@@ -145,13 +145,13 @@ foreach($arquivos as $descArq => $produto)
 					$listaSemFamilia[$regsEspec['cod_barras']] = $regsEspec['id_produto'];
 			}
 			
-			//Verificando se o arquivo j� possui cabecalho criado, para n�o criar lixo no banco de dados
+			//Verificando se o arquivo já possui cabecalho criado, para não criar lixo no banco de dados
 			$sql = "SELECT * FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_ged_arquivo = '".$arquivosCompl[$descArq]['id_ged_arquivo']."'";
 			$db->select($sql, 'MYSQL', true);
 			
 			if ($db->numero_registros == 0)
 			{
-				//Inserindo o cabecalho e pegando o c�digo gerado
+				//Inserindo o cabecalho e pegando o código gerado
 				$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
 				$db->insert($isql, 'MYSQL');
 				$idCabecalho = $db->insert_id;
@@ -165,13 +165,13 @@ foreach($arquivos as $descArq => $produto)
 			
 			if ($db->erro == '')
 			{
-				$log .= '<h3>Cabe�alho N� '.$idCabecalho.' '.$complCabecalho.'<h3>';
+				$log .= '<h3>Cabeçalho Nº '.$idCabecalho.' '.$complCabecalho.'<h3>';
 				foreach($produto as $codBar => $qtd)
 				{
-					//Caso o item a ser inserido n�o esteja na lista da espec criada 
+					//Caso o item a ser inserido não esteja na lista da espec criada 
 					if (!array_key_exists($codBar, $produtosListaEspec))
 					{
-						$log .= '<h4><font color="red">Item '.$codBar.' n�o est� na espec desta os</font></h4>';
+						$log .= '<h4><font color="red">Item '.$codBar.' não está na espec desta os</font></h4>';
 						continue;
 					}
 					
@@ -186,7 +186,7 @@ foreach($arquivos as $descArq => $produto)
 					$per 			= 0;
 					$data			= date('Y-m-d H:i:s');
 					
-					//Verificando se o item selecionado j� est� na lista do arquivo
+					//Verificando se o item selecionado já está na lista do arquivo
 					$sql = "SELECT m.id_lista_materiais, m.id_lista_materiais_versoes, MAX(revisao_documento) revisao_documento
 							FROM materiais_old.lista_materiais m
 							JOIN materiais_old.lista_materiais_versoes v ON v.id_lista_materiais = m.id_lista_materiais AND v.reg_del = 0
@@ -209,7 +209,7 @@ foreach($arquivos as $descArq => $produto)
 						
 						if (isset($listaSemFamilia))
 						{
-							$complLm .= '. (<font color="green">Por�m, o produto '.$idProduto.' N�O POSSUI FAMILIA CADASTRADA';
+							$complLm .= '. (<font color="green">Porém, o produto '.$idProduto.' NÃO POSSUI FAMILIA CADASTRADA';
 						}
 					}
 					else
@@ -219,15 +219,15 @@ foreach($arquivos as $descArq => $produto)
 						$idLv = $db->array_select[0]['id_lista_materiais_versoes'];
 						$revisao_documento = $db->array_select[0]['revisao_documento']+1;
 						
-						//Excluindo a vers�o j� existente mantendo o hist�rico
-						//O restante do fluxo continua normalmente com a inser��o da nova vers�o e a Atualização da lista de materiais atualmente selecionada
+						//Excluindo a versão já existente mantendo o histórico
+						//O restante do fluxo continua normalmente com a inserção da nova versão e a Atualização da lista de materiais atualmente selecionada
 						$usql = "UPDATE materiais_old.lista_materiais_versoes SET reg_del = 0, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_lista_materiais_versoes = ".$idLv;
 						$db->update($usql, 'MYSQL');
 					}
 					
 					if ($db->erro == '')
 					{
-						$log .= '<h4>Lista N� '.$idLm.' '.$complLm.'<h4>';
+						$log .= '<h4>Lista Nº '.$idLm.' '.$complLm.'<h4>';
 						
 						//INSERINDO A VERSÃO DO ITEM DA LISTA
 						$isql = "INSERT INTO
@@ -241,7 +241,7 @@ foreach($arquivos as $descArq => $produto)
 						
 						if ($db->erro == '')
 						{
-							$log .= '<h5>Versão '.$revisao_documento.' da Lista N� '.$idLv.' criada<h5>';
+							$log .= '<h5>Versão '.$revisao_documento.' da Lista Nº '.$idLv.' criada<h5>';
 								
 							$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = ".$idLv." WHERE id_lista_materiais = ".$idLm." AND reg_del = 0 ";
 							$db->update($usql, 'MYSQL');
@@ -260,10 +260,10 @@ foreach($arquivos as $descArq => $produto)
 		}
 		else
 		{
-			$log .= '<h3><font color="red">N�O FORAM ENCONTRADOS OS PRODUTOS OU SPECS PARA ESTA OS '.$db->erro.'</font></h3>';
+			$log .= '<h3><font color="red">NÃO FORAM ENCONTRADOS OS PRODUTOS OU SPECS PARA ESTA OS '.$db->erro.'</font></h3>';
 		}
 	}
 }
-$log .= '<h2>FIM DA OPERA��O DE IMPORTA��O DA(s) LISTA(s)</h2>';
+$log .= '<h2>FIM DA OPERAÇÃO DE IMPORTAÇÃO DA(s) LISTA(s)</h2>';
 
 exit($log);

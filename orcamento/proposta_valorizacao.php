@@ -48,7 +48,7 @@ function dados_proposta($numero_proposta)
 	$array_dados = NULL;
 	
 	/*
-	$sql = "SELECT REPLACE(AF1_DESCRI, '�', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
+	$sql = "SELECT REPLACE(AF1_DESCRI, '-', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
 	$sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND SA1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF1_CLIENT = A1_COD ";
@@ -164,7 +164,7 @@ function escolha_margens($dados_form)
 				$selected = '';
 			}
 			
-			$combo .= '<option value="'.$indices.'" '.$selected.'>'.$indices.'&nbsp;%</option>';
+			$combo .= '<option value="'.$indices.'" '.$selected.'>'.$indices.' %</option>';
 		}
 		
 		$combo .= '</select>';	
@@ -257,9 +257,9 @@ function atualizatabela($dados_form, $busca = false)
 	
 	foreach($db->array_select as $cont)
 	{
-		$importar = '&nbsp;';
+		$importar = ' ';
 		
-		$exportar = '&nbsp;';
+		$exportar = ' ';
 		
 		switch ($cont["id_status_fpv"])
 		{
@@ -269,9 +269,9 @@ function atualizatabela($dados_form, $busca = false)
 				
 				$titulo = 'ORÇAMENTO NÃO IMPORTADO';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;a&nbsp;valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja importar o orçamento técnico para a valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
 				
-				$exportar = '&nbsp;';
+				$exportar = ' ';
 							
 			break;
 			
@@ -281,9 +281,9 @@ function atualizatabela($dados_form, $busca = false)
 				
 				$titulo = 'ORÇAMENTO IMPORTADO';
 				
-				$exportar = '&nbsp;';
+				$exportar = ' ';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;a&nbsp;valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja importar o orçamento técnico para a valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
 				
 			break;
 			
@@ -293,9 +293,9 @@ function atualizatabela($dados_form, $busca = false)
 				
 				$titulo = 'ORÇAMENTO VALORIZADO';
 				
-				$exportar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
+				$exportar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;a&nbsp;valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja importar o orçamento técnico para a valorização?")){xajax_importar("'.$cont["id_proposta"].'");}>';
 			break;
 			
 			case 4: //EXPORTADO
@@ -304,9 +304,9 @@ function atualizatabela($dados_form, $busca = false)
 				
 				$titulo = 'ORÇAMENTO EXPORTADO';
 				
-				$exportar = '&nbsp;'; 
+				$exportar = ' '; 
 				
-				$importar = '&nbsp;';
+				$importar = ' ';
 			break;
 			
 		}
@@ -525,7 +525,7 @@ function preenche_resumo($dados_form)
 		{
 			$xml->startElement('row');
 				$xml->writeAttribute('id',$cod_setor.'_'.$regs["id_escopo_detalhado"]);
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 			
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;');
@@ -557,8 +557,8 @@ function preenche_resumo($dados_form)
 		$xml->startElement('row');
 			$xml->writeAttribute('id',$regs["id_escopo_detalhado"]);
 			$xml->writeAttribute('style',$color);
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
 			$xml->writeElement ('cell',$regs["codigo"]);
 			$xml->writeElement ('cell',$regs["descricao"]." ".$regs["descricao_escopo"]);
 			
@@ -598,7 +598,7 @@ function preenche_resumo($dados_form)
 			{
 				$xml->startElement('row');
 					$xml->writeAttribute('id','29_'.$regs3["id_mobilizacao_valorizacao"]);
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 				
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;');
@@ -613,8 +613,8 @@ function preenche_resumo($dados_form)
 					$xml->startElement('row');
 						$xml->writeAttribute('id',$regs["id_escopo_geral"].'='.$regs3["id_mobilizacao_valorizacao"]);
 						$xml->writeAttribute('style',$color);
-						$xml->writeElement ('cell','&nbsp;');
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');
+						$xml->writeElement ('cell',' ');
 						$xml->writeElement ('cell',$regs3["codigo"]);
 						$xml->writeElement ('cell',$regs3["descricao"]." ".$regs3["descricao_mobilizacao"]);
 						
@@ -622,7 +622,7 @@ function preenche_resumo($dados_form)
 						
 						$xml->writeElement ('cell',number_format($regs3["qtd_necessario_orcado"],2,",","."));
 						
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');
 						
 					$xml->endElement();
 				}
@@ -639,11 +639,11 @@ function preenche_resumo($dados_form)
 	
 		$xml->startElement('row');
 			$xml->writeAttribute('id','9999999');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');			
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');			
+			$xml->writeElement ('cell',' ');
 			
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style','font-weight:bold;');
@@ -910,7 +910,7 @@ function preenche_categorias($dados_form)
 	//OBTEM O CLIENTE
 	$array_cli = dados_proposta($reg_fpv["numero_proposta"]);
 	
-	$sql = "SELECT id_empresa_erp FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+	$sql = "SELECT id_empresa FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 	$sql .= "WHERE empresas.id_cod_protheus = '".$array_cli["id_cliente"]."' ";
 	$sql .= "AND empresas.id_loja_protheus = '".$array_cli["loja"]."' ";
 	$sql .= "AND empresas.reg_del = 0 ";
@@ -1146,7 +1146,7 @@ function preenche_categorias($dados_form)
 			
 			$xml->startElement('row');
 			
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 				
 				$xml->startElement ('cell');
 					$xml->text($regs["grupo"]);					
@@ -1210,11 +1210,11 @@ function preenche_categorias($dados_form)
 			{
 				$xml->startElement('row');
 				
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;');
@@ -1228,7 +1228,7 @@ function preenche_categorias($dados_form)
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;');
-						$xml->text('R$&nbsp;'.number_format($subtotal_prof,2,",","."));					
+						$xml->text('R$ '.number_format($subtotal_prof,2,",","."));					
 					$xml->endElement();
 					
 					foreach($array_lucros as $indice_lucro)
@@ -1243,7 +1243,7 @@ function preenche_categorias($dados_form)
 						}
 						$xml->startElement ('cell');
 							$xml->writeAttribute('style',$style);
-							$xml->text('R$&nbsp;'.number_format($subtotal_valor[$indice_lucro],2,",","."));					
+							$xml->text('R$ '.number_format($subtotal_valor[$indice_lucro],2,",","."));					
 						$xml->endElement();
 						
 						$subtotal_valor[$indice_lucro] = 0;
@@ -1341,7 +1341,7 @@ function preenche_categorias($dados_form)
 			$indice++;
 			
 			$xml->startElement('row');
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 			
 				$xml->startElement ('cell');
 					$xml->text($regs_mob["descricao"]);					
@@ -1352,11 +1352,11 @@ function preenche_categorias($dados_form)
 				$xml->endElement();			
 				
 				$xml->startElement ('cell');
-					$xml->text('&nbsp;');					
+					$xml->text(' ');					
 				$xml->endElement();
 				
 				$xml->startElement ('cell');
-					$xml->text('&nbsp;');					
+					$xml->text(' ');					
 				$xml->endElement();			
 				
 				$xml->startElement ('cell');
@@ -1405,11 +1405,11 @@ function preenche_categorias($dados_form)
 		//imprime os subtotais mobilizacao
 		$xml->startElement('row');
 		
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
 			
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style','font-weight:bold;');
@@ -1417,12 +1417,12 @@ function preenche_categorias($dados_form)
 			$xml->endElement();
 			
 			$xml->startElement ('cell');
-				$xml->text('&nbsp;');					
+				$xml->text(' ');					
 			$xml->endElement();
 			
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style','font-weight:bold;');
-				$xml->text('R$&nbsp;'.number_format($sub_mob,2,",","."));					
+				$xml->text('R$ '.number_format($sub_mob,2,",","."));					
 			$xml->endElement();
 			
 			foreach($array_lucros as $indice_lucro)
@@ -1437,7 +1437,7 @@ function preenche_categorias($dados_form)
 				}
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style',$style);
-					$xml->text('R$&nbsp;'.number_format($subtotal_valor_mob[$indice_lucro],2,",","."));					
+					$xml->text('R$ '.number_format($subtotal_valor_mob[$indice_lucro],2,",","."));					
 				$xml->endElement();
 									
 			}
@@ -1449,11 +1449,11 @@ function preenche_categorias($dados_form)
 	//IMPRIME OS TOTAIS
 	$xml->startElement('row');
 	
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;');
@@ -1467,7 +1467,7 @@ function preenche_categorias($dados_form)
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;');
-			$xml->text('R$&nbsp;'.number_format($total_prof,2,",","."));					
+			$xml->text('R$ '.number_format($total_prof,2,",","."));					
 		$xml->endElement();
 		
 		foreach($array_lucros as $indice_lucro)
@@ -1482,7 +1482,7 @@ function preenche_categorias($dados_form)
 			}
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style',$style);
-				$xml->text('R$&nbsp;'.number_format($total_valor[$indice_lucro],2,",","."));					
+				$xml->text('R$ '.number_format($total_valor[$indice_lucro],2,",","."));					
 			$xml->endElement();
 			
 			$total_valor[$indice_lucro] = 0;										
@@ -1661,7 +1661,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 	$sql = "SELECT * FROM ".DATABASE.".rh_cargos, ".DATABASE.".tabela_valor_mo_cliente, ".DATABASE.".tabela_valor_mo_historico_cliente ";
 	$sql .= "WHERE tabela_valor_mo_cliente.reg_del = 0 ";
 	$sql .= "AND tabela_valor_mo_historico_cliente.reg_del = 0 ";
-	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa_erp"]."' ";
+	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa"]."' ";
 	$sql .= "AND rh_cargos.id_cargo_grupo = tabela_valor_mo_cliente.id_cargo ";
 	$sql .= "AND tabela_valor_mo_cliente.id_tabela_valor_cliente_atual = tabela_valor_mo_historico_cliente.id_tabela_valor_mo_historico_cliente ";//obtem o valor atual
 	$sql .= "ORDER BY rh_cargos.ordem_tarifas ";
@@ -1784,7 +1784,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 			$valor_cust_moi_mod = ($valor_calculado * $ind_moi_mod);			
 	
 			$xml->startElement('row');
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 			
 				$xml->startElement ('cell');
 					$xml->text($regs["grupo"]);					
@@ -1832,7 +1832,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 				}
 				
 				$xml->startElement ('cell');
-					$xml->text('&nbsp;');					
+					$xml->text(' ');					
 				$xml->endElement();	
 				
 				//fator venda - valor
@@ -1855,7 +1855,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style',$style);
-						$xml->text('R$&nbsp;'.number_format($valor_hh_dvm,2,",","."));					
+						$xml->text('R$ '.number_format($valor_hh_dvm,2,",","."));					
 					$xml->endElement();					
 				}
 				
@@ -1865,8 +1865,8 @@ function preenche_guarda_chuva_dvm($dados_form)
 			if($array_num[$cod_setor]==$index_item)
 			{
 				$xml->startElement('row');				
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;');
@@ -1892,7 +1892,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 						$subtotal_hh[$indice_lucro] = 0;								
 					}
 					
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 					
 					foreach($array_lucros as $indice_lucro)
 					{
@@ -1907,7 +1907,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 						
 						$xml->startElement ('cell');
 							$xml->writeAttribute('style',$style);
-							$xml->text('R$&nbsp;'.number_format($subtotal_valor_hh[$indice_lucro],2,",","."));					
+							$xml->text('R$ '.number_format($subtotal_valor_hh[$indice_lucro],2,",","."));					
 						$xml->endElement();
 						
 						$subtotal_valor_hh[$indice_lucro] = 0;									
@@ -1926,8 +1926,8 @@ function preenche_guarda_chuva_dvm($dados_form)
 	//IMPRIME OS TOTAIS	
 	$xml->startElement('row');
 		
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;');
@@ -1954,7 +1954,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 						
 		}
 		
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
 		
 		foreach($array_lucros as $indice_lucro)
 		{
@@ -1969,7 +1969,7 @@ function preenche_guarda_chuva_dvm($dados_form)
 			
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style',$style);
-				$xml->text('R$&nbsp;'.number_format($total_valor_hh[$indice_lucro],2,",","."));					
+				$xml->text('R$ '.number_format($total_valor_hh[$indice_lucro],2,",","."));					
 			$xml->endElement();
 			
 			$total_valor_hh[$indice_lucro] = 0;						
@@ -2147,7 +2147,7 @@ function preenche_adm_dvm($dados_form)
 	$sql .= "WHERE tabela_valor_mo_cliente.reg_del = 0 ";
 	$sql .= "AND tabela_valor_mo_historico_cliente.reg_del = 0 ";
 	$sql .= "AND rh_cargos.reg_del = 0 ";
-	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa_erp"]."' ";
+	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa"]."' ";
 	$sql .= "AND rh_cargos.id_cargo_grupo = tabela_valor_mo_cliente.id_cargo ";
 	$sql .= "AND tabela_valor_mo_cliente.id_tabela_valor_cliente_atual = tabela_valor_mo_historico_cliente.id_tabela_valor_mo_historico_cliente ";//obtem o valor atual
 	$sql .= "ORDER BY rh_cargos.ordem_tarifas ";
@@ -2270,7 +2270,7 @@ function preenche_adm_dvm($dados_form)
 	
 				$xml->startElement('row');
 					
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 				
 					$xml->startElement ('cell');
 						$xml->text($regs["grupo"]);					
@@ -2292,7 +2292,7 @@ function preenche_adm_dvm($dados_form)
 					$xml->endElement();
 					
 					$xml->startElement ('cell');
-						$xml->text('&nbsp;');					
+						$xml->text(' ');					
 					$xml->endElement();
 						
 					//fator venda - valor
@@ -2320,8 +2320,8 @@ function preenche_adm_dvm($dados_form)
 			{
 				$xml->startElement('row');
 				
-					$xml->writeElement ('cell','&nbsp;');
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
+					$xml->writeElement ('cell',' ');
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;');
@@ -2337,10 +2337,10 @@ function preenche_adm_dvm($dados_form)
 					
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style',$style);
-						$xml->text('R$&nbsp;'.number_format($subtotal_valor,2,",","."));					
+						$xml->text('R$ '.number_format($subtotal_valor,2,",","."));					
 					$xml->endElement();
 					
-					$xml->writeElement ('cell','&nbsp;');				
+					$xml->writeElement ('cell',' ');				
 					
 					foreach($array_lucros as $indice_lucro)
 					{
@@ -2349,7 +2349,7 @@ function preenche_adm_dvm($dados_form)
 						
 						$xml->startElement ('cell');
 							$xml->writeAttribute('style',$style);
-							$xml->text('R$&nbsp;'.number_format($subtotal_custo[$indice_lucro],2,",","."));					
+							$xml->text('R$ '.number_format($subtotal_custo[$indice_lucro],2,",","."));					
 						$xml->endElement();
 						
 						$subtotal_custo[$indice_lucro] = 0;								
@@ -2371,8 +2371,8 @@ function preenche_adm_dvm($dados_form)
 	//imprime os totais	
 	$xml->startElement('row');
 		
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;');
@@ -2386,10 +2386,10 @@ function preenche_adm_dvm($dados_form)
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style',$style);
-			$xml->text('R$&nbsp;'.number_format($total_valor,2,",","."));					
+			$xml->text('R$ '.number_format($total_valor,2,",","."));					
 		$xml->endElement();
 		
-		$xml->writeElement ('cell','&nbsp;');		
+		$xml->writeElement ('cell',' ');		
 		
 		foreach($array_lucros as $indice_lucro)
 		{
@@ -2398,7 +2398,7 @@ function preenche_adm_dvm($dados_form)
 			
 			$xml->startElement ('cell');
 				$xml->writeAttribute('style',$style);
-				$xml->text('R$&nbsp;'.number_format($total_custo[$indice_lucro],2,",","."));					
+				$xml->text('R$ '.number_format($total_custo[$indice_lucro],2,",","."));					
 			$xml->endElement();
 			
 			$total_custo[$indice_lucro] = 0;						
@@ -2621,7 +2621,7 @@ function concluir_proposta($dados_form)
 	$sql .= "WHERE tabela_valor_mo_cliente.reg_del = 0 ";
 	$sql .= "AND tabela_valor_mo_historico_cliente.reg_del = 0 ";
 	$sql .= "AND rh_cargos.reg_del = 0 ";
-	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa_erp"]."' ";
+	$sql .= "AND tabela_valor_mo_cliente.id_cliente = '".$reg_cliente["id_empresa"]."' ";
 	$sql .= "AND rh_cargos.id_cargo_grupo = tabela_valor_mo_cliente.id_cargo ";
 	$sql .= "AND tabela_valor_mo_cliente.id_tabela_valor_cliente_atual = tabela_valor_mo_historico_cliente.id_tabela_valor_mo_historico_cliente ";//obtem o valor atual
 	$sql .= "ORDER BY rh_cargos.ordem_tarifas ";
@@ -2907,11 +2907,11 @@ function tab()
 
 	myTabbar.addTab("a40_", "Resumo");
 	
-	myTabbar.addTab("a50_", "Contrato&nbsp;padrão");
+	myTabbar.addTab("a50_", "Contrato padrão");
 	
-	myTabbar.addTab("a70_", "Contrato&nbsp;Guarda-chuva&nbsp;Preço&nbsp;Global");
+	myTabbar.addTab("a70_", "Contrato Guarda-chuva Preço Global");
 	
-	myTabbar.addTab("a80_", "Contrato&nbsp;Guarda-chuva&nbsp;ADM");
+	myTabbar.addTab("a80_", "Contrato Guarda-chuva ADM");
 	
 	myTabbar.tabs("a10_").attachObject("a10");
 
@@ -2950,7 +2950,7 @@ function grid(tabela, autoh, height, xml)
 				}
 				
 				mygrid1.attachEvent("onRowSelect",doOnRowSelected1);	
-				mygrid1.setHeader("&nbsp;,Proposta, Descrição,I,E",
+				mygrid1.setHeader(" ,Proposta, Descrição,I,E",
 					null,
 					["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				mygrid1.setInitWidths("22,80,*,35,35");
@@ -2979,14 +2979,14 @@ function grid(tabela, autoh, height, xml)
 				mygrid5_resumo.enableAutoHeight(autoh,height);
 				mygrid5_resumo.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid5_resumo.setHeader("Categoria,Profissional,Custo/Mês,R$/Mês,R$/Hh,Custo<br />MOI/MOD,Horas/Qtd,Custo/<br />Profissional,Valor&nbsp;venda,#cspan,#cspan,#cspan,#cspan",
+				mygrid5_resumo.setHeader("Categoria,Profissional,Custo/Mês,R$/Mês,R$/Hh,Custo<br />MOI/MOD,Horas/Qtd,Custo/<br />Profissional,Valor venda,#cspan,#cspan,#cspan,#cspan",
 										null,
 										["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				
 				mygrid5_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","0%","5%","7.5%","10%",""+text_margem+"%"],
 										["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				
-				mygrid5_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","<div id='dv_cat1'>&nbsp;</div>","<div id='dv_cat2'>&nbsp;</div>","<div id='dv_cat3'>&nbsp;</div>","<div id='dv_cat4'>&nbsp;</div>","<div id='dv_cat5'>&nbsp;</div>"],
+				mygrid5_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","<div id='dv_cat1'> </div>","<div id='dv_cat2'> </div>","<div id='dv_cat3'> </div>","<div id='dv_cat4'> </div>","<div id='dv_cat5'> </div>"],
 										["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				
 				mygrid5_resumo.setInitWidths("85,160,75,60,60,70,70,90,90,90,90,90,90");
@@ -3015,14 +3015,14 @@ function grid(tabela, autoh, height, xml)
 				mygrid7_resumo.enableAutoHeight(autoh,height);
 				mygrid7_resumo.enableRowsHover(true,'cor_mouseover');				
 
-				mygrid7_resumo.setHeader("Categoria,Profissional,R$/Hh&nbsp;no<br />Cliente,Horas,#cspan,#cspan,#cspan,#cspan,&nbsp;,Valor&nbsp;venda,#cspan,#cspan,#cspan,#cspan",
+				mygrid7_resumo.setHeader("Categoria,Profissional,R$/Hh no<br />Cliente,Horas,#cspan,#cspan,#cspan,#cspan, ,Valor venda,#cspan,#cspan,#cspan,#cspan",
 										null,
 										["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 				
-				mygrid7_resumo.attachHeader(["#rspan","#rspan","#rspan","0%","5%","7.5%","10%",""+text_margem+"%","&nbsp;","0%","5%","7.5%","10%",""+text_margem+"%"],
+				mygrid7_resumo.attachHeader(["#rspan","#rspan","#rspan","0%","5%","7.5%","10%",""+text_margem+"%"," ","0%","5%","7.5%","10%",""+text_margem+"%"],
 											["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 				
-				mygrid7_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","&nbsp;","<div id='dgd_1'>&nbsp;</div>","<div id='dgd_2'>&nbsp;</div>","<div id='dgd_3'>&nbsp;</div>","<div id='dgd_4'>&nbsp;</div>","<div id='dgd_5'>&nbsp;</div>"],
+				mygrid7_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan"," ","<div id='dgd_1'> </div>","<div id='dgd_2'> </div>","<div id='dgd_3'> </div>","<div id='dgd_4'> </div>","<div id='dgd_5'> </div>"],
 											["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 
 				
@@ -3052,14 +3052,14 @@ function grid(tabela, autoh, height, xml)
 				mygrid8_resumo.enableAutoHeight(autoh,height);
 				mygrid8_resumo.enableRowsHover(true,'cor_mouseover');				
 
-				mygrid8_resumo.setHeader("Categoria,Profissional,R$/Hh&nbsp;no<br />Cliente,Horas,Valor&nbsp;venda,&nbsp;,Valor&nbsp;custo,#cspan,#cspan,#cspan,#cspan",
+				mygrid8_resumo.setHeader("Categoria,Profissional,R$/Hh no<br />Cliente,Horas,Valor venda, ,Valor custo,#cspan,#cspan,#cspan,#cspan",
 										null,
 										["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 				
 				mygrid8_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","0%","5%","7.5%","10%",""+text_margem+"%"],
 											["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 				
-				//mygrid8_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","&nbsp;","<div id='dgd_1'>&nbsp;</div>","<div id='dgd_2'>&nbsp;</div>","<div id='dgd_3'>&nbsp;</div>","<div id='dgd_4'>&nbsp;</div>","<div id='dgd_5'>&nbsp;</div>"],
+				//mygrid8_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan"," ","<div id='dgd_1'> </div>","<div id='dgd_2'> </div>","<div id='dgd_3'> </div>","<div id='dgd_4'> </div>","<div id='dgd_5'> </div>"],
 				//							["text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:left;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 
 				
@@ -3085,7 +3085,7 @@ function grid(tabela, autoh, height, xml)
 		mygrid_resumo.enableAutoHeight(autoh,height);
 		mygrid_resumo.enableRowsHover(true,'cor_mouseover');
 		
-		mygrid_resumo.setHeader("Escopo&nbsp;Geral,Disciplina,Tarefa,Descrição,Fmt,Qtd,Horas");
+		mygrid_resumo.setHeader("Escopo Geral,Disciplina,Tarefa,Descrição,Fmt,Qtd,Horas");
 		mygrid_resumo.setInitWidths("85,80,50,*,*,60,60");
 		mygrid_resumo.setColAlign("left,left,left,left,left,left,left");
 		mygrid_resumo.setColTypes("ro,ro,ro,ro,ro,ro,ro");

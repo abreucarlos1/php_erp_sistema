@@ -46,7 +46,7 @@
       <table width="100%">
       <tr>
       <td>
-		<div id="my_tabbar" style="position: relative; width: 100%; height: 550px;">&nbsp;</div>
+		<div id="my_tabbar" style="position: relative; width: 100%; height: 550px;"> </div>
       </td>
       </tr>
       </table>

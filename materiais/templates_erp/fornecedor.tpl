@@ -8,13 +8,13 @@
           <td width="116" rowspan="3" valign="top" class="td_sp">
 		  <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onClick="xajax_insere(xajax.getFormValues('frm'));" /></td>
+				  <td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onclick="xajax_insere(xajax.getFormValues('frm'));" /></td>
 			  </tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnimportar" id="btnimportar" type="button" class="class_botao" value="<smarty>$botao[5]</smarty>" onClick="abrirArquivoImportacao();" /></td>
+					<td valign="middle"><input name="btnimportar" id="btnimportar" type="button" class="class_botao" value="<smarty>$botao[5]</smarty>" onclick="abrirArquivoImportacao();" /></td>
 				</tr>
 				<tr>
 				  <td valign="middle"><input name="id_grupo" type="hidden" id="id_grupo" value=""></td>
@@ -25,7 +25,7 @@
           <td colspan="2" valign="top" class="borda_alto borda_esquerda">
 				<table border="0">
                   <tr>
-                    <td class="td_sp" colspan="4"><label class="labels">Razão Social</label>
+                    <td class="td_sp" colspan="4"><label class="labels">RazÃ£o Social</label>
 						<input name="razao_social" type="text" class="caixa" id="razao_social" maxlength="255" size="69" />
 					</td>
 					<td colspan="2" class="td_sp"><label class="labels">Nome Fantasia</label><br />
@@ -37,7 +37,7 @@
                     <td class="td_sp" colspan="3"><label class="labels">Logradouro</label>
 						<input name="logradouro" type="text" class="caixa" id="logradouro" maxlength="255" size="59">
 					</td>
-					<td class="td_sp"><label class="labels">Núm.</label><br />
+					<td class="td_sp"><label class="labels">NÂºm.</label><br />
 						<input name="numero" type="text" class="caixa" id="numero" maxlength="5" size="5">
 					</td>
 					<td class="td_sp"><label class="labels">Complemento</label><br />
@@ -65,11 +65,11 @@
         </tr>
         
         <tr>
-          <td class="fundo_azul">&nbsp;</td>
-          <td colspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td class="fundo_azul"> </td>
+          <td colspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>
       </table>
-    <i class="labels" id="legendaAtributos" style="float:left;">Clique sobre o botão <img src="../imagens/btn_detalhes.png" /> para editar seus valores</i>
+    <i class="labels" id="legendaAtributos" style="float:left;">Clique sobre o botÃ£o <img src="../imagens/btn_detalhes.png" /> para editar seus valores</i>
 	<div id="fornecedores" style="width:100%;"></div>	
 </form>
 </div>

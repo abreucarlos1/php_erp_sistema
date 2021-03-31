@@ -62,7 +62,7 @@ foreach($db->array_select as $reg)
 }
 
 $sql = "SELECT ordem_servico.id_os, ordem_servico.os, descricao, empresa FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas, ".DATABASE.".numeros_interno ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND numeros_interno.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";

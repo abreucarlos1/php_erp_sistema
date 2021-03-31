@@ -185,7 +185,7 @@ NOTE
 <td>&#x627;&#x644;&#x631;&#x626;&#x64a;&#x633;</td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 <h3>Lists</h3>
 <p>Lists will automatically reverse as well (note the use of list-style to set numbering):&#x200E;</p>
 <div style="background-color:#ddccff; padding:5pt;">

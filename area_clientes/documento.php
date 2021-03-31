@@ -1,4 +1,4 @@
-<? 
+<?php 
 	ini_set('max_execution_time', 0); // No time limit
 	ini_set('post_max_size', '850M');
 	ini_set('upload_max_filesize', '850M');
@@ -13,19 +13,19 @@
    if(isset($arquivo) && file_exists($arquivo))
    {	 
 	 
-	  //se o ultimo campo for num�rico, revisao_documentoao
+	  //se o ultimo campo for numérico, revisao_documentoao
 	  if(is_numeric($sufix[count($sufix)-1]))
 	  {		  
 		  $count_char = (strlen($sufix[count($sufix)-1])+1);
 		  
-		  //pega a extens�o
+		  //pega a extensão
 		  $mimetype =  $sufix[count($sufix)-2];
 		  
 		 if(is_numeric($sufix[count($sufix)-2]))
 		 {
 			 $count_char += (strlen($sufix[count($sufix)-2])+1);
 			 
-			  //pega a extens�o
+			  //pega a extensão
 			  $mimetype =  $sufix[count($sufix)-3];
 		 }  
 
@@ -44,7 +44,7 @@
 	  }
 	  
 	  switch($mimetype)
-	  { // verifica a extens�o do arquivo para pegar o tipo
+	  { // verifica a extensão do arquivo para pegar o tipo
 		 case "pdf": $tipo="application/pdf"; break;
 		 case "dwg": $tipo="application/dwg"; break;
 		 case "exe": $tipo="application/octet-stream"; break;
@@ -60,9 +60,9 @@
 		 case "png": $tipo="image/png"; break;
 		 case "jpg": $tipo="image/jpg"; break;
 		 case "mp3": $tipo="audio/mpeg"; break;
-		 case "php": $tipo="";// deixar vazio por seuran�a
-		 case "htm": $tipo="";// deixar vazio por seuran�a
-		 case "html": $tipo="";// deixar vazio por seuran�a
+		 case "php": $tipo="";// deixar vazio por segurança
+		 case "htm": $tipo="";// deixar vazio por segurança
+		 case "html": $tipo="";// deixar vazio por segurança
 	  }
 	  
 		header('Content-Description: File Transfer');
@@ -77,7 +77,7 @@
 		readfile($arquivo);
 	
 	  
-      exit; // aborta p�s-a��es
+      exit; // aborta pós-ações
    }
    else
    {

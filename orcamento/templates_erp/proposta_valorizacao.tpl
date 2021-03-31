@@ -16,7 +16,7 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
                     	</td>
                    	</tr>
        			</table>
@@ -42,9 +42,9 @@
             <table width="100%" border="0">
               <tr>
                 <td width="19%"><label class="labels">Proposta</label><br />
-                <div class="labels" style="font-weight:bold" id="nr_proposta">&nbsp;</div></td>
+                <div class="labels" style="font-weight:bold" id="nr_proposta"> </div></td>
                 <td width="81%"><label class="labels">Descrição</label><br />
-                <div class="labels" style="font-weight:bold" id="descri_proposta">&nbsp;</div></td>
+                <div class="labels" style="font-weight:bold" id="descri_proposta"> </div></td>
                 <input type="hidden" id="id_proposta" name="id_proposta" value="" />
                 
                 <input type="hidden" id="row_id" name="row_id" value="" />
@@ -59,7 +59,7 @@
                                 <smarty>html_options values=$option_regiao_values output=$option_regiao_output selected=$selecionado</smarty>
                             </select>
                         </td>
-                    	<td width="9%"><label for="reajuste" class="labels">%&nbsp;Reajuste</label><br />
+                    	<td width="9%"><label for="reajuste" class="labels">% Reajuste</label><br />
                             <input type="text" name="reajuste" id="reajuste" class="caixa" size="5" value="0" onkeypress="num_only();" />
                         </td>
                     	<td width="12%"><label for="contrato" class="labels">Contrato</label><br />
@@ -76,18 +76,18 @@
                   </table>
                   <table>
                	  <tr>
-              <td width="10%"><label for="lucro_liq" class="labels">%&nbsp;Lucro&nbsp;liq.</label><br />
+              <td width="10%"><label for="lucro_liq" class="labels">% Lucro liq.</label><br />
                             <input type="text" name="lucro_liq" id="lucro_liq" class="caixa" size="5" value="12,5" onkeypress="num_only();" onblur="xajax_escolha_margens(xajax.getFormValues('frm'));" />
                         </td>
                         
-                        <td width="10%"><label class="labels">Margem&nbsp;aplicada</label><br />
-                            <div id="div_margem">&nbsp;</div>
+                        <td width="10%"><label class="labels">Margem aplicada</label><br />
+                            <div id="div_margem"> </div>
                         </td>                        
                     	<td width="10%">
                             <input type="button" name="btn_aplicar" id="btn_aplicar" class="class_botao" style="width:70px;" value="Recalcular" disabled="disabled" onclick="xajax_preenche_categorias(xajax.getFormValues('frm'));xajax_preenche_guarda_chuva(xajax.getFormValues('frm'));" />
                         </td>
                     	<td width="60%">
-                            <input type="button" name="btn_concluir" id="btn_concluir" class="class_botao" value="Concluir&nbsp;Valorização" disabled="disabled" onclick="xajax_concluir_proposta(xajax.getFormValues('frm'));" />
+                            <input type="button" name="btn_concluir" id="btn_concluir" class="class_botao" value="Concluir Valorização" disabled="disabled" onclick="xajax_concluir_proposta(xajax.getFormValues('frm'));" />
                         </td>     
                     <tr>
                   </table>
@@ -100,29 +100,29 @@
     	<td valign="top" class="espacamento">
             <div id="my_tabbar" style="height:490px;">            
               <div id="a10">     
-                <div id="div_dados_cliente">&nbsp;</div>
+                <div id="div_dados_cliente"> </div>
               </div>
               
               <div id="a40">
                 <div id="div_control_resumo" style="visibility:hidden"> 
-                  <div id="div_resumo" style="width:99%">&nbsp;</div>
-                  <div id="barra_btn_quant">&nbsp;</div>
+                  <div id="div_resumo" style="width:99%"> </div>
+                  <div id="barra_btn_quant"> </div>
                 </div>
             </div>
             
               <div id="a50">
                 <div id="div_control_categorias" style="visibility:hidden;">
-                  <div id="div_categorias" style="width:99%">&nbsp;</div>
+                  <div id="div_categorias" style="width:99%"> </div>
              </div>
             </div>            
               <div id="a70">
                 <div id="div_control_guarda_chuva_dvm" style="visibility:hidden;">
-                  <div id="div_guarda_chuva_dvm" style="width:99%">&nbsp;</div>
+                  <div id="div_guarda_chuva_dvm" style="width:99%"> </div>
              </div>
              
                <div id="a80">
                 <div id="div_control_adm_dvm" style="visibility:hidden;">
-                  <div id="div_adm_dvm" style="width:99%">&nbsp;</div>
+                  <div id="div_adm_dvm" style="width:99%"> </div>
              </div>
             </div>              
           </div>  

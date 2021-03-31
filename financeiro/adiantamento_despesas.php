@@ -16,7 +16,7 @@
 		Versão 6 --> Alterações das imagens - 12/07/2016 - Carlos Abreu
 		Versão 7 --> atualização layout - Carlos Abreu - 27/03/2017
 		Versão 8 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
-		Versão 9 --> Adicionados filtros pedidos pela Sandra em - 01/12/2017 - Carlos Eduardo
+		Versão 9 --> Adicionados filtros pedidos pela   em - 01/12/2017 - Carlos Eduardo
 */
 header('X-UA-Compatible: IE=edge');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -141,7 +141,7 @@ function atualizatabela($dados_form)
 			{			
 				$cont = $db->array_select[0];
 				
-				$imprimir = "&nbsp;";	
+				$imprimir = " ";	
 				
 				switch ($cont_desp["status"])
 				{
@@ -170,22 +170,22 @@ function atualizatabela($dados_form)
 				
 				if($cont_desp["status"]!=3)
 				{
-					$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;requisição&nbsp;selecionada?")){xajax_excluir("' . $cont_desp["id_requisicao_despesa"] . '");}>';
+					$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão da requisição selecionada?")){xajax_excluir("' . $cont_desp["id_requisicao_despesa"] . '");}>';
 				}
 				else
 				{
-					$del = '&nbsp;';
+					$del = ' ';
 				}
 				
 				$xml->startElement('row');
 					$xml->writeAttribute('id','req_'.$cont_desp["id_requisicao_despesa"]);
-					$xml->writeElement ('cell',"&nbsp;");
+					$xml->writeElement ('cell'," ");
 					$xml->writeElement ('cell',sprintf("%05d",$cont_desp["id_requisicao_despesa"]));
 					$xml->writeElement ('cell',sprintf("%010d",$cont_desp["os"]));
 					$xml->writeElement ('cell',mysql_php($cont_desp["data_adiantamento"]));
 					$xml->writeElement ('cell',$cont_desp["atividade"]);
 					$xml->writeElement ('cell',$cont_desp["funcionario"]);
-					$xml->writeElement ('cell',substr(mysql_php($cont_desp["periodo_inicial"]),0,10) . '&nbsp;á&nbsp;' . substr(mysql_php($cont_desp["periodo_final"]),0,10));
+					$xml->writeElement ('cell',substr(mysql_php($cont_desp["periodo_inicial"]),0,10) . ' á ' . substr(mysql_php($cont_desp["periodo_final"]),0,10));
 					$xml->writeElement ('cell',number_format($cont_desp["valor_adiantamento"],2,",","."));
 					$xml->writeElement ('cell',number_format($cont["total_despesas"],2,",","."));
 					$xml->writeElement ('cell',$status);					
@@ -243,7 +243,7 @@ function editar($id_requisicao_despesa)
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND requisicao_despesas.id_os = ordem_servico.id_os ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";		
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";		
 
 		$db->select($sql,'MYSQL',true);
 		
@@ -357,9 +357,9 @@ function editar($id_requisicao_despesa)
 						
 					}
 							
-					$cobrar_cliente = $cont["cobrar_cliente"]?"SIM":"N�O";
+					$cobrar_cliente = $cont["cobrar_cliente"]?"SIM":"NÃO";
 					
-					//contabiliza os valores da requisi��o
+					//contabiliza os valores da requisição
 					$sql = "SELECT SUM(quantidade*valor_unitario) AS valor, SUM(valor_despesa) as total_despesa FROM ".DATABASE.".requisicao_despesas_necessidades ";
 					$sql .= "WHERE requisicao_despesas_necessidades.reg_del = 0 ";
 					$sql .= "AND requisicao_despesas_necessidades.id_requisicao_despesa = '".$id_requisicao_despesa."' ";
@@ -380,35 +380,35 @@ function editar($id_requisicao_despesa)
 						$footer = '</table>';
 						
 						$conteudo = '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Projeto:&nbsp;</strong>'.sprintf("%010d",$cont["os"]).' - '.$cont["descricao"].'</label></td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Projeto: </strong>'.sprintf("%010d",$cont["os"]).' - '.$cont["descricao"].'</label></td>';
 						$conteudo .= '	</tr>';
 						
 						if($cont["id_os"]==3803)//se OS 900
 						{
 							$conteudo .= '	<tr>';
-							$conteudo .= '	 <td colspan="2"><label class="labels"><font color="#FF0000"><strong>OS&nbsp;destino:&nbsp;</strong>'.$cont["os_destino"].'</font></label></td>';
+							$conteudo .= '	 <td colspan="2"><label class="labels"><font color="#FF0000"><strong>OS destino: </strong>'.$cont["os_destino"].'</font></label></td>';
 							$conteudo .= '	</tr>';
 						}
 						
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Cliente:&nbsp;</strong>'.$cont["empresa"]. ' - '.$cont["cidade"].'</label></td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Cliente: </strong>'.$cont["empresa"]. ' - '.$cont["cidade"].'</label></td>';
 						$conteudo .= '	</tr>';
 						
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor&nbsp;orçado:&nbsp;R$&nbsp;</strong>'.number_format($regs_orc["ORCADO"],2,',','').'</label></td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor orçado: R$ </strong>'.number_format($regs_orc["ORCADO"],2,',','').'</label></td>';
 						$conteudo .= '	</tr>';
 						
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor&nbsp;consumido:&nbsp;R$&nbsp;</strong>'. number_format($regs_vlr["valor"],2,',','').'</label></td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>valor consumido: R$ </strong>'. number_format($regs_vlr["valor"],2,',','').'</label></td>';
 						$conteudo .= '	</tr>';
 						
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td width="10%"><label for="valor" class="labels"><strong>valor&nbsp;adiantamento:</strong></label><br><input name="valor" type="text" class="caixa" id="valor" value="'.number_format($cont["valor_adiantamento"],2,',','').'" size="8" maxlength="7" onkeyup=xajax_virgula_ponto("valor",this.value)></td>';
+						$conteudo .= '	 <td width="10%"><label for="valor" class="labels"><strong>valor adiantamento:</strong></label><br><input name="valor" type="text" class="caixa" id="valor" value="'.number_format($cont["valor_adiantamento"],2,',','').'" size="8" maxlength="7" onkeyup=xajax_virgula_ponto("valor",this.value)></td>';
 						$conteudo .= '	 <td><label class="labels"><strong>data</strong></label><br><input name="data" type="text" class="caixa" id="data" size="10" onkeypress=transformaData(this, event); onkeyup=return autoTab(this, 10); value="'.date('d/m/Y').'" onblur=return checaTamanhoData(this,10); /></td>';
 						$conteudo .= '	</tr>';
 				
 						$conteudo .= '	<tr>';
-						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Cobrar&nbsp;cliente:</strong>&nbsp;'.$cobrar_cliente.'</td>';
+						$conteudo .= '	 <td colspan="2"><label class="labels"><strong>Cobrar cliente:</strong> '.$cobrar_cliente.'</td>';
 						$conteudo .= '	</tr>';
 						
 						$resposta->addAssign("necessidades","innerHTML",$header.$conteudo.$footer);
@@ -445,13 +445,13 @@ function editar($id_requisicao_despesa)
 									$item_desp = $array_items_desp[$codigo];
 								}
 								
-								$modelo = '&nbsp;';
+								$modelo = ' ';
 								
-								$placa = '&nbsp;';
+								$placa = ' ';
 								
-								$hora_i = '&nbsp;';	
+								$hora_i = ' ';	
 								
-								$hora_f = '&nbsp;';								
+								$hora_f = ' ';								
 							}
 							
 							$xml->startElement('row');
@@ -475,8 +475,8 @@ function editar($id_requisicao_despesa)
 						
 						$resposta->addScript("grid('itens_nec',true,'400','".$conteudo1."');");						
 						
-						//monta a tabela funcion�rios
-						//filtra os funcionarios da requisi��o
+						//monta a tabela funcionários
+						//filtra os funcionarios da requisição
 						$sql = "SELECT * FROM ".DATABASE.".requisicao_despesas_funcionarios, ".DATABASE.".funcionarios ";
 						$sql .= "WHERE requisicao_despesas_funcionarios.id_requisicao_despesa = '" . $id_requisicao_despesa . "' ";
 						$sql .= "AND requisicao_despesas_funcionarios.reg_del = 0 ";
@@ -517,7 +517,7 @@ function editar($id_requisicao_despesa)
 							//if($cont["status"]==2 || $cont["status"]==3)
 							//{
 								$conteudo_acert = '<tr>';
-								$conteudo_acert .= '<td><label class="labels"><strong>valor&nbsp;adiantamento&nbsp;R$:&nbsp;</strong>'.number_format($cont["valor_adiantamento"],2,',','.').'</label></td>';
+								$conteudo_acert .= '<td><label class="labels"><strong>valor adiantamento R$: </strong>'.number_format($cont["valor_adiantamento"],2,',','.').'</label></td>';
 								$conteudo_acert .= '</tr>';
 								
 								$resposta->addAssign("dv_acerto_despesas","innerHTML",$header.$conteudo_acert.$footer);
@@ -578,7 +578,7 @@ function editar($id_requisicao_despesa)
 																								
 								//if($cont["status"]==2)
 								//{
-									$buttons = '<input type="button" class="class_botao" '.$aprova.' value="Aprovado" onclick=if(acerto(1)){xajax_acerto_funcionario("'.$id_requisicao_despesa.'",1);}>&nbsp;&nbsp;';
+									$buttons = '<input type="button" class="class_botao" '.$aprova.' value="Aprovado" onclick=if(acerto(1)){xajax_acerto_funcionario("'.$id_requisicao_despesa.'",1);}>  ';
 									$buttons .= '<input type="button" class="class_botao" '.$reprova.' value="Reprovado" onclick=if(acerto(2)){xajax_acerto_funcionario("'.$id_requisicao_despesa.'",2);}>';
 									
 									$resposta->addAssign("div_button","innerHTML",$buttons);
@@ -675,7 +675,7 @@ function atualizar($dados_form)
 				{
 					//coordenador/responsavel pela requisição
 					$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-					$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+					$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 					$sql .= "AND funcionarios.reg_del = 0 ";
 					$sql .= "AND usuarios.reg_del = 0 ";
 					$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -697,25 +697,25 @@ function atualizar($dados_form)
 											
 					$texto = '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 					$texto .=' <tr>';
-					$texto .='	  <td><strong>Adiantamento&nbsp;Requisição&nbsp;de&nbsp;Despesa </strong></td>';
+					$texto .='	  <td><strong>Adiantamento Requisição de Despesa </strong></td>';
 					$texto .=' </tr>';
 					$texto .=' <tr>';
-					$texto .='	<td>Requisição&nbsp;nº:&nbsp;'.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
+					$texto .='	<td>Requisição nº: '.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
 					$texto .=' </tr>';
 					$texto .=' <tr>';
-					$texto .='	<td>Já&nbsp;esta&nbsp;disponível&nbsp;no&nbsp;sistema&nbsp;o&nbsp;adiantamento.</td>';
+					$texto .='	<td>Já esta disponível no sistema o adiantamento.</td>';
 					$texto .=' </tr>';
 					$texto .=' <tr>';
-					$texto .='	  <td><strong>Valor&nbsp;R$:&nbsp;</strong>'.number_format($dados_form["valor"],2,',','').'</td>';
+					$texto .='	  <td><strong>Valor R$: </strong>'.number_format($dados_form["valor"],2,',','').'</td>';
 					$texto .=' </tr>';
 					$texto .=' <tr>';
-					$texto .='	  <td><strong>Data&nbsp;adiantamento</strong>'.$dados_form["data"].'</td>';
+					$texto .='	  <td><strong>Data adiantamento</strong>'.$dados_form["data"].'</td>';
 					$texto .=' </tr>';
 					
 					if($dados_form["modelo"]!="")
 					{
 						$texto .=' <tr>';
-						$texto .='	  <td><strong>Veículo:</strong>'.maiusculas($dados_form["modelo"]).' - placa:&nbsp;'.maiusculas($dados_form["placa"]).'</td>';
+						$texto .='	  <td><strong>Veículo:</strong>'.maiusculas($dados_form["modelo"]).' - placa: '.maiusculas($dados_form["placa"]).'</td>';
 						$texto .=' </tr>';
 					}
 					
@@ -741,18 +741,25 @@ function atualizar($dados_form)
 					{
 						$params['emails']['to'][] = array('email' => $array_funcionarios[1][$cont["responsavel_despesas"]], 'nome' => $array_funcionarios[0][$cont["responsavel_despesas"]]);
 					}
-				
-					$mail = new email($params);
-					$mail->montaCorpoEmail($texto);
 					
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+						$mail = new email($params);
+						
+						$mail->montaCorpoEmail($texto);
+						
+						if(!$mail->Send())
+						{
+							$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+						}
 					}
-					else
-					{			
-						$resposta->addAlert("Adiantamento atualizado com sucesso.");
+					else 
+					{
+						$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
 					}
+
+					$resposta->addAlert("Adiantamento atualizado com sucesso.");
+
 				}
 			}			
 		}
@@ -876,7 +883,7 @@ function acerto_funcionario($id, $tipo)
 			{
 				//coordenador/responsavel pela requisição
 				$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-				$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+				$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 				$sql .= "AND funcionarios.reg_del = 0 ";
 				$sql .= "AND usuarios.reg_del = 0 ";
 				$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -898,20 +905,20 @@ function acerto_funcionario($id, $tipo)
 										
 				$texto = '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 				$texto .=' <tr>';
-				$texto .='	  <td><strong>Acerto&nbsp;Requisição&nbsp;de&nbsp;Despesa </strong></td>';
+				$texto .='	  <td><strong>Acerto Requisição de Despesa </strong></td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Requisição&nbsp;nº:&nbsp;</strong>'.sprintf("%05d",$id).'</td>';
+				$texto .='	<td><strong>Requisição nº: </strong>'.sprintf("%05d",$id).'</td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Data&nbsp;acerto:&nbsp;</strong>'.$cont["data_prestacao_contas"].'</td>';
+				$texto .='	<td><strong>Data acerto: </strong>'.$cont["data_prestacao_contas"].'</td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Valor&nbsp;declarado:&nbsp;</strong>'.number_format($cont1["total_despesas"],2,',','.').'</td>';
+				$texto .='	<td><strong>Valor declarado: </strong>'.number_format($cont1["total_despesas"],2,',','.').'</td>';
 				$texto .=' </tr>';
 				$texto .='<br>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>STATUS:&nbsp;'.$status.'</strong></td>';
+				$texto .='	<td><strong>STATUS: '.$status.'</strong></td>';
 				$texto .=' </tr>';
 				$texto .='<br>';
 				
@@ -940,16 +947,25 @@ function acerto_funcionario($id, $tipo)
 				if($array_funcionarios[1][$cont["responsavel_despesas"]]) //responsavel
 				{
 					$params['emails']['to'][] = array('email' => $array_funcionarios[1][$cont["responsavel_despesas"]], 'nome' => $array_funcionarios[0][$cont["responsavel_despesas"]]);
-				}			
-			
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($texto);
-				
-				if(!$mail->Send())
-				{
-					$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
 				}
+				
+				if(ENVIA_EMAIL)
+				{
+			
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($texto);
+					
+					if(!$mail->Send())
+					{
+						$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+					}
+				}
+				else 
+				{
+					$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
+				}
+
 			}
 
 		}
@@ -974,7 +990,7 @@ function excluir($id, $what)
 		
 	//coordenador/responsavel pela requisição
 	$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -1073,18 +1089,23 @@ function excluir($id, $what)
     			}
     		}
 		}
-		
-		$mail = new email($params);
-		$mail->montaCorpoEmail($texto);
-		
-		if (HOST != 'localhost')
+
+		if (ENVIA_EMAIL)
 		{
+		
+			$mail = new email($params);
+		
+			$mail->montaCorpoEmail($texto);
+		
 			if(!$mail->Send())
 			{
 				$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
-				return $resposta;
 			}
-	    }
+		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 3);
+		}
 	}
 	
 	$resposta->addAlert("Registro(s) excluidos corretamente!");
@@ -1186,7 +1207,7 @@ function grid(tabela, autoh, height, xml)
 			
 			var chkAll = '<input type="checkbox" id="chkTodos" style="margin:0;" onclick="mygrid.checkAll(this.checked);desbloquearBotaoExcluir();" />';
 			
-			mygrid.setHeader(chkAll+",Req&nbsp;nº, Projeto, Data&nbsp;adiant., Atividade/Obs., Responsável, Período, Valor&nbsp;adiant., Valor&nbsp;declar., Status, R, I, D",
+			mygrid.setHeader(chkAll+",Req nº, Projeto, Data adiant., Atividade/Obs., Responsável, Período, Valor adiant., Valor declar., Status, R, I, D",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("60,60,80,80,*,*,*,*,80,80,25,25,25");
@@ -1201,7 +1222,7 @@ function grid(tabela, autoh, height, xml)
 		
 		case 'itens_nec':	
 
-			mygrid.setHeader("Item, Qtd&nbsp;orç., Vlr.&nbsp;orç., Qtd&nbsp;solic., Hora&nbsp;ini., Hora&nbsp;fim, Modelo, Placa",
+			mygrid.setHeader("Item, Qtd orç., Vlr. orç., Qtd solic., Hora ini., Hora fim, Modelo, Placa",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("200,*,*,*,*,*,*,*");
@@ -1223,7 +1244,7 @@ function grid(tabela, autoh, height, xml)
 		
 		case 'div_acerto':	
 
-			mygrid.setHeader("Item, Valor&nbsp;declarado",
+			mygrid.setHeader("Item, Valor declarado",
 				null,
 				["text-align:center","text-align:center"]);
 			mygrid.setInitWidths("*,*");

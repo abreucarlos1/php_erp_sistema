@@ -1,17 +1,17 @@
 <?php
 /*
-		Formul�rio de Visualiza��o de Curriculo
+		Formulário de Visualização de Curriculo
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../rh/visualizar_curriculo.php
 		
-		data de cria��o
+		data de criação
 		
 		Versão 0 --> VERSÃO INICIAL : 21/06/2007
 		Versão 1 --> Atualização Lay-out : 29/09/2008
-		Versão 2 --> Altera��o de funcionalidade : 08/10/2008
+		Versão 2 --> Alteração de funcionalidade : 08/10/2008
 		Versão 3 --> Inclusão dos campos reg_del nas consultas - 29/11/2017 - Carlos Abreu
 */	
 
@@ -105,34 +105,34 @@ foreach($db->array_select as $telefone)
 	<tr>
 	  <td colspan="4" class="mensagem_alerta"><table width="100%" border="0">
         <tr>
-          <td width="9%"><div align="left"><span class="fonte_12_az">Nome:&nbsp;</span></div></td>
-          <td width="1%">&nbsp;</td>
+          <td width="9%"><div align="left"><span class="fonte_12_az">Nome: </span></div></td>
+          <td width="1%"> </td>
           <td width="75%"><div align="left" class="fonte_11"><?= $dados["DAD_NOME"] ?></div></td>
-          <td width="15%">&nbsp;</td>
+          <td width="15%"> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">Endereço:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">Endereço: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11"><?= $dados["DAD_END"] ?></div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">cidade:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">cidade: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11"><?= $dados["cidade"] ?></div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">estado:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">estado: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11"><?= $dados["estado"] ?></div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">cep:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">cep: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11"><?= $dados["DAD_CEP"] ?></div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
       </table></td>
   </tr>
@@ -142,39 +142,39 @@ foreach($db->array_select as $telefone)
 	<tr>
 	  <td colspan="4"><table width="100%" border="0">
         <tr>
-          <td width="8%"><div align="left"><span class="fonte_12_az">telefone:&nbsp;</span></div></td>
-          <td width="1%">&nbsp;</td>
+          <td width="8%"><div align="left"><span class="fonte_12_az">telefone: </span></div></td>
+          <td width="1%"> </td>
           <td width="76%"><div align="left" class="fonte_11">
             <?= $dad_res ?>
           </div></td>
-          <td width="15%">&nbsp;</td>
+          <td width="15%"> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">celular:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">celular: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
             <?= $dad_cel ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">E-mail:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">E-mail: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-            <?
+            <?php
 				if(!empty($dados["EMAIL"]))
 				{
 				?>
 					<a href="mailto:<?= $dados["EMAIL"]?>"><?= $dados["EMAIL"] ?></a>
-				<?
+				<?php
 				}
 				else
 				{
-					echo "&nbsp;";	
+					echo " ";	
 				}
 			?> 
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
 
       </table></td>
@@ -186,104 +186,104 @@ foreach($db->array_select as $telefone)
 	<tr>
 	  <td colspan="4"><table width="100%" border="0">
         <tr>
-          <td width="8%"><div align="left"><span class="fonte_12_az">&Aacute;rea:&nbsp;</span></div></td>
-          <td width="1%">&nbsp;</td>
+          <td width="8%"><div align="left"><span class="fonte_12_az">Área: </span></div></td>
+          <td width="1%"> </td>
           <td width="76%"><div align="left" class="fonte_11">
             <?= $dados["setor"] ?>
           </div></td>
-          <td width="15%">&nbsp;</td>
+          <td width="15%"> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">cargo:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">cargo: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
             <?= $dados["grupo"] ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
 
       </table></td>
   </tr>
 	<tr>
-	  <td colspan="4" class="fundo_azul_claro style4">Conhecimentos Espec�ficos</td>
+	  <td colspan="4" class="fundo_azul_claro style4">Conhecimentos Específicos</td>
   </tr>
 	<tr>
 	  <td colspan="4"><table width="100%" border="0">
         <tr>
-          <td width="9%"><div align="left"><span class="fonte_12_az">Autocad:&nbsp;</span></div></td>
-          <td width="1%">&nbsp;</td>
+          <td width="9%"><div align="left"><span class="fonte_12_az">Autocad: </span></div></td>
+          <td width="1%"> </td>
           <td width="75%"><div align="left" class="fonte_11">
-          <?
+          <?php
 		  if (!($dados["FOR_AUTOCAD"] == ""))
 				{
 					echo $dados["FOR_AUTOCAD"];
 				}
 		  ?>
           </div></td>
-          <td width="15%">&nbsp;</td>
+          <td width="15%"> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">Microstation:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">Microstation: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-          <?
+          <?php
 		  if (!($dados["FOR_MICRO"] == ""))
 				{
 					echo $dados["FOR_MICRO"];
 				}
 		  ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">PDS:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">PDS: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-          <?
+          <?php
 		  if (!($dados["FOR_PDS"] == ""))
 				{
 					echo $dados["FOR_PDS"];
 				}
 		  ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az">PDMS:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">PDMS: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-          <?
+          <?php
 		  if (!($dados["FOR_PDMS"] == ""))
 				{
 					echo $dados["FOR_PDMS"];
 				}
 		  ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
         <tr>
-          <td><div align="left"><span class="fonte_12_az"><span class="fonte_12_az style2">Curso&nbsp;NR&nbsp;10</span>:&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az"><span class="fonte_12_az style2">Curso NR 10</span>: </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-          <?
+          <?php
 		  if (!($dados["FOR_NR10"] == ""))
 				{
 					echo $dados["FOR_NR10"];
 				}
 		  ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
       </table>	 </td>
   </tr>
 	<tr>
-	  <td colspan="4" class="fundo_azul_claro style4">Situa��o</td>
+	  <td colspan="4" class="fundo_azul_claro style4">Situação</td>
   </tr>
 	<tr>
 	  <td colspan="4"><table width="100%" border="0">
         <tr>
-          <td width="9%"><div align="left"><span class="fonte_12_az">Recomendação&nbsp;</span></div></td>
-          <td width="1%">&nbsp;</td>
+          <td width="9%"><div align="left"><span class="fonte_12_az">Recomendação </span></div></td>
+          <td width="1%"> </td>
           <td width="75%"><div align="left" class="fonte_11">
               <?php
 			  
@@ -299,28 +299,28 @@ foreach($db->array_select as $telefone)
 			  
 			   ?>
           </div></td>
-          <td width="15%">&nbsp;</td>
+          <td width="15%"> </td>
         </tr>
         
         <tr>
-          <td><div align="left"><span class="fonte_12_az">Curr&iacute;culo Anexado :&nbsp;</span></div></td>
-          <td>&nbsp;</td>
+          <td><div align="left"><span class="fonte_12_az">Currículo Anexado : </span></div></td>
+          <td> </td>
           <td><div align="left" class="fonte_11">
-              <?
+              <?php
 		  if ($dados["LinkDoc"]!="")
 				{
 					//echo 'SIM';
 					?>
 					<a href="#" onclick=window.open("download_curriculo.php?uid=<?= $dados['UID'] ?>");>SIM</a>
-					<?
+					<?php
 				}
 				else
 				{
-					echo 'N�O';
+					echo 'NÃO';
 				}
 		  ?>
           </div></td>
-          <td>&nbsp;</td>
+          <td> </td>
         </tr>
       </table>
 	 <!-- <div id="div_requisicao" style="width:95%;"></div> -->

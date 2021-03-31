@@ -79,7 +79,7 @@ this.getField(\'maths3\').value = a + b;
 <option value="Spanish" >Espa&#241;ol</option>
 <option value="Turkish" >T&#252;rk&#231;e</option>
 </select> 
-&nbsp;&nbsp;&nbsp;&nbsp; 
+     
 
 You have selected: <input type="text" size="20" name="first_language_display" value="" readonly="readonly" onCalculate="
 var choice = this.getField(\'first_language\').value;
@@ -110,11 +110,11 @@ this.getField(\'first_language_display\').value = choice;
 
 
 
-<b>How many languages do you speak?</b> &nbsp;&nbsp;&nbsp;&nbsp; 
-<input type="radio" name="num_languages" value="1" checked="checked" > One &nbsp;&nbsp;&nbsp;&nbsp; 
-<input type="radio" name="num_languages" value="2" > Two &nbsp;&nbsp;&nbsp;&nbsp; 
-<input type="radio" name="num_languages" value="3" > Three &nbsp;&nbsp;&nbsp;&nbsp; 
-<input type="radio" name="num_languages" value="4" > Four &nbsp;&nbsp;&nbsp;&nbsp; 
+<b>How many languages do you speak?</b>      
+<input type="radio" name="num_languages" value="1" checked="checked" > One      
+<input type="radio" name="num_languages" value="2" > Two      
+<input type="radio" name="num_languages" value="3" > Three      
+<input type="radio" name="num_languages" value="4" > Four      
 <input type="radio" name="num_languages" value="5" > Five + 
 
 <br /><br />
@@ -128,7 +128,7 @@ this.getField(\'first_language_display\').value = choice;
 <br /><br />
 
 Click this button to see Javascript in action: 
-<input type="image" name="imageButton" value="imagesubmitted" src="goto.gif" title="Click to run javascript" onClick="
+<input type="image" name="imageButton" value="imagesubmitted" src="goto.gif" title="Click to run javascript" onclick="
 var npass = this.getField(\'password\').value;
 app.alert(\'Value of password field is: \\\'\' + npass + \'\\\'\');
 var nButton = app.alert({
@@ -151,7 +151,7 @@ this.getField(\'inputfield\').value = \'T\u00f6rkylempij\u00e4\';
 
 <input type="submit" name="submit_in_Turkish" value="Submit (T&#252;rk&#231;e)" title="Click here to submit in T&#252;rk&#231;e" /> 
 
-<input type="button" name="javascriptButton" value="Javascript Button" onClick="
+<input type="button" name="javascriptButton" value="Javascript Button" onclick="
 var npass = this.getField(\'password\').value;
 app.alert(\'Value of password field is: \\\'\' + npass + \'\\\'\');
 var nButton = app.alert({

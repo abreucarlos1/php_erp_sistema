@@ -744,7 +744,7 @@ dhtmlXRibbon.prototype.items.button = {
 			return false;
 		}
 		ribbon._callHandler(item.id, [item.id]);
-		item.callEvent("onClick",[item.id]);
+		item.callEvent("onclick",[item.id]);
 		return false;
 	},
 	
@@ -939,7 +939,7 @@ dhtmlXRibbon.prototype.items.buttonSelect = {
 	
 	afterRender: function(item) {
 		var label = item.base.childNodes[1];
-		label.innerHTML += "<span class='dhxrb_arrow'>&nbsp;</span>";
+		label.innerHTML += "<span class='dhxrb_arrow'> </span>";
 		item.menu = null;
 		this.itemCollection.push(item);
 		
@@ -1048,8 +1048,8 @@ dhtmlXRibbon.prototype.items.buttonSelect = {
 				if (id == null) dhtmlXRibbon.prototype.items.buttonSelect._doOnShowMenu(item);
 			});
 			
-			item.menu.attachEvent("onClick", function(id) {
-				item.callEvent("onClick",[id]);
+			item.menu.attachEvent("onclick", function(id) {
+				item.callEvent("onclick",[id]);
 			});
 			
 			item.base.oncontextmenu = function() { return false; };

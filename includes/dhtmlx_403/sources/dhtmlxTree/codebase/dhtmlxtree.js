@@ -143,7 +143,7 @@ function dhtmlXTreeObject(htmlObject, width, height, rootId){
 //#complex_move:01112006{
    this.selectionBar=document.createElement("DIV");
    this.selectionBar.className="selectionBar";
-   this.selectionBar.innerHTML="&nbsp;";
+   this.selectionBar.innerHTML=" ";
    this.selectionBar.style.display="none";
    this.allTree.appendChild(this.selectionBar);
 //#}
@@ -255,7 +255,7 @@ dhtmlXTreeObject.prototype.enableIEImageFix=function(mode){
 	this._getSrc=function(a){ return a.src; }
 	}	else	{
 
-	this._getImg=function(){ var z=document.createElement("DIV"); z.innerHTML="&nbsp;"; z.className="dhx_bg_img_fix"; return z; }
+	this._getImg=function(){ var z=document.createElement("DIV"); z.innerHTML=" "; z.className="dhx_bg_img_fix"; return z; }
 	this._setSrc=function(a,b){ a.style.backgroundImage="url("+b+")"; }
 	this._getSrc=function(a){ var z=a.style.backgroundImage;  return z.substr(4,z.length-5).replace(/(^")|("$)/g,""); }
 	}
@@ -1116,7 +1116,7 @@ dhtmlXTreeObject.prototype.setItemContextMenu=function(itemId,cMenu){
 		 if (p.get("order") && p.get("order")!="none")
 	  	 	this._reorderBranch(temp,p.get("order"),true);
 	  	 	
-	  	 if (this.nodeAskingCall!="") this.callEvent("onClick",[this.nodeAskingCall,this.getSelectedItemId()]); 
+	  	 if (this.nodeAskingCall!="") this.callEvent("onclick",[this.nodeAskingCall,this.getSelectedItemId()]); 
          if (this._branchUpdate) this._branchUpdateNext(p);
 	     }
 
@@ -1686,7 +1686,7 @@ SELECTION
 
       if (!mode) {	 	
          if (obj.actionHandler) obj.actionHandler(obj.id,lastId);
-		 else that.callEvent("onClick",[obj.id,lastId]);
+		 else that.callEvent("onclick",[obj.id,lastId]);
          }
    };
 
@@ -2031,14 +2031,14 @@ dhtmlXTreeObject.prototype._correctCheckStates=function(dhtmlObject){
 *     @param: func - event handling function
 *     @type: deprecated
 *     @topic: 0,7
-*     @event: onClick
-*     @depricated: use grid.attachEvent("onClick",func); instead
-*     @eventdesc: Event raises immideatly after text part of item in tree was clicked, but after default onClick functionality was processed.
+*     @event: onclick
+*     @depricated: use grid.attachEvent("onclick",func); instead
+*     @eventdesc: Event raises immideatly after text part of item in tree was clicked, but after default onclick functionality was processed.
               Richt mouse button click can be catched by onRightClick event handler.
 *     @eventparam:  ID of clicked item
 *     @eventparam:  ID of previously selected item
 */
-   dhtmlXTreeObject.prototype.setOnClickHandler=function(func){  this.attachEvent("onClick",func);  };
+   dhtmlXTreeObject.prototype.setOnClickHandler=function(func){  this.attachEvent("onclick",func);  };
 
 /**
 *     @desc: set function called when tree node selected or unselected, include any select change caused by any functionality
@@ -2127,7 +2127,7 @@ dhtmlXTreeObject.prototype._correctCheckStates=function(dhtmlObject){
 *     @event: onDblClick
 *     @depricated: use grid.attachEvent("onDblClick",func); instead
 *     @eventdesc: Event raised immideatly after item in tree was doubleclicked, before default onDblClick functionality was processed.
-         Beware using both onClick and onDblClick events, because component can  generate onClick event before onDblClick event while doubleclicking item in tree.
+         Beware using both onclick and onDblClick events, because component can  generate onclick event before onDblClick event while doubleclicking item in tree.
          ( that behavior depend on used browser )
 *     @eventparam:  ID of item which was doubleclicked
 *     @eventreturn:  true - confirm opening/closing; false - deny opening/closing;
@@ -4610,7 +4610,7 @@ dhtmlXTreeObject.prototype.setItemTopOffset=function(itemId,value){
             w.style.height=parseInt(value)+"px";
             if ((node.parentObject.id!=this.rootId || node.parentObject.childNodes[0]!=node) && this.treeLinesOn)
                 w.style.backgroundImage="url("+this.imPath+this.lineArray[5]+")";
-            w.innerHTML="&nbsp;";
+            w.innerHTML=" ";
             w.style.overflow='hidden';
             if (parseInt(value)==0)
                 z.childNodes[i].removeChild(w);

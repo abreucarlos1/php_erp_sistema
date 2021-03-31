@@ -15,7 +15,7 @@
 					<td valign="middle"><input style='display:none;' name="btnlista" id="btnlista" type="button" class="class_botao" value="Lista OS" onclick="xajax_getListaMateriais(xajax.getFormValues('frm'))" /></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnlistaRelatorio" id="btnlistaRelatorio" type="button" class="class_botao" value="Relatórios" onclick="abrirRelatorio();" /></td>
+					<td valign="middle"><input name="btnlistaRelatorio" id="btnlistaRelatorio" type="button" class="class_botao" value="RelatÃ³rios" onclick="abrirRelatorio();" /></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnImportarLista" id="btnImportarLista" type="button" class="class_botao" value="Importar PDMS" onclick="importarListaPdmsForm();" /></td>
@@ -24,7 +24,7 @@
 					<td valign="middle"><input name="btnExcluirListas" id="btnExcluirListas" type="button" class="class_botao" disabled="disabled" value="Excluir" onclick="excluirListasSelecionadas();" /></td>
 				</tr>
 			  </table></td>
-	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
 	        </tr>        
 	        <tr>
 	          <td colspan="2" valign="top">
@@ -50,7 +50,7 @@
 							<option value="">TODAS</option>
 						</select>
 					</td>
-					<td>&nbsp;</td>
+					<td> </td>
 				</tr>
 				<tr>
 		        	<td colspan="3">

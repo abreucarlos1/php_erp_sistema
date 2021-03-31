@@ -21,7 +21,7 @@ Chart type:
     <option value="linepoints">Lines and points</option>
     <option value="points">Points</option>
 </select>
-&nbsp; &nbsp;&nbsp;
+    
 Error bar type:
 <select name="which_error_type">
  <option value="tee">tee</option>

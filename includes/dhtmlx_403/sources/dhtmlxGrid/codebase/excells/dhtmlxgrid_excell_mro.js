@@ -24,7 +24,7 @@ eXcell_mro.prototype.setValue = function(val){
                             }
 
 						if(!val || val.toString()._dhx_trim()=="")
-							val="&nbsp;"
+							val=" "
 						this.cell.childNodes[0].innerHTML = val;
 				}
 //(c)dhtmlx ltd. www.dhtmlx.com

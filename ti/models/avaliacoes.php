@@ -185,11 +185,11 @@ class avaliacoes
 						        $retorno['tdNomeFuncionario'] = ucwords(strtolower(tiraacentos($reg['funcionario'])));
 						        $retorno['tdNomeAvaliador'] = ucwords(strtolower(tiraacentos($reg['avaliador'])));
 						        $retorno['dataAvaliacao'] = mysql_php($reg['avf_data']);
-						        $retorno['tdDescricaoServico'] = 'Elabora��o e detalhamento de projetos industriais na �rea de '.ucfirst(strtolower(tiraacentos($reg['setor_aso'])));
+						        $retorno['tdDescricaoServico'] = 'Elaboração e detalhamento de projetos industriais na área de '.ucfirst(strtolower(tiraacentos($reg['setor_aso'])));
 						        
 						        $periodo = !empty($reg['data_inicio']) ? mysql_php($reg['data_inicio']).' - '.mysql_php($reg['data_fim']) : 'Per?odo de contrato n?o cadastrado';
 						        
-						        //o periodo neste caso ? errado pois ? o contrato do cliente com a Devemada e n?o do fornecedor com a Devemada.
+						        //o periodo neste caso ? errado pois ? o contrato do cliente com a   e n?o do fornecedor com a  .
 						        //$resposta->addAssign('tdPeriodo', 'innerHTML', $periodo);
 						        $retorno['tdCnae'] = ucfirst(strtolower(trim($cnae[0])));
 						        
@@ -265,7 +265,7 @@ class avaliacoes
 				        
 				        $totalQuestoes++;
 				        
-				        //Respostas por quest�o, quando for avalia��o avulsa
+				        //Respostas por questão, quando for avaliação avulsa
 				        if ($reg['ava_alvo'] == 4)
 				        {
 				            $sql = "SELECT bqc_id, bqc_valor 'correta', bqc_descricao, bqc_ordem FROM ".DATABASE.".banco_questoes_criterios WHERE bqc_bqp_id = ".$reg['bqp_id']." ORDER BY bqc_ordem";
@@ -276,7 +276,7 @@ class avaliacoes
 				                $questoes[$reg['bqg_id']][$reg['bqf_id']][$reg['bqp_id']]['respostas'][$resp['bqc_id']] = array('correta' => $resp['correta'], 'texto' => $resp['bqc_descricao']);
 				            }
 				            
-				            //Resposta correta tem o c�digo 6
+				            //Resposta correta tem o código 6
 				            if ($questoes[$reg['bqg_id']][$reg['bqf_id']][$reg['bqp_id']]['respostas'][$reg['avf_auto_nota']]['correta'] == 6)
 				            {
 				                $corretas++;
@@ -416,7 +416,7 @@ class avaliacoes
                         
                         $retorno['dataAvaliacao'] = mysql_php($reg['avf_data']);
                         
-                        $periodo = !empty($reg['data_inicio']) ? mysql_php($reg['data_inicio']).' - '.mysql_php($reg['data_fim']) : 'Per?odo de contrato n?o cadastrado';
+                        $periodo = !empty($reg['data_inicio']) ? mysql_php($reg['data_inicio']).' - '.mysql_php($reg['data_fim']) : 'Período de contrato não cadastrado';
                         
                         $totalQuestoes++;
                         $somaNotas += $reg['avf_nota'];
@@ -466,7 +466,7 @@ class avaliacoes
 			        
 			        $totalQuestoes++;
 			        
-			        //Respostas por quest�o, quando for avalia��o avulsa
+			        //Respostas por questão, quando for avaliação avulsa
 			        if ($reg['ava_alvo'] == 4)
 			        {
 			            $sql = "SELECT bqc_id, bqc_valor 'correta', bqc_descricao, bqc_ordem FROM ".DATABASE.".banco_questoes_criterios WHERE bqc_bqp_id = ".$reg['bqp_id']." ORDER BY bqc_ordem";
@@ -477,7 +477,7 @@ class avaliacoes
 			                $questoes[$reg['bqg_id']][$reg['bqf_id']][$reg['bqp_id']]['respostas'][$resp['bqc_id']] = array('correta' => $resp['correta'], 'texto' => $resp['bqc_descricao']);
 			            }
 			            
-			            //Resposta correta tem o c�digo 6
+			            //Resposta correta tem o código 6
 			            if ($questoes[$reg['bqg_id']][$reg['bqf_id']][$reg['bqp_id']]['respostas'][$reg['avf_nota']]['correta'] == 6)
 			            {
 			                $corretas++;
@@ -613,7 +613,7 @@ class avaliacoes
             
             if ($db->erro != '')
             {
-                $resposta->addAlert('Houve uma falha ao tentar enviar a avaliacao!');
+                $resposta->addAlert('Houve uma falha ao tentar enviar a avaliação!');
                 return $resposta;
             }
             else
@@ -912,7 +912,7 @@ class avaliacoes
         
         if ($db->numero_registros > 0)
         {
-            $resposta->addAlert('J� existe um PDI para este colaborador nesta avalia��o!');
+            $resposta->addAlert('Já existe um PDI para este colaborador nesta avaliação!');
             $resposta->addScript('xajax_getAvaliados();');
             return $resposta;
         }
@@ -1064,7 +1064,7 @@ class avaliacoes
                     if (is_array($pergunta))
                     {
                         $xml->startElement('row');
-                        $xml->writeElement('cell', '&nbsp;');
+                        $xml->writeElement('cell', ' ');
                         $xml->startElement ('cell');
                         $xml->writeAttribute('style','font-weight:bold');
                         $xml->writeAttribute('colspan',3);
@@ -1077,8 +1077,8 @@ class avaliacoes
                             if (is_array($criterio))
                             {
                                 $xml->startElement('row');
-                                $xml->writeElement('cell', '&nbsp;');
-                                $xml->writeElement('cell', '&nbsp;');
+                                $xml->writeElement('cell', ' ');
+                                $xml->writeElement('cell', ' ');
                                 $xml->writeElement('cell', $criterio['valor']);
                                 $xml->startElement ('cell');
                                 //$xml->writeAttribute('colspan',3);
@@ -1247,7 +1247,7 @@ class avaliacoes
                 $xml->writeElement('cell', $reg['mediaAA']);
                 $xml->writeElement('cell', $reg['mediaConsenso']);
                 
-                //Caso n�o haja consenso nem nota do gestor, exibir exclus�o AA, sen�o somente media e consenso
+                //Caso não haja consenso nem nota do gestor, exibir exclusão AA, senão somente media e consenso
                 $img = '';
                 if (!empty($reg['media']))
                 {
@@ -1345,7 +1345,7 @@ class avaliacoes
                 
                 $xml->writeElement('cell', number_format($reg['media'], 2, ',', '.'));
                 
-                //Caso n�o haja consenso nem nota do gestor, exibir exclus�o AA, sen�o somente media e consenso
+                //Caso não haja consenso nem nota do gestor, exibir exclusão AA, senão somente media e consenso
                 $img = '';
                 if (!empty($reg['media']))
                 {
@@ -1370,7 +1370,7 @@ class avaliacoes
             
             $db = new banco_dados();
             
-            //Quando for exclus�o da nota AA, excluir o registro inteiro
+            //Quando for exclusão da nota AA, excluir o registro inteiro
             switch ($idCampo)
             {
                 //caso seja para limpar as notas do gestor = 1

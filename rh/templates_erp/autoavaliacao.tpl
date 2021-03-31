@@ -8,11 +8,11 @@
 				<td width="116" valign="top" class="espacamento">
 					<table width="100%" border="0">
 						<tr>
-							<td valign="middle"><input name="btn_inserir" id="btn_inserir" type="submit" class="class_botao" value="Enviar Avaliação" />
+							<td valign="middle"><input name="btn_inserir" id="btn_inserir" type="submit" class="class_botao" value="Enviar AvaliaÃ§Ã£o" />
 							</td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 							</td>
 						</tr>
 					</table>
@@ -22,12 +22,12 @@
 		<div align="left" id="a_tabbar" mode="top" class="dhtmlxTabBar" imgpath="../includes/dhtmlx_403/dhtmlxTabbar/codebase/imgs/" margin="3" style="height: 590px; width: 100%; margin-top: 20px; margin-right: 3px; overflow: auto;" tabstyle="modern" skinColors="#F1F4F5,#F1F4F5">
 			<div id="apresentacao" name="Apresentacao">
 				<div id="div_apresentacao" name="div_apresentacao" style="padding: 10px;">
-					<h3 style="text-align:center;font-family: arial, verdana;">Não há avaliações liberadas no momento</h3>
+					<h3 style="text-align:center;font-family: arial, verdana;">NÃ£o hÃ¡ avaliaÃ§Ãµes liberadas no momento</h3>
 				</div>
 			</div>
 			<div id="avaliacao" width="100px" name="Avaliacao" style="margin-left: 3px; height: 100%; overflow: auto; ">
 				<div id="div_avaliacao_perguntas" style="margin-top: 10px;">
-					<h3 style="text-align:center;font-family: arial, verdana;">Não há avaliações liberadas no momento</h3>
+					<h3 style="text-align:center;font-family: arial, verdana;">NÃ£o hÃ¡ avaliaÃ§Ãµes liberadas no momento</h3>
 				</div>
 			</div>
 			<div id="avaliados" name="Finalizadas">

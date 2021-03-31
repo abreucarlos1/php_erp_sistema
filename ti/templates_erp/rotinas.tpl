@@ -28,7 +28,7 @@
         	  </td>
         </tr>
       </table>
-	  <div id="rotinas">&nbsp;</div>
+	  <div id="rotinas"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

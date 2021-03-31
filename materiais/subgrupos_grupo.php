@@ -1,8 +1,8 @@
 <?php
 /*
-    Formul�rio de codigo inteligente de materiais
+    Formulário de codigo inteligente de materiais
 	  
-    Criado por Carlos Eduardo M�xim ia
+    Criado por Carlos Eduardo Máximo
     
     local/Nome do arquivo:
     
@@ -136,7 +136,7 @@ function getAtributos($dados_form, $codigoInteligente = '')
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$html, &$resposta, $itenscodigo)
 		{
-			//$itenscodigo[$i+2], porque os indices 0 3 1 s�o grupo e subgrupo respectivamente
+			//$itenscodigo[$i+2], porque os indices 0 3 1 são grupo e subgrupo respectivamente
 			$htmlReferencias = buscarReferencias($reg['atributo'], $itenscodigo[$i+2], $reg['codigo_sub_grupo']);
 			$resposta->addScript('elementos.push("'.$reg['id_atributo'].'");');
 			
@@ -236,7 +236,7 @@ function atualizatabela($dados_form)
 					$xml->text("<span class=\'icone icone-detalhes cursor\' onclick=window.location=\'./atributos_subgrupo.php?grupo=".$reg['codigo_grupo'].'_'.$reg['id_grupo']."&subgrupo=".$reg['id_sub_grupo']."\';></span>");
 				$xml->endElement();
 				
-				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_grupo_x_sub_grupo'].");};></span>");
+				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_grupo_x_sub_grupo'].");};></span>");
 			$xml->endElement();
 		}
 	);
@@ -294,10 +294,10 @@ function excluir($id)
 	$db->update($usql,'MYSQL');	
 	
 	if ($db->erro != '')
-		$resposta->addAlert('N�o foi poss�vel excluir este �tem!');
+		$resposta->addAlert('Não foi possível excluir este item!');
 	else
 	{
-		$resposta->addAlert('Item exclu�do corretamente!');
+		$resposta->addAlert('Item excluído corretamente!');
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
 	}
 		
@@ -331,7 +331,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("ID, Grupo, Sub&nbsp;Grupo,E,D");
+	mygrid.setHeader("ID, Grupo, Sub Grupo,E,D");
 	mygrid.setInitWidths("50,*,*,50,50");
 	mygrid.setColAlign("left,left,left,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro");

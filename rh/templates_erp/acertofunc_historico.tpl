@@ -44,23 +44,23 @@
               <tr>
                 <td width="9%"><label for="data" class="labels">Data</label><br />
                 <input name="data" type="text" class="caixa" id="data" size="10" maxlength="10" onkeypress="return txtBoxFormat(document.frm, 'data', '99/99/9999', event);" value='<smarty>$smarty.now|date_format:"%d/%m/%Y"</smarty>' /></td>
-                <td width="10%"><label for="SalRegistro" class="labels">Sal�rio&nbsp;CLT</label><br /> 
+                <td width="10%"><label for="SalRegistro" class="labels">Salário CLT</label><br /> 
                   <input name="SalRegistro" type="text" class="caixa" id="SalRegistro" size="10" placeholder="Sal. reg." onkeydown="FormataValor(this, 10, event)" /></td>
-                <td width="11%"><label for="SalMensalista" class="labels">Sal�rio&nbsp;Mens.</label><br />
+                <td width="11%"><label for="SalMensalista" class="labels">Salário Mens.</label><br />
                 <input name="SalMensalista" type="text" class="caixa" id="SalMensalista" size="10" placeholder="Sal. men." onkeydown="FormataValor(this, 10, event)" /></td>
-                <td width="70%"><label for="SalHora" class="labels">Valor&nbsp;/&nbsp;Hora</label><br /> 
+                <td width="70%"><label for="SalHora" class="labels">Valor / Hora</label><br /> 
                   <input name="SalHora" type="text" class="caixa" id="SalHora" size="10" placeholder="Sal. hora" onkeydown="FormataValor(this, 10, event)" /></td>
               </tr>
             </table>            
 				<table width="100%" border="0">
               <tr>
-                <td width="10%"><label for="tipo_salario" class="labels">Tipo&nbsp;Salario</label><br />
+                <td width="10%"><label for="tipo_salario" class="labels">Tipo Salario</label><br />
                   <select name="tipo_salario" class="caixa" id="tipo_salario" onkeypress="return keySort(this);" >
                     <smarty>html_options values=$option_tipo_salario_values output=$option_tipo_salario_output selected=$selecionado_5</smarty>
                   </select>
                 </td>
-                <td width="90%"><label for="desc_tipo_salario" class="labels">Descri��o Tipo&nbsp;Salario</label><br />
-                  <input name="desc_tipo_salario" type="text" class="caixa" id="desc_tipo_salario" placeholder="Descri��o" size="30" />
+                <td width="90%"><label for="desc_tipo_salario" class="labels">Descrição Tipo Salario</label><br />
+                  <input name="desc_tipo_salario" type="text" class="caixa" id="desc_tipo_salario" placeholder="Descrição" size="30" />
                 </td>
               </tr>
             </table>
@@ -70,19 +70,19 @@
                 <td width="30%"><label for=" tipo_contrato" class="labels">Contrato</label><br />
                   <select name=" tipo_contrato" class="caixa" id=" tipo_contrato" onkeypress="return keySort(this);">
                     <option value="CLT">CLT</option>
-                    <option value="EST">ESTAGI�RIO</option>
+                    <option value="EST">ESTAGIÁRIO</option>
                     <option value="SC">SOCIEDADE CIVIL</option>
                     <option value="SC+CLT">SOCIEDADE CIVIL + CLT</option>
                     <option value="SC+MENS">SOCIEDADE CIVIL (MENSALISTA)</option>
                     <option value="SC+CLT+MENS">SOCIEDADE CIVIL + CLT (MENSALISTA)</option>
-                    <option value="SOCIO">S�CIO</option>
+                    <option value="SOCIO">SÓCIO</option>
                   </select>
                 </td>
               </tr>
           </table></td>
         </tr>
       </table>
-    <div id="historico_tabela" style="width:98%">&nbsp;</div>      
+    <div id="historico_tabela" style="width:98%"> </div>      
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

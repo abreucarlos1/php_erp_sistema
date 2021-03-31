@@ -1,6 +1,6 @@
 <?php
 /*
-		Relatório de servi�os por OS
+		Relatório de serviços por OS
 		
 		local/Nome do arquivo:
 		../coordenacao/relatorios/relatorio_servicos_os.php
@@ -25,7 +25,7 @@ if ($_POST)
 	$pdf->AliasNbPages();
 	
 	$pdf->SetFont('Arial','',8);
-	$pdf->Cell(0,4,'Emiss�o',0,1,'R',0);
+	$pdf->Cell(0,4,'Emissão',0,1,'R',0);
 	
 	$pdf->Cell(0,4,date('d/m/Y'),0,0,'R',0);
 	
@@ -33,7 +33,7 @@ if ($_POST)
 	$pdf->Ln(20);
 	$pdf->SetFont('Arial','b',9);
 	
-	$pdf->Cell(0,4,'Relatório de Servi�os da OS',0,1,'C',0);
+	$pdf->Cell(0,4,'Relatório de Serviços da OS',0,1,'C',0);
 	$pdf->ln();
 	
 	$os 	 = isset($_POST['escolhaos']) ? $_POST['escolhaos'] : '';
@@ -43,7 +43,7 @@ if ($_POST)
 	if (!empty($servico))
 		$clausulaServico = "AND servico_id = ".$servico;
 	
-	//Busca das informa��es
+	//Busca das informações
 	$sql 		= 
 		"SELECT
 			servico_id, servico_descricao, servico, nomeOs
@@ -64,8 +64,8 @@ if ($_POST)
 				$pdf->Cell(0, 5, $reg['nomeOs'],0, 0, 'l', 0,'');
 				$pdf->ln(10);
 				
-				$pdf->Cell(55, 5, 'Servi�o',0, 0, 'l', 0,'');
-				$pdf->Cell(0, 5, 'Descri��o do Servi�o',0, 1, 'l', 0,'');
+				$pdf->Cell(55, 5, 'Serviço',0, 0, 'l', 0,'');
+				$pdf->Cell(0, 5, 'Descrição do Serviço',0, 1, 'l', 0,'');
 			}
 			
 			$pdf->SetFont('Arial','',9);
@@ -80,7 +80,7 @@ if ($_POST)
 	{
 		?>
 		<script>
-			alert('Esta OS n�o possui servi�os cadastrados!');
+			alert('Esta OS não possui serviços cadastrados!');
 			window.close();
 		</script>
 		<?php

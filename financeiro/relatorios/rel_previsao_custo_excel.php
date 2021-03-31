@@ -143,7 +143,7 @@ foreach ($array_datas_mes as $mes=>$data)
 		  //nome do funcionario
 		  $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, $array_funcionarios[$id_funcionario]);
 		  $objPHPExcel->getActiveSheet()->mergeCells("A".$linha.":D".$linha);
-		  //fun��o
+		  //função
 		  $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha, $array_funcoes[$id_funcionario]);
 		  $objPHPExcel->getActiveSheet()->mergeCells("E".$linha.":F".$linha);
 		  //tipo contrato

@@ -14,7 +14,7 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-        					<input name="btn_adicionar" id="btn_adicionar" type="button" class="class_botao" value="Adicionar" onClick="popupUpload_grid(0);" disabled="disabled" />
+        					<input name="btn_adicionar" id="btn_adicionar" type="button" class="class_botao" value="Adicionar" onclick="popupUpload_grid(0);" disabled="disabled" />
                         </td>
 					</tr>
         			<tr>
@@ -24,7 +24,7 @@
       			  </tr>
         			<tr>
         				<td valign="middle">
-                        <input name="btn_enviar" id="btn_enviar" type="button" class="class_botao" value="Solic. Emissão" onClick="popupEnvia(document.getElementById('id_os').value);" disabled="disabled"  />
+                        <input name="btn_enviar" id="btn_enviar" type="button" class="class_botao" value="Solic. Emissão" onclick="popupEnvia(document.getElementById('id_os').value);" disabled="disabled"  />
                     	</td>
                    	</tr>
         			<tr>
@@ -44,13 +44,13 @@
                    	</tr>
         			<tr>
         				<td valign="middle">
-                        <input name="btn_relatorios" id="btn_relatorios" type="button" class="class_botao" value="Relatórios" onClick="popupRel();" disabled="disabled" />
+                        <input name="btn_relatorios" id="btn_relatorios" type="button" class="class_botao" value="Relatórios" onclick="popupRel();" disabled="disabled" />
                     	</td>
                    	</tr>                    
                     
         			<tr>
         				<td valign="middle">
-                        <input name="btn_sol_desbloqueio" id="btn_sol_desbloqueio" type="button" class="class_botao" value="Sol.&nbsp;Desbloqueio" onclick="popupSolDesBloq(document.getElementById('id_os').value);" disabled="disabled" />
+                        <input name="btn_sol_desbloqueio" id="btn_sol_desbloqueio" type="button" class="class_botao" value="Sol. Desbloqueio" onclick="popupSolDesBloq(document.getElementById('id_os').value);" disabled="disabled" />
                     	</td>
                    	</tr>
                     
@@ -62,13 +62,13 @@
                     
         			<tr>
         				<td valign="middle">
-                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
                     	</td>
                    	</tr>
                     <tr>
                     <td>
 	                    <div id="barra_busca" style="width:100%;">
-	                    	<label class="labels"><a href="javascript:void(0)" onclick="popupBuscaAvancada(document.getElementById('id_os').value,document.getElementById('disciplina').value);">Busca</a></label>&nbsp;<span class="caixa" style="border-left:none; width:16px; margin:0px; background-image:url(../imagens/find.png); background-position:right; background-repeat:no-repeat; cursor:pointer;" onclick="popupBuscaAvancada(document.getElementById('id_os').value,document.getElementById('disciplina').value);" title="Busca Avançada">&nbsp;</span><br />
+	                    	<label class="labels"><a href="javascript:void(0)" onclick="popupBuscaAvancada(document.getElementById('id_os').value,document.getElementById('disciplina').value);">Busca</a></label> <span class="caixa" style="border-left:none; width:16px; margin:0px; background-image:url(../imagens/find.png); background-position:right; background-repeat:no-repeat; cursor:pointer;" onclick="popupBuscaAvancada(document.getElementById('id_os').value,document.getElementById('disciplina').value);" title="Busca Avançada"> </span><br />
 	                    		<input type="text" name="busca" id="busca" value="Busca" class="caixa" size="15" placeholder="Busca" onclick="if(this.value=='Busca'){this.value='';}" onKeyPress="if(event.keyCode==13){return false;}" onKeyDown="if(event.keyCode==13){buscaMenu(this.value,this.id);}">
 	                    		                    	
 	                    </div>
@@ -124,7 +124,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="2"><div id="div_res">&nbsp;</div></td>
+                    <td colspan="2"><div id="div_res"> </div></td>
                   </tr>
                 </table>
             </td>
@@ -132,13 +132,13 @@
       </table>
         <div id="div_painel" style="position:relative;">         
                 
-            <div id="tree1" setOnClickHandler="tonclick" setImagePath="../includes/dhtmlx_403/codebase/imgs/dhxtree_skyblue/" xclass="dhtmlxTree" style="width:28%; float:left; border-style:solid; border-color:#999999; border-width:1px; height:400px; overflow:auto; text-align:left;">&nbsp;</div>
+            <div id="tree1" setOnClickHandler="tonclick" setImagePath="../includes/dhtmlx_403/codebase/imgs/dhxtree_skyblue/" xclass="dhtmlxTree" style="width:28%; float:left; border-style:solid; border-color:#999999; border-width:1px; height:400px; overflow:auto; text-align:left;"> </div>
           
-            <div id="div_separador" style="position:relative; width:1px; float:left; height:400px; border-width:1px; border-style:outset; background-color:#CCCCCC; ">&nbsp;</div>
+            <div id="div_separador" style="position:relative; width:1px; float:left; height:400px; border-width:1px; border-style:outset; background-color:#CCCCCC; "> </div>
         
-            <div id="div_arquivos" style="width:70%; float:left;border-style:solid; border-color:#999999; border-width:1px; height:400px; padding:0px; overflow:auto;">&nbsp;</div>
+            <div id="div_arquivos" style="width:70%; float:left;border-style:solid; border-color:#999999; border-width:1px; height:400px; padding:0px; overflow:auto;"> </div>
         
-            <div id="div_info" style="width:70%; visibility:hidden; float:left;border-style:solid; border-color:#ff0000; border-width:1px; height:1px; padding:0px; overflow:auto;">&nbsp;</div>
+            <div id="div_info" style="width:70%; visibility:hidden; float:left;border-style:solid; border-color:#ff0000; border-width:1px; height:1px; padding:0px; overflow:auto;"> </div>
         
         </div>
 </form>

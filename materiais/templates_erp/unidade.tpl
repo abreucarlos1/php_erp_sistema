@@ -9,10 +9,10 @@
           <td width="116" rowspan="3" valign="top">
 		  <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td valign="middle" ><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onClick="xajax_insere(xajax.getFormValues('frm_unidade'));" /></td>
+				  <td valign="middle" ><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onclick="xajax_insere(xajax.getFormValues('frm_unidade'));" /></td>
 			  </tr>
 				<tr>
-					<td valign="middle" ><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle" ><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 				<smarty>if isset($ocultarCabecalhoRodape)</smarty>
 				<tr>
@@ -29,7 +29,7 @@
 				<table border="0" width="100%">
                   <tr>
                   	<td width="10%" class="td_sp">
-                  		<label class="labels" style="float:left; width: 150px;">C&oacute;digo</label>
+                  		<label class="labels" style="float:left; width: 150px;">CÃ³digo</label>
 						<input name="codigo" type="text" class="caixa" id="codigo" size="10" maxlength="3" />
 					</td>
 				  </tr>
@@ -41,19 +41,19 @@
                   </tr>
                   <tr>
                     <td width="39%" class="td_sp">
-                    	<label class="labels" style="float:left; width: 150px;">Descrição Português</label>
+                    	<label class="labels" style="float:left; width: 150px;">DescriÃ§Ã£o PortuguÃªs</label>
                	    	<input name="descPort" type="text" class="caixa" id="descPort" size="50" />
                	    </td>
                   </tr>
                   <tr>
                     <td width="39%" class="td_sp">
-                    	<label class="labels" style="float:left; width: 150px;">Descrição Inglês</label>
+                    	<label class="labels" style="float:left; width: 150px;">DescriÃ§Ã£o InglÃªs</label>
                	    	<input name="descIngles" type="text" class="caixa" id="descIngles" size="50" />
                	    </td>
                   </tr>
                   <tr>
                     <td width="39%" class="td_sp">
-                    	<label class="labels" style="float:left; width: 150px;">Descrição Espanhol</label>
+                    	<label class="labels" style="float:left; width: 150px;">DescriÃ§Ã£o Espanhol</label>
                	    	<input name="descEsp" type="text" class="caixa" id="descEsp" size="50" />
                	    </td>
                   </tr>
@@ -62,8 +62,8 @@
         </tr>
         
         <tr>
-          <td class="fundo_azul">&nbsp;</td>
-          <td colspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td class="fundo_azul"> </td>
+          <td colspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>
       </table>
 	  <div id="unidades" style="width:100%;float:left"></div>      

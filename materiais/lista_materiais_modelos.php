@@ -62,7 +62,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 			}
 			else
 			{
-				$retorno = array(false, 'O tipo do arquivo '.$_FILES['arquivoModelo']['name'].' n�o � xlsx');
+				$retorno = array(false, 'O tipo do arquivo '.$_FILES['arquivoModelo']['name'].' não é xlsx');
 			}
 		}
 		else
@@ -109,7 +109,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 							materiais_old.modelo_lista_aplicados (mla_mlc_id, mla_cliente, mla_loja)
 						 VALUES ";
 				
-				//INSER��O DOS CLIENTES VINCULADOS A ESTA LISTA
+				//INSERÇÃO DOS CLIENTES VINCULADOS A ESTA LISTA
 				foreach($_POST['id_cliente'] as $k => $idCliente)
 				{
 					$cliente = explode('/', $idCliente);
@@ -139,7 +139,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 	{
 		if (!isset($retorno[0]))
 		{
-			//INSER��O DO CABECALHO
+			//INSERÇÃO DO CABECALHO
 			$isql = "INSERT INTO
 						materiais_old.modelo_lista_cabecalho (mlc_descricao, mlc_arquivo)
 					 VALUE ('{$descLista}','{$nome_final}')";
@@ -161,7 +161,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 				
 				if (!is_array($_POST['id_cliente']))
 				{
-					//INSER��O DOS CLIENTES VINCULADOS A ESTA LISTA
+					//INSERÇÃO DOS CLIENTES VINCULADOS A ESTA LISTA
 					foreach($_POST['id_cliente'] as $k => $idCliente)
 					{
 						$cliente = explode('/', $idCliente);
@@ -289,22 +289,22 @@ function excluir($idLista)
 				else
 				{
 					unlink(DIRETORIO_PROJETO.'/materiais/modelos_excel/'.$lista[0]['mlc_arquivo']);
-					$mensagem = 'Modelo exclu�do corretamente!';;
+					$mensagem = 'Modelo excluído corretamente!';;
 				}
 			}
 			else
 			{
-				$mensagem = 'Falha ao tentar excluir as aplica��es da lista!';
+				$mensagem = 'Falha ao tentar excluir as aplicações da lista!';
 			}
 		}
 		else
 		{
-			$mensagem = 'Falha ao tentar excluir o cabe�alho da lista!';
+			$mensagem = 'Falha ao tentar excluir o cabeçalho da lista!';
 		}
 	}
 	else
 	{
-		$mensagem = 'Modelo do excel n�o encontrado!';
+		$mensagem = 'Modelo do excel não encontrado!';
 	}
 		
 	$resposta->addAlert($mensagem);
@@ -329,7 +329,7 @@ function parametrosExcel($idLista)
 				"<form id=\'frmParametros\' name=\'frmParametros\'>".
 					"<input type=\'hidden\' name=\'id_lista\' id=\'id_lista\' value=\'{$idLista}\' />";
 
-	//Verificando se a lista j� tem um modelo
+	//Verificando se a lista já tem um modelo
 	$sql = "SELECT
 				*
 			FROM
@@ -365,7 +365,7 @@ function parametrosExcel($idLista)
 		for ($j=0; $j<count($parametrosCadastrados); $j++)
 		{
 			$html .=		"<div class=\'linhaParametro\'>".
-								"<label class=\'labels\'>Campo*</label>&nbsp;".
+								"<label class=\'labels\'>Campo*</label> ".
 								"<select class=\'caixa input\' id=\'selCampo\' name=\'selCampo[]\' onchange=\'onFocusOut(this);\'>".
 									"<option value=\'\'>SELECIONE</option>";
 	
@@ -381,12 +381,12 @@ function parametrosExcel($idLista)
 			$displayImg 	= !empty($parametrosCadastrados[$j]['mle_id']) ? '' : 'display:none;';
 			$displayImgExcl	= $j > 0 ? '' : 'display:none;';
 			
-			$html .=			"</select>&nbsp;".
-								"<label class=\'labels\'>C�lula*</label>".
-								"<input type=\'text\' onKeyUp=\'permiteNovoParametro(this);\' value=\'{$parametrosCadastrados[$j]['mle_celula']}\' class=\'input caixa\' size=\'5\' name=\'celula[]\' id=\'celula[]\' maxlength=\'3\' />&nbsp;".
-								"<label style=\'{$displayFormula}\' class=\'labels formula\'>F�rmula*</label>".
-								"<input style=\'{$displayFormula}\' value=\'{$formula}\' type=\'text\' class=\'input formula caixa\' size=\'12\' name=\'formula[]\' id=\'formula[]\' />&nbsp;".
-								"<img style=\'cursor:pointer;$displayImg\' title=\'Duplicar esta linha\' src=\'../imagens/replicar.png\' class=\'adicionar\' onclick=\'duplicarLinha(this);\' />&nbsp;".
+			$html .=			"</select> ".
+								"<label class=\'labels\'>Célula*</label>".
+								"<input type=\'text\' onKeyUp=\'permiteNovoParametro(this);\' value=\'{$parametrosCadastrados[$j]['mle_celula']}\' class=\'input caixa\' size=\'5\' name=\'celula[]\' id=\'celula[]\' maxlength=\'3\' /> ".
+								"<label style=\'{$displayFormula}\' class=\'labels formula\'>Fórmula*</label>".
+								"<input style=\'{$displayFormula}\' value=\'{$formula}\' type=\'text\' class=\'input formula caixa\' size=\'12\' name=\'formula[]\' id=\'formula[]\' /> ".
+								"<img style=\'cursor:pointer;$displayImg\' title=\'Duplicar esta linha\' src=\'../imagens/replicar.png\' class=\'adicionar\' onclick=\'duplicarLinha(this);\' /> ".
 								"<img style=\'cursor:pointer;$displayImgExcl\' title=\'Excluir esta linha\' src=\'../imagens/apagar.png\' class=\'excluir\' onclick=\'excluirLinha(this);\' />".
 							"</div>";
 		}
@@ -394,7 +394,7 @@ function parametrosExcel($idLista)
 	else
 	{
 		$html .=		"<div class=\'linhaParametro\'>".
-								"<label class=\'labels\'>Campo*</label>&nbsp;".
+								"<label class=\'labels\'>Campo*</label> ".
 								"<select class=\'caixa input\' id=\'selCampo\' name=\'selCampo[]\' onchange=\'onFocusOut(this);\'>".
 									"<option value=\'\'>SELECIONE</option>";
 	
@@ -409,12 +409,12 @@ function parametrosExcel($idLista)
 		$displayImg 	= 'display:none;';
 		$displayImgExcl	= 'display:none;';
 		
-		$html .=			"</select>&nbsp;".
-								"<label class=\'labels\'>C�lula*</label>".
-								"<input type=\'text\' onKeyUp=\'permiteNovoParametro(this);\' value=\'{$parametrosCadastrados[$j]['mle_celula']}\' class=\'input caixa\' size=\'5\' name=\'celula[]\' id=\'celula[]\' maxlength=\'3\' />&nbsp;".
-								"<label style=\'{$displayFormula}\' class=\'labels formula\'>F�rmula*</label>".
-								"<input style=\'{$displayFormula}\' value=\'{$formula}\' type=\'text\' class=\'input formula caixa\' size=\'12\' name=\'formula[]\' id=\'formula[]\' />&nbsp;".
-								"<img style=\'cursor:pointer;$displayImg\' title=\'Duplicar esta linha\' src=\'../images/buttons_action/replicar.gif\' class=\'adicionar\' onclick=\'duplicarLinha(this);\' />&nbsp;".
+		$html .=			"</select> ".
+								"<label class=\'labels\'>Célula*</label>".
+								"<input type=\'text\' onKeyUp=\'permiteNovoParametro(this);\' value=\'{$parametrosCadastrados[$j]['mle_celula']}\' class=\'input caixa\' size=\'5\' name=\'celula[]\' id=\'celula[]\' maxlength=\'3\' /> ".
+								"<label style=\'{$displayFormula}\' class=\'labels formula\'>Fórmula*</label>".
+								"<input style=\'{$displayFormula}\' value=\'{$formula}\' type=\'text\' class=\'input formula caixa\' size=\'12\' name=\'formula[]\' id=\'formula[]\' /> ".
+								"<img style=\'cursor:pointer;$displayImg\' title=\'Duplicar esta linha\' src=\'../images/buttons_action/replicar.gif\' class=\'adicionar\' onclick=\'duplicarLinha(this);\' /> ".
 								"<img style=\'cursor:pointer;$displayImgExcl\' title=\'Excluir esta linha\' src=\'../images/buttons_action/apagar.png\' class=\'excluir\' onclick=\'excluirLinha(this);\' />".
 							"</div>";
 	}
@@ -423,13 +423,13 @@ function parametrosExcel($idLista)
 				"</form>".
 			"</div>";
 	
-	$resposta->addScript("modal('{$html}', 'p', 'Configura��es do Modelo');");
+	$resposta->addScript("modal('{$html}', 'p', 'Configurações do Modelo');");
 	
 	return $resposta;
 }
 
 //Parametros da planilha do excel
-//Salva qual c�lula receber� qual valor
+//Salva qual célula receberá qual valor
 function salvarParametros($dados_form)
 {
 	$resposta = new xajaxResponse();
@@ -458,7 +458,7 @@ function salvarParametros($dados_form)
 		}
 		
 		if (empty($celula))
-			$erro[] = 'Todas as c�lulas devem ser preenchidas!';
+			$erro[] = 'Todas as células devem ser preenchidas!';
 			
 		if (empty($campo))
 			$erro[] = 'Todos os campos devem ser preenchidos!';
@@ -481,11 +481,11 @@ function salvarParametros($dados_form)
 		
 		if ($db->erro != '')
 		{
-			$resposta->addAlert('ATEN��O: Houve uma falha ao tentar salvar as configura��es do modelo!');
+			$resposta->addAlert('ATENÇÃO: Houve uma falha ao tentar salvar as configurações do modelo!');
 		}
 		else
 		{
-			$resposta->addAlert('Configura��es salvas corretamente!');
+			$resposta->addAlert('Configurações salvas corretamente!');
 			$resposta->addScript("divPopupInst.destroi();");
 		}
 	}
@@ -608,7 +608,7 @@ var iniciaBusca2 =
 </script>
 <?php
 
-//SOMENTE APARECER�O CLIENTES QUE TENHO ALGUM PROJETO COM A DEVEMADA
+//SOMENTE APARECERÃO CLIENTES QUE TENHO ALGUM PROJETO
 $sql =
 "SELECT 
 	DISTINCT A1_NREDUZ, A1_NOME, A1_COD, A1_LOJA
@@ -640,7 +640,7 @@ $array_clientes_values = array();
 $array_clientes_output = array();
 foreach($db->array_select as $k => $regs)
 {
-	//N�o vou colocar a loja porque uma lista servir� para todas as lojas da empresa
+	//Não vou colocar a loja porque uma lista servirá para todas as lojas da empresa
 	$array_clientes_values[] = trim($regs["A1_COD"])."/".trim($regs["A1_LOJA"]);
 	$array_clientes_output[] = trim($regs["A1_NOME"]);
 }

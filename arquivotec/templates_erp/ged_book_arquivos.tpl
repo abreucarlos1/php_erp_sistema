@@ -7,10 +7,10 @@
           <td width="116" rowspan="3" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-				  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Book" onclick="if(document.getElementById('id_os').value!=''){xajax_gerabook(xajax.getFormValues('frm'));}else{alert('� necess�rio preencher todos os campos!');}" /></td>
+				  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Book" onclick="if(document.getElementById('id_os').value!=''){xajax_gerabook(xajax.getFormValues('frm'));}else{alert('É necessário preencher todos os campos!');}" /></td>
 			  </tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        

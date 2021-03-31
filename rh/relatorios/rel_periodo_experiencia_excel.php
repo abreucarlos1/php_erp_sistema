@@ -67,7 +67,7 @@ $sql =
 ORDER BY
 	avaliado";
 
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1,iconv('ISO-8859-1', 'UTF-8','RELAT�RIO DE PER�ODO DE EXPERI�NCIA'));
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1,iconv('ISO-8859-1', 'UTF-8','RELATÓRIO DE PERÍODO DE EXPERIÊNCIA'));
 
 $arrPeriodo = array(1 => '45 DIAS', 2 => '90 DIAS');
 $linha = 3;

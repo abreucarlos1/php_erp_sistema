@@ -157,7 +157,7 @@ function atualizatabela($dados_form, $page = 0)
 	
 	$sql .= " ORDER BY DAD_NOME, uf, cidade, setor, grupo ";
 
-	//Executa apenas para pegar o n�mero total de registros
+	//Executa apenas para pegar o número total de registros
 	$db->select($sql, 'MYSQL');
 	
 	$num_regs = $db->numero_registros;
@@ -200,14 +200,14 @@ function atualizatabela($dados_form, $page = 0)
 				$color = 'background-color:#FFFFFF';
 			break;
 			
-			case 3: //trabalhou na DVM - recomendado
+			case 3: //trabalhou na INT - recomendado
 				$imgnr = 'icone icone-cadeado-joinha cursor';
 				//$operacao = 2;
 				$edicao = true;
 				$color = 'background-color:#66FFFF';
 			break;
 			
-			case 4: //n�o recomendado
+			case 4: //não recomendado
 				$imgnr = 'icone icone-cadeado-aberto cursor';
 				//$operacao = 1;
 				$edicao = false;
@@ -288,23 +288,23 @@ function atualizatabela($dados_form, $page = 0)
 			switch($dados_form["conhecimentos"])
 			{
 				case "AUTOCAD":
-					$ch = "Autocad&nbsp;".$cont_desp["FOR_AUTOCAD"];
+					$ch = "Autocad ".$cont_desp["FOR_AUTOCAD"];
 				break;
 				
 				case "MICROSTATION":
-					$ch = "Microstation&nbsp;".$cont_desp["FOR_MICRO"];
+					$ch = "Microstation ".$cont_desp["FOR_MICRO"];
 				break;
 
 				case "PDS":
-					$ch = "PDS&nbsp;".$cont_desp["FOR_PDS"];
+					$ch = "PDS ".$cont_desp["FOR_PDS"];
 				break;
 				
 				case "PDMS":
-					$ch = "PDMS&nbsp;".$cont_desp["FOR_PDMS"];
+					$ch = "PDMS ".$cont_desp["FOR_PDMS"];
 				break;
 				
 				case "NR10":
-					$ch = "NR&nbsp;10&nbsp;".$cont_desp["FOR_NR10"];
+					$ch = "NR 10 ".$cont_desp["FOR_NR10"];
 				break;
 			}
 			
@@ -319,7 +319,7 @@ function atualizatabela($dados_form, $page = 0)
 		}
 		else
 		{
-			$link = "&nbsp;";
+			$link = " ";
 		}
 		
 		$xml->writeElement('cell', $link);
@@ -330,7 +330,7 @@ function atualizatabela($dados_form, $page = 0)
 		}
 		else
 		{
-			$apg = '&nbsp;';
+			$apg = ' ';
 		}
 		
 		$xml->writeElement('cell', $apg);
@@ -348,7 +348,7 @@ function atualizatabela($dados_form, $page = 0)
 		}
 		else
 		{
-			$atu = '&nbsp;';
+			$atu = ' ';
 		}
 		
 		$xml->writeElement('cell', $atu);
@@ -361,7 +361,7 @@ function atualizatabela($dados_form, $page = 0)
 		{
 			if ($cont_desp['envio_email_atualizacao'] == 0)
 			{
-				$email = '<span class="icone icone-envelope cursor" onclick=if(confirm("Enviar&nbsp;e-mail&nbsp;para&nbsp;Atualização?")){onclick=xajax_enviarEmailAtualizacao('.$cont_desp['UID'].')};></span>';
+				$email = '<span class="icone icone-envelope cursor" onclick=if(confirm("Enviar e-mail para Atualização?")){onclick=xajax_enviarEmailAtualizacao('.$cont_desp['UID'].')};></span>';
 			}
 			else
 			{
@@ -370,7 +370,7 @@ function atualizatabela($dados_form, $page = 0)
 		}
 		else
 		{
-			$email = '&nbsp;';	
+			$email = ' ';	
 		}
 		
 		$xml->writeElement('cell', $email);
@@ -396,7 +396,7 @@ function atualizatabela($dados_form, $page = 0)
 }
 
 /**
- * 0 -func n�o est� trabalhando na DVM atualmente  / 1 - est� trabalho atualmente DVM
+ * 0 -func não está trabalhando na INT atualmente  / 1 - está trabalho atualmente INT
  */
 function atualizar($conteudo,$id)
 {
@@ -413,7 +413,7 @@ function atualizar($conteudo,$id)
     
     if ($db->erro != '')
     {
-    	$resposta->addAlert("N�o foi poss�vel a atualizar o campo "-" " .$sql);
+    	$resposta->addAlert("Não foi possível a atualizar o campo "-" " .$sql);
     }
 	
 	return $resposta;
@@ -520,7 +520,7 @@ function excluir($id)
 	return $resposta;
 }
 
-//marca o funcionario como n�o recomendavel/recomendavel
+//marca o funcionario como não recomendavel/recomendavel
 //function marcar($id,$tipo)
 function marcar($dados_form)
 {
@@ -553,11 +553,11 @@ function marcar($dados_form)
     
 	if ($db->erro != '')
 	{
-		$resposta->addAlert('Houve uma falha ao tentar realizar esta opera��o!');
+		$resposta->addAlert('Houve uma falha ao tentar realizar esta operação!');
 	}
 	else
 	{
-		$resposta->addAlert('Altera��o realizada corretamente!');
+		$resposta->addAlert('Alteração realizada corretamente!');
 		$resposta->addScript("divPopupInst.destroi();");
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm_curriculos'));");
 	}
@@ -635,7 +635,7 @@ function atualizar_registro($dados_form)
 			
 		$resposta -> addScript("xajax_atualizatabela(xajax.getFormValues('frm_curriculos'));");
 	
-		$resposta -> addAlert("Curr�culo atualizado com sucesso.");			
+		$resposta -> addAlert("Currículo atualizado com sucesso.");			
 
 	}
 	else
@@ -675,22 +675,22 @@ WHERE
 	
 	if (empty($email))
 	{
-		$resposta->addAlert('Este candidato n�o tem e-mail cadastrado!');
+		$resposta->addAlert('Este candidato não tem e-mail cadastrado!');
 	}
 	else
 	{
 		$params = array();					
 		$params['from']	= "empresa@dominio.com.br";
 		$params['from_name'] = "";
-		$params['subject'] 	= "Atualização de Curr�culo";
+		$params['subject'] 	= "Atualização de Currículo";
 		
 		$params['emails']['to'][] = array('email' => $email, 'nome' => $nome);
 		
 		$mail = new email($params);
 		
 		$corpo = "<font face=arial>Prezado candidato,<br />";
-		$corpo .= "Seu curr&iacute;culo no site da <b></b> est� desatualizado.<br>";
-		$corpo .= "Voce poderá atualizá-lo atrav&eacute;s do link http://www.devemada.com.br/site/gestao/trabalhe_conosco.<br><br>";
+		$corpo .= "Seu currículo no site da <b></b> está desatualizado.<br>";
+		$corpo .= "Voce poderá atualizá-lo através do link http://www.empresa.com.br/site/gestao/trabalhe_conosco.<br><br>";
 		$corpo .= "Atenciosamente,<br>";
 		$corpo .= "Recursos Humanos - <br><br>";
 		$corpo .= "Rua Olegário Paiva, 36 - Centro - Mogi das Cruzes / SP</font>";
@@ -741,13 +741,13 @@ function escolherMarcacao(id)
 {
 	var html = '<form name="frm_marcar" id="frm_marcar">';
 		html += '<input type="hidden" id="uid" name="uid" value="'+id+'" >';
-		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="1" /><label class="labels">Trabalhou na Devemada.</label><br />';
+		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="1" /><label class="labels">Trabalhou na  .</label><br />';
 		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="3" /><label class="labels">Recomendado</label><br />';
-		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="4" /><label class="labels">N�o Recomendado</label><br />';
-		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="5" /><label class="labels">Indicado</label>&nbsp;&nbsp;<input type="text" name="indicado" id="indicado" class="caixa" size="50"><br /><br />';
+		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="4" /><label class="labels">Não Recomendado</label><br />';
+		html += '<input type="radio" name="rdo_marcacao" id="rdo_marcacao" value="5" /><label class="labels">Indicado</label>  <input type="text" name="indicado" id="indicado" class="caixa" size="50"><br /><br />';
 		html += '<input type="button" class="class_botao" id="btnEnviarMarcacao" value="Enviar" onclick=xajax_marcar(xajax.getFormValues("frm_marcar")); /></form>';
 		
-	modal(html, 'p', 'Escolha o tipo de marca��o');
+	modal(html, 'p', 'Escolha o tipo de marcação');
 }
 
 function grid(tabela, autoh, height, xml)
@@ -772,7 +772,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.attachEvent("onRowSelect", doOnRowSelected);
 
-	mygrid.setHeader("Cad./Atualiz., Nome, cidade, UF, Modalidade, Função, Conhecimentos, Trab.DVM, A, D, F, R/NR, EM/At");
+	mygrid.setHeader("Cad./Atualiz., Nome, cidade, UF, Modalidade, Função, Conhecimentos, Trab.INT, A, D, F, R/NR, EM/At");
 	mygrid.setInitWidths("90,*,120,30,*,*,100,80,40,40,40,40,60");
 	mygrid.setColAlign("left,left,left,left,left,left,left,center,center,center,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -877,7 +877,7 @@ $db->select($sql,'MYSQL',true);
 
 if ($db->erro != '')
 {
-	exit("N�o foi poss�vel realizar a sele��o.");
+	exit("Não foi possível realizar a seleção.");
 }
 
 foreach ($db->array_select as $reg)

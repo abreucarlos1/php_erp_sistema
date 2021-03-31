@@ -76,7 +76,7 @@ function atualizatabela($filtro)
 	$header .= "<tr>";
 	$header .= "<td width=\"200\" type=\"ro\">local</td>";
 	$header .= "<td width=\"100\" type=\"ro\">data</td>";
-	$header .= "<td width=\"700\" type=\"ro\">Descri��o</td>";
+	$header .= "<td width=\"700\" type=\"ro\">Descrição</td>";
 	$header .= "<td width=\"50\" type=\"ro\">D</td>";	
 	$header .= "</tr>";
 	
@@ -88,7 +88,7 @@ function atualizatabela($filtro)
 		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('" .  $cont_feriados["id_feriado"] . "');\">".$cont_feriados["local_Descricao"]."</td>";
 		$conteudo .= "<td style=\"cursor:pointer;\" align=\"center\"  onclick=\"xajax_editar('" .  $cont_feriados["id_feriado"] . "');\">".mysql_php($cont_feriados["data"])."</td>";
 		$conteudo .= "<td style=\"cursor:pointer;\" align=\"left\"  onclick=\"xajax_editar('" .  $cont_feriados["id_feriado"] . "');\">".$cont_feriados["feriados_descricao"]."</td>";
-		$conteudo .= "<td align=\"center\"><img src=\"../images/buttons_action/apagar.gif\" style=\"cursor:pointer;\" onclick=\"if(confirm('Confirma a exclus�o do feriado selecionado?')){xajax_excluir('" . $cont_feriados["id_feriado"] . "');}\"></td>";
+		$conteudo .= "<td align=\"center\"><img src=\"../images/buttons_action/apagar.gif\" style=\"cursor:pointer;\" onclick=\"if(confirm('Confirma a exclusão do feriado selecionado?')){xajax_excluir('" . $cont_feriados["id_feriado"] . "');}\"></td>";
 		$conteudo .= "</tr>";	
 	}
 
@@ -127,7 +127,7 @@ function insere($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert("� necess�rio preencher todos os campos!");
+		$resposta->addAlert("É necessário preencher todos os campos!");
 	}
 
 	return $resposta;
@@ -203,7 +203,7 @@ function excluir($id)
 	
 	$db->delete($dsql,'MYSQL');
 
-	$resposta->addAlert("Feriado exclu�do com sucesso!");
+	$resposta->addAlert("Feriado excluído com sucesso!");
 	
 	$resposta->addScript("xajax_atualizatabela(''); ");
 	
@@ -228,7 +228,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 

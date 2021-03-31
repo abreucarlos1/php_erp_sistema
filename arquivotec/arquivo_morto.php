@@ -13,7 +13,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(618))
 {
@@ -62,7 +62,7 @@ function atualizatabela_versoes()
 	    $icone = $reg['status'] == 0 ? "<span class=\'icone icone-cadeado-aberto\'></span>" : '';
 	    
 		$xml->startElement('row');
-		$xml->writeElement('cell', $icone.'&nbsp;'.$reg['revisao_documento']);
+		$xml->writeElement('cell', $icone.' '.$reg['revisao_documento']);
 		$xml->writeElement('cell', $reg['funcionario']);
 		$xml->writeElement('cell', mysql_php($reg['data']));
 		$xml->endElement();	
@@ -109,7 +109,7 @@ function atualizatabela_descartes()
             $icone = '';
         
         $xml->startElement('row');
-        $xml->writeElement('cell', $icone.'&nbsp;'.$reg['revisao_documento']);
+        $xml->writeElement('cell', $icone.' '.$reg['revisao_documento']);
         $xml->writeElement('cell', $reg['funcionario']);
         $xml->writeElement('cell', mysql_php($reg['data']));
         $xml->writeElement('cell', $reg['ano_referencia']);
@@ -409,29 +409,31 @@ function insere($dados_form)
                 $texto .= '<br />'.sprintf('%05d', $reg['os']).' - '.$reg['descricao'];
             });
             
-            $params 			= array();
-            $params['from']	    = "arquivotecnico@dominio.com.br";
-            $params['from_name']= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
-            $params['subject'] 	= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
-            
-            $params['emails']['to'][] = array('email' => $dadosFunc['email'], 'nome' => $dadosFunc['funcionario']);
-            
-            $mail = new email($params, 'aprovacao_arquivo_morto');
-            $mail->montaCorpoEmail($texto);
-            
-            if (HOST != 'localhost')
-            {
+            if(ENVIA_EMAIL)
+			{
+                $params 			= array();
+                $params['from']	    = "arquivotecnico@dominio.com.br";
+                $params['from_name']= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
+                $params['subject'] 	= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
+                
+                $params['emails']['to'][] = array('email' => $dadosFunc['email'], 'nome' => $dadosFunc['funcionario']);
+                
+                $mail = new email($params, 'aprovacao_arquivo_morto');
+                
+                $mail->montaCorpoEmail($texto);
+                
+
                 if ($mail->send())
                 {
                     $resposta->addAlert('email enviado corretamente');
                     $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.');');
                 }
             }
-            else
+            else 
             {
-                $resposta->addAlert('email enviado corretamente');
-                $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.');');
+                $resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
             }
+
         }
     }
     else
@@ -495,27 +497,39 @@ function aprovar($dados_form)
         $db->select($sql, 'MYSQL', function($reg, $i) use(&$texto){
             $texto .= '<br />'.sprintf('%05d', $reg['os']).' - '.$reg['descricao'];
         });
+        
+        if(ENVIA_EMAIL)
+        {        
+            $params 			= array();
+            $params['from']	    = "arquivotecnico@dominio.com.br";
+            $params['from_name']= "OS S APROVADAS ARQUIVO MORTO";
+            $params['subject'] 	= "OS S APROVADAS ARQUIVO MORTO";
             
-        $params 			= array();
-        $params['from']	    = "arquivotecnico@dominio.com.br";
-        $params['from_name']= "OS S APROVADAS ARQUIVO MORTO";
-        $params['subject'] 	= "OS S APROVADAS ARQUIVO MORTO";
-        
-        $params['emails']['to'][] = array('email' => $dadosFunc['email'], 'nome' => $dadosFunc['funcionario']);
-        
-        $mail = new email($params, 'aprovacao_arquivo_morto');
-        $mail->montaCorpoEmail($texto);
-        
-        if (HOST != 'localhost')
-        {
-            if ($mail->send())
+            $params['emails']['to'][] = array('email' => $dadosFunc['email'], 'nome' => $dadosFunc['funcionario']);
+            
+            $mail = new email($params, 'aprovacao_arquivo_morto');
+            
+            $mail->montaCorpoEmail($texto);
+            
+
+            if (!$mail->send())
             {
-                $coord = !in_array($_SESSION['id_setor_aso'], array(2,17)) ? 1 : 0;
-                $resposta->addAlert('Alterações realizadas corretamente');
-                $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.','.$coord.');');
-                $resposta->addScript("document.getElementById('btnenviar').disabled=true;");
+                $resposta->addAlert($msg[21].$mail->ErrorInfo);
             }
         }
+        else 
+        {
+            $resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
+        }
+
+        $coord = !in_array($_SESSION['id_setor_aso'], array(2,17)) ? 1 : 0;
+        
+        $resposta->addAlert('Alterações realizadas corretamente');
+        
+        $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.','.$coord.');');
+        
+        $resposta->addScript("document.getElementById('btnenviar').disabled=true;");
+        
     }
     
     return $resposta;
@@ -604,7 +618,7 @@ function grid(tabela, autoh, height, xml)
 	{
 		case 'div_lista_versoes':
 		case 'div_lista_descartes':
-			mygrid.setHeader("Versão, Responsável, Data&nbsp;Registro"+colunaExtra[0]);
+			mygrid.setHeader("Versão, Responsável, Data Registro"+colunaExtra[0]);
 			mygrid.setInitWidths("70,*,70"+colunaExtra[1]);
 			mygrid.setColAlign("right,left,left"+colunaExtra[2]);
 			mygrid.setColTypes("ro,ro,ro"+colunaExtra[3]);

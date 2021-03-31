@@ -177,7 +177,7 @@ $sql .= "WHERE despesas_funcionario.id_adiantamento_funcionario = '" . $_GET["id
 $sql .= "AND despesas_funcionario.id_adiantamento_funcionario = adiantamento_funcionario.id_adiantamento_funcionario ";
 $sql .= "AND adiantamento_funcionario.id_requisicao_despesa = requisicao_despesas.id_requisicao_despesa ";
 $sql .= "AND requisicao_despesas.id_os = ordem_servico.id_os ";
-$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa_erp ";
+$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa ";
 $sql .= "ORDER BY despesas_funcionario.data_despesa ";
 
 $db->select($sql,'MYSQL',true);	

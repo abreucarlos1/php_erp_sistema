@@ -87,7 +87,7 @@ function atualizatabela($filtro)
 			$xml->writeElement('cell', $reg['nome']);
 			$xml->writeElement('cell', $reg['email']);
 			$xml->writeElement('cell', AntiInjection::formatarGenerico($reg['cpf'], '###.###.###-##'));
-			$xml->writeElement('cell', "<img style=\'cursor:pointer\' onclick=if(confirm(\'Deseja&nbsp;Desbloquear&nbsp;este&nbsp;currículo?\')){xajax_excluirNR(".$reg['idCurriculo'].")}; src=\'".DIR_IMAGENS."apagar.png\'>");
+			$xml->writeElement('cell', "<img style=\'cursor:pointer\' onclick=if(confirm(\'Deseja Desbloquear este currículo?\')){xajax_excluirNR(".$reg['idCurriculo'].")}; src=\'".DIR_IMAGENS."apagar.png\'>");
 		$xml->endElement();
 	}
 

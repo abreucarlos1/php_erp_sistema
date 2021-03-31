@@ -1,7 +1,7 @@
 <?php
 /*
 
-		Formul�rio de Ponto Eletronico 	
+		Formulário de Ponto Eletronico 	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -22,8 +22,8 @@ function checaSessao()
 	if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 	{
 
-		$resposta->addAlert("A sess�o expirou. � necess�rio efetuar o login novamente. ");
-		// Usu�rio n�o logado! Redireciona para a p�gina de login
+		$resposta->addAlert("A sessão expirou. É necessário efetuar o login novamente. ");
+		// Usuário não logado! Redireciona para a página de login
 		$resposta->addRedirect("../index.php?pagina=" . $_SERVER['PHP_SELF']);
 
 	}
@@ -107,18 +107,18 @@ function atualizatabela($filtro, $combo='')
 	$sql .= "GROUP BY Cargos.id_funcao ";
 	$sql .= "ORDER BY Cargos.descricao ";
 	
-	$reg = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql);
+	$reg = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 	$conteudo = "";
 	
 	$header = "<table id=\"tbl1\" class=\"dhtmlXGrid\" style=\"width:100%\">";
 	$header .= "<tr>";
-	$header .= "<td type=\"ro\">cargo</td>";
+	$header .= "<td type=\"ro\">Cargo</td>";
 	$header .= "<td type=\"ro\">CBO2002</td>";
 	$header .= "<td width=\"80\" type=\"ro\">Categoria</td>";
 	$header .= "<td type=\"ro\">Escolaridade</td>";
-	$header .= "<td type=\"ro\">Forma��o</td>";
-	$header .= "<td type=\"ro\">Experi�ncia</td>";
+	$header .= "<td type=\"ro\">Formação</td>";
+	$header .= "<td type=\"ro\">Experiência</td>";
 	$header .= "<td width=\"40\" type=\"img\">D</td>";
 	$header .= "</tr>";
 	
@@ -130,32 +130,32 @@ function atualizatabela($filtro, $combo='')
 	{
 		$sql = "SELECT id_funcionario FROM ".DATABASE.".Funcionarios ";
 		$sql .= "WHERE Funcionarios.id_funcao = '".$cont_desp["id_funcao"]."' ";
-		$reg_func = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql);
+		$reg_func = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 		$sql = "SELECT id_proposta FROM ".DATABASE.".Propostas ";
 		$sql .= "WHERE Propostas.id_categoria = '".$cont_desp["id_funcao"]."' ";
-		$reg_preco = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql);
+		$reg_preco = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 		$sql = "SELECT id_mo_preco FROM ".DATABASE.".mo_precos ";
 		$sql .= "WHERE mo_precos.id_categoria = '".$cont_desp["id_funcao"]."' ";
-		$reg_mo = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql);
+		$reg_mo = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["descricao"]."</td>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["cbo_2002"]."</td>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["categoria"]."</td>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["escolaridade"]."</td>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["formacao"]."</td>";
-		$conteudo .= "<td onClick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["experiencia"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["descricao"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["cbo_2002"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["categoria"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["escolaridade"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["formacao"]."</td>";
+		$conteudo .= "<td onclick=\"xajax_editar('". $cont_desp["id_funcao"]."')\">".$cont_desp["experiencia"]."</td>";
 		
 		if((mysql_num_rows($reg_func)==0) && (mysql_num_rows($reg_preco)==0) && (mysql_num_rows($reg_mo)==0))
 		{
-			$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onClick=\"javascript:if(apagar('". trim(str_replace($chars,"",$cont_desp["descricao"]))."')){xajax_excluir('".$cont_desp["id_funcao"]."','". trim(str_replace($chars,"",$cont_desp["descricao"]))."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
+			$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onclick=\"javascript:if(apagar('". trim(str_replace($chars,"",$cont_desp["descricao"]))."')){xajax_excluir('".$cont_desp["id_funcao"]."','". trim(str_replace($chars,"",$cont_desp["descricao"]))."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
 		}
 		else
 		{
-			$conteudo .= "<td>&nbsp;</td>";
+			$conteudo .= "<td> </td>";
 		
 		}
 		$conteudo .= "</tr>";
@@ -191,23 +191,23 @@ function insere($dados_form)
 		$sql .= "AND Cargos.categoria = '".maiusculas($dados_form["categoria"])."' ";
 		$sql .= "AND Cargos.cbo_2002 = '".maiusculas($dados_form["cbo"])."' ";
 		
-		$reg = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql);
+		$reg = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 		if(mysql_num_rows($reg)==0)
 		{
 		
-			$incsql = "INSERT INTO ".DATABASE.".Cargos ";
-			$incsql .= "(descricao, id_rh_escolaridade, cbo_2002, formacao, experiencia, categoria, principais_atividades) ";
-			$incsql .= "VALUES ('" . maiusculas($dados_form["funcao"]) . "', ";
-			$incsql .= "'" . $dados_form["escolaridade"] . "', ";
-			$incsql .= "'" . maiusculas($dados_form["cbo"]) . "', ";
-			$incsql .= "'" . maiusculas($dados_form["formacao"]) . "', ";
-			$incsql .= "'" . maiusculas($dados_form["experiencia"]) . "', ";
-			$incsql .= "'" . maiusculas($dados_form["categoria"]) . "', ";
-			$incsql .= "'" . maiusculas($dados_form["atividades"]) . "') ";
+			$isql = "INSERT INTO ".DATABASE.".Cargos ";
+			$isql .= "(descricao, id_rh_escolaridade, cbo_2002, formacao, experiencia, categoria, principais_atividades) ";
+			$isql .= "VALUES ('" . maiusculas($dados_form["funcao"]) . "', ";
+			$isql .= "'" . $dados_form["escolaridade"] . "', ";
+			$isql .= "'" . maiusculas($dados_form["cbo"]) . "', ";
+			$isql .= "'" . maiusculas($dados_form["formacao"]) . "', ";
+			$isql .= "'" . maiusculas($dados_form["experiencia"]) . "', ";
+			$isql .= "'" . maiusculas($dados_form["categoria"]) . "', ";
+			$isql .= "'" . maiusculas($dados_form["atividades"]) . "') ";
 	
 			//Carrega os registros
-			$registros = mysql_query($incsql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql);
+			$registros = mysql_query($isql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$isql);
 			
 			$id_cargo = mysql_insert_id($db->conexao);
 			
@@ -303,7 +303,7 @@ function insere($dados_form)
 		else
 		{
 			$regs = mysql_fetch_array($reg);
-			$resposta->addAlert("Registro j� existente no banco de dados.");
+			$resposta->addAlert("Registro já existente no banco de dados.");
 			
 			return $resposta;
 		}
@@ -435,18 +435,18 @@ function atualizar($dados_form)
 	
 	if($dados_form["funcao"]!='' || $dados_form["escolaridade"]!='' || $dados_form["formacao"]!='' || $dados_form["experiencia"]!='')
 	{
-		$incsql = "UPDATE ".DATABASE.".Cargos SET ";
-		$incsql .= "Cargos.descricao = '" . maiusculas($dados_form["funcao"]) . "', ";
-		$incsql .= "Cargos.id_rh_escolaridade = '" . $dados_form["escolaridade"] . "', ";
-		$incsql .= "Cargos.experiencia = '" . maiusculas($dados_form["experiencia"]) . "', ";
-		$incsql .= "Cargos.formacao = '" . maiusculas($dados_form["formacao"]) . "', ";
-		$incsql .= "Cargos.cbo_2002 = '" . maiusculas($dados_form["cbo"]) . "', ";
-		$incsql .= "Cargos.categoria = '" . maiusculas($dados_form["categoria"]) . "', ";
-		$incsql .= "Cargos.principais_atividades = '" . maiusculas($dados_form["atividades"]) . "' ";
-		$incsql .= "WHERE Cargos.id_funcao = '".$dados_form["id_cargo"]."' ";
+		$isql = "UPDATE ".DATABASE.".Cargos SET ";
+		$isql .= "Cargos.descricao = '" . maiusculas($dados_form["funcao"]) . "', ";
+		$isql .= "Cargos.id_rh_escolaridade = '" . $dados_form["escolaridade"] . "', ";
+		$isql .= "Cargos.experiencia = '" . maiusculas($dados_form["experiencia"]) . "', ";
+		$isql .= "Cargos.formacao = '" . maiusculas($dados_form["formacao"]) . "', ";
+		$isql .= "Cargos.cbo_2002 = '" . maiusculas($dados_form["cbo"]) . "', ";
+		$isql .= "Cargos.categoria = '" . maiusculas($dados_form["categoria"]) . "', ";
+		$isql .= "Cargos.principais_atividades = '" . maiusculas($dados_form["atividades"]) . "' ";
+		$isql .= "WHERE Cargos.id_funcao = '".$dados_form["id_cargo"]."' ";
 
 		//Carrega os registros
-		$registros = mysql_query($incsql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql);
+		$registros = mysql_query($isql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$isql);
 		
 		$sql = "DELETE FROM ".DATABASE.".rh_cargos_x_conhecimento ";
 		$sql .= "WHERE rh_cargos_x_conhecimento.id_rh_cargo = '".$dados_form["id_cargo"]."' ";
@@ -622,7 +622,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 <script type="text/javascript" src="../includes/selectbox.js"></script>
 
@@ -666,7 +666,7 @@ function move_itens(id_combo,from,to1,to2)
 
 </script>
 
-<?
+<?php
 
 $array_escolaridade_values = NULL;
 $array_escolaridade_output = NULL;

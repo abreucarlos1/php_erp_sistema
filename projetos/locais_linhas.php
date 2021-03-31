@@ -1,25 +1,25 @@
-<?
+<?php
 /*
-		Formul�rio de Locais equipamentos	
+		Formulário de Locais equipamentos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/locais_equip.php
 		
-		data de cria��o: 12/05/2006
+		data de criação: 12/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -34,7 +34,7 @@ $db = new banco_dados;
 
 $sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
 $sql .= "WHERE OS.id_os = '".$_SESSION["id_os"]."' ";
-$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 
 $reg = $db->select($sql,'MYSQL');
 
@@ -43,7 +43,7 @@ $cliente = mysqli_fetch_array($reg);
 
 
 $sql1 = "SELECT * FROM ".DATABASE.".setores ";
-$sql1 .= "WHERE setor = 'TUBULA��O' ";
+$sql1 .= "WHERE setor = 'TUBULAÇÃO' ";
 
 $regis = $db->select($sql1,'MYSQL');
 
@@ -81,9 +81,9 @@ if ($_POST["acao"]=="editar")
 	{
 		?>
 		<script>
-			alert('local j� cadastrado no banco de dados.');
+			alert('local já cadastrado no banco de dados.');
 		</script>
-		<?	
+		<?php	
 	}
 	else
 	{
@@ -118,7 +118,7 @@ if ($_POST["acao"]=="editar")
 		<script>
 			alert('local atualizado com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 
 }
@@ -154,47 +154,47 @@ if ($_POST["acao"]=="salvar")
 	{
 		?>
 		<script>
-			alert('local j� cadastrado no banco de dados.');
+			alert('local já cadastrado no banco de dados.');
 		</script>
-		<?	
+		<?php	
 	}
 	else
 	{
 	
-		//Cria senten�a de Inclusão no bd
-		$incsql = "INSERT INTO Projetos.locais ";
-		$incsql .= "(id_area, id_disciplina, id_fluido, id_material, ds_complemento, nr_diametro, nr_sequencia, ";
-		$incsql .= "cd_trecho, ds_inicio, ds_fim, ds_fluxograma, ds_isometrico, ";
-		$incsql .= "nr_vazao, nr_temperatura, nr_pressao, nr_densidade, nr_viscosidade, ";
-		$incsql .= "nr_condutividade, nr_isolamento, nr_revisao ) VALUES (";
-		$incsql .= "'" . $_POST["id_area"] . "', ";
-		$incsql .= "'" . $disciplina["id_setor"] . "', ";
-		$incsql .= "'" . $_POST["id_fluido"] . "', ";
-		$incsql .= "'" . $_POST["id_material"] . "', ";
-		$incsql .= "'" . $_POST["ds_complemento"] . "', ";
-		$incsql .= "'" . $_POST["nr_diametro"] . "', ";
-		$incsql .= "'" . $_POST["nr_sequencia"] . "', ";
-		$incsql .= "'" . $_POST["ds_trecho"] . "', ";
-		$incsql .= "'" . maiusculas($_POST["ds_inicio"]) . "', ";
-		$incsql .= "'" . maiusculas($_POST["ds_fim"]) . "', ";
-		$incsql .= "'" . $_POST["ds_fluxograma"] . "', ";
-		$incsql .= "'" . $_POST["ds_isometrico"] . "', ";
-		$incsql .= "'" . $_POST["nr_vazao"] . "', ";
-		$incsql .= "'" . $_POST["nr_temperatura"] . "', ";
-		$incsql .= "'" . $_POST["nr_pressao"] . "', ";
-		$incsql .= "'" . $_POST["nr_densidade"] . "', ";
-		$incsql .= "'" . $_POST["nr_viscosidade"] . "', ";
-		$incsql .= "'" . $_POST["nr_condutividade"] . "', ";	
-		$incsql .= "'" . maiusculas($_POST["nr_isolamento"]) . "', ";		
-		$incsql .= "'" . $_POST["nr_revisao"] . "') ";
+		//Cria sentença de Inclusão no bd
+		$isql = "INSERT INTO Projetos.locais ";
+		$isql .= "(id_area, id_disciplina, id_fluido, id_material, ds_complemento, nr_diametro, nr_sequencia, ";
+		$isql .= "cd_trecho, ds_inicio, ds_fim, ds_fluxograma, ds_isometrico, ";
+		$isql .= "nr_vazao, nr_temperatura, nr_pressao, nr_densidade, nr_viscosidade, ";
+		$isql .= "nr_condutividade, nr_isolamento, nr_revisao ) VALUES (";
+		$isql .= "'" . $_POST["id_area"] . "', ";
+		$isql .= "'" . $disciplina["id_setor"] . "', ";
+		$isql .= "'" . $_POST["id_fluido"] . "', ";
+		$isql .= "'" . $_POST["id_material"] . "', ";
+		$isql .= "'" . $_POST["ds_complemento"] . "', ";
+		$isql .= "'" . $_POST["nr_diametro"] . "', ";
+		$isql .= "'" . $_POST["nr_sequencia"] . "', ";
+		$isql .= "'" . $_POST["ds_trecho"] . "', ";
+		$isql .= "'" . maiusculas($_POST["ds_inicio"]) . "', ";
+		$isql .= "'" . maiusculas($_POST["ds_fim"]) . "', ";
+		$isql .= "'" . $_POST["ds_fluxograma"] . "', ";
+		$isql .= "'" . $_POST["ds_isometrico"] . "', ";
+		$isql .= "'" . $_POST["nr_vazao"] . "', ";
+		$isql .= "'" . $_POST["nr_temperatura"] . "', ";
+		$isql .= "'" . $_POST["nr_pressao"] . "', ";
+		$isql .= "'" . $_POST["nr_densidade"] . "', ";
+		$isql .= "'" . $_POST["nr_viscosidade"] . "', ";
+		$isql .= "'" . $_POST["nr_condutividade"] . "', ";	
+		$isql .= "'" . maiusculas($_POST["nr_isolamento"]) . "', ";		
+		$isql .= "'" . $_POST["nr_revisao"] . "') ";
 	
-		$registros = $db->insert($incsql,'MYSQL');
+		$registros = $db->insert($isql,'MYSQL');
 		
 		?>
 		<script>
 			alert('local inserido com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 
 }
@@ -208,9 +208,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('local exclu�do com sucesso.');
+		alert('local excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 ?>
@@ -220,10 +220,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . LINHAS TUB .  . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_local, nrcd_localtrecho)
 {
@@ -244,7 +244,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -268,18 +268,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -299,28 +299,28 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
-                      <td width="10%" class="label1">&Aacute;REA</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="10%" class="label1">ÁREA</td>
+                      <td width="1%"> </td>
                       <td width="12%"><span class="label1">DI&Acirc;METRO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">flu&Iacute;do</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%">SEQU&Ecirc;NCIA</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="13%">SEQUÊNCIA</td>
+                      <td width="1%"> </td>
                       <td width="46%">COMPLEMENTO</td>
-                      <td width="2%">&nbsp;</td>
+                      <td width="2%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_area" class="txt_box" id="id_area" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.area ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -330,23 +330,23 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-							<option value="<?= $cont["id_area"] ?>" <? if($locais["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
+							<option value="<?= $cont["id_area"] ?>" <?php if($locais["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
 							<?= $cont["nr_area"] . " - " . $cont["ds_area"] ?>
 							</option>
-							<?
+							<?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_diametro" type="text" class="txt_box" id="nr_diametro" size="20" maxlength="20" value="<?= str_replace('"',"&quot;",$locais["nr_diametro"]) ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_fluido" class="txt_box" id="id_fluido" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						$sql = "SELECT * FROM Projetos.fluidos ";
 						
 						$reg = $db->select($sql,'MYSQL');
@@ -354,45 +354,45 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_fluido"] ?>" <? if($locais["id_fluido"]==$cont["id_fluido"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_fluido"] ?>" <?php if($locais["id_fluido"]==$cont["id_fluido"]) { echo "selected"; } ?>>
                         <?= $cont["cd_fluido"] . " - " . $cont["ds_fluido"]. " / " . $cont["cliente"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_sequencia" type="text" class="txt_box" id="nr_sequencia" size="20" maxlength="20" value="<?= $locais["nr_sequencia"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_complemento" type="text" class="txt_box" id="ds_complemento" size="20" maxlength="20" value="<?= $locais["ds_complemento"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="10%">MATERIAL</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">trecho</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">inicio</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%">t&Eacute;RMINO</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="47%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="13%">tÉRMINO</td>
+                      <td width="1%"> </td>
+                      <td width="47%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_material" class="txt_box" id="id_material" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 
 						$sql = "SELECT * FROM Projetos.materiais ";
 						$sql .= "ORDER BY mat_cliente, cd_material ";
@@ -402,132 +402,132 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_material"] ?>" <? if($locais["id_material"]==$cont["id_material"]) { echo "selected"; } ?>>
+                          <option value="<?= $cont["id_material"] ?>" <?php if($locais["id_material"]==$cont["id_material"]) { echo "selected"; } ?>>
                           <?= $cont["cd_material"] . " - " . $cont["ds_material"] . " / " . $cont["mat_cliente"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_trecho" type="text" class="txt_box" id="cd_trecho" size="30" maxlength="20" value="<?= $locais["cd_trecho"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_inicio" type="text" class="txt_box" id="ds_inicio" size="30" maxlength="20" value="<?= $locais["ds_inicio"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fim" type="text" class="txt_box" id="ds_fim" size="30" maxlength="20" value="<?= $locais["ds_fim"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="13%">FLUXOGRAMA</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="7%">isom&Eacute;trico</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="10%">vaz&Atilde;O</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%">PRESS&Atilde;O</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="49%">&nbsp;</td>
-                      <td width="4%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="7%">isomÉtrico</td>
+                      <td width="1%"> </td>
+                      <td width="10%">vazÃO</td>
+                      <td width="1%"> </td>
+                      <td width="13%">PRESSÃO</td>
+                      <td width="1%"> </td>
+                      <td width="49%"> </td>
+                      <td width="4%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fluxograma" type="text" class="txt_box" id="ds_fluxograma" value="<?= $locais["ds_fluxograma"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_isometrico" type="text" class="txt_box" id="ds_isometrico" value="<?= $locais["ds_isometrico"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_vazao" type="text" class="txt_box" id="nr_vazao" value="<?= $locais["nr_vazao"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_pressao" id="nr_pressao" type="text" class="txt_box"  value="<?= $locais["nr_pressao"] ?>" size="18" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="12%">TEMPERATURA</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="9%">DENSIDADE</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="11%">VISCOSIDADE</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">condutividade</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">isolamento</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="8%">revis&Atilde;o</td>
-                      <td width="29%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="8%">revisÃo</td>
+                      <td width="29%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_temperatura" type="text" class="txt_box" id="nr_temperatura" value="<?= $locais["nr_temperatura"] ?>" size="28" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_densidade" type="text" class="txt_box" id="nr_densidade" value="<?= $locais["nr_densidade"] ?>" size="20" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_viscosidade" type="text" class="txt_box" id="nr_viscosidade" value="<?= $locais["nr_viscosidade"] ?>" size="20" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_condutividade" id="nr_condutividade" type="text" class="txt_box"  value="<?= $locais["nr_condutividade"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_isolamento" id="nr_isolamento" type="text" class="txt_box" value="<?= $locais["nr_isolamento"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_revisao" type="text" class="txt_box" id="nr_revisao" value="<?= $locais["nr_revisao"] ?>" size="18" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_local" type="hidden" id="id_local" value="<?= $locais["id_local"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -538,28 +538,28 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
-                      <td width="13%" class="label1">&Aacute;REA</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="13%" class="label1">ÁREA</td>
+                      <td width="3%"> </td>
                       <td width="12%">DI&Acirc;METRO</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="3%"> </td>
                       <td width="13%">flu&Iacute;do</td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="12%">SEQU&Ecirc;NCIA</td>
-                      <td width="2%">&nbsp;</td>
+                      <td width="3%"> </td>
+                      <td width="12%">SEQUÊNCIA</td>
+                      <td width="2%"> </td>
                       <td width="36%">COMPLEMENTO</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="3%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_area" class="txt_box" id="id_area" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.area ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -569,23 +569,23 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_area"] ?>" <? if($_POST["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
+                          <option value="<?= $cont["id_area"] ?>" <?php if($_POST["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
                           <?= $cont["nr_area"] . " - " . $cont["ds_area"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_diametro" type="text" class="txt_box" id="nr_diametro" size="20" maxlength="20" value="<?= str_replace('\"',"&quot;",$_POST["nr_diametro"]) ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_fluido" class="txt_box" id="id_fluido" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 
 						$sql = "SELECT * FROM Projetos.fluidos ";
 						$sql .= "ORDER BY cliente, cd_fluido ";
@@ -595,45 +595,45 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_fluido"] ?>" <? if($_POST["id_fluido"]==$cont["id_fluido"]) { echo "selected"; } ?>>
+                          <option value="<?= $cont["id_fluido"] ?>" <?php if($_POST["id_fluido"]==$cont["id_fluido"]) { echo "selected"; } ?>>
                           <?= $cont["cd_fluido"] . " - " . $cont["ds_fluido"]. " / " . $cont["cliente"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_sequencia" type="text" class="txt_box" id="nr_sequencia" size="20" maxlength="20" value="<?= $_POST["nr_sequencia"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_complemento" type="text" class="txt_box" id="ds_complemento" size="20" maxlength="20" value="<?= $_POST["nr_sequencia"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="10%">MATERIAL</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">trecho</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">inicio</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%">t&Eacute;RMINO</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="47%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="13%">tÉRMINO</td>
+                      <td width="1%"> </td>
+                      <td width="47%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_material" class="txt_box" id="id_material" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 
 						$sql = "SELECT * FROM Projetos.materiais ";
 						$sql .= "ORDER BY mat_cliente, cd_material";
@@ -643,132 +643,132 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_material"] ?>" <? if($_POST["id_material"]==$cont["id_material"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_material"] ?>" <?php if($_POST["id_material"]==$cont["id_material"]) { echo "selected"; } ?>>
                         <?= $cont["cd_material"] . " - " . $cont["ds_material"] . " / " . $cont["mat_cliente"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_trecho" type="text" class="txt_box" id="cd_trecho" size="30" maxlength="20" value="<?= $_POST["cd_trecho"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_inicio" type="text" class="txt_box" id="ds_inicio" size="30" maxlength="20" value="<?= $_POST["ds_inicio"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fim" type="text" class="txt_box" id="ds_fim" size="30" maxlength="20" value="<?= $_POST["ds_fim"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="13%"><span class="label1">FLUXOGRAMA</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="7%">isom&Eacute;trico</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="10%"><span class="label1">vaz&Atilde;O</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%"><span class="label1">PRESS&Atilde;O</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="49%">&nbsp;</td>
-                      <td width="4%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="7%">isomÉtrico</td>
+                      <td width="1%"> </td>
+                      <td width="10%"><span class="label1">vazÃO</span></td>
+                      <td width="1%"> </td>
+                      <td width="13%"><span class="label1">PRESSÃO</span></td>
+                      <td width="1%"> </td>
+                      <td width="49%"> </td>
+                      <td width="4%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fluxograma" type="text" class="txt_box" id="ds_fluxograma" value="<?= $_POST["ds_fluxograma"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_isometrico" type="text" class="txt_box" id="ds_isometrico" value="<?= $_POST["ds_isometrico"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_vazao" type="text" class="txt_box" id="nr_vazao" value="<?= $_POST["nr_vazao"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_pressao" id="nr_pressao" type="text" class="txt_box" value="<?= $_POST["nr_pressao"] ?>" size="18" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="12%">TEMPERATURA</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="9%">DENSIDADE</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="11%">VISCOSIDADE</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">condutividade</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%">isolamento</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="8%">revis&Atilde;o</td>
-                      <td width="29%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="8%">revisÃo</td>
+                      <td width="29%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_temperatura" type="text" class="txt_box" id="nr_temperatura" value="<?= $_POST["nr_temperatura"] ?>" size="28" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_densidade" type="text" class="txt_box" id="nr_densidade" value="<?= $_POST["nr_densidade"] ?>" size="20" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_viscosidade" type="text" class="txt_box" id="nr_viscosidade" value="<?= $_POST["nr_viscosidade"] ?>" size="20" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_condutividade" id="nr_condutividade" type="text" class="txt_box" value="<?= $_POST["nr_condutividade"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_isolamento" id="nr_isolamento" type="text" class="txt_box" value="<?= $_POST["nr_isolamento"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_revisao" type="text" class="txt_box" id="nr_revisao" value="<?= $_POST["nr_revisao"] ?>" size="18" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
-                    <input name="Equipamentos" type="button" class="btn" id="Equipamentos" value="COMPONENTES" onClick="javascript:location.href='componentes.php';"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
+                    <input name="Equipamentos" type="button" class="btn" id="Equipamentos" value="COMPONENTES" onclick="javascript:location.href='componentes.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -781,10 +781,10 @@ window.moveTo(0,0);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <td width="11%">&Aacute;REA</td>
+				  <td width="11%">ÁREA</td>
 				  <td width="25%">LINHA</td>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_sequencia, cd_trecho ";
@@ -797,24 +797,24 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="18%"><a href="#" class="cabecalho_tabela" onClick="ordenar('cd_local','<?= $ordem ?>')">TRECHO</a></td>
+				  <td width="18%"><a href="#" class="cabecalho_tabela" onclick="ordenar('cd_local','<?= $ordem ?>')">TRECHO</a></td>
 				  <td width="13%">INICIO</td>
-				  <td width="22%">T&Eacute;RMINO</td>
+				  <td width="22%">TÉRMINO</td>
 				  <td width="4%"  class="cabecalho_tabela">E</td>
 				  <td width="3%"  class="cabecalho_tabela">D</td>
-				  <td width="4%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="4%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 				
 			
-					// Mostra os funcion�rios
+					// Mostra os funcionários
 					$sql = "SELECT * FROM Projetos.area, Projetos.locais, Projetos.fluidos, Projetos.materiais ";
 					//$sql .= "WHERE locais.id_equipamento = equipamentos.id_equipamentos ";
 					$sql .= "WHERE locais.id_disciplina = '" .$disciplina["id_setor"]. "' ";
@@ -874,7 +874,7 @@ window.moveTo(0,0);
 						  <td width="4%"><div align="center"><a href="javascript:editar('<?= $locais["id_local"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="6%"><div align="center"><a href="javascript:excluir('<?= $locais["id_local"] ?>','<?= $locais["ds_trecho"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 				
 				?>

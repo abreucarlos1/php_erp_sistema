@@ -1,6 +1,6 @@
 <?php
 /*
-	Exporta��o e importa��o de dados
+	Exportação e importção de dados
 	Criado por Carlos Eduardo  
 	
 	Versão 0 --> VERSÃO INICIAL - 13/05/2016
@@ -146,7 +146,7 @@ ORDER BY
 	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
 	
-	//Redirect output to a client�s web browser (Excel2007)
+	//Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;");
 	header('Cache-Control: max-age=0');
@@ -166,10 +166,10 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	
 	$arrColunas 	= array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','W','X','Y','Z');
-	$arrAtributos 	= array();//Nomes dos atributos para a descri��o
-	$arrIdAtributo 	= array();//C�digos dos atributos para busca em banco de dados
+	$arrAtributos 	= array();//Nomes dos atributos para a descrição
+	$arrIdAtributo 	= array();//Códigos dos atributos para busca em banco de dados
 	
-	//Primeira planilha n�o conta, come�amos da planilha indice 2
+	//Primeira planilha não conta, começamos da planilha indice 2
 	for($i = 1; $i < $objPHPExcel->getSheetCount(); $i++)
 	{
 		$objPHPExcel->setActiveSheetIndex($i);
@@ -197,7 +197,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			{
 				$nomeColuna = explode('/',$objPHPExcel->getActiveSheet()->getCell($arrColunas[$tmpCol].'5')->getValue());
 				
-				//Descritivo da coluna pronto para a montagem da descri��o do componente
+				//Descritivo da coluna pronto para a montagem da descrição do componente
 				$arrAtributos[] 	= trim($nomeColuna[1]);
 				$arrIdAtributo[] 	= trim($nomeColuna[0]);
 				$ultimaColuna 		= false;//Coluna em que deve terminar o loop
@@ -219,7 +219,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			$digito = calculaDigito($codBarras);
 			$codBarras .= '.'.$digito;
 		
-			//Montagem da descri��o do componente
+			//Montagem da descrição do componente
 			$descricao 	= '';
 			$sqlCompl	= '';
 			$or			= '';
@@ -237,7 +237,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			for($col = 0; $col < $nColunas; $col++)
 			{
 				$valor = intval($objPHPExcel->getActiveSheet()->getCell($arrColunas[$col].$linha)->getValue());
-				//Setando o c�digo inteligente
+				//Setando o código inteligente
 				$codigoInteligente .= '.'.$valor;
 				
 				//Montando as clausulas do sql de atributosXsubGrupos
@@ -245,7 +245,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				$or = ' OR ';
 			}
 
-			//Verificando se o c�digo inteligente j� existe na tabela
+			//Verificando se o código inteligente já existe na tabela
 			$sql = "SELECT * FROM materiais_old.componentes WHERE componentes.codigo_inteligente = '{$codigoInteligente}' AND componentes.reg_del = 0";
 			$db->select($sql, 'MYSQL');
 			
@@ -255,7 +255,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			}
 			else
 			{
-				//Caso ainda n�o exista na tabela, continua o processo
+				//Caso ainda não exista na tabela, continua o processo
 				$sql = 
 				"SELECT
 					idAtr, valor, label, compoe_codigo
@@ -300,17 +300,17 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				}
 				else
 				{
-					//A �ltima linha n�o deve ser alterada
+					//A Última linha não deve ser alterada
 					if(strpos($codigoInteligente, '....') === false)
-						$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col+1, $linha, 'ERRO: N�O ENCONTRADO');
+						$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col+1, $linha, 'ERRO: NÃO ENCONTRADO');
 				}
 			}
 			
-			$linha += $continuar ? 1 : 0;//N�mero da linha em que deve terminar o loop
+			$linha += $continuar ? 1 : 0;//Nº da linha em que deve terminar o loop
 		}
 	}
 
-	// Redirect output to a client�s web browser (Excel2007)
+	// Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;filename='".date('dmYHis')."_resultado_{$name}'");
 	header('Cache-Control: max-age=0');

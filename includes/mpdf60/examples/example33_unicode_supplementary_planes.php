@@ -147,13 +147,13 @@ Font: Aegyptus.otf available from: http://users.teilar.gr/~g1951d/
 <div style="border:0.2mm solid #000088; padding: 1em; background-color: #EEEEEE; font-family: \'Courier new\'; font-size: 8.5pt;">
 $this->fontdata = array(<br />
 ...<br />
- &nbsp; &nbsp; &nbsp; "sun-exta" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "Sun-ExtA.ttf",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'sip-ext\' => \'sun-extb\',<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
- &nbsp; &nbsp; &nbsp; "sun-extb" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "Sun-ExtB.ttf",<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "sun-exta" => array(<br />
+              \'R\' => "Sun-ExtA.ttf",<br />
+              \'sip-ext\' => \'sun-extb\',<br />
+        ),<br />
+       "sun-extb" => array(<br />
+              \'R\' => "Sun-ExtB.ttf",<br />
+        ),<br />
 <br />
 ...<br />
 );
@@ -193,50 +193,50 @@ $this->fontdata = array(<br />
 <p>This is a sample entry in the config_fonts.php configuration file:</p>
 <div style="border:0.2mm solid #000088; padding: 1em; background-color: #EEEEEE; font-family: \'Courier new\'; font-size: 8.5pt;">
 $this->fontdata = array(<br />
- &nbsp; &nbsp; &nbsp; "mingliu" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliu.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 1,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'sip-ext\' => \'mingliu-extb\',<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "mingliu" => array(<br />
+              \'R\' => "mingliu.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 1,<br />
+              ),<br />
+              \'sip-ext\' => \'mingliu-extb\',<br />
+        ),<br />
 
- &nbsp; &nbsp; &nbsp; "pmingliu" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliu.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 2,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'sip-ext\' => \'pmingliu-extb\',<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "pmingliu" => array(<br />
+              \'R\' => "mingliu.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 2,<br />
+              ),<br />
+              \'sip-ext\' => \'pmingliu-extb\',<br />
+        ),<br />
 
- &nbsp; &nbsp; &nbsp; "mingliu_hkscs" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliu.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 3,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'sip-ext\' => \'mingliu_hkscs-extb\',<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "mingliu_hkscs" => array(<br />
+              \'R\' => "mingliu.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 3,<br />
+              ),<br />
+              \'sip-ext\' => \'mingliu_hkscs-extb\',<br />
+        ),<br />
 
- &nbsp; &nbsp; &nbsp; "mingliu-extb" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliub.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 1,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "mingliu-extb" => array(<br />
+              \'R\' => "mingliub.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 1,<br />
+              ),<br />
+        ),<br />
 
- &nbsp; &nbsp; &nbsp; "pmingliu-extb" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliub.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 2,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "pmingliu-extb" => array(<br />
+              \'R\' => "mingliub.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 2,<br />
+              ),<br />
+        ),<br />
 
- &nbsp; &nbsp; &nbsp; "mingliu_hkscs-extb" => array(<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'R\' => "mingliub.ttc",<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; \'TTCfontID\' => array (<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; \'R\' => 3,<br />
- &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; ),<br />
- &nbsp; &nbsp; &nbsp;  ),<br />
+       "mingliu_hkscs-extb" => array(<br />
+              \'R\' => "mingliub.ttc",<br />
+              \'TTCfontID\' => array (<br />
+                  \'R\' => 3,<br />
+              ),<br />
+        ),<br />
 );
 </div>
 

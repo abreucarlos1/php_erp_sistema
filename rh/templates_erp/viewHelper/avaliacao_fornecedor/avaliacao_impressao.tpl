@@ -175,8 +175,8 @@ table th{
 <br /><br />
 <table width="100%" cellspacing="10px;">
 	<tr>
-		<th width="50%">&nbsp;</th>
-		<th width="50%">&nbsp;</th>
+		<th width="50%"> </th>
+		<th width="50%"> </th>
 	</tr>
 	<tr>
 		<th style="border-top: solid 1px black;" align="center">{$tdNomeFuncionario}<br />{if $tdRazaoSocial != ''}{$tdRazaoSocial}<br />{/if}AVALIADO</th>

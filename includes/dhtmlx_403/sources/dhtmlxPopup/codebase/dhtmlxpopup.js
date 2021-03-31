@@ -57,7 +57,7 @@ function dhtmlXPopup(conf) {
 		}
 		t = null;
 		if (id != null) {
-			that.callEvent("onClick",[id]);
+			that.callEvent("onclick",[id]);
 			if (that != null && that.isVisible != null && that.isVisible() && that.callEvent("onBeforeHide",["select",e,id]) === true) {
 				e.cancelBubble = true;
 				that.hide();
@@ -374,7 +374,7 @@ function dhtmlXPopup(conf) {
 				var td = document.createElement("TD");
 				td.className = "dhx_popup_sep";
 				td.colSpan = this.tpl.length;
-				td.innerHTML = "<div class='dhx_popup_sep'>&nbsp;</div>";
+				td.innerHTML = "<div class='dhx_popup_sep'> </div>";
 				tr.appendChild(td);
 				td = null;
 			} else {
@@ -385,7 +385,7 @@ function dhtmlXPopup(conf) {
 					}
 					var td = document.createElement("TD");
 					td.className = css;
-					td.innerHTML = data[q][this.tpl[w]]||"&nbsp;";
+					td.innerHTML = data[q][this.tpl[w]]||" ";
 					tr.appendChild(td);
 					td = null;
 				}
@@ -669,7 +669,7 @@ function dhtmlXPopup(conf) {
 			
 		}
 		
-		this.conf.toolbarEvent = this.conf.toolbar.attachEvent("onClick", this._doOnToolbarClick);
+		this.conf.toolbarEvent = this.conf.toolbar.attachEvent("onclick", this._doOnToolbarClick);
 		
 	}
 	

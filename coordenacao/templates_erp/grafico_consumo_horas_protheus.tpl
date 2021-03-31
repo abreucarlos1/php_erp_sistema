@@ -7,10 +7,10 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
           <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Gerar gráfico" onClick="xajax_grafico(xajax.getFormValues('frm'));"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Gerar gráfico" onclick="xajax_grafico(xajax.getFormValues('frm'));"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -28,7 +28,7 @@
             </td>
         </tr>
       </table>
-	  <div align="center" id="grafico">&nbsp;</div>
+	  <div align="center" id="grafico"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

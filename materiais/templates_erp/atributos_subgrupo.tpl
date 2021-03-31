@@ -14,7 +14,7 @@
 				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 			</tr>
 		  </table></td>
-          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>        
         <tr>
           <td colspan="2" valign="top">
@@ -35,16 +35,16 @@
 				<td align="left"><label class="labels">ORDEM</label><br />
 			    	<input type="text" class="caixa" name="ordem" id="ordem" value="" size="5" />
 				</td>
-				<td align="left"><label class="labels">COMPOE FAMÕLIA</label><br />
+				<td align="left"><label class="labels">COMP√ïE FAM√çLIA</label><br />
 			    	<input type="radio" class="caixa" name="rdoCompoeCodigo" id="rdoCompoeCodigo1" value="1" /> <label class="labels">Sim</label>
-			    	<input type="radio" class="caixa" name="rdoCompoeCodigo" id="rdoCompoeCodigo2" value="0" /> <label class="labels">N„o</label>
+			    	<input type="radio" class="caixa" name="rdoCompoeCodigo" id="rdoCompoeCodigo2" value="0" /> <label class="labels">N√£o</label>
 				</td>
 			</tr>
 		  </table></td>
         </tr>
       </table>
 </form>
-<i class="labels" id="legendaAtributos" style="float:left;display:none;">Clique sobre o bot„o <img src="../imagens/btn_detalhes.png" /> para editar seus valores</i>
+<i class="labels" id="legendaAtributos" style="float:left;display:none;">Clique sobre o bot√£o <img src="../imagens/btn_detalhes.png" /> para editar seus valores</i>
 <div id="codigos" style="width:100%;margin-top: 15px;"></div>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

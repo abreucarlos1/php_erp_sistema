@@ -13,12 +13,12 @@
 			</tr>
 			<tr>
 				<td colspan="2" valign="middle">
-                <label class="labels"><b>funcionario:</b>&nbsp;<smarty>$funcionario</smarty></label><br />
+                <label class="labels"><b>funcionario:</b> <smarty>$funcionario</smarty></label><br />
                  <input name="id_fechamento" type="hidden" id="id_fechamento" value="<smarty>$id_fechamento</smarty>">
 				</td>
 			</tr>
 		</table>
-		<div id="documentos">&nbsp;</div>
+		<div id="documentos"> </div>
 	</form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

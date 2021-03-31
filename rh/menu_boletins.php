@@ -1,6 +1,6 @@
 <?php
 /*
-	Formulário de Menu PJ Devemada - Recursos Humanos
+	Formulário de Menu PJ   - Recursos Humanos
 	
 	Criado por Carlos Abreu  
 	

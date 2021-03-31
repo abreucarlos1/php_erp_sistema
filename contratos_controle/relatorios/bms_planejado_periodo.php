@@ -39,7 +39,7 @@ SELECT
 	c.os, sum(a.valor_planejado) valor_planejado, sum(a.valor_planejado)-sum(a.valor_medido) valor_saldo,
     max(a.id_bms_controle) id_bms_controle, sum(a.valor_medido) valor_medido, c.id_bms_pedido,
     sum(a.quantidade_planejada) quantidade_planejada, max(a.numero_nf) numero_nf, b.numero_item,
-    d.id_cod_coord, e.funcionario, d.id_empresa_erp, g.unidade, f.empresa, h.formato, c.condicao_pgto, b.descricao,
+    d.id_cod_coord, e.funcionario, d.id_empresa, g.unidade, f.empresa, h.formato, c.condicao_pgto, b.descricao,
     tp_orc_protheus
 FROM 
 	".DATABASE.".bms_medicao a
@@ -47,8 +47,8 @@ FROM
     JOIN ".DATABASE.".bms_pedido c ON c.reg_del = 0 AND c.id_bms_pedido = b.id_bms_pedido AND reembolso_despesa = 0
     JOIN ".DATABASE.".ordem_servico d ON d.os = c.os AND d.reg_del = 0 
     LEFT JOIN ".DATABASE.".funcionarios e ON e.situacao NOT IN('DESLIGADO') AND e.id_funcionario = d.id_cod_coord AND e.reg_del = 0
-    JOIN ".DATABASE.".empresas f ON f.id_empresa_erp = d.id_empresa_erp AND f.reg_del = 0
-    JOIN ".DATABASE.".unidade g ON g.id_unidade = f.id_unidade AND g.reg_del = 0
+    JOIN ".DATABASE.".empresas f ON f.id_empresa = d.id_empresa AND f.reg_del = 0
+    JOIN ".DATABASE.".unidades g ON g.id_unidade = f.id_unidade AND g.reg_del = 0
     LEFT JOIN ".DATABASE.".formatos h ON h.id_formato = b.id_unidade AND h.reg_del = 0
 
 WHERE a.reg_del = 0

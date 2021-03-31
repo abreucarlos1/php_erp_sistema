@@ -31,7 +31,7 @@
 					<td valign="middle"><input name="btnbuscar" id="btnbuscar" type="button" class="class_botao" value="Buscar" onclick="showModalBuscar();" /></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table>
 			</td>
@@ -39,7 +39,7 @@
 				<table width="600px">
 					<tr>
 					  <td width="190px" valign="top" rowspan="3" class="td_sp">
-					  	<label class="labels" style="float:left">Código</label>
+					  	<label class="labels" style="float:left">CÃ³digo</label>
 					  	<input type="text" style="float:left" class="caixa codBarras" id="codigoComponente" name="codigoComponente" value="<smarty>$_POST['codigoComponente']</smarty>" onblur="preencheTela();" />
 					  	<span class="icone icone-inserir" id="imgSelecionarComponentes" style="cursor:pointer" title="Selecionar componentes"></span>
 					  </td>
@@ -73,42 +73,42 @@
 				<table width="100%" border="0" height="100%">
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Resumida Português <sub>*Este campo não pode ser alterado</sub></label>
+				  	<label class="labels">DescriÃ§Ã£o Resumida PortuguÃªs <sub>*Este campo nÃ£o pode ser alterado</sub></label>
 				  	<textarea class="caixa" id="descResPort" name="descResPort" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descResPort']</smarty></textarea>
 				  </td>
 				</tr>
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Resumida Inglês</label>
+				  	<label class="labels">DescriÃ§Ã£o Resumida InglÃªs</label>
 				  	<textarea class="caixa" id="descResIngles" name="descResIngles" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descResIngles']</smarty></textarea>
 				  </td>
 				</tr>
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Resumida Espanhol</label>
+				  	<label class="labels">DescriÃ§Ã£o Resumida Espanhol</label>
 				  	<textarea class="caixa" id="descResEspanhol" name="descResEspanhol" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descResEspanhol']</smarty></textarea>
 				  </td>
 				</tr>
 				
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Longa Português</label>
+				  	<label class="labels">DescriÃ§Ã£o Longa PortuguÃªs</label>
 				  	<textarea class="caixa" id="descLongaPort" name="descLongaPort" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descLongaPort']</smarty></textarea>
 				  </td>
 				</tr>
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Longa Inglês</label>
+				  	<label class="labels">DescriÃ§Ã£o Longa InglÃªs</label>
 				  	<textarea class="caixa" id="descLongaIngles" name="descLongaIngles" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descLongaIngles']</smarty></textarea>
 				  </td>
 				</tr>
 				<tr>
 				  <td width="5%">
-				  	<label class="labels">Descrição Longa Espanhol</label>
+				  	<label class="labels">DescriÃ§Ã£o Longa Espanhol</label>
 				  	<textarea class="caixa" id="descLongaEspanhol" name="descLongaEspanhol" style="height:32px;width:100%;" cols="120"><smarty>$_POST['descLongaEspanhol']</smarty></textarea>
 				  </td>
 				</tr>
-				<!-- <tr><td>&nbsp;</td></tr> -->
+				<!-- <tr><td> </td></tr> -->
 				<tr>
 					<td>
 						<label class="labels" style="float:left">Selecionar Fornecedor</label>

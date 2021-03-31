@@ -82,7 +82,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 		$xml->writeAttribute('id', $cont_desp['id_rh_escolaridade']);
 		$xml->writeElement('cell', $cont_desp['escolaridade']);
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;a&nbsp;escolaridade?")){xajax_excluir("'.$cont_desp['id_rh_escolaridade'].'");}; >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir a escolaridade?")){xajax_excluir("'.$cont_desp['id_rh_escolaridade'].'");}; >');
 		$xml->endElement();	
 	}
 	

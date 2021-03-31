@@ -8,14 +8,14 @@
                 <table width="100%" border="0">
                     <tr>
                         <td>
-                            <div id="numero" style="float:left; font-size: 18px; color: #0099CC; font-weight: bold">&nbsp;</div>
+                            <div id="numero" style="float:left; font-size: 18px; color: #0099CC; font-weight: bold"> </div>
                             <div style="float:right"><span class="icone icone-fechar cursor" onclick="divPopupInst.destroi();" width="20px;"></span></div>
                         </td>
                     </tr>
                 </table>
                 <table width="800px" border="0">
                     <tr>
-                        <td><label class="labels"><strong>Dados&nbsp;Principais</strong></label></td>
+                        <td><label class="labels"><strong>Dados Principais</strong></label></td>
                     </tr>
                     <tr>
                         <td>
@@ -27,7 +27,7 @@
                                             <smarty>html_options values=$option_financeiro_status_values output=$option_financeiro_status_output selected=$selecionado_1</smarty>
                                     </select>
                                     </td>
-                                    <td width="30%"><label class="labels">Tipo&nbsp;de&nbsp;Contrato</label><br />
+                                    <td width="30%"><label class="labels">Tipo de Contrato</label><br />
                                         <select name="financeiro_tipo_contrato" class="caixa" id="financeiro_tipo_contrato" <smarty>$disabled</smarty> >
                                             <option value="" selected>SELECIONE</option>
                                             <smarty>html_options values=$option_tipo_contrato_values output=$option_tipo_contrato_output selected=$selecionado_2</smarty>
@@ -39,7 +39,7 @@
                             </table>
                             <table width="100%" border="0">
                                 <tr>
-                                    <td width="30%"><label class="labels">Data&nbsp;de&nbsp;in&iacute;cio</label><br />
+                                    <td width="30%"><label class="labels">Data de início</label><br />
                                         <input name="financeiro_data_inicio" type="text" class="caixa" id="financeiro_data_inicio" value="<smarty>$data_inicio</smarty>" size="15" maxlength="10" onkeypress="transformaData(this, event);" <smarty>$disabled</smarty> />
                                      </td>
                                      <smarty>$pj1</smarty>
@@ -62,7 +62,7 @@
                              <table border="0">
                                 <tr>
                                     <smarty>$registro</smarty>
-                                    <td><label class="labels">Ajuda&nbsp;de&nbsp;Custo&nbsp;(R$)</label><br />
+                                    <td><label class="labels">Ajuda de Custo (R$)</label><br />
                                         <input name="financeiro_ajudacusto" type="text" class="caixa" id="financeiro_ajudacusto" size="10" onclick="this.value=''" onKeyDown="FormataValor(this, 13, event);" onKeyPress="num_only();" value="<smarty>$salario_ajudacusto</smarty>" <smarty>$disabled</smarty> >
                                     </td>
                                     <td ><label class="labels"><smarty>$financeiro_horaextra</smarty></label><br />
@@ -126,7 +126,7 @@
                         <table cellspacing="0" cellpadding="0">
                         	<tr>
                             	<td>
-                                	<label class="labels">Forma&nbsp;de&nbsp;pagamento</label>
+                                	<label class="labels">Forma de pagamento</label>
                                 </td>
                             </tr>
                             <tr>
@@ -151,7 +151,7 @@
                                   <td valign="top"><label class="labels">Equipamentos*</label></td>
                                   <td valign="top"><label class="labels">Softwares*</label></td>
                                   <td valign="top"><label class="labels">Protheus:</label></td>
-                                  <td valign="top"><label class="labels">DVMSYS:</label></td>
+                                  <td valign="top"><label class="labels">SISTEMA:</label></td>
                                   <td valign="top"><label class="labels">Outros Softwares:</label></td>						
                               </tr>
                               <tr>
@@ -181,7 +181,7 @@
                 <table width="800px" border="0" cellspacing="0" cellpadding="0">
                 	<tr>
                     	<td>
-                        	<label class="labels">Observa��es</label>
+                        	<label class="labels">Observações</label>
                         </td>
                     </tr>
                     <tr>

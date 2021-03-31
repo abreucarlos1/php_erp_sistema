@@ -179,7 +179,7 @@ Tibetan (<span lang="bo">&#xf56;&#xf40;&#xfb2;&#xf0b;&#xf64;&#xf72;&#xf66;&#xf0b
 <h4>Ligatures</h4>
 <div class="example" style="font-family:\'Dejavu Sans Condensed\'; font-size: 18pt;">
 <span style="font-feature-settings:\'liga\' off">ffi ffl fi</span>
-&nbsp; &nbsp; &nbsp; 
+      
 <span>ffi ffl fi</span>
 </div>
 
@@ -200,38 +200,38 @@ Stylistic Alternatives (salt)
 
 <div class="example">
 salt: (off) <span style="font-size: 15pt; font-family:\'Dejavu Sans Condensed\';">all</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 15pt; font-feature-settings:\'salt\' on; font-family:\'Dejavu Sans Condensed\';">all</span>
 </div>
 
 
 <div class="example">
 frac: (off) <span style="font-size: 15pt; font-family:\'Free Serif\';">1/4 3/10</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 15pt; font-feature-settings:\'frac\' on; font-family:\'Free Serif\';">1/4 3/10</span>
 </div>
 
 <div class="example">
 zero: (off) <span style="font-size: 15pt; font-family:\'Free Serif\';">1,000</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 15pt; font-feature-settings:\'zero\' on; font-family:\'Free Serif\';">1,000</span>
 </div>
 
 <div class="example">
 onum: (off) <span style="font-size: 15pt; font-family:\'Free Serif\';">0123456789</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 15pt; font-feature-settings:\'onum\' on; font-family:\'Free Serif\';">0123456789</span>
 </div>
 
 <div class="example">
 sups: (off) <span style="font-size: 15pt; font-family:\'Free Serif\';">(32)</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 15pt; font-feature-settings:\'sups\' on; font-family:\'Free Serif\';">(32)</span>
 </div>
 
 <div class="example">
 Stylistic Alternatives (ss03,ss04): (off) <span style="font-size: 18pt; font-family:\'Free Serif\';">&#x0905; &#x091d; &#x0923; &#x91d; &#x96f;</span>
-&nbsp; &nbsp; &nbsp; (on) 
+      (on) 
 <span style="font-size: 18pt; font-feature-settings:\'ss03\' 1, \'ss04\' 1; font-family:\'Free Serif\';">&#x0905; &#x091d; &#x0923; &#x91d; &#x96f;</span>
 </div>
 
@@ -260,7 +260,7 @@ Stylistic Alternatives (ss03,ss04): (off) <span style="font-size: 18pt; font-fam
 &#x0640;&#x0649;&#x0766;&#x0640;
 &#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;
 </span>
-&nbsp; &nbsp; &nbsp; 
+      
 <span>
 &#x0640;&#x0649;&#x0766;&#x0640;
 &#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;&#xfe8c;
@@ -272,7 +272,7 @@ Stylistic Alternatives (ss03,ss04): (off) <span style="font-size: 18pt; font-fam
 <h4>Mark repositioning (and diacritics)</h4>
 <div class="example" style="font-family: \'Dejavu Sans\'; font-size: 18pt;">
 <span style="font-feature-settings:\'mark\' off;">&#x5d6;&#x5bc;&#x5b5; &#x5d9;&#x5bc;&#x5b0; &#x5da;&#x5b8;</span>
-&nbsp; &nbsp; &nbsp;&#x200e; 
+     &#x200e; 
 <span>&#x5d6;&#x5bc;&#x5b5; &#x5d9;&#x5bc;&#x5b0; &#x5da;&#x5b8;</span>
 </div>
 
@@ -280,7 +280,7 @@ Stylistic Alternatives (ss03,ss04): (off) <span style="font-size: 18pt; font-fam
 <h4>Mark repositioning (and Contextual substitution)</h4>
 <div class="example" style="font-family:\'Dejavu Sans Condensed\'; font-size: 18pt;">
 <span style="font-feature-settings:\'mark\' off, \'ccmp\' off">A&#769; a&#769; i&#x308;</span>
-&nbsp; &nbsp; &nbsp; 
+      
 <span >A&#769; a&#769; i&#x308;</span>
 </div>
 
@@ -1233,27 +1233,27 @@ although note that MS WordPad and Windows FireFox browser use the big line-heigh
 <p class="code">
 /* For Index */<br />
 div.mpdf_index_main {<br />
-&nbsp; &nbsp; line-height: normal;<br />
-&nbsp; &nbsp; font-family: sans-serif;<br />
+    line-height: normal;<br />
+    font-family: sans-serif;<br />
 }<br />
 div.mpdf_index_letter {<br />
-&nbsp; &nbsp; line-height: normal;<br />
-&nbsp; &nbsp; font-family: sans-serif;<br />
-&nbsp; &nbsp; font-size: 1.8em;<br />
-&nbsp; &nbsp; font-weight: bold;<br />
-&nbsp; &nbsp; text-transform: uppercase;<br />
-&nbsp; &nbsp; page-break-after: avoid; <br />
-&nbsp; &nbsp; margin-top: 0.3em; <br />
-&nbsp; &nbsp; margin-collapse: collapse;<br />
+    line-height: normal;<br />
+    font-family: sans-serif;<br />
+    font-size: 1.8em;<br />
+    font-weight: bold;<br />
+    text-transform: uppercase;<br />
+    page-break-after: avoid; <br />
+    margin-top: 0.3em; <br />
+    margin-collapse: collapse;<br />
 }<br />
 div.mpdf_index_entry {<br />
-&nbsp; &nbsp; line-height: normal;<br />
-&nbsp; &nbsp; font-family: sans-serif;<br />
-&nbsp; &nbsp; text-indent: -1.5em;<br />
+    line-height: normal;<br />
+    font-family: sans-serif;<br />
+    text-indent: -1.5em;<br />
 }<br />
 a.mpdf_index_link { <br />
-&nbsp; &nbsp; color: #000000; <br />
-&nbsp; &nbsp; text-decoration: none;<br /> 
+    color: #000000; <br />
+    text-decoration: none;<br /> 
 }<br />
 </p>
 
@@ -1286,7 +1286,7 @@ $mpdf-&gt;InsertIndex(true, false, <b>"es_ES.utf8"</b>, "Spanish_Spain");
 <p>Note: Index collation will probably not work on Windows servers because of the problems setting locales under Windows.</p>
 
 <p>If you have set your index to use Dividing letters, you can also determine how letters are grouped under 
-a dividing letter. In the example index above, we want &Atilde; to be grouped under the letter a/A.  Set the "collation-group" using:</p>
+a dividing letter. In the example index above, we want Ã to be grouped under the letter a/A.  Set the "collation-group" using:</p>
 <p class="code">
 &lt;indexinsert usedivletters="on" links="off" collation="es_ES.utf8" <b>collation-group="Spanish_Spain"</b> /&gt;
 - or -<br />
@@ -1298,7 +1298,7 @@ $mpdf-&gt;InsertIndex(true, false, "es_ES.utf8", <b>"Spanish_Spain"</b>);
 
 <p>Note: The groupings do not always match the order set by locale. This is because the data for collations has come from different sources. The files in  /collations/ can be edited.</p>
 <p>The array consists of [index]: unicode decimal value of character => unicode decimal value of character to group under: 
-e.g. &Atilde; [A tilde] (U+00C3) (decimal 195) => a (U+0061) (decimal 97). The target character should always be the lowercase form.</p>
+e.g. Ã [A tilde] (U+00C3) (decimal 195) => a (U+0061) (decimal 97). The target character should always be the lowercase form.</p>
 
 <h4>Non-ASCII chcracters in Index entries</h4>
 <p>Note: htmlspecials_encode should be used to encode the text of content in &lt;indexentry&gt; - although not when using $mpdf->IndexEntry().</p>
@@ -1967,7 +1967,7 @@ No licence information available</td>
 <td>http://www.languagegeek.com/font/fontdownload.html <br /></td>
 <td>
 <p>GNU GPL 3</p>
-<p>&nbsp;</p>
+<p> </p>
 </td>
 <td>
 <p>Cree</p>

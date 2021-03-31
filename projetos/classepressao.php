@@ -1,23 +1,23 @@
-<?
+<?php
 /*
-		Formul�rio de Classe Press�o	
+		Formulário de Classe Pressão	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/classepressao.php
 		
-		data de cria��o: 16/05/2006
+		data de criação: 16/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016			
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016			
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -42,9 +42,9 @@ if ($_POST["acao"]=="editar")
 	{
 		?>
 		<script>
-			alert('Classe de press�o j� cadastrada no banco de dados.');
+			alert('Classe de pressão já cadastrada no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
@@ -58,9 +58,9 @@ if ($_POST["acao"]=="editar")
 		
 		?>
 		<script>
-			alert('Classe de press�o atualizado com sucesso.');
+			alert('Classe de pressão atualizado com sucesso.');
 		</script>
-		<?
+		<?php
 	}		
 
 
@@ -79,26 +79,26 @@ if ($_POST["acao"]=="salvar")
 	{
 		?>
 		<script>
-			alert('Classe de press�o j� cadastrada no banco de dados.');
+			alert('Classe de pressão já cadastrada no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
 	{
-		//Cria senten�a de Inclusão no bd
-		$incsql = "INSERT INTO Projetos.classe_pressao ";
-		$incsql .= "(cd_classepressao, ds_classepressao) VALUES (";
-		$incsql .= "'" . maiusculas($_POST["cd_classepressao"]) . "', ";
-		$incsql .= "'" . maiusculas($_POST["ds_classepressao"]) . "') ";
+		//Cria sentença de Inclusão no bd
+		$isql = "INSERT INTO Projetos.classe_pressao ";
+		$isql .= "(cd_classepressao, ds_classepressao) VALUES (";
+		$isql .= "'" . maiusculas($_POST["cd_classepressao"]) . "', ";
+		$isql .= "'" . maiusculas($_POST["ds_classepressao"]) . "') ";
 	
-		$registros = $db->insert($incsql,'MYSQL');
+		$registros = $db->insert($isql,'MYSQL');
 	
 		?>
 		<script>
-			alert('Classe de press�o inserido com sucesso.');
+			alert('Classe de pressão inserido com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 
 }
@@ -113,21 +113,21 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Classe de press�o exclu�do com sucesso.');
+		alert('Classe de pressão excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
 <html>
 <head>
-<title>: : .CLASSE PRESS&Atilde;O . : :</title>
+<title>: : .CLASSE PRESSÃO . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_classepressao, ds_classepressao)
 {
@@ -148,7 +148,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -172,18 +172,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -203,53 +203,53 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="2%" class="label1">&nbsp;</td>
-                      <td width="14%" class="label1">C&Oacute;D. classe </td>
-                      <td width="2%">&nbsp;</td>
-                      <td width="19%" class="label1">CLASSE PRESS&Atilde;O </td>
-                      <td width="2%" class="label1">&nbsp;</td>
-                      <td width="61%" class="label1">&nbsp;</td>
+                      <td width="2%" class="label1"> </td>
+                      <td width="14%" class="label1">CÓD. CLASSE</td>
+                      <td width="2%"> </td>
+                      <td width="19%" class="label1">CLASSE PRESSÃO </td>
+                      <td width="2%" class="label1"> </td>
+                      <td width="61%" class="label1"> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_classepressao" type="text" class="txt_box" id="cd_classepressao" size="25" maxlength="3" value="<?= $classe["cd_classepressao"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_classepressao" type="text" class="txt_box" id="ds_classepressao" size="35" value="<?= $classe["ds_classepressao"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_classepressao" type="hidden" id="id_classepressao" value="<?= $classe["id_classepressao"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 		
 			 }
 			else
@@ -260,53 +260,53 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="3%" class="label1">&nbsp;</td>
-                      <td width="14%" class="label1">c&Oacute;d. CLASSE </td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="19%" class="label1">CLASSE PRESS&Atilde;O </td>
-                      <td width="2%" class="label1">&nbsp;</td>
-                      <td width="59%" class="label1">&nbsp;</td>
+                      <td width="3%" class="label1"> </td>
+                      <td width="14%" class="label1">CÓd. CLASSE </td>
+                      <td width="3%"> </td>
+                      <td width="19%" class="label1">CLASSE PRESSÃO </td>
+                      <td width="2%" class="label1"> </td>
+                      <td width="59%" class="label1"> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_classepressao" type="text" class="txt_box" id="cd_classepressao" value="<?= $_POST["cd_classepressao"] ?>" size="25" maxlength="3">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_classepressao" type="text" class="txt_box" id="ds_classepressao" value="<?= $_POST["ds_classepressao"] ?>" size="35">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
-                    <input name="Locais" type="button" class="btn" id="Locais" value="LINHAS" onClick="javascript:location.href='locais_linhas.php';"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
+                    <input name="Locais" type="button" class="btn" id="Locais" value="LINHAS" onclick="javascript:location.href='locais_linhas.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -320,7 +320,7 @@ window.moveTo(0,0);
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  <?
-					// Controle de ordena��o
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "ds_classepressao";
@@ -333,23 +333,22 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="26%"><a href="#" class="cabecalho_tabela" onClick="ordenar('tipo','<?= $ordem ?>')">C&Oacute;D. CLASSE </a></td>
-				  <td width="62%">CLASSE PRESS&Atilde;O </td>
+				  <td width="26%"><a href="#" class="cabecalho_tabela" onclick="ordenar('tipo','<?= $ordem ?>')">CÓD. CLASSE </a></td>
+				  <td width="62%">CLASSE PRESSÃO </td>
 				  <td width="5%"  class="cabecalho_tabela">E</td>
 				  <td width="4%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 			
-					// Mostra os funcion�rios
-					
+
 					$sql = "SELECT * FROM Projetos.classe_pressao ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
 					
@@ -381,9 +380,9 @@ window.moveTo(0,0);
 						  <td width="5%"><div align="center"> <a href="javascript:editar('<?= $classe["id_classepressao"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="4%"><div align="center"> <a href="javascript:excluir('<?= $classe["id_classepressao"] ?>','<?= $classe["ds_classepressao"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
-					// Libera a mem�ria
+					// Libera a memória
 
 				?>
 			  </table>

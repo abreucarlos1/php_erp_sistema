@@ -56,7 +56,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Para Aprovação",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -65,7 +65,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Para Construção",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -89,7 +89,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Cancelado",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -98,7 +98,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Conforme Construído \"AS BUILT\"",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -122,7 +122,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Devolução Documento",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -131,7 +131,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Para Consulta",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -155,7 +155,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Liberado para Compra",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -164,7 +164,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Liberado para Execução",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -189,7 +189,7 @@ class PDF extends FPDF
 		$this->Cell(40,4," = Revisado pelo Cliente",0,0,'L',0);
 		
 		//alterado 03/09/2013
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -223,7 +223,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',8);
 		$this->Cell(40,4," = Cópia Eletrônica",0,0,'L',0);
 		
-		//Espa�amento
+		//Espaçamento
 		$this->Cell(10,4,"",0,0,'L',0);
 		
 		$this->SetFont('Arial','B',8);
@@ -355,7 +355,7 @@ class GRD
 			$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 			$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 			$sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";			
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";			
 			$sql .= "AND ged_pacotes.id_ged_pacote = '" . $this->id_ged_pacote . "' ";
 		}
 		else
@@ -373,7 +373,7 @@ class GRD
 			$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 			$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 			$sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";			
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";			
 			$sql .= "AND grd.id_grd = '" . $this->id_grd . "' ";
 		}
 		
@@ -679,7 +679,7 @@ class GRD
 		
 		if($this->id_ged_pacote)
 		{
-			//Pega empresa, nome_contato, Coordenador DVM
+			//Pega empresa, nome_contato, Coordenador INT
 			$sql = "SELECT * FROM ".DATABASE.".ged_pacotes, ".DATABASE.".ged_versoes, ".DATABASE.".ged_arquivos, ".DATABASE.".numeros_interno, ";
 			$sql .= "".DATABASE.".ordem_servico, ".DATABASE.".contatos, ".DATABASE.".funcionarios, ".DATABASE.".empresas ";
 			$sql .= "WHERE ged_pacotes.reg_del = 0 ";
@@ -694,7 +694,7 @@ class GRD
 			$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 			$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 			$sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND ordem_servico.id_cod_resp = contatos.id_contato ";
 			$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 			$sql .= "AND ged_pacotes.id_ged_pacote = '" . $this->id_ged_pacote . "' ";
@@ -715,7 +715,7 @@ class GRD
 			$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 			$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 			$sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND ordem_servico.id_cod_resp = contatos.id_contato ";
 			$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 			$sql .= "AND grd.id_grd = '" . $this->id_grd . "' ";

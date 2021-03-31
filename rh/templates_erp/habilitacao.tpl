@@ -12,7 +12,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnrelatorio" type="button" class="class_botao" id="btnrelatorio" onclick="window.location='./relatorios/relatorio_cnh_excel.php'" value="Relat�rio" />
+					<td valign="middle"><input name="btnrelatorio" type="button" class="class_botao" id="btnrelatorio" onclick="window.location='./relatorios/relatorio_cnh_excel.php'" value="Relatório" />
 					</td>
 				</tr>
 				<tr>
@@ -29,13 +29,13 @@
 							<smarty>html_options values=$option_funcionario_values output=$option_funcionario_output</smarty>
 						</select>
 						<input type="hidden" name="id_habilitacao" id="id_habilitacao" value="" /></td>
-					<td width="10%"><label for="numero_habilitacao" class="labels">n&ordm;&nbsp;CNH </label><br />
-                      <input name="numero_habilitacao" type="text" class="caixa" id="numero_habilitacao" value="" size="20" maxlength="12" placeholder="N�mero" /></td>
+					<td width="10%"><label for="numero_habilitacao" class="labels">nº CNH </label><br />
+                      <input name="numero_habilitacao" type="text" class="caixa" id="numero_habilitacao" value="" size="20" maxlength="12" placeholder="Nºmero" /></td>
 					<td width="12%"><label for="categoria" class="labels">Categoria </label><br />
                       <input name="categoria" type="text" class="caixa" id="categoria" value="" size="10" maxlength="10" placeholder="Categoria" /></td>
-					<td width="12%"><label for="data_emissao" class="labels">Data&nbsp;da&nbsp;Emissão </label><br />
+					<td width="12%"><label for="data_emissao" class="labels">Data da Emissão </label><br />
 						<input name="data_emissao" type="text" class="caixa" id="data_emissao" onkeypress="transformaData(this, event);" value="" onblur="return checaTamanhoData(this,10);" size="10" maxlength="10" placeholder="Data" /></td>
-					<td width="15%"><label for="data_vencimento" class="labels">Data&nbsp;do&nbsp;vencimento</label><br />
+					<td width="15%"><label for="data_vencimento" class="labels">Data do vencimento</label><br />
 						<input name="data_vencimento" type="text" class="caixa" id="data_vencimento" value="" onkeypress="transformaData(this, event);" onblur="return checaTamanhoData(this,10);" size="10" maxlength="10" placeholder="Data" /></td>
 				</tr>
 			</table>
@@ -48,7 +48,7 @@
 		  </td>
         </tr>
       </table>
-	  <div id="habilitacao" style="width:100%;">&nbsp;</div>
+	  <div id="habilitacao" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="../../templates_erp/footer.tpl"</smarty>

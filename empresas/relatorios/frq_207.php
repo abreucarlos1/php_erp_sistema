@@ -116,9 +116,9 @@ $db = new banco_dados;
 
 $sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
 $sql .= "LEFT JOIN ".DATABASE.".segmentos ON (empresas.id_segmento = segmentos.id_segmento) ";
-$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade) ";
+$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade) ";
 $sql .= "WHERE empresas.status = 'CLIENTE' ";
-$sql .= "AND contatos.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND contatos.id_empresa = empresas.id_empresa ";
 
 if($filtro_rel)
 {
@@ -143,7 +143,7 @@ if ($db->erro != '')
 foreach ($db->array_select as $regs)
 {
 	//linha separação
-	if($setor!=$regs["id_segmento"] || $empresa!=$regs["id_empresa_erp"])
+	if($setor!=$regs["id_segmento"] || $empresa!=$regs["id_empresa"])
 	{
 		//$pdf->Ln(3);
 	}
@@ -162,7 +162,7 @@ foreach ($db->array_select as $regs)
 	$setor = $regs["id_segmento"];
 	
 	// imprime 1 vez a empresa
-	if($empresa!=$regs["id_empresa_erp"])
+	if($empresa!=$regs["id_empresa"])
 	{
 		$pdf->HCell(75,5,$regs["empresa"] ." - ".$regs["unidade"],1,0,'L',0);
 		
@@ -173,7 +173,7 @@ foreach ($db->array_select as $regs)
 		$pdf->HCell(135,5,"",1,0,'L',0);
 	}
 	
-	$empresa = $regs["id_empresa_erp"];
+	$empresa = $regs["id_empresa"];
 	
 	$pdf->HCell(75,5,$regs["nome_contato"],1,0,'L',0);
 	

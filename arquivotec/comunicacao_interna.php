@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(558))
 {
@@ -119,7 +119,7 @@ function atualizatabela($dados_form, $limparServico = false)
 	$sql .= "AND documentos_referencia.reg_del = 0 ";
 	$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 	$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND tipos_referencia.id_tipo_referencia = 3 "; //COMUNICAÇÃO INTERNA	
 	$sql .= $filtro;
 	$sql .= "ORDER BY tipos_referencia.tipo_referencia, documentos_referencia.id_documento_referencia DESC, documentos_referencia.numero_registro DESC, setores.setor ";
@@ -139,7 +139,7 @@ function atualizatabela($dados_form, $limparServico = false)
 	
 	foreach($db->array_select as $reg)
 	{
-		$rowHtml = '&nbsp;';
+		$rowHtml = ' ';
 		
 		$os = sprintf("%05d",$reg["os"]);
 		
@@ -171,22 +171,22 @@ function atualizatabela($dados_form, $limparServico = false)
 			
 			if($reg["arquivo"]!="")
 			{
-				$rowHtml = '<img src="'.DIR_IMAGENS.'procurar.png" onclick=open_doc("'.urlencode($diretorio.$reg["arquivo"]).'") title="Abrir&nbsp;Documento">';
+				$rowHtml = '<img src="'.DIR_IMAGENS.'procurar.png" onclick=open_doc("'.urlencode($diretorio.$reg["arquivo"]).'") title="Abrir Documento">';
 			}
 			else
 			{
-				$rowHtml = '&nbsp;';	
+				$rowHtml = ' ';	
 			}
 			
 			$xml->writeElement('cell',$rowHtml);
 
-			$rowHtml = '&nbsp;';
+			$rowHtml = ' ';
 			
 			//permite o editor apagar o registro
 			/*
 			if($_SESSION["id_funcionario"]==6 || $_SESSION["id_funcionario"]==909 || $_SESSION["id_funcionario"]==1213 || $_SESSION["id_funcionario"]==978)
 			{
-				$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Todos&nbsp;os&nbsp;dados&nbsp;referentes&nbsp;a&nbsp;esse&nbsp;documento&nbsp;de&nbsp;refer&ecirc;ncia&nbsp;serão&nbsp;EXCLU&Iacute;DOS&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'");} title="Excluir&nbsp;Documento">';
+				$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: Todos os dados referentes a esse documento de refer&ecirc;ncia serão EXCLU&Iacute;DOS definitivamente. Deseja continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'");} title="Excluir Documento">';
 				
 				$xml->writeElement('cell',$rowHtml);
 			}
@@ -310,7 +310,7 @@ function excluir($id_doc_referencia)
 	$sql .= "AND documentos_referencia.reg_del = 0 ";
 	$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 	$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND documentos_referencia.id_documento_referencia = '".$id_doc_referencia."' ";
 
 	$db->select($sql,'MYSQL',true);
@@ -473,7 +473,7 @@ function grid(tabela, autoh, height, xml)
 			}
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected);
-			mygrid.setHeader("N°&nbsp;Interno, N°&nbsp;Doc, OS, Disciplina, Tipo&nbsp;Documento, Título, data, Rev., A, E");
+			mygrid.setHeader("N° Interno, N° Doc, OS, Disciplina, Tipo Documento, Título, data, Rev., A, E");
 			mygrid.setInitWidths("138,138,40,90,150,200,70,40,40,40");
 			mygrid.setColAlign("left,left,center,left,left,left,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");

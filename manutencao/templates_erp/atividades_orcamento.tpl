@@ -21,15 +21,15 @@
           <td colspan="2" valign="top" class="espacamento"><br />
 			<table border="0" width="100%">
 				<tr>
-					<td><label class="labels"><strong>Atividade:</strong>&nbsp;<smarty>$atividade</smarty></label>
+					<td><label class="labels"><strong>Atividade:</strong> <smarty>$atividade</smarty></label>
 					<input type="hidden" name="id_atividade" id="id_atividade" value="<smarty>$id_atividade</smarty>">					</td>
 					<input type="hidden" name="id_setor" id="id_setor" value="<smarty>$id_setor</smarty>">	
                 </tr>
 			</table>
-			<div id="porcentagem" style="width:100%;">&nbsp;</div></td>
+			<div id="porcentagem" style="width:100%;"> </div></td>
         </tr>
       </table>
-    <div id="orcamento" style="width:100%;">&nbsp;</div>
+    <div id="orcamento" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

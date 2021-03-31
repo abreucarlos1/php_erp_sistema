@@ -18,7 +18,7 @@ $db = new banco_dados;
 
 $data = "\n"."Período: ".$_POST["dataini"]." á ".$_POST["datafim"]."\n\n";
 
-//Seta no formato do per�odo do fechamento_folha	
+//Seta no formato do período do fechamento_folha	
 $periodo_ini = explode("/",$_POST["dataini"]);
 $periodo_fim = explode("/",$_POST["datafim"]);
 
@@ -54,7 +54,7 @@ foreach($array_empresas as $reg_empresas)
 	
 	$cont_soma = $db->array_select[0];		
 
-	$sql = "SELECT *, SUM(TIME_TO_SEC(hora_normal+hora_adicional+hora_adicional_noturna)) AS HT FROM ".DATABASE.".funcionarios, ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico, ".DATABASE.".apontamento_horas ";
+	$sql = "SELECT *, SUM(TIME_TO_SEC(hora_normal+hora_adicional+hora_adicional_noturna)) AS HT FROM ".DATABASE.".funcionarios, ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico, ".DATABASE.".apontamento_horas ";
 	$sql .= "WHERE funcionarios.id_funcionario = apontamento_horas.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
@@ -62,7 +62,7 @@ foreach($array_empresas as $reg_empresas)
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
 	$sql .= "AND ordem_servico.id_os = apontamento_horas.id_os ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND apontamento_horas.id_funcionario = '" . $reg_empresas["id_funcionario"] . "' ";
 	$sql .= "AND apontamento_horas.data BETWEEN '".php_mysql($_POST["dataini"])."' AND '".php_mysql($_POST["datafim"])."' ";
@@ -75,7 +75,7 @@ foreach($array_empresas as $reg_empresas)
 			
 	foreach($db->array_select as $cont_os)
 	{
-		$cliente[$cont_os["os"]] = $cont_os["id_empresa_erp"];
+		$cliente[$cont_os["os"]] = $cont_os["id_empresa"];
 		$totsal[$cont_os["os"]] += (100/(($cont_soma["HT"])/3600))*($cont_os["HT"]/3600);
 	}
 	

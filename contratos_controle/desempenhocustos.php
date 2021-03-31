@@ -48,7 +48,7 @@ function pastas($dir)
 			{ 
 			// Check that this file is not to be ignored 
 				 
-				//$spaces = str_repeat( '&nbsp;', ( $level * 4 ) ); 
+				//$spaces = str_repeat( ' ', ( $level * 4 ) ); 
 				// Just to add spacing to the list, to better 
 				// show the directory tree.								 
 				if( is_dir( $path."/".$file ))

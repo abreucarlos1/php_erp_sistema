@@ -14,7 +14,7 @@
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
                 <tr>
-					<td width="16%"><label for="status" class="labels">Visualizar&nbsp;Status</label><br />
+					<td width="16%"><label for="status" class="labels">Visualizar Status</label><br />
                     <select name="status" class="caixa" id="status" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
 						<option value="0" selected="selected">NÃO AVALIADO</option>
                         <option value="2">APROVADO</option>
@@ -44,11 +44,11 @@
             </table>
           	<table width="100%" border="0">
               <tr>
-                <td width="9%"><label for="data_ini" class="labels">Data&nbsp;inicial</label><br />
+                <td width="9%"><label for="data_ini" class="labels">Data inicial</label><br />
                   <input name="data_ini" type="text" class="caixa" id="data_ini" size="10" placeholder="Data ini." maxlength="10" onkeypress="transformaData(this, event);" onblur="verificaDataErro(this.value, this.id);" /></td>
-                <td width="8%"><label for="data_fim" class="labels">Data&nbsp;final</label><br />
+                <td width="8%"><label for="data_fim" class="labels">Data final</label><br />
                   <input name="data_fim" type="text" class="caixa" id="data_fim" size="10" maxlength="10" placeholder="Data fin." onkeypress="transformaData(this, event);" onblur="verificaDataErro(this.value, this.id);" /></td>
-                <td width="13%"><label for="hora_ini" class="labels">Hora&nbsp;Inicial</label><br />
+                <td width="13%"><label for="hora_ini" class="labels">Hora Inicial</label><br />
                     <select name="hora_ini" class="caixa" id="hora_ini" onkeypress="return keySort(this);" onChange="xajax_hora_ini_fim(xajax.getFormValues('frm'));">
                       <option value="">SELECIONE</option>
                       <option value="0:00">0:00</option>
@@ -100,7 +100,7 @@
                       <option value="23:00">23:00</option>
                       
                     </select>                </td>
-                <td width="13%"><label for="hora_fim" class="labels">Hora&nbsp;final</label><br />
+                <td width="13%"><label for="hora_fim" class="labels">Hora final</label><br />
                   <select name="hora_fim" class="caixa" id="hora_fim" onkeypress="return keySort(this);" onChange="xajax_hora_ini_fim(xajax.getFormValues('frm'));">
                     <option value="">SELECIONE</option>
                     <option value="0:30">0:30</option>
@@ -153,7 +153,7 @@
                   </select></td>
                 <td width="57%"><label for="trabalho" class="labels">Trabalho</label><br />
                   <select name="trabalho" class="caixa" id="trabalho" onkeypress="return keySort(this);">
-						<option value="1" selected="selected">DEVEMADA</option>
+						<option value="1" selected="selected">EMPRESA</option>
                         <option value="3">CLIENTE</option>
                         <option value="2">EM CASA</option>
                   </select></td>
@@ -172,7 +172,7 @@
 		  </table></td>
         </tr>
       </table>
-    <div id="habilitados" style="width:100%;">&nbsp;</div>
+    <div id="habilitados" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

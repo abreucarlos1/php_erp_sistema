@@ -8,10 +8,10 @@
           <td width="116" rowspan="3" valign="top">
 		  <table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td valign="middle" ><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onClick="xajax_salvar(xajax.getFormValues('frm_epi'));" /></td>
+				  <td valign="middle" ><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onclick="xajax_salvar(xajax.getFormValues('frm_epi'));" /></td>
 			  </tr>
 				<tr>
-					<td valign="middle" ><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle" ><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -24,15 +24,15 @@
 				  </tr>
 				  <tr>
                     <td width="39%" class="td_sp">
-                  		<label class="labels" style="float:left; width: 150px;">Descrição EPI</label>
-               	    	<input name="descricao_epi" type="text" class="caixa" id="descricao_epi" size="80" placeholder="Descrição do EPI" />
+                  		<label class="labels" style="float:left; width: 150px;">DescriÃ§Ã£o EPI</label>
+               	    	<input name="descricao_epi" type="text" class="caixa" id="descricao_epi" size="80" placeholder="DescriÃ§Ã£o do EPI" />
                	    	<input name="id_epi" type="hidden" id="id_epi" value="">
                	    </td>
                   </tr>
                   <tr>
                     <td width="39%" class="td_sp">
                     	<label class="labels" style="float:left; width: 150px;">CA</label>
-               	    	<input name="ca" type="text" class="caixa" id="ca" size="15" placeholder="Código CA" />
+               	    	<input name="ca" type="text" class="caixa" id="ca" size="15" placeholder="CÃ³digo CA" />
                	    </td>
                   </tr>
                   <tr>
@@ -49,14 +49,14 @@
                   </tr>
                   <tr>
                     <td width="39%" class="td_sp">
-                    	<label class="labels" style="float:left; width: 150px;">Observações</label>
-               	    	<textarea name="obs" class="caixa" id="obs" cols="78" placeholder="Observações gerais" rows="5"></textarea>
+                    	<label class="labels" style="float:left; width: 150px;">ObservaÃ§Ãµes</label>
+               	    	<textarea name="obs" class="caixa" id="obs" cols="78" placeholder="ObservaÃ§Ãµes gerais" rows="5"></textarea>
                	    </td>
                   </tr>
                   <tr>
                   	<td>
                   		<label class="labels" style="float:left; width: 150px;">Busca</label>
-                  		<input name="busca" id="busca" size="55" type="text" placeholder="EPI, Vencimento, Observação, Fabricante" class="caixa" value="" onkeyup="iniciaBusca.verifica(this);" />
+                  		<input name="busca" id="busca" size="55" type="text" placeholder="EPI, Vencimento, ObservaÃ§Ã£o, Fabricante" class="caixa" value="" onkeyup="iniciaBusca.verifica(this);" />
                   	</td>
                   </tr>
                 </table>                          
@@ -64,8 +64,8 @@
         </tr>
         
         <tr>
-          <td class="fundo_azul">&nbsp;</td>
-          <td colspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td class="fundo_azul"> </td>
+          <td colspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>
       </table>
 	  <div id="div_epi" style="width:100%;float:left"></div>      

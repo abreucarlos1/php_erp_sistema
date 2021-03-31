@@ -106,27 +106,27 @@ function postaperiodo()
 					
 						?>
 						<tr>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label2">&nbsp;</td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label2"> </td>
 			    </tr>
 						<tr>
-						  <td width="3%" class="label1">&nbsp;</td>
+						  <td width="3%" class="label1"> </td>
 						  <td width="18%" class="label1">FUNCIONÁRIO: </td>
-                            <td width="1%" class="label1">&nbsp;</td>
+                            <td width="1%" class="label1"> </td>
 						    <td width="78%" class="label2"><?= $fechamento_folha["funcionario"] ?></td>
 						</tr>
 						<tr>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-			              <td class="label1">&nbsp;</td>
-				          <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+			              <td class="label1"> </td>
+				          <td class="label1"> </td>
 				</tr>
 						<tr>
-						  <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
 						  <td class="label1">PER&Iacute;ODO: </td>
-						  <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
 						  <td class="label1"><select name="periodo" class="txt_box" id="requerido">
                             <option value="">Selecione um período</option>
                             <?php
@@ -139,7 +139,7 @@ function postaperiodo()
 							foreach($db->array_select as $cont_periodo)
 							{
 								?>
-                            <option value="<?= $cont_periodo["periodo"] ?>" <? if($fechamento_folha["periodo"]==$cont_periodo["periodo"]) { echo "selected"; } ?>>
+                            <option value="<?= $cont_periodo["periodo"] ?>" <?php if($fechamento_folha["periodo"]==$cont_periodo["periodo"]) { echo "selected"; } ?>>
                               <?php  
 								$array_periodo = explode(",",$cont_periodo["periodo"]);
 								$per_dataini = substr($array_periodo[0],-2,2) . "/" . substr($array_periodo[0],0,4);
@@ -153,24 +153,24 @@ function postaperiodo()
                           </select></td>
 			    </tr>
 						<tr>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
 			    </tr>
 						<tr>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
 						  <td class="label1"><input name="acao" type="hidden" id="acao" value="atualizar_periodo">
-						  <input type="hidden" name="id_fechamento" value="<?= $_GET["id_fechamento"] ?>"><input name="Atualizar" type="button" class="btn" id="Atualizar" value="Atualizar" onClick="postaperiodo();">
-					      <input name="Fechar" type="button" class="btn" id="Fechar" value="Fechar" onClick="window.close();"></td>
+						  <input type="hidden" name="id_fechamento" value="<?= $_GET["id_fechamento"] ?>"><input name="Atualizar" type="button" class="btn" id="Atualizar" value="Atualizar" onclick="postaperiodo();">
+					      <input name="Fechar" type="button" class="btn" id="Fechar" value="Fechar" onclick="window.close();"></td>
 			    </tr>
 						<tr>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
-						  <td class="label1">&nbsp;</td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
+						  <td class="label1"> </td>
 			    </tr>
             </table>
 		  </div></td>
@@ -179,7 +179,7 @@ function postaperiodo()
 </table>
 	<table width="100%" border="0">
   <tr>
-    <td align="right">&nbsp;</td>
+    <td align="right"> </td>
   </tr>
 </table>
 </form>

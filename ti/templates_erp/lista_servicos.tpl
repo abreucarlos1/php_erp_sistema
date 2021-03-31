@@ -20,7 +20,7 @@
 						<smarty>/if</smarty>
 					<smarty>/foreach</smarty>
 					<th>
-						&nbsp;
+						 
 					</th>
 				</tr>
 				<smarty>counter start=0 skip=1 assign="count"</smarty>

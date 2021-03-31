@@ -8,6 +8,8 @@
 @ini_set('error_reporting', E_ERROR | E_WARNING | E_PARSE);
 @ini_set('default_charset', 'UTF-8');
 
+define('DATABASE',"sistema_erp");
+
 define('DIAS_LIMITE',90); //dias de limite para senhas
 
 define('TAMANHO_SENHA',7); //tamanho padrão de senhas
@@ -36,17 +38,17 @@ define('AMBIENTE', !in_array(HOST, array('localhost','localhost:8888','teste', '
 //Para evitar enganos na hora de mandar email de teste e tiver alterado o ambiente para produção
 define('AMBIENTE_EMAIL', !in_array(HOST, array('localhost','localhost:8888','teste','192.168.10.13')) ? 2 : 1);
 
-define('HOST_MAIL',"smtp.dominio.com.br");
+define('ENVIA_EMAIL',FALSE);
 
-define('DATABASE',"sistema_erp");
+define('HOST_MAIL',"smtp.dominio.com.br");
 
 define('FROM_NAME', "Sistema ERP");
 
 define('FROM_MAIL', "mail@dominio.com.br");
 
-define('SUPORTE_MAIL', "suporte@dominio.com.br");
+define('SUPORTE_MAIL', "ti@dominio.com.br");
 
-define('SISTEMAS_MAIL', "sistemas@dominio.com.br");
+define('SISTEMAS_MAIL', "ti@dominio.com.br");
 
 //Apenas enquanto estivermos desenvolvendo, poderemos usar estes
 define('TI', "ti@dominio.com.br");
@@ -168,7 +170,6 @@ require_once(INCLUDE_DIR."tools.inc.php"); //OK
 
 require_once(INCLUDE_DIR."conectdb.inc.php"); //OK
 
-
 //CONFIGURA A ESTRUTURA DO BANCO BASE
 
 @ini_set(max_execution_time, 300);
@@ -177,7 +178,7 @@ require_once(INCLUDE_DIR."database.inc.php");
 
 @ini_set(max_execution_time, 120);
 
-//require_once(INCLUDE_DIR."include_email.inc.php"); 
+require_once(INCLUDE_DIR."include_email.inc.php"); 
 
 //require_once(INCLUDE_DIR.'errorLogs.php');
 

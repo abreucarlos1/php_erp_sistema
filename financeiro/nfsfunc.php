@@ -71,14 +71,14 @@ function atualizatabela($dados_form)
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $nfsfunc["id_nf_funcionario"]);
 			$xml->writeElement('cell', $nfsfunc["empresa_func"]);
-			$xml->writeElement('cell', $nfsfunc["funcionario"].'&nbsp;-&nbsp;'.mysql_php($nfsfunc["data_ini"]).'&nbsp;'.mysql_php($nfsfunc["data_fim"]));
+			$xml->writeElement('cell', $nfsfunc["funcionario"].' - '.mysql_php($nfsfunc["data_ini"]).' '.mysql_php($nfsfunc["data_fim"]));
 			$xml->writeElement('cell', $nfsfunc["nf_numero"]);
 			$xml->writeElement('cell', formatavalor($nfsfunc["nf_valor"]));
 			$xml->writeElement('cell', $valor_imposto);
 			$xml->writeElement('cell', $valor_csl);
 			$xml->writeElement('cell', mysql_php($nfsfunc["nf_emissao"]));
 			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'editar.png" style="cursor:pointer;" onclick=xajax_editar("'.$nfsfunc["id_nf_funcionario"].'"); />');
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$nfsfunc['id_nf_funcionario'].'")} />');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão?")){xajax_excluir("'.$nfsfunc['id_nf_funcionario'].'")} />');
 		$xml->endElement();
 	}
 
@@ -297,7 +297,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader('Empresa,Funcionário&nbsp;/&nbsp;Período,NF,Valor(R$),IR(R$),CSLL(R$),Data,E,D');
+	mygrid.setHeader('Empresa,Funcionário / Período,NF,Valor(R$),IR(R$),CSLL(R$),Data,E,D');
 	mygrid.setInitWidths("*,*,60,70,50,70,70,50,50");
 	mygrid.setColAlign("left,left,left,left,left,left,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -327,7 +327,7 @@ $sql .= "ORDER BY funcionarios.funcionario, fechamento_folha.data_ini, fechament
  
 $db->select($sql,'MYSQL',true);
 
-$cont_funcionario = $db->array_select[0];
+$cont = $db->array_select[0];
 
 $smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
 
@@ -335,7 +335,7 @@ $smarty->assign("revisao_documento","V4");
 
 $smarty->assign("campo",$conf->campos('notas_fiscais'));
 
-$smarty->assign('cont_funcionario', $cont_funcionario);
+$smarty->assign('cont_funcionario', $cont);
 
 $smarty->assign('id_fechamento', $_GET['id_fechamento']);
 						

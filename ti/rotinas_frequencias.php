@@ -349,7 +349,7 @@ $smarty->assign("campo",$conf->campos('ti_rotinas_frequencias'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("nome_formulario","ROTINAS X FREQU�NCIA");
+$smarty->assign("nome_formulario","ROTINAS X FREQUÊNCIA");
 
 $smarty->assign("classe",CSS_FILE);
 

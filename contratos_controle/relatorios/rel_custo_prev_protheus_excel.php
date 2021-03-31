@@ -697,7 +697,7 @@ header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
 
-//1� folha
+//1ª folha
 $objPHPExcel->setActiveSheetIndex(0);
 
 $st = $objPHPExcel->getActiveSheet();
@@ -705,8 +705,8 @@ $st = $objPHPExcel->getActiveSheet();
 //acrescenta linhas conforme quantidade de projetos
 //$objPHPExcel->getActiveSheet()->insertNewRowBefore(5,count($array_proj));
 
-//data emiss�o
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emiss�o: ".date('d/m/Y')));
+//data emissão
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"Data de emissão: ".date('d/m/Y')));
 
 //Nome Projeto
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859-1', 'UTF-8',$nome_projeto));
@@ -714,7 +714,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859
 //Nome cliente
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 6, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
-//Nome coordenador Devemada
+//Nome coordenador  
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 7, iconv('ISO-8859-1', 'UTF-8',$coordenador));
 
 //Nome coordenador cliente
@@ -767,7 +767,7 @@ foreach($array_cust_prev as $disciplinas=>$custo)
 		}
 	}
 	
-	//%UTILIZA��O
+	//%UTILIZAÇÃO
 	$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 	
 	$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -843,7 +843,7 @@ foreach($array_cust_descr as $item=>$descricao)
 		}
 	}
 	
-	//%UTILIZA��O
+	//%UTILIZAÇÃO
 	$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 	
 	$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -909,7 +909,7 @@ foreach($array_cust_sub_descr as $item=>$descricao)
 		}
 	}	
 	
-	//%UTILIZA��O
+	//%UTILIZAÇÃO
 	$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 
 	$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -931,7 +931,7 @@ if($linha>$linha_tmp)
 }
 
 
-//2� folha - analitico
+//2ª folha - analitico
 $objPHPExcel->setActiveSheetIndex(1);
 
 $linha = 1;
@@ -952,8 +952,8 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+1).":I".($linha+1));
 
 	
-	//Nome coordenador DVM
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+2, "Coordenador DVM: ");
+	//Nome coordenador INT
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+2, "Coordenador INT: ");
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha+2, iconv('ISO-8859-1', 'UTF-8',$array_ana_coord[$projeto]));
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+2).":B".($linha+2));
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+2).":I".($linha+2));
@@ -964,10 +964,10 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+3).":B".($linha+3));
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+3).":I".($linha+3));
 		
-	//cabe�alho
+	//cabeçalho
 	$objPHPExcel->getActiveSheet()->getStyle("A".($linha+5))->getFont()->setBold(true)->setSize(14);
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+5).":D".($linha+5));
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+5, iconv('ISO-8859-1', 'UTF-8','Recursos Or�ados:'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+5, iconv('ISO-8859-1', 'UTF-8','Recursos Orçados:'));
 	
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+6, "Item");
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha+6, iconv('ISO-8859-1', 'UTF-8','Nome do Recurso/ Categoria'));
@@ -1021,7 +1021,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 			}
 		}
 		
-		//%UTILIZA��O
+		//%UTILIZAÇÃO
 		$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 		
 		$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -1110,7 +1110,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	
 		//$objPHPExcel->getActiveSheet()->getStyle("H".$linha)->getNumberFormat()->setFormatCode('R$ #,#00.00');
 		
-		//%UTILIZA��O
+		//%UTILIZAÇÃO
 		$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 		
 		$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -1152,7 +1152,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	//SUBCONTRATADOS
 	$objPHPExcel->getActiveSheet()->getStyle("A".($linha))->getFont()->setBold(true)->setSize(14);
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha).":D".($linha));
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8','Sub-contrata��o'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8','Sub-contratação'));
 	
 	$objPHPExcel->getActiveSheet()->getStyle("A".($linha+1))->getFont()->setBold(false)->setSize(11);
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+1, "Item");
@@ -1190,7 +1190,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	
 		$objPHPExcel->getActiveSheet()->getStyle("H".$linha)->getNumberFormat()->setFormatCode('R$ #,#00.00');
 		
-		//%UTILIZA��O
+		//%UTILIZAÇÃO
 		$objPHPExcel->getActiveSheet()->setCellValue('I'.$linha, '=H'.$linha.'/G'.$linha);
 	
 		$objPHPExcel->getActiveSheet()->getStyle("I".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -1230,7 +1230,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	$linha+=2;
 	
 	//sumariza os totais
-	//cabe�alho
+	//cabeçalho
 	$objPHPExcel->getActiveSheet()->getStyle("A".($linha))->getFont()->setBold(true)->setSize(14);
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha).":B".($linha));
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8','Resumo dos recursos'));
@@ -1249,7 +1249,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	
 	//MO
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, "1");
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Recursos Or�ados (M�o-de-Obra)'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Recursos Orçados (Mão-de-Obra)'));
 	$objPHPExcel->getActiveSheet()->mergeCells("B".($linha).":F".($linha));
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6, $linha, "=G".$linha_custo);
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha, "=H".$linha_custo);
@@ -1275,7 +1275,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	
 	//SUBCONTRATOS
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, "3");
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Sub-contrata��o'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Sub-contratação'));
 	$objPHPExcel->getActiveSheet()->mergeCells("B".($linha).":F".($linha));
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6, $linha, "=G".$linha_sub_cont);
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7, $linha, "=H".$linha_sub_cont);
@@ -1316,11 +1316,11 @@ for ($col = 'A'; $col != 'J'; $col++)
 	$objPHPExcel->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 }
 
-//3� folha - CATEGORIAS
+//3ª folha - CATEGORIAS
 $objPHPExcel->setActiveSheetIndex(2);
 
-//data emiss�o
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emiss�o: ".date('d/m/Y')));
+//data emissão
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"Data de emissão: ".date('d/m/Y')));
 
 //Nome Projeto
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859-1', 'UTF-8',$nome_projeto));
@@ -1328,7 +1328,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859
 //Nome cliente
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 6, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
-//Nome coordenador Devemada
+//Nome coordenador  
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 7, iconv('ISO-8859-1', 'UTF-8',$coordenador));
 
 //Nome coordenador cliente
@@ -1388,7 +1388,7 @@ foreach($array_cat_cust_prev as $disciplinas=>$categorias)
 			}
 		}	
 	
-		//%UTILIZA��O
+		//%UTILIZAÇÃO
 		$objPHPExcel->getActiveSheet()->setCellValue('J'.$linha, '=I'.$linha.'/G'.$linha);
 		
 		$objPHPExcel->getActiveSheet()->getStyle("J".$linha)->getNumberFormat()->setFormatCode('0.00%');
@@ -1409,7 +1409,7 @@ for($j=6;$j<=8;$j++)
 	}
 }
 
-//%UTILIZA��O
+//%UTILIZAÇÃO
 $objPHPExcel->getActiveSheet()->setCellValue('J'.$linha, '=I'.$linha.'/G'.$linha);
 
 $objPHPExcel->getActiveSheet()->getStyle("J".$linha)->getNumberFormat()->setFormatCode('0.00%');

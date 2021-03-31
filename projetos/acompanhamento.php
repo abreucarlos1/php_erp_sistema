@@ -2,17 +2,17 @@
 
 /*
 
-		Formul�rio de Acompanhamento de Projetos	
+		Formulário de Acompanhamento de Projetos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/acompanhamento.php
 		
-		data de cria��o: 13/04/2007
+		data de criação: 13/04/2007
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */	
 
@@ -22,7 +22,7 @@ session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
 	
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php?pagina=" . $_SERVER['PHP_SELF']);
 	exit;
 }
@@ -49,13 +49,13 @@ function inserir($dados_form)
 	if($dados_form["id_os"] && $dados_form["id_entrada"] && $dados_form["saida"])
 	{
 	
-		//Checa se j� existe um acompanhamento para tal OS
+		//Checa se já existe um acompanhamento para tal OS
 		$sql_verifica = "SELECT * FROM Projetos.acompanhamento ";
 		$sql_verifica .= "WHERE acompanhamento.id_os = '" . $dados_form["id_os"] . "' ";
 		
 		$cont_verifica = $db->select($sql_verifica,'MYSQL');
 		
-		//Caso n�o exista
+		//Caso não exista
 		if($db->numero_registros==0)
 		{
 	
@@ -67,7 +67,7 @@ function inserir($dados_form)
 			
 			$db->insert($sql_inserir,'MYSQL');
 	
-			//Pega o ID da inser��o anterior, para utilizar na inser��o das sa�das, abaixo.
+			//Pega o ID da inserção anterior, para utilizar na inserção das saídas, abaixo.
 			$id_acompanhamento = $db->insert_id;
 	
 		}	
@@ -75,18 +75,18 @@ function inserir($dados_form)
 		{
 			
 			$reg_verifica = mysqli_fetch_array($cont_verifica);
-			//Pega o ID da sele��o anterior, para utilizar na inser��o das sa�das, abaixo.			
+			//Pega o ID da seleção anterior, para utilizar na inserção das saídas, abaixo.			
 			$id_acompanhamento = $reg_verifica["id_acompanhamento"];
 		}
 		
-		//Remove a sa�da existente 
+		//Remove a saída existente 
 		$sql_remover_saida = "DELETE FROM Projetos.acompanhamento_saidas ";
 		$sql_remover_saida .= "WHERE acompanhamento_saidas.id_acompanhamento = '" . $id_acompanhamento . "' ";
 		$sql_remover_saida .= "AND acompanhamento_saidas.id_entrada = '" . $dados_form["id_entrada"] . "' ";
 		
 		$db->delete($sql_remover_saida,'MYSQL');
 		
-		//Insere a sa�da
+		//Insere a saída
 		$sql_inserir_saida = "INSERT INTO Projetos.acompanhamento_saidas (id_acompanhamento, id_entrada, saida) VALUES(";
 		$sql_inserir_saida .= "'" . $id_acompanhamento . "', ";
 		$sql_inserir_saida .= "'" . $dados_form["id_entrada"] . "', ";
@@ -94,13 +94,13 @@ function inserir($dados_form)
 	
 		$cont_inserir_saida = $db->insert($sql_inserir_saida,'MYSQL');
 	
-		//Se a inser��o foi realizada com sucesso
+		//Se a inserção foi realizada com sucesso
 		if($cont_inserir_saida)
 		{
 	
-			$resposta->addAlert("Descri��o inserida com sucesso.");
+			$resposta->addAlert("Descrição inserida com sucesso.");
 			
-			//Se for o �ltimo item das entradas, volta para o primeiro item, sen�o, avan�a um item.
+			//Se for o último item das entradas, volta para o primeiro item, senão, avança um item.
 			$jscript = "
 			if(xajax.$('id_entrada').selectedIndex==xajax.$('id_entrada').length-1)
 			{
@@ -123,8 +123,8 @@ function inserir($dados_form)
 	else
 	{
 	
-		//Se os campos n�o foram selecionados / preenchidos corretamente
-		$resposta->addAlert("� necess�rio selecionar uma OS, uma Entrada e preencher a Sa�da!");
+		//Se os campos não foram selecionados / preenchidos corretamente
+		$resposta->addAlert("É necessário selecionar uma OS, uma Entrada e preencher a Saída!");
 		
 	}
 	
@@ -149,7 +149,7 @@ function atualizatabela($id_os)
 	
 	//Busca os dados sobre a OS
 	$sql_dados = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".Funcionarios, ".DATABASE.".contatos ";
-	$sql_dados .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql_dados .= "WHERE OS.id_empresa = empresas.id_empresa ";
 	$sql_dados .= "AND OS.id_cod_coord = Funcionarios.id_funcionario ";
 	$sql_dados .= "AND OS.id_cod_resp = contatos.id_contato ";
 	$sql_dados .= "AND OS.id_os = '" . $id_os . "' ";
@@ -197,10 +197,10 @@ function atualizatabela($id_os)
 	//Forma a tabela
 	$conteudo .= "<div id=\"". $cont_acompanhamento["id_acompanhamento"]."\"  class=\"cell\" style=\"background-color:". $cor ."; width:100%;\" onMouseOver=\"setPointerDiv(this, 1, 'over', '". $cor ."', '#BECCD9', '#FFCC99');\" onMouseOut=\"setPointerDiv(this, 1, 'out', '". $cor . "', '#BECCD9', '#FFCC99');\">";	
 	
-	$conteudo .= "<div class=\"tabela_celulas\" style=\"width:50%; \">&nbsp;" . $reg_acompanhamento["entrada"] . "</div>";	
-	$conteudo .= "<div class=\"tabela_celulas\" style=\"width:50%; \">&nbsp;" . $reg_acompanhamento["saida"] . "</div>";	
+	$conteudo .= "<div class=\"tabela_celulas\" style=\"width:50%; \"> " . $reg_acompanhamento["entrada"] . "</div>";	
+	$conteudo .= "<div class=\"tabela_celulas\" style=\"width:50%; \"> " . $reg_acompanhamento["saida"] . "</div>";	
 	
-	$conteudo .= "<div id=\"separador\" style=\"clear:right; width:1%;font-family:Arial, Helvetica, sans-serif; font-size:11px; \">&nbsp;</div>";			
+	$conteudo .= "<div id=\"separador\" style=\"clear:right; width:1%;font-family:Arial, Helvetica, sans-serif; font-size:11px; \"> </div>";			
 
 	$conteudo .= "</div>";
 	
@@ -235,10 +235,10 @@ function osSeleciona($combo, $valor)
 		
 		//Se for o combo de OS
 		
-		//Atribue o id_os com o valor passado como par�metro
+		//Atribue o id_os com o valor passado como parâmetro
 		$id_os = $valor;
 		
-		//Seleciona os dados da OS selecionada pelo usu�rio
+		//Seleciona os dados da OS selecionada pelo usuário
 		$sql_os = "SELECT OS, ordem_servico_cliente, descricao FROM ".DATABASE.".OS ";
 		$sql_os .= "WHERE OS.id_os = '" . $id_os . "' ";
 		
@@ -246,22 +246,22 @@ function osSeleciona($combo, $valor)
 		
 		$reg_os = mysqli_fetch_array($cont_os);
 		
-		//Se o texto da descri��o for maior que 20
+		//Se o texto da descrição for maior que 20
 		if(strlen($reg_os["descricao"])>20)
 		{
-			//Corta a descri��o e coloca pontos no final
+			//Corta a descrição e coloca pontos no final
 			$descricao = substr($reg_os["descricao"],0,10) . "...";
 		}
 		else
 		{	
-			//Sen�o, apenas corta a descri��o
+			//Senão, apenas corta a descrição
 			$descricao = substr($reg_os["descricao"],0,10);		
 		}
 		
-		//Altera o conte�do do div com as informa��es da OS selecionada pelo usu�rio
+		//Altera o conteúdo do div com as informações da OS selecionada pelo usuário
 		$resposta->addAssign("label_os","innerHTML",$reg_os["os"] . " - " . $reg_os["ordem_servico_cliente"] . " - " . $descricao);
 
-		//Torna o <select> da OS invis�vel, deixando apenas o div para a visualiza��o do usu�rio
+		//Torna o <select> da OS invisível, deixando apenas o div para a visualização do usuário
 		$resposta->addAssign("id_os", "style.visibility", "hidden");
 		
 		//Seleciona a primeira entrada do combo de entradas
@@ -278,7 +278,7 @@ function osSeleciona($combo, $valor)
 		//Se for o combo de entrada
 		
 		
-		//Seleciona os dados da entrada selecionada pelo usu�rio
+		//Seleciona os dados da entrada selecionada pelo usuário
 		$sql_entradas = "SELECT * FROM Projetos.acompanhamento_entradas ";
 		$sql_entradas .= "WHERE acompanhamento_entradas.id_entrada = '" . $valor . "' ";
 		
@@ -296,15 +296,15 @@ function osSeleciona($combo, $valor)
 		}
 		else
 		{
-			//Sen�o, apenas corta a entrada
+			//Senão, apenas corta a entrada
 			$entrada = substr($reg_entradas["entrada"],0,80);
 		
 		}
 		
-		//Altera o conte�do do div com as informa��es da entrada selecionada pelo usu�rio		
+		//Altera o conteúdo do div com as informações da entrada selecionada pelo usuário		
 		$resposta->addAssign("label_entrada","innerHTML",$entrada);
 		
-		//Torna o <select> da entrada invis�vel, deixando apenas o div para a visualiza��o do usu�rio		
+		//Torna o <select> da entrada invisível, deixando apenas o div para a visualização do usuário		
 		$resposta->addAssign("id_entrada","style.visibility","hidden");
 		
 		
@@ -358,7 +358,7 @@ function mudaSaida($dados_form)
 	
 //	sleep(10);
 	
-	//Pega a sa�da selecionada no combo
+	//Pega a saída selecionada no combo
 	$sql_saida = "SELECT * FROM Projetos.acompanhamento_saidas, Projetos.acompanhamento ";
 	$sql_saida .= "WHERE acompanhamento_saidas.id_acompanhamento = acompanhamento.id_acompanhamento ";
 	$sql_saida .= "AND acompanhamento_saidas.id_entrada = '" . $dados_form["id_entrada"] . "' ";
@@ -368,11 +368,11 @@ function mudaSaida($dados_form)
 
 	$reg_saida = mysqli_fetch_array($cont_saida);
 
-	//Se existir um registro de sa�da
+	//Se existir um registro de saída
 	if($db->numero_registros>0)
 	{
 	
-		//Seta o valor para o text input e desabilita a edi��o/inser��o
+		//Seta o valor para o text input e desabilita a edição/inserção
 		$resposta->addAssign("saida","value",$reg_saida["saida"]);
 		$resposta->addAssign("saida","disabled","true");
 		$resposta->addAssign("btninserir", "disabled", "true");
@@ -380,12 +380,12 @@ function mudaSaida($dados_form)
 	else
 	{
 
-		//Verifica��o de altera��es n�o salvas
+		//Verificação de alterações não salvas
 		if($dados_form["saida"])
 		{
-			//Confirma se o usu�rio deseja descartar as altera��es
+			//Confirma se o usuário deseja descartar as alterações
 			$jscript = "
-			if(confirm('Deseja inserir as altera��es?'))
+			if(confirm('Deseja inserir as alterações?'))
 			{
 				xajax.$('btninserir').onclick();
 			}
@@ -445,7 +445,7 @@ $xajax->processRequests();
 </head>
 
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <body>
@@ -506,12 +506,12 @@ function disabilita_inputs()
 
 function irAnterior()
 {
-//Fun��o para navegar para o registro anterior
+//Função para navegar para o registro anterior
 
-	//Se o item atual do combo de entrada n�o for o primeiro
+	//Se o item atual do combo de entrada não for o primeiro
 	if(xajax.$('id_entrada').selectedIndex!=0)
 	{
-		//Desabilita a edi��o/Inclusão
+		//Desabilita a edição/Inclusão
 		disabilita_inputs();
 		//Seleciona a entrada anterior
 		xajax.$('id_entrada').selectedIndex=xajax.$('id_entrada').options.selectedIndex-1;
@@ -524,14 +524,14 @@ function irAnterior()
 function irProximo()
 {
 
-//Fun��o para navegar para o registro pr�ximo
+//Função para navegar para o registro próximo
 
-	//Se o item atual do combo de entrada n�o for o �ltimo
+	//Se o item atual do combo de entrada não for o último
 	if(xajax.$('id_entrada').selectedIndex!=(xajax.$('id_entrada').length-1))
 	{
-		//Desabilita a edi��o/Inclusão
+		//Desabilita a edição/Inclusão
 		disabilita_inputs();
-		//Seleciona a pr�xima entrada
+		//Seleciona a próxima entrada
 		xajax.$('id_entrada').selectedIndex=xajax.$('id_entrada').options.selectedIndex+1;
 		//Dispara o evento onChange do combo de entrada
 		xajax.$('id_entrada').onchange();
@@ -550,53 +550,53 @@ function irProximo()
 	  <tr>
 		<td><table width="760" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
-			<td width="119" bgcolor="#e6e6e6" class="altura_linha-10px borda_esquerda">&nbsp;</td>
-			<td width="57" bgcolor="#1B4470" class="altura_linha-10px borda_esquerda">&nbsp;</td>
-			<td width="608" bgcolor="#0099CC" class="altura_linha-10px">&nbsp;</td>
-			<td width="16" bgcolor="#0099CC" class="altura_linha-10px">&nbsp;</td>
+			<td width="119" bgcolor="#e6e6e6" class="altura_linha-10px borda_esquerda"> </td>
+			<td width="57" bgcolor="#1B4470" class="altura_linha-10px borda_esquerda"> </td>
+			<td width="608" bgcolor="#0099CC" class="altura_linha-10px"> </td>
+			<td width="16" bgcolor="#0099CC" class="altura_linha-10px"> </td>
 		  </tr>
 		  <tr>
 			<td colspan="2" rowspan="2"><img src="../images/logo_dvm.jpg" width="175" height="40" /></td>
 			<td class="margem_direita fonte_14"> <p><img src="../images/setas.gif" width="22" height="13" />ACOMPANHAMENTO DE PROJETOS  </p></td>
-			<td bgcolor="#0099CC">&nbsp;</td>
+			<td bgcolor="#0099CC"> </td>
 		  </tr>
 		  <tr>
 			<td valign="baseline"><div align="right" class="fonte_12_az"><img src="../images/setas_menor.gif" width="18" height="10" />
                   <?= $_SESSION["login"] ?>
-  &nbsp;&nbsp;<img src="../images/setas_menor.gif" width="18" height="10" /><a href="#" class="fonte_12_az" onClick="javascript:location.href='../inicio.php';">Inicio</a>&nbsp;&nbsp;<img src="../images/setas_menor.gif" width="18" height="10" /><a href="../logout.php" class="fonte_12_az">Sair</a>&nbsp;&nbsp; </div></td>
-			<td bgcolor="#0099CC">&nbsp;</td>
+    <img src="../images/setas_menor.gif" width="18" height="10" /><a href="#" class="fonte_12_az" onclick="javascript:location.href='../inicio.php';">Inicio</a>  <img src="../images/setas_menor.gif" width="18" height="10" /><a href="../logout.php" class="fonte_12_az">Sair</a>   </div></td>
+			<td bgcolor="#0099CC"> </td>
 		  </tr>
 		  <tr>
-			<td bgcolor="#E6E6E6" class="altura_linha-6px borda_esquerda">&nbsp;</td>
-			<td bgcolor="#1B4470" class="altura_linha-6px borda_esquerda">&nbsp;</td>
-			<td bgcolor="#0099CC" class="altura_linha-6px">&nbsp;</td>
-			<td bgcolor="#0099CC" class="altura_linha-6px">&nbsp;</td>
+			<td bgcolor="#E6E6E6" class="altura_linha-6px borda_esquerda"> </td>
+			<td bgcolor="#1B4470" class="altura_linha-6px borda_esquerda"> </td>
+			<td bgcolor="#0099CC" class="altura_linha-6px"> </td>
+			<td bgcolor="#0099CC" class="altura_linha-6px"> </td>
 		  </tr>
 		</table>
 		<div id="comum">
 		  <table width="760" border="0" cellspacing="0" cellpadding="0">
 			
 			<tr>
-			  <td width="106" rowspan="2" bgcolor="#999999" class="borda_alto"><input name="btninserir" type="button" class="botao_chumbo" id="btninserir" onClick="xajax_inserir(xajax.getFormValues('frm_acompanhamento'));" value="Inserir" tabindex="4" /></td>
+			  <td width="106" rowspan="2" bgcolor="#999999" class="borda_alto"><input name="btninserir" type="button" class="botao_chumbo" id="btninserir" onclick="xajax_inserir(xajax.getFormValues('frm_acompanhamento'));" value="Inserir" tabindex="4" /></td>
 			  <td width="10" rowspan="2"><img src="../images/pt-bt.gif" width="10" height="40" /></td>
-			  <td width="58">&nbsp;</td>
-			  <td width="83">&nbsp;</td>
-			  <td colspan="2">&nbsp;</td>
-			  <td width="78">&nbsp;</td>
-			  <td width="206">&nbsp;</td>
-			  <td width="119">&nbsp;</td>
-			  <td width="16" bgcolor="#0099CC">&nbsp;</td>
+			  <td width="58"> </td>
+			  <td width="83"> </td>
+			  <td colspan="2"> </td>
+			  <td width="78"> </td>
+			  <td width="206"> </td>
+			  <td width="119"> </td>
+			  <td width="16" bgcolor="#0099CC"> </td>
 			</tr>
 			<tr>
-			  <td>&nbsp;</td>
+			  <td> </td>
 			  <td colspan="6" rowspan="3" valign="top" class="fonte_descricao_campos"><table width="100%" border="0">
                   <tr>
                     <td width="43%" class="fonte_descricao_campos">OS</td>
-                    <td colspan="2">&nbsp;</td>
+                    <td colspan="2"> </td>
                   </tr>
                   <tr>
                     <td>
-					<div class="label_os_classe" id="label_os" style="position:relative; cursor:pointer; width:215px; background-image:url(../images/dropdown_bullet.gif); background-position:right; background-repeat:no-repeat; text-align:left;" onClick="OS_dropdown(this, 'id_os');">SELECIONE</div>
+					<div class="label_os_classe" id="label_os" style="position:relative; cursor:pointer; width:215px; background-image:url(../images/dropdown_bullet.gif); background-position:right; background-repeat:no-repeat; text-align:left;" onclick="OS_dropdown(this, 'id_os');">SELECIONE</div>
 					<select name="id_os" id="id_os" class="caixa" size="10" style="position:absolute;visibility:hidden; display:none; z-index:1;" onChange="xajax_osSeleciona('os', this.options[this.options.selectedIndex].value);xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));">
 <!--					<option value="">SELECIONE</option> -->
 					<?php
@@ -615,35 +615,35 @@ function irProximo()
 					}
 					?>
 					</select>					</td>
-                    <td width="27%"><input name="tipo" type="radio" checked onClick="xajax_preencheCombo('1');xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));xajax.$('id_os').onchange();">
-                      <span class="fonte_descricao_campos">An�lise cr�tica inicial</span></td>
-                    <td width="30%"><input type="radio" name="tipo" onClick="xajax_preencheCombo('2');xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));xajax.$('id_os').onchange();"><span class="fonte_descricao_campos">An�lise cr�tica final</span></td>
+                    <td width="27%"><input name="tipo" type="radio" checked onclick="xajax_preencheCombo('1');xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));xajax.$('id_os').onchange();">
+                      <span class="fonte_descricao_campos">Análise crítica inicial</span></td>
+                    <td width="30%"><input type="radio" name="tipo" onclick="xajax_preencheCombo('2');xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));xajax.$('id_os').onchange();"><span class="fonte_descricao_campos">Análise crítica final</span></td>
                   </tr>
                 </table></td>
-			  <td width="16" bgcolor="#0099CC">&nbsp;</td>
+			  <td width="16" bgcolor="#0099CC"> </td>
 			</tr>
 			
 			<tr>
-			  <td rowspan="2" bgcolor="#999999" class="borda_alto"><input name="btnvoltar" type="button" class="botao_chumbo" id="btnvoltar" onClick="javascript:location.href='../inicio.php';" value="Voltar" /></td>
+			  <td rowspan="2" bgcolor="#999999" class="borda_alto"><input name="btnvoltar" type="button" class="botao_chumbo" id="btnvoltar" onclick="javascript:location.href='../inicio.php';" value="Voltar" /></td>
 			  <td rowspan="2"><img src="../images/pt-bt.gif" width="10" height="40" /></td>
-			  <td>&nbsp;</td>
-			  <td width="16" bgcolor="#0099CC">&nbsp;</td>
+			  <td> </td>
+			  <td width="16" bgcolor="#0099CC"> </td>
 			</tr>
 			<tr>
-			  <td>&nbsp;</td>
-			  <td width="16" bgcolor="#0099CC">&nbsp;</td>
+			  <td> </td>
+			  <td width="16" bgcolor="#0099CC"> </td>
 			</tr>
 			
 			<tr>
-			  <td bgcolor="#999999" class="fundo_cinza">&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
+			  <td bgcolor="#999999" class="fundo_cinza"> </td>
+			  <td> </td>
+			  <td> </td>
 			  <td colspan="6" valign="top" class="fonte_descricao_campos">
 			  <table width="100%" border="0">
                 <tr>
                   <td><span class="fonte_descricao_campos">Entradas:</span>
 					  <div id="div_entradas">
-					  <div class="label_os_classe" id="label_entrada" style="position:relative; cursor:pointer; width:500px; background-image:url(../images/dropdown_bullet.gif); background-position:right; background-repeat:no-repeat; text-align:left;" onClick="OS_dropdown(this, 'id_entrada');">SELECIONE</div>
+					  <div class="label_os_classe" id="label_entrada" style="position:relative; cursor:pointer; width:500px; background-image:url(../images/dropdown_bullet.gif); background-position:right; background-repeat:no-repeat; text-align:left;" onclick="OS_dropdown(this, 'id_entrada');">SELECIONE</div>
 					  <select name="id_entrada" id="id_entrada" class="caixa" size="10" style="position:absolute;visibility:hidden; display:none; z-index:1;" onChange="xajax_osSeleciona('entrada', this.options[this.options.selectedIndex].value);disabilita_inputs();xajax_mudaSaida(xajax.getFormValues('frm_acompanhamento'));">
 <!--					  <option value="">SELECIONE</option> -->
 					  <?php
@@ -665,39 +665,39 @@ function irProximo()
 					  ?>
 					  </select>
 					  </div>				</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
                 </tr>
               </table></td>
-			  <td bgcolor="#0099CC">&nbsp;</td>
+			  <td bgcolor="#0099CC"> </td>
 			  </tr>
 			<tr>
-			  <td bgcolor="#999999" class="fundo_cinza">&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td colspan="6" valign="top" class="fonte_descricao_campos"><span class="fonte_descricao_campos">Sa�das:</span><div id="div_saida"><textarea name="saida" cols="100" rows="4" class="caixa" id="saida" tabindex="3"></textarea></div>
+			  <td bgcolor="#999999" class="fundo_cinza"> </td>
+			  <td> </td>
+			  <td> </td>
+			  <td colspan="6" valign="top" class="fonte_descricao_campos"><span class="fonte_descricao_campos">Saídas:</span><div id="div_saida"><textarea name="saida" cols="100" rows="4" class="caixa" id="saida" tabindex="3"></textarea></div>
 			  <input name="tmp_saida" type="hidden" value=""></td>
-			  <td bgcolor="#0099CC">&nbsp;</td>
+			  <td bgcolor="#0099CC"> </td>
 			  </tr>
 			<tr>
-			  <td bgcolor="#999999" class="fundo_cinza">&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td colspan="6" valign="top"><input name="btnanterior" type="button" class="botao_cinza" id="btnanterior" onClick="irAnterior();" value="Anterior">
-			  <input name="btnproximo" type="button" class="botao_cinza" id="btnproximo" onClick="irProximo();" value="Pr�ximo"></td>
-			  <td bgcolor="#0099CC">&nbsp;</td>
+			  <td bgcolor="#999999" class="fundo_cinza"> </td>
+			  <td> </td>
+			  <td> </td>
+			  <td colspan="6" valign="top"><input name="btnanterior" type="button" class="botao_cinza" id="btnanterior" onclick="irAnterior();" value="Anterior">
+			  <input name="btnproximo" type="button" class="botao_cinza" id="btnproximo" onclick="irProximo();" value="Próximo"></td>
+			  <td bgcolor="#0099CC"> </td>
 			  </tr>
 			<tr>
-			  <td bgcolor="#999999" class="fundo_cinza">&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td>&nbsp;</td>
-			  <td colspan="6" valign="top" class="fonte_descricao_campos">&nbsp;</td>
-			  <td bgcolor="#0099CC">&nbsp;</td>
+			  <td bgcolor="#999999" class="fundo_cinza"> </td>
+			  <td> </td>
+			  <td> </td>
+			  <td colspan="6" valign="top" class="fonte_descricao_campos"> </td>
+			  <td bgcolor="#0099CC"> </td>
 			  </tr>
 			<tr>
-			  <td colspan="2" bgcolor="#E6E6E6" class="altura_linha-6px borda_alto borda_esquerda">&nbsp;</td>
-			  <td bgcolor="#1B4470" class="altura_linha-6px borda_alto borda_esquerda ">&nbsp;</td>
-			  <td colspan="6" bgcolor="#0099CC" class="altura_linha-6px borda_alto">&nbsp;</td>
-			  <td width="16" bgcolor="#0099CC" class="altura_linha-6px">&nbsp;</td>
+			  <td colspan="2" bgcolor="#E6E6E6" class="altura_linha-6px borda_alto borda_esquerda"> </td>
+			  <td bgcolor="#1B4470" class="altura_linha-6px borda_alto borda_esquerda "> </td>
+			  <td colspan="6" bgcolor="#0099CC" class="altura_linha-6px borda_alto"> </td>
+			  <td width="16" bgcolor="#0099CC" class="altura_linha-6px"> </td>
 			</tr>
 		  </table>
 		</div>
@@ -706,33 +706,33 @@ function irProximo()
 			<tr>
 				<td><!--
 					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:10%; background-color:#999999;">Ramais</div>
-					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:26%; background-color:#999999;">Funcion�rio</div>
+					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:26%; background-color:#999999;">Funcionário</div>
 					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:25%; background-color:#999999;">E-mail</div> 
 					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:20%; background-color:#999999;">local Trabalho</div>
 					<div class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:12%; background-color:#999999;">celular</div>
 					<div align="center" class="altura_linha-26px borda_alto borda_esquerda fonte_12" style="float:left; width:5%; background-color:#999999;">E</div>
-					<div class="altura_linha-26px borda_alto fonte_12" style="float:left; width:2%; background-color:#999999;">&nbsp;</div>    
+					<div class="altura_linha-26px borda_alto fonte_12" style="float:left; width:2%; background-color:#999999;"> </div>    
 					-->
-					&nbsp;
+					 
 				</td>
 			</tr>
 			<tr>
 			  <td colspan="7" bgcolor="#FFFFFF" class="">
 			  <div id="tabela_tudo" style="visibility:hidden;">
 				  <span class="fonte_descricao_campos" style="width:60%;">Cliente:</span><div id="tbl_cli" class="fonte_11" style="width:60%; float:left;">NOME DE CLIENTE</div>
-				  <span class="fonte_descricao_campos" style="width:20%;">In�cio:</span>
+				  <span class="fonte_descricao_campos" style="width:20%;">Início:</span>
 				  <div id="tbl_iniproj" class="fonte_11" style="float:left;width:20%;">00/00/0000</div>			  
-				  <span class="fonte_descricao_campos" style="width:20%;">T�rmino:</span>
+				  <span class="fonte_descricao_campos" style="width:20%;">Término:</span>
 				  <div id="tbl_termproj" class="fonte_11" style="float:left;width:20%;">00/00/0000</div>			  
-				  <div>&nbsp;</div>				  
+				  <div> </div>				  
 				  <span class="fonte_descricao_campos" style="width:60%;">Projeto:</span><div id="tbl_proj" class="fonte_11" style="width:60%; float:left;">NOME DE PROJETO</div>
 				  <span class="fonte_descricao_campos" style="width:20%;">Coordenador Cliente:</span><div id="tbl_coordcli" class="fonte_11" style="width:20%; float:left;">NOME DO COORDENADOR CLIENTE</div>			  				  
-				  <span class="fonte_descricao_campos" style="width:20%;">Coordenador Devemada:</span><div id="tbl_coorddvm" class="fonte_11" style="width:20%; float:left;">NOME DO COORDENADOR DEVEMADA</div>			  				  				  
+				  <span class="fonte_descricao_campos" style="width:20%;">Coordenador  :</span><div id="tbl_coorddvm" class="fonte_11" style="width:20%; float:left;">NOME DO COORDENADOR EMPRESA</div>			  				  				  
 
-				  <div>&nbsp;</div>
+				  <div> </div>
 
-				  <div class="altura_linha-26px borda_esquerda borda_alto fonte_12" id="cabecalho_entrada" style="width:50%;float:left;background-color:#999999;">ENTRADA</div><div class="altura_linha-26px borda_esquerda borda_alto fonte_12" id="cabecalho_saida" style="width:50%;float:left;background-color:#999999;">SA�DA</div>
-				  <div id="tabela_acompanhamento" style="overflow:auto; height:100px;">&nbsp;</div>
+				  <div class="altura_linha-26px borda_esquerda borda_alto fonte_12" id="cabecalho_entrada" style="width:50%;float:left;background-color:#999999;">ENTRADA</div><div class="altura_linha-26px borda_esquerda borda_alto fonte_12" id="cabecalho_saida" style="width:50%;float:left;background-color:#999999;">SAÍDA</div>
+				  <div id="tabela_acompanhamento" style="overflow:auto; height:100px;"> </div>
 			  </div>
 			  </td>
 			</tr>

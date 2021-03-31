@@ -163,11 +163,11 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', $cont_salarios["desc_tipo_salario"]);
 			if(!$not_exc && in_array($_SESSION["id_funcionario"],array(6,12)))
 			{
-				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir('.$cont_salarios["id_salario"].');} >');
+				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir?")){xajax_excluir('.$cont_salarios["id_salario"].');} >');
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 		$xml->endElement();
 			
@@ -298,24 +298,31 @@ function atualizar($dados_form)
 		$regs = $db->array_select[0];	
 		
 		$TI = "Mogi das Cruzes, ". $diasarray["mday"]." de ".$mes[$diasarray["mon"]]." de ".$diasarray["year"] ."<br><br><br>";
-		$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO&nbsp;DE&nbsp;SALÁRIO</span><br><br><br>";
+		$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO DE SALÁRIO</span><br><br><br>";
 		$TI .= "Favor verificar no Protheus (AE8) a alteração salarial<br>";
 		$TI .= "do funcionário código: ".$dados_form["id_funcionario"]."<br>";
 		$TI .= "Alteração feita por: ".$regs["funcionario"]."<br>";
 		$TI .= "Atenciosamente, Depto. Recursos Humanos.";
+
+		if(ENVIA_EMAIL)
+		{		
+			$params = array();
+			$params['from']	= "recrutamento@dominio.com.br";
+			$params['from_name'] = "RH - Alteração de Salario";
+			$params['subject'] = "ALTERAÇÃO SALARIAL";
 		
-		$params = array();
-		$params['from']	= "recrutamento@dominio.com.br";
-		$params['from_name'] = "RH - Alteração de Salario";
-		$params['subject'] = "ALTERAÇÃO SALARIAL";
-	
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($TI);		
-		
-		if(!$mail->Send())
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($TI);		
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+		}
+		else 
 		{
-			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 1);
 		}
 		
 		if($dados_form["id_salario"]=="")
@@ -478,7 +485,7 @@ function atualizar($dados_form)
 	//}
 	//else
 	//{
-		//$resposta->addAlert("Voc� n�o possui permiss�o para fazer altera��o");	
+		//$resposta->addAlert("Voce não possui permissão para fazer alteração");	
 	//}
 	
 	$resposta->addScript('xajax_voltar();');
@@ -659,7 +666,7 @@ function excluir($id_salario)
 							else
 							{
 								$tp_real = '5';//MENSAL
-								$tipo_contrato = '7'; //S�cio
+								$tipo_contrato = '7'; //Sócio
 								$cust_fix = '0';
 								$cust_men = str_replace(",",".",str_replace(".","",$cont2["salario_clt"]));
 							}
@@ -744,7 +751,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.objBox.style.overflowX = "hidden";   
 	mygrid.objBox.style.overflowY = "auto";
 
-	mygrid.setHeader("Data, Status, Tipo&nbsp;Salário, Salário(CLT), Salário(Mensalista),Valor/Hora,Desc.&nbsp;Tipo&nbsp;Sal.,D");
+	mygrid.setHeader("Data, Status, Tipo Salário, Salário(CLT), Salário(Mensalista),Valor/Hora,Desc. Tipo Sal.,D");
 	mygrid.setInitWidths("80,80,150,120,120,120,220,40");
 	mygrid.setColAlign("left,left,center,center,center,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -778,7 +785,7 @@ if($db->erro!='')
 	die($db->erro);	
 }
 
-$reg_funcionario = $db->array_select[0];
+$regs = $db->array_select[0];
 
 $sql = "SELECT * FROM ".DATABASE.".empresa_funcionarios ";
 $sql .= "WHERE empresa_funcionarios.reg_del = 0 ";
@@ -815,8 +822,8 @@ foreach($db->array_select as $regs)
 }
 					
 
-$smarty->assign('id_funcionario',$reg_funcionario["id_funcionario"]);
-$smarty->assign('nome_funcionario',$reg_funcionario["funcionario"]);
+$smarty->assign('id_funcionario',$regs["id_funcionario"]);
+$smarty->assign('nome_funcionario',$regs["funcionario"]);
 
 $smarty->assign("option_empresafunc_values",$array_empresafunc_values);
 $smarty->assign("option_empresafunc_output",$array_empresafunc_output);

@@ -34,28 +34,28 @@ $osNumero = isset($_GET['os']) ? $_GET['os'] : '';
 //$_GET['listasSelecionadas']: usado quando clicamos nos checkboxes de cada item da lista
 if ($idLista == 0 && !isset($_GET['listasSelecionadas']) || (isset($_GET['listasSelecionadas']) && empty($_GET['listasSelecionadas'])))
 {
-	exit('<script>alert("N�o foi selecionada nenhuma lista.");history.back();</script>');
+	exit('<script>alert("Não foi selecionada nenhuma lista.");history.back();</script>');
 }
 
 if (!empty($idLista))
 {
-	//Verificamos qual � o cliente e qual � o arquivo de modelo
+	//Verificamos qual é o cliente e qual é o arquivo de modelo
 	$sql = 
 	"SELECT
-	      DISTINCT COALESCE(id_ged_arquivo, 0) as idGedArquivo, id_os, Descricao_os, id_lista_materiais_cabecalho, id_empresa_erp, empresa, mlc_arquivo, mlc_id, OS
+	      DISTINCT COALESCE(id_ged_arquivo, 0) as idGedArquivo, id_os, Descricao_os, id_lista_materiais_cabecalho, id_empresa, empresa, mlc_arquivo, mlc_id, OS
 	    FROM
 	      materiais_old.lista_materiais
 	JOIN (
-	    SELECT id_os as idOs, id_empresa_erp, descricao AS Descricao_os, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0
+	    SELECT id_os as idOs, id_empresa, descricao AS Descricao_os, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0
 	  ) OS
 	  ON idOs = id_os
 	  JOIN(
 	    SELECT
-	      id_empresa_erp as idEmpresa, id_cod_protheus, id_loja_protheus, abreviacao, logotipo, empresa
+	      id_empresa as idEmpresa, id_cod_protheus, id_loja_protheus, abreviacao, logotipo, empresa
 	    FROM
 	      ".DATABASE.".empresas WHERE empresas.reg_del = 0 
 	  ) empresa
-	  ON idEmpresa = id_empresa_erp
+	  ON idEmpresa = id_empresa
 	  JOIN(
 	    SELECT
 	      mla_mlc_id, mla_cliente, mla_loja, mlc_arquivo, mlc_id
@@ -82,14 +82,14 @@ if (!empty($idLista))
 	
 	$outrosCampos = array();
 	
-	//Entrar� aqui caso haja uma lista personalizada para o cliente do documento
+	//Entrará aqui caso haja uma lista personalizada para o cliente do documento
 	if ($db->numero_registros > 0)
 	{
 		$idModeloLista = $db->array_select[0]['mlc_id'];
 		$idLista = $db->array_select[0]['id_lista_materiais_cabecalho'];
 		$logotipo = $db->array_select[0]['logotipo'];
 		
-		//Titulo 1, 2, 3 e 4 ser�o preenchidos manualmente
+		//Titulo 1, 2, 3 e 4 serão preenchidos manualmente
 		//$outrosCampos['empresa'] = $db->array_select[0]['empresa'];
 		$outrosCampos['Descricao_os'] = $db->array_select[0]['Descricao_os'];
 		$outrosCampos['versao_documento'] = $versao_documento;
@@ -98,22 +98,22 @@ if (!empty($idLista))
 	}
 	else
 	{
-		//Aqui todos os clientes que n�o tenham lista personalizada ser�o processados
+		//Aqui todos os clientes que não tenham lista personalizada serão processados
 		$sql = 
 	"SELECT DISTINCT id_ged_arquivo as idGedArquivo, id_os, id_lista_materiais_cabecalho, mlc_arquivo, mlc_id, OS
 	    FROM
 	      materiais_old.lista_materiais
 	JOIN (
-	    SELECT id_os as idOs, id_empresa_erp, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0 
+	    SELECT id_os as idOs, id_empresa, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0 
 	  ) OS
 	  ON idOs = id_os
 	  JOIN(
 	    SELECT
-	      id_empresa_erp as idEmpresa, id_cod_protheus, id_loja_protheus, abreviacao, logotipo
+	      id_empresa as idEmpresa, id_cod_protheus, id_loja_protheus, abreviacao, logotipo
 	    FROM
 	      ".DATABASE.".empresas WHERE empresas.reg_del = 0 
 	  ) empresa
-	  ON idEmpresa = id_empresa_erp
+	  ON idEmpresa = id_empresa
 	  JOIN(
 	  	SELECT
 			mlc_id, mlc_arquivo
@@ -129,7 +129,7 @@ if (!empty($idLista))
 	
 		$db->select($sql, 'MYSQL', true);
 	
-		$idModeloLista = 1;//Lista padr�o da devemada.
+		$idModeloLista = 1;//Lista padrão.
 		$idLista = $db->array_select[0]['id_lista_materiais_cabecalho'];
 		$logotipo = $db->array_select[0]['logotipo'];
 		$nomeArquivo = $db->array_select[0]['mlc_arquivo'];
@@ -139,7 +139,7 @@ if (!empty($idLista))
 }
 else
 {
-	$idModeloLista = 1;//Lista padr�o da devemada.
+	$idModeloLista = 1;//Lista padrão da devemada.
 	$nomeArquivo = 'PADRAO_DVM.xlsx';
 	$listasSelecionadas = $_GET['listasSelecionadas'];
 	
@@ -176,7 +176,7 @@ if (!$validlocale)
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-//Obtendo as configura��es da planilha selecionada
+//Obtendo as configurações da planilha selecionada
 $sql = 
 "SELECT
 	mle_campo, mle_celula, mle_formula
@@ -357,18 +357,18 @@ $db->select($sql, 'MYSQL',
 
 			if ($par['campo'] != 'item')
 			{
-				//Se for um campo, verifica o nome do campo na consulta acima, sen�o joga a formula dentro da c�lula direto
+				//Se for um campo, verifica o nome do campo na consulta acima, senão joga a formula dentro da célula direto
 				$valor = $par['formula'] == 0 ? $reg[$par['campo']] : str_replace('$linha', $lin, $par['campo']);
 			}
 			else
 			{
-				//Neste caso, quando utilizarmos o campo item, faremos uma sequencia de 1 at� o total de linhas
+				//Neste caso, quando utilizarmos o campo item, faremos uma sequencia de 1 até o total de linhas
 				$valor = $lin - $primeiraLinha + 1;
 			}
 			
 			$celula = $col.$lin;
 			
-			//Regra de arredondamentos: Pedido de Norberto em 25/08/2017
+			//Regra de arredondamentos: Pedido em 25/08/2017
 
 			//Regra 1:		
 			if ($par['campo'] == 'qtd')
@@ -412,7 +412,7 @@ $db->select($sql, 'MYSQL',
 			$style = array('font' => array('size' => 8,'bold' => false));
 			$objPHPExcel->getActiveSheet()->getStyle($celula)->applyFromArray($style);	
 			
-			//Gambiarra para mesclar as celulas da coluna B, visto que o modelo mesmo sendo mesclado n�o � seguido nas linhas subsequentes
+			//Gambiarra para mesclar as celulas da coluna B, visto que o modelo mesmo sendo mesclado não é seguido nas linhas subsequentes
 			/*if (strtolower($col) == 'b')
 			{
 				$objPHPExcel->getActiveSheet()->mergeCells('B'.$lin.':C'.$lin);
@@ -449,7 +449,7 @@ foreach($objPHPExcel->getActiveSheet()->getRowDimensions() as $rd){
     $rd->setRowHeight(-1); 
 } 
  
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename='lista_emitida_".date('Y_m_d_H_i_s').".xlsx");
 header('Cache-Control: max-age=0');

@@ -16,13 +16,13 @@ set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../
 <form action="Quadratic2.php" method="POST">
 Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
 <table border="0" cellpadding="0" cellspacing="0">
-	<tr><td><b>A&nbsp;</b></td>
+	<tr><td><b>A </b></td>
 		<td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities($_POST['A']) : ''; ?>"></td>
 	</tr>
-	<tr><td><b>B&nbsp;</b></td>
+	<tr><td><b>B </b></td>
 		<td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities($_POST['B']) : ''; ?>"></td>
 	</tr>
-	<tr><td><b>C&nbsp;</b></td>
+	<tr><td><b>C </b></td>
 		<td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities($_POST['C']) : ''; ?>"></td>
 	</tr>
 </table>

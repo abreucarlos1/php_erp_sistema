@@ -36,7 +36,7 @@ function clientes()
 	
 	foreach($regs as $reg_cliente)
 	{
-		$sql = "SELECT id_empresa_erp, empresa, descricao FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+		$sql = "SELECT id_empresa, empresa, descricao FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 		$sql .= "WHERE empresas.id_cod_protheus = '".$reg_cliente["AF1_CLIENT"]."' ";
 		$sql .= "AND empresas.id_loja_protheus = '".$reg_cliente["AF1_LOJA"]."' ";
 		$sql .= "AND empresas.reg_del = 0 ";
@@ -47,7 +47,7 @@ function clientes()
 		
 		$reg_cli = $db->array_select[0];
 		
-		$array_cliente[$reg_cli["id_empresa_erp"]] = trim(tiraacentos($reg_cli["empresa"]))." - ".trim(tiraacentos($reg_cli["descricao"]));
+		$array_cliente[$reg_cli["id_empresa"]] = trim(tiraacentos($reg_cli["empresa"]))." - ".trim(tiraacentos($reg_cli["descricao"]));
 	}
 	
 	asort($array_cliente);
@@ -131,8 +131,8 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', number_format($regs1['valor_interno'],2,",","."));
 			$xml->writeElement('cell', number_format($regs1['valor_cli'],2,",","."));
 			$xml->writeElement('cell', mysql_php($regs1["data_alteracao"]));
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_tabela_valor_mobilizacao_cliente"].'","'.str_replace(" ","&nbsp;",$regs["descricao"]).'","'.$regs["id_cliente"].'");>');
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;valor?&nbsp;Todo&nbsp;o&nbsp;histórico&nbsp;será&nbsp;excluído!")){xajax_excluir("'.$regs["id_tabela_valor_mobilizacao_cliente"].'")};>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_tabela_valor_mobilizacao_cliente"].'","'.str_replace(" "," ",$regs["descricao"]).'","'.$regs["id_cliente"].'");>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do valor? Todo o histórico será excluído!")){xajax_excluir("'.$regs["id_tabela_valor_mobilizacao_cliente"].'")};>');
 		$xml->endElement();
 	}
 	
@@ -508,7 +508,7 @@ function hist($id_valor,$id_cliente)
     $conteudo .= '	      <input name="data_hist" type="text" class="caixa" id="data_hist" size="10" maxlength="10" onkeypress="return txtBoxFormat(document.frm_hist, \'data_hist\', \'99/99/9999\', event);" value="" /></td>';
     $conteudo .= '       <td width="80%"><label for="valor_dvm_hist" class="labels">Valor</label><br />'; 
     $conteudo .= '	      <input name="valor_dvm_hist" type="text" class="caixa" id="valor_dvm_hist" size="7" placeholder="valor" maxlength="7" /></td>';
-	$conteudo .= '       <td width="80%"><label for="valor_cli_hist" class="labels">Valor&nbsp;cli</label><br />'; 
+	$conteudo .= '       <td width="80%"><label for="valor_cli_hist" class="labels">Valor cli</label><br />'; 
     $conteudo .= '	      <input name="valor_cli_hist" type="text" class="caixa" id="valor_cli_hist" size="7" placeholder="valor" maxlength="7" /></td>';
 	$conteudo .= '	</tr>';
     $conteudo .= '</table>';
@@ -544,12 +544,12 @@ function hist($id_valor,$id_cliente)
 		//verifica se é o id atual E tenha + de 1 registro
 		if($regs["id_tabela_valor_mobilizacao_historico_cliente"]==$regs["id_tabela_valor_cliente_atual"] && count($array_regs)==1)
 		{
-			$img = '&nbsp;';	
+			$img = ' ';	
 		}
 		else
 		{
 			
-			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;valor?")){xajax_excluir_hist("'.$regs["id_tabela_valor_mobilizacao_historico_cliente"].'")};>';	
+			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do valor?")){xajax_excluir_hist("'.$regs["id_tabela_valor_mobilizacao_historico_cliente"].'")};>';	
 		}
 		
 		$xml->startElement('row');
@@ -847,12 +847,12 @@ function copia($id_cliente)
 		//monta o corpo do modal de historico
 		$conteudo = '<table width="100%" border="0">';
 		$conteudo .= '	<tr>';
-		$conteudo .= '		<td width="13%"><label class="labels">Cliente&nbsp;origem</label><br />';
+		$conteudo .= '		<td width="13%"><label class="labels">Cliente origem</label><br />';
 		$conteudo .= '      <label class="labels">'.$origem['descricao'].'</label>';
 		$conteudo .= '       </td>';
 		$conteudo .= '  </tr>';
 		$conteudo .= '	<tr>';
-		$conteudo .= '		<td width="13%"><label for="cliente_dest" class="labels">Cliente&nbsp;destino</label><br />';
+		$conteudo .= '		<td width="13%"><label for="cliente_dest" class="labels">Cliente destino</label><br />';
 		$conteudo .= '   		<select name="cliente_dest" class="caixa" id="cliente_dest" onkeypress="return keySort(this);" onchange="if(this.value){document.getElementById(\'btn_copia\').disabled=false;}else{document.getElementById(\'btn_copia\').disabled=true;};" >';
 		$conteudo .= 				$comb_cliente;  
 		$conteudo .= '          </select>';
@@ -1113,7 +1113,7 @@ function grid(tabela, autoh, height, xml)
 				}
 			}
 		
-			mygrid.setHeader("Cliente, Despesa, Valor, Valor&nbsp;cli., data, H, E");
+			mygrid.setHeader("Cliente, Despesa, Valor, Valor cli., data, H, E");
 			mygrid.setInitWidths("250,*,80,80,100,30,30");
 			mygrid.setColAlign("left,left,left,left,left,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1133,7 +1133,7 @@ function grid(tabela, autoh, height, xml)
 				}
 			}
 		
-			mygrid.setHeader("Cliente, Despesa, Valor, Valor&nbsp;cli., data, E");
+			mygrid.setHeader("Cliente, Despesa, Valor, Valor cli., data, E");
 			mygrid.setInitWidths("250,*,80,80,100,30");
 			mygrid.setColAlign("left,left,left,left,left,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -1144,7 +1144,7 @@ function grid(tabela, autoh, height, xml)
 		
 		case 'valores_copia':
 		
-			mygrid.setHeader("Despesa, Valor, Valor&nbsp;cli.");
+			mygrid.setHeader("Despesa, Valor, Valor cli.");
 			mygrid.setInitWidths("250,80,80");
 			mygrid.setColAlign("left,left,left");
 			mygrid.setColTypes("ro,ro,ro");
@@ -1176,17 +1176,17 @@ function historico(id_valor,descricao,id_cliente)
 	
 	conteudo += '<tr><td class="espacamento">';
 
-	conteudo += '<div id="corpo" style="width:100%;">&nbsp;</div>';
+	conteudo += '<div id="corpo" style="width:100%;"> </div>';
 	
 	conteudo += '</td></tr></table>';
 	
-	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja&nbsp;alterar&nbsp;os&nbsp;dados&nbsp;da&nbsp;despesa?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">&nbsp;&nbsp;';
+	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja alterar os dados da despesa?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">  ';
 	
 	conteudo += '<input type="button" class="class_botao" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();>';
 	
-	conteudo += '<div id="valores_hist" style="width:100%">&nbsp;</div></form>';	
+	conteudo += '<div id="valores_hist" style="width:100%"> </div></form>';	
 	
-	modal(conteudo, 'g', 'HIST&Oacute;RICO');	
+	modal(conteudo, 'g', 'HISTÓRICO');	
 
 	xajax_hist(id_valor,id_cliente);
 }
@@ -1197,13 +1197,13 @@ function copia_origem(id_cliente)
 	
 	conteudo += '<input type="hidden" name="id_cliente" id="id_cliente" value="'+id_cliente+'">';
 
-	conteudo += '<div id="corpo" style="width:100%;">&nbsp;</div>';
+	conteudo += '<div id="corpo" style="width:100%;"> </div>';
 	
-	conteudo += '<input type="button" class="class_botao" name="btn_copia" id="btn_alt" value="Copiar" onclick=if(confirm("Deseja&nbsp;copiar&nbsp;os&nbsp;dados&nbsp;da&nbsp;origem?")){xajax_copiar_valores(xajax.getFormValues("frm_copia"))}; disabled="disabled">&nbsp;&nbsp;';
+	conteudo += '<input type="button" class="class_botao" name="btn_copia" id="btn_alt" value="Copiar" onclick=if(confirm("Deseja copiar os dados da origem?")){xajax_copiar_valores(xajax.getFormValues("frm_copia"))}; disabled="disabled">  ';
 	
 	conteudo += '<input type="button" class="class_botao" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();>';
 	
-	conteudo += '<div id="valores_copia" style="width:100%">&nbsp;</div></form>';	
+	conteudo += '<div id="valores_copia" style="width:100%"> </div></form>';	
 	
 	modal(conteudo, 'g', 'ORIGEM->DESTINO');	
 

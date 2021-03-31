@@ -1,26 +1,26 @@
-<?
+<?php
 /*
 
-		Formul�rio de CABOS	
+		Formulário de CABOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/cabos.php
 		
-		data de cria��o: 19/05/2006
+		data de criação: 19/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 	
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -45,7 +45,7 @@ if ($_POST["acao"]=="editar")
 			alert('Favor preencher os campos DE / PARA');
 			location.href = '<?= $PHP_SELF ?>?acao=editar&id_cabo=<?= $_POST["id_cabo"]?>';
 		</script>
-		<?	
+		<?php
 	}
 	else
 	{
@@ -70,9 +70,9 @@ if ($_POST["acao"]=="editar")
 		{
 			?>
 			<script>
-				alert('Cabo j� cadastrado no banco de dados.');
+				alert('Cabo já cadastrado no banco de dados.');
 			</script>
-			<?	
+			<?php	
 		}
 		else
 		{
@@ -99,7 +99,7 @@ if ($_POST["acao"]=="editar")
 			<script>
 				alert('Cabo atualizado com sucesso.');
 			</script>
-			<?
+			<?php
 		}
 	}
 
@@ -115,7 +115,7 @@ if ($_POST["acao"]=="salvar")
 		<script>
 			alert('Favor preencher os campos DE / PARA');
 		</script>
-		<?	
+		<?php	
 	}
 	else
 	{
@@ -140,38 +140,38 @@ if ($_POST["acao"]=="salvar")
 		{
 			?>
 			<script>
-				alert('Cabo j� cadastrado no banco de dados.');
+				alert('Cabo já cadastrado no banco de dados.');
 			</script>
-			<?	
+			<?php	
 		}
 		else
 		{
 		
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.cabos ";
-			$incsql .= "(id_subsistema, identificacao_cabo, id_cabo_tipo, id_origem_comp, ";
-			$incsql .= "id_origem_local, id_destino_comp, id_destino_local, id_disciplina, id_isolacao, ";
-			$incsql .= "nr_comprimento, ds_trecho, ds_observacao) VALUES (";
-			$incsql .= "'" . $_POST["id_subsistema"] . "', ";
-			$incsql .= "'" . $_POST["identificacao_cabo"] . "', ";
-			$incsql .= "'" . $_POST["id_cabo_tipo"] . "', ";
-			$incsql .= "'" . $_POST["id_origem_comp"] . "', ";
-			$incsql .= "'" . $_POST["id_origem_local"] . "', ";
-			$incsql .= "'" . $_POST["id_destino_comp"] . "', ";
-			$incsql .= "'" . $_POST["id_destino_local"] . "', ";
-			$incsql .= "'" . $_POST["id_disciplina"] . "', ";
-			$incsql .= "'" . $_POST["id_isolacao"] . "', ";
-			$incsql .= "'" . $_POST["nr_comprimento"] . "', ";
-			$incsql .= "'" . $_POST["ds_trecho"] . "', ";
-			$incsql .= "'" . $_POST["ds_observacao"] . "') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.cabos ";
+			$isql .= "(id_subsistema, identificacao_cabo, id_cabo_tipo, id_origem_comp, ";
+			$isql .= "id_origem_local, id_destino_comp, id_destino_local, id_disciplina, id_isolacao, ";
+			$isql .= "nr_comprimento, ds_trecho, ds_observacao) VALUES (";
+			$isql .= "'" . $_POST["id_subsistema"] . "', ";
+			$isql .= "'" . $_POST["identificacao_cabo"] . "', ";
+			$isql .= "'" . $_POST["id_cabo_tipo"] . "', ";
+			$isql .= "'" . $_POST["id_origem_comp"] . "', ";
+			$isql .= "'" . $_POST["id_origem_local"] . "', ";
+			$isql .= "'" . $_POST["id_destino_comp"] . "', ";
+			$isql .= "'" . $_POST["id_destino_local"] . "', ";
+			$isql .= "'" . $_POST["id_disciplina"] . "', ";
+			$isql .= "'" . $_POST["id_isolacao"] . "', ";
+			$isql .= "'" . $_POST["nr_comprimento"] . "', ";
+			$isql .= "'" . $_POST["ds_trecho"] . "', ";
+			$isql .= "'" . $_POST["ds_observacao"] . "') ";
 		
-			$registros = $db->insert($incsql,'MYSQL');
+			$registros = $db->insert($isql,'MYSQL');
 			
 			?>
 			<script>
 				alert('Cabo inserido com sucesso.');
 			</script>
-			<?
+			<?php
 		}
 	}
 
@@ -190,9 +190,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Cabo exclu�do com sucesso.');
+		alert('Cabo excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 ?>
@@ -202,11 +202,11 @@ if ($_GET["acao"] == "deletar")
 <title>: : . CABOS.  . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_cabo, cabo)
 {
@@ -232,7 +232,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -250,7 +250,7 @@ for (i=combobox_destino.length;i>0;i--)
 	}
 	
 	
-<?
+<?php
 
 $sql = "SELECT * FROM Projetos.malhas, Projetos.subsistema, Projetos.area, Projetos.componentes, Projetos.processo, Projetos.dispositivos ";
 $sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -272,7 +272,7 @@ $reg = $db->select($sql,'MYSQL');
 		{
 			combobox_destino.options[combobox_destino.length] = new Option('<?= $cont["nr_area"]. " " .$cont["nr_subsistema"]." ".$cont["processo"] . " " . $cont["dispositivo"]. " " . $cont["nr_malha"] ?>','<?= $cont["id_componente"] ?>');
 		}
-		<? 
+		<?php 
 	} 
 	?>
 }
@@ -293,18 +293,18 @@ $reg = $db->select($sql,'MYSQL');
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -323,31 +323,31 @@ $reg = $db->select($sql,'MYSQL');
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="10%" class="label1">SUBSISTEMA</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="17%"><span class="label1">IDENTIFICA&Ccedil;&Atilde;O CABO </span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="10%"><span class="label1">FORMA&Ccedil;&Atilde;O</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="1%">ISOLA&Ccedil;&Atilde;O</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="17%"><span class="label1">IDENTIFICAÇÃO CABO </span></td>
+                      <td width="1%"> </td>
+                      <td width="10%"><span class="label1">FORMAÇÃO</span></td>
+                      <td width="1%"> </td>
+                      <td width="1%">ISOLAÇÃO</td>
+                      <td width="1%"> </td>
                       <td width="53%">de<br>
                         COMP. | LOCAL </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="5%">&nbsp;</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="5%"> </td>
+                      <td width="1%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_subsistema" class="txt_box" id="id_subsistema" onChange="preenchecombo(this.form.id_componente, this)" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.area, Projetos.subsistema ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -358,22 +358,22 @@ $reg = $db->select($sql,'MYSQL');
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-							<option value="<?= $cont["id_subsistema"] ?>" <? if($cabos["id_subsistema"]==$cont["id_subsistema"]) { echo "selected"; } ?>>
+							<option value="<?= $cont["id_subsistema"] ?>" <?php if($cabos["id_subsistema"]==$cont["id_subsistema"]) { echo "selected"; } ?>>
 							<?= $cont["nr_area"] . " " . $cont["nr_subsistema"]. " " . $cont["subsistema"] ?>
 							</option>
-							<?
+							<?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="identificacao_cabo" type="text" class="txt_boxcap" id="identificacao_cabo" size="40" value="<?= $cabos["identificacao_cabo"] ?>">
-                      </font></td><td>&nbsp;</td>
+                      </font></td><td> </td>
                       <td><select name="id_cabo_tipo" class="txt_box" id="id_cabo_tipo" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.cabos_tipos, Projetos.cabos_finalidades ";
 						$sql .= "WHERE cabos_tipos.id_cabo_finalidade = cabos_finalidades.id_cabo_finalidade ";
@@ -392,19 +392,19 @@ $reg = $db->select($sql,'MYSQL');
 								$tipoveia = "COL";
 							}	
 						?>
-                        <option value="<?= $cont["id_cabo_tipo"] ?>" <? if($cabos["id_cabo_tipo"]==$cont["id_cabo_tipo"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_cabo_tipo"] ?>" <?php if($cabos["id_cabo_tipo"]==$cont["id_cabo_tipo"]) { echo "selected"; } ?>>
                         <?= $cont["ds_formacao"]." / ".$cont["cd_finalidade"]." / ".$tipoveia ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_isolacao" class="txt_box" id="id_isolacao" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.isolacao_cabo ";
 						$sql .= "ORDER BY ds_isolacao ";
@@ -414,19 +414,19 @@ $reg = $db->select($sql,'MYSQL');
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_isolacao"] ?>" <? if($cabos["id_isolacao"]==$cont["id_isolacao"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_isolacao"] ?>" <?php if($cabos["id_isolacao"]==$cont["id_isolacao"]) { echo "selected"; } ?>>
                         <?= $cont["ds_isolacao"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_origem_comp" class="txt_box" id="id_origem_comp" onkeypress="return keySort(this);">
                         <option value="0">NENHUM</option>
-                        <?
+                        <?php
 							
 							$sql = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area, ".DATABASE.".setores ";
 							$sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -437,7 +437,7 @@ $reg = $db->select($sql,'MYSQL');
 							$sql .= "AND subsistema.id_area = area.id_area ";
 							$sql .= "AND area.id_os = '" . $_SESSION["id_os"] . "' ";
 							$sql .= "AND componentes.id_disciplina = setores.id_setor ";
-							$sql .= "AND (setores.setor NOT LIKE 'MEC�NICA' OR setores.setor NOT LIKE 'TUBULA��O') ";
+							$sql .= "AND (setores.setor NOT LIKE 'MECÂNICA' OR setores.setor NOT LIKE 'TUBULAÇÃO') ";
 							//$sql .= "AND NOT EXISTS(SELECT id_componente FROM enderecos WHERE componentes.id_componente = enderecos.id_componente AND enderecos.id_slots <> '".$_GET["id_slots"]."' ) ";
 							//$sql .= "ORDER BY nr_area, malhas.id_malha, sequencia, funcao.funcao ";	
 							$sql .= "ORDER BY nr_area, processo, dispositivo, sequencia ";
@@ -491,21 +491,21 @@ $reg = $db->select($sql,'MYSQL');
 									}		
 						
 									?>
-                        <option value="<?= $comp["id_componente"] ?>"<? if($cabos["id_origem_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
+                        <option value="<?= $comp["id_componente"] ?>"<?php if($cabos["id_origem_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
                           <?=  $processo . $comp["dispositivo"] . " - " .$nrmalha.$nrseq.$modificador ?>
                           </option>
-                        <?
+                        <?php
 							}
 					?>
                       </select>
                         <select name="id_origem_local" class="txt_box" id="id_origem_local" onkeypress="return keySort(this);">
                         <option value="0">NENHUM</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql .= "AND Projetos.area.id_area = Projetos.locais.id_area ";
 						$sql .= "AND Projetos.area.id_os = '" .$_SESSION["id_os"] . "' ";
 						$sql .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -515,41 +515,41 @@ $reg = $db->select($sql,'MYSQL');
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_local"] ?>" <? if($cabos["id_origem_local"]==$cont["id_local"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_local"] ?>" <?php if($cabos["id_origem_local"]==$cont["id_local"]) { echo "selected"; } ?>>
                         <?= $cont["nr_area"] . " " .$cont["cd_local"] . " - " . $cont["nr_sequencia"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="24%">para<br>
-COMP.&nbsp;|&nbsp;LOCAL </td>
-                      <td width="1%">&nbsp;</td>
+COMP. | LOCAL </td>
+                      <td width="1%"> </td>
                       <td width="12%"><span class="label1">COMPRIMENTO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">TRECHO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="10%">DISCIPLINA</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="30%"><span class="label1">observa&Ccedil;&Atilde;O</span></td>
-                      <td width="7%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="30%"><span class="label1">observaÇÃO</span></td>
+                      <td width="7%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_destino_comp" class="txt_box" id="id_destino_comp" onkeypress="return keySort(this);">
                         <option value="0">NENHUM</option>
-                        <?
+                        <?php
 							
 							$sql = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area, ".DATABASE.".setores ";
 							$sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -560,7 +560,7 @@ COMP.&nbsp;|&nbsp;LOCAL </td>
 							$sql .= "AND subsistema.id_area = area.id_area ";
 							$sql .= "AND area.id_os = '" . $_SESSION["id_os"] . "' ";
 							$sql .= "AND componentes.id_disciplina = setores.id_setor ";
-							$sql .= "AND (setores.setor NOT LIKE 'MEC�NICA' OR setores.setor NOT LIKE 'TUBULA��O') ";
+							$sql .= "AND (setores.setor NOT LIKE 'MECÂNICA' OR setores.setor NOT LIKE 'TUBULAÇÃO') ";
 							//$sql .= "AND NOT EXISTS(SELECT id_componente FROM enderecos WHERE componentes.id_componente = enderecos.id_componente AND enderecos.id_slots <> '".$_GET["id_slots"]."' ) ";
 							//$sql .= "ORDER BY nr_area, malhas.id_malha, sequencia, funcao.funcao ";	
 							$sql .= "ORDER BY nr_area, processo, dispositivo, sequencia ";
@@ -614,21 +614,21 @@ COMP.&nbsp;|&nbsp;LOCAL </td>
 									}		
 						
 									?>
-                        <option value="<?= $comp["id_componente"] ?>"<? if($cabos["id_destino_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
+                        <option value="<?= $comp["id_componente"] ?>"<?php if($cabos["id_destino_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
                         <?=  $processo . $comp["dispositivo"] . " - " .$nrmalha.$nrseq.$modificador ?>
                         </option>
-                        <?
+                        <?php
 							}
 					?>
-                      </select>&nbsp;
+                      </select> 
                         <select name="id_destino_local" class="txt_box" id="id_destino_local" onkeypress="return keySort(this);">
                           <option value="0">NENHUM</option>
-                          <?
+                          <?php
 						
 						$sql = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql .= "AND Projetos.area.id_area = Projetos.locais.id_area ";
 						$sql .= "AND Projetos.area.id_os = '" .$_SESSION["id_os"] . "' ";
 						$sql .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -638,70 +638,70 @@ COMP.&nbsp;|&nbsp;LOCAL </td>
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_local"] ?>" <? if($cabos["id_destino_local"]==$cont["id_local"]) { echo "selected"; } ?>>
+                          <option value="<?= $cont["id_local"] ?>" <?php if($cabos["id_destino_local"]==$cont["id_local"]) { echo "selected"; } ?>>
                           <?= $cont["nr_area"] . " " .$cont["cd_local"] . " - " . $cont["nr_sequencia"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                         </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_comprimento" type="text" class="txt_box" id="nr_comprimento" value="<?= $cabos["nr_comprimento"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_trecho" type="text" class="txt_box" id="ds_trecho" value="<?= $cabos["ds_trecho"] ?>" size="30">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="disciplina" class="txt_box"  id="disciplina" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						  	
-							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor IN('EL�TRICA', 'INSTRUMENTA��O', 'AUTOMA��O') ORDER BY setor ";
+							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor IN('ELÉTRICA', 'INSTRUMENTAÇÃO', 'AUTOMAÇÃO') ORDER BY setor ";
 							
 							$registro = $db->select($sql,'MYSQL');
 							
-							// Preenche o combobox com os pa&iacute;ses
+							// Preenche o combobox com os países
 							while ($cont = mysqli_fetch_array($registro))
 								{
 									?>
-                        <option value="<?= $cont["id_setor"] ?>"<? if($cont["id_setor"]==$cabos["id_disciplina"]){ echo 'selected'; } ?>>
+                        <option value="<?= $cont["id_setor"] ?>"<?php if($cont["id_setor"]==$cabos["id_disciplina"]){ echo 'selected'; } ?>>
                         <?= $cont["setor"] ?>
                         </option>
-                        <?
+                        <?php
 								}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_observacao" id="ds_observacao" type="text" class="txt_box" value="<?= $cabos["ds_observacao"] ?>" size="30">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_cabo" type="hidden" id="id_cabo" value="<?= $cabos["id_cabo"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -712,31 +712,31 @@ COMP.&nbsp;|&nbsp;LOCAL </td>
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="10%" class="label1">SUBSISTEMA</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="17%">IDENTIFICA&Ccedil;&Atilde;O CABO </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="10%">forma&Ccedil;&Atilde;O</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="1%">ISOLA&Ccedil;&Atilde;O</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="17%">IDENTIFICAÇÃO CABO </td>
+                      <td width="1%"> </td>
+                      <td width="10%">formaÇÃO</td>
+                      <td width="1%"> </td>
+                      <td width="1%">ISOLAÇÃO</td>
+                      <td width="1%"> </td>
                       <td width="53%">de<br>
 COMP. | LOCAL </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="3%"> </td>
+                      <td width="3%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_subsistema" class="txt_box" id="id_subsistema" onChange="preenchecombo(this.form.id_componente, this)" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.area, Projetos.subsistema ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -747,22 +747,22 @@ COMP. | LOCAL </td>
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_subsistema"] ?>" <? if($_POST["id_subsistema"]==$cont["id_subsistema"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_subsistema"] ?>" <?php if($_POST["id_subsistema"]==$cont["id_subsistema"]) { echo "selected"; } ?>>
                         <?= $cont["nr_area"] . " " . $cont["nr_subsistema"]. " " . $cont["subsistema"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="identificacao_cabo" type="text" class="txt_boxcap" id="identificacao_cabo" size="40" value="<?= $_POST["identificacao_cabo"] ?>">
-                      </font></td><td>&nbsp;</td>
+                      </font></td><td> </td>
                       <td><select name="id_cabo_tipo" class="txt_box" id="id_cabo_tipo" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 	
 						$sql = "SELECT * FROM Projetos.cabos_tipos, Projetos.cabos_finalidades ";
@@ -782,19 +782,19 @@ COMP. | LOCAL </td>
 								$tipoveia = "COL";
 							}
 						?>
-                        <option value="<?= $cont["id_cabo_tipo"] ?>" <? if($_POST["id_cabo_tipo"]==$cont["id_cabo_tipo"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_cabo_tipo"] ?>" <?php if($_POST["id_cabo_tipo"]==$cont["id_cabo_tipo"]) { echo "selected"; } ?>>
                         <?= $cont["ds_formacao"]." / ".$cont["cd_finalidade"]." / ".$tipoveia ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_isolacao" class="txt_box" id="id_isolacao" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 					
 						$sql = "SELECT * FROM Projetos.isolacao_cabo ";
@@ -805,19 +805,19 @@ COMP. | LOCAL </td>
 						while($cont = mysqli_fetch_array($reg))
 						{
 						?>
-                        <option value="<?= $cont["id_isolacao"] ?>" <? if($_POST["id_isolacao"]==$cont["id_isolacao"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_isolacao"] ?>" <?php if($_POST["id_isolacao"]==$cont["id_isolacao"]) { echo "selected"; } ?>>
                         <?= $cont["ds_isolacao"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_origem_comp" class="txt_box" id="id_origem_comp" onkeypress="return keySort(this);">
                         <option value="0">NENHUM</option>
-                        <?
+                        <?php
 							
 							$sql = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area, ".DATABASE.".setores ";
 							$sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -828,7 +828,7 @@ COMP. | LOCAL </td>
 							$sql .= "AND subsistema.id_area = area.id_area ";
 							$sql .= "AND area.id_os = '" . $_SESSION["id_os"] . "' ";
 							$sql .= "AND componentes.id_disciplina = setores.id_setor ";
-							$sql .= "AND (setores.setor NOT LIKE 'MEC�NICA' OR setores.setor NOT LIKE 'TUBULA��O') ";
+							$sql .= "AND (setores.setor NOT LIKE 'MECÂNICA' OR setores.setor NOT LIKE 'TUBULAÇÃO') ";
 							//$sql .= "AND NOT EXISTS(SELECT id_componente FROM enderecos WHERE componentes.id_componente = enderecos.id_componente AND enderecos.id_slots <> '".$_GET["id_slots"]."' ) ";
 							//$sql .= "ORDER BY nr_area, malhas.id_malha, sequencia, funcao.funcao ";	
 							$sql .= "ORDER BY nr_area, processo, dispositivo, sequencia ";
@@ -882,20 +882,20 @@ COMP. | LOCAL </td>
 									}		
 						
 									?>
-									<option value="<?= $comp["id_componente"] ?>"<? if($_POST["id_origem_comp"]==$comp["id_componente"]){ echo 'selected';} ?>><?=  $processo . $comp["dispositivo"] . " - " .$nrmalha.$nrseq.$modificador ?></option>
-									<?
+									<option value="<?= $comp["id_componente"] ?>"<?php if($_POST["id_origem_comp"]==$comp["id_componente"]){ echo 'selected';} ?>><?=  $processo . $comp["dispositivo"] . " - " .$nrmalha.$nrseq.$modificador ?></option>
+									<?php
 							}
 					?>
                       </select>
                         <select name="id_origem_local" class="txt_box" id="id_origem_local" onkeypress="return keySort(this);">
                           <option value="0">NENHUM</option>
-                          <?
+                          <?php
 						
 						
 						$sql = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql .= "AND Projetos.area.id_area = Projetos.locais.id_area ";
 						$sql .= "AND Projetos.area.id_os = '" .$_SESSION["id_os"] . "' ";
 						$sql .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -905,41 +905,41 @@ COMP. | LOCAL </td>
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_local"] ?>" <? if($_POST["id_origem_local"]==$cont["id_local"]){ echo 'selected';} ?>>
+                          <option value="<?= $cont["id_local"] ?>" <?php if($_POST["id_origem_local"]==$cont["id_local"]){ echo 'selected';} ?>>
                           <?= $cont["nr_area"] . " " .$cont["cd_local"] . " - " . $cont["nr_sequencia"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                         </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
                       <td width="24%">para<br>
-                        COMP.&nbsp;|&nbsp;LOCAL </td>
-                      <td width="1%">&nbsp;</td>
+                        COMP. | LOCAL </td>
+                      <td width="1%"> </td>
                       <td width="12%"><span class="label1">COMPRIMENTO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">TRECHO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="10%">DISCIPLINA</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="30%"><span class="label1">OBSERVA&Ccedil;&Atilde;O</span></td>
-                      <td width="7%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="30%"><span class="label1">OBSERVAÇÃO</span></td>
+                      <td width="7%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_destino_comp" class="txt_box" id="id_destino_comp" onkeypress="return keySort(this);">
                         <option value="0">NENHUM</option>
-                        <?
+                        <?php
 							
 							$sql = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area, ".DATABASE.".setores ";
 							$sql .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -950,7 +950,7 @@ COMP. | LOCAL </td>
 							$sql .= "AND subsistema.id_area = area.id_area ";
 							$sql .= "AND area.id_os = '" . $_SESSION["id_os"] . "' ";
 							$sql .= "AND componentes.id_disciplina = setores.id_setor ";
-							$sql .= "AND (setores.setor NOT LIKE 'MEC�NICA' OR setores.setor NOT LIKE 'TUBULA��O') ";
+							$sql .= "AND (setores.setor NOT LIKE 'MECÂNICA' OR setores.setor NOT LIKE 'TUBULAÇÃO') ";
 							//$sql .= "AND NOT EXISTS(SELECT id_componente FROM enderecos WHERE componentes.id_componente = enderecos.id_componente AND enderecos.id_slots <> '".$_GET["id_slots"]."' ) ";
 							//$sql .= "ORDER BY nr_area, malhas.id_malha, sequencia, funcao.funcao ";	
 							$sql .= "ORDER BY nr_area, processo, dispositivo, sequencia ";
@@ -1004,21 +1004,21 @@ COMP. | LOCAL </td>
 									}		
 						
 									?>
-                        <option value="<?= $comp["id_componente"] ?>"<? if($_POST["id_destino_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
+                        <option value="<?= $comp["id_componente"] ?>"<?php if($_POST["id_destino_comp"]==$comp["id_componente"]){ echo 'selected';} ?>>
                           <?=  $processo . $comp["dispositivo"] . " - " .$nrmalha.$nrseq.$modificador ?>
                           </option>
-                        <?
+                        <?php
 							}
 					?>
-                      </select>&nbsp;
+                      </select> 
                         <select name="id_destino_local" class="txt_box" id="id_destino_local" onkeypress="return keySort(this);">
                           <option value="0">NENHUM</option>
-                          <?
+                          <?php
 						
 						/*
 						$sql = "SELECT * FROM Projetos.area, Projetos.locais, ".DATABASE.".setores ";
 						$sql .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql .= "AND Projetos.area.id_area = Projetos.locais.id_area ";
 						$sql .= "AND Projetos.area.id_os = '" .$_SESSION["id_os"] . "' ";
 						*/
@@ -1026,7 +1026,7 @@ COMP. | LOCAL </td>
 						$sql = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql .= "AND Projetos.area.id_area = Projetos.locais.id_area ";
 						$sql .= "AND Projetos.area.id_os = '" .$_SESSION["id_os"] . "' ";
 						$sql .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -1036,70 +1036,70 @@ COMP. | LOCAL </td>
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                          <option value="<?= $cont["id_local"] ?>" <? if($_POST["id_destino_local"]==$cont["id_local"]){ echo 'selected';} ?>>
+                          <option value="<?= $cont["id_local"] ?>" <?php if($_POST["id_destino_local"]==$cont["id_local"]){ echo 'selected';} ?>>
                           <?= $cont["nr_area"] . " " .$cont["cd_local"] . " - " . $cont["nr_sequencia"] ?>
                           </option>
-                          <?
+                          <?php
 							
 						}
 						
 						?>
                         </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_comprimento" type="text" class="txt_box" id="nr_comprimento" value="<?= $_POST["nr_comprimento"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_trecho" type="text" class="txt_box" id="ds_trecho" value="<?= $_POST["ds_trecho"] ?>" size="30">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="disciplina" class="txt_box"  id="disciplina" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 
-							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor IN('EL�TRICA', 'INSTRUMENTA��O', 'AUTOMA��O') ORDER BY setor ";
+							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor IN('ELÉTRICA', 'INSTRUMENTAÇÃO', 'AUTOMAÇÃO') ORDER BY setor ";
 							
 							$registro = $db->select($sql,'MYSQL');
 							
-							// Preenche o combobox com os pa&iacute;ses
+							// Preenche o combobox com os países
 							
 							while ($cont = mysqli_fetch_array($registro))
 								{
 									?>
-                        <option value="<?= $cont["id_setor"] ?>"<? if($cont["id_setor"]==$_POST["disciplina"]){ echo 'selected'; } ?>>
+                        <option value="<?= $cont["id_setor"] ?>"<?php if($cont["id_setor"]==$_POST["disciplina"]){ echo 'selected'; } ?>>
                         <?= $cont["setor"] ?>
                         </option>
-                        <?
+                        <?php
 								}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_observacao" id="ds_observacao" type="text" class="txt_box" value="<?= $_POST["ds_observacao"] ?>" size="30">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -1113,8 +1113,8 @@ COMP. | LOCAL </td>
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  <td width="17%">SUBSISTEMA</td>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_sequencia";
@@ -1127,29 +1127,29 @@ COMP. | LOCAL </td>
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="11%">IDENTIFICA&Ccedil;&Atilde;O</td>
-				  <td width="11%">FORMA&Ccedil;&Atilde;O</td>
+				  <td width="11%">IDENTIFICAÇÃO</td>
+				  <td width="11%">FORMAÇÃO</td>
 				  <td width="12%">ORIGEM</td>
 				  <td width="10%">DESTINO</td>
 				  <td width="6%">COMP.</td>
 				  <td width="9%">TRECHO</td>
-				  <td width="10%">OBSERVA&Ccedil;&Atilde;O</td>
+				  <td width="10%">OBSERVAÇÃO</td>
 				  <td width="5%">B</td>
 				  <td width="4%"  class="cabecalho_tabela">E</td>
 				  <td width="2%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 				
-					// Arquivo de Inclusão de conex�o com o banco
-					// Mostra os funcion�rios
+					// Arquivo de Inclusão de conexão com o banco
+					// Mostra os funcionários
 					$sql = "SELECT * FROM Projetos.area, Projetos.subsistema, Projetos.cabos, Projetos.cabos_tipos, Projetos.cabos_finalidades ";
 					$sql .= "WHERE area.id_os= '" . $_SESSION["id_os"]. "' ";
 					$sql .= "AND area.id_area = subsistema.id_area ";
@@ -1231,7 +1231,7 @@ COMP. | LOCAL </td>
 						$sql1 = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql1 .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql1 .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql1 .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql1 .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql1 .= "AND locais.id_area = area.id_area ";
 						$sql1 .= "AND locais.id_local = '".$cabos["id_origem_local"]."' ";
 						$sql1 .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -1307,7 +1307,7 @@ COMP. | LOCAL </td>
 						$sql3 = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 						$sql3 .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 						$sql3 .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-						$sql3 .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+						$sql3 .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 						$sql3 .= "AND locais.id_area = area.id_area ";
 						$sql3 .= "AND locais.id_local = '".$cabos["id_destino_local"]."' ";
 						$sql3 .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -1363,9 +1363,9 @@ COMP. | LOCAL </td>
 						  <td width="4%"><div align="center"><a href="javascript:editar('<?= $cabos["id_cabo"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="5%"><div align="center"><a href="javascript:excluir('<?= $cabos["id_cabo"] ?>','<?= $cabos["ds_origem"] . " - " .$orig["nr_area"] . " " .$orig["nr_sequencia"] . " - " . $orig["cd_trecho"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
-					// Libera a mem�ria
+					// Libera a memória
 					
 				
 				?>

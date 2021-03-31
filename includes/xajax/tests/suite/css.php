@@ -212,7 +212,7 @@ ob_start();
 			}
 			/* ]]> */
 		</style>
-<?
+<?php
 	$objTestScriptPlugin->printHeader($xajax, "Load / Unload CSS files",ob_get_clean());
 
 	ob_start();
@@ -241,7 +241,7 @@ ob_start();
 								</tr>
 							</tbody>
 						</table>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 
 	$objTestScriptPlugin->printStatusPanel();

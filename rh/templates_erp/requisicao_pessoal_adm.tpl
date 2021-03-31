@@ -28,7 +28,7 @@
 				<table width="116" rowspan="2">
 					<tr>
 						<td>
-							<div id="nr_requisicao" style="font-size:18px; color:#0099CC; font-weight:bold">&nbsp;</div>
+							<div id="nr_requisicao" style="font-size:18px; color:#0099CC; font-weight:bold"> </div>
 						</td>
 					</tr>
 					<tr>
@@ -46,11 +46,11 @@
 		<tr>
 			<td colspan="2" valign="top" class="espacamento">
 				<div id="my_tabbar" class="dhtmlxTabBar" style="height: 450px; width: 100%;">
-					<div id="a1" name="Requisi��o de Pessoal">
+					<div id="a1" name="Requisição de Pessoal">
 					  	<table border="0" width="100%">
 					  	  <tr>
 					  	    <td><label class="labels" style="float:left;">Solicitante:</label>
-					  	      <label class="labels" style="font-weight:bold;"><div id="solicitante" style="float:left;width:auto;">&nbsp;</div></label></td>
+					  	      <label class="labels" style="font-weight:bold;"><div id="solicitante" style="float:left;width:auto;"> </div></label></td>
 				  	      </tr>
 				  	    </table>
 					  	<table width="100%" cellpadding="3" cellspacing="0">
@@ -63,7 +63,7 @@
 				  	            </tr>
 					  	        <tr>
 					  	          <td><input name="tipo" type="radio" id="tipo" onclick="if(confirmar()){xajax_alterarTipoVaga(xajax.getFormValues('frm_pessoal'))};xajax.$('id_os').disabled=false; xajax.$('id_os').options[0].text='SELECIONE'; xajax.$('projeto').disabled=true; document.getElementById('btninserir').disabled=false;" value="1" />
-					  	            <label class="labels">Vaga&nbsp;efetiva</label></td>
+					  	            <label class="labels">Vaga efetiva</label></td>
 				  	            </tr>
 				  	          </table></td>
 					  	    <td width="25%" valign="top"><label class="labels">Motivo da requisição</label>
@@ -88,18 +88,18 @@
 					  	      <table width="11%" style="border-style:dashed; border-color:#999999; border-width:1px;">
 					  	        <tr>
 					  	          <td width="19%"><input id="prazo" name="prazo" type="radio" value="1" checked="checked" />
-					  	            <label class="labels">Normal:&nbsp;15&nbsp;a&nbsp;30&nbsp;dias</label></td>
+					  	            <label class="labels">Normal: 15 a 30 dias</label></td>
 				  	            </tr>
 					  	        <tr>
 					  	          <td><input id="prazo" name="prazo" type="radio" value="2"  />
-					  	            <label class="labels">Urgente:&nbsp;7&nbsp;a&nbsp;15&nbsp;dias</label></td>
+					  	            <label class="labels">Urgente: 7 a 15 dias</label></td>
 				  	            </tr>
 					  	        <tr>
 					  	          <td><input id="prazo" name="prazo" type="radio" value="3"  />
-					  	            <label class="labels">Urgent&iacute;ssimo:&nbsp;3&nbsp;a&nbsp;7&nbsp;dias</label></td>
+					  	            <label class="labels">Urgentíssimo: 3 a 7 dias</label></td>
 				  	            </tr>
 			  	            </table></td>
-					  	    <td width="11%" valign="top"><label class="labels">Tipo&nbsp;Contrato</label>
+					  	    <td width="11%" valign="top"><label class="labels">Tipo Contrato</label>
 					  	      <table width="92%" style="border-style:dashed; border-color:#999999; border-width:1px;">
 					  	        <tr>
 					  	          <td width="19%"><input id="contrato" name="contrato" type="radio" value="1" checked="checked" />
@@ -110,7 +110,7 @@
 					  	            <label class="labels">CLT</label></td>
 				  	            </tr>
 				  	          </table></td>
-					  	    <td width="33%" valign="top"><label class="labels">Categoria&nbsp;de&nbsp;contratação</label><br />
+					  	    <td width="33%" valign="top"><label class="labels">Categoria de contratação</label><br />
 					  	      <div id="div_cmbcategoria2" style="display:inline;">
 					  	        <select name="categoria_contratacao" class="caixa" id="categoria_contratacao" onchange="if(this.options[this.selectedIndex].value=='4') { mostra_outro(1, 'categoria');  } else { xajax.$('qtde_vagas').focus();}"  onkeypress="return keySort(this);">
 					  	          <option value="">SELECIONE</option>
@@ -127,7 +127,7 @@
 				  	    </table>
 					  	<table border="0" width="100%">
 						  <tr>
-							<td width="12%"><label class="labels">OS&nbsp;n&ordm;</label><br />
+							<td width="12%"><label class="labels">OS nº</label><br />
 							  <div id="div_cmbos" style="display:inline;">
 							<select name="id_os" class="caixa" id="id_os" onChange="if(this.options[this.selectedIndex].value=='outro') { mostra_outro(1,'os');xajax.$('projeto').disabled=false; } xajax_mostraDescricaoOS(this.options[this.selectedIndex].value);"  onkeypress="return keySort(this);" disabled="disabled">
 							  <option value="">SELECIONE</option>
@@ -136,14 +136,14 @@
 							</select>
 							  </div>
 							  <div id="div_txtos" style="display:none;">
-							<input type="text" id="txt_os" class="caixa" name="txt_os" onKeyUp="if(this.value){xajax.$('img_os').style.display='none';}else{xajax.$('img_os').style.display='inline'; } "><img id="img_os" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>bt_desfazer.png" style="cursor:pointer;" onclick="mostra_outro(0, 'os');xajax.$('projeto').disabled=true;" title="Voltar a selecionar uma op��o pr�-definida"></div></td>
+							<input type="text" id="txt_os" class="caixa" name="txt_os" onKeyUp="if(this.value){xajax.$('img_os').style.display='none';}else{xajax.$('img_os').style.display='inline'; } "><img id="img_os" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>bt_desfazer.png" style="cursor:pointer;" onclick="mostra_outro(0, 'os');xajax.$('projeto').disabled=true;" title="Voltar a selecionar uma opção pré-definida"></div></td>
 							<td width="88%"><label class="labels">Projeto</label><br />
 							<input name="projeto" type="text" class="caixa" id="projeto" size="80" disabled></td>
 						  </tr>
 						</table>
 						<table border="0" width="100%">
 						  <tr>
-							<td width="29%" rowspan="2"><label class="labels">Local&nbsp;de&nbsp;trabalho</label><br /> 
+							<td width="29%" rowspan="2"><label class="labels">Local de trabalho</label><br /> 
 							  <div id="div_cmblocais" style="display:inline;">
 							<select class="caixa" name="locais[]" id="locais" onChange="if(this.options[this.selectedIndex].value=='outro') { mostra_outro(1,'locais'); }" style="width: 250px;"  onkeypress="return keySort(this);" disabled="<smarty> $disabled </smarty>">
 							  <smarty>html_options values=$option_locais_values output=$option_locais_output</smarty>
@@ -151,12 +151,12 @@
 						</select>					
 							  </div>
 							  <div id="div_txtlocais" style="display:none;">
-							<input type="text" id="txt_locais" class="caixa" name="txt_locais" onKeyUp="if(this.value){xajax.$('img_locais').style.display='none';}else{xajax.$('img_locais').style.display='inline'; } "><img id="img_locais" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>bt_desfazer.png" style="cursor:pointer;" onclick="mostra_outro(0, 'locais'); " title="Voltar a selecionar uma op��o pr�-definida"></div></td>
-							<td valign="top" width="10%"><label class="labels">Qtd.de&nbsp;vagas</label><br />
+							<input type="text" id="txt_locais" class="caixa" name="txt_locais" onKeyUp="if(this.value){xajax.$('img_locais').style.display='none';}else{xajax.$('img_locais').style.display='inline'; } "><img id="img_locais" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>bt_desfazer.png" style="cursor:pointer;" onclick="mostra_outro(0, 'locais'); " title="Voltar a selecionar uma opção pré-definida"></div></td>
+							<td valign="top" width="10%"><label class="labels">Qtd.de vagas</label><br />
 								<input name="qtde_vagas" type="text" class="caixa" id="qtde_vagas" size="5" onKeyPress="num_only();" disabled="<smarty> $disabled </smarty>"></td>
-							<td valign="top" width="13%"><label class="labels">Tempo&nbsp;de&nbsp;serviço</label><br /> 
+							<td valign="top" width="13%"><label class="labels">Tempo de serviço</label><br /> 
 								<input name="tempo_servico" type="text" class="caixa" id="tempo_servico" size="10" disabled="<smarty> $disabled </smarty>"></td>
-							<td width="48%" valign="top"><label class="labels">Fun��o</label><br />
+							<td width="48%" valign="top"><label class="labels">Função</label><br />
 							  <select name="cargo" id="cargo" class="caixa" style="width: 250px;" onchange="xajax_preenche_escolaridade(this.value);"  onkeypress="return keySort(this);" disabled="<smarty> $disabled </smarty>">
 								<option value="">SELECIONE</option>
 								<smarty>html_options values=$option_cargos_values output=$option_cargos_output</smarty>
@@ -170,13 +170,13 @@
 								<table width="97%" border="0">
 									<tr>
 										<td width="180" valign="top">
-											<label class="labels">Nivel&nbsp;de&nbsp;atua��o*</label><br />
+											<label class="labels">Nivel de atuação*</label><br />
 											<select name="nivel_atuacao" class="caixa" id="nivel_atuacao" onkeypress="return keySort(this);">
 												<option value="A">P / ADM. M.O.</option>
-												<option value="D">DIRE��O</option>
-												<option value="C">COORDENA��O</option>
-												<option value="S">SUPERVIS�O</option>
-												<option value="G">GER�NCIA</option>
+												<option value="D">DIREÇÃO</option>
+												<option value="C">COORDENAÇÃO</option>
+												<option value="S">SUPERVISÃO</option>
+												<option value="G">GERÊNCIA</option>
 												<option value="E" selected="selected">EXECUTANTE / INTERNO</option>
 												<option value="P">PACOTE</option>
 											</select>
@@ -204,12 +204,12 @@
 								<table width="100%" border="0">
 									<tr>
 										<td colspan="2" width="24%">
-											<label class="labels" style='float:left;width:100%;'>Mobiliza��o *</label>
+											<label class="labels" style='float:left;width:100%;'>Mobilização *</label>
 										</td>
 									</tr>
 									<tr>
 									  	<td>
-											<label class="labels">Devemada</label><br />
+											<label class="labels"> </label><br />
 											<input type="radio" name="mobilizacao" id="mobilizacao_dvm" onclick="document.getElementById('divDetMobilizacao').style.display='';" value="0" class="caixa" />
 										</td>
 										<td width="76%">
@@ -219,7 +219,7 @@
 									</tr>
 									<tr>
 										<td colspan="2">
-											<label class="labels" style="vertical-align:middle;">Detalhes da Mobiliza��o</label><br />
+											<label class="labels" style="vertical-align:middle;">Detalhes da Mobilização</label><br />
 											<textarea name="detalhes_mobilizacao" id="detalhes_mobilizacao" rows="1" style="height: 55px;width: 160px;" cols="25" class="caixa"></textarea>
 										</td>
 									</tr>
@@ -233,17 +233,17 @@
 					<table width="100%" border="0">
 					  <tr>
 						<td valign="top" width="31%"><label class="labels">Escolaridade</label><br />
-						<div id="escolaridade" class="labels" style="font-weight:bold;">&nbsp;</div></td>
-						<td valign="top" width="25%"><label class="labels">Tempo&nbsp;experi�ncia</label><br />
-						<div id="div_experiencia" class="labels" style="font-weight:bold;">&nbsp;</div></td>
-						<td width="44%" valign="top"><label class="labels">Requisitos&nbsp;do&nbsp;cargo</label><br />
+						<div id="escolaridade" class="labels" style="font-weight:bold;"> </div></td>
+						<td valign="top" width="25%"><label class="labels">Tempo experiência</label><br />
+						<div id="div_experiencia" class="labels" style="font-weight:bold;"> </div></td>
+						<td width="44%" valign="top"><label class="labels">Requisitos do cargo</label><br />
 							<select name="requisitos_cargo" style="width:150px;" size="5"  multiple="multiple" id="requisitos_cargo" disabled="disabled"></select>
 						</td>
 					  </tr>
 					</table>					
 					<table width="100%" border="0">
 					  <tr>
-						<td><label class="labels">Experi&ecirc;ncia,&nbsp;conhecimentos,&nbsp;habilidades&nbsp;em:</label><br />
+						<td><label class="labels">Experi&ecirc;ncia, conhecimentos, habilidades em:</label><br />
                         <textarea name="experiencia" cols="100" rows="3" class="caixa" id="experiencia" disabled="<smarty> $disabled </smarty>"></textarea>
                         </td>
 					  </tr>
@@ -261,7 +261,7 @@
 					  </tr>
 					  <tr>
 						<td>
-							<label class="labels">Necessidade de Integra��o no cliente:</label><br />
+							<label class="labels">Necessidade de Integração no cliente:</label><br />
                         	<table width="100%" border="0">
                             	<tr>
                                 	<td width="5%">
@@ -269,7 +269,7 @@
                                         <input type="radio" value='1' name="integracao_cliente" class="caixa" id="integracao_cliente" />
                                     </td>
                                     <td width="95%">
-                                        <label class="labels">N�o</label><br />
+                                        <label class="labels">Não</label><br />
                                         <input type="radio" value='0' name="integracao_cliente" class="caixa" id="integracao_cliente2" />
                                     </td>
                                 </tr>
@@ -281,9 +281,9 @@
 				  <div id="a4" name="Recursos Humanos">
 				  	<table width="100%" border="0">
 					  <tr>
-						<td width="37%"><label class="labels">Nome&nbsp;do&nbsp;candidato</label><br /> 
+						<td width="37%"><label class="labels">Nome do candidato</label><br /> 
 					    	<input name="nome_candidato" type="text" class="caixa" id="nome_candidato" size="50" disabled="disabled"></td>
-						<td width="63%"><label class="labels">Valor&nbsp;(R$)</label><br />
+						<td width="63%"><label class="labels">Valor (R$)</label><br />
 					    	<input name="valor_candidato" type="text" class="caixa" id="valor_candidato" size="10" onKeyDown="FormataValor(this, 13, event);" onKeyPress="num_only();" disabled="disabled"></td>
 
 					  </tr>
@@ -293,12 +293,12 @@
                       </tr>					  
 					  <tr>
 						<td colspan="4"><div align="left">
-						  <input name="btninserir_candidato" id="btninserir_candidato" type="button" class="class_botao" value="Inserir" onClick="xajax_insereCandidatos(xajax.getFormValues('frm_pessoal')); " disabled="disabled">
+						  <input name="btninserir_candidato" id="btninserir_candidato" type="button" class="class_botao" value="Inserir" onclick="xajax_insereCandidatos(xajax.getFormValues('frm_pessoal')); " disabled="disabled">
 						</div></td>
 					    </tr>
 					  <tr>
 						<td colspan="4">
-							<div id="candidatos_div" style="width:800px;margin-top:25px;">&nbsp;</div>
+							<div id="candidatos_div" style="width:800px;margin-top:25px;"> </div>
 							<input type="button" name="btnEnviarAprovados" id="btnEnviarAprovados" onclick="xajax_enviarAprovadosFinanceiro(xajax.getFormValues('frm_pessoal'));" class="class_botao" style="display:none;" value="Enviar E-mail Aprovados ao Financeiro" />
 						</td>
 					  </tr>
@@ -323,7 +323,7 @@
 	  </tr>
 	  <tr>
 	  	<td colspan="3">
-	  		<div id="requisicoes" style="width: 100%; height: 160px;">&nbsp;</div>
+	  		<div id="requisicoes" style="width: 100%; height: 160px;"> </div>
 	  	</td>
 	  </tr>
 	 </table>

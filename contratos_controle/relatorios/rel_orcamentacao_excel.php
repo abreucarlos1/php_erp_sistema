@@ -1,9 +1,9 @@
 <?php
 /*
-	Relatório de vendas no per�odo selecionado
+	Relatório de vendas no período selecionado
 	Criado por Carlos Eduardo  
 	
-	Obs.: Este arquivo � chamado de contratos_controle/bms.php
+	Obs.: Este arquivo é chamado de contratos_controle/bms.php
 	
 	Versão 0 --> VERSÃO INICIAL : 25/06/2015
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
@@ -69,7 +69,7 @@ FROM (
 		JOIN ".DATABASE.".OS b on b.OS = a.os AND b.reg_del = 0 AND b.id_os_status IN(1,2,7,14,15,16)
 		JOIN ".DATABASE.".bms_item c on c.id_bms_pedido = a.id_bms_pedido AND c.reg_del = 0
 		LEFT JOIN ".DATABASE.".bms_medicao d on d.id_bms_item = c.id_bms_item AND d.reg_del = 0 AND data <= '".$dataTermino."'
-		JOIN ".DATABASE.".empresas e ON e.id_empresa_erp = b.id_empresa_erp AND e.reg_del = 0
+		JOIN ".DATABASE.".empresas e ON e.id_empresa = b.id_empresa AND e.reg_del = 0
 	WHERE
 		a.reg_del = 0  AND reembolso_despesa = 0 AND (a.data_pedido > '2017-01-01' OR a.os IN(SELECT os FROM ".DATABASE.".bms_excecoes WHERE bms_excecoes.reg_del = 0))
 	GROUP BY
@@ -117,7 +117,7 @@ $db->select($sql, 'MYSQL', function($reg) use(&$arrCabecalho, &$objPHPExcel){
 
 if ($db->numero_registros == 0)
 {
-    exit('<script>alert("N�o foram encontrados valores para gerar a planilha, por favor, verifique se j� � necess�rio confirmar as altera��es");history.back(-1);</script>');
+    exit('<script>alert("Não foram encontrados valores para gerar a planilha, por favor, verifique se já É necessário confirmar as alterações");history.back(-1);</script>');
 }
 
 $tmpName = md5(date('YmdHis')).'.xlsx';

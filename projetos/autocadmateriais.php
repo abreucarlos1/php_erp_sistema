@@ -1,22 +1,22 @@
-<?
+<?php
 /*
-		Formul�rio de Integra��o de dados 	
+		Formulário de Integração de dados 	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../manutencao/integracao.php
 		
-		Verifica��o de a��es:
+		Verificação de ações:
 		
 		Incluir : NOK
 		Alterar : NOK
 		Deletar : NOK
-		Permiss�es : NOK
-		Valida��es : NOK
-		Coment�rios : NOK		
+		Permissões : NOK
+		Validações : NOK
+		Comentários : NOK		
 		
-		data de cria��o: 28/06/2006
+		data de criação: 28/06/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -32,19 +32,10 @@ set_time_limit(0);
 
 session_start();
 
-//Para ativar mensagem de sistema em manuten��o
-/*
-if($_SESSION["nome_usuario"]!="OT�VIO PAMPLONA DE AZEVEDO")
-{
-	echo "";
-	exit;
-}
-*/
-
 
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]) || !$_SESSION["IMPORTACAO"]{0})
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -100,9 +91,9 @@ if($_POST["acao"]=='importar')
 			{
 			?>
 				<script>
-				alert('O arquivo selecionado n�o � v�lido.');
+				alert('O arquivo selecionado não é válido.');
 				</script>
-			<?
+			<?php
 			}
 		}
 }
@@ -111,14 +102,14 @@ if($_POST["acao"]=='importar')
 
 	?>
 		<!-- Criado por Carlos Abreu   -->
-		<!-- Formul�rio para inser��o de dados da unidade -->
+		<!-- Formulário para inserção de dados da unidade -->
 		<html>
 		<HEAD>
 		<script language="javascript" src="../includes/datetimepicker.js">
 		</script>
 		<script language="javascript" src="../includes/validacao.js">
 		</script>
-		<title>INTEGRA&Ccedil;&Atilde;O</title>
+		<title>INTEGRAÇÃO</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<script language="JavaScript" type="text/JavaScript">
 		<!--
@@ -187,16 +178,16 @@ if($_POST["acao"]=='importar')
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="33" bgcolor="#BECCD9" class="menu_superior"><? titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
+        <td height="33" bgcolor="#BECCD9" class="menu_superior"><?php titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
  	  </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? formulario() ?></td>
+        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior"> <?php formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php menu() ?></td>
       </tr>
 	  <tr>
         <td>
@@ -219,12 +210,12 @@ if($_POST["acao"]=='importar')
 				      <br>
 				    <br />
 				      <input type="hidden" name="acao" value="importar">
-				<input name="Importar" type="button" class="btn" id="Importar" value="Importar" onClick="confirmaimportacao()">
-				      <input name="Relatorio" type="button" class="btn" id="Relatorio" value="Relatório de Importa��o" onClick="location.href='../relatorios/rel_importacao.php?data_ini=<?= $data_ini ?>&datafim=<?= $datafim ?>';">
+				<input name="Importar" type="button" class="btn" id="Importar" value="Importar" onclick="confirmaimportacao()">
+				      <input name="Relatorio" type="button" class="btn" id="Relatorio" value="Relatório de Importação" onclick="location.href='../relatorios/rel_importacao.php?data_ini=<?= $data_ini ?>&datafim=<?= $datafim ?>';">
 				      
-				      <!-- <input name="Exportar" type="button" class="btn" id="Exportar" value="Exportar" onClick=""> -->
+				      <!-- <input name="Exportar" type="button" class="btn" id="Exportar" value="Exportar" onclick=""> -->
 				      
-					  <input name="Voltar" type="button" class="btn" id="Voltar" value="VOLTAR" onClick="javascript:location.href='../inicio.php';">
+					  <input name="Voltar" type="button" class="btn" id="Voltar" value="VOLTAR" onclick="javascript:location.href='../inicio.php';">
 				        </strong></font>
 			      </form></td>
 			  </tr>
@@ -233,16 +224,16 @@ if($_POST["acao"]=='importar')
 <!-- AQUI INICIO TABELA -->
 
 <tr><td>
-<?
+<?php
 	while($mostrar = each($count))
 	{
-		echo $mostrar[0]."&nbsp;";
+		echo $mostrar[0]." ";
 		echo $mostrar[1]."<br>";
 	}
 ?>
 
 
-&nbsp;</td></tr>
+ </td></tr>
     </table>
 	</div>
 	

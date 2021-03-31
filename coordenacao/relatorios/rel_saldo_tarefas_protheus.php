@@ -114,7 +114,7 @@ else
 	$filtro .= " AND ordem_servico.id_os = '". $_POST["escolhaos"] . "' ";
 }
 
-//N�o tem acesso ao combo coordenador
+//Não tem acesso ao combo coordenador
 if($_POST["escolhacoord"]=='')
 {
 	$filtro .= " AND (ordem_servico.id_cod_coord = '".$_SESSION["id_funcionario"]."' OR ordem_servico.id_coord_aux = '".$_SESSION["id_funcionario"]."') ";
@@ -163,7 +163,7 @@ $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (3,8,9,12) ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= $filtro1;
 $sql .= $filtro;
 $sql .= "GROUP BY ordem_servico.id_os ORDER BY ordem_servico.os ";
@@ -192,7 +192,7 @@ foreach($array_os as $cont_os_coord)
 	$pdf->SetLineWidth(0.3);
 	
 	/*
-	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+	//PEGA A ULTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 WITH (NOLOCK) ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFE010.AFE_PROJET = '".sprintf("%010d",$cont_os_coord["os"])."' ";
@@ -203,7 +203,7 @@ foreach($array_os as $cont_os_coord)
 	
 	$regs_ult_rev = $db->array_select[0];
 	
-	//PEGA A REVIS�O DO PROJETO
+	//PEGA A REVISÃO DO PROJETO
 	$sql = "SELECT AF8_PROJET, AF8_REVISA FROM AF8010 WITH (NOLOCK) ";
 	$sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF8010.AF8_PROJET = '".sprintf("%010d",$cont_os_coord["os"])."' ";
@@ -326,7 +326,7 @@ foreach($array_os as $cont_os_coord)
 		//Imprime EDT
 		$pdf->SetFont('Arial','B',8);
 		
-		//pega o tamanho do codigo para fazer a identa��o
+		//pega o tamanho do codigo para fazer a identação
 		$espaco = strlen(str_replace('.','',trim($codigo)));
 		
 		if(($espaco/2)>=2)
@@ -346,8 +346,8 @@ foreach($array_os as $cont_os_coord)
 		{			
 			if($edtpai==$codigo)
 			{				
-				//OBTEM OS HORAS (ULTIMA REVIS�O OR�AMENTO)
-				//OBTEM A SOMA DAS HORAS DOS RECURSOS ALOCADOS NA TAREFA (ULTIMA REVIS�O)				
+				//OBTEM OS HORAS (ULTIMA REVISÃO ORÇAMENTO)
+				//OBTEM A SOMA DAS HORAS DOS RECURSOS ALOCADOS NA TAREFA (ULTIMA REVISÃO)				
 				$sql = "SELECT SUM(AFA_QUANT) AS AF9_HESF FROM AFA010 WITH (NOLOCK), AE8010 WITH (NOLOCK) ";
 				$sql .= "WHERE AFA010.D_E_L_E_T_ = '' ";
 				$sql .= "AND AE8010.D_E_L_E_T_ = '' ";
@@ -360,7 +360,7 @@ foreach($array_os as $cont_os_coord)
 				
 				$cont_custo_prev = $db->array_select[0];
 				
-				//OBTEM OS HORAS (ULTIMA REVIS�O)
+				//OBTEM OS HORAS (ULTIMA REVISÃO)
 				$sql = "SELECT * FROM AF9010 ";
 				$sql .= "WHERE AF9010.D_E_L_E_T_ = '' ";
 				$sql .= "AND AF9010.AF9_PROJET = '".$regs_os["AF8_PROJET"]."' ";
@@ -376,7 +376,7 @@ foreach($array_os as $cont_os_coord)
 				
 				$cont_custo_rel = $db->array_select[0];
 				
-				//OBTEM O AVAN�O F�SICO DA TAREFA (REALIZADO)
+				//OBTEM O AVANÇO FÍSICO DA TAREFA (REALIZADO)
 				$sql = "SELECT AFF010.AFF_QUANT FROM AFF010 WITH (NOLOCK) ";
 				$sql .= "WHERE AFF010.D_E_L_E_T_ = '' ";
 				$sql .= "AND AFF010.AFF_PROJET = '".$cont_custo_rel["AF9_PROJET"]."' ";
@@ -404,12 +404,12 @@ foreach($array_os as $cont_os_coord)
 				$pdf->Cell(5+$espaco,3,'',0,0,'L',0);
 				$pdf->HCell(135-$espaco,3,trim($array_tarefa[$tarefa]),0,0,'L',0);
 				
-				//% avan�o				
+				//% avanço				
 				$percentual_avanco = ($cont_avn["AFF_QUANT"]/$cont_custo_rel["AF9_QUANT"])*100;
 				
 				$pdf->HCell(20,3,number_format($percentual_avanco,2,",","")." %",0,0,'R',0);
 				
-				//HORAS ESFOR�O
+				//HORAS ESFORÇO
 				$pdf->HCell(25,3,number_format($cont_custo_prev["AF9_HESF"],2,",",""),0,0,'R',0);
 				
 					
@@ -435,7 +435,7 @@ foreach($array_os as $cont_os_coord)
 				
 				$pdf->SetFont('Arial','',8);
 				
-				//OBTEM OS RECURSOS ALOCADOS NA TAREFA (ULTIMA REVIS�O)				
+				//OBTEM OS RECURSOS ALOCADOS NA TAREFA (ULTIMA REVISÃO)				
 				$sql = "SELECT * FROM AFA010 WITH (NOLOCK), AE8010 WITH (NOLOCK) ";
 				$sql .= "WHERE AFA010.D_E_L_E_T_ = '' ";
 				$sql .= "AND AE8010.D_E_L_E_T_ = '' ";
@@ -504,7 +504,7 @@ foreach($array_os as $cont_os_coord)
 	}
 	
 	
-	//OBTEM O AVAN�O F�SICO DO PROJETO
+	//OBTEM O AVANÇO FÍSICO DO PROJETO
 	$sql = "SELECT AFQ010.AFQ_QUANT FROM AFQ010 WITH (NOLOCK) ";
 	$sql .= "WHERE AFQ010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFQ010.AFQ_PROJET = '".$regs_os["AF8_PROJET"]."' ";

@@ -26,13 +26,13 @@
             <table border="0" width="100%">
 			  <tr>
 					<td width="21%"><label class="labels"><smarty>$campo[2]</smarty></label><br />
-					 <div id="rotulo_projeto" class="labels" style="width:150px;">&nbsp;</div>
+					 <div id="rotulo_projeto" class="labels" style="width:150px;"> </div>
                 </td>
 				<td width="20%"><label for="numcliente" class="labels"><smarty>$campo[3]</smarty></label><br />
-						<input name="numcliente" type="text" class="caixa" placeholder="Número Cliente" id="numcliente">
+						<input name="numcliente" type="text" class="caixa" placeholder="NÂºmero Cliente" id="numcliente">
     			</td>
 					<td width="10%"><label for="cod_cliente" class="labels"><smarty>$campo[4]</smarty></label><br />
-						<input name="cod_cliente" type="text" class="caixa" placeholder="Código Cliente" id="cod_cliente" size="10" maxlength="11">
+						<input name="cod_cliente" type="text" class="caixa" placeholder="CÃ³digo Cliente" id="cod_cliente" size="10" maxlength="11">
                       </td>
 		     	 <td width="49%"><label for="complemento" class="labels"><smarty>$campo[5]</smarty></label>
 		        	<input name="complemento" type="text" class="caixa" id="complemento" placeholder="Complemento" size="50"></td>
@@ -59,7 +59,7 @@
             <table width="100%" border="0">
               <tr>
                 <td width="57%"><label for="observacao" class="labels"><smarty>$campo[10]</smarty></label><br />
-                 <input name="observacao" type="text" class="caixa" placeholder="Observação" id="observacao" size="70" />                    
+                 <input name="observacao" type="text" class="caixa" placeholder="ObservaÃ§Ã£o" id="observacao" size="70" />                    
                 </td>
 		      <td width="10%"><label for="numfolhas" class="labels"><smarty>$campo[7]</smarty></label><br />
                 <input name="numfolhas" type="text" class="caixa" id="numfolhas" placeholder="Folhas" size="5" /></td>
@@ -112,7 +112,7 @@
            </table></td>
         </tr>
       </table>
-	  <div id="div_grid" style="width:100%;">&nbsp;</div>
+	  <div id="div_grid" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

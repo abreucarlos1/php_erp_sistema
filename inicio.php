@@ -22,7 +22,7 @@ require_once(INCLUDE_DIR."include_form.inc.php"); //ok
 
 require_once(INCLUDE_DIR."encryption.inc.php"); //ok
 
-setcookie("userdvm",$_SESSION["login"],time()+60*60*24*180);
+setcookie("user",$_SESSION["login"],time()+60*60*24*180);
 
 function checaPreenchimento($dias)
 {
@@ -79,7 +79,7 @@ function checaPreenchimento($dias)
 		if($dias!=0)
 		{
 			//MONTA O ARRAY COM OS FERIADOS NACIONAIS
-            //EXCESSES AO CALEND�RIO - N�O PODER� TER APONTAMENTO
+            //EXCESSES AO CALENDÁRIO - NÃO PODERÁ TER APONTAMENTO
            
 			$sql = "SELECT AFY_DATA, AFY_DATAF FROM AFY010 WITH (NOLOCK) ";
 			$sql .= "WHERE D_E_L_E_T_ = '' ";
@@ -97,7 +97,7 @@ function checaPreenchimento($dias)
 
 			foreach($db->array_select as $regs)
 			{				
-				//N� DE DIAS entre as datas
+				//Nº DE DIAS entre as datas
 				$dias_corridos = dif_datas(mysql_php(protheus_mysql($regs["AFY_DATA"])),mysql_php(protheus_mysql($regs["AFY_DATAF"])));
 				
 				$data_np = mysql_php(protheus_mysql($regs["AFY_DATA"]));
@@ -149,7 +149,7 @@ function checaPreenchimento($dias)
 			
 			if($db->numero_registros<$num_dias)
 			{
-				$retorna = 1; //controle horas n�o preenchido				
+				$retorna = 1; //controle horas não preenchido				
             }
             
            
@@ -266,7 +266,7 @@ function tela()
 				$linhas = FALSE;
 			}
 			
-			$conteudo .= '<td class="tabela_body" align="center"><input class="'.$class_botao.'" type="button" name="'.$cont["id_sub_modulo"].'" id="'.$cont["id_sub_modulo"].'" value="'.str_replace(" ","&nbsp;",$cont["sub_modulo"]).'" onclick=xajax_monta_tela("'.$cont["id_sub_modulo"].'"); '.$enabled.' /></td>';
+			$conteudo .= '<td class="tabela_body" align="center"><input class="'.$class_botao.'" type="button" name="'.$cont["id_sub_modulo"].'" id="'.$cont["id_sub_modulo"].'" value="'.str_replace(" "," ",$cont["sub_modulo"]).'" onclick=xajax_monta_tela("'.$cont["id_sub_modulo"].'"); '.$enabled.' /></td>';
 			
 			$colunas++;
 			
@@ -415,6 +415,24 @@ $xajax->registerFunction("atualiza");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
+
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V6");
+
+$smarty->assign("campo",$conf->campos('inicio'));
+
+$smarty->assign("body_onload","xajax_tela();");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
+
+//utilizado no bloqueio do apontamento 
+//$smarty->assign("preenchido",checaPreenchimento(5));
+
+$smarty->display("inicio.tpl");
+
 ?>
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
@@ -451,9 +469,9 @@ function troca_senha(login,id_usuario)
     conteudo += '<input name="id_usuario" id="id_usuario" type="hidden"  value="'+id_usuario+'"/>';
 	conteudo += '<label for="senha" class="labels">Senha</label><br />';
     conteudo += '<input name="senha" type="password" class="caixa" id="senha" onKeyPress=limpa_div("mensagem"); size="30" /><br >';
-	conteudo += '<label for="confsenha" class="labels">Confirme&nbsp;a&nbsp;senha</label><br />';
+	conteudo += '<label for="confsenha" class="labels">Confirme a senha</label><br />';
     conteudo += '<input name="confsenha" type="password" class="caixa" id="confsenha" size="30" onblur=xajax_validar_senha(xajax.getFormValues("frm_pass")); /><br />';
-	conteudo += '<div class="alerta_erro" id="mensagem">&nbsp;</div><br />';
+	conteudo += '<div class="alerta_erro" id="mensagem"> </div><br />';
 	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_atualiza(xajax.getFormValues("frm_pass")); value="Alterar" />';
 	conteudo += '</form>';
 
@@ -463,20 +481,3 @@ function troca_senha(login,id_usuario)
 }
 
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V6");
-
-$smarty->assign("campo",$conf->campos('inicio'));
-
-$smarty->assign("body_onload","xajax_tela();");
-
-$smarty->assign("classe",CSS_FILE);
-
-//utilizado no bloqueio do apontamento 
-//$smarty->assign("preenchido",checaPreenchimento(5));
-
-$smarty->display("inicio.tpl");
-?>

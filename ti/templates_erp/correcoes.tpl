@@ -57,7 +57,7 @@
 								<select id='login' name='login' class="caixa" onchange="xajax_carrega_senha(this.value);">
 									<option>Escolha um usuario...</option>
 									<smarty>while $usu = mysqli_fetch_assoc($usuarios)</smarty>
-										<option value="<smarty>$usu['Login']</smarty>"><smarty>$usu['funcionario']</smarty> - <smarty>sprintf('%05d', $usu['CodFuncionario'])</smarty></option>
+										<option value="<smarty>$usu['login']</smarty>"><smarty>$usu['funcionario']</smarty> - <smarty>sprintf('%05d', $usu['CodFuncionario'])</smarty></option>
 									<smarty>/while</smarty>
 								</select>
 							</td>
@@ -68,6 +68,6 @@
         </table>
     </form>
     <div align="left"><sub><i>* Para realizar alteracoes, altere o valor do campo e clique fora do formulario.</i></sub></div>
-    <div id="div_lista" style="width:100%;padding:2px;">&nbsp;</div>
+    <div id="div_lista" style="width:100%;padding:2px;"> </div>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

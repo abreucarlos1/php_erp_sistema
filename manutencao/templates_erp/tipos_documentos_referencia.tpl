@@ -25,12 +25,12 @@
                       <smarty>html_options values=$option_setor_values output=$option_setor_output</smarty>
                   </select>
                   <input type="hidden" name="id_tipo" id="id_tipo" value="" /></td>
-				  <td width="17%"><label for="id_tipo_ref" class="labels">Tipo&nbsp;Doc.&nbsp;Referência:</label><br />
+				  <td width="17%"><label for="id_tipo_ref" class="labels">Tipo Doc. Referência:</label><br />
                     <select name="id_tipo_ref" class="caixa"  id="id_tipo_ref" onkeypress="return keySort(this);">
                       <option value="">SELECIONE</option>
                       <smarty>html_options values=$option_tipo_values output=$option_tipo_output</smarty>
                   </select></td>
-					<td width="37%"><label for="tipo_doc" class="labels">Documento&nbsp;Referência</label><br />
+					<td width="37%"><label for="tipo_doc" class="labels">Documento Referência</label><br />
                     <input name="tipo_doc" type="text" class="caixa" id="tipo_doc" placeholder="Tipo documento" size="40" /></td>
 					<td width="33%"><label for="abreviacao" class="labels">Abreviação</label><br />
                     <input name="abreviacao" type="text" class="caixa" id="abreviacao" size="10" placeholder="Abreviação" maxlength="3" /></td>
@@ -45,7 +45,7 @@
 			</table></td>
         </tr>
       </table>
-    <div id="setores" style="width:100%;">&nbsp;</div>
+    <div id="setores" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

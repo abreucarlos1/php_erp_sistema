@@ -160,7 +160,7 @@ function mostra_dadosfat(div)
 		
 		//Define as propriedades do <DIV> do objeto obj_dadosfat
 		obj_dadosfat.id = 'div_dadosfat';
-		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR>&nbsp;<BR>';
+		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR> <BR>';
 		obj_dadosfat.style.background = "#EEEEEE";
 		obj_dadosfat.style.position = "absolute";
 		obj_dadosfat.style.left = '-50px';
@@ -220,7 +220,7 @@ $conteudo_d .= "<div class='label2'>";
 $conteudo_d .= "26/01/2020 á 25/02/2020";
 $conteudo_d .= "</div>";
 
-//Fun��o
+//Função
 $conteudo_d .= "<div class='label1'>Função:</div>";
 $conteudo_d .= "<div class='label2'>";
 $conteudo_d .= "XXXXXXXXXXXX";
@@ -253,7 +253,7 @@ $conteudo_d .= "<div class='label2'>";
 $conteudo_d .= "0:00";
 $conteudo_d .= "</div>";
 	
-//Medi��o
+//Medição
 $conteudo_d .= "<div class='label1'>Medição:</div>";
 $conteudo_d .= "<div class='label2'>R$ ";
 $conteudo_d .= "0,00";
@@ -268,12 +268,12 @@ $conteudo_n .= "<div class='label2'>R$ ";
 $conteudo_n .= "0,00";
 $conteudo_n .= "</div>";
 
-//data emiss�o  
+//data emissão  
 $conteudo_n .= "<div class='label5'>Data de Emissão:</div>";
 $conteudo_n .= "<div class='label2'>(Data de emissão: de hoje até 28/02/2020)</div>";
 
-//Bot�o Dados Devemada
-$conteudo_n .= "<div id='div'  style='position:relative; background-color:#CCC; border-style:outset; border-width:1px; text-align:center; cursor:hand;  margin-top: 1px; margin-bottom: 10px;' onClick='mostra_dadosfat(this);'>DADOS P/ FATURAMENTO</div>";
+//Botão Dados  
+$conteudo_n .= "<div id='div'  style='position:relative; background-color:#CCC; border-style:outset; border-width:1px; text-align:center; cursor:hand;  margin-top: 1px; margin-bottom: 10px;' onclick='mostra_dadosfat(this);'>DADOS P/ FATURAMENTO</div>";
 
 
 //DADOS DE IMPOSTOS
@@ -285,8 +285,8 @@ $conteudo_n .= "<div class='label2'>R$ ";
 $conteudo_n .= "0,00";
 $conteudo_n .= "</div>";
 
-$conteudo_n .= "<div>&nbsp;</div>";
-$conteudo_n .= "<div>&nbsp;</div>";
+$conteudo_n .= "<div> </div>";
+$conteudo_n .= "<div> </div>";
 
 
 //PIS
@@ -345,10 +345,10 @@ $conteudo_n .= "<div class='label2'>Fechamento parcial</div>";
           <td width="50%"  valign="top"><?php echo $header.$conteudo_n.$footer ?></td>
         </tr>
         <tr>
-          <td colspan="2" valign="top" align="right">&nbsp;</td>
+          <td colspan="2" valign="top" align="right"> </td>
         </tr>
         <tr>
-          <td colspan="2" valign="top"><input class="class_botao" type="button" name="button" id="button" value="Fechar" onClick="window.close();"></td>
+          <td colspan="2" valign="top"><input class="class_botao" type="button" name="button" id="button" value="Fechar" onclick="window.close();"></td>
         </tr>
       </table>
           

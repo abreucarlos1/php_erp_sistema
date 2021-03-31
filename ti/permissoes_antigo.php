@@ -1,4 +1,4 @@
-<?
+<?php
 
 require("../includes/include_form.inc.php");
 
@@ -19,7 +19,7 @@ if($_POST["incluir"]=="incluir")
 	{
 		$modulo = $cont["Modulo"];
 		
-		// Concatena a opera��o com o modulo
+		// Concatena a operação com o modulo
 		$V = "V" . $modulo;
 		$E = "E" . $modulo;
 		$D = "D" . $modulo;
@@ -33,10 +33,10 @@ if($_POST["incluir"]=="incluir")
 		if(!($_POST[$A])){$acrescentar='0';}else{$acrescentar='1';}
 		if(!($_POST[$I])){$imprimir='0';}else{$imprimir='1';}
 		 
-		// Gera os atributos concatenando as opera��es
+		// Gera os atributos concatenando as operações
 		$atributos = $visualizar . $editar . $deletar . $acrescentar . $imprimir;
 		
-		// Seleciona as permiss�es do funcionario e qual modulo ele possue
+		// Seleciona as permissões do funcionario e qual modulo ele possue
 		$sql = "SELECT * FROM ".DATABASE.".Acesso WHERE id_usuario = '". $_POST["funcionario"] ."' AND Modulo = '".$modulo."' ";
 		
 		$regacesso = $db->select($sql,'MYSQL');
@@ -59,13 +59,13 @@ if($_POST["incluir"]=="incluir")
 		}
 		else
 		{
-			$incsql = "INSERT INTO ".DATABASE.".Acesso ";
-			$incsql .= "(id_usuario, Modulo, Atributos) ";
-			$incsql .= "VALUES ('". $_POST["funcionario"] ."', ";
-			$incsql .= "'".$modulo."', ";
-			$incsql .= "'".$atributos."') ";
+			$isql = "INSERT INTO ".DATABASE.".Acesso ";
+			$isql .= "(id_usuario, Modulo, Atributos) ";
+			$isql .= "VALUES ('". $_POST["funcionario"] ."', ";
+			$isql .= "'".$modulo."', ";
+			$isql .= "'".$atributos."') ";
 			//Carrega os registros
-			$db->insert($incsql,'MYSQL');			
+			$db->insert($isql,'MYSQL');			
 		}		
 	}
 
@@ -73,14 +73,14 @@ if($_POST["incluir"]=="incluir")
 		<script>
 			alert('Registro alterado com sucesso.')
 		</script>
-	<?	
+	<?php	
 }
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Permiss�es - v1</title>
+<title>Permissões - v1</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php $xajax->printJavascript(XAJAX_DIR); // output the xajax javascript. This must be called between the head tags ?>
@@ -126,9 +126,9 @@ function altera()
 <form name="alter" action="<?= $PHP_SELF ?>" method="post" target="_parent">
 <table width="100%" height="54" border="1" cellpadding="0" cellspacing="0" bordercolor="#000000" bgcolor="#FFFFFF">
   <?php
-  	// Preenche o combobox com os funcion�rios ativos
+  	// Preenche o combobox com os funcionários ativos
 	$sql = "SELECT id_usuario,funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	$sql .= "ORDER BY funcionario ";
 	
@@ -139,12 +139,12 @@ function altera()
   <tr> 
 		<td><select name="funcionario"  id="funcionario" onChange="altera()">
 		  <option value="-1">Selecione</option> 
-		  <?
+		  <?php
 		  	while ($cont = mysqli_fetch_assoc($registro))
 				{
 		?>
-					<option value="<?= $cont["id_usuario"] ?>" <? if ($_POST["funcionario"]==$cont["id_usuario"]){echo "selected";} ?>><?= $cont["funcionario"] ?></option>
-			<?
+					<option value="<?= $cont["id_usuario"] ?>" <?php if ($_POST["funcionario"]==$cont["id_usuario"]){echo "selected";} ?>><?= $cont["funcionario"] ?></option>
+			<?php
 				}
 			?>
 		</select></td>
@@ -186,7 +186,7 @@ function altera()
 		
 		$modulo = $cont["Modulo"];
 		
-		// Seleciona os modulos correspondentes ao funcionario e obt�m os atributos
+		// Seleciona os modulos correspondentes ao funcionario e obtém os atributos
 		$sql2 = "SELECT * FROM ".DATABASE.".Acesso WHERE id_usuario='". $_POST["funcionario"] ."' AND Modulo='".$modulo."' ";
 		
 		$regs = $db->select($sql2,'MYSQL');
@@ -200,11 +200,11 @@ function altera()
 	<td ><?= $modulo ?></td>
 	
 	<!-- Seleciona os atributos correspondentes ao modulo -->
-	<td ><input name="V<?= $modulo ?>" type="checkbox" id="chk" value="1" <? if ($atributos{0}==1){echo 'checked'; } ?>></td>
-	<td ><input name="E<?= $modulo ?>" type="checkbox" id="chk" value="1" <? if ($atributos{1}==1){echo 'checked'; } ?>></td>
-	<td ><input name="D<?= $modulo ?>" type="checkbox" id="chk" value="1" <? if ($atributos{2}==1){echo 'checked'; } ?>></td>
-	<td ><input name="A<?= $modulo ?>" type="checkbox" id="chk" value="1" <? if ($atributos{3}==1){echo 'checked'; } ?>></td>
-	<td ><input name="I<?= $modulo ?>" type="checkbox" id="chk" value="1" <? if ($atributos{4}==1){echo 'checked'; } ?>></td>
+	<td ><input name="V<?= $modulo ?>" type="checkbox" id="chk" value="1" <?php if ($atributos{0}==1){echo 'checked'; } ?>></td>
+	<td ><input name="E<?= $modulo ?>" type="checkbox" id="chk" value="1" <?php if ($atributos{1}==1){echo 'checked'; } ?>></td>
+	<td ><input name="D<?= $modulo ?>" type="checkbox" id="chk" value="1" <?php if ($atributos{2}==1){echo 'checked'; } ?>></td>
+	<td ><input name="A<?= $modulo ?>" type="checkbox" id="chk" value="1" <?php if ($atributos{3}==1){echo 'checked'; } ?>></td>
+	<td ><input name="I<?= $modulo ?>" type="checkbox" id="chk" value="1" <?php if ($atributos{4}==1){echo 'checked'; } ?>></td>
 </tr>
 <?php
 }
@@ -212,7 +212,7 @@ function altera()
 ?>
 </table>
 <input type="hidden" name="incluir" value="incluir">
-<input type="button" name="selecionar" id="botao" value="Selecionar Todos"onClick="sel()">
+<input type="button" name="selecionar" id="botao" value="Selecionar Todos"onclick="sel()">
 <input type="submit" name="ok" value="Alterar">
 </form>
 

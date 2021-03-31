@@ -24,8 +24,8 @@ function checaSessao()
 	if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 	{
 
-		$resposta->addAlert("A sess�o expirou. � necess�rio efetuar o login novamente. ");
-		// Usu�rio n�o logado! Redireciona para a p�gina de login
+		$resposta->addAlert("A sessão expirou. É necessário efetuar o login novamente. ");
+		// Usuário não logado! Redireciona para a página de login
 		$resposta->addRedirect("../index.php?pagina=" . $_SERVER['PHP_SELF']);
 
 	}
@@ -69,7 +69,7 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'));
 
 ?>
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <?
@@ -82,7 +82,7 @@ $array_os_values[] = "-1";
 $array_os_output[] = "TODOS AS OS";
 
 $sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 $sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "AND ordem_servico_status.os_status NOT LIKE 'ENCERRADA' ";
 $sql .= "AND ordem_servico_status.os_status NOT LIKE 'AS BUILT' ";

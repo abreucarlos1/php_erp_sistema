@@ -9,30 +9,30 @@
 					<td valign="middle" class="fundo_cinza" ><input name="btnvoltar" id="btnvoltar" type="button" class="botao_chanfrado" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
-          <td width="132" rowspan="2" >&nbsp;</td>
-          <td colspan="2">&nbsp;</td>
-          <td width="6" rowspan="3" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td width="132" rowspan="2" > </td>
+          <td colspan="2"> </td>
+          <td width="6" rowspan="3" class="<smarty>$classe</smarty>"> </td>
         </tr>        
         <tr>
           <td colspan="2" valign="top" class="borda_alto borda_esquerda">
 		    <table width="100%" border="0" style="margin-bottom:100px">
             
             <tr class="botao_cinza_larg_1" align="center">
-              <td width="33%"><input name="Button1" type="button" class="botao_cinza_larg_1" value="BOT&Atilde;O 1" onclick="xajax_chamapagina('ramoatuacao')"  /></td>
-              <td width="33%"><input name="Button5" type="button" class="botao_cinza_larg_1" value="BOT&Atilde;O 2" onclick="xajax_chamapagina('atividades')" /></td>
-              <td width="33%"><input name="Button10" type="button" class="botao_cinza_larg_1" value="BOT&Atilde;O 3" onclick="xajax_chamapagina('setores')" /></td>
+              <td width="33%"><input name="Button1" type="button" class="botao_cinza_larg_1" value="BOTÃO 1" onclick="xajax_chamapagina('ramoatuacao')"  /></td>
+              <td width="33%"><input name="Button5" type="button" class="botao_cinza_larg_1" value="BOTÃO 2" onclick="xajax_chamapagina('atividades')" /></td>
+              <td width="33%"><input name="Button10" type="button" class="botao_cinza_larg_1" value="BOTÃO 3" onclick="xajax_chamapagina('setores')" /></td>
             </tr>
             <tr class="botao_cinza_larg_2" align="center">
-              <td><input name="Button15" type="button" class="botao_cinza_larg_2" value="BOT&Atilde;O 4" onclick="xajax_chamapagina('alt_controlehoras')" /></td>
-              <td><input name="Button20" type="button" class="botao_cinza_larg_2" value="BOT&Atilde;O 5" onclick="xajax_chamapagina('controlehoras_ext')" /></td>
-              <td><input name="Button25" type="button" class="botao_cinza_larg_2" value="BOT&Atilde;O 6" onclick="xajax_chamapagina('feriados')" /></td>
+              <td><input name="Button15" type="button" class="botao_cinza_larg_2" value="BOTÃO 4" onclick="xajax_chamapagina('alt_controlehoras')" /></td>
+              <td><input name="Button20" type="button" class="botao_cinza_larg_2" value="BOTÃO 5" onclick="xajax_chamapagina('controlehoras_ext')" /></td>
+              <td><input name="Button25" type="button" class="botao_cinza_larg_2" value="BOTÃO 6" onclick="xajax_chamapagina('feriados')" /></td>
             </tr>
           </table>		    </td>
         </tr>
         
         <tr>
-          <td class="fundo_azul">&nbsp;</td>
-          <td colspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td class="fundo_azul"> </td>
+          <td colspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>
       </table>
 </form>

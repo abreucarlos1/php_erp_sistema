@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Menu Materiais
+	Formulário de Menu Materiais
 	
 	Criado por Carlos Abreu  
 	
@@ -17,7 +17,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(25))
 {
@@ -28,7 +28,7 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-$smarty->assign("body_onload","xajax_monta_menu(25);"); //M�DULO RECURSOS HUMANOS
+$smarty->assign("body_onload","xajax_monta_menu(25);"); //MÓDULO RECURSOS HUMANOS
 
 $conf = new configs();
 

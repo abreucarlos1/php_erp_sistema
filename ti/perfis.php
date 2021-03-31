@@ -148,7 +148,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("&nbsp;,ID,MODULO");
+	mygrid.setHeader(" ,ID,MODULO");
 	mygrid.setInitWidths("50,50,*");
 	mygrid.setColAlign("left,left,left");
 	mygrid.setColTypes("ro,ro,ro");
@@ -176,7 +176,7 @@ $sql = "SELECT
 			JOIN(
 				SELECT id_funcionario, id_usuario, email FROM ".DATABASE.".usuarios #WHERE reg_del = 0
 			) usuarios
-			ON usuarios.id_funcionario = funcionarios.id_funcionario
+			ON usuarios.id_usuario = funcionarios.id_usuario
 		WHERE
 			reg_del = 0
 		ORDER BY

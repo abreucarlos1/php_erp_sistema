@@ -45,7 +45,7 @@ function eXcell_link(cell){
 	}
 	this.setValue = function(val){
 		if((typeof(val)!="number") && (!val || val.toString()._dhx_trim()=="")){		
-			this.setCValue("&nbsp;",valsAr);			
+			this.setCValue(" ",valsAr);			
 			return (this.cell._clearCell=true);
 		}
 		var valsAr = val.split("^");

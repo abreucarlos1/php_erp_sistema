@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de ESCOLHA DE �REAS PARA ESPEC. TEC.	
+		Formulário de ESCOLHA DE ÁREAS PARA ESPEC. TEC.	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/rel_escolhaarea.php
 		
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -36,14 +36,14 @@ $db = new banco_dados;
 
 <html>
 <head>
-<title>: : . ESPECIFICA&Ccedil;&Atilde;O T&Eacute;CNICA / &Aacute;REA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA / ÁREA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
-<!-- Javascript para declara��o de vari�veis / checagem do estilo - MAC/PC -->
+<!-- Javascript para declaração de variáveis / checagem do estilo - MAC/PC -->
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 function enviar(area, relatorio)
@@ -57,7 +57,7 @@ function enviar(area, relatorio)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -99,10 +99,10 @@ a:active {
         <td height="33" bgcolor="#000099" class="menu_superior"></td>
  	  </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
       </tr>
@@ -110,42 +110,42 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="13%">&nbsp;</td>
-              <td width="17%">&nbsp;</td>
-              <td width="20%">&nbsp;</td>
-              <td width="13%">&nbsp;</td>
-              <td width="13%">&nbsp;</td>
-              <td width="9%">&nbsp;</td>
-              <td width="15%">&nbsp;</td>
+              <td width="13%"> </td>
+              <td width="17%"> </td>
+              <td width="20%"> </td>
+              <td width="13%"> </td>
+              <td width="13%"> </td>
+              <td width="9%"> </td>
+              <td width="15%"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td colspan="7" align="center" class="kks_nivel1">ESCOLHA A &Aacute;REA / RELAT&Oacute;RIO </td>
+              <td colspan="7" align="center" class="kks_nivel1">ESCOLHA A ÁREA / RELATÓRIO </td>
               </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
-              <td class="label1">&Aacute;REA</td>
+              <td class="btn"> </td>
+              <td class="label1">ÁREA</td>
               <td class="label1">DOCUMENTO</td>
-              <td class="label1">N&deg; DVM </td>
+              <td class="label1">N&deg; INT </td>
               <td class="label1">N&deg; CLIENTE </td>
-              <td class="label1">REVIS&Atilde;O</td>
-              <td class="btn">&nbsp;</td>
+              <td class="label1">REVISÃO</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <!-- onChange="enviar(this[selectedIndex].value)" -->
 				<select name="area" id="area" class="txt_box" >
                   <option value="">SELECIONE</option>
-				  <?
+				  <?php
 						  	$sql = "SELECT * FROM Projetos.area ";
 							$sql .= "WHERE os = '" .$_SESSION["os"] . "' ";
 							
@@ -154,19 +154,19 @@ a:active {
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                  					<option value="<?= $regs["id_area"] ?>"<? if($regs["id_area"]==$_POST["area"]){echo 'selected';} ?>>
+                  					<option value="<?= $regs["id_area"] ?>"<?php if($regs["id_area"]==$_POST["area"]){echo 'selected';} ?>>
                     				<?= $regs["nr_area"]. " " .$regs["ds_area"]. " " .$regs["ds_divisao"] ?>
                     				</option>
-                  					<?
+                  					<?php
 								}
 				  ?>
                 </select>
               </font><br></td>
               <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="relatorio" class="txt_box" id="relatorio" >
-                  <option value="rel_espec_tec_area.php">ESPECIFICA��O T�CNICA</option>
+                  <option value="rel_espec_tec_area.php">ESPECIFICAÇÃO TÉCNICA</option>
                   <option value="rel_lista_componentes_area.php">LISTA DE COMPONENTES</option>
-                  <option value="rel_espec_hardware.php">ESPECIFICA��O DE HARDWARE</option>
+                  <option value="rel_espec_hardware.php">ESPECIFICAÇÃO DE HARDWARE</option>
                   <option value="listamalhas.php">LISTA DE MALHAS</option>
                                 </select>
               </font></td>
@@ -179,39 +179,39 @@ a:active {
               <td class="btn"><span class="label1">
                 <input name="versao_documento" type="text" class="txt_boxcap" id="versao_documento" value="<?= $_POST["versao_documento"] ?>" size="10">
               </span></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td colspan="5" class="btn"><input type="hidden" name="acao" id="acao" value="envia">
-                <input type="button" name="Submit" value="OK" onClick="enviar(document.forms[0].area.value,document.forms[0].relatorio.value)"></td>
-              <td class="btn">&nbsp;</td>
+                <input type="button" name="submit" value="OK" onclick="enviar(document.forms[0].area.value,document.forms[0].relatorio.value)"></td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td colspan="5" class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td colspan="5" class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td colspan="7" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:history.back();"></td>
+              <td colspan="7" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:history.back();"></td>
               </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

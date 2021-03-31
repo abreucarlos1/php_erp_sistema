@@ -867,7 +867,7 @@ dhtmlx.chart.radar = {
             p = this._getPositionByAngle(angles[i],x,y,radius);
 	        if(configX.lines.call(this,data[i],i))
                 this._drawLine(ctx,x,y,p.x,p.y,(configX?configX.lineColor.call(this,data[i]):"#cfcfcf"),1);
-            this._drawRadarScaleLabel(ctx,x,y,radius,angles[i],(configX?configX.template.call(this,data[i]):"&nbsp;"));
+            this._drawRadarScaleLabel(ctx,x,y,radius,angles[i],(configX?configX.template.call(this,data[i]):" "));
         }
 
     },

@@ -43,14 +43,14 @@
 	$conteudo .= "<td align=\"right\" colspan=\"7\">Emissão: " . date("d/m/Y") . "</td>";
 	$conteudo .= "</tr>";
 
-	//CABE�ALHO
+	//CABEÇALHO
 	$conteudo .= "<tr>";
 	$conteudo .= "<td align=\"left\"><b>Responsável</b></td>";
 	$conteudo .= "<td align=\"left\"><b>Função</b></td>";
 	$conteudo .= "<td align=\"left\"><b>Empresa</b></td>";
 	$conteudo .= "<td align=\"left\"><b>CNPJ</b></td>";
 	$conteudo .= "<td colspan=\"2\" align=\"left\"><b>CNAE</b></td>";
-	$conteudo .= "<td align=\"left\"><b>Incide&nbsp;imposto</b></td>";
+	$conteudo .= "<td align=\"left\"><b>Incide imposto</b></td>";
 	$conteudo .= "</tr>";
 	
 	$sql = "SELECT *, rh_funcoes.descricao AS descricao FROM ".DATABASE.".empresa_funcionarios ";
@@ -72,7 +72,7 @@
 		}
 		else
 		{
-			$imp = "N�O";		
+			$imp = "NÃO";		
 		}
 		
 		$conteudo .= "<tr>";

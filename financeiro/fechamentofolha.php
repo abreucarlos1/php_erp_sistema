@@ -103,7 +103,7 @@ function envia_email($id_fechamento)
 	$sql = "SELECT * FROM ".DATABASE.".fechamento_folha, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 	$sql .= "WHERE fechamento_folha.id_fechamento = '".$id_fechamento."' ";
 	$sql .= "AND fechamento_folha.id_funcionario = funcionarios.id_funcionario ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND fechamento_folha.reg_del = 0 ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -194,23 +194,33 @@ function envia_email($id_fechamento)
 	
 	if($envio)
 	{
-		$params 			= array();
-		$params['from']		= "empresa@dominio.com.br";
-		$params['from_name']= "Sistema ERP - OBRIGAÇÕES ACESSÓRIAS";
-		$params['subject'] 	= "OBRIGAÇÕES ACESSÓRIAS";
-		
-		$params['emails']['to'][] = array('email' => $cont_fun["email"], 'nome' => $cont_fun["funcionario"]);
-		
-		$mail = new email($params, 'admissao_funcionario');
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert($mail->ErrorInfo);
+
+			$params 			= array();
+			$params['from']		= "empresa@dominio.com.br";
+			$params['from_name']= "Sistema ERP - OBRIGAÇÕES ACESSÓRIAS";
+			$params['subject'] 	= "OBRIGAÇÕES ACESSÓRIAS";
+			
+			$params['emails']['to'][] = array('email' => $cont_fun["email"], 'nome' => $cont_fun["funcionario"]);
+			
+			$mail = new email($params, 'admissao_funcionario');
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert($mail->ErrorInfo);
+			}
+			else
+			{
+				$resposta->addAlert('E-mail enviado com sucesso.');	
+			}
 		}
-		else
+		else 
 		{
-			$resposta->addAlert('E-mail enviado com sucesso.');	
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
 		}
 	}
 	
@@ -739,7 +749,7 @@ function atualiza_periodo(combo)
 
 	id_funcionario = document.getElementById('id_funcionario').options[document.getElementById('id_funcionario').selectedIndex].value;
 	periodo = combo.value;
-	location.href='<? $_SERVER["PHP_SELF"] ?>?periodo='+periodo+'&id_funcionario='+id_funcionario+'';
+	location.href='<?php $_SERVER["PHP_SELF"] ?>?periodo='+periodo+'&id_funcionario='+id_funcionario+'';
 	
 }
 
@@ -822,13 +832,13 @@ function fn_manual(chkbox)
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left">&nbsp;<td>
+        <td bgcolor="#BECCD9" align="left"> <td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
@@ -838,23 +848,23 @@ function fn_manual(chkbox)
 			  <div id="salvar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left"><table width="100%" border="0">
                     <tr>
                       <td width="14%"><span class="label1">FUNCIONÁRIO</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="11%" class="label1">DATA INICIAL </td>
-                      <td width="1%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
                       <td width="11%" class="label1">DATA FINAL </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="40%" class="label1">HORAS ADICIONAIS </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="20%"><span class="label1">
-                        <input name="chkmanual" type="checkbox" class="menu" id="chkmanual" value="1" onClick="fn_manual(this)">
+                        <input name="chkmanual" type="checkbox" class="menu" id="chkmanual" value="1" onclick="fn_manual(this)">
                         CÁLCULO MANUAL </span></td>
                     </tr>
                     <tr>
-                      <td><font size="2" face="Arial, Helvetica, sans-serif"><font size="2" face="Arial, Helvetica, sans-serif">
+                      <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_funcionario" class="txt_box" id="id_funcionario" onChange="">
 						<option value="">SELECIONE</option>
 						
@@ -869,13 +879,13 @@ function fn_manual(chkbox)
 						
 						$array_func = $db->array_select;
 						
-						foreach ($array_func as $cont_funcionario)
+						foreach ($array_func as $cont)
 						{
 							//incluido por Carlos Abreu
 							//28/02/2011
-							//pedido da Sandra - filtrar os funcionarios que contenham SC no tipo contrato
+							//pedido da   - filtrar os funcionarios que contenham SC no tipo contrato
 							$sql = "SELECT * FROM ".DATABASE.".salarios ";
-							$sql .= "WHERE id_funcionario = '".$cont_funcionario["id_funcionario"]."' ";
+							$sql .= "WHERE id_funcionario = '".$cont["id_funcionario"]."' ";
 							$sql .= "AND  tipo_contrato LIKE '%SC%' ";
 							$sql .= "AND salarios.reg_del = 0 ";
 							$sql .= "ORDER BY data DESC, id_salario DESC ";
@@ -885,7 +895,7 @@ function fn_manual(chkbox)
 							if($db->numero_registros>0)
 							{
 								?>
-								<option value="<?= $cont_funcionario["id_funcionario"] ?>" <?php if($cont_funcionario["id_funcionario"]==$_GET["id_funcionario"]) { echo "selected"; } ?>><?= $cont_funcionario["funcionario"] ?></option>
+								<option value="<?= $cont["id_funcionario"] ?>" <?php if($cont["id_funcionario"]==$_GET["id_funcionario"]) { echo "selected"; } ?>><?= $cont["funcionario"] ?></option>
 								<?php
 							}
 						}									
@@ -893,89 +903,89 @@ function fn_manual(chkbox)
 						?>
                         </select>
                       </font></font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="data_ini" type="text" class="txt_box" id="data_ini" size="20" maxlength="10" onKeyPress="return txtBoxFormat(document.nfsfunc, 'data_ini', '99/99/9999', event);" onKeyUp="return autoTab(this, 10, event);" value="<?= $_GET["data_ini"] ?>"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="data_fim" type="text" class="txt_box" id="data_fim" size="20" maxlength="10" onKeyPress="return txtBoxFormat(document.nfsfunc, 'data_fim', '99/99/9999', event);" onKeyUp="return autoTab(this, 10, event);" value="<?= $_GET["data_fin"] ?>"></td>
-                      <td>&nbsp;</td>
-                      <td><input name="horasextras" type="radio" value="1" id="horasextras1" onClick="javascript:abreHE(document.forms[0].id_funcionario.value,document.forms[0].data_ini,document.forms[0].data_fim);">
+                      <td> </td>
+                      <td><input name="horasextras" type="radio" value="1" id="horasextras1" onclick="javascript:abreHE(document.forms[0].id_funcionario.value,document.forms[0].data_ini,document.forms[0].data_fim);">
                         <span class="label1 style2">Sim</span>
                           <input name="horasextras" type="radio" value="0"  id="horasextras0" checked>
-                          <span class="label1">N&Atilde;O</span></td>
-                      <td>&nbsp;</td>
+                          <span class="label1">NÃO</span></td>
+                      <td> </td>
                       <td><input name="manual" type="text" class="txt_box" id="manual" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].manual, 9, event)" disabled></td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td width="9%" class="label1">FÉRIAS&nbsp;(R$) </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="12%" class="label1">RESCISÃO&nbsp;(r$) </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="12%" class="label1">valor_fgts&nbsp;(r$) </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="17%"><span class="label1">DÉCIMO&nbsp;TERCEIRO&nbsp;(R$) </span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="26%"><span class="label1">SALÁRIO&nbsp;PROPORCIONAL&nbsp;CLT (R$) </span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="9%" class="label1">FÉRIAS (R$) </td>
+                      <td width="1%"> </td>
+                      <td width="12%" class="label1">RESCISÃO (r$) </td>
+                      <td width="1%"> </td>
+                      <td width="12%" class="label1">valor_fgts (r$) </td>
+                      <td width="1%"> </td>
+                      <td width="17%"><span class="label1">DÉCIMO TERCEIRO (R$) </span></td>
+                      <td width="1%"> </td>
+                      <td width="26%"><span class="label1">SALÁRIO PROPORCIONAL CLT (R$) </span></td>
+                      <td width="1%"> </td>
                       <td width="19%" class="label1"><span id="label_descricao" style="display:none;">DESCRIÇÃO</span></td>
                     </tr>
                     <tr>
                       <td><input name="ferias" type="text" class="txt_box" id="ferias" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].ferias, 9, event)"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="rescisao" type="text" class="txt_box" id="rescisao" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].rescisao, 9, event)"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="fgts" type="text" class="txt_box" id="fgts" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].fgts, 9, event)"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="decimoterceiro" type="text" class="txt_box" id="decimoterceiro" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].decimoterceiro, 9, event)"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="salarioproporcional" type="text" class="txt_box" id="salarioproporcional" size="20" maxlength="9" onKeyDown="FormataValor(document.forms[0].decimoterceiro, 9, event)"></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><span id="text_descricao" style="display:none; position:absolute;"><textarea name="descricao_manual" class="txt_box" cols="40" rows="4"></textarea></span></td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                       <tr>
                         <td width="22%" class="label1">DIF. CLT FÉRIAS </td>
-                        <td width="1%">&nbsp;</td>
+                        <td width="1%"> </td>
                         <td width="12%"><span class="label1">DIF. CLT RESC. </span></td>
-                        <td width="1%">&nbsp;</td>
+                        <td width="1%"> </td>
                         <td width="17%" class="label1">OUTROS DESC. </td>
-                        <td width="1%">&nbsp;</td>
+                        <td width="1%"> </td>
                         <td width="33%" class="label1">OUTROS ACRÉSCIMOS </td>
-                        <td width="6%">&nbsp;</td>
-                        <td width="7%">&nbsp;</td>
+                        <td width="6%"> </td>
+                        <td width="7%"> </td>
                       </tr>
                       <tr>
                         <td valign="top" class="kks_nivel3"><input name="diferenca_clt_ferias" type="text" class="txt_box" id="diferenca_clt_ferias" size="20" maxlength="20" onKeyDown="FormataValor(document.forms[0].diferenca_clt_ferias, 9, event)">
                         <a href="javascript:openpage('detalhes', 'fechamentofolha_outros.php?tipo=diferenca_clt_ferias&id_funcionario='+document.forms[0].id_funcionario.value+'&data_ini='+document.forms[0].data_ini.value+'&data_fim='+document.forms[0].data_fim.value+'',600,300)"><img src="../images/buttons_action/procurar.png" alt="Detalhes" width="16" height="16" border="0"></a></td>
-                        <td>&nbsp;</td>
+                        <td> </td>
                         <td><input name="diferenca_clt_rescisao" type="text" class="txt_box" id="diferenca_clt_rescisao" size="20" maxlength="20" onKeyDown="FormataValor(document.forms[0].diferenca_clt_rescisao, 9, event)">
                         <a href="javascript:openpage('detalhes', 'fechamentofolha_outros.php?tipo=diferenca_clt_rescisao&id_funcionario='+document.forms[0].id_funcionario.value+'&data_ini='+document.forms[0].data_ini.value+'&data_fim='+document.forms[0].data_fim.value+'',600,300)"><img src="../images/buttons_action/procurar.png" alt="Detalhes" width="16" height="16" border="0"></a></td>
-                        <td>&nbsp;</td>
+                        <td> </td>
                         <td><input name="outros_descontos" type="text" class="txt_box" id="outros_descontos" size="20" maxlength="20" onKeyDown="FormataValor(document.forms[0].outros_descontos, 9, event)">
                         <a href="javascript:openpage('detalhes', 'fechamentofolha_outros.php?tipo=outros_descontos&id_funcionario='+document.forms[0].id_funcionario.value+'&data_ini='+document.forms[0].data_ini.value+'&data_fim='+document.forms[0].data_fim.value+'',600,300)"><img src="../images/buttons_action/procurar.png" alt="Detalhes" width="16" height="16" border="0"></a></td>
-                        <td>&nbsp;</td>
+                        <td> </td>
                         <td><input name="outros_acrescimos" type="text" class="txt_box" id="outros_acrescimos" size="20" maxlength="20" onKeyDown="FormataValor(document.forms[0].outros_acrescimos, 9, event)">
                         <a href="javascript:openpage('detalhes', 'fechamentofolha_outros.php?tipo=outros_acrescimos&id_funcionario='+document.forms[0].id_funcionario.value+'&data_ini='+document.forms[0].data_ini.value+'&data_fim='+document.forms[0].data_fim.value+'',600,300)"><img src="../images/buttons_action/procurar.png" alt="Detalhes" width="16" height="16" border="0"></a></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <td> </td>
+                        <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td><span class="label1">
 				  <input name="id_porcadicionais" type="hidden" id="id_porcadicionais"" value="0" id+"porc_adicionais>
                     <input name="acao" type="hidden" id="acao" value="salvar">
@@ -992,7 +1002,7 @@ function fn_manual(chkbox)
 					else
 					{
 						?>
-						<input name="Incluir" type="button" class="btn" id="Incluir2" value="Incluir" onClick="javascript:alert('Você não possue permissão para executar esta ação.')">
+						<input name="Incluir" type="button" class="btn" id="Incluir2" value="Incluir" onclick="javascript:alert('Você não possue permissão para executar esta ação.')">
 						<input name="Calcular impostos" type="button" class="btn" id="Calcular impostos" value="Calcular impostos" onCLick="javascript:alert('Você não possue permissão para executar esta ação.')">
 
 						<?php				
@@ -1002,26 +1012,26 @@ function fn_manual(chkbox)
 					if($_SESSION["FINANCEIRO"]{1} || $_SESSION["FINANCEIRO"]{2} || $_SESSION["FINANCEIRO"]{3})
 					{
 						?>
-						<input name="Relatorios" type="button" class="btn" id="Relatorios" value="Relatórios" onClick="javascript:location.href='relatorios.php?periodo=<?= $_GET["periodo"] ?>';">
+						<input name="Relatorios" type="button" class="btn" id="Relatorios" value="Relatórios" onclick="javascript:location.href='relatorios.php?periodo=<?= $_GET["periodo"] ?>';">
 						<?php
 					}
 					else
 					{
 						?>
-						<input name="Relatorios" type="button" class="btn" id="Relatorios" value="Relatórios" onClick="javascript:alert('Você não possue permissão para executar esta ação.')">
+						<input name="Relatorios" type="button" class="btn" id="Relatorios" value="Relatórios" onclick="javascript:alert('Você não possue permissão para executar esta ação.')">
 						<?php
 					}
 					// Verifica as permissôes para incluir
 					if($_SESSION["FINANCEIRO"]{1} || $_SESSION["FINANCEIRO"]{2} || $_SESSION["FINANCEIRO"]{3})
 					{
 						?>
-						<input name="Liberar" type="button" class="btn" id="Liberar" value="Liberar fechamento" onClick="javascript:abrejanela('listafechamentos','listafechamentos.php',600,300);">
+						<input name="Liberar" type="button" class="btn" id="Liberar" value="Liberar fechamento" onclick="javascript:abrejanela('listafechamentos','listafechamentos.php',600,300);">
 						<?php
 					}
 					else
 					{
 						?>
-						<input name="Liberar" type="button" class="btn" id="Liberar" value="Liberar fechamento" onClick="javascript:alert('Você não possue permissão para executar esta ação.')">
+						<input name="Liberar" type="button" class="btn" id="Liberar" value="Liberar fechamento" onclick="javascript:alert('Você não possue permissão para executar esta ação.')">
 						<?php
 					}
 
@@ -1029,24 +1039,24 @@ function fn_manual(chkbox)
 					if($_SESSION["FINANCEIRO"]{1} || $_SESSION["FINANCEIRO"]{2} || $_SESSION["FINANCEIRO"]{3})
 					{
 						?>
-						<input name="permite_anexo" type="button" class="btn" id="permite_anexo" value="Liberar anexos" onClick="javascript:abrejanela('permite_anexos','libera_anexos.php',600,300);">
+						<input name="permite_anexo" type="button" class="btn" id="permite_anexo" value="Liberar anexos" onclick="javascript:abrejanela('permite_anexos','libera_anexos.php',600,300);">
 						<?php
 					}
 					else
 					{
 						?>
-						<input name="permite_anexo" type="button" class="btn" id="permite_anexo" value="Liberar anexos" onClick="javascript:alert('Você não possue permissão para executar esta ação.')">
+						<input name="permite_anexo" type="button" class="btn" id="permite_anexo" value="Liberar anexos" onclick="javascript:alert('Você não possue permissão para executar esta ação.')">
 						<?php
 					}
 					?>
                    
-                    <input name="Visualizar" type="button" class="btn" id="Visualizar" value="Visualizar" onClick="if(document.getElementById('id_funcionario').selectedIndex==0 || document.getElementById('periodo').selectedIndex==0){alert('É necessário selecionar um Funcionário e um período.');}else{abrejanela('fechamento','fechamento_forn.php?periodo='+document.forms[0].periodo.value+'&id_funcionario='+document.forms[0].id_funcionario.value+'','750','380');}">
-                    <input name="Alterar2" type="button" class="btn" id="Alterar2" value="Voltar" onClick="javascript:history.back();">
+                    <input name="Visualizar" type="button" class="btn" id="Visualizar" value="Visualizar" onclick="if(document.getElementById('id_funcionario').selectedIndex==0 || document.getElementById('periodo').selectedIndex==0){alert('É necessário selecionar um Funcionário e um período.');}else{abrejanela('fechamento','fechamento_forn.php?periodo='+document.forms[0].periodo.value+'&id_funcionario='+document.forms[0].id_funcionario.value+'','750','380');}">
+                    <input name="Alterar2" type="button" class="btn" id="Alterar2" value="Voltar" onclick="javascript:history.back();">
                   </span></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
               </table>
 			  
@@ -1073,7 +1083,7 @@ function fn_manual(chkbox)
 		{
 			?>
 			
-			<option value="<?= $cont_periodo["periodo"] ?>" <? if($_GET["periodo"]==$cont_periodo["periodo"]) { echo "selected"; } ?>>
+			<option value="<?= $cont_periodo["periodo"] ?>" <?php if($_GET["periodo"]==$cont_periodo["periodo"]) { echo "selected"; } ?>>
 			<?php 
 
 				$array_periodo = explode(",",$cont_periodo["periodo"]);
@@ -1110,12 +1120,12 @@ function fn_manual(chkbox)
 					}
 					//Controle de ordenação
 				  ?>
-				  <td width="23%"><a href="#" class="cabecalho_tabela" onClick="ordenar('funcionario','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">FUNCIONÁRIO</a></td>
-				  <td width="16%"><a href="#" class="cabecalho_tabela" onClick="ordenar('data_ini','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">PERÍODO</a></td>
-				  <td width="13%"><a href="#" class="cabecalho_tabela" onClick="ordenar('valor_total','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">TOTAL VALOR</a></td>
-				  <td width="9%"><a href="#" class="cabecalho_tabela" onClick="ordenar('valor_imposto','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">1,5%</a></td>
-				  <td width="9%"><a href="#" class="cabecalho_tabela" onClick="ordenar('valor_pcc','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">4,65%</a></td>
-				  <td width="12%"><a href="#" class="cabecalho_tabela" onClick="ordenar('valor_pagamento','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">PAGTO</a></td>
+				  <td width="23%"><a href="#" class="cabecalho_tabela" onclick="ordenar('funcionario','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">FUNCIONÁRIO</a></td>
+				  <td width="16%"><a href="#" class="cabecalho_tabela" onclick="ordenar('data_ini','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">PERÍODO</a></td>
+				  <td width="13%"><a href="#" class="cabecalho_tabela" onclick="ordenar('valor_total','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">TOTAL VALOR</a></td>
+				  <td width="9%"><a href="#" class="cabecalho_tabela" onclick="ordenar('valor_imposto','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">1,5%</a></td>
+				  <td width="9%"><a href="#" class="cabecalho_tabela" onclick="ordenar('valor_pcc','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">4,65%</a></td>
+				  <td width="12%"><a href="#" class="cabecalho_tabela" onclick="ordenar('valor_pagamento','<?= $ordem ?>','<?= $_GET["periodo"] ?>')">PAGTO</a></td>
 				  <td width="3%" title="Não liberar">NL</td>
 				  <td width="4%" class="cabecalho_tabela" title="Horas Adicionais">HA</td>
 				  <td width="4%" class="cabecalho_tabela" title="Detalhes">DT</td>
@@ -1124,7 +1134,7 @@ function fn_manual(chkbox)
                   <td width="3%" class="cabecalho_tabela" title="Documento">DC</td>
                   <td width="3%" class="cabecalho_tabela" title="E-mail">EM</td>
 				  <td width="2%"  class="cabecalho_tabela" title="Deletar">D</td>
-				  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="2%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 			</div>
@@ -1191,7 +1201,7 @@ function fn_manual(chkbox)
 						  <td width="13%"><div style="font-size:10px" align="center">R$ <?= formatavalor($fechamento_folha["valor_pagamento"]) ?>
 						  </div></td>
 						  <td width="3%"><div align="center"><span class="box">
-						    <input name="chkf_<?= $fechamento_folha["id_fechamento"] ?>" type="checkbox" id="chkf_<?= $fechamento_folha["id_fechamento"] ?>" onClick="xajax_insere(xajax.getFormValues('nfsfunc'),'<?= $fechamento_folha["data_ini"] ?>','<?= $fechamento_folha["data_fim"] ?>');" value="1" <? if($fechamento_folha["excessao"]=='1') { echo "checked"; } ?> title="Selecione para não liberar o Fechamento para esse funcionário">
+						    <input name="chkf_<?= $fechamento_folha["id_fechamento"] ?>" type="checkbox" id="chkf_<?= $fechamento_folha["id_fechamento"] ?>" onclick="xajax_insere(xajax.getFormValues('nfsfunc'),'<?= $fechamento_folha["data_ini"] ?>','<?= $fechamento_folha["data_fim"] ?>');" value="1" <?php if($fechamento_folha["excessao"]=='1') { echo "checked"; } ?> title="Selecione para não liberar o Fechamento para esse funcionário">
 					      </span></div></td>
 						  <td width="4%"><div align="center"><a href="javascript:abreHE_tbl('<?= $fechamento_folha["id_funcionario"] ?>','<?= $fechamento_folha["data_ini"] ?>','<?= $fechamento_folha["data_fim"] ?>');"><img src="../images/buttons_action/bt_relogio.gif" alt="Horas Adicionais" width="16" height="16" border="0"></a></div></td>
 						  <td width="2%"><div align="center"><a href="javascript:abrejanela('relatorio', 'fechamentofolha_detalhes.php?funcionario=<?= $fechamento_folha["funcionario"] ?>&id_fechamento=<?= $fechamento_folha["id_fechamento"] ?>',800,300);"><img src="../images/buttons_action/detalhes.gif" alt="Visualizar detalhes" width="16" height="16" border="0"></a></div></td>
@@ -1232,7 +1242,7 @@ function fn_manual(chkbox)
 						else
 						{
 							?>
-                            <td width="4%"><div align="center">&nbsp;</div></td>
+                            <td width="4%"><div align="center"> </div></td>
                             <?php
 						}
 						
@@ -1246,14 +1256,14 @@ function fn_manual(chkbox)
 						if($db->numero_registros>0)
 						{
 							?>	
-                          <td width="2%"><div align="center"><img src="../imagens/aprovado.png" style="cursor:pointer" width="10" height="10" border="0" onClick="xajax_envia_email('<?= $fechamento_folha["id_fechamento"] ?>')">
+                          <td width="2%"><div align="center"><img src="../imagens/aprovado.png" style="cursor:pointer" width="10" height="10" border="0" onclick="xajax_envia_email('<?= $fechamento_folha["id_fechamento"] ?>')">
 						  </div></td>
                           <?php	
 						}
 						else
 						{
 							?>	
-                          <td width="2%"><div align="center"><img src="../imagens/web.png" alt="E-mail" style="cursor:pointer" width="10" height="10" border="0" onClick="xajax_envia_email('<?= $fechamento_folha["id_fechamento"] ?>')">
+                          <td width="2%"><div align="center"><img src="../imagens/web.png" alt="E-mail" style="cursor:pointer" width="10" height="10" border="0" onclick="xajax_envia_email('<?= $fechamento_folha["id_fechamento"] ?>')">
 						  </div></td>
                           <?php	
 						}						
@@ -1272,7 +1282,7 @@ function fn_manual(chkbox)
 							   else
 							   {
 								   ?>
-									<div align="center">&nbsp;</div>
+									<div align="center"> </div>
                                    <?php   
 							   }
 							?>
@@ -1282,7 +1292,7 @@ function fn_manual(chkbox)
 						<?php
 					}
 				?>
-				<tr><td><input type="text" id="fim_tabela" style="border:none #FFFFFF 0px; background:none;">&nbsp;</td></tr>
+				<tr><td><input type="text" id="fim_tabela" style="border:none #FFFFFF 0px; background:none;"> </td></tr>
 			  </table>
 			</div></td>
       </tr>

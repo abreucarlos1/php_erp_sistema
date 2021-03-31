@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -25,24 +25,24 @@
 					<table width="63%" border="0">
 						<tr>
 							<td width="18%" align="right">
-									<input name="intervalo" type="radio" value="0" checked="checked" onClick="xajax.$('periodo').style.display='none';" /></td>
+									<input name="intervalo" type="radio" value="0" checked="checked" onclick="xajax.$('periodo').style.display='none';" /></td>
 							<td width="82%" align="left"><label class="labels">TOTAL</label></td>
 						</tr>
 						<tr>
 							<td align="right">
-									<input name="intervalo" type="radio" value="1" onClick="xajax.$('periodo').style.display='inline';xajax.$('dataini').focus();" /></td>
+									<input name="intervalo" type="radio" value="1" onclick="xajax.$('periodo').style.display='inline';xajax.$('dataini').focus();" /></td>
 							<td align="left"><label class="labels">PERÍODO</label></td>
 						</tr>
 					</table></td>
 					<td width="28%"><div id="periodo" style="display:none">
 						<table width="100%" border="0">
 							<tr>
-								<td width="27%"><label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+								<td width="27%"><label for="dataini" class="labels">Data inicial</label><br />
 									<input name="dataini" type="text" class="caixa" id="dataini" size="12"  onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" />
                                 </td>
 							</tr>
 							<tr>
-								<td><label for="datafim" class="labels">Data&nbsp;final</label><br />
+								<td><label for="datafim" class="labels">Data final</label><br />
                                 <input name="datafim" type="text" class="caixa" id="datafim" size="12"  onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'escolhacoord', 10);"  />
                                 </td>
 							</tr>

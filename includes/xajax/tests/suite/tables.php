@@ -377,8 +377,8 @@
 		return $objResponse;
 	}
 	
-	$litPlusSpace = new clsLiteral('+--&nbsp;');
-	$litSpaceBar = new clsLiteral('&nbsp;|');
+	$litPlusSpace = new clsLiteral('+-- ');
+	$litSpaceBar = new clsLiteral(' |');
 	
 	$anchorRemoveRow = new clsAnchor(array(
 		'children' => array(new clsLiteral('Remove Row'))
@@ -704,15 +704,15 @@
 			background: #ccccee;
 		}
 		</style>
-<?
+<?php
 
 
 
 	$objTestScriptPlugin->printHeader($xajax, "xajax Test Suite - Assign / Append", ob_get_clean());
 	?>
 
-		<a href='#' onclick='<?php $aRequests['generatetable']->printScript(); ?>'>Generate the table</a>&nbsp;then&nbsp;
-		<a href='#' onclick='<?php $aRequests['appendcolumn']->printScript(); ?>'>Append one or more columns</a>&nbsp;then&nbsp;
+		<a href='#' onclick='<?php $aRequests['generatetable']->printScript(); ?>'>Generate the table</a> then 
+		<a href='#' onclick='<?php $aRequests['appendcolumn']->printScript(); ?>'>Append one or more columns</a> then 
 		<a href='#' onclick='<?php $aRequests['appendrow']->printScript(); ?>'>Append one or more rows</a><br />
 		<br />
 		Or <a href='#' onclick='<?php $requestPremadeTable->printScript(); ?>'>Use a pre-made table</a>
@@ -721,7 +721,7 @@
 		<br />
 		<div id='content'></div>	
 	
-	<?
+	<?php
 	$objTestScriptPlugin->printStatusPanel();
 	$objTestScriptPlugin->printLogPanel();
 	$objTestScriptPlugin->printDescriptionPanel();

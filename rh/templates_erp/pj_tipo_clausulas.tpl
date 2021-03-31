@@ -33,7 +33,7 @@
 			</table>		  </td>
         </tr>
       </table>
-	  <div id="div_grid" style="width:100%;">&nbsp;</div>
+	  <div id="div_grid" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

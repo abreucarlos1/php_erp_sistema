@@ -60,7 +60,7 @@ $regs0 = $db->array_select[0];
 
 //indices [codsetor]= [id_cargo_grupo => linha] 
 //mapeia as celulas do excel (linhas)
-$array_setores[15] = array(37=>12,61=>15); 							   //Apoio/COORDENAÇÃO/Supervis�o
+$array_setores[15] = array(37=>12,61=>15); 							   //Apoio/COORDENAÇÃO/Supervisão
 $array_setores[23] = array(16=>17,82=>18,74=>19,83=>20,84=>21,61=>15); //PDMS
 $array_setores[12] = array(48=>22,85=>23,86=>24,15=>25,79=>26,61=>15); //PROCESSO
 $array_setores[8] = array(51=>27,87=>28,100=>29,88=>30,80=>31,61=>15); //TUBULAÇÃO

@@ -1,6 +1,6 @@
 <?php
 /*
-	Relatório de Vendas Or�amento
+	Relatório de Vendas Orçamento
 	Criado por Carlos Abreu  
 	
 	Versão 0 --> VERSÃO INICIAL : 19/01/2015
@@ -121,11 +121,11 @@ foreach($array_orc as $regs0)
 	switch ($regs0["AF1_VENDED"])
 	{
 		case 1:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Leonardo Oca';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 1';
 		break;
 		
 		case 2:
-			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Fl�vio Freitas';
+			$array_vendedor[$regs0["AF1_ORCAME"]] = 'Vendedor 2';
 		break;
 		
 		case 3:
@@ -136,7 +136,7 @@ foreach($array_orc as $regs0)
 			$array_vendedor[$regs0["AF1_ORCAME"]] = '';							
 	}	
 	
-	//TABELA AFC - ESFOR�O E LINHA DE BASE
+	//TABELA AFC - ESFORÇO E LINHA DE BASE
 	$sql = "SELECT * FROM AFC010 WITH(NOLOCK) ";
 	$sql .= "WHERE AFC010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFC010.AFC_PROJET = '".$regs0["AF1_ORCAME"]."' ";
@@ -167,7 +167,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="orcamento_"'.date('dmYHis').'".xlsx"');
 header('Cache-Control: max-age=0');

@@ -20,19 +20,19 @@
 				<tr>
 					<td>
 						<label class="labels"><smarty>$campo[2]</smarty></label><br />
-	                    <div id="dv_rotina">&nbsp;</div>   
+	                    <div id="dv_rotina"> </div>   
 						<input type="hidden" name="id_ti_rotina_frequencia" id="id_ti_rotina_frequencia" value="" />
                     </td>
 					<td>
 						<label class="labels"><smarty>$campo[2]</smarty></label><br />
-                    	<div id="dv_frequencia">&nbsp;</div>
+                    	<div id="dv_frequencia"> </div>
                     </td>
 					</tr>
 			</table>
         	  </td>
         </tr>
       </table>
-	  <div id="frequencias" style="width:100%">&nbsp;</div>
+	  <div id="frequencias" style="width:100%"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

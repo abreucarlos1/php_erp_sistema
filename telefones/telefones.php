@@ -49,7 +49,7 @@ if($_GET["acao"]=='exportar')
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND local.reg_del = 0 ";
 	$sql .= "AND funcionarios.id_setor = setores.id_setor ";
-	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.id_local = local.id_local ";
 
 	$db->select($sql,'MYSQL',true);
@@ -120,7 +120,7 @@ function atualizatabela($valor)
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND local.reg_del = 0 ";
 	$sql .= "AND funcionarios.id_setor = setores.id_setor ";
-	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.id_local = local.id_local ";
 	$sql .= $sql_telefones_filtro;
 	$sql .= $sql_filtro;
@@ -212,7 +212,7 @@ function editar($id)
 		//$resposta->addScript("openpage('edita_telefones','telefones_editar.php?id=" . $id . "','620','250');");
 		$sql = "SELECT funcionarios.id_funcionario, funcionario, ramal, celular, email, telefone_corporativo ";
 		$sql .= "FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";	
-		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.id_funcionario = '" . $id . "' ";
@@ -237,7 +237,7 @@ function editar($id)
         $conteudo .= '      <td width="10%"><label class="labels">celular</label><br />
 							<input name="celular" type="text" class="caixa" id="celular" size="15" value="'. $reg_telefones["celular"] .'" onkeypress=\'return txtBoxFormat(document.frm_edit, "celular", "(99) 99999-9999", event);\' maxlength="15" />
 							</td>';
-        $conteudo .= '     <td width="90%"><label class="labels">celular&nbsp;Corporativo</label><br />
+        $conteudo .= '     <td width="90%"><label class="labels">celular Corporativo</label><br />
 							<input name="cel_corp" type="text" class="caixa" id="cel_corp" size="15" value="'. $reg_telefones["telefone_corporativo"] .'" onkeypress\'=return txtBoxFormat(document.frm_edit, "cel_corp", "(99) 99999-9999", event);\' maxlength="15" />
 							</td>';
         $conteudo .= '    </tr>';
@@ -312,7 +312,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 function edicao(id)
 {
-	conteudo = '<div id="div_dados">&nbsp;</div>';
+	conteudo = '<div id="div_dados"> </div>';
 	
 	modal(conteudo, 'p', 'editar');
 	
@@ -374,7 +374,7 @@ function grid(tabela, autoh, height, xml)
 		return false;
 	}
 
-	mygrid.setHeader("Telefone/Ramal,Funcionário,Setor,E-mail,Local,Celular,Celular&nbsp;corp.,Sigla",
+	mygrid.setHeader("Telefone/Ramal,Funcionário,Setor,E-mail,Local,Celular,Celular corp.,Sigla",
 		null,
 		["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("100,220,130,200,150,100,100,50");

@@ -115,11 +115,11 @@ function atualizatabela($filtro, $combo='')
 		
 		if($db->numero_registros==0)
 		{
-			$img = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir("'.$cont_desp["id_funcao"].'");}></span>';
+			$img = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir("'.$cont_desp["id_funcao"].'");}></span>';
 		}
 		else
 		{
-			$img = '&nbsp;';
+			$img = ' ';
 		}
 		
 		$xml->startElement('row');
@@ -890,7 +890,7 @@ function tab()
 	myTabbar = new dhtmlXTabBar("a_tabbar");
 	
 	myTabbar.addTab("a10_", "Função/cargo", null, null, true);
-	myTabbar.addTab("a20_", "Conhecimentos&nbsp;e&nbsp;Habilidades");
+	myTabbar.addTab("a20_", "Conhecimentos e Habilidades");
 	myTabbar.addTab("a40_", "Competências");
 	
 	myTabbar.tabs("a10_").attachObject("a10");

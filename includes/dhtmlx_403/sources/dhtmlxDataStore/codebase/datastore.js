@@ -831,7 +831,7 @@ dhx.assert_core_ready();
 
 dhx.ready(function(){
 	dhx.event(document.body,"click", function(e){
-		dhx.callEvent("onClick",[e||event]);
+		dhx.callEvent("onclick",[e||event]);
 	});
 });
 

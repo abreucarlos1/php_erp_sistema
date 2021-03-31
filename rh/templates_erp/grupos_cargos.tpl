@@ -26,7 +26,7 @@
 					    <smarty>html_options values=$option_categoria_values output=$option_categoria_output</smarty>
 				      </select></td>
                       <!--
-					<td width="49%"><label for="categoria_orcamento" class="labels">Categoria&nbsp;orçamento</label><br />
+					<td width="49%"><label for="categoria_orcamento" class="labels">Categoria orçamento</label><br />
 					  <select name="categoria_orcamento" class="caixa" id="categoria_orcamento" onkeypress="return keySort(this);">
 					    <smarty>html_options values=$option_categoria_orcamento_values output=$option_categoria_orcamento_output</smarty>
 				      </select></td> -->
@@ -39,15 +39,15 @@
 					<td width="91%">
 						<label class="labels">Tornar Obsoleto</label><br />
 						<input name="obsoleto" type="radio" class="caixa" id="obsoleto1" value='1' /><label class="labels">Sim</label>
-						<input name="obsoleto" type="radio" class="caixa" id="obsoleto2" checked="checked" value='0' /><label class="labels">N�o</label>
+						<input name="obsoleto" type="radio" class="caixa" id="obsoleto2" checked="checked" value='0' /><label class="labels">Não</label>
 					</td>
 				</tr>
 			</table>
-            <div id="cargos" style="width:100%; height:400px; overflow:auto; margin-bottom:15px">&nbsp;</div>
+            <div id="cargos" style="width:100%; height:400px; overflow:auto; margin-bottom:15px"> </div>
           </td>
         </tr>
       </table>
-	  <div id="div_grupos_cargos" style="width:100%;">&nbsp;</div>
+	  <div id="div_grupos_cargos" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

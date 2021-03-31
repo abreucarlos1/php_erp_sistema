@@ -73,7 +73,7 @@ if($_GET["liberado"]!="ok")
 
 	</form>
 
-<?
+<?php
 
 exit();
 
@@ -721,7 +721,7 @@ if (document.all)
 						alert('Você não possue acesso ao conteúdo.');
 						window.close();
 						</script>
-					<?
+					<?php
 					}
 					?>
                     <div
@@ -737,12 +737,12 @@ if (document.all)
                      <col width=64 style='width:48pt'>
                      <tr height=25 style='height:18.75pt'>
                       <td colspan=5 height=25 class=xl8626375 width=939 style='height:18.75pt;
-                      width:704pt'><a name="RANGE!A1:E114">RELA��O DE PROJETOS</a></td>
+                      width:704pt'><a name="RANGE!A1:E114">RELAÇÃO DE PROJETOS</a></td>
                      </tr>
                      <tr height=21 style='height:15.75pt'>
                       <td height=21 class=xl7126375 style='height:15.75pt;border-top:none'>Perspectiva</td>
                       <td class=xl7126375 style='border-top:none;border-left:none'>Resp.</td>
-                      <td class=xl7126375 style='border-top:none;border-left:none'>A��o</td>
+                      <td class=xl7126375 style='border-top:none;border-left:none'>Ação</td>
                       <td class=xl7126375 style='border-top:none;border-left:none'>Atividades</td>
                       <td class=xl7126375 style='border-top:none;border-left:none'>Prazos</td>
                      </tr>
@@ -859,39 +859,39 @@ if (document.all)
                       de ações de responsabilidade social</td>
                       <td class=xl6326375 style='border-top:none;border-left:none'>Levantar custos
                       envolvidos para a execução do projeto</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Pesquisar e estudar sobre o conteúdo de ações de
                       responsabilidade social</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estruturar o projeto</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Analisar e classificar as possíveis parcerias, convênios ou
                       filiações a outras instituições</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Formalizar o patrocínios</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Elaborar o Boletim Informativo Social</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Realizar o Balanço Social da Empresa</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='page-break-before:always;height:12.75pt'>
                       <td rowspan=12 height=221 class=xl7226375 style='height:165.75pt;border-top:
@@ -901,63 +901,63 @@ if (document.all)
                       de Implantação da Política de Cargos e Salários</td>
                       <td class=xl6326375 style='border-top:none;border-left:none'>Definir
                       principais objetivos do plano de cargos e salários (PCS)</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estruturar tabelas de cargos e salários Y por pontos</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Montar matriz das competências requeridas</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estabelecer conceito de remuneração total</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estabelecer o plano de benefícios</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estabelecer o plano salarial</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Efetuar pesquisa salarial e de benefícios</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Estabelecer políticas de salários, participações,
                       benefícios, premiações e demais formas de remunerações.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estruturar tabela de avaliação de competências por pontos</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estruturar organograma com vagas por tipo de cargo/função</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estabelecer critérios de avaliações</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Estabelecer plano de ações com base em avaliações</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=68 style='height:51.0pt'>
                       <td rowspan=7 height=170 class=xl7226375 style='height:127.5pt;border-top:
@@ -972,37 +972,37 @@ if (document.all)
                       consideração todas as necessidades da operação (arquivo morto, treinamento,
                       TI, ISO 27001, etc.), bem como que a expansão do volume de mão-de-obra se
                       dará a partir do site de São Paulo.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Levantar o total de investimentos</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Identificar fontes de financiamento</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Identificar imóvel (eis)</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Realizar reformas necessárias</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Adquirir equipamentos / moveis, etc.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Efetuar mudanças</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=51 style='height:38.25pt'>
                       <td height=51 class=xl7226375 style='height:38.25pt;border-top:none'>Perspectiva
@@ -1025,19 +1025,19 @@ if (document.all)
                       <td class=xl6326375 style='border-top:none;border-left:none'>Estimar a
                       necessidade de mão-de-obra para os próximos 5 anos, com base no plano
                       estratégico</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Definir número de pessoas para o site Principal,
                       alocação em clientes e outros sites</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Montar uma comissão que cuidará de identificar o imóvel
                       necessário.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td rowspan=4 height=102 class=xl7226375 style='height:76.5pt;border-top:
@@ -1082,7 +1082,7 @@ if (document.all)
                       , levando-se em consideração todas as necessidades da operação (arquivo
                       morto, treinamento, TI, ISO 27001, etc., bem como que a expansão do volume de
                       mão-de-obra se dará a partir do site de São Paulo). Vide Projeto abaixo:</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=68 style='height:51.0pt'>
                       <td height=68 class=xl6326375 style='height:51.0pt;border-top:none;
@@ -1115,17 +1115,17 @@ if (document.all)
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Realizar reformas necessárias</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Adquirir equipamentos / moveis, etc.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Efetuar mudanças</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=187 style='height:140.25pt'>
                       <td rowspan=13 height=476 class=xl6526375 width=173 style='height:357.0pt;
@@ -1145,7 +1145,7 @@ if (document.all)
                       atendimento das metas de venda buscando a maximização do resultado para a
                       empresa (Atendimento do objetivo Preço Justo). 3) O orçamento deve ser
                       realizado de forma a poder ser acompanhado financeiramente e fisicamente.</font></td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1156,19 +1156,19 @@ if (document.all)
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Definir a missão e o conceito de departamento de orçamento
                       dentro da Empresa</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Formalização do organograma do departamento, bem como
                       responsabilidades, competências, etc.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Identificação e contratação do Coordenador do departamento
                       de Orçamento</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1180,19 +1180,19 @@ if (document.all)
                       border-left:none'>Definição das estratégias de abordagem dos clientes e/ou
                       projetos para a realização dos orçamentos (porte pequeno, altamente complexo,
                       etc.)</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Definir e documentar o fluxograma do processo orçamentário.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=51 style='height:38.25pt'>
                       <td height=51 class=xl6326375 style='height:38.25pt;border-top:none;
                       border-left:none'>Utilização dos sistemas padronizados da empresa e/ou do
                       novo ERP, considerando estrutura detalhada de custos e complementar no que
                       for necessário.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1203,19 +1203,19 @@ if (document.all)
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Delimitação de Escopo, Cronograma, Serviços adicionais,
                       exclusões, etc.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Definir o conceito de &quot;Abrangência do Escopo&quot; no
                       procedimento padrão para elaboração de orçamento</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Elaborar uma nova apresentação da proposta, mais
                       profissional.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='page-break-before:always;height:12.75pt'>
                       <td rowspan=12 height=255 class=xl7226375 style='height:191.25pt;border-top:
@@ -1230,20 +1230,20 @@ if (document.all)
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Definição do papel do departamento</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Formalização do organograma do departamento, bem como
                       responsabilidades, competências, etc.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                     
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Identificação e contratação do Coordenador do departamento
                       de Orçamento</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1253,20 +1253,20 @@ if (document.all)
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Definir e documentar o fluxograma do processo orçamentário.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Utilização dos sistemas padronizados da empresa e/ou do
                       novo ERP.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Definir os critérios de acompanhamento entre eles:
                       frequência de comunicação dos serviços realizados, medições, programação dos
                       serviços, etc.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1277,7 +1277,7 @@ if (document.all)
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Criar mecanismo de apuração de horas de re-trabalho e
                       implantá-lo.</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl7026375 style='height:12.75pt;border-top:none;
@@ -1288,7 +1288,7 @@ if (document.all)
                       <td height=34 class=xl6326375 style='height:25.5pt;border-top:none;
                       border-left:none'>Criar mecanismo de apuração de horas de totais gastas, bem
                       como de número de documentos produzidos</td>
-                      <td class=xl7626375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl7626375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=51 style='height:38.25pt'>
                       <td height=51 class=xl6626375 style='height:38.25pt;border-top:none'>Perspectiva
@@ -1298,7 +1298,7 @@ if (document.all)
                       width:131pt'>Projeto de Implantação do sistema de gestão de normas técnicas</td>
                       <td class=xl6326375 style='border-top:none;border-left:none'>Finalizar o
                       processo de implantação do sistema de gestão de normas técnicas</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=34 style='height:25.5pt'>
                       <td height=34 class=xl6626375 style='height:25.5pt;border-top:none'>Perspecitva
@@ -1309,7 +1309,7 @@ if (document.all)
                       <td class=xl6326375 style='border-top:none'>Desenvolver projeto para a
                       definição de como a questão da liderança será desenvolvida na
                       Empresa.</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=85 style='height:63.75pt'>
                       <td rowspan=3 height=136 class=xl6526375 width=173 style='height:102.0pt;
@@ -1408,75 +1408,75 @@ if (document.all)
                       Ligado a ISO 27001)</td>
                       <td class=xl6326375 style='border-top:none;border-left:none'>Normalizar os
                       bancos de dados</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='mso-height-source:userset;height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Criar rotinas/metodologias de back-up e segurança dos dados</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=51 style='height:38.25pt'>
                       <td height=51 class=xl6326375 style='height:38.25pt;border-top:none;
                       border-left:none'>Elaborar Relatórios de análises para o back-up, recursos
                       consumidos pelo banco de dados (desempenho), tipos de erros para adequar os
                       tipos de dados e outros Relatórios se aplicáveis</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Testar integridade do banco de dados com os softwares que
                       dependem desta base</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Verificar se os resultados são compatíveis com o teste</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Formar comitê</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Identificar ativos</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Analisar de riscos dos ativos identificados</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Criar de plano de contingências</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Adequar a infraestrutura do prédio</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Formar auditores internos</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Elaborar plano de ações corretivas e preventivas</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Selecionar organismo certificador</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
                       border-left:none'>Realizar auditoria de certificação</td>
-                      <td class=xl6426375 style='border-top:none;border-left:none'>&nbsp;</td>
+                      <td class=xl6426375 style='border-top:none;border-left:none'> </td>
                      </tr>
                      <tr height=17 style='height:12.75pt'>
                       <td height=17 class=xl6326375 style='height:12.75pt;border-top:none;
@@ -1519,7 +1519,7 @@ if (document.all)
 </table>
 	<table width="100%" border="0">
   <tr>
-    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onClick="window.close()"></td>
+    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onclick="window.close()"></td>
   </tr>
 </table>
 

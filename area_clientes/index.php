@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Autentica��o - area clientes	
+		Formulário de Autenticação - area clientes	
 		
 		Criado por Carlos Abreu 
 		
@@ -17,7 +17,7 @@ $usercliente = "";
 
 //setcookie("idioma",1,time()+60*60*24*180);
 
-//seta idioma se n�o estiver setado
+//seta idioma se não estiver setado
 if (!isset($_COOKIE['idioma'])) 
 {
    $_COOKIE["idioma"]="1";
@@ -56,18 +56,18 @@ function autenticacao($dados_form)
 	$login = isset($dados_form["login"]) ? addslashes(trim($dados_form["login"])) : FALSE;
 	// Recupera a senha, a criptografando em MD5
 	$senha = isset($dados_form["senha"]) ? $dados_form["senha"] : FALSE;
-	// Usu�rio n�o forneceu a senha ou o login
+	// Usuário não forneceu a senha ou o login
 	if(!$login || !$senha)
 	{
-		//echo "Voc� deve digitar sua senha e login!";
+		//echo "Você deve digitar sua senha e login!";
 		$resposta->addAssign("mensagem","innerHTML",$msg[10]);
 	}
 	else
 	{
 		/**
 		* Executa a consulta no banco de dados.
-		* Caso o n�mero de linhas retornadas seja 1 o login � v�lido,
-		* caso 0, inv�lido.
+		* Caso o número de linhas retornadas seja 1 o login é válido,
+		* caso 0, inválido.
 		*/
 		$sql = "SELECT * FROM ".DATABASE.".contatos ";
 		$sql .= "WHERE email = '" . $login . "' ";
@@ -90,14 +90,14 @@ function autenticacao($dados_form)
 		}
 		else
 		{			
-			// Caso o usu�rio tenha digitado um login v�lido o n�mero de linhas ser� 1..
+			// Caso o usuário tenha digitado um login válido o número de linhas será 1..
 			if($db->numero_registros>=1)
 			{
-				// Obt�m os dados do usu�rio, para poder verificar a senha e passar os demais dados para a sess�o
+				// Obtém os dados do usuário, para poder verificar a senha e passar os demais dados para a sessão
 				// Agora verifica a senha
 				if(!strcmp($senha, $enc->decrypt($dados["senha"])))
 				{
-					// TUDO OK! Agora, passa os dados para a sess�o e redireciona o usu�rio
+					// TUDO OK! Agora, passa os dados para a sessão e redireciona o usuário
 					//$id_funcionario = $dados["id_funcionario"];
 					$_SESSION["login"] = trim($dados["email"]);
 					
@@ -112,7 +112,7 @@ function autenticacao($dados_form)
 					$resposta->addRedirect("inicio.php");							
 					
 				}
-				// Senha inv�lida
+				// Senha inválida
 				else
 				{
 					$resposta->addAssign("mensagem","innerHTML",$msg[12]);
@@ -120,7 +120,7 @@ function autenticacao($dados_form)
 					return $resposta;
 				}
 			}
-			// Login inv�lido
+			// login inválido
 			else
 			{
 				$resposta->addAssign("mensagem","innerHTML",$msg[13]);
@@ -156,7 +156,7 @@ function esqueceusenha()
 
 </script>
 
-<?
+<?php
 
 $conf = new configs();
 

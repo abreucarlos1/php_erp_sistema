@@ -291,7 +291,7 @@ function insere($dados_form)
 			$isql .= "'".$setores[1]."', "; 																	//TIPO RECURSO - TRABALHO		
 			$isql .= "'".$formato."', ";																	//UNIDADE MAX.		100%
 			$isql .= "'1', ";																	//CALENDARIO
-			$isql .= "'".date('Ymd')."', ";																	//TIPO APURA��O - 4 - NAO CALCULA
+			$isql .= "'".date('Ymd')."', ";																	//TIPO APURAÇÃO - 4 - NAO CALCULA
 			$isql .= "'500', ";														//CUSTO FIXO
 			$isql .= "'".$id_at."', ";
 			$isql .= "'".$recno."', ";
@@ -487,7 +487,7 @@ function atualizar($dados_form)
 		$isql .= "'".$setores[1]."', "; 																	//TIPO RECURSO - TRABALHO		
 		$isql .= "'".$formato."', ";																	//UNIDADE MAX.		100%
 		$isql .= "'1', ";																	//CALENDARIO
-		$isql .= "'".date('Ymd')."', ";																	//TIPO APURA��O - 4 - NAO CALCULA
+		$isql .= "'".date('Ymd')."', ";																	//TIPO APURAÇÃO - 4 - NAO CALCULA
 		$isql .= "'500', ";														//CUSTO FIXO
 		$isql .= "'".$dados_form["id_atividade"]."', ";
 		$isql .= "'".$recno."', ";
@@ -625,7 +625,7 @@ function tab(array_tabs)
 				
 		myTabbar.addTab(array_tabs[i], array_tabs[i], null, null, active);
 		
-		myTabbar.tabs(array_tabs[i]).attachHTMLString('<div id="div_'+array_tabs[i]+'" >&nbsp;</div>');				
+		myTabbar.tabs(array_tabs[i]).attachHTMLString('<div id="div_'+array_tabs[i]+'" > </div>');				
 	}
 	
 	function sel_tab(idNew,idOld)

@@ -101,14 +101,14 @@ if(!defined("MOUNT_DIR"))
 	
 	define('DIAS_LIMITE',90); //dias de limite para senhas
 	
-	define('TAMANHO_SENHA',7); //tamanho padr�o de senhas
+	define('TAMANHO_SENHA',7); //tamanho padrão de senhas
 	
 	/*
 	 * 2 => Ambiente Oficial
 	 * 1 => Ambiente de testes
 	 */
 	define('AMBIENTE', !in_array(HOST, array('localhost','localhost:81','teste', '192.168.10.13')) ? 2 : 1);
-	//Para evitar enganos na hora de mandar email de teste e tiver alterado o ambiente para produ��o
+	//Para evitar enganos na hora de mandar email de teste e tiver alterado o ambiente para produção
 	define('AMBIENTE_EMAIL', !in_array(HOST, array('localhost','teste', '192.168.10.13')) ? 2 : 1);
 	
 	define('HOST_MAIL', AMBIENTE_EMAIL == 1 ? 'smtp.' : 'smtp.');
@@ -236,6 +236,7 @@ function tiraacentos($texto)
    
    $texto = trim($texto);
    
+   /*
    # Convert values from Lower to Upper
    $arrayUpper=array('�'
    ,'�','�','�','�','�'
@@ -269,6 +270,7 @@ function tiraacentos($texto)
    ,'U','U','U','U','N');
    	
 	$texto = str_replace($arrayUpper, $arrayLower, $texto);
+	*/
 	
 	return ($texto);
 }
@@ -421,7 +423,7 @@ function dias_uteis($mes, $ano)
 		//se for dia de semana
 		if ( ( date("w", mktime(0, 0, 0, $mes, $count + 1, $ano)) > 0 ) && ( date("w", mktime(0, 0, 0, $mes, $count + 1, $ano)))<6)
 		{
-			//se n�o for feriado
+			//se não for feriado
 			if(!feriados(date("d/m/Y", mktime(0, 0, 0, $mes, $count + 1, $ano))))
 			{
 				$workday += 1;
@@ -453,7 +455,7 @@ function montasemana($data_ini, $datafim, $dia_semana = 0)
 	
 	$loop_semanas = FALSE;
 	
-	//Enquanto n�o � domingo, soma 1 dia na data informada
+	//Enquanto não � domingo, soma 1 dia na data informada
 	do{
 		$data_array = explode("/", $datatemp);
 
@@ -595,7 +597,7 @@ function diasemana($data)
  */
 function dateAdd($_date,$_add,$_format='d/m/Y', $_type = 'days')
 {
-	//Agora n�o precisamos mais do %, portanto removo antes de tudo
+	//Agora não precisamos mais do %, portanto removo antes de tudo
 	$_format = str_replace('%', '', $_format);
 	
 	//Criamos a data do php
@@ -608,7 +610,7 @@ function dateAdd($_date,$_add,$_format='d/m/Y', $_type = 'days')
 }
 
 /**
- * Fun��o que adiciona dias ao uma data excluindo os fins de semana
+ * Função que adiciona dias ao uma data excluindo os fins de semana
  */
 function dateAddWithoutWeekEnds($data, $diasAdd, $formatoRetorno = 'Y-m-d')
 {
@@ -704,7 +706,7 @@ function voltadata($dias,$datahoje)
     } 
   }//fecha se bissexto... 
   else
-  { // se n�o for bissexto 
+  { // se não for bissexto 
     if($mes == "03" )
 	{ 
       for ($cont = $dias ; $cont > 0 ; $cont--)
@@ -810,7 +812,7 @@ function somadata($dias,$datahoje)
 
 function ajustadata($data,&$data_ini,&$datafim)
 {
-	// Fun��o que retorna data inicial e final de uma semana a partir
+	// Função que retorna data inicial e final de uma semana a partir
 	// de uma data
 	
 	$diasemana = diasemana($data);
@@ -852,7 +854,7 @@ function ajustadata($data,&$data_ini,&$datafim)
 
 function semana_ini_fim($data,&$data_ini,&$datafim)
 {
-	// Fun��o que retorna data inicial e final de uma semana a partir
+	// Função que retorna data inicial e final de uma semana a partir
 	// de uma data
 	$data_tmp = $data;	
 	//obtem a data inicial da semana (segunda=1)	
@@ -899,7 +901,7 @@ function semana_ini_fim($data,&$data_ini,&$datafim)
 }
 
 
-// Fun��o que soma ou subtrai, dias, meses ou anos de uma data qualquer
+// Função que soma ou subtrai, dias, meses ou anos de uma data qualquer
 //	$date = calcula_data("06/01/2003", "sub", "day", "4")
 function calcula_data($date, $operation, $where = FALSE, $quant)
 {
@@ -917,7 +919,7 @@ function calcula_data($date, $operation, $where = FALSE, $quant)
 	{
 		$str .= $quant."M";
 		
-		//em caso ano bisexto e opera��o de subtra��o
+		//em caso ano bisexto e operação de subtra��o
 		if($month==03 && 0 == $year%4 && 0!=$year%100 || 0==$year%400 && ($operation == "sub" || $operation == "-"))
 		{
 			if($day>=30)
@@ -949,7 +951,7 @@ function calcula_data($date, $operation, $where = FALSE, $quant)
 		}
 		else
 		{		
-			//em caso ano bisexto e opera��o de adicao
+			//em caso ano bisexto e operação de adicao
 			if($month==01 && 0 == $year%4 && 0!=$year%100 || 0==$year%400 && ($operation == "sum" || $operation == "+"))
 			{
 				//se for dia maior que 30/01,
@@ -998,7 +1000,7 @@ function calcula_data($date, $operation, $where = FALSE, $quant)
 	$date = new DateTime($year."-".$month."-".$day);
 	//$date = new DateTime($month."/".$day."/".$year);
 	
-	// Determina a opera��o (Soma ou Subtra��o)
+	// Determina a operação (Soma ou Subtra��o)
 	if($operation == "sub" || $operation == "-")
 	{		
 		$date->sub(new DateInterval($str));
@@ -1011,7 +1013,7 @@ function calcula_data($date, $operation, $where = FALSE, $quant)
 	return $date->format('d/m/Y');	
 }
 
-//Fun��o que retorna o n�mero de dias entre 2 datas
+//Função que retorna o número de dias entre 2 datas
 //Formato da data : DD/MM/AAAA
 function dif_datas($data1,$data2)
 {
@@ -1028,7 +1030,7 @@ function dif_datas($data1,$data2)
 	//converto segundos em dias 
 	$dias_diferenca = $segundos_diferenca / (60 * 60 * 24); 
 	
-	//obtenho o valor absoluto dos dias (tiro o poss�vel sinal negativo) 
+	//obtenho o valor absoluto dos dias (tiro o possível sinal negativo) 
 	$dias_diferenca = abs($dias_diferenca); 
 	
 	//tiro os decimais aos dias de diferenca 
@@ -1037,7 +1039,7 @@ function dif_datas($data1,$data2)
 	return $dias_diferenca;
 }
 
-//Fun��o que retorna o n�mero de dias entre 2 datas, levando em conta fins-de-semana
+//Função que retorna o número de dias entre 2 datas, levando em conta fins-de-semana
 //Formato da data : DD/MM/AAAA
 function dif_datas_weekend($data1,$data2,$array_excessoes = '',$weekend=TRUE,$feriados=false)
 {
@@ -1112,7 +1114,7 @@ function dif_datas_weekend($data1,$data2,$array_excessoes = '',$weekend=TRUE,$fe
 }
 
 //OBSOLETO
-// Fun��o que soma ou subtrai, dias, meses ou anos de uma data qualquer
+// Função que soma ou subtrai, dias, meses ou anos de uma data qualquer
 //	$date = calcula_data("06/01/2003", "sub", "day", "4") 
 function calcula_data_t($date, $operation, $where = FALSE, $quant, $return_format = FALSE)
 {
@@ -1133,10 +1135,10 @@ function calcula_data_t($date, $operation, $where = FALSE, $quant, $return_forma
 			// Separa dia, m�s e ano
 			list($day, $month, $year) = split("/", $date);
 
-			// Determina a opera��o (Soma ou Subtra��o)
+			// Determina a operação (Soma ou Subtra��o)
 			($operation == "sub" || $operation == "-") ? $op = "-" : $op = '';
 
-			// Determina aonde ser� efetuada a opera��o (dia, m�s, ano)
+			// Determina aonde ser� efetuada a operação (dia, m�s, ano)
 			if($where == "day")   
 			{	
 				$sum_day = $op."$quant";
@@ -1375,7 +1377,7 @@ function voltaDataHoje($datahoje)
 		}
 	}
 	else
-	{ // se n�o for bissexto 
+	{ // se não for bissexto 
 		if($mes == "03" )
 		{ 
 			$dia--; 
@@ -1465,7 +1467,7 @@ function time_to_sec($time)
 /*
 function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $array_periodos)
 {
-	// Fun��o que calcula os intervalos
+	// Função que calcula os intervalos
 	// de horario normal, adicional e noturno a partir do horario inicial e final
 	// Variaveis que definem os batentes
 	
@@ -1477,7 +1479,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $array_periodos)
 	//	HNorm --> Horario Normal
 	//  HAd   --> Horario Adicional
 	
-	//Per�odos padr�es - Ser�o utilizados caso n�o tenham sido definidos na Proposta	 
+	//Per�odos padr�es - Ser�o utilizados caso não tenham sido definidos na Proposta	 
 	$ha_noturno_inicial = '0:00';
 	$hn_inicial = '8:00';
 	
@@ -1714,7 +1716,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $array_periodos)
 
 function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 {
-	// Fun��o que calcula os intervalos
+	// Função que calcula os intervalos
 	// de horario normal, adicional e noturno a partir do horario inicial e final
 	// Variaveis que definem os batentes
 	
@@ -1726,7 +1728,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	//	HNorm --> Horario Normal
 	//  HAd   --> Horario Adicional
 	
-	//Per�odos padr�es - Ser�o utilizados caso n�o tenham sido definidos na Proposta	 
+	//Per�odos padr�es - Ser�o utilizados caso não tenham sido definidos na Proposta	 
 	$ha_noturno_inicial = '0:00';
 	$ha_noturno_final = '23:30';
 	
@@ -1851,7 +1853,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	//return $horas;
 
 	//HORAS NORMAIS
-	//retira o 1� elemento
+	//retira o 1ª elemento
 	$tmp1 = array_shift($array_norm);
 	
 	//retira o ultimo elemento
@@ -1860,13 +1862,13 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	//desconta o horario de almoco
 	if($hora_almoco && count($array_alm)>1)
 	{
-		//retira o 1� elemento
+		//retira o 1ª elemento
 		$tmp3 = array_shift($array_alm);
 		
 		//retira o ultimo elemento
 		$tmp4 = array_pop($array_alm);
 		
-		//Verifica os elementos retornados, n�o podem ser vazios
+		//Verifica os elementos retornados, não podem ser vazios
 		if(!is_null($tmp1) && !is_null($tmp2) && !is_null($tmp3) && !is_null($tmp4))
 		{
 			$horas[0] = abs(time_to_sec($tmp1)-time_to_sec($tmp2))-abs(time_to_sec($tmp3)-time_to_sec($tmp4));
@@ -1874,7 +1876,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	}
 	else
 	{
-		//Verifica os elementos retornados, n�o podem ser vazios
+		//Verifica os elementos retornados, não podem ser vazios
 		if(!is_null($tmp1) && !is_null($tmp2))
 		{
 			$horas[0] = abs(time_to_sec($tmp1)-time_to_sec($tmp2));
@@ -1882,52 +1884,52 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	}
 	
 	//HORAS ADICIONAIS 1	
-	//retira o 1� elemento
+	//retira o 1ª elemento
 	$tmp1 = array_shift($array_adic_1);
 	
 	//retira o ultimo elemento
 	$tmp2 = array_pop($array_adic_1);
 	
-	//Verifica os elementos retornados, n�o podem ser vazios
+	//Verifica os elementos retornados, não podem ser vazios
 	if(!is_null($tmp1) && !is_null($tmp2))
 	{	
 		$horas[1] = abs(time_to_sec($tmp1)-time_to_sec($tmp2));
 	}
 	
 	//HORAS ADICIONAIS 2
-	//retira o 1� elemento
+	//retira o 1ª elemento
 	$tmp1 = array_shift($array_adic_2);
 	
 	//retira o ultimo elemento
 	$tmp2 = array_pop($array_adic_2);
 	
-	//Verifica os elementos retornados, n�o podem ser vazios
+	//Verifica os elementos retornados, não podem ser vazios
 	if(!is_null($tmp1) && !is_null($tmp2))
 	{	
 		$horas[1] += abs(time_to_sec($tmp1)-time_to_sec($tmp2));
 	}
 	
 	//HORAS NOTURNAS 1
-	//retira o 1� elemento
+	//retira o 1ª elemento
 	$tmp1 = array_shift($array_not_1);
 	
 	//retira o ultimo elemento
 	$tmp2 = array_pop($array_not_1);
 	
-	//Verifica os elementos retornados, n�o podem ser vazios
+	//Verifica os elementos retornados, não podem ser vazios
 	if(!is_null($tmp1) && !is_null($tmp2))
 	{
 		$horas[2] = abs(time_to_sec($tmp1)-time_to_sec($tmp2));
 	}
 	
 	//HORAS NOTURNAS 2
-	//retira o 1� elemento
+	//retira o 1ª elemento
 	$tmp1 = array_shift($array_not_2);
 	
 	//retira o ultimo elemento
 	$tmp2 = array_pop($array_not_2);
 	
-	//Verifica os elementos retornados, n�o podem ser vazios
+	//Verifica os elementos retornados, não podem ser vazios
 	if(!is_null($tmp1) && !is_null($tmp2))
 	{
 		$horas[2] += abs(time_to_sec($tmp1)-time_to_sec($tmp2));
@@ -1951,7 +1953,7 @@ function maxmin($matriz,&$max,&$min)
 
 function versao_documento($versao_documento)
 {
-	// Incrementa revis�o automaticamente (alphanum)
+	// Incrementa revisão automaticamente (alphanum)
 	$rev = $versao_documento;
 	$len = strlen($rev);
 	
@@ -2070,7 +2072,7 @@ function comatopoint($valor)
 
 function numero_meses($data_ini,$data_fim)
 {
-	//Calcula o n�mero de meses entre duas datas
+	//Calcula o número de meses entre duas datas
 	//Formato das datas: YYYY-MM-DD
 	$data_admissao = explode('-',$data_ini);
 	$data_demissao = explode('-',$data_fim);
@@ -2221,7 +2223,7 @@ function meses($indice, $extenso = 0)
 }
 
 /**
- * Retorna uma tag HTML de imagem relacionada a extens�o fornecida
+ * Retorna uma tag HTML de imagem relacionada a extensão fornecida
  * @param string Extens�o (formato "xxx")
  * @return string
  */
@@ -2468,7 +2470,7 @@ function isobug($str)
 
 	//Define o range de caracteres a serem mantidos (regex)
 	//"a" at� "z", "A" at� "Z", "0" at� "9", "/", " ", ".", "_", "(caracteres que representam respectivamente: �,�,�,�)" 
-	//n�o utilizado ----  ATEN��O: o �ltimo espa�o da direita (" ") n�o � um caractere de espa�o (ASCII #32), e sim um algum caractere que representa o "�"
+	//não utilizado ----  ATENÇÃO: o �ltimo espa�o da direita (" ") não � um caractere de espa�o (ASCII #32), e sim um algum caractere que representa o "�"
 	//$padrao = "[^a-zA-Z0-9/ ._-��Ƃ]"; 
 	$padrao = "[^a-zA-Z0-9/ ._-]"; 
 	$replace = "";
@@ -2487,7 +2489,7 @@ function isobug($str)
 
 function full_rmdir( $dir )
 {
-	//Remove um diret�rio recursivamente.	
+	//Remove um   recursivamente.	
 	if ( !is_writable( $dir ) )
 	{
 		if ( !@chmod( $dir, 0777 ) )
@@ -2527,7 +2529,7 @@ function full_rmdir( $dir )
 }
 
 /*
- * Fun��o padr�o para realizar download de arquivos 
+ * Função padr�o para realizar download de arquivos 
  */
 function downloadFile($_file,$_fileName='',$_unlinkFile=false,$_paramsHeader=array())
 {
@@ -2556,12 +2558,12 @@ function downloadFile($_file,$_fileName='',$_unlinkFile=false,$_paramsHeader=arr
 	}
 	else
 	{
-		exit('Arquivo n�o encontrado!');
+		exit('Arquivo não encontrado!');
 	}
 }
 
 /**
- * Fun��o que permite imprimir conteudos sem que os demais usu�rios do DVMSYS vejam
+ * Função que permite imprimir conteudos sem que os demais usuários do SISTEMA vejam
  * S� serve quando usarmos o acesso especial
  * Exemplo: 
  	$arrTemp = array('teste', 1, 'nada');
@@ -2604,7 +2606,7 @@ function aplica_mascara($variavel, $mascara = '')
 }
 
 /**
- * Fun��o que retorna o formato "11 meses e 28 dias" entre duas datas
+ * Função que retorna o formato "11 meses e 28 dias" entre duas datas
  * @param AAAA-MM-DD $data1
  * @param AAAA-MM-DD $data2
  */
@@ -2620,7 +2622,7 @@ function meses_dias($data1, $data2)
 	return $formato;
 }
 
-//fun��o que quebra linhas quando dentro de uma grid n�o aceitar os caracteres abaixo
+//fun��o que quebra linhas quando dentro de uma grid não aceitar os caracteres abaixo
 function quebrarLinhas($texto)
 {
     return preg_replace("/\r\n|\r|\n/",'<br/>', $texto);

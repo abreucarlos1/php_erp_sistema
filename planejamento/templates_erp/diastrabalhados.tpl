@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório" disabled="disabled" /></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -35,7 +35,7 @@
 						<select name="mes" class="caixa" id="mes" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_per_values selected=$option_per_id output=$option_per_output</smarty>
 						</select>
-                        &nbsp;&nbsp;
+                          
 						<select name="ano" class="caixa" id="ano" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_ano_values selected=$option_ano_id output=$option_ano_output</smarty>
 						</select>
@@ -43,7 +43,7 @@
                      </td>
 				</tr>
 				<tr>
-				  <td colspan="5"><label for="local_trabalho" class="labels">Local&nbsp;de&nbsp;Trabalho</label><br />
+				  <td colspan="5"><label for="local_trabalho" class="labels">Local de Trabalho</label><br />
 					<select name="local_trabalho" class="caixa" id="local_trabalho">
 					<option value="">TODOS</option>				   
                     <smarty>html_options values=$option_local_values output=$option_local_output</smarty>

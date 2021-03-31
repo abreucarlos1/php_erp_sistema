@@ -37,7 +37,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'div_avaliados': 
-			mygrid.setHeader("Data&nbsp;Avaliação, Fornecedor, Avaliador,I,Consenso,PDI, Metas");
+			mygrid.setHeader("Data Avaliação, Fornecedor, Avaliador,I,Consenso,PDI, Metas");
 			mygrid.setInitWidths("100,250,250,50,80,50,60");
 			mygrid.setColAlign("left,left,left,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
@@ -51,7 +51,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.setColSorting("str,str,str,str,str");
 		break;
 		case 'div_criterios':
-			mygrid.setHeader("&nbsp;, &nbsp;, &nbsp;, &nbsp;");
+			mygrid.setHeader(" ,  ,  ,  ");
 			mygrid.setInitWidths("60, 60, 60, *");
 			mygrid.enableMultiline(true);
 			mygrid.setColAlign("left,left,left,left");

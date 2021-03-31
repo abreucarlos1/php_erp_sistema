@@ -266,7 +266,7 @@ if ( typeof Object.create !== 'function' ) {
 					self.zoomContainer.css("overflow", "hidden");
 				}
 				if(self.options.zoomType != "inner") {
-					self.zoomLens = $("<div class='zoomLens' style='" + self.lensStyle + self.lensRound +"'>&nbsp;</div>")
+					self.zoomLens = $("<div class='zoomLens' style='" + self.lensStyle + self.lensRound +"'> </div>")
 					.appendTo(self.zoomContainer)
 					.click(function () {
 						self.$elem.trigger('click');
@@ -304,13 +304,13 @@ if ( typeof Object.create !== 'function' ) {
 
 				//create zoom window 
 				if(isNaN(self.options.zoomWindowPosition)){
-					self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'>&nbsp;</div>")
+					self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'> </div>")
 					.appendTo('body')
 					.click(function () {
 						self.$elem.trigger('click');
 					});
 				}else{
-					self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'>&nbsp;</div>")
+					self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'> </div>")
 					.appendTo(self.zoomContainer)
 					.click(function () {
 						self.$elem.trigger('click');

@@ -114,7 +114,7 @@ function alterar($dados_form)
 		$params['emails']['to'][] = array('email' => 'financeiro@dominio.com.br', 'nome' => 'Financeiro');
 		$params['subject'] = 'LIBERAÇÃO DE FECHAMENTO';
 		
-		//Concatena mensagem de urg�ncia
+		//Concatena mensagem de urgência
 		$texto = '<B><FONT FACE=ARIAL COLOR=RED>LIBERAÇÃO DE FECHAMENTO</FONT></B><BR><br><br>';
 		$texto .= 'O fechamento já está disponível para consulta no sistema.<br>';
 		$texto .= 'Favor encaminhar a NF para financeiro@dominio.com.br.<br>';
@@ -125,8 +125,8 @@ function alterar($dados_form)
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND fechamento_folha.liberado = 0 ";		
-		$sql .= "AND fechamento_folha.id_funcionario = usuarios.id_funcionario ";
-		$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+		$sql .= "AND fechamento_folha.id_funcionario = funcionarios.id_funcionario ";
+		$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 		$sql .= "ORDER BY funcionario ";
 		
 		$db->select($sql,'MYSQL',true);
@@ -148,14 +148,22 @@ function alterar($dados_form)
 			
 			$texto_emisao = 'Emitir nota SOMENTE a partir '.date('d/m/Y',$data_formada).' e não mencionar período de referência.<br><br>';			
 		}
-	
-		$mail = new email($params);
-	   
-	    $mail->montaCorpoEmail($texto.$texto_emisao);
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+	
+			$mail = new email($params);
+		
+			$mail->montaCorpoEmail($texto.$texto_emisao);
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto.$texto_emisao, '300_650', 'Conteúdo email', 1);
 		}	
 	}
 	

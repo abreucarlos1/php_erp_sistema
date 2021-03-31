@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de ESPECIFICACAO T�CNICA	
+		Formulário de ESPECIFICACAO TÉCNICA	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
-		../projetos/especificacao_t�cnica.php
+		../projetos/especificacao_tecnica.php
 		
-		data de cria��o: 13/04/2006
+		data de criação: 13/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -46,37 +46,37 @@ if ($_POST["salva"]=="salvar")
 	
 	mysql_query ("DELETE FROM Projetos.especificacao_tecnica_detalhes WHERE id_especificacao_tecnica = '".$_POST["id_especificacao_tecnica"]."' ",$db->conexao);
 	
-	$incsql = "INSERT INTO Projetos.especificacao_tecnica ";
-	$incsql .= "(id_especificacao_padrao, id_componente, id_tipo) ";
-	$incsql .= "VALUES ('". $_POST["id_especificacao_padrao"]. "', ";
-	$incsql .= " '" . $_POST["id_componente"] . "', '" . $_POST["id_tipo"] . "' ) ";
+	$isql = "INSERT INTO Projetos.especificacao_tecnica ";
+	$isql .= "(id_especificacao_padrao, id_componente, id_tipo) ";
+	$isql .= "VALUES ('". $_POST["id_especificacao_padrao"]. "', ";
+	$isql .= " '" . $_POST["id_componente"] . "', '" . $_POST["id_tipo"] . "' ) ";
 	
-	$r = mysql_query($incsql,$db->conexao) or die("N�o foi poss�vel fazer a Inclusão.");
+	$r = mysql_query($isql,$db->conexao) or die("Não foi possível fazer a Inclusão.");
 
 	$id_espec_tec = mysql_insert_id($db->conexao);
 
-	// Seleciona os m�dulos cadastrados
+	// Seleciona os módulos cadastrados
 	$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes WHERE id_especificacao_padrao='" . $_POST["id_especificacao_padrao"] . "' ORDER BY id_especificacao_detalhe ";
-	$regis = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel fazer a sele��o1.");
+	$regis = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção1.");
 		
 	while ($cont_regs = mysql_fetch_array($regis))
 		{
-			$incsql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
-			$incsql = $incsql . "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
-			$incsql = $incsql . "VALUES ('".$id_espec_tec. "', ";
-			$incsql = $incsql . " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
-			$incsql = $incsql . " '". maiusculas($_POST[$cont_regs["id_especificacao_detalhe"]]) ."') ";
+			$isql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
+			$isql = $isql . "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
+			$isql = $isql . "VALUES ('".$id_espec_tec. "', ";
+			$isql = $isql . " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
+			$isql = $isql . " '". maiusculas($_POST[$cont_regs["id_especificacao_detalhe"]]) ."') ";
 			//Carrega os registros
-			$registro = mysql_query($incsql,$db->conexao) or die("N�o foi poss�vel a inser��o dos dados2");			
+			$registro = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados2");			
 		}
 		
 	
 	?>
 	<script>
-		alert('Especifica��o alterada com sucesso.');
+		alert('Especificação alterada com sucesso.');
 		
 	</script>
-	<?
+	<?php
 		
 }
 
@@ -87,14 +87,14 @@ if ($_POST["acao"]=="salvar")
 {
 	include ("../includes/conectdbproj.inc");
 
-	//Cria senten�a de Inclusão no bd
-	$incsql = "INSERT INTO especificacao_tecnica ";
-	$incsql = $incsql . "(id_especificacao_padrao, id_componente) ";
-	$incsql = $incsql . "VALUES ('". $_POST["id_especificacao_padrao"]. "', ";
-	$incsql = $incsql . "'". $_POST["id_componente"] ."') ";
+	//Cria sentença de Inclusão no bd
+	$isql = "INSERT INTO especificacao_tecnica ";
+	$isql = $isql . "(id_especificacao_padrao, id_componente) ";
+	$isql = $isql . "VALUES ('". $_POST["id_especificacao_padrao"]. "', ";
+	$isql = $isql . "'". $_POST["id_componente"] ."') ";
 	
 	//Carrega os registros
-	$registro = mysql_query($incsql,$conexao) or die("Não foi possível a inserção dos dados");
+	$registro = mysql_query($isql,$conexao) or die("Não foi possível a inserção dos dados");
 
 
 	?>
@@ -112,19 +112,19 @@ if ($_POST["acao"]=="salvar")
  
 if ($_GET["acao"] == "deletar")
 {
-	// Arquivo de Inclusão de conex�o com o banco
+	// Arquivo de Inclusão de conexão com o banco
 	include("../includes/conectdbproj.inc");
 	
-	//Executa o comando DELETE onde o id � enviado via javascript
+	//Executa o comando DELETE onde o id é enviado via javascript
 	mysql_query ("DELETE FROM especificacao_tecnica WHERE id_especificacao_tecnica = '".$_GET["id_componente"]."' ");
 	mysql_query ("DELETE FROM especificacao_tecnica_detalhes WHERE id_especificacao_tecnica = '".$_GET["id_componente"]."' ");
 	
-	//Fecha a conex�o com o banco
+	//Fecha a conexão com o banco
 	mysql_close($conexao);
 	?>
 	<script>
 		// Mostra mensagem de alerta e re-envia a pagina para a Atualização da tela
-		alert('Componente exclu�do com sucesso.');
+		alert('Componente excluído com sucesso.');
 		//location.href = '<?= //$PHP_SELF ?>';
 	</script>
 	<?
@@ -135,13 +135,13 @@ if ($_GET["acao"] == "deletar")
 
 <html>
 <head>
-<title>: : . ESPECIFICA&Ccedil;&Atilde;O T&Eacute;CNICA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_componente, ds_componente)
 {
@@ -174,7 +174,7 @@ function alteraespec()
 }
 
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() 
 {
 
@@ -194,20 +194,20 @@ window.moveTo(0,0);
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="33" bgcolor="#000099" class="menu_superior"><? //titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
+        <td height="33" bgcolor="#000099" class="menu_superior"><?php //titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
  	  </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;<? //formulario("CLIENTES") ?></td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> <?php //formulario("CLIENTES") ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //menu() ?></td>
       </tr>
 	  <tr>
         <td>
-            <?
+            <?php
 			
 			
 			
@@ -224,17 +224,17 @@ window.moveTo(0,0);
 				$sql .= "AND componentes.id_malha=malhas.id_malha ";
 				$sql .= "AND malhas.processo = processo.processo ";
 				$sql .= "AND componentes.funcao = funcao.funcao ";
-				$registro = mysql_query($sql,$conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+				$registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção.");
 				$componentes = mysql_fetch_array($registro);
 				
 				$sql = "SELECT * FROM especificacao_padrao_tipo ";
 				$sql .= "WHERE id_tipo= '" . $_POST["id_tipo"] . "' ";
 
-				$registro = mysql_query($sql,$conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+				$registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção.");
 				$espectipo = mysql_fetch_array($registro);  
 					
 			 ?>
-						<!-- MODIFICA&Ccedil;&Atilde;O AQUI-->
+						<!-- MODIFICAÇÃO AQUI-->
 						<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" cellpadding="0" cellspacing="0" border=0>
 							<tr>
@@ -243,10 +243,10 @@ window.moveTo(0,0);
 						  </table>
 						  <table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 							<tr>
-							  <td width="33%" class="cabecalho_tabela">T&Oacute;PICO</td>
+							  <td width="33%" class="cabecalho_tabela">TÓPICO</td>
 							  <td width="34%" class="cabecalho_tabela">VARIAVEL</td>
-							  <td width="29%"  class="cabecalho_tabela">CONTE&Uacute;DO</td>
-							  <td width="4%" class="cabecalho_tabela">&nbsp;</td>
+							  <td width="29%"  class="cabecalho_tabela">CONTEÚDO</td>
+							  <td width="4%" class="cabecalho_tabela"> </td>
 							</tr>
 						  </table>
 						</div>
@@ -261,7 +261,7 @@ window.moveTo(0,0);
 						$sql .= "AND especificacao_padrao.id_tipo = '" . $_POST["id_tipo"] . "' ";
 						$sql .= "AND especificacao_padrao.funcao = '" . $componentes["funcao"] . "' ";
 						$sql .= "AND especificacao_padrao.processo = '" . $componentes["processo"] . "' ";
-						$regis = mysql_query($sql,$conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+						$regis = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção.");
 						$padrao = mysql_fetch_array($regis);
 						
 						if(mysql_num_rows($regis)>0)
@@ -293,7 +293,7 @@ window.moveTo(0,0);
 						
 						// Mostra os registros
 			
-						$registro = mysql_query($sql,$conexao) or die("Não foi poss&iacute;vel fazer a seleção2." .$sql);
+						$registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção2." .$sql);
 						$i = 0;
 						while ($det = mysql_fetch_array($registro))
 						{
@@ -333,18 +333,18 @@ window.moveTo(0,0);
 					  <div id="alterar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" class="corpo_tabela">
 							<tr>
-							  <td class="label1">&nbsp;</td>
+							  <td class="label1"> </td>
 							  <td class="label1">
 							  	  <input type="hidden" name="id_especificacao_padrao" value="<?= $det["id_especificacao_padrao"] ?>">
 								  <input type="hidden" name="id_especificacao_tecnica" value="<?= $det["id_especificacao_tecnica"] ?>">
 								  <input type="hidden" name="flag" value="<?= $flag ?>">
 								  <input type="hidden" name="acao" value="salvar">
-								  <input name="Submit" type="button" class="btn" value="ALTERAR" onClick="requer('especificacao_tecnica')"> 
-								  <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
+								  <input name="submit" type="button" class="btn" value="ALTERAR" onclick="requer('especificacao_tecnica')"> 
+								  <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
 							</tr>
 							<tr>
-							  <td width="1%" class="label1">&nbsp;</td>
-							  <td width="23" class="label1">&nbsp;</td>
+							  <td width="1%" class="label1"> </td>
+							  <td width="23" class="label1"> </td>
 							</tr>
 						  </table>
 					  </div>
@@ -380,7 +380,7 @@ window.moveTo(0,0);
 				$sql .= "AND componentes.id_desempate = especificacao_padrao_desempate.id_desempate ";
 				$sql .= "AND componentes.id_componentes = '" . $comp . "' ";
 					
-				$registro = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção." . $sql);
+				$registro = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção." . $sql);
 				$componentes = mysql_fetch_array($registro); 
 					
 			 ?>
@@ -388,16 +388,16 @@ window.moveTo(0,0);
 					  <div id="tbbody" style="position:relative; width:100%; height:100px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px; visibility: visible;">
 						  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
 							<tr>
-							  <td width="2%">&nbsp;</td>
+							  <td width="2%"> </td>
 								<td width="16%" class="label1">COMPONENTE</td>
 								<td width="82%" class="label1">TIPO</td>
 							</tr>
 							<tr>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							  <td><input name="teste" type="text" class="txt_box" value="<?=  $componentes["nr_area"] . " - " . $componentes["subsistema"] . " - " . $componentes["ds_funcao"] . " DE " . $componentes["ds_processo"] ?>" size="100"></td>
 							  <td><select name="id_tipo" id="id_tipo" class="txt_box" onChange="requer('especificacao_tecnica')">
                                 <option value="">SELECIONE</option>
-                                <?
+                                <?php
 
 								$sql = "SELECT * FROM Projetos.especificacao_padrao_tipo ";
 								$sql .= "WHERE processo = '" . $componentes["processo"] . "' ORDER BY ds_especificacao_tipo ";
@@ -405,27 +405,27 @@ window.moveTo(0,0);
 								while ($reg = mysql_fetch_array($regdescricao))
 									{
 										?>
-										<option value="<?= $reg["id_tipo"] ?>"<? if ($_POST["id_tipo"]==$reg["id_tipo"]){ echo 'selected';}?>>
+										<option value="<?= $reg["id_tipo"] ?>"<?php if ($_POST["id_tipo"]==$reg["id_tipo"]){ echo 'selected';}?>>
 										<?= $reg["ds_especificacao_tipo"] ?>
 										</option>
-										<?
+										<?php
 									}
 								
 								?>
                               </select></td>
 						    </tr>
 							<tr>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							  <td><span class="label1">
 							    <input type="hidden" name="acao" value="editar">
 								<input type="hidden" name="id_componente" value="<?= $comp ?>">
 							  </span></td>
-							  <td>&nbsp;</td>
+							  <td> </td>
 						    </tr>
 						  </table>
 			    </div>
 <!-- MODIFICADO AQUI ABAIXO-->
-<?
+<?php
 			 if ($_POST["acao"]=='editar')
 			 {
 				
@@ -434,17 +434,17 @@ window.moveTo(0,0);
 				$sql .= "AND componentes.id_malha=malhas.id_malha ";
 				$sql .= "AND malhas.processo = processo.processo ";
 				$sql .= "AND componentes.funcao = funcao.funcao ";
-				$registro = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+				$registro = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção.");
 				$componentes = mysql_fetch_array($registro);
 				
 				$sql = "SELECT * FROM Projetos.especificacao_padrao_tipo ";
 				$sql .= "WHERE id_tipo= '" . $_POST["id_tipo"] . "' ";
 
-				$registro = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+				$registro = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção.");
 				$espectipo = mysql_fetch_array($registro);  
 					
 			 ?>
-						<!-- MODIFICA&Ccedil;&Atilde;O AQUI-->
+						<!-- MODIFICAÇÃO AQUI-->
 						<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" cellpadding="0" cellspacing="0" border=0>
 							<tr>
@@ -457,23 +457,23 @@ window.moveTo(0,0);
 						  </table>
 						  <table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 							<tr>
-							  <td width="33%" class="cabecalho_tabela">T&Oacute;PICO</td>
+							  <td width="33%" class="cabecalho_tabela">TÓPICO</td>
 							  <td width="34%" class="cabecalho_tabela">VARIAVEL</td>
-							  <td width="29%"  class="cabecalho_tabela">CONTE&Uacute;DO</td>
-							  <td width="4%" class="cabecalho_tabela">&nbsp;</td>
+							  <td width="29%"  class="cabecalho_tabela">CONTEÚDO</td>
+							  <td width="4%" class="cabecalho_tabela"> </td>
 							</tr>
 						  </table>
 						</div>
 					  <div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-							<?
+							<?php
 						
 						$sql = "SELECT * FROM Projetos.especificacao_padrao, Projetos.especificacao_tecnica ";
 						$sql .= "WHERE especificacao_tecnica.id_especificacao_padrao = especificacao_padrao.id_especificacao_padrao ";
 						$sql .= "AND especificacao_padrao.id_tipo = '" . $_POST["id_tipo"] . "' ";
 						$sql .= "AND especificacao_padrao.funcao = '" . $componentes["funcao"] . "' ";
 						$sql .= "AND especificacao_padrao.processo = '" . $componentes["processo"] . "' ";
-						$regis = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+						$regis = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção.");
 						$padrao = mysql_fetch_array($regis);
 						
 						if(mysql_num_rows($regis)>0)
@@ -507,7 +507,7 @@ window.moveTo(0,0);
 						
 						// Mostra os registros
 			
-						$registro = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção2." .$sql);
+						$registro = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção2." .$sql);
 						$i = 0;
 						while ($det = mysql_fetch_array($registro))
 						{
@@ -538,7 +538,7 @@ window.moveTo(0,0);
 							  </div></td>
 							  <td width="33%" class="corpo_tabela"><input name="<?= $det["id_especificacao_detalhe"] ?>" type="text" class="txt_box" value="<?= $det["conteudo"] ?>" size="50"></td>
 							</tr>
-							<?
+							<?php
 						}		
 						
 						
@@ -548,21 +548,21 @@ window.moveTo(0,0);
 					  <div id="alterar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" class="corpo_tabela">
 							<tr>
-							  <td class="label1">&nbsp;</td>
+							  <td class="label1"> </td>
 							  <td class="label1">
 							  	  <input type="hidden" name="id_especificacao_padrao" value="<?= $id_especificacao_padrao ?>">
 								  <input type="hidden" name="id_especificacao_tecnica" value="<?= $id_especificacao_tecnica ?>">
 								  <input type="hidden" name="salva" value="">
-								  <input name="Submit" type="button" class="btn" value="ALTERAR" onClick="alteraespec()"> 
-								  <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
+								  <input name="submit" type="button" class="btn" value="ALTERAR" onclick="alteraespec()"> 
+								  <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
 							</tr>
 							<tr>
-							  <td width="1%" class="label1">&nbsp;</td>
-							  <td width="23" class="label1">&nbsp;</td>
+							  <td width="1%" class="label1"> </td>
+							  <td width="23" class="label1"> </td>
 							</tr>
 						  </table>
 					  </div>
-					  <?
+					  <?php
 						
 			 }
 ?>
@@ -571,30 +571,30 @@ window.moveTo(0,0);
 
 
 
-					  <?
+					  <?php
 
 			
 			 }
 				else
 				{
 			  ?>
-						<!-- MODIFICA&Ccedil;&Atilde;O AQUI -->
+						<!-- MODIFICAÇÃO AQUI -->
 
 						<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" cellpadding="0" cellspacing="0" border=0 class="cabecalho_tabela">
 							<tr>
-							  <td width="38%" class="cabecalho_tabela">&Aacute;REA - SUBSISTEMA </td>
+							  <td width="38%" class="cabecalho_tabela">ÁREA - SUBSISTEMA </td>
 							  <td width="38%" class="cabecalho_tabela">MALHA</td>
 							  <td width="52%" class="cabecalho_tabela">COMPONENTE</td>
 							  <!-- <td width="8%" class="cabecalho_tabela">V</td> -->
 							  <td width="4%" class="cabecalho_tabela">D</td>
-							  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+							  <td width="2%" class="cabecalho_tabela"> </td>
 							</tr>
 						  </table>
 						</div>
 					  <div id="tbbody" style="position:relative; width:100%; height:263px; z-index:2; overflow-y:scroll; overflow-x:hidden;">
 						  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela" border=0>
-							<?
+							<?php
 					
 					/*
 					$sql = "SELECT *, componentes.id_componentes AS id_componente FROM area, malhas, subsistema, funcao, processo, especificacao_padrao_desempate, componentes ";
@@ -651,27 +651,27 @@ window.moveTo(0,0);
 							    <div align="center">
 							      <?= $componentes["ds_funcao"] ." DE " . $componentes["ds_processo"] . " " . $componentes["ds_tipo"]    ?>
 					            </div></td><!-- <td width="9%" class="corpo_tabela" align="center"> -->
-							  <?
+							  <?php
 							// Verifica as permissões para editar
 							//if($_SESSION["ESPECIFICACAO TECNICA"]{1})
 							//{
 							?>
-							  <!-- <a href="#" onClick="editar('<?= //$componentes["cod_espec_padrao"] ?>','<?= //$componentes["cod_espec_tec"] ?>')"><img src="../images/buttons/bt_visualizar.gif" width="22" height="22" border="0"></a></div> -->
-							  <?
+							  <!-- <a href="#" onclick="editar('<?= //$componentes["cod_espec_padrao"] ?>','<?= //$componentes["cod_espec_tec"] ?>')"><img src="../images/buttons/bt_visualizar.gif" width="22" height="22" border="0"></a></div> -->
+							  <?php
 							//}
 							//else
 							//{
 							?>
-							  <!-- <a href="#" onClick="javascript:alert('Voc&ecirc; não possue permissão para executar esta ação.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
-							  <?				
+							  <!-- <a href="#" onclick="javascript:alert('Voc&ecirc; não possue permissão para executar esta ação.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
+							  <?php				
 							//}
 							?>
 							  <!--</td>-->
     						  <td width="5%" class="corpo_tabela"><div align="center">
 
-								<a href="#" onClick="excluir('<?= $componentes["id_especificacao_tecnica"] ?>','<?= $componentes["id_componente"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a></div>			                 </td>
+								<a href="#" onclick="excluir('<?= $componentes["id_especificacao_tecnica"] ?>','<?= $componentes["id_componente"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a></div>			                 </td>
 							</tr>
-							<?
+							<?php
 					}
 					
 					
@@ -681,17 +681,17 @@ window.moveTo(0,0);
 					  <div id="alterar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 						  <table width="100%" class="corpo_tabela">
 							<tr>
-							  <td class="label1">&nbsp;</td>
+							  <td class="label1"> </td>
 							  <td class="label1">
-								  <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='../projetos/menuprojetos.php';"></td>
+								  <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='../projetos/menuprojetos.php';"></td>
 							</tr>
 							<tr>
-							  <td width="1%" class="label1">&nbsp;</td>
-							  <td width="23" class="label1">&nbsp;</td>
+							  <td width="1%" class="label1"> </td>
+							  <td width="23" class="label1"> </td>
 							</tr>
 						  </table>
 					  </div>
-					  <?
+					  <?php
 
 			 }
 			//}
@@ -708,7 +708,7 @@ window.moveTo(0,0);
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>
 

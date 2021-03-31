@@ -10,7 +10,7 @@
 				  <td valign="middle"><input name="btn_atualizar" type="button" class="class_botao" id="btn_atualizar" value="Inserir" onclick="if(confirm('Deseja inserir os dados do valor?')){xajax_inserir(xajax.getFormValues('frm'));}" /></td>
        			</tr>
 				<tr>
-				  <td valign="middle"><input name="btn_destino" type="button" class="class_botao" id="btn_destino" value="Copiar&nbsp;valores" onclick="if(confirm('Deseja inserir os dados da origem?')){copia_origem(document.getElementById('cliente').value)};" disabled="disabled" /></td>
+				  <td valign="middle"><input name="btn_destino" type="button" class="class_botao" id="btn_destino" value="Copiar valores" onclick="if(confirm('Deseja inserir os dados da origem?')){copia_origem(document.getElementById('cliente').value)};" disabled="disabled" /></td>
        			</tr>
 				<tr>
 				  <td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -41,14 +41,14 @@
                 <input name="data" type="text" class="caixa" id="data" size="10" maxlength="10" onkeypress="return txtBoxFormat(document.frm, 'data', '99/99/9999', event);" value='<smarty>$smarty.now|date_format:"%d/%m/%Y"</smarty>' /></td>
                 <td width="11%"><label for="valor_dvm" class="labels">Valor/Hora</label><br /> 
                   <input name="valor_dvm" type="text" class="caixa" id="valor_dvm" size="7" placeholder="Valor" maxlength="8" /></td>
-                <td width="68%"><label for="valor_cli" class="labels">Valor/H&nbsp;Cliente</label><br /> 
+                <td width="68%"><label for="valor_cli" class="labels">Valor/H Cliente</label><br /> 
                   <input name="valor_cli" type="text" class="caixa" id="valor_cli" size="7" placeholder="Valor" maxlength="8" /></td>
               </tr>
             </table>
 		</td>
         </tr>
       </table>
-    <div id="valores" style="width:100%;">&nbsp;</div>      
+    <div id="valores" style="width:100%;"> </div>      
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

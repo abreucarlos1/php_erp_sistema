@@ -5,7 +5,7 @@
 	
 	Versão 0 --> VERSÃO INICIAL : 01/07/2017
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
-	Versão 2 --> Altera��es em campos - 02/03/2018 - Carlos Abreu
+	Versão 2 --> Alterações em campos - 02/03/2018 - Carlos Abreu
 	Versão 3 --> Inclusão de campos conforme chamado #2691 - 06/04/2018 - Carlos Abreu
 */
 
@@ -66,7 +66,7 @@ $mes = $_POST["mes"];
 
 $ano = $_POST["ano"];
 
-$array_meses = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+$array_meses = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 if (intval($mes)==1)
 {
@@ -134,7 +134,7 @@ foreach($db->array_select as $regs)
 	$array_coord[$regs["PA7_ID"]] = $regs["PA7_NOME"];
 }
 
-//TABELA AE5 - GRUPOS DE COMPOSI��O
+//TABELA AE5 - GRUPOS DE COMPOSIÇÃO
 $sql = "SELECT * FROM AE5010 WITH(NOLOCK) ";
 $sql .= "WHERE AE5010.D_E_L_E_T_ = '' ";
 
@@ -151,7 +151,7 @@ foreach($db->array_select as $regs0)
 }
 
 $sql = "SELECT codigo, conta_contabil FROM ".DATABASE.".atividades ";
-$sql .= "WHERE atividades.obsoleto = 0 "; //n�o obsoletos
+$sql .= "WHERE atividades.obsoleto = 0 "; //não obsoletos
 $sql .= "AND atividades.reg_del = 0 ";
 $sql .= "AND atividades.cod IN (29,18) "; //despesas/suprimentos
 $sql .= "AND conta_contabil <> '' ";
@@ -193,7 +193,7 @@ foreach($array_projetos as $regs)
 
 if(count($a_projetos)<=0)
 {
-	die("N�O EXISTEM PROJETOS NESTE PER�ODO");
+	die("NÃO EXISTEM PROJETOS NESTE PERÍODO");
 }
 
 //TABELA AF2 - TAREFAS ORCAMENTO - HORAS PREVISTAS
@@ -582,7 +582,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="relatorio_wip_"'.date('dmYHis').'".xlsx"');
 header('Cache-Control: max-age=0');
@@ -596,8 +596,8 @@ foreach($array_folha as $folha)
 	
 	$st = $objPHPExcel->getActiveSheet();
 	
-	//data emiss�o
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emiss�o: ".date('d/m/Y')));
+	//data emissão
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emissão: ".date('d/m/Y')));
 	
 	$linha = 7;
 	

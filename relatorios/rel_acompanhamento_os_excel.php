@@ -55,7 +55,7 @@ $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND contatos.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_cod_resp = contatos.id_contato ";
 $sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 
@@ -69,27 +69,27 @@ if($_POST["lista_pendencia"])
 	?>
 	<table width="100%" border="1">
 			  <tr>
-			    <td>&nbsp;</td>
-			    <td colspan="8" align="center"><div align="center" class="style3" style="vertical-align: middle;">LISTA&nbsp;DE&nbsp;PENDÊNCIAS DE ENGENHARIA</div></td>
+			    <td> </td>
+			    <td colspan="8" align="center"><div align="center" class="style3" style="vertical-align: middle;">LISTA DE PENDÊNCIAS DE ENGENHARIA</div></td>
       </tr>
 			  <tr>
-			    <td colspan="2" valign="middle"><div class="style3" style="vertical-align: middle;">OS&nbsp;Nº;&nbsp;<?= sprintf("%05d",$reg_os["os"]) ?></p></td>
-			    <td colspan="4" valign="middle"><div class="style3" style="vertical-align: middle;">Título:&nbsp;<?= $reg_os["descricao"] ?></p></td>
-			    <td colspan="3" valign="middle"><div class="style2" style="vertical-align: middle;">Emissão:&nbsp;<?= date("d/m/Y") ?></p></td>
+			    <td colspan="2" valign="middle"><div class="style3" style="vertical-align: middle;">OS Nº; <?= sprintf("%05d",$reg_os["os"]) ?></p></td>
+			    <td colspan="4" valign="middle"><div class="style3" style="vertical-align: middle;">Título: <?= $reg_os["descricao"] ?></p></td>
+			    <td colspan="3" valign="middle"><div class="style2" style="vertical-align: middle;">Emissão: <?= date("d/m/Y") ?></p></td>
       </tr>
 			  <tr>
-			    <td colspan="9">&nbsp;</td>
+			    <td colspan="9"> </td>
       </tr>
 			  <tr>
 				<td width="5%"><div align="center" class="style2" style="vertical-align: middle;">Item</div></td>
-				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Identificação&nbsp;do&nbsp;Problema</div></td>
+				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Identificação do Problema</div></td>
 				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Disciplina</div></td>
-				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Solicitado&nbsp;por</div></td>
-				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Responsável&nbsp;pela solução</div></td>
+				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Solicitado por</div></td>
+				<td width="15%"><div align="center" class="style2" style="vertical-align: middle;">Responsável pela solução</div></td>
 				<td width="10%"><div align="center" class="style2" style="vertical-align: middle;">Status</div></td>
 				<td width="10%"><div align="center" class="style2" style="vertical-align: middle;">Data</div></td>
 				<td width="12%"><div align="center" class="style2" style="vertical-align: middle;">Observação</div></td>
-				<td width="11%"><div align="center" class="style2" style="vertical-align: middle;">Ação&nbsp;Corretiva</div></td>
+				<td width="11%"><div align="center" class="style2" style="vertical-align: middle;">Ação Corretiva</div></td>
 			  </tr>
 			<?php
             $sql = "SELECT * FROM ".DATABASE.".os_x_analise_critica_inicial ";
@@ -154,8 +154,9 @@ if($_POST["lista_pendencia"])
 else
 {
 	
-	$sql = "SELECT * FROM ".DATABASE.".usuarios ";
-	$sql .= "WHERE usuarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+	$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+	$sql .= "WHERE funcionarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -175,34 +176,34 @@ else
 	?>
     <table width="100%" border="1">
     	<tr>
-    		<td colspan="2">&nbsp;</td>
-            <td colspan="5"><div align="left" class="style3" style="vertical-align: middle;">ACOMPANHAMENTO&nbsp;DE&nbsp;PROJETOS&nbsp;DE&nbsp;ENGENHARIA&nbsp;-&nbsp;OS&nbsp;Nº&nbsp;<?= sprintf("%05d",$reg_os["os"]) ?></div></td>
-    	    <td colspan="2"><div align="left" class="style2" style="vertical-align: middle;">Emissão:&nbsp;<?= date("d/m/Y") ?></div></td>
+    		<td colspan="2"> </td>
+            <td colspan="5"><div align="left" class="style3" style="vertical-align: middle;">ACOMPANHAMENTO DE PROJETOS DE ENGENHARIA - OS Nº <?= sprintf("%05d",$reg_os["os"]) ?></div></td>
+    	    <td colspan="2"><div align="left" class="style2" style="vertical-align: middle;">Emissão: <?= date("d/m/Y") ?></div></td>
    	    </tr>
     	<tr>
-    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Cliente:&nbsp;<?= $reg_os["empresa"] ?></div></td>
-    	  <td width="1%">&nbsp;</td>
-    	  <td width="29%"><div class="style2" style="vertical-align: middle;">Projeto&nbsp;Inicio:&nbsp;<?= mysql_php($reg_os["projeto_inicio"]) ?></div></td>
-    	  <td colspan="2"><div class="style2" style="vertical-align: middle;">Projeto&nbsp;Fim:&nbsp;<?= mysql_php($reg_os["projeto_termino"]) ?>
+    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Cliente: <?= $reg_os["empresa"] ?></div></td>
+    	  <td width="1%"> </td>
+    	  <td width="29%"><div class="style2" style="vertical-align: middle;">Projeto Inicio: <?= mysql_php($reg_os["projeto_inicio"]) ?></div></td>
+    	  <td colspan="2"><div class="style2" style="vertical-align: middle;">Projeto Fim: <?= mysql_php($reg_os["projeto_termino"]) ?>
     	  </div></td>
-    	  <td width="14%">&nbsp;</td>
-    	  <td width="25%"><div class="style2" style="vertical-align: middle;">As&nbsp;Built:&nbsp;<?= mysql_php($reg_av["data_asbuilt"]) ?></div></td>
+    	  <td width="14%"> </td>
+    	  <td width="25%"><div class="style2" style="vertical-align: middle;">As Built: <?= mysql_php($reg_av["data_asbuilt"]) ?></div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="9"><div class="style2" style="vertical-align: middle;">Projeto:&nbsp;<?= $reg_os["descricao"] ?></div></td>
+    	  <td colspan="9"><div class="style2" style="vertical-align: middle;">Projeto: <?= $reg_os["descricao"] ?></div></td>
    	  </tr>
     	<tr>
-    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Coord.&nbsp;Cliente:&nbsp;<?= $reg_os["nome_contato"] ?></div></td>
-    	  <td>&nbsp;</td>
-    	  <td colspan="5"><div class="style2" style="vertical-align: middle;">E-mail:&nbsp;<?= $reg_os["email"] ?></DIV></td>
+    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Coord. Cliente: <?= $reg_os["nome_contato"] ?></div></td>
+    	  <td> </td>
+    	  <td colspan="5"><div class="style2" style="vertical-align: middle;">E-mail: <?= $reg_os["email"] ?></DIV></td>
    	  </tr>
     	<tr>
-    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Coord.&nbsp;:&nbsp;<?= $reg_os["funcionario"] ?></div></td>
-    	  <td>&nbsp;</td>
-    	  <td colspan="5"><div class="style2" style="vertical-align: middle;">E-mail:&nbsp;<?= $reg_func["email"] ?></div></td>
+    	  <td colspan="3"><div class="style2" style="vertical-align: middle;">Coord. : <?= $reg_os["funcionario"] ?></div></td>
+    	  <td> </td>
+    	  <td colspan="5"><div class="style2" style="vertical-align: middle;">E-mail: <?= $reg_func["email"] ?></div></td>
    	  </tr>
     	<tr>
-    	  <td colspan="9">&nbsp;</td>
+    	  <td colspan="9"> </td>
    	  </tr>
     	<tr>
     	  <td colspan="5"><div align="center" class="style3" style="vertical-align: middle;">Especialidade</div></td>
@@ -231,7 +232,7 @@ else
         ?> 
       
     	<tr>
-    	  <td colspan="9">&nbsp;</td>
+    	  <td colspan="9"> </td>
    	  </tr>
     	<tr>
     	  <td colspan="5"><div align="center" class="style3" style="vertical-align: middle;">ENTRADAS</div></td>
@@ -347,32 +348,32 @@ else
         ?>  
       
     	<tr>
-    	  <td colspan="5">&nbsp;</td>
-    	  <td width="6%">&nbsp;</td>
+    	  <td colspan="5"> </td>
+    	  <td width="6%"> </td>
     	  <td width="16%"><div align="center" class="style2" style="vertical-align: middle;">SIM</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">N/A</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">Data</div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">1&nbsp;-&nbsp;Reuniãoo&nbsp;inicial&nbsp;com&nbsp;o&nbsp;cliente&nbsp;(kick&nbsp;off&nbsp;meeting)</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Ata&nbsp;de&nbsp;reunião&nbsp;e/ou&nbsp;anotações</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">1 - Reuniãoo inicial com o cliente (kick off meeting)</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Ata de reunião e/ou anotações</div></td>
     	  <td><div align="center" style="vertical-align: middle;"><?= $chk_ata_reuniao ?></div></td>
     	  <td><div align="center" style="vertical-align: middle;"><?= $chk_ata_reuniao_na ?></div></td>
     	  <td><div align="center" style="vertical-align: middle;"><?= mysql_php($regs["data_ata"]) ?></div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="9"><div class="style1" style="vertical-align: middle;">2&nbsp;-&nbsp;Informações&nbsp;para&nbsp;execução&nbsp;do&nbsp;projeto</div></td>
+    	  <td colspan="9"><div class="style1" style="vertical-align: middle;">2 - Informações para execução do projeto</div></td>
    	  </tr>
     	<tr>
-    	  <td colspan="5">&nbsp;</td>
-    	  <td>&nbsp;</td>
+    	  <td colspan="5"> </td>
+    	  <td> </td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">SIM</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">N/A</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">Obs:</div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Levantamento&nbsp;no&nbsp;campo&nbsp;(planta&nbsp;e/ou&nbsp;arquivo&nbsp;técnico&nbsp;do&nbsp;cliente);</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Check-list&nbsp;preenchido&nbsp;e&nbsp;dados&nbsp;coletados</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Levantamento no campo (planta e/ou arquivo técnico do cliente);</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Check-list preenchido e dados coletados</div></td>
     	  <td><div align="center">
     	    <?= $chk_list ?>
   	    </div></td>
@@ -384,8 +385,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Requisitos&nbsp;de&nbsp;funcionamento&nbsp;e&nbsp;de&nbsp;desempenho;</div></td>
-    	  <td><span class="style1">Requisitos&nbsp;levantados</span></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Requisitos de funcionamento e de desempenho;</div></td>
+    	  <td><span class="style1">Requisitos levantados</span></td>
     	  <td><div align="center">
     	    <?= $chk_req_func ?>
   	    </div></td>
@@ -397,8 +398,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Requisitos&nbsp;estatutários&nbsp;e&nbsp;regulamentares&nbsp;aplicáveis;</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Requisitos&nbsp;levantados</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Requisitos estatutários e regulamentares aplicáveis;</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Requisitos levantados</div></td>
     	  <td><div align="center">
     	    <?= $chk_req_estat ?>
   	    </div></td>
@@ -410,8 +411,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Informações&nbsp;originadas&nbsp;de&nbsp;projetos&nbsp;anteriores&nbsp;semelhantes,&nbsp;se&nbsp;aplicáveis;</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Requisitos&nbsp;levantados</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Informações originadas de projetos anteriores semelhantes, se aplicáveis;</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Requisitos levantados</div></td>
     	  <td><div align="center">
     	    <?= $chk_inf_proj ?>
   	    </div></td>
@@ -423,8 +424,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Escopo&nbsp;de&nbsp;fornecimento;</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Escopo&nbsp;definido</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Escopo de fornecimento;</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Escopo definido</div></td>
     	  <td><div align="center">
     	    <?= $chk_escop_forn ?>
   	    </div></td>
@@ -436,8 +437,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Referências;</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Referências&nbsp;levantadas</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Referências;</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Referências levantadas</div></td>
     	  <td><div align="center">
     	    <?= $chk_referencias ?>
   	    </div></td>
@@ -449,8 +450,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">*&nbsp;Exclusões;</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Exclusões&nbsp;definidas</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">* Exclusões;</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Exclusões definidas</div></td>
     	  <td><div align="center">
     	    <?= $chk_exclusoes ?>
   	    </div></td>
@@ -462,8 +463,8 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">3&nbsp;-&nbsp;Solicitação&nbsp;de&nbsp;números&nbsp;para&nbsp;os&nbsp;documentos&nbsp;novos e/ou solicitação&nbsp;de&nbsp;documentos&nbsp;existentes&nbsp;do&nbsp;projeto.</div></td>
-    	  <td><div class="style1" style="vertical-align: middle;">Solicitações&nbsp;realizadas</div></td>
+    	  <td colspan="5"><div class="style1" style="vertical-align: middle;">3 - Solicitação de números para os documentos novos e/ou solicitação de documentos existentes do projeto.</div></td>
+    	  <td><div class="style1" style="vertical-align: middle;">Solicitações realizadas</div></td>
     	  <td><div align="center">
     	    <?= $chk_solic_num ?>
   	    </div></td>
@@ -475,10 +476,10 @@ else
   	    </div></td>
   	  </tr>
     	<tr>
-    	  <td colspan="9">&nbsp;</td>
+    	  <td colspan="9"> </td>
    	  </tr>
     	<tr>
-    	  <td colspan="9"><div align="center" class="style2" style="vertical-align: middle;">Análise&nbsp;crítica&nbsp;inicial&nbsp;(para&nbsp;análise&nbsp;crítica&nbsp;periódica,&nbsp;utilize&nbsp;o&nbsp;Procedimento&nbsp;de&nbsp;Execução&nbsp;de&nbsp;Projetos&nbsp;).</div></td>
+    	  <td colspan="9"><div align="center" class="style2" style="vertical-align: middle;">Análise crítica inicial (para análise crítica periódica, utilize o Procedimento de Execução de Projetos ).</div></td>
    	  </tr>
 		<?php
         $sql = "SELECT * FROM ".DATABASE.".os_x_analise_critica_inicial ";
@@ -508,23 +509,23 @@ else
         ?>    	
         
         <tr>
-    	  <td colspan="3"><div align="center" class="style1" style="vertical-align: middle;">1&nbsp;-&nbsp;Existem&nbsp;recursos&nbsp;para&nbsp;a&nbsp;execução&nbsp;do&nbsp;projeto?</div></td>
+    	  <td colspan="3"><div align="center" class="style1" style="vertical-align: middle;">1 - Existem recursos para a execução do projeto?</div></td>
     	  <td colspan="6"><?= maiusculas($regs["recursos_execucao"]) ?></td>
    	  </tr>
     	<tr>
-    	  <td colspan="3"><div align="center" class="style1" style="vertical-align: middle;">2&nbsp;-&nbsp;Existem&nbsp;problemas&nbsp;para&nbsp;a&nbsp;realização&nbsp;do&nbsp;projeto?&nbsp;Descreva&nbsp;as&nbsp;ações&nbsp;necessárias.</div></td>
+    	  <td colspan="3"><div align="center" class="style1" style="vertical-align: middle;">2 - Existem problemas para a realização do projeto? Descreva as ações necessárias.</div></td>
     	  <td colspan="6"><?= $str_perio ?></td>
    	  </tr>
     	<tr>
     	  <td width="1%"><div align="center" class="style2" style="vertical-align: middle;">Item</div></td>
-    	  <td width="1%"><div align="center" class="style2" style="vertical-align: middle;">Identificação&nbsp;do&nbsp;Problema</div></td>
+    	  <td width="1%"><div align="center" class="style2" style="vertical-align: middle;">Identificação do Problema</div></td>
     	  <td width="7%"><div align="center" class="style2" style="vertical-align: middle;">Disciplina</div></td>
-    	  <td><div align="center" class="style2" style="vertical-align: middle;">Solicitado&nbsp;por</div></td>
-    	  <td><div align="center" class="style2" style="vertical-align: middle;">Responsável&nbsp;pela solução</div></td>
+    	  <td><div align="center" class="style2" style="vertical-align: middle;">Solicitado por</div></td>
+    	  <td><div align="center" class="style2" style="vertical-align: middle;">Responsável pela solução</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">Status</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">Data</div></td>
     	  <td><div align="center" class="style2" style="vertical-align: middle;">Observação</div></td>
-    	  <td><div align="center" class="style2" style="vertical-align: middle;">Ação&nbsp;Corretiva</div></td>
+    	  <td><div align="center" class="style2" style="vertical-align: middle;">Ação Corretiva</div></td>
   	  </tr>
 			<?php
 			$item = 1;
@@ -567,40 +568,40 @@ else
 			
 			?>  
         <tr>
-    	  <td colspan="9">&nbsp;</td>
+    	  <td colspan="9"> </td>
    	  </tr>
         <tr>
-          <td colspan="5"><div align="center" class="style2" style="vertical-align: middle;">Verificação&nbsp;do&nbsp;projeto</div></td>
-          <td>&nbsp;</td>
-          <td colspan="3"><div align="center" class="style2" style="vertical-align: middle;">Controle&nbsp;de&nbsp;alterações&nbsp;e&nbsp;revisões</div></td>
+          <td colspan="5"><div align="center" class="style2" style="vertical-align: middle;">Verificação do projeto</div></td>
+          <td> </td>
+          <td colspan="3"><div align="center" class="style2" style="vertical-align: middle;">Controle de alterações e revisões</div></td>
         </tr>
         <tr>
           <td colspan="5"><div class="style1">Conforme Análise e Verificação de Projeto, executada em todos os documentos que são finalizados para a entrega ao cliente ao longo do projetos, de acordo com o cronagrama consolidado</div></td>
-          <td>&nbsp;</td>
+          <td> </td>
           <td colspan="3"><div class="style1">As alterações são registradas no formulário Solicitação de Alteração e/o Serviço. As revisões são anotadas no próprio documento do projeto e registradas pelo Arquivo Técnico.</div></td>
         </tr>
         <tr>
-          <td colspan="9">&nbsp;</td>
+          <td colspan="9"> </td>
         </tr>
         <tr>
-          <td colspan="5"><div align="center" class="style2" style="vertical-align: middle;">Validação&nbsp;do&nbsp;projeto</div></td>
-          <td>&nbsp;</td>
-          <td colspan="3"><div align="center" class="style2" style="vertical-align: middle;">Validação&nbsp;pelo&nbsp;responsável&nbsp;técnico</div></td>
+          <td colspan="5"><div align="center" class="style2" style="vertical-align: middle;">Validação do projeto</div></td>
+          <td> </td>
+          <td colspan="3"><div align="center" class="style2" style="vertical-align: middle;">Validação pelo responsável técnico</div></td>
         </tr>
         <tr>
-          <td colspan="5"><p class="style1">A&nbsp;validação&nbsp;do&nbsp;projeto&nbsp;é&nbsp;evidenciada&nbsp;por:</p>
-            <p class="style1">1)&nbsp;Análise&nbsp;e&nbsp;verificação&nbsp;dos&nbsp;documentos&nbsp;do&nbsp;projeto&nbsp;emitidos&nbsp;para&nbsp;o&nbsp;cliente&nbsp;e,</p>
-          <p class="style1">2)&nbsp;Análise&nbsp;final&nbsp;pelo&nbsp;responsável&nbsp;técnico</p></td>
-          <td>&nbsp;</td>
+          <td colspan="5"><p class="style1">A validação do projeto é evidenciada por:</p>
+            <p class="style1">1) Análise e verificação dos documentos do projeto emitidos para o cliente e,</p>
+          <p class="style1">2) Análise final pelo responsável técnico</p></td>
+          <td> </td>
           <td><div class="style2">Coordenador:<?= $reg_validacao["nome_validador"] ?></div></td>
-          <td>&nbsp;</td>
+          <td> </td>
           <td><div class="style2">data:<?= mysql_php($reg_validacao["data_validacao"]) ?></div></td>
         </tr>
         <tr>
-          <td colspan="9">&nbsp;</td>
+          <td colspan="9"> </td>
         </tr>
         <tr>
-          <td colspan="9"><div align="center" class="style2" style="vertical-align: middle;">Análise&nbsp;crítica&nbsp;final&nbsp;(Utilize&nbsp;o&nbsp;Procedimento&nbsp;de&nbsp;Execução&nbsp;de&nbsp;Projetos)</div></td>
+          <td colspan="9"><div align="center" class="style2" style="vertical-align: middle;">Análise crítica final (Utilize o Procedimento de Execução de Projetos)</div></td>
         </tr>
         <tr>
           <td colspan="9"><div  class="style2" style="vertical-align: middle;">1 - Os prazos foram cumpridos conforme previsto no cronograma? Se ocorreram atrasos, quais foram as principais causas? Comentários/Justificativa:</div></td>
@@ -633,11 +634,11 @@ else
           <td colspan="9"><div  class="style1" style="vertical-align: middle;"><?= $reg_acf["txt_melhorias"] ?></div></td>
         </tr>
         <tr>
-          <td colspan="9">&nbsp;</td>
+          <td colspan="9"> </td>
         </tr>
         <tr>
           <td colspan="2"><div class="style2" style="vertical-align: middle;">COORDENADOR</div></td>
-          <td>&nbsp;</td>
+          <td> </td>
           <td colspan="6"><div class="style2" style="vertical-align: middle;">DATA</div></td>
         </tr>
     </table>

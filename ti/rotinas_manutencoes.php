@@ -337,7 +337,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Data,Prox.&nbsp;data,Funcionário,Rotina,Frequência,Observação,D",
+	mygrid.setHeader("Data,Prox. data,Funcionário,Rotina,Frequência,Observação,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center"]);
 	mygrid.setInitWidths("100,100,200,200,200,*,25");

@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="inicio" class="labels">In&iacute;cio</label><br/>
+						<label for="inicio" class="labels">Início</label><br/>
 						<input type="text" id="inicio" name="inicio" placeholder="INICIO" onkeypress="transformaData(this, event);" size="10" />
 					</td>
 					<td>
@@ -51,8 +51,8 @@
 						<input type="text" id="fim" name="fim" placeholder="FIM" onkeypress="transformaData(this, event);" size="10" />
 					</td>
 					<td>
-						<label for="numero_contrato" class="labels">N�m. Contrato</label><br/>
-						<input type="text" id="numero_contrato" name="numero_contrato" placeholder="N�mero Contrato" size="15" />
+						<label for="numero_contrato" class="labels">Nºm. Contrato</label><br/>
+						<input type="text" id="numero_contrato" name="numero_contrato" placeholder="Nºmero Contrato" size="15" />
 					</td>
 					<td>
 						<label for="qtd_horas" class="labels">Qtd. Horas</label><br/>
@@ -72,14 +72,14 @@
         	<table align="right" class="tabela_body" style="border:solid 1px #ccc;width:200px;">
 		                              	<caption class="labels">Legendas:</caption>
 		                              	<tr><td><span class="icone icone-bola-verde"></span></td><td>Dentro do prazo</td></tr>
-		                              	<tr><td><span class="icone icone-bola-amarela"></span></td><td>Pr�ximo ao fim do prazo</td></tr>
+		                              	<tr><td><span class="icone icone-bola-amarela"></span></td><td>Próximo ao fim do prazo</td></tr>
 		                              	<tr><td><span class="icone icone-bola-vermelha"></span></td><td>Prazo estourado</td></tr>
 		                              </table>
       </td>
         </tr>
         
       </table>
-	  <div id="div_grid" style="width:100%;">&nbsp;</div>
+	  <div id="div_grid" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

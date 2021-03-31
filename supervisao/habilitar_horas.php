@@ -257,7 +257,7 @@ function atualizatabela($dados_form)
 			}
 			else
 			{
-				$conteudo = '&nbsp;';				
+				$conteudo = ' ';				
 			}
 			
 			$xml->writeElement('cell', $conteudo);
@@ -276,7 +276,7 @@ function atualizatabela($dados_form)
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 		}
 		
@@ -300,7 +300,7 @@ function insere($dados_form)
 	
 	if(in_array($_SESSION["id_funcionario"],array(6,12,819)) && $dados_form["funcionario"]=='')
 	{
-		$resposta->addAlert("Voce deve escolher o funcion�rio.");
+		$resposta->addAlert("Voce deve escolher o funcionário.");
 		
 		return $resposta;	
 	}
@@ -398,7 +398,7 @@ function insere($dados_form)
 			
 			//FUNCIONÁRIOS
 			$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-			$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+			$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 			$sql .= "AND funcionarios.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND usuarios.reg_del = 0 ";
@@ -626,14 +626,22 @@ function insere($dados_form)
 			//{
 				//$params['emails']['to'][] = array('email' => $array_email[$_SESSION["id_funcionario"]], 'nome' => $array_func[$_SESSION["id_funcionario"]]);
 			//}
-			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($texto);
-			
-			if(!$mail->Send())
+
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert($mail->ErrorInfo);
+			
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($texto);
+				
+				if(!$mail->Send())
+				{
+					$resposta->addAlert($mail->ErrorInfo);
+				}
+			}
+			else
+			{
+				$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
 			}
 	
 			$resposta->addAlert("Solicitado com sucesso!");
@@ -681,7 +689,7 @@ function aprovar($id_horas, $aprovacao, $motivo = '')
 			
 			//FUNCIONÁRIOS
 			$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-			$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+			$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 			$sql .= "AND funcionarios.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
 			$sql .= "AND usuarios.reg_del = 0 ";
@@ -796,19 +804,28 @@ function aprovar($id_horas, $aprovacao, $motivo = '')
 			$texto .= "<b>Motivo solicitação</b>: ".$cont["motivo_solicitacao"]."<br>";
 			$texto .= "<b>".$rejeicao."</b>";	
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($texto);
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				//AQUI
-				$resposta->addAlert("Erro ao enviar o e-mail");
+
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($texto);
+				
+				if(!$mail->Send())
+				{
+					//AQUI
+					$resposta->addAlert("Erro ao enviar o e-mail");
+				}
+				else
+				{
+					$resposta->addAlert("E-mail enviado");				
+				}
 			}
-			else
+			else 
 			{
-				$resposta->addAlert("E-mail enviado");				
+				$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
 			}
+
 			
 			$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
 		}
@@ -831,7 +848,7 @@ function excluir($id_horas)
 	
 	//FUNCIONARIOS
 	$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE usuarios.id_usuario = funcionarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
@@ -1000,18 +1017,25 @@ function excluir($id_horas)
 		//$params['emails']['to'][] = array('email' => $array_email[$_SESSION["id_funcionario"]], 'nome' => $array_func[$_SESSION["id_funcionario"]]);	
 	//}
 	
-	$mail = new email($params);
-	
-	$mail->montaCorpoEmail($texto);
-	
-	if(!$mail->Send())
+	if(ENVIA_EMAIL)
 	{
-		$resposta->addAlert($mail->ErrorInfo);
+
+		$mail = new email($params);
+		
+		$mail->montaCorpoEmail($texto);
+		
+		if(!$mail->Send())
+		{
+			$resposta->addAlert($mail->ErrorInfo);
+		}
 	}
-	else
+	else 
 	{
-		$resposta->addAlert("Solicitação excluída com sucesso!");	
-	}	
+		$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 3);
+	}
+
+	$resposta->addAlert("Solicitação excluída com sucesso!");	
+		
 
 	$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm')); ");
 		
@@ -1142,7 +1166,7 @@ function grid(tabela, autoh, height, xml)
 	switch (tabela)
 	{
 		case 'habilitados':
-			mygrid.setHeader("Nº, Funcionário, Projeto, Data&nbsp;Ini, Data&nbsp;Fim, Hora&nbsp;Ini, Hora&nbsp;Fim, Motivo&nbsp;Sol., Status, A, D");
+			mygrid.setHeader("Nº, Funcionário, Projeto, Data Ini, Data Fim, Hora Ini, Hora Fim, Motivo Sol., Status, A, D");
 			mygrid.setInitWidths("35,200,80,70,70,60,60,*,90,40,40");
 			mygrid.setColAlign("left,left,left,left,left,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1165,8 +1189,8 @@ function popupUp(id_horas)
 	conteudo += '<td><label class="labels">Aprovação</label></td>';
 	conteudo += '</tr><tr>';
 	conteudo += '<td><select name="aprovacao" class="caixa" id="aprovacao" onkeypress="return keySort(this);" onchange="if(true){div_motivo.style.display=\'inline\'}else{div_motivo.style.display=\'none\'};"><option value="">SELECIONA</option><option value="2">APROVA</option><option value="1">NÃO APROVA</option></select></td></tr>';
-	conteudo += '<tr><td width="10%"><div id="div_motivo" style="display:none;"><label class="labels">Motivo&nbsp;:</label><br><input name="motivo_rejeicao" type="text" class="caixa" id="motivo_rejeicao" size="50" maxlength="200" /></div></td><td width="90%">&nbsp;</td></tr>';
-	conteudo += '<tr><td><input id="btn_checkout_enviar" type="button" value="Enviar" class="class_botao" onclick="xajax_aprovar('+id_horas+',document.getElementById(\'aprovacao\').value,document.getElementById(\'motivo_rejeicao\').value);">&nbsp;<input type="button" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
+	conteudo += '<tr><td width="10%"><div id="div_motivo" style="display:none;"><label class="labels">Motivo :</label><br><input name="motivo_rejeicao" type="text" class="caixa" id="motivo_rejeicao" size="50" maxlength="200" /></div></td><td width="90%"> </td></tr>';
+	conteudo += '<tr><td><input id="btn_checkout_enviar" type="button" value="Enviar" class="class_botao" onclick="xajax_aprovar('+id_horas+',document.getElementById(\'aprovacao\').value,document.getElementById(\'motivo_rejeicao\').value);"> <input type="button" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick="divPopupInst.destroi();" class="class_botao"></td></tr>';
 	
 	modal(conteudo, 'p', 'APROVAÇÃO');	
 }

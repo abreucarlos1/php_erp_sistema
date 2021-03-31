@@ -210,7 +210,7 @@ foreach ($array_os as $regs1)
 			
 			$regs_rev = $db->array_select[0];
 	
-			//VERIFICA SE O APONTAMENTO J� ESTA CONFIRMADO NO PROTHEUS
+			//VERIFICA SE O APONTAMENTO JÁ ESTA CONFIRMADO NO PROTHEUS
 			$sql = "SELECT * FROM AJK010 WITH(NOLOCK) ";
 			$sql .= "WHERE AJK010.D_E_L_E_T_ = '' ";
 			$sql .= "AND AJK010.AJK_ID_DVM = '".trim($regs3["id_apontamento_horas"])."' ";
@@ -221,7 +221,7 @@ foreach ($array_os as $regs1)
 			
 			$db->select($sql,'MSSQL',true);
 			
-			//n�o aprovado
+			//não aprovado
 			if($db->numero_registros_ms>0)
 			{
 				if($os!=$regs2["os"])

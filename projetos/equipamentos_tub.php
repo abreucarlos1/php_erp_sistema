@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de Equipamentos	
+		Formulário de Equipamentos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/equipamentos_tub.php
 		
-		data de cria��o: 05/06/2006
+		data de criação: 05/06/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -31,7 +31,7 @@ include ("../includes/conectdb.inc.php");
 $db = new banco_dados;
 
 $sql1 = "SELECT * FROM ".DATABASE.".setores ";
-$sql1 .= "WHERE setor = 'TUBULA��O' ";
+$sql1 .= "WHERE setor = 'TUBULAÇÃO' ";
 
 $regis = $db->select($sql1,'MYSQL');
 
@@ -54,7 +54,7 @@ if ($_POST["acao"]=="editar")
 	<script>
 		alert('Equipamento atualizado com sucesso.');
 	</script>
-	<?
+	<?php
 	
 }
 
@@ -62,20 +62,20 @@ if ($_POST["acao"]=="editar")
 if ($_POST["acao"]=="salvar")
 {
 
-	//Cria senten�a de Inclusão no bd
-	$incsql = "INSERT INTO Projetos.equipamentos ";
-	$incsql .= "(id_disciplina, cd_local, ds_equipamento) VALUES (";
-	$incsql .= "'" . $disciplina["id_setor"] . "', ";
-	$incsql .= "'" . maiusculas($_POST["cd_local"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_equipamento"]) . "') ";
+	//Cria sentença de Inclusão no bd
+	$isql = "INSERT INTO Projetos.equipamentos ";
+	$isql .= "(id_disciplina, cd_local, ds_equipamento) VALUES (";
+	$isql .= "'" . $disciplina["id_setor"] . "', ";
+	$isql .= "'" . maiusculas($_POST["cd_local"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_equipamento"]) . "') ";
 
-	$registros = $db->insert($incsql,'MYSQL');
+	$registros = $db->insert($isql,'MYSQL');
 
 	?>
 	<script>
 		alert('Equipamento inserido com sucesso.');
 	</script>
-	<?
+	<?php
 
 }
 
@@ -89,9 +89,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Equipamento exclu�do com sucesso.');
+		alert('Equipamento excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -100,10 +100,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . EQUIPAMENTOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_equipamentos, equipamento)
 {
@@ -124,7 +124,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -149,18 +149,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -180,58 +180,58 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="13%" class="label1">C&Oacute;D. EQUIPAMENTO </td>
-                      <td width="0%">&nbsp;</td>
+                      <td width="13%" class="label1">CÓD. EQUIPAMENTO </td>
+                      <td width="0%"> </td>
                       <td width="13%" class="label1">EQUIPAMENTO</td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="62%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="62%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_local" type="text" class="txt_box" id="cd_local" size="40" maxlength="3" value="<?= $equipamentos["cd_local"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_equipamento" type="text" class="txt_box" id="ds_equipamento" size="30" value="<?= $equipamentos["ds_equipamento"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_equipamentos" type="hidden" id="id_equipamentos" value="<?= $equipamentos["id_equipamentos"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -242,57 +242,57 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="13%" class="label1">c&Oacute;d. equipamento </td>
-                      <td width="0%">&nbsp;</td>
+                      <td width="13%" class="label1">cÓd. equipamento </td>
+                      <td width="0%"> </td>
                       <td width="13%" class="label1">equipamento</td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="62%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="62%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_local" type="text" class="txt_box" id="cd_local" value="<?= $_POST["cd_local"] ?>" size="40" maxlength="3">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_equipamento" type="text" class="txt_box" id="ds_equipamento" value="<?= $_POST["equipamento"] ?>" size="30">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -306,8 +306,8 @@ window.moveTo(0,0);
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  <td width="31%">DISCIPLINA</td>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "ds_equipamento";
@@ -320,24 +320,24 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="31%"><a href="#" class="cabecalho_tabela" onClick="ordenar('tipo','<?= $ordem ?>')">C&Oacute;D. EQUIPAMENTO </a></td>
+				  <td width="31%"><a href="#" class="cabecalho_tabela" onclick="ordenar('tipo','<?= $ordem ?>')">CÓD. EQUIPAMENTO </a></td>
 				  <td width="28%">EQUIPAMENTO</td>
 				  <td width="7%"  class="cabecalho_tabela">E</td>
 				  <td width="7%"  class="cabecalho_tabela">D</td>
-				  <td width="7%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="7%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 					
 					$sql = "SELECT * FROM Projetos.equipamentos, ".DATABASE.".setores ";
 					$sql .= "WHERE id_disciplina = id_setor ";
-					$sql .= "AND setor = 'TUBULA��O' ";
+					$sql .= "AND setor = 'TUBULAÇÃO' ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
 					
 					$registro = $db->select($sql,'MYSQL');
@@ -372,7 +372,7 @@ window.moveTo(0,0);
 						  <td width="2%"><div align="center"> <a href="javascript:editar('<?= $equipamentos["id_equipamentos"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="5%"><div align="center"> <a href="javascript:excluir('<?= $equipamentos["id_equipamentos"] ?>','<?= $equipamentos["ds_equipamento"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 				?>
 			  </table>

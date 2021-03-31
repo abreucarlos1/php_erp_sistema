@@ -151,7 +151,7 @@ function atualizatabela($filtro)
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir("'.$cont_desp["id_rh_integracao"].'");}>');
+				$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir?")){xajax_excluir("'.$cont_desp["id_rh_integracao"].'");}>');
 			$xml->endElement();
 			
 		$xml->endElement();	
@@ -406,7 +406,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Nº,Funcionário,Crachá,Local&nbsp;de&nbsp;Trabalho,Data&nbsp;Integração,Vencimento,Status,Observação,D",
+	mygrid.setHeader("Nº,Funcionário,Crachá,Local de Trabalho,Data Integração,Vencimento,Status,Observação,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center"]);
 	mygrid.setInitWidths("50,250,*,*,*,*,80,*,30");

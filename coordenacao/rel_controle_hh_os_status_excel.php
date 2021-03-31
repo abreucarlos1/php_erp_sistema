@@ -185,11 +185,11 @@ foreach ($array_horas as $regconth)
 				$AHA = $AHA + floor($AMA/60);
 				?>
 				<tr>
-					<td>&nbsp;</td>
+					<td> </td>
 				</tr>
 
 				<tr>
-					<td width="10%" class="fonte_descricao_campos"><strong>&nbsp;</strong></td>
+					<td width="10%" class="fonte_descricao_campos"><strong> </strong></td>
 					<td width="40%" class="fonte_descricao_campos"><?= $regatividade["descricao"] ?></td>
 
 					<td width="20%" class="fonte_descricao_campos"><?= $AHN . ":" . $AMN%60 ?></td>
@@ -202,7 +202,7 @@ foreach ($array_horas as $regconth)
 			?>
 			
 			<tr>
-				<td width="10%" class="fonte_descricao_campos"><strong>&nbsp;</strong></td>					
+				<td width="10%" class="fonte_descricao_campos"><strong> </strong></td>					
 				<td width="40%" class="fonte_descricao_campos"><strong>SUB-TOTAL:</strong></td>
 			
 				<td width="20%" class="fonte_descricao_campos"><?= $DHN . ":" . $DMN%60 ?></td>
@@ -217,7 +217,7 @@ foreach ($array_horas as $regconth)
 
 		?>
 		<tr>
-					<td width="10%" class="fonte_descricao_campos"><strong>&nbsp;</strong></td>					
+					<td width="10%" class="fonte_descricao_campos"><strong> </strong></td>					
 			<td width="40%" class="fonte_descricao_campos"><strong>TOTAL:</strong></td>
 			<td width="20%" class="fonte_descricao_campos"><?= $THN . ":" . $TMN%60 ?></td>
 			<td width="20%" class="fonte_descricao_campos"><?= $THA . ":" . $TMA%60 ?></td>		

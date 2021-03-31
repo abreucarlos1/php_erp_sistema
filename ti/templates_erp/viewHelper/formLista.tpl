@@ -27,7 +27,7 @@
 						<smarty>/if</smarty>	
 					<smarty>/foreach</smarty>
 					<th>
-						&nbsp;
+						 
 					</th>
 				</tr>
 				<smarty>while $list = mysqli_fetch_assoc($lista[1])</smarty>

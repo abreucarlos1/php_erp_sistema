@@ -1,20 +1,20 @@
-<?
+<?php
 /*
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 
 		
-		data de cria��o: 06/04/2006
+		data de criação: 06/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -27,12 +27,12 @@ include ("../includes/tools.inc.php");
 
 $db = new banco_dados;
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
 
 	
-	// Caso a��o seja editar...
+	// Caso ação seja editar...
 	case 'importar':
 		
 		$sql ="SELECT * FROM Projetos.area ";
@@ -43,12 +43,12 @@ switch ($_POST["acao"])
 		while($regs = mysqli_fetch_array($registros))
 		{
 						
-			$incsql = "INSERT INTO Projetos.area (id_os, ds_projeto, nr_area, ds_area, ds_divisao, id_cliente) ";
-			$incsql .= "VALUES ('" . $_SESSION["id_os"] . "','" .$_SESSION["OSdesc"] . "', ";
-			$incsql .= "'" . $regs["nr_area"] . "','" . $regs["ds_area"] . "', ";
-			$incsql .= "'" . $regs["ds_divisao"] . "', '" . $regs["id_cliente"] . "' )";
+			$isql = "INSERT INTO Projetos.area (id_os, ds_projeto, nr_area, ds_area, ds_divisao, id_cliente) ";
+			$isql .= "VALUES ('" . $_SESSION["id_os"] . "','" .$_SESSION["OSdesc"] . "', ";
+			$isql .= "'" . $regs["nr_area"] . "','" . $regs["ds_area"] . "', ";
+			$isql .= "'" . $regs["ds_divisao"] . "', '" . $regs["id_cliente"] . "' )";
 			
-			$registro = $db->insert($incsql,'MYSQL');
+			$registro = $db->insert($isql,'MYSQL');
 			
 			$iarea = $db->insert_id;
 			
@@ -114,7 +114,7 @@ switch ($_POST["acao"])
 						/*
 						$sql_end ="SELECT * FROM enderecos ";
 						$sql_end .= "WHERE id_slots = '".$regs_slots["id_slots"]."' ";
-						$reg_end = mysql_query($sql_end,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_slots);
+						$reg_end = mysql_query($sql_end,$conexao) or die("Não foi possível a seleção dos dados" . $sql_slots);
 						while($regs_end = mysql_fetch_array($reg_end))
 						{
 							
@@ -323,14 +323,14 @@ switch ($_POST["acao"])
 <title>: : . IMPORTAR DADOS DE OS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -343,7 +343,7 @@ window.moveTo(0,0);
 </head>
 <body  class="body">
 <center>
-<form name="frm_importa" id="frm_importa" action="<? $PHP_SELF ?>" method="post" >
+<form name="frm_importa" id="frm_importa" action="<?php $PHP_SELF ?>" method="post" >
 <table width="100%" height="10%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center">	
@@ -352,36 +352,36 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 				<div id="editar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 							  <table width="100%" class="corpo_tabela">
 								<tr>
-								<td>&nbsp;</td>
-								<td colspan="3">&nbsp;</td>
+								<td> </td>
+								<td colspan="3"> </td>
 								</tr>
 								
 								<tr>
-								  <td width="3%" class="label1">&nbsp;</td>
+								  <td width="3%" class="label1"> </td>
 								  <td width="37%" class="label1">OS DE ORIGEM DOS DADOS: </td>
-								  <td width="3%" class="label1">&nbsp;</td>
+								  <td width="3%" class="label1"> </td>
 								  <td width="57%" class="label1">OS DESTINO: </td>
 							    </tr>
 								<tr>
-									<td>&nbsp;</td>
+									<td> </td>
 									<td>
 										<select name="os" id="os" class="txt_box" onkeypress="return keySort(this);">
 										<option value="">SELECIONE</option>
-										<?
+										<?php
 										
-										//Popula a combo-box de Descri��o.
+										//Popula a combo-box de Descrição.
 										$sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
-										$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+										$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 										$sql .= "AND OS.id_os = '" . $_SESSION["id_os"] . "' ";
 										
 										$regcli = $db->select($sql,'MYSQL');
@@ -389,9 +389,9 @@ window.moveTo(0,0);
 										$cliente = mysqli_fetch_array($regcli);
 										
 										$sql = "SELECT * FROM ".DATABASE.".OS ";
-										$sql .= "WHERE OS.id_empresa_erp = '" . $cliente["id_empresa_erp"]. "' ";
+										$sql .= "WHERE OS.id_empresa = '" . $cliente["id_empresa"]. "' ";
 										$sql .= "AND OS.id_os NOT LIKE '" .$_SESSION["id_os"]. "' ";
-										$sql .= "AND OS.descricao NOT LIKE 'DVM%' ";
+										$sql .= "AND OS.descricao NOT LIKE 'INT%' ";
 										$sql .= "AND os.os NOT LIKE '0' ";
 										$sql .= "ORDER BY OS";
 										
@@ -400,27 +400,27 @@ window.moveTo(0,0);
 										while ($reg = mysqli_fetch_array($regos))
 											{
 												?>
-												<option value="<?= $reg["id_os"] ?>" <? if ($reg["id_os"]==$_POST["os"]){ echo 'selected';}?>><?= $reg["os"] . " - " . $reg["descricao"] ?></option>
-												<?
+												<option value="<?= $reg["id_os"] ?>" <?php if ($reg["id_os"]==$_POST["os"]){ echo 'selected';}?>><?= $reg["os"] . " - " . $reg["descricao"] ?></option>
+												<?php
 											}
 										
 										?>
 										
 									  </select>					</td>
-									<td>&nbsp;</td>
+									<td> </td>
 									<td><?= $_SESSION["id_os"] . " - " . $_SESSION["OSdesc"] ?></td>					
 								</tr>
 							<tr>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							  <td colspan="3">
 								<input type="hidden" name="acao" id="acao" value="importar">
-								<input name="Submit" type="submit" class="btn" value="IMPORTAR">
+								<input name="submit" type="submit" class="btn" value="IMPORTAR">
 								<span class="label1">
-								<input name="button2" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
+								<input name="button2" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
 								</span> </td>
 							  </tr>
-						<tr><td>&nbsp;</td>
-						<td colspan="3">&nbsp;</td>
+						<tr><td> </td>
+						<td colspan="3"> </td>
 						</tr>									
 						</table>
 			  </div>

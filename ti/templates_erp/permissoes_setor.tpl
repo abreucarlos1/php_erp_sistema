@@ -41,7 +41,7 @@
 							<option value="">SELECIONE</option>
                         </select>
                     </td>
-					<td width="63%" class="td_sp">&nbsp;</td>
+					<td width="63%" class="td_sp"> </td>
 				</tr>
 			</table>
         	  <table border="0" width="100%" cellpadding="0" cellspacing="0">
@@ -85,7 +85,7 @@
         </tr>
       </table>
 	
-	<div id="permissoes" style="width:100%;">&nbsp;</div>
+	<div id="permissoes" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="../../templates_erp/footer.tpl"</smarty>

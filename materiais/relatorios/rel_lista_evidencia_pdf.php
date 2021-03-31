@@ -1,10 +1,10 @@
 <?php
 /*
-		Lista de Evid�ncia	
+		Lista de Evidências	
 		
 		Criado por Carlos Eduardo
 		
-		data de cria��o: 14/12/2016
+		data de criação: 14/12/2016
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 01/12/2017 - Carlos Abreu		
@@ -38,7 +38,7 @@ class PDF extends FPDF
 	function Footer(){
 		$this->SetY(-10);
 	    $this->SetFont('Arial','I',8);
-	    $this->Cell(0,10,'P�g. '.$this->PageNo().'/{nb}',0,0,'R');
+	    $this->Cell(0,10,'Pág. '.$this->PageNo().'/{nb}',0,0,'R');
 	}
 }
 
@@ -51,7 +51,7 @@ $pdf->SetMargins(10,10,10,10);
 $pdf->SetLineWidth(0.5);
 
 //Seta o cabeçalho
-$pdf->titulo="RELAT�RIO DE EVID�NCIA";
+$pdf->titulo="RELATÓRIO DE EVIDÊNCIA";
 $pdf->emissao=date("d/m/Y");
 
 //Consulta
@@ -127,7 +127,7 @@ $sql = "SELECT
 		  ".$clausulaIdOs." ".$clausulaIdDisciplina."
 		ORDER BY id_disciplina";
 
-//CABE�ALHO DO ITEM (N�O DA P�GINA)
+//CABEÇALHO DO ITEM (NÃO DA PÁGINA)
 $sql2 = $sql.' LIMIT 0,1';
 $db->select($sql2, 'MYSQL', function ($reg, $i) use (&$pdf){
 	$pdf->titulo2 = $reg['desc_os'].' - '.$reg['setor'];
@@ -159,7 +159,7 @@ $db->select($sql, 'MYSQL', function ($reg, $i) use (&$pdf, &$cabecalhos, &$item,
 		$cabecalhos[$reg['id_ged_arquivo']] = 1;
 		$pdf->ln(2);
 		
-		$pdf->Cell(230,5,'DESCRI��O', '',0);
+		$pdf->Cell(230,5,'DESCRIÇÃO', '',0);
 		$pdf->Cell(25,5,'QUANTIDADE', '',0,'C');
 		$pdf->Cell(25,5,'UNIDADE', '',0,'C');
 		$pdf->ln();

@@ -30,7 +30,7 @@ function eXcell_grid(cell){
 		else val="";
 	 } 
 		
-		this.setCValue((val||"&nbsp;"),val);
+		this.setCValue((val||" "),val);
 		
 	}
 	this.edit = function(){ 

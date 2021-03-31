@@ -69,21 +69,23 @@ $id_os = $_POST["id_os"];
 $sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico ";
 $sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato) ";
 $sql .= "WHERE ordem_servico.id_os = '" . $id_os . "' ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 
 $db->select($sql,'MYSQL',true);
 
 $reg_os = $db->array_select[0];
 
-$sql = "SELECT * FROM ".DATABASE.".usuarios ";
-$sql .= "WHERE usuarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 
 $db->select($sql,'MYSQL',true);;
 
 $reg_func = $db->array_select[0];
 
 //obtem as datas previstas e reais
+/*
 $sql = "SELECT * FROM AF8010 WITH(NOLOCK) ";
 $sql .= "WHERE D_E_L_E_T_ = '' ";
 $sql .= "AND AF8_PROJET = '".sprintf("%010d",$reg_os["os"])."' ";
@@ -91,6 +93,7 @@ $sql .= "AND AF8_PROJET = '".sprintf("%010d",$reg_os["os"])."' ";
 $db->select($sql,'MSSQL', true);
 
 $regs0 = $db->array_select[0];
+*/
 
 //Seta o cabeçalho
 $pdf->departamento=NOME_EMPRESA;

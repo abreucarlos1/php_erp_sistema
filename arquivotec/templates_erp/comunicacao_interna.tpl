@@ -17,10 +17,10 @@
 					  <td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Inserir" /></td>
 				    </tr>
 					<tr>
-						<td valign="middle"><input name="btnlimpar" id="btnlimpar" type="button" class="class_botao" value="Limpar" onClick="document.getElementById('frm').reset();" /></td>
+						<td valign="middle"><input name="btnlimpar" id="btnlimpar" type="button" class="class_botao" value="Limpar" onclick="document.getElementById('frm').reset();" /></td>
 					</tr>
 					<tr>
-						<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+						<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 					</tr>
 						<tr>
 							<td><label for="busca" class="labels">Busca</label><br />
@@ -44,13 +44,13 @@
                     <smarty>html_options values=$option_os_values output=$option_os_output</smarty>
                   </select>
                 
-                <td width="86%">&nbsp;</td>
+                <td width="86%"> </td>
               </tr>
             </table>            
             <table border="0" width="100%">              
               <tr>
                
-                <td width="24%"><label for="numdocumento" class="labels">Nº&nbsp;Documento</label><br />
+                <td width="24%"><label for="numdocumento" class="labels">Nº Documento</label><br />
                     <input name="numdocumento" type="text" class="caixa" id="numdocumento" placeholder="Número Documento" size="25" maxlength="50" />
                 </td>
                 <td width="24%"><label for="titulo" class="labels">Título/Assunto</label><br />
@@ -91,7 +91,7 @@
 		      </tr>
 		    </table>
 			</div>
-            <p style="display:none;" id="inf_upload">&nbsp;</p>
+            <p style="display:none;" id="inf_upload"> </p>
            </td>
         </tr>
       </table>

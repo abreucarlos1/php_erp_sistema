@@ -115,7 +115,7 @@ class servicos
             }
             else
             {
-                //Nome da coluna para a listagem n�o est� aqui pois somente campos n�o ocultos a tem.
+                //Nome da coluna para a listagem não está aqui pois somente campos não ocultos a tem.
                 $reg['campoForm'] = "<input type='hidden' name='txt_".$reg['coluna']."' id='txt_".$reg['coluna']."' value='".$reg['padrao']."' />";
             }
             

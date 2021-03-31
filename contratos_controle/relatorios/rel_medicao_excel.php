@@ -73,7 +73,7 @@ foreach ($db->array_select as $regs1)
 }
 */
 
-//filtra as OS com pedidos e itens, excluindo as excess�es
+//filtra as OS com pedidos e itens, excluindo as excessões
 $sql = "SELECT bms_pedido.id_os, ordem_servico.id_os, ordem_servico.id_cod_coord FROM ".DATABASE.".bms_medicao, ".DATABASE.".bms_pedido, ".DATABASE.".bms_item, ".DATABASE.".ordem_servico "; 
 $sql .= "WHERE bms_pedido.reg_del = 0 ";
 $sql .= "AND bms_medicao.reg_del = 0 "; 
@@ -227,11 +227,11 @@ foreach($array_proj as $regs0)
 	switch(intval($regs0["AF1_TPORC"]))
 	{
 		case '1':
-			$tipo_orcamento = 'SERVI�O POR ADM';
+			$tipo_orcamento = 'SERVIÇO POR ADM';
 		break;
 		
 		case '2':
-			$tipo_orcamento = 'PRE�O GLOBAL';
+			$tipo_orcamento = 'PREÇO GLOBAL';
 		break;
 		
 		case '3':
@@ -429,7 +429,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="planilha_medicao_'.date('Ymd-His').'.xlsx"');
 header('Cache-Control: max-age=0');

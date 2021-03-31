@@ -125,7 +125,7 @@ function atualizatabela($filtro, $dados_form = '')
 			$xml->writeElement('cell', $reg['bqp_texto']);
 			$xml->writeElement('cell', $reg['bqg_titulo']);
 			$xml->writeElement('cell', $arrayAtual[$reg['bqp_atual']]);
-			$xml->writeElement('cell', "<img style=\'cursor:pointer;\' src=\'".DIR_IMAGENS."apagar.png\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;esta&nbsp;pergunta?\')){xajax_excluir(".$reg['bqp_id'].");} />");
+			$xml->writeElement('cell', "<img style=\'cursor:pointer;\' src=\'".DIR_IMAGENS."apagar.png\' onclick=if(confirm(\'Deseja excluir esta pergunta?\')){xajax_excluir(".$reg['bqp_id'].");} />");
 		$xml->endElement();
 	}
 					

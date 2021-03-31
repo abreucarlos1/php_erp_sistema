@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -24,12 +24,12 @@
 					<td colspan="3">
 						<table width="100%" border="0">
 							<tr>
-								<td width="14%"><label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+								<td width="14%"><label for="dataini" class="labels">Data inicial</label><br />
                          		<input name="dataini" type="text" class="caixa" id="dataini" size="10" placeholder="Data ini." onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" />
                                 </td>
 							</tr>
 							<tr>
-								<td><label for="datafim" class="labels">Data&nbsp;final</label><br />
+								<td><label for="datafim" class="labels">Data final</label><br />
                                 <input name="datafim" type="text" class="caixa" id="datafim" size="10" placeholder="Data fin." onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'status', 10);"  />
                                 </td>
 							</tr>
@@ -58,10 +58,10 @@
 				<tr>
 					<td width="20%">
 						<input name="chk_traslado" type="checkbox" id="chk_traslado" value="1" checked="checked" />
-						<label class="labels">Mostrar&nbsp;Traslado</label></td>
+						<label class="labels">Mostrar Traslado</label></td>
 					<td width="80%">
 						<input name="chk_excel" type="checkbox" id="chk_excel" value="1" />
-					<label class="labels">Gerar&nbsp;em&nbsp;Excel</label></td>
+					<label class="labels">Gerar em Excel</label></td>
 				</tr>
 				<tr>
 				  <td><input name="chk_atividades" type="checkbox" id="chk_atividades" value="1" onclick="seleciona_atividades(this);" /><label class="labels">Por Atividade</label></td>

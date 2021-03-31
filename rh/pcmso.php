@@ -122,7 +122,7 @@ function atualizatabela($filtro, $dados_form)
 		
 		if($cont_desp["realizado"]=="0")
 		{
-			$status = 'NÃO&nbsp;REALIZADO';
+			$status = 'NÃO REALIZADO';
 		}
 		else
 		{
@@ -150,13 +150,13 @@ function atualizatabela($filtro, $dados_form)
 		
 		if($cont_desp["realizado"]=="0")
 		{
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'aprovado.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;marcar&nbsp;este&nbsp;registro&nbsp;como&nbsp;realizado?")){xajax_realizado("'.$cont_desp["id_rh_aso"].'")};>');
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir("'.$cont_desp['id_rh_aso'].'")};>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'aprovado.png" style="cursor:pointer;" onclick=if(confirm("Deseja marcar este registro como realizado?")){xajax_realizado("'.$cont_desp["id_rh_aso"].'")};>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir("'.$cont_desp['id_rh_aso'].'")};>');
 		}
 		else
 		{
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'bt_desfazer.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;marcar&nbsp;este&nbsp;registro&nbsp;como&nbsp;NÃO&nbsp;realizado?")){xajax_realizado("'.$cont_desp["id_rh_aso"].'",0)};>');
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'bt_desfazer.png" style="cursor:pointer;" onclick=if(confirm("Deseja marcar este registro como NÃO realizado?")){xajax_realizado("'.$cont_desp["id_rh_aso"].'",0)};>');
+			$xml->writeElement('cell', ' ');
 		}
 		$xml->endElement();		
 	}
@@ -376,7 +376,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Nº&nbsp;Exame, Funcionário, Tipo&nbsp;de&nbsp;Exame, Data&nbsp;do&nbsp;Exame, Data&nbsp;do&nbsp;Vencimento, Status, R, D");
+	mygrid.setHeader("Nº Exame, Funcionário, Tipo de Exame, Data do Exame, Data do Vencimento, Status, R, D");
 	mygrid.setInitWidths("110,*,*,100,140,140,50,50");
 	mygrid.setColAlign("left,left,left,left,center,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");

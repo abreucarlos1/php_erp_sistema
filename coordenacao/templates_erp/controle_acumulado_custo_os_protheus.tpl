@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar Relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -52,7 +52,7 @@
               </table></td>
               <td width="78%" valign="top">
               <div id="periodo" style="display:none">
-				<label class="labels">A&nbsp;PARTIR&nbsp;DE:</label><br />
+				<label class="labels">A PARTIR DE:</label><br />
                 <input name="dataini" type="text" class="caixa" id="dataini" size="12"  onkeypress="transformaData(this, event);"  />
               </div></td>
             </tr>

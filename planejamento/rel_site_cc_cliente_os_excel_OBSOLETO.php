@@ -1,6 +1,6 @@
-<?
+<?php
 
-//Cabe�alho
+//Cabeçalho
 
 header("Content-Type: application/vnd.ms-excel");
 header("Expires: 0");
@@ -33,15 +33,15 @@ while($cont_os = mysql_fetch_array($reg_os))
 	$sql2 .= $filtro1;
 	$sql2 .= "AND apontamento_horas.id_site = '".$cont_os["id_site"]."' ";
 	//$sql2 .= "AND os.os <= 6 ";
-	$sql2 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-	$sql2 .= "GROUP BY OS.id_os, OS.id_empresa_erp ";
+	$sql2 .= "AND OS.id_empresa = empresas.id_empresa ";
+	$sql2 .= "GROUP BY OS.id_os, OS.id_empresa ";
 	$sql2 .= "ORDER BY os.os ";
 	
 	$reg_os2 = mysql_query($sql2,$db->conexao) or die("ERRO. SQL: " . $sql2);
 	//Centro Custo
 	while($cont_os2 = mysql_fetch_array($reg_os2))
 	{
-		$tothoras[$cont_os["id_site"]][$cont_os2["os"]][$cont_os2["id_empresa_erp"]] += $cont_os2["HT"];
+		$tothoras[$cont_os["id_site"]][$cont_os2["os"]][$cont_os2["id_empresa"]] += $cont_os2["HT"];
 	}
 	
 	
@@ -78,7 +78,7 @@ while($cont_os = mysql_fetch_array($reg_os))
 <!-- FIM DO CABECALHO -->
 <!-- LOOP -->
 
-<?
+<?php
 	$contagem_linha = 3;
 	//ksort($tothoras);
 	foreach($tothoras as $site => $emp) //SITE
@@ -100,7 +100,7 @@ while($cont_os = mysql_fetch_array($reg_os))
 					$os = $empresa;
 				}
 				
-				//modifica��o fl�vio 
+				//modificação
 				//if($cc==1 || $cc==4)
 				if($cc==0)
 				{
@@ -121,7 +121,7 @@ while($cont_os = mysql_fetch_array($reg_os))
 				<td class="fonte_descricao_campos"><?= sec_to_time($total_horas) ?></td> 
 
 				</tr>
-			<?				
+			<?php				
 		  	$contagem_linha ++;
 		  }
 	  }
@@ -132,19 +132,19 @@ while($cont_os = mysql_fetch_array($reg_os))
 
 
   <tr>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
   </tr>
   <tr>
     <td colspan="2" class="style2 fonte_descricao_campos"><span class="style3">TOTAL</span></td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
-    <td class="fonte_descricao_campos"><? echo "=SOMA(E3:E" . ($contagem_linha-1).")"; ?></td>
-    <td class="fonte_descricao_campos">&nbsp;</td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"> </td>
+    <td class="fonte_descricao_campos"><?php echo "=SOMA(E3:E" . ($contagem_linha-1).")"; ?></td>
+    <td class="fonte_descricao_campos"> </td>
   </tr>
 
 

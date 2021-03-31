@@ -1,25 +1,25 @@
-<?
+<?php
 /*
-		Formul�rio de Locais OUTROS	
+		Formulário de Locais OUTROS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/locais_outros.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -33,7 +33,7 @@ include ("../includes/conectdb.inc.php");
 $db = new banco_dados;
 
 $sql1 = "SELECT * FROM ".DATABASE.".setores ";
-$sql1 .= "WHERE setor = 'EL�TRICA' ";
+$sql1 .= "WHERE setor = 'ELÉTRICA' ";
 
 $regis = $db->select($sql1,'MYSQL');
 
@@ -62,9 +62,9 @@ if ($_POST["acao"]=="editar")
 	{
 		?>
 		<script>
-			alert('local j� inserido no banco.');
+			alert('local já inserido no banco.');
 		</script>
-		<?
+		<?php
 	}
 	else
 	{
@@ -111,34 +111,34 @@ if ($_POST["acao"]=="salvar")
 	{
 		?>
 		<script>
-			alert('local j� inserido no banco.');
+			alert('local já inserido no banco.');
 		</script>
-		<?
+		<?php
 	}
 	else
 	{
 
-		//Cria senten�a de Inclusão no bd
-		$incsql = "INSERT INTO Projetos.locais ";
-		$incsql .= "(id_area, id_disciplina, id_equipamento, nr_sequencia, ds_complemento, nr_elevacao, nr_eixox, nr_eixoy, ds_abrigado, id_classearea) VALUES (";
-		$incsql .= "'" . $_POST["id_area"] . "', ";
-		$incsql .= "'" . $disciplina["id_setor"] . "', ";
-		$incsql .= "'" . $_POST["id_equipamento"] . "', ";
-		$incsql .= "'" . maiusculas($_POST["nr_sequencia"]) . "', ";
-		$incsql .= "'" . maiusculas($_POST["ds_complemento"]) . "', ";
-		$incsql .= "'" . $_POST["nr_elevacao"] . "', ";
-		$incsql .= "'" . $_POST["nr_eixox"] . "', ";
-		$incsql .= "'" . $_POST["nr_eixoy"] . "', ";
-		$incsql .= "'" . $_POST["ds_abrigado"] . "', ";
-		$incsql .= "'" . $_POST["id_classearea"] . "') ";
+		//Cria sentença de Inclusão no bd
+		$isql = "INSERT INTO Projetos.locais ";
+		$isql .= "(id_area, id_disciplina, id_equipamento, nr_sequencia, ds_complemento, nr_elevacao, nr_eixox, nr_eixoy, ds_abrigado, id_classearea) VALUES (";
+		$isql .= "'" . $_POST["id_area"] . "', ";
+		$isql .= "'" . $disciplina["id_setor"] . "', ";
+		$isql .= "'" . $_POST["id_equipamento"] . "', ";
+		$isql .= "'" . maiusculas($_POST["nr_sequencia"]) . "', ";
+		$isql .= "'" . maiusculas($_POST["ds_complemento"]) . "', ";
+		$isql .= "'" . $_POST["nr_elevacao"] . "', ";
+		$isql .= "'" . $_POST["nr_eixox"] . "', ";
+		$isql .= "'" . $_POST["nr_eixoy"] . "', ";
+		$isql .= "'" . $_POST["ds_abrigado"] . "', ";
+		$isql .= "'" . $_POST["id_classearea"] . "') ";
 	
-		$registros = $db->insert($incsql,'MYSQL');	
+		$registros = $db->insert($isql,'MYSQL');	
 	
 		?>
 		<script>
 			alert('local inserido com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 
 }
@@ -153,9 +153,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('local exclu�do com sucesso.');
+		alert('local excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -164,10 +164,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . LOCAIS EEI  . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_local, nrcd_localtrecho)
 {
@@ -188,7 +188,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -211,18 +211,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -242,28 +242,28 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td width="10%" class="label1">&Aacute;REA</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="10%" class="label1">ÁREA</td>
+                      <td width="1%"> </td>
                       <td width="12%"><span class="label1">EQUIPAMENTO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="13%"><span class="label1">SEQU&Ecirc;NCIA</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="13%"><span class="label1">SEQUÊNCIA</span></td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">COMPLEMENTO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="46%"><span class="label1">ELEVA&Ccedil;&Atilde;O</span></td>
-                      <td width="2%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="46%"><span class="label1">ELEVAÇÃO</span></td>
+                      <td width="2%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_area" class="txt_box" id="id_area" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.area ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -273,19 +273,19 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-							<option value="<?= $cont["id_area"] ?>" <? if($locais["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
+							<option value="<?= $cont["id_area"] ?>" <?php if($locais["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
 							<?= $cont["nr_area"] . " - " . $cont["ds_area"] ?>
 							</option>
-							<?
+							<?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_equipamento" class="txt_box" id="id_equipamento" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 
 						$sql_equipamentos = "SELECT * FROM Projetos.equipamentos ";
 						$sql_equipamentos .= "WHERE id_disciplina='" . $disciplina["id_setor"] . "' ";
@@ -295,83 +295,83 @@ window.moveTo(0,0);
 						while($cont_equipamentos = mysqli_fetch_array($reg_equipamentos))
 						{
 							?>
-                        <option value="<?= $cont_equipamentos["id_equipamentos"] ?>" <? if($locais["id_equipamento"]==$cont_equipamentos["id_equipamentos"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont_equipamentos["id_equipamentos"] ?>" <?php if($locais["id_equipamento"]==$cont_equipamentos["id_equipamentos"]) { echo "selected"; } ?>>
                         <?= $cont_equipamentos["cd_local"] . " - " . $cont_equipamentos["ds_equipamento"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_sequencia" type="text" class="txt_box" id="nr_sequencia" size="30" maxlength="20" value="<?= $locais["nr_sequencia"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_complemento" type="text" class="txt_box" id="ds_complemento" value="<?= $locais["ds_complemento"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_elevacao" type="text" class="txt_box" id="nr_elevacao" value="<?= $locais["nr_elevacao"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="10%"><span class="label1">EIXO (X)</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="10%"><span class="label1">COLUNA (Y)</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">ABRIGADO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="42%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="16%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="42%"> </td>
+                      <td width="3%"> </td>
+                      <td width="16%"> </td>
+                      <td width="3%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_eixox" type="text" class="txt_box" id="nr_eixox" value="<?= $locais["nr_eixox"] ?>" size="15" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_eixoy" type="text" class="txt_box" id="nr_eixoy" value="<?= $locais["nr_eixoy"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><table width="80%" border="0">
                         <tr>
-                          <td width="47%" class="label1"><input name="ds_abrigado" type="radio" value="1"  <? if($locais["ds_abrigado"]==1) { echo "checked"; } ?>>
+                          <td width="47%" class="label1"><input name="ds_abrigado" type="radio" value="1"  <?php if($locais["ds_abrigado"]==1) { echo "checked"; } ?>>
                             SIM</td>
-                          <td width="53%"><input name="ds_abrigado" type="radio" value="0" <? if($locais["ds_abrigado"]==0) { echo "checked"; } ?>>
-                              <span class="label1">N&Atilde;O</span></td>
+                          <td width="53%"><input name="ds_abrigado" type="radio" value="0" <?php if($locais["ds_abrigado"]==0) { echo "checked"; } ?>>
+                              <span class="label1">NÃO</span></td>
                         </tr>
                       </table></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td><span class="label1">CLASSIFICA&Ccedil;&Atilde;O DA &Aacute;REA </span></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td><span class="label1">CLASSIFICAÇÃO DA ÁREA </span></td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                     <tr>
                       <td><select name="id_classearea" class="txt_box" id="id_classearea" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.classe_area ";
 						
@@ -380,38 +380,38 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_classearea"] ?>" <? if($locais["id_classearea"]==$cont_equipamentos["id_classearea"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_classearea"] ?>" <?php if($locais["id_classearea"]==$cont_equipamentos["id_classearea"]) { echo "selected"; } ?>>
                         <?= $cont["cd_classearea"] . " - " . $cont["ds_classearea"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_local" type="hidden" id="id_local" value="<?= $locais["id_local"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -422,28 +422,28 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td width="13%" class="label1">&Aacute;REA</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="13%" class="label1">ÁREA</td>
+                      <td width="3%"> </td>
                       <td width="16%"><span class="label1">EQUIPAMENTO</span></td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="8%"><span class="label1">SEQU&Ecirc;NCIA</span></td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="3%"> </td>
+                      <td width="8%"><span class="label1">SEQUÊNCIA</span></td>
+                      <td width="3%"> </td>
                       <td width="10%"><span class="label1">complemento</span></td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="41%"><span class="label1">ELEVA&Ccedil;&Atilde;O</span></td>
-                      <td width="41%">&nbsp;</td>
+                      <td width="3%"> </td>
+                      <td width="41%"><span class="label1">ELEVAÇÃO</span></td>
+                      <td width="41%"> </td>
                     </tr>
                     <tr>
                       <td><select name="id_area" class="txt_box" id="id_area" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 
 						$sql = "SELECT * FROM Projetos.area ";
 						$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -453,19 +453,19 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_area"] ?>" <? if($_POST["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_area"] ?>" <?php if($_POST["id_area"]==$cont["id_area"]) { echo "selected"; } ?>>
                         <?= $cont["nr_area"] . " - " . $cont["ds_area"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_equipamento" class="txt_box" id="id_equipamento" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql_equipamentos = "SELECT * FROM Projetos.equipamentos ";
 						$sql_equipamentos .= "WHERE id_disciplina='" . $disciplina["id_setor"] . "' ";
@@ -475,83 +475,83 @@ window.moveTo(0,0);
 						while($cont_equipamentos = mysqli_fetch_array($reg_equipamentos))
 						{
 							?>
-                        <option value="<?= $cont_equipamentos["id_equipamentos"] ?>" <? if($_POST["id_equipamento"]==$cont_equipamentos["id_equipamento"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont_equipamentos["id_equipamentos"] ?>" <?php if($_POST["id_equipamento"]==$cont_equipamentos["id_equipamento"]) { echo "selected"; } ?>>
                         <?= $cont_equipamentos["cd_local"] . " - " . $cont_equipamentos["ds_equipamento"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_sequencia" type="text" class="txt_box" id="nr_sequencia" size="30" maxlength="20" value="<?= $_POST["nr_sequencia"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_complemento" type="text" class="txt_box" id="cd_complemento" value="<?= $_POST["ds_complemento"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_elevacao" type="text" class="txt_box" id="nr_elevacao" value="<?= $_POST["nr_elevacao"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="10%"><span class="label1">EIXO (X) </span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="10%"><span class="label1">COLUNA (Y)</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="14%"><span class="label1">ABRIGADO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="38%">&nbsp;</td>
-                      <td width="19%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="38%"> </td>
+                      <td width="19%"> </td>
+                      <td width="3%"> </td>
+                      <td width="3%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_eixox" type="text" class="txt_box" id="nr_eixox" value="<?= $_POST["nr_eixox"] ?>" size="15" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_eixoy" type="text" class="txt_box" id="nr_eixoy" value="<?= $_POST["nr_eixoy"] ?>" size="22" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><table width="81%" border="0">
                         <tr>
-                          <td width="46%" class="label1"><input name="ds_abrigado" type="radio" value="1" <? if($_POST["ds_abrigado"]=='1'){ echo 'selected';} ?>>
+                          <td width="46%" class="label1"><input name="ds_abrigado" type="radio" value="1" <?php if($_POST["ds_abrigado"]=='1'){ echo 'selected';} ?>>
                             SIM</td>
-                          <td width="54%"><input name="ds_abrigado" type="radio" value="0" <? if($_POST["ds_abrigado"]=='0'){ echo 'selected';} ?>>
-                              <span class="label1">N&Atilde;O</span></td>
+                          <td width="54%"><input name="ds_abrigado" type="radio" value="0" <?php if($_POST["ds_abrigado"]=='0'){ echo 'selected';} ?>>
+                              <span class="label1">NÃO</span></td>
                         </tr>
                       </table></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td><span class="label1">CLASSIFICA&Ccedil;&Atilde;O DA &Aacute;REA</span></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td><span class="label1">CLASSIFICAÇÃO DA ÁREA</span></td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                     <tr>
                       <td><select name="id_classearea" class="txt_box" id="id_classearea" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.classe_area ";
 						
@@ -560,38 +560,38 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_classearea"] ?>" <? if($locais["id_classearea"]==$cont["id_classearea"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_classearea"] ?>" <?php if($locais["id_classearea"]==$cont["id_classearea"]) { echo "selected"; } ?>>
                         <?= $cont["cd_classearea"] . " - " . $cont["ds_classearea"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
-                    <input name="Equipamentos" type="button" class="btn" id="Equipamentos" value="COMPONENTES" onClick="javascript:location.href='componentes.php';"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
+                    <input name="Equipamentos" type="button" class="btn" id="Equipamentos" value="COMPONENTES" onclick="javascript:location.href='componentes.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -604,9 +604,9 @@ window.moveTo(0,0);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <td width="22%">&Aacute;REA</td>
-				  <?
-					// Controle de ordena��o
+				  <td width="22%">ÁREA</td>
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_sequencia";
@@ -619,23 +619,23 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="22%"><a href="#" class="cabecalho_tabela" onClick="ordenar('cd_local_o','<?= $ordem ?>')">EQUIPAMENTO</a></td>
-				  <td width="16%">SEQU&Ecirc;NCIA</td>
+				  <td width="22%"><a href="#" class="cabecalho_tabela" onclick="ordenar('cd_local_o','<?= $ordem ?>')">EQUIPAMENTO</a></td>
+				  <td width="16%">SEQUÊNCIA</td>
 				  <td width="31%">COMPLEMENTO</td>
 				  <td width="4%"  class="cabecalho_tabela">E</td>
 				  <td width="3%"  class="cabecalho_tabela">D</td>
-				  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="2%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 		
-					// Mostra os funcion�rios
+					// Mostra os funcionários
 					$sql = "SELECT * FROM Projetos.area, Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (locais.id_equipamento = equipamentos.id_equipamentos) ";
 					$sql .= "WHERE locais.id_area = area.id_area ";
@@ -675,7 +675,7 @@ window.moveTo(0,0);
 						  <td width="3%"><div align="center"><a href="javascript:editar('<?= $locais["id_local"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="4%"><div align="center"><a href="javascript:excluir('<?= $locais["id_local"] ?>','<?= $locais["nr_sequencia"] . " " . $locais["ds_complemento"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>

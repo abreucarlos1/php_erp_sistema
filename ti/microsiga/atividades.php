@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");

@@ -8,8 +8,8 @@
 		../planejamento/relatorios/rel_lista_documentos_excel.php
 		
 		Versão 0 --> VERSÃO INICIAL - 17/01/2018 - Carlos Abreu
-		Versão 1 --> Inclusão do tipo Emiss�o - 24/01/2018 - Carlos Abreu
-		Versão 2 --> Mostrar todos os documento e n�o apenas emitido - 14/02/2018 - Carlos Abreu
+		Versão 1 --> Inclusão do tipo Emissão - 24/01/2018 - Carlos Abreu
+		Versão 2 --> Mostrar todos os documento e não apenas emitido - 14/02/2018 - Carlos Abreu
 */
 
 /**
@@ -161,7 +161,7 @@ $db->select($sql,'MYSQL',true);
 
 if ($db->erro != '')
 {
-	die("Erro ao selecionar os dados dos documentos DVM: " . $sql);
+	die("Erro ao selecionar os dados dos documentos INT: " . $sql);
 }
 
 $array_numdvm = $db->array_select;
@@ -344,7 +344,7 @@ foreach($array_projetos as $regs)
 	$array_proj['os'][$regs["id_ged_versao"]] = sprintf("%010d",$regs["os"]);
 	$array_proj['numero_cliente'][$regs["id_ged_versao"]] = $regs["numero_cliente"];
 	$array_proj['revcliente'][$regs["id_ged_versao"]] = $regs["revisao_cliente"];
-	$array_proj['numeros_interno'][$regs["id_ged_versao"]] = 'DVM-'.sprintf("%05d",$regs["os"]).'-'.$regs["sigla"].'-'.$regs["sequencia"];
+	$array_proj['numeros_interno'][$regs["id_ged_versao"]] = 'INT-'.sprintf("%05d",$regs["os"]).'-'.$regs["sigla"].'-'.$regs["sequencia"];
 	$array_proj['revdvm'][$regs["id_ged_versao"]] = $regs["revisao_interna"];
 	$array_proj['titulo'][$regs["id_ged_versao"]] = trim($regs["tag"]).' '.trim($regs["tag2"]).' '.trim($regs["tag3"]).' '.trim($regs["tag4"]);
 	$array_proj['formato'][$regs["id_ged_versao"]] = $regs["formato"];
@@ -436,7 +436,7 @@ foreach($array_projetos as $regs)
 	
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha,iconv('ISO-8859-1', 'UTF-8', $regs["revisao_cliente"]));
 	
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha,iconv('ISO-8859-1', 'UTF-8', 'DVM-'.sprintf("%05d",$regs["os"]).'-'.$regs["sigla"].'-'.$regs["sequencia"]));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha,iconv('ISO-8859-1', 'UTF-8', 'INT-'.sprintf("%05d",$regs["os"]).'-'.$regs["sigla"].'-'.$regs["sequencia"]));
 	
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, $linha,iconv('ISO-8859-1', 'UTF-8', $regs["revisao_interna"]));
 	

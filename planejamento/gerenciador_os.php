@@ -269,7 +269,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Projeto,Descrição,Cliente,Fase,Coordenador,Planejador,Data&nbsp;aprov.,Horas&nbsp;Vend.,Última&nbsp;emiss.,%&nbsp;Medido",
+	mygrid.setHeader("Projeto,Descrição,Cliente,Fase,Coordenador,Planejador,Data aprov.,Horas Vend.,Última emiss.,% Medido",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left"]);
 	mygrid.setInitWidths("80,200,250,180,200,200,100,100,100,100");

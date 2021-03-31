@@ -80,36 +80,36 @@ $cont2 = $db->array_select[0];
                           <input name="id_fechamento" type="hidden" id="id_fechamento" value="<?= $fechamento_folha["id_fechamento"] ?>">
                           </td>
 						  <td width="32%"><div align="right"><span style="display:inline;">
-						<input name="Alterar per&iacute;odo" type="button" class="btn_mini" id="Alterar per&iacute;odo" value="Alterar período" onClick="location.href='fechamentofolha_periodo.php?id_fechamento=<?= $fechamento_folha["id_fechamento"] ?>';" style="width:85px;">
+						<input name="Alterar período" type="button" class="btn_mini" id="Alterar período" value="Alterar período" onclick="location.href='fechamentofolha_periodo.php?id_fechamento=<?= $fechamento_folha["id_fechamento"] ?>';" style="width:85px;">
 
-						 <input name="Fechar" type="button" class="btn_mini" id="Fechar" value="Fechar" onClick="window.close();"  style="width:40px;">
+						 <input name="Fechar" type="button" class="btn_mini" id="Fechar" value="Fechar" onclick="window.close();"  style="width:40px;">
 					      </span></div></td>
 						</tr>
 			 	 </table>
 						  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
 								<tr>
 						      <td width="15%" bgcolor="#EEEEEE"><div align="right"></div></td>
-						      <td width="34%">&nbsp;</td>
+						      <td width="34%"> </td>
 					          <td width="20%" bgcolor="#EEEEEE"><div align="right"></div></td>
-					          <td width="29%">&nbsp;</td>
-					          <td width="2%">&nbsp;</td>
+					          <td width="29%"> </td>
+					          <td width="2%"> </td>
 						    </tr>
 							
 							
 							<tr>
 							  <td bgcolor="#EEEEEE"><div align="right">Função: </div></td>
 								  <td><?= $fechamento_folha["descricao"] ?></td>
-								  <td bgcolor="#EEEEEE">&nbsp;</td>
+								  <td bgcolor="#EEEEEE"> </td>
 								  <td><div align="right"></div></td>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							</tr>
 						
 							<tr>
 							  <td bgcolor="#EEEEEE"> <div align="right">Contrato: </div></td>
 							  <td><?= $cont2[" tipo_contrato"] ?></td>
-							  <td bgcolor="#EEEEEE">&nbsp;</td>
-							  <td>&nbsp;</td>
-							  <td>&nbsp;</td>
+							  <td bgcolor="#EEEEEE"> </td>
+							  <td> </td>
+							  <td> </td>
 						    </tr>
 								
 						    <?php
@@ -119,12 +119,12 @@ $cont2 = $db->array_select[0];
 							{							
 								?>
 								<tr>
-								<td bgcolor="#EEEEEE"><div align="right">&nbsp;
+								<td bgcolor="#EEEEEE"><div align="right"> 
 								  Valor p/ Hora: </div></td>
 								  <td>R$ <?= formatavalor($cont2["salario_hora"]) ?></td>
-								  <td bgcolor="#EEEEEE">&nbsp;</td>
-  								  <td>&nbsp;</td>
-								  <td>&nbsp;</td>
+								  <td bgcolor="#EEEEEE"> </td>
+  								  <td> </td>
+								  <td> </td>
   							    </tr>
 								<?php
 							}
@@ -136,9 +136,9 @@ $cont2 = $db->array_select[0];
 								  <tr>
 								  <td bgcolor="#EEEEEE"><div align="right">Valor Registro: </div></td>
 								  <td>R$ <?= formatavalor($cont2["salario_clt"]) ?></td>
-								  <td bgcolor="#EEEEEE">&nbsp;</td>
-								  <td>&nbsp;</td>
-								  <td>&nbsp;</td>
+								  <td bgcolor="#EEEEEE"> </td>
+								  <td> </td>
+								  <td> </td>
 								</tr>
 								<?php
 							}
@@ -149,12 +149,12 @@ $cont2 = $db->array_select[0];
 							
 								?>
 								<tr>
-								<td bgcolor="#EEEEEE"><div align="right">&nbsp;
+								<td bgcolor="#EEEEEE"><div align="right"> 
 								  Valor Mensalista: </div></td>
 								  <td>R$ <?= formatavalor($cont2["salario_mensalista"]) ?></td>								
-								  <td bgcolor="#EEEEEE">&nbsp;</td>
-								  <td>&nbsp;</td>
-								  <td>&nbsp;</td>
+								  <td bgcolor="#EEEEEE"> </td>
+								  <td> </td>
+								  <td> </td>
 								</tr>
 								<?php
 							}
@@ -166,7 +166,7 @@ $cont2 = $db->array_select[0];
 			              <td bgcolor="#EEEEEE"><div align="right">Valor_fgts</div></td>
 			              <td>R$
                             <?= formatavalor($fechamento_folha["valor_fgts"]) ?></td>
-			              <td>&nbsp;</td>
+			              <td> </td>
 						    </tr>
 
 							<tr>
@@ -175,7 +175,7 @@ $cont2 = $db->array_select[0];
 					          <td bgcolor="#EEEEEE"><div align="right">Décimo Terceiro: </div></td>
 					          <td>R$
                               <?= formatavalor($fechamento_folha["valor_decimo_terceiro"]) ?></td>
-					          <td>&nbsp;</td>
+					          <td> </td>
 						    </tr>
 
 							<tr>
@@ -184,7 +184,7 @@ $cont2 = $db->array_select[0];
 							  <td bgcolor="#EEEEEE"><div align="right">IR: (1,5%)</div></td>
 							  <td>R$
                               <?= formatavalor($fechamento_folha["valor_imposto"]) ?></td>
-							  <td>&nbsp;</td>
+							  <td> </td>
 						    </tr>
 							<tr>
 							  <td bgcolor="#EEEEEE"><div align="right">Total Bruto: </div></td>
@@ -192,25 +192,25 @@ $cont2 = $db->array_select[0];
 							  <td bgcolor="#EEEEEE"><div align="right">PIS / Cofins / CSL: (4,65%)</div></td>
 							  <td>R$
                               <?= formatavalor($fechamento_folha["valor_pcc"]) ?></td>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							</tr>
 
 							<tr>
 							  <td bgcolor="#EEEEEE"><div align="right">Total Líquido: </div></td>
 							  <td>R$ <?= formatavalor($fechamento_folha["valor_pagamento"]) ?></td>
-							  <td bgcolor="#EEEEEE">&nbsp;</td>
+							  <td bgcolor="#EEEEEE"> </td>
 							  <td><?= ult_dia_mes(date('d/m/Y')) ?></td>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							</tr>
 							<tr>
-							  <td bgcolor="#EEEEEE">&nbsp;</td>
-							  <td>&nbsp;</td>
-							  <td valign="middle" colspan="2"><input name="docs" type="button" class="btn" id="docs" value="Anexar Docs" onClick="window.open('../financeiro/cadastra_docs_forn.php?id_fechamento=<?= $fechamento_folha["id_fechamento"] ?>')">
+							  <td bgcolor="#EEEEEE"> </td>
+							  <td> </td>
+							  <td valign="middle" colspan="2"><input name="docs" type="button" class="btn" id="docs" value="Anexar Docs" onclick="window.open('../financeiro/cadastra_docs_forn.php?id_fechamento=<?= $fechamento_folha["id_fechamento"] ?>')">
 
                               
 						      </td> 
                               
-                              <td>&nbsp;</td>
+                              <td> </td>
 						    </tr>
 			  			</table>
 			              <table width="100%" height="100" border="0">
@@ -243,7 +243,7 @@ $cont2 = $db->array_select[0];
 							{
 							
 									?>
-                                  <td class="corpo_tabela">&nbsp;
+                                  <td class="corpo_tabela"> 
                                       <?= $cont_clt_ferias["descricao"] ?></td>
                                   <td class="corpo_tabela"><div align="center">R$
                                           <?= formatavalor($cont_clt_ferias["valor"]) ?>
@@ -264,8 +264,8 @@ $cont2 = $db->array_select[0];
 							?>
                                 </tr>
                                 <tr>
-                                  <td height="1">&nbsp;</td>
-                                  <td height="1">&nbsp;</td>
+                                  <td height="1"> </td>
+                                  <td height="1"> </td>
                                 </tr>
                                 <tr>
                                   <td class="corpo_tabela_cinza"><div align="right">Rescisão:</div></td>
@@ -293,7 +293,7 @@ $cont2 = $db->array_select[0];
 							foreach($db->array_select as $cont_clt_rescisao)
 							{	
 									?>
-                                  <td class="corpo_tabela">&nbsp;
+                                  <td class="corpo_tabela"> 
                                       <?= $cont_clt_rescisao["descricao"] ?></td>
                                   <td class="corpo_tabela"><div align="center">R$ <?= formatavalor($cont_clt_rescisao["valor"]) ?>
                                   </div></td>
@@ -316,8 +316,8 @@ $cont2 = $db->array_select[0];
                               <td width="51%" valign="top">
                               <table width="100%" border="0">
                                 <tr>
-                                  <td class="corpo_tabela">&nbsp;</td>
-                                  <td class="corpo_tabela">&nbsp;</td>
+                                  <td class="corpo_tabela"> </td>
+                                  <td class="corpo_tabela"> </td>
                                 </tr>
                                 <tr>
                                   <td width="50%" class="corpo_tabela_cinza">Outros descontos: </td>
@@ -342,7 +342,7 @@ $cont2 = $db->array_select[0];
 							{							
 								?>
                                 <tr>								                                 
-								  <td class="corpo_tabela">&nbsp;
+								  <td class="corpo_tabela"> 
                                       <?= $cont_outros_descontos["descricao"] ?></td>
                                   <td class="corpo_tabela"><div align="center">R$ <?= formatavalor($cont_outros_descontos["valor"]) ?>
                                   </div></td>
@@ -386,7 +386,7 @@ $cont2 = $db->array_select[0];
 							{							
 									?>
                                 <tr>                                
-								  <td class="corpo_tabela">&nbsp;
+								  <td class="corpo_tabela"> 
                                       <?= $cont_outros_acrescimos["descricao"] ?></td>
                                   <td class="corpo_tabela"><div align="center">R$ <?= formatavalor($cont_outros_acrescimos["valor"]) ?>
                                   </div></td>
@@ -423,7 +423,7 @@ $cont2 = $db->array_select[0];
 </table>
 	<table width="100%" border="0">
   <tr>
-    <td align="right">&nbsp;</td>
+    <td align="right"> </td>
   </tr>
 </table>
 </form>

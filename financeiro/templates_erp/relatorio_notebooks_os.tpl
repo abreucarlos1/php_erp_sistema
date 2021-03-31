@@ -26,11 +26,11 @@
 							</select>
 	                    </td>
 						<td>
-							<label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+							<label for="dataini" class="labels">Data inicial</label><br />
 	                    	<input name="dataini" id="dataini" type="text" size="10" class="caixa" onKeyPress="transformaData(this, event);" onBlur="verificaDataErro(this.value, 'dataini');" />
 	                    </td>
 						<td>
-							<label for="datafin" class="labels">Data&nbsp;final</label><br />
+							<label for="datafin" class="labels">Data final</label><br />
 	                    	<input name="datafim" id="datafim" type="text" size="10" class="caixa" onKeyPress="transformaData(this, event);" onBlur="verificaDataErro(this.value, 'datafin');" />
 	                    </td>
 	                    <td>
@@ -42,7 +42,7 @@
         </tr>
         <tr><td colspan="3"><div id="numRegistros" class="labels" style="text-align:right;"></div></td></tr>
       </table>
-	  <div id="lista" style="width:100%;">&nbsp;</div>
+	  <div id="lista" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

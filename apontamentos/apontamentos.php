@@ -218,7 +218,7 @@ function coord_superv($projeto)
 	$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	
 	$db->select($sql,'MYSQL', true);
 
@@ -410,7 +410,7 @@ function calc_saldo_catraca($id_funcionario,$data)
 	$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND local.reg_del = 0 ";
-	$sql .= "AND funcionarios.id_funcionario = ".$id_funcionario." ";
+	$sql .= "AND funcionarios.id_funcionario = '".$id_funcionario."' ";
 	$sql .= "AND funcionarios.id_local = local.id_local ";	
 
 	$db->select($sql,'MYSQL',true);
@@ -1261,14 +1261,14 @@ function atualizatabela($dados_form)
 			{
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', $title);
-					$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.mysql_php($cont_horas["data"])."&nbsp;-&nbsp;".str_replace(' ','&nbsp;',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'")){xajax_excluir("'.$cont_horas["id_apontamento_horas"].'","'.str_replace(' ','&nbsp;',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'");}>');
+					$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.mysql_php($cont_horas["data"])." - ".str_replace(' ',' ',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'")){xajax_excluir("'.$cont_horas["id_apontamento_horas"].'","'.str_replace(' ',' ',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'");}>');
 				$xml->endElement();
 			}
 			else
 			{
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', $title);
-					$xml->text('&nbsp;');
+					$xml->text(' ');
 				$xml->endElement();
 			}
 			
@@ -1277,14 +1277,14 @@ function atualizatabela($dados_form)
 			{
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', $title);
-					$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(desaprova("'.mysql_php($cont_horas["data"])."&nbsp;-&nbsp;".str_replace(' ','&nbsp;',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'")){xajax_desaprovar("'.$cont_horas["id_apontamento_horas"].'","'.str_replace(' ','&nbsp;',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'");}>');
+					$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(desaprova("'.mysql_php($cont_horas["data"])." - ".str_replace(' ',' ',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'")){xajax_desaprovar("'.$cont_horas["id_apontamento_horas"].'","'.str_replace(' ',' ',$cont_horas["descricao"]." ".$cont_horas["complemento"]).'");}>');
 				$xml->endElement();
 			}
 			else
 			{
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', $title);
-					$xml->text('&nbsp;');
+					$xml->text(' ');
 				$xml->endElement();
 			}
 			
@@ -1328,7 +1328,7 @@ function insere($dados_form)
 	
 	$params = array();
 	
-	$params['from']	= "tecnologia@dominio.com.br";
+	$params['from']	= "ti@dominio.com.br";
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -1876,13 +1876,20 @@ function insere($dados_form)
 					$corpoEmail .= '<b>complemento</b>: '.$somenteObs.'<br />';
 					$corpoEmail .= '<b>Projeto</b>: '.$dados_form['orcamento'];
 					
-					$mail = new email($params);
-					
-					$mail->montaCorpoEmail($corpoEmail);
-					
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert('Erro ao enviar o e-mail para o planejamento.');
+						$mail = new email($params);
+						
+						$mail->montaCorpoEmail($corpoEmail);
+						
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar o e-mail para o planejamento.');
+						}
+					}
+					else 
+					{
+						$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 1);
 					}
 				}
 				
@@ -2111,7 +2118,7 @@ function insere($dados_form)
 				}
 				else
 				{	
-					$resposta->addAlert("Deve escolher a OS / Tarefa / Per&iacute;odo.");
+					$resposta->addAlert("Deve escolher a OS / Tarefa / Período.");
 				}	
 			}				
 		}		
@@ -3642,10 +3649,10 @@ function imprimir($dados_form)
 	
 	$html .= '<table width="100%" border="0" align="center">';
 	$html .= '<tr align="left">';
-	$html .= '<td width="16%" class="td_sp"><label class="labels">Per&iacute;odo</label><br>';
+	$html .= '<td width="16%" class="td_sp"><label class="labels">Período</label><br>';
 	$html .= $sel;
 	$html .= '</td>
-            <td width="90%" class="td_sp">&nbsp;</td>
+            <td width="90%" class="td_sp"> </td>
           </tr>
         </table><br><br><br>';
 	$html .= '<input type="hidden" name="id_funcionario" id="id_funcionario" value="'.$dados_form["id_funcionario"].'" />';
@@ -3700,111 +3707,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));document.getElementById('data').focus();combotex();");
 
-?>
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>utils.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-var mycombo;
-
-function combotex()
-{
-	mycombo = new dhtmlXCombo("txtAutocomplete","complemento",500);
-	
-	mycombo.enableFilteringMode(true);
-	
-	xajax_autocomplete();	
-}
-
-function grid(tabela, autoh, height, xml)
-{	
-	mygrid = new dhtmlXGridObject(tabela);
-	
-	mygrid.enableAutoHeight(autoh,height);
-	
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	mygrid.objBox.style.overflowX = "hidden";   
-	mygrid.objBox.style.overflowY = "auto";
-
-	mygrid.setHeader("Data,Projeto,Tarefa,Período,H.N.,H.A.,Retrabalho,E,D",
-		null,
-		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
-	mygrid.setInitWidths("70,80,*,75,50,50,100,25,25");
-	mygrid.setColAlign("center,left,left,left,center,center,center,center,center");
-	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
-	mygrid.setColSorting("str,str,str,str,str,str,str,str,str");
-	mygrid.setSkin("dhx_skyblue");
-	
-	mygrid.enableMultiselect(true);
-	mygrid.enableCollSpan(true);
-			
-	mygrid.init();
-
-	mygrid.loadXMLString(xml);
-}
-
-function inserir_banco()
-{
-	document.getElementById('btninserir').disabled=true;
-
-	xajax_insere(xajax.getFormValues('frm',true));
-}
-
-function desaprova(texto)
-{
-	if(confirm('Deseja desprovar o apontamento '+texto+'?'))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	} 
-}
-
-function popupUp()
-{	
-	conteudo = '<form name="frm_imp" id="frm_imp" action="" method="POST"><div id="div_imp">&nbsp;</div>';
-	
-	conteudo += '<input type="button" name="btn_imp" id="btn_imp" value="Imprimir" onclick=imp_apont();>&nbsp;&nbsp;';
-	
-	conteudo += '<input type="button" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();></form>';
-	
-	modal(conteudo, 'pp', 'IMPRIMIR APONTAMENTOS');	
-	
-	xajax_imprimir(xajax.getFormValues('frm'));		
-}
-
-function imp_apont()
-{
-	document.getElementById('frm_imp').action="relatorios/rel_apontamento.php";
-
-	document.getElementById('frm_imp').submit();	
-}
-
-function liberaCampoProjeto(os)
-{
-	os = os.split('#');
-	
-	if (os[0] == '0000000900')
-	{
-		document.getElementById('tdOrcamento').style.display = 'block';
-	}
-	else
-	{
-		document.getElementById('tdOrcamento').style.display = 'none';
-		document.getElementById('orcamento').value = '';
-	}
-}
-
-</script>
-
-<?php
 $conf = new configs();
 
 $db = new banco_dados;
@@ -3818,7 +3720,7 @@ if(isset($_POST["externo"]) && $_POST["externo"]=='1')
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
 	$sql .= "AND rh_funcoes.reg_del = 0 ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND setores.id_setor = funcionarios.id_setor ";
 	$sql .= "AND rh_funcoes.id_funcao = funcionarios.id_funcao";
 
@@ -3846,7 +3748,6 @@ else
 	
 	$cod_funcionario = $_SESSION["id_funcionario"];
 }
-
 
 //local trabalho
 $array_local_values[] = "0";
@@ -3894,6 +3795,30 @@ $array_inter_output = NULL;
 
 $array_os_values[] = "";
 $array_os_output[] = "SELECIONE O PROJETO";
+
+$sql = "SELECT * FROM  ".DATABASE.".ordem_servico, ".DATABASE.".os_x_funcionarios ";
+$sql .= "WHERE ordem_servico.reg_del = 0 ";
+$sql .= "AND os_x_funcionarios.reg_del = 0 ";
+$sql .= "AND ordem_servico.id_os = os_x_funcionarios.id_os ";
+$sql .= "AND os_x_funcionarios.id_funcionario = '".$cod_funcionario."' ";
+$sql .= "ORDER BY os ";
+
+$db->select($sql,'MYSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$array_projetos = $db->array_select;
+
+foreach($array_projetos as $regs)
+{
+	$array_os_values[] = trim($regs["os"])."#".trim($regs["id_os_status"])."#".$regs1["id_os"]."#".$regs1["id_os_status"];
+	$array_os_output[] = trim($regs["os"])." - ".trim($regs["descricao"]);	
+}
+
+
 
 /*
 //SELECIONA OS PROJETOS EM QUE O RECURSO ESTA ALOCADO
@@ -4067,6 +3992,111 @@ $smarty->assign("nome_formulario","APONTAMENTO DE HORAS");
 
 $smarty->assign("classe",CSS_FILE);
 
+$smarty->assign("larguraTotal",1);
+
 $smarty->display('apontamentos.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>utils.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script language="javascript">
+
+var mycombo;
+
+function combotex()
+{
+	mycombo = new dhtmlXCombo("txtAutocomplete","complemento",500);
+	
+	mycombo.enableFilteringMode(true);
+	
+	xajax_autocomplete();	
+}
+
+function grid(tabela, autoh, height, xml)
+{	
+	mygrid = new dhtmlXGridObject(tabela);
+	
+	mygrid.enableAutoHeight(autoh,height);
+	
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	mygrid.objBox.style.overflowX = "hidden";   
+	mygrid.objBox.style.overflowY = "auto";
+
+	mygrid.setHeader("Data,Projeto,Tarefa,Período,H.N.,H.A.,Retrabalho,E,D",
+		null,
+		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
+	mygrid.setInitWidths("70,80,*,75,50,50,100,25,25");
+	mygrid.setColAlign("center,left,left,left,center,center,center,center,center");
+	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
+	mygrid.setColSorting("str,str,str,str,str,str,str,str,str");
+	mygrid.setSkin("dhx_skyblue");
+	
+	mygrid.enableMultiselect(true);
+	mygrid.enableCollSpan(true);
+			
+	mygrid.init();
+
+	mygrid.loadXMLString(xml);
+}
+
+function inserir_banco()
+{
+	document.getElementById('btninserir').disabled=true;
+
+	xajax_insere(xajax.getFormValues('frm',true));
+}
+
+function desaprova(texto)
+{
+	if(confirm('Deseja desprovar o apontamento '+texto+'?'))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	} 
+}
+
+function popupUp()
+{	
+	conteudo = '<form name="frm_imp" id="frm_imp" action="" method="POST"><div id="div_imp"> </div>';
+	
+	conteudo += '<input type="button" name="btn_imp" id="btn_imp" value="Imprimir" onclick=imp_apont();>  ';
+	
+	conteudo += '<input type="button" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();></form>';
+	
+	modal(conteudo, 'pp', 'IMPRIMIR APONTAMENTOS');	
+	
+	xajax_imprimir(xajax.getFormValues('frm'));		
+}
+
+function imp_apont()
+{
+	document.getElementById('frm_imp').action="relatorios/rel_apontamento.php";
+
+	document.getElementById('frm_imp').submit();	
+}
+
+function liberaCampoProjeto(os)
+{
+	os = os.split('#');
+	
+	if (os[0] == '0000000900')
+	{
+		document.getElementById('tdOrcamento').style.display = 'block';
+	}
+	else
+	{
+		document.getElementById('tdOrcamento').style.display = 'none';
+		document.getElementById('orcamento').value = '';
+	}
+}
+
+</script>

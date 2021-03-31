@@ -115,7 +115,7 @@ $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND documentos_referencia.reg_del = 0 ";
 $sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 $sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os = '" . $cont0["id_os"] . "' ";
 $sql .= "ORDER BY documentos_referencia_revisoes.numero_grd_cliente ASC , setores.setor ASC, tipos_referencia.tipo_referencia, documentos_referencia.numero_registro ";
 

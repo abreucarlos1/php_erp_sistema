@@ -77,7 +77,7 @@ function atualizatabela($filtro,$status='')
 	}
 	
 	$sql = "SELECT * FROM ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 	$sql .= "WHERE empresas.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= $exibir;
@@ -103,12 +103,12 @@ function atualizatabela($filtro,$status='')
 	foreach($array_empresas as $cont_desp)
 	{
 		$xml->startElement('row');
-			$xml->writeAttribute('id', $cont_desp["id_empresa_erp"]);
+			$xml->writeAttribute('id', $cont_desp["id_empresa"]);
 			$xml->writeElement('cell', $cont_desp["empresa"].'-'.$cont_desp["unidade"]);
 			$xml->writeElement('cell', $cont_desp["abreviacao"]);
 			$xml->writeElement('cell', $cont_desp["telefone"]);
 			$xml->writeElement('cell', $cont_desp["status"]);
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		$xml->endElement();
 	}
 	
@@ -126,9 +126,9 @@ function atualizatabela($filtro,$status='')
 function insere($dados_form)
 {
 	$resposta = new xajaxResponse();
-	
-	//$resposta->addAlert("Não é possível incluir esta informação. Somente pelo Protheus.");
 
+	$db = new banco_dados;
+	
 	if($dados_form["empresa"]!='' && $dados_form["unidade"]!='')
 	{
 
@@ -195,7 +195,7 @@ function editar($id)
 	$db = new banco_dados;
 	
 	$sql = "SELECT * FROM ".DATABASE.".empresas ";
-	$sql .= "WHERE empresas.id_empresa_erp = '".$id."' ";
+	$sql .= "WHERE empresas.id_empresa = '".$id."' ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	
 	$db->select($sql,'MYSQL',true);
@@ -217,7 +217,7 @@ function editar($id)
 	
 	$resposta->addScript("seleciona_combo('" . $regs["relevancia"] . "','relevancia'); ");
 	
-	$resposta->addAssign("id_empresa", "value",$regs["id_empresa_erp"]);
+	$resposta->addAssign("id_empresa", "value",$regs["id_empresa"]);
 	
 	$resposta->addAssign("empresa", "value",$regs["empresa"]);
 	
@@ -282,7 +282,7 @@ function atualizar($dados_form)
 		$usql .= "logotipo = '" . $logotipo . "', ";
 		$usql .= "relevancia = '" . $dados_form["relevancia"] . "', ";
 		$usql .= "status = '" . $dados_form["status"] . "' ";
-		$usql .= "WHERE id_empresa_erp = '".$dados_form["id_empresa"]."' ";
+		$usql .= "WHERE id_empresa = '".$dados_form["id_empresa"]."' ";
 		$usql .= "AND reg_del = 0 ";
 
 		$db->update($usql,'MYSQL');
@@ -306,7 +306,6 @@ function atualizar($dados_form)
 	
 	return $resposta;
 }
-
 
 $conf = new configs();
 
@@ -381,7 +380,7 @@ $array_unidade_output[] = "SELECIONE";
 $array_atuacao_values[] = "";
 $array_atuacao_output[] = "SELECIONE";
 
-$sql = "SELECT * FROM ".DATABASE.".unidade ";
+$sql = "SELECT * FROM ".DATABASE.".unidades ";
 $sql .= "WHERE unidades.reg_del = 0 ";
 $sql .= "ORDER BY descricao ";
 
@@ -389,7 +388,7 @@ $db->select($sql,'MYSQL',true);
 
 if ($db->erro != '')
 {
-	exit("Não foi possível realizar a seleção.");
+	exit("Não foi possível realizar a seleção. ".$sql);
 }
 
 foreach ($db->array_select as $regs)
@@ -401,19 +400,19 @@ foreach ($db->array_select as $regs)
 
 $sql = "SELECT * FROM ".DATABASE.".segmentos ";
 $sql .= "WHERE segmentos.reg_del = 0 ";
-$sql .= "ORDER BY segmentos ";
+$sql .= "ORDER BY segmento ";
 
 $db->select($sql,'MYSQL',true);
 
 if ($db->erro != '')
 {
-	exit("Não foi possível realizar a seleção.");
+	exit("Não foi possível realizar a seleção. ".$sql);
 }
 
 foreach ($db->array_select as $regs)
 {
 	$array_atuacao_values[] = $regs["id_segmento"];
-	$array_atuacao_output[] = $regs["segmentos"];
+	$array_atuacao_output[] = $regs["segmento"];
 }
 
 $array_exibir_values[] = "";
@@ -428,7 +427,7 @@ $db->select($sql,'MYSQL',true);
 
 if ($db->erro != '')
 {
-	exit("Não foi possível realizar a seleção.");
+	exit("Não foi possível realizar a seleção. ".$sql);
 }
 
 foreach ($db->array_select as $regs)
@@ -453,6 +452,8 @@ $smarty->assign('campo', $conf->campos('empresas'));
 $smarty->assign("botao", $conf->botoes());
 
 $smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
 
 $smarty->display('empresas.tpl');
 ?>

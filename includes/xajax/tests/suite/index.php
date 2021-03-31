@@ -42,7 +42,7 @@
 
 	$brk = new clsBr();
 	$clear = new clsBr(array("attributes"=>array("style"=>"clear:both;")));
-	$space = new clsLiteral('&nbsp;');
+	$space = new clsLiteral(' ');
 
 	$objTitle = new clsTitle(array(
 		'children' => array(new clsLiteral('xajax Test Suite'))

@@ -210,33 +210,33 @@ span.mpdf_toc_p_level_2 {	/* Page no. level 2 - may be inside <a> */
 <p>This will result in the following HTML code generated (internally):</p>
 <p class="code">
 &lt;div class="mpdf_toc" id="mpdf_toc_0"&gt;<br />
-&nbsp; &lt;div class="mpdf_toc_level_0"&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_1"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_t_level_0"&gt;Section 1&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &nbsp; &lt;dottab outdent="2em" /&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_1"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_p_level_0"&gt;5&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &lt;/div&gt;<br />
-&nbsp; &lt;div class="mpdf_toc_level_1"&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_2"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_t_level_1"&gt;Chapter 1&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &nbsp; &lt;dottab outdent="2em" /&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_2"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_p_level_1"&gt;6&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &lt;/div&gt;<br />
-&nbsp; &lt;div class="mpdf_toc_level_2"&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_3"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_t_level_2"&gt;Topic 1&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &nbsp; &lt;dottab outdent="2em" /&gt;<br />
-&nbsp; &nbsp; &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_3"&gt;<br />
-&nbsp; &nbsp; &nbsp; &lt;span class="mpdf_toc_p_level_2"&gt;7&lt;/span&gt;<br />
-&nbsp; &nbsp; &lt;/a&gt;<br />
-&nbsp; &lt;/div&gt;<br />
+  &lt;div class="mpdf_toc_level_0"&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_1"&gt;<br />
+      &lt;span class="mpdf_toc_t_level_0"&gt;Section 1&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+    &lt;dottab outdent="2em" /&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_1"&gt;<br />
+      &lt;span class="mpdf_toc_p_level_0"&gt;5&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+  &lt;/div&gt;<br />
+  &lt;div class="mpdf_toc_level_1"&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_2"&gt;<br />
+      &lt;span class="mpdf_toc_t_level_1"&gt;Chapter 1&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+    &lt;dottab outdent="2em" /&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_2"&gt;<br />
+      &lt;span class="mpdf_toc_p_level_1"&gt;6&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+  &lt;/div&gt;<br />
+  &lt;div class="mpdf_toc_level_2"&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_3"&gt;<br />
+      &lt;span class="mpdf_toc_t_level_2"&gt;Topic 1&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+    &lt;dottab outdent="2em" /&gt;<br />
+    &lt;a class="mpdf_toc_a" href="#__mpdfinternallink_3"&gt;<br />
+      &lt;span class="mpdf_toc_p_level_2"&gt;7&lt;/span&gt;<br />
+    &lt;/a&gt;<br />
+  &lt;/div&gt;<br />
 &lt;/div&gt;
 </p>
 
@@ -250,41 +250,41 @@ span.mpdf_toc_p_level_2 {	/* Page no. level 2 - may be inside <a> */
 <p class="code">
 /* For Table of Contents */<br />
 div.mpdf_toc {<br />
-&nbsp; font-family: sans-serif;<br />
-&nbsp; font-size: 11pt;<br />
+  font-family: sans-serif;<br />
+  font-size: 11pt;<br />
 }<br />
 a.mpdf_toc_a  {<br />
-&nbsp; text-decoration: none;<br />
-&nbsp; color: black;<br />
+  text-decoration: none;<br />
+  color: black;<br />
 }<br /><br />
 /* Whole line level 0 */<br />
 div.mpdf_toc_level_0 {<br />
-&nbsp; line-height: 1.5;<br />
-&nbsp; margin-left: 0;<br />
-&nbsp; padding-right: 2em;<br />
+  line-height: 1.5;<br />
+  margin-left: 0;<br />
+  padding-right: 2em;<br />
 }<br /><br />
 /* Title level 0 - may be inside &lt;a&gt; */<br />
 span.mpdf_toc_t_level_0 {<br />
-&nbsp; font-weight: bold;<br />
+  font-weight: bold;<br />
 }<br /><br />
 /* Page no. level 0 - may be inside &lt;a&gt; */<br />
 span.mpdf_toc_p_level_0 { }<br /><br />
 /* Whole line level 1 */<br />
 div.mpdf_toc_level_1 {<br />
-&nbsp; margin-left: 2em;<br />
-&nbsp; padding-right: 2em;<br />
+  margin-left: 2em;<br />
+  padding-right: 2em;<br />
 }<br /><br />
 /* Title level 1 */<br />
 span.mpdf_toc_t_level_1 {<br />
-&nbsp; font-style: italic;<br />
-&nbsp; font-weight: bold;<br />
+  font-style: italic;<br />
+  font-weight: bold;<br />
 }<br /><br />
 /* Page no. level 1 - may be inside &lt;a&gt; */<br />
 span.mpdf_toc_p_level_1  { }<br /><br />
 /* Whole line level 2 */<br />
 div.mpdf_toc_level_2 {<br />
-&nbsp; margin-left: 4em;<br />
-&nbsp; padding-right: 2em;<br />
+  margin-left: 4em;<br />
+  padding-right: 2em;<br />
 }<br /><br />
 /* Title level 2 */<br />
 span.mpdf_toc_t_level_2 { }<br /><br />
@@ -431,15 +431,15 @@ hyphens: manual | auto | none
 <p>&lt;dottab&gt; now supports a custom CSS property "outdent", which can also be used as an HTML attribute i.e. &lt;dottab outdent="2em"&gt;</p>
 <p>The first item uses &lt;dottab outdent="4em"&gt; whereas the following items have &lt;dottab class="menu"&gt; (with CSS <code>dottab.menu{outdent: 4em;}</code> ) and all have padding-right="4em" on the &lt;div&gt; element</p>
 <div style="border: 0.2mm solid #000088; padding: 1em;">
-<p class="menu">Nulla felis erat, imperdiet eu, ullamcorper non, nonummy quis, elit. Suspendisse potenti. Ut a eros at ligula vehicula pretium. Maecenas feugiat pede vel risus. Nulla et lectus <dottab outdent="4em" />&nbsp;&pound;37.00</p>
+<p class="menu">Nulla felis erat, imperdiet eu, ullamcorper non, nonummy quis, elit. Suspendisse potenti. Ut a eros at ligula vehicula pretium. Maecenas feugiat pede vel risus. Nulla et lectus <dottab outdent="4em" /> &pound;37.00</p>
 
-<p class="menu">Fusce eleifend neque sit amet erat. Integer consectetuer nulla non orci. Morbi feugiat <dottab class="menu" />&nbsp;&pound;3700.00</p>
+<p class="menu">Fusce eleifend neque sit amet erat. Integer consectetuer nulla non orci. Morbi feugiat <dottab class="menu" /> &pound;3700.00</p>
 
-<p class="menu">Cras odio. Donec mattis, nisi id euismod auctor, neque metus pellentesque risus, at eleifend lacus sapien et risus <dottab class="menu" />&nbsp;&pound;27.00</p>
+<p class="menu">Cras odio. Donec mattis, nisi id euismod auctor, neque metus pellentesque risus, at eleifend lacus sapien et risus <dottab class="menu" /> &pound;27.00</p>
 
-<p class="menu">Phasellus metus. Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel aliquam quam odio et sapien. Mauris ante pede, auctor ac, suscipit quis, malesuada sed, nulla. Integer sit amet odio sit amet lectus luctus euismod <dottab class="menu" />&nbsp;&pound;7.00</p>
+<p class="menu">Phasellus metus. Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel aliquam quam odio et sapien. Mauris ante pede, auctor ac, suscipit quis, malesuada sed, nulla. Integer sit amet odio sit amet lectus luctus euismod <dottab class="menu" /> &pound;7.00</p>
 
-<p class="menu">Donec et nulla. Sed quis orci <dottab class="menu" />&nbsp;&pound;1137.00</p>
+<p class="menu">Donec et nulla. Sed quis orci <dottab class="menu" /> &pound;1137.00</p>
 </div>
 <p></p>
 <p class="code">

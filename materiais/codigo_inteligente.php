@@ -1,8 +1,8 @@
 <?php
 /*
-	  Formul�rio de codigo inteligente de materiais
+	  Formulário de codigo inteligente de materiais
 	  
-	  Criado por Carlos Eduardo M�xim ia
+	  Criado por Carlos Eduardo Máximo
 	  
 	  local/Nome do arquivo:
 	  
@@ -152,7 +152,7 @@ function getAtributos($dados_form, $codigoInteligente = '', $desabilita = false,
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$html, &$resposta, $itenscodigo, $disabled, $compoe_codigo)
 		{
-			//$itenscodigo[$i+2], porque os indices 0 3 1 s�o grupo e subgrupo respectivamente
+			//$itenscodigo[$i+2], porque os indices 0 3 1 são grupo e subgrupo respectivamente
 			$htmlReferencias = buscarReferencias($reg['id_atributo'], $itenscodigo[$i+2], $reg['subGrupo'], $reg['codigo_grupo']);
 			
 			$funcaoLimpaUnidadesPesos = '';
@@ -206,9 +206,9 @@ function getAtributos($dados_form, $codigoInteligente = '', $desabilita = false,
 }
 
 /*
- * Fun��o que busca tabelas e dados de referencia para o campo, caso haja uma tabela para o campo*/
+ * Função que busca tabelas e dados de referencia para o campo, caso haja uma tabela para o campo*/
 /**
- * Fun��o que retorna os atributos que o subgrupo possui
+ * Função que retorna os atributos que o subgrupo possui
  * @param unknown_type $atributo
  * @param unknown_type $idSel // So usado na edicao
  */
@@ -255,10 +255,10 @@ function inserir($dados_form)
 	
 	$erro = false;
 	
-	//Caso n�o exista o codigo ou n�o tem o tamanho suficiente para montar um c�digo m�nimo, para tudo
+	//Caso não exista o codigo ou não tem o tamanho suficiente para montar um código mínimo, para tudo
 	if (empty($dados_form['codigoInteligenteValue']) || strlen(trim($dados_form['codigoInteligenteValue'])) < 7)
 	{
-		$resposta->addAlert('C�digo do componente inv�lido ou j� existente!');
+		$resposta->addAlert('Código do componente inválido ou já existente!');
 		return $resposta;
 	}
 	
@@ -344,7 +344,7 @@ function inserir($dados_form)
 		$complLabels = '';
 		$complcodigoInteligente = '';
 		
-		//Criando o descritivo de quantos diametros estejam sendo usados (hoje o limite s�o 2 diametros)
+		//Criando o descritivo de quantos diametros estejam sendo usados (hoje o limite são 2 diametros)
 		$virg = '';
 		foreach($valor as $k => $val)
 		{
@@ -381,10 +381,10 @@ function inserir($dados_form)
 			$ultimo++;
 		}
 	}
-	//Se n�o forem inseridos os itens � porque j� existem e n�o ser�o reinseridos
+	//Se não forem inseridos os itens é porque já existem e não serão reinseridos
 	if (empty($isqlCompone))
 	{
-		$resposta->addAlert('N�o foram inseridos estes itens pois j� existiam no sistema!');
+		$resposta->addAlert('Não foram inseridos estes itens pois já existiam no sistema!');
 		$resposta->addScript("xajax_atualiza_tabela_principal(xajax.getFormValues('frm'));");
 		$resposta->addAssign('btninserir', 'disabled', false);
 	
@@ -642,7 +642,7 @@ function agregar_codigos($codBarras)
 	$registros[] = $codBarras;
 	$registros = implode(",", $registros);
 	
-	$resposta->addScriptCall('modal',$html, 'g', 'SELECIONE OS C�DIGOS A SEREM AGREGADOS AO COMPONENTE ('.$codBarras.')');
+	$resposta->addScriptCall('modal',$html, 'g', 'SELECIONE OS CÓDIGOS A SEREM AGREGADOS AO COMPONENTE ('.$codBarras.')');
 	//$resposta->addScript("xajax_atualizatabela(null, '".$registros."');");
 	
 	
@@ -829,7 +829,7 @@ function calculaDigito($codBarras)
 	return $digito;
 }
 
-//Chamar esta fun��o no firefox console xajax_corrigirDescricao()
+//Chamar esta função no firefox console xajax_corrigirDescricao()
 function corrigirDescricao($dados_form)
 {
 	$resposta = new xajaxResponse();
@@ -861,10 +861,10 @@ function excluir($idComponente)
 	$db->update($usql);
 	
 	if ($db->erro != '')
-		$resposta->addAlert('ATEN��O: Houve uma falha ao tentar excluir o componente!');
+		$resposta->addAlert('ATENÇÃO: Houve uma falha ao tentar excluir o componente!');
 	else
 	{
-		$resposta->addAlert('Componente exclu�do corretamente!');
+		$resposta->addAlert('Componente excluído corretamente!');
 		$resposta->addScript("xajax_atualiza_tabela_principal(xajax.getFormValues('frm'));");
 	}
 		
@@ -956,14 +956,14 @@ WHERE
 	
 	$html = "<form id='frmDescricao' name='frmDescricao'>".
 				"<input type='hidden' value='{$idComponente}' id='idComponente' name='idComponente' />".
-				"<label class='labels'>Descri��o Original</label>".
+				"<label class='labels'>Descrição Original</label>".
 				"<textarea readonly='readonly' id='descricaoOriginal' name='descricaoOriginal' cols='58' rows='5'>{$db->array_select[0]['descricao']}</textarea>".
-				"<label class='labels'>Nova Descri��o</label>".
+				"<label class='labels'>Nova Descrição</label>".
 				"<textarea id='descricaoAlterada' name='descricaoAlterada' cols='58' rows='5'></textarea>".
 				"<input type='button' class='class_botao' value='Alterar' onclick=xajax_salvarNovaDescricao(xajax.getFormValues('frmDescricao')); />".
 			"</form>";
 	
-	$resposta->addScriptCall('modal',$html, 'p', 'Editar a descri��o do componente '.$idComponente);
+	$resposta->addScriptCall('modal',$html, 'p', 'Editar a descrição do componente '.$idComponente);
 	
 	return $resposta;
 }
@@ -983,11 +983,11 @@ function salvarNovaDescricao($dados_form)
 		
 		if ($db->erro != '')
 		{
-			$resposta->addAlert('ATEN��O: Houve uma falha ao tentar alterar a descri��o do componente!');
+			$resposta->addAlert('ATENÇÃO: Houve uma falha ao tentar alterar a descrição do componente!');
 		}
 		else
 		{
-			$script = 	'if (confirm("Descri��o alterada corretamente.\nDeseja carregar a lista novamente?")){ '.
+			$script = 	'if (confirm("Descrição alterada corretamente.\nDeseja carregar a lista novamente?")){ '.
 							'xajax_atualiza_tabela_principal(xajax.getFormValues("frm"));'.
 							'divPopupInst.destroi();'.
 						'}else{divPopupInst.destroi();}';
@@ -997,7 +997,7 @@ function salvarNovaDescricao($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('ATEN��O: A descri��o deve ser preenchida e ser diferente da descri��o original!');
+		$resposta->addAlert('ATENÇÃO: A descrição deve ser preenchida e ser diferente da descrição original!');
 	}
 	
 	return $resposta;
@@ -1040,7 +1040,7 @@ function salvar_familia($dados_form)
 				}
 				else
 				{
-					//Em caso de erro ou n�o inser��o do novo id, voltar o registro anterior
+					//Em caso de erro ou não inserção do novo id, voltar o registro anterior
 					$usql = "UPDATE materiais_old.familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
@@ -1062,7 +1062,7 @@ function salvar_familia($dados_form)
 		
 			if ($db->numero_registros > 0)
 			{
-				$resposta->addAlert('J� existe uma familia com esta descri��o cadastrada com o c�digo! '.$db->array_select[0]['id_familia']);
+				$resposta->addAlert('Já existe uma familia com esta descrição cadastrada com o código! '.$db->array_select[0]['id_familia']);
 				$resposta->addScript("document.getElementById('frmAlterarFamilia').reset();");
 			}
 			else
@@ -1085,7 +1085,7 @@ function salvar_familia($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert('Nenhuma descri��o foi digitada!');
+		$resposta->addAlert('Nenhuma descrição foi digitada!');
 	}
 	
 	return $resposta;
@@ -1097,10 +1097,10 @@ function showModalFamilias()
 	
 	$html =  '<form id="frmAlterarFamilia">'.
 					'<table><tr><td>'.
-						'<label class="labels" style="float:left;width: 110px">Descri��o</label>'.
+						'<label class="labels" style="float:left;width: 110px">Descrição</label>'.
 						'<input type="text" value="" name="txtDescricaoFamilia" id="txtDescricaoFamilia" size="75" />'.
 					'</td></tr><tr><td>'.
-						'<label class="labels" style="float:left;width: 110px">Descri��o Longa</label>'.
+						'<label class="labels" style="float:left;width: 110px">Descrição Longa</label>'.
 						'<textarea name="txtDescricaoLongaFamilia" id="txtDescricaoLongaFamilia" cols="56" rows="2"></textarea>'.
 					'</td></tr><tr><td>'.
 						'<input type="hidden" value="" name="idFamilia" id="idFamilia" />'.
@@ -1154,7 +1154,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 <script>
 function showModalUnidadesPesos()
 {
-	var html = '<table><tr><th><label class="labels">Di�metro</label></th><th><label class="labels">unidade</label></th><th><label class="labels">Peso</label></th></tr>';
+	var html = '<table><tr><th><label class="labels">Diâmetro</label></th><th><label class="labels">unidade</label></th><th><label class="labels">Peso</label></th></tr>';
 
 	var id = arrElementosNaoCompoecodigo[0];
 	
@@ -1243,8 +1243,8 @@ function grid(tabela, autoh, height, xml)
 				}
 			}
 			
-			//mygrid.setHeader("C�digo, Grupo, Sub&nbsp;Grupo, C�digo&nbsp;Inteligente, Descri��o, D, A");
-			mygrid.setHeader("C�digo, Sub&nbsp;Grupo, Descri��o, D, A");
+			//mygrid.setHeader("Código, Grupo, Sub Grupo, Código Inteligente, Descrição, D, A");
+			mygrid.setHeader("Código, Sub Grupo, Descrição, D, A");
 			mygrid.setInitWidths("100,80,*,30,30");
 			mygrid.setColAlign("left,left,left,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");
@@ -1253,14 +1253,14 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowSelect",doOnRowSelected);
 		break;
 		case 'listacodigos':
-			mygrid.setHeader("&nbsp;, C�digo, C�digo&nbsp;Inteligente, Descri��o,A");
+			mygrid.setHeader(" , Código, Código Inteligente, Descrição,A");
 			mygrid.setInitWidths("25,110,160,*,50");
 			mygrid.setColAlign("left,left,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");
 			mygrid.setColSorting("str,str,str,str,str");
 		break;
 		case 'lista_familias':
-			mygrid.setHeader("C�digo, Descri��o, S");
+			mygrid.setHeader("Código, Descrição, S");
 			mygrid.setInitWidths("100,*,50");
 			mygrid.setColAlign("left,left,left");
 			mygrid.setColTypes("ro,ro,ro");
@@ -1292,7 +1292,7 @@ function adicionar_codigo(codBarras)
 	codBarrasSemPontos = codBarras.split('.');
 	codBarrasSemPontos = codBarrasSemPontos[0]+codBarrasSemPontos[1]+codBarrasSemPontos[2]+codBarrasSemPontos[3];
 	
-	//n� principal
+	//nº principal
 	var node = document.createElement('tr');
 	node.className = 'labels';
 	node.setAttribute('id', 'tr_'+codBarrasSemPontos);
@@ -1316,7 +1316,7 @@ function adicionar_codigo(codBarras)
 		td.appendChild(texto);
 		td2.appendChild(img);
 		
-	//hidden com o c�digo de barras
+	//hidden com o código de barras
 	var input = document.createElement('input');
 		input.setAttribute('type', 'hidden');
 		input.setAttribute('name', 'codigos[]');
@@ -1448,7 +1448,7 @@ function limparCadastro()
 function mostra_agregados(el)
 {
 	var ref = $(el).attr('ref').split(',');
-	var html = '<table class="table auto_lista"><tr><th>QTD</th><th>unidade</th><th>C�digo do Componente</th><th>Descri��o</th></tr>'; 
+	var html = '<table class="table auto_lista"><tr><th>QTD</th><th>unidade</th><th>Código do Componente</th><th>Descrição</th></tr>'; 
 	for(i = 0; i < ref.length; i++)
 	{
 		conteudo = ref[i].split('--');
@@ -1456,17 +1456,17 @@ function mostra_agregados(el)
 		html += '<tr><td>'+conteudo[0]+'</td><td>'+conteudo[3]+'</td><td>'+conteudo[1]+'</td><td>'+conteudo[2]+'</td></tr>';
 	}
 	html += '</table>';
-	modal(html,'m','C�digos Agregados',1);
+	modal(html,'m','Códigos Agregados',1);
 }
 
 function showModalFamilias()
 {
 	var html =  /*'<form id="frmAlterarFamilia">'+
 				'<table><tr><td>'+
-					'<label class="labels" style="float:left;width: 110px">Descri��o</label>'+
+					'<label class="labels" style="float:left;width: 110px">Descrição</label>'+
 					'<input type="text" value="" name="txtDescricaoFamilia" id="txtDescricaoFamilia" size="75" />'+
 				'</td></tr><tr><td>'+
-					'<label class="labels" style="float:left;width: 110px">Descri��o Longa</label>'+
+					'<label class="labels" style="float:left;width: 110px">Descrição Longa</label>'+
 					'<textarea name="txtDescricaoLongaFamilia" id="txtDescricaoLongaFamilia" cols="56" rows="2"></textarea>'+
 				'</td></tr><tr><td>'+
 					'<input type="hidden" value="" name="idFamilia" id="idFamilia" />'+
@@ -1486,7 +1486,7 @@ function limpar_unidades_pesos()
 </script>
 
 <?php
-//Esta parte s� � executada de fora do programa principal ex; materiais/produtos.php
+//Esta parte só é executada de fora do programa principal ex; materiais/produtos.php
 if (isset($_GET['ajax']))
 {
 	$smarty->assign('ocultarCabecalhoRodape', 'style="display:none;"');

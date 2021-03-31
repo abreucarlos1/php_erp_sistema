@@ -73,7 +73,7 @@ function atualiza_tabela($dados_form)
 			$xml->writeElement('cell', $reg["le_email"]);
 			$xml->writeElement('cell', $reg["le_tipo_envio"]);
 			
-			$img = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;realmente&nbsp;excluir&nbsp;este&nbsp;item?"))xajax_excluir("'.$reg['le_id'].'"); style="cursor:pointer;" />';
+			$img = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja realmente excluir este item?"))xajax_excluir("'.$reg['le_id'].'"); style="cursor:pointer;" />';
 			
 			$xml->writeElement('cell', $img);
 		$xml->endElement();		

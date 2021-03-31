@@ -1,12 +1,12 @@
 <?php
 /*
-	Formul�rio de Visualiza��o de Curriculo
+	Formulário de Visualização de Curriculo
 	Criado por Carlos Eduardo
 
 	local/Nome do arquivo:
 	../rh/download_curriculo.php
 	
-	data de cria��o
+	data de criação
 	Versão 0 --> VERSÃO INICIAL : 13/12/2014
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu	
 */	
@@ -26,7 +26,7 @@ $db->select($sql, 'MYSQL',true);
 
 if ($db->erro != '')
 {
-	exit('N�o foi encontrado o curriculo selecionado na pasta de arquivos! '.$db->erro);
+	exit('Não foi encontrado o curriculo selecionado na pasta de arquivos! '.$db->erro);
 }
 
 $dados = $db->array_select[0];

@@ -1,16 +1,16 @@
 <?php
 /*
 
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-    // Usu�rio n�o logado! Redireciona para a p�gina de login
+    // Usuário não logado! Redireciona para a página de login
     header("Location: ../index.php");
     exit;
 }
@@ -73,15 +73,15 @@ $regsub = $db->select($sql,'MYSQL');
   <tr>
   	<td width="74" height="23" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TAG</strong></div></td>
     <td width="155" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>COMPONENTE</strong></div></td>
-	<td width="132" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>FUN&Ccedil;&Atilde;O</strong></div></td>
+	<td width="132" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>FUNÇÃO</strong></div></td>
 	<td width="142" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>LOCAL</strong></div></td>
 	<td width="139" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>DISPOSITIVO</strong></div></td>
 	<td width="112" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>RACK</strong></div></td>
-	<td width="108" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>ENDERE&Ccedil;O</strong></div></td>
+	<td width="108" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>ENDEREÇO</strong></div></td>
     <td width="45" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TIPO</strong></div></td>
     <td width="55" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>REV</strong></div></td>
   </tr>
-  <?
+  <?php
  
 while ($subsistema = mysqli_fetch_array($regsub))
 {
@@ -92,9 +92,9 @@ while ($subsistema = mysqli_fetch_array($regsub))
 			<td colspan="9" style="font-size:12px"><font color="#FF0000"><strong><?= $subsistema["subsistema"] ?></strong></font></td>
 		</tr>
 		<tr>
-			<td colspan="9"><strong>&nbsp;</strong></td>
+			<td colspan="9"><strong> </strong></td>
 		</tr>
-		<?
+		<?php
 		
 		$sql1 = "SELECT * FROM Projetos.malhas, Projetos.processo ";
 		$sql1 .= "WHERE id_subsistema = '".$subsistema["id_subsistema"]."' ";
@@ -134,10 +134,10 @@ while ($subsistema = mysqli_fetch_array($regsub))
 			?>
 			<tr>
 				
-				<td colspan="9" style="font-size:10px"><strong><?= $malhas["processo"]." - ".$nrmalha ?>&nbsp;&nbsp;&nbsp;<?= " - " ?>&nbsp;&nbsp;&nbsp;<?= $malhas["ds_servico"] ?></strong></td>
-				<td>&nbsp;</td>
+				<td colspan="9" style="font-size:10px"><strong><?= $malhas["processo"]." - ".$nrmalha ?>   <?= " - " ?>   <?= $malhas["ds_servico"] ?></strong></td>
+				<td> </td>
 			</tr>
-			<?
+			<?php
 			
 		
 			
@@ -187,7 +187,7 @@ while ($subsistema = mysqli_fetch_array($regsub))
 					}
 				}
 				
-				if($componentes["setor"]=='EL�TRICA')
+				if($componentes["setor"]=='ELÉTRICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -203,7 +203,7 @@ while ($subsistema = mysqli_fetch_array($regsub))
 				}
 				else
 				{
-					if($componentes["setor"]=='MEC�NICA')
+					if($componentes["setor"]=='MECÂNICA')
 					{
 						$sql = "SELECT * FROM Projetos.locais ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -235,19 +235,19 @@ while ($subsistema = mysqli_fetch_array($regsub))
 				}
 				?>
 				<tr style="font-size:9px">
-					<td>&nbsp;<?= $subsistema["nr_area"] . " - " . $processo . $componentes["dispositivo"]. " - " . $nrmalha.$nrseq . $modificador ?></td>
-					<td>&nbsp;<?= $componentes["ds_dispositivo"] ?></td>
-					<td>&nbsp;<?= $componentes["ds_funcao"] ?></td>
-					<td>&nbsp;<?= $tag ?></td>
-					<td>&nbsp;<?= $componentes["cd_dispositivo"] ?></td>
-					<td>&nbsp;<?= $componentes["nr_rack"] ?></td>
-					<td>&nbsp;<?= maiusculas($componentes["cd_endereco"]) ?></td>
-					<td>&nbsp;<?= $componentes["cd_atributo"] ?></td>
-					<td>&nbsp;<?= $componentes["comp_revisao"] ?></td>
+					<td> <?= $subsistema["nr_area"] . " - " . $processo . $componentes["dispositivo"]. " - " . $nrmalha.$nrseq . $modificador ?></td>
+					<td> <?= $componentes["ds_dispositivo"] ?></td>
+					<td> <?= $componentes["ds_funcao"] ?></td>
+					<td> <?= $tag ?></td>
+					<td> <?= $componentes["cd_dispositivo"] ?></td>
+					<td> <?= $componentes["nr_rack"] ?></td>
+					<td> <?= maiusculas($componentes["cd_endereco"]) ?></td>
+					<td> <?= $componentes["cd_atributo"] ?></td>
+					<td> <?= $componentes["comp_revisao"] ?></td>
 					
 					
 				</tr>
-				<?
+				<?php
 				
 				/*
 				//$pdf->Cell(180,20,$sql,0,0,'L',0);
@@ -264,8 +264,8 @@ while ($subsistema = mysqli_fetch_array($regsub))
 			}
 			//$pdf->Ln(2);
 			?>
-			<tr><TD colspan="9">&nbsp;</TD></tr>
-			<?
+			<tr><TD colspan="9"> </TD></tr>
+			<?php
 		}
 			
 			

@@ -288,7 +288,7 @@ else
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">&nbsp;</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\"> </td>";
 	$conteudo .= "</tr>";	
 	
 	if ($data_ini=='' || $datafim=='')
@@ -366,7 +366,7 @@ else
 		$conteudo .= "<td align=\"left\">DISCIPLINA</td>";
 		$conteudo .= "<td align=\"left\">ATIVIDADE</td>";
 		$conteudo .= "<td align=\"left\">H. NORMAIS</td>";
-		$conteudo .= "<td align=\"left\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\"> </td>";
 		$conteudo .= "<td align=\"left\">H. EXTRAS</td>";
 		$conteudo .= "</tr>";
 
@@ -420,12 +420,12 @@ else
 				$AHA = $AHA + floor($AMA/60);
 				
 				$conteudo .= "<tr>";
-				$conteudo .= "<td align=\"left\">&nbsp;</td>";
+				$conteudo .= "<td align=\"left\"> </td>";
 				
 				$conteudo .= "<td align=\"left\">".$regatividade["descricao"]."</td>";
 
 				$conteudo .= "<td align=\"left\">" . $AHN . ":" . $AMN%60 . "</td>";
-				$conteudo .= "<td align=\"left\">&nbsp;</td>";
+				$conteudo .= "<td align=\"left\"> </td>";
 				
 				$conteudo .= "<td align=\"left\">" . $AHA . ":" . $AMA%60 . "</td>";
 				$conteudo .= "</tr>";
@@ -434,9 +434,9 @@ else
 
 			$conteudo .= "<tr>";
 			$conteudo .= "<td align=\"left\"><b>SUB-TOTAL:</b></td>";
-			$conteudo .= "<td align=\"left\">&nbsp;</td>";					
+			$conteudo .= "<td align=\"left\"> </td>";					
 			$conteudo .= "<td align=\"left\">" . $DHN . ":" . $DMN%60 . "</td>";
-			$conteudo .= "<td align=\"left\">&nbsp;</td>";
+			$conteudo .= "<td align=\"left\"> </td>";
 			$conteudo .= "<td align=\"left\">".$DHA . ":" . $DMA%60 ."</td>";
 			$conteudo .= "</tr>";
 			
@@ -444,9 +444,9 @@ else
 
 		$conteudo .= "<tr>";
 		$conteudo .= "<td align=\"left\"><b>TOTAL:</b></td>";
-		$conteudo .= "<td align=\"left\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\"> </td>";
 		$conteudo .= "<td align=\"left\">".$THN . ":" . $TMN%60 ."</td>";
-		$conteudo .= "<td align=\"left\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\"> </td>";
 		$conteudo .= "<td align=\"left\">" . $THA . ":" . $TMA%60 . "</td>";
 		$conteudo .= "</tr>";
 

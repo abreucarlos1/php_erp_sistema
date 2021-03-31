@@ -52,7 +52,7 @@
 					  <smarty>$campo[5]</smarty>
 					  </label>
                     <input name="data_pac" type="text" class="caixa" id="data_pac" size="12" onkeypress="transformaData(this, event);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onblur="return checaTamanhoData(this,10);" /></td>
-			    <td width="70%" class="td_sp">&nbsp;</td>
+			    <td width="70%" class="td_sp"> </td>
 					</tr>
 			</table>
             <table border="0" width="100%" cellpadding="0" cellspacing="0">
@@ -73,11 +73,11 @@
                       	<label class="labels">
                         <smarty>$campo[19]</smarty></label>
                       </td>
-                      <td width="40%" class="td_sp">&nbsp;</td>
+                      <td width="40%" class="td_sp"> </td>
                     </tr>
                 </table>
                   </div></td>
-                <td width="3%" class="td_sp">&nbsp;</td>
+                <td width="3%" class="td_sp"> </td>
               </tr>
             </table>
             <table border="0" width="100%" cellpadding="0" cellspacing="0">
@@ -85,7 +85,7 @@
         	      <td width="97%" class="td_sp"><label class="labels"><smarty>$campo[6]</smarty></label>
        	          <div id="div_doc_ref" style="width:99%; overflow:hidden; border:1px; border-color:#999; border-style:solid;"><smarty>$doc_ref</smarty></div>
                   </td>
-        	      <td width="3%" class="td_sp">&nbsp;
+        	      <td width="3%" class="td_sp"> 
        	          </td>
    	          </tr>
       	    </table>
@@ -96,7 +96,7 @@
         	      </label>
                   <textarea name="desc_nc" id="desc_nc" cols="98" rows="5"></textarea>
                   </td>
-        	      <td width="26%" class="td_sp">&nbsp;</td>
+        	      <td width="26%" class="td_sp"> </td>
        	        </tr>
       	    </table>
         	  <table border="0" width="95%" cellpadding="0" cellspacing="0">
@@ -105,7 +105,7 @@
         	        <smarty>$campo[8]</smarty>
       	        </label>
         	        <textarea name="desc_acao" id="desc_acao" cols="98" rows="5"></textarea></td>
-        	      <td width="26%" class="td_sp">&nbsp;</td>
+        	      <td width="26%" class="td_sp"> </td>
       	      </tr>
       	    </table>
         	  <table border="0" width="95%" cellpadding="0" cellspacing="0">
@@ -114,18 +114,18 @@
         	        <smarty>$campo[20]</smarty>
       	        </label>
         	        <textarea name="desc_causa" id="desc_causa" cols="98" rows="5"></textarea></td>
-        	      <td width="26%" class="td_sp">&nbsp;</td>
+        	      <td width="26%" class="td_sp"> </td>
       	      </tr>
       	    </table>
         	  <table border="0" width="95%" cellpadding="0" cellspacing="0">
         	    <tr>
         	      <td width="70%" class="td_sp"><label class="labels">
         	        <smarty>$campo[9]</smarty></label>
-                    <div id="div_acao_complementar" style="width:99%; overflow:hidden; border:1px; border-color:#999; border-style:solid;">&nbsp;</div>
+                    <div id="div_acao_complementar" style="width:99%; overflow:hidden; border:1px; border-color:#999; border-style:solid;"> </div>
                     <img src="../imagens/add.png" style="cursor:pointer" onclick="add();" />
                     <input type="hidden" name="itens" id="itens" value="1">
                     </td>
-        	      <td width="30%" class="td_sp">&nbsp;</td>
+        	      <td width="30%" class="td_sp"> </td>
       	      </tr>
       	    </table>
         	  <table border="0" width="95%" cellpadding="0" cellspacing="0">
@@ -134,7 +134,7 @@
         	        <smarty>$campo[10]</smarty>
       	        </label>
         	        <textarea name="desc_obs" id="desc_obs" cols="98" rows="5"></textarea></td>
-        	      <td width="46%" class="td_sp">&nbsp;</td>
+        	      <td width="46%" class="td_sp"> </td>
       	      </tr>
       	    </table>
         	  <table border="0" width="95%" cellpadding="0" cellspacing="0">
@@ -143,7 +143,7 @@
         	        <smarty>$campo[11]</smarty>
       	        </label>
         	        <textarea name="desc_encerramento" id="desc_encerramento" cols="98" rows="5"></textarea></td>
-        	      <td width="46%" class="td_sp">&nbsp;</td>
+        	      <td width="46%" class="td_sp"> </td>
       	      </tr>
       	    </table>
             
@@ -153,7 +153,7 @@
         	        <smarty>$campo[21]</smarty>
       	        </label>
         	        <textarea name="desc_evidencia" id="desc_evidencia" cols="98" rows="5" disabled="disabled"></textarea></td>
-        	      <td width="46%" class="td_sp">&nbsp;</td>
+        	      <td width="46%" class="td_sp"> </td>
       	      </tr>
       	    </table>
             <div id="div_arq" style="visibility:hidden;">
@@ -162,10 +162,10 @@
         	      <td width="95%" class="td_sp"><label class="labels"><smarty>$campo[22]</smarty></label>
                 
                         <div id="div_arquivos" style="border:1px; border-color:#009; border-style:solid;">
-                        	&nbsp;                    
+                        	                     
                         </div>
                    </td> 
-        	      <td width="5%" class="td_sp">&nbsp;</td>
+        	      <td width="5%" class="td_sp"> </td>
       	      </tr>
       	    </table>
             </div>
@@ -181,7 +181,7 @@
                         <input name="qtd" id="qtd" type="hidden" value="1" />
                         <img name="img_1" id="img_1" src="../imagens/add.png" style="cursor:pointer; margin-left:2px;" alt="Adicionar outro anexo" onclick="add_controles('div_anexos');">
                    </td> 
-        	      <td width="90%" class="td_sp">&nbsp;</td>
+        	      <td width="90%" class="td_sp"> </td>
       	      </tr>
       	    </table>
             </div>
@@ -198,7 +198,7 @@
         	      <label class="labels">
         	        <smarty>$campo[14]</smarty></label>
                   </td>
-        	      <td width="46%" class="td_sp">&nbsp;</td>
+        	      <td width="46%" class="td_sp"> </td>
       	        </tr>
       	    </table>
             </div>
@@ -206,7 +206,7 @@
             </td>
         </tr>
       </table>
-	  <div id="dv_rotinas" style="scrollbar-face-color : #AAAAAA; scrollbar-highlight-color : #AAAAAA; scrollbar-3dlight-color : #ffffff; scrollbar-shadow-color : #FFFFFF; scrollbar-darkshadow-color : #FFFFFF; scrollbar-track-color : #FFFFFF; scrollbar-arrow-color : #FFFFFF;">&nbsp;</div>
+	  <div id="dv_rotinas" style="scrollbar-face-color : #AAAAAA; scrollbar-highlight-color : #AAAAAA; scrollbar-3dlight-color : #ffffff; scrollbar-shadow-color : #FFFFFF; scrollbar-darkshadow-color : #FFFFFF; scrollbar-track-color : #FFFFFF; scrollbar-arrow-color : #FFFFFF;"> </div>
 <label class="labels"><smarty>$campo[16]</smarty></label><br />
 						<select name="filtro" class="caixa" id="filtro" onkeypress="return keySort(this);" onchange="xajax_atualizatabela(xajax.getFormValues('frm',true));">
 							<option value="0">GERAL</option>

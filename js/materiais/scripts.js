@@ -120,13 +120,13 @@ function selecionar_fornecedor(id, row)
 
 function showModalBuscar()
 {
-	var html = 	'<label class="labels">Filtrar</label>&nbsp;'+
+	var html = 	'<label class="labels">Filtrar</label> '+
 				'<form id="frmCriaFamilia"><input type="text" id="txtFiltro" name="txtFiltro" size="120" onkeyup="iniciaBusca2.verifica(this.id);txtIdFamilia.value=\'\'" />'+
 				'<input type="hidden" id="txtIdFamilia" name="txtIdFamilia" />'+
-				'&nbsp;<img src="../imagens/inserir.png" id="imgSelecionarFamilias" style="cursor:pointer" onclick="showModalFamilias()" title="Selecionar Familias" /><label class="labels">Cadastro de Famílias</label>';
+				' <img src="../imagens/inserir.png" id="imgSelecionarFamilias" style="cursor:pointer" onclick="showModalFamilias()" title="Selecionar Familias" /><label class="labels">Cadastro de Famílias</label>';
 		html+='<div style="margin-top: 10px;" id="lista_produtos_cadastrados"></div></form>';
 		html+='<br /><img onclick=window.location="./relatorios/rel_lista_produtos_cadastrados_excel.php?filtro="+document.getElementById(\'txtFiltro\').value; style="cursor:pointer;" class="btnRelProdutosCadastradosExcel" src="../imagens/file_xls.png"> <label class="labels">Gerar Relatório em Excel</label>';
-		html+='&nbsp;<input type="button" id="btnCriarFamilia" name="btnCriarFamilia" onclick="agregarFamilia();" value="Agregar Família" class="class_botao" style="display:none;float:right;" />';
+		html+=' <input type="button" id="btnCriarFamilia" name="btnCriarFamilia" onclick="agregarFamilia();" value="Agregar Família" class="class_botao" style="display:none;float:right;" />';
 		
 	modal(html, 'gg', 'VISUALIZAR PRODUTOS CADASTRADOS');
 }
@@ -162,7 +162,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'centro_custos':
-			mygrid.setHeader("Centro&nbsp;Custo, Descrição");
+			mygrid.setHeader("Centro Custo, Descrição");
 			mygrid.setInitWidths("100,*");
 			mygrid.setColAlign("left,left");
 			mygrid.setColTypes("ro,ro");

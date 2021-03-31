@@ -107,7 +107,7 @@ function atualizatabela($dados_form)
 
 			$descricao = !empty($reg['complemento']) ? $tarefa[0].' - '.$reg['complemento'] : $tarefa[0];
 		
-			$xml->writeElement('cell', "&nbsp;");
+			$xml->writeElement('cell', " ");
 			$xml->writeElement('cell', $reg["funcionario"]);
 			$xml->writeElement('cell', mysql_php($reg["data"]));
 			$xml->writeElement('cell', $reg["hora_inicial"]);

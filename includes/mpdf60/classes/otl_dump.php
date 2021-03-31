@@ -1803,15 +1803,15 @@ if ($i==166) {
 							$substitute = $Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'][0];
 							if ($level==2 && strpos($coverage, $inputGlyphs[0])===false) { continue; }
 							$html .= '<div class="substitution">';
-							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).'&nbsp;</span> ';
+							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).' </span> ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($inputGlyphs[0]).'</span>';
+							$html .= '<span class="unchanged"> '.$this->formatEntity($inputGlyphs[0]).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+							$html .= '  &raquo; &raquo;  ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="changed">&nbsp;'.$this->formatEntity($substitute).'</span>';
+							$html .= '<span class="changed"> '.$this->formatEntity($substitute).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; <span class="unicode">'.$this->formatUni($substitute).'</span> ';
+							$html .= '  <span class="unicode">'.$this->formatUni($substitute).'</span> ';
 							$html .= '</div>'; 
 						}
 					}
@@ -1823,15 +1823,15 @@ if ($i==166) {
 							$substitute = $Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'];
 							if ($level==2 && strpos($coverage, $inputGlyphs[0])===false) { continue; }
 							$html .= '<div class="substitution">';
-							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).'&nbsp;</span> ';
+							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).' </span> ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($inputGlyphs[0]).'</span>';
+							$html .= '<span class="unchanged"> '.$this->formatEntity($inputGlyphs[0]).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+							$html .= '  &raquo; &raquo;  ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="changed">&nbsp;'.$this->formatEntityArr($substitute).'</span>';
+							$html .= '<span class="changed"> '.$this->formatEntityArr($substitute).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; <span class="unicode">'.$this->formatUniArr($substitute).'</span> ';
+							$html .= '  <span class="unicode">'.$this->formatUniArr($substitute).'</span> ';
 							$html .= '</div>'; 
 						}
 					}
@@ -1843,21 +1843,21 @@ if ($i==166) {
 							$substitute = $Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'][0];
 							if ($level==2 && strpos($coverage, $inputGlyphs[0])===false) { continue; }
 							$html .= '<div class="substitution">';
-							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).'&nbsp;</span> ';
+							$html .= '<span class="unicode">'.$this->formatUni($inputGlyphs[0]).' </span> ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($inputGlyphs[0]).'</span>';
+							$html .= '<span class="unchanged"> '.$this->formatEntity($inputGlyphs[0]).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+							$html .= '  &raquo; &raquo;  ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="changed">&nbsp;'.$this->formatEntity($substitute).'</span>';
+							$html .= '<span class="changed"> '.$this->formatEntity($substitute).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; <span class="unicode">'.$this->formatUni($substitute).'</span> ';
+							$html .= '  <span class="unicode">'.$this->formatUni($substitute).'</span> ';
 							if (count($Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'])>1) {
 								for ($alt=1;$alt<count($Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute']);$alt++) {
 									$substitute = $Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'][$alt];
-									$html .= '&nbsp; | &nbsp; ALT #'.$alt.' &nbsp; ';
-									$html .= '<span class="changed">&nbsp;'.$this->formatEntity($substitute).'</span>';
-									$html .= '&nbsp; <span class="unicode">'.$this->formatUni($substitute).'</span> ';
+									$html .= '  |   ALT #'.$alt.'   ';
+									$html .= '<span class="changed"> '.$this->formatEntity($substitute).'</span>';
+									$html .= '  <span class="unicode">'.$this->formatUni($substitute).'</span> ';
 								}
 							}
 							$html .= '</div>'; 
@@ -1871,15 +1871,15 @@ if ($i==166) {
 							$substitute = $Lookup[$i]['Subtable'][$c]['subs'][$s]['substitute'][0];
 							if ($level==2 && strpos($coverage, $inputGlyphs[0])===false) { continue; }
 							$html .= '<div class="substitution">';
-							$html .= '<span class="unicode">'.$this->formatUniArr($inputGlyphs).'&nbsp;</span> ';
+							$html .= '<span class="unicode">'.$this->formatUniArr($inputGlyphs).' </span> ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="unchanged">&nbsp;'.$this->formatEntityArr($inputGlyphs).'</span>';
+							$html .= '<span class="unchanged"> '.$this->formatEntityArr($inputGlyphs).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+							$html .= '  &raquo; &raquo;  ';
 							if ($level==2 && $exB) { $html .= $exB; }
-							$html .= '<span class="changed">&nbsp;'.$this->formatEntity($substitute).'</span>';
+							$html .= '<span class="changed"> '.$this->formatEntity($substitute).'</span>';
 							if ($level==2 && $exL) { $html .= $exL; }
-							$html .= '&nbsp; <span class="unicode">'.$this->formatUni($substitute).'</span> ';
+							$html .= '  <span class="unicode">'.$this->formatUni($substitute).'</span> ';
 							$html .= '</div>'; 
 						}
 					}
@@ -1909,7 +1909,7 @@ $subRule = array();
 									$exampleI = array();
 									$html .= '<div class="context">CONTEXT: ';
 									for ($ff=0;$ff<count($inputGlyphs);$ff++) {
-										$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+										$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 										$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 									}
 									$html .= '</div>'; 
@@ -1983,11 +1983,11 @@ $subRule = array();
 
 										if (!$inputGlyphs[$ff]) { 
 
-											$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;[NOT '.$this->formatEntityStr($class0excl).']&nbsp;</span></div>';
+											$html .= '<div>Input #'.$ff.': <span class="unchanged"> [NOT '.$this->formatEntityStr($class0excl).'] </span></div>';
 											$exampleI[] = '[NOT '.$this->formatEntityFirst($class0excl).']';
 										}
 										else {
-											$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+											$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 											$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 										}
 									}
@@ -2057,7 +2057,7 @@ $subRule = array();
 							$exampleI = array();
 							$html .= '<div class="context">CONTEXT: ';
 							for ($ff=0;$ff<count($inputGlyphs);$ff++) {
-								$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+								$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 								$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 							}
 							$html .= '</div>'; 
@@ -2139,7 +2139,7 @@ $subRule = array();
 										$exampleB[] = $this->formatEntityFirst($backtrackGlyphs[$ff]);
 									}
 									for ($ff=0;$ff<count($inputGlyphs);$ff++) {
-										$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+										$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 										$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 									}
 									for ($ff=0;$ff<count($lookaheadGlyphs);$ff++) {
@@ -2251,7 +2251,7 @@ $subRule = array();
 									$html .= '<div class="context">CONTEXT: ';
 									for ($ff=count($backtrackGlyphs)-1;$ff>=0;$ff--) {
 										if (!$backtrackGlyphs[$ff]) { 
-											$html .= '<div>Backtrack #'.$ff.': <span class="unchanged">&nbsp;[NOT '.$this->formatEntityStr($class0excl).']&nbsp;</span></div>';
+											$html .= '<div>Backtrack #'.$ff.': <span class="unchanged"> [NOT '.$this->formatEntityStr($class0excl).'] </span></div>';
 											$exampleB[] = '[NOT '.$this->formatEntityFirst($class0excl).']';
 
 										}
@@ -2262,17 +2262,17 @@ $subRule = array();
 									}
 									for ($ff=0;$ff<count($inputGlyphs);$ff++) {
 										if (!$inputGlyphs[$ff]) { 
-											$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;[NOT '.$this->formatEntityStr($class0excl).']&nbsp;</span></div>';
+											$html .= '<div>Input #'.$ff.': <span class="unchanged"> [NOT '.$this->formatEntityStr($class0excl).'] </span></div>';
 											$exampleI[] = '[NOT '.$this->formatEntityFirst($class0excl).']';
 										}
 										else {
-											$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+											$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 											$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 										}
 									}
 									for ($ff=0;$ff<count($lookaheadGlyphs);$ff++) {
 										if (!$lookaheadGlyphs[$ff]) { 
-											$html .= '<div>Lookahead #'.$ff.': <span class="unchanged">&nbsp;[NOT '.$this->formatEntityStr($class0excl).']&nbsp;</span></div>';
+											$html .= '<div>Lookahead #'.$ff.': <span class="unchanged"> [NOT '.$this->formatEntityStr($class0excl).'] </span></div>';
 											$exampleL[] = '[NOT '.$this->formatEntityFirst($class0excl).']';
 
 										}
@@ -2368,7 +2368,7 @@ $subRule = array();
 								$exampleB[] = $this->formatEntityFirst($backtrackGlyphs[$ff]);
 							}
 							for ($ff=0;$ff<count($inputGlyphs);$ff++) {
-								$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+								$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 								$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 							}
 							for ($ff=0;$ff<count($lookaheadGlyphs);$ff++) {
@@ -2497,7 +2497,7 @@ $subRule = array();
 /*
        BACKTRACK                        INPUT                   LOOKAHEAD
 ==================================  ==================  ==================================
-(FEEB|FEEC)(ign) ¦(FD12|FD13)(ign) ¦(0612)¦(ign) (0613)¦(ign) (FD12|FD13)¦(ign) (FEEB|FEEC)
+(FEEB|FEEC)(ign) ï¿½(FD12|FD13)(ign) ï¿½(0612)ï¿½(ign) (0613)ï¿½(ign) (FD12|FD13)ï¿½(ign) (FEEB|FEEC)
 ----------------  ----------------  -----  ------------  ---------------   ---------------
   Backtrack 1       Backtrack 2     Input 1   Input 2       Lookahead 1      Lookahead 2
 --------   ---    ---------  ---    ----   ---   ----   ---   ---------   ---    -------
@@ -2509,12 +2509,12 @@ $subRule = array();
         "\${1}\${2} "                 (nInput*2)-1               "\${5+} \${6+}"
                                         "REPL"
 
-¦\${1}\${2} ¦\${3}\${4} ¦REPL¦\${5+} \${6+}¦\${7+} \${8+}¦
+ï¿½\${1}\${2} ï¿½\${3}\${4} ï¿½REPLï¿½\${5+} \${6+}ï¿½\${7+} \${8+}ï¿½
 
 
                       INPUT nInput = 5
 ============================================================  
-¦(0612)¦(ign) (0613)¦(ign) (0614)¦(ign) (0615)¦(ign) (0615)¦
+ï¿½(0612)ï¿½(ign) (0613)ï¿½(ign) (0614)ï¿½(ign) (0615)ï¿½(ign) (0615)ï¿½
 \${1}  \${2}  \${3}  \${4} \${5} \${6}  \${7} \${8}  \${9} (All backreference numbers are + nBsubs)
 -----  ------------ ------------ ------------ ------------
 Input 1   Input 2      Input 3      Input 4      Input 5
@@ -2537,7 +2537,7 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 
 	function _makeGSUBcontextInputMatch($inputGlyphs, $ignore, $lookupGlyphs, $seqIndex) {
 		// $ignore = "((?:(?: FBA1| FBA2| FBA3))*)" or "()"
-		// Returns e.g. ¦(0612)¦(ignore) (0613)¦(ignore) (0614)¦
+		// Returns e.g. ï¿½(0612)ï¿½(ignore) (0613)ï¿½(ignore) (0614)ï¿½
 		// $inputGlyphs = array of glyphs(glyphstrings) making up Input sequence in Context
 		// $lookupGlyphs = array of glyphs (single Glyphs) making up Lookup Input sequence
 		$mLen = count($lookupGlyphs);		// nGlyphs in the secondary Lookup match 
@@ -2553,7 +2553,7 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 
 	function _makeGSUBinputMatch($inputGlyphs, $ignore) {
 		// $ignore = "((?:(?: FBA1| FBA2| FBA3))*)" or "()"
-		// Returns e.g. ¦(0612)¦(ignore) (0613)¦(ignore) (0614)¦
+		// Returns e.g. ï¿½(0612)ï¿½(ignore) (0613)ï¿½(ignore) (0614)ï¿½
 		// $inputGlyphs = array of glyphs(glyphstrings) making up Input sequence in Context
 		// $lookupGlyphs = array of glyphs making up Lookup Input sequence - if applicable
 		$str = "";
@@ -2566,7 +2566,7 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 
 	function _makeGSUBbacktrackMatch($backtrackGlyphs, $ignore) {
 		// $ignore = "((?:(?: FBA1| FBA2| FBA3))*)" or "()"
-		// Returns e.g. ¦(FEEB|FEEC)(ignore) ¦(FD12|FD13)(ignore) ¦
+		// Returns e.g. ï¿½(FEEB|FEEC)(ignore) ï¿½(FD12|FD13)(ignore) ï¿½
 		// $backtrackGlyphs = array of glyphstrings making up Backtrack sequence
 		// 3  2  1  0
 		// each item being e.g. E0AD|E0AF|F1FD
@@ -2579,7 +2579,7 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 
 	function _makeGSUBlookaheadMatch($lookaheadGlyphs, $ignore) {
 		// $ignore = "((?:(?: FBA1| FBA2| FBA3))*)" or "()"
-		// Returns e.g. ¦(ignore) (FD12|FD13)¦(ignore) (FEEB|FEEC)¦
+		// Returns e.g. ï¿½(ignore) (FD12|FD13)ï¿½(ignore) (FEEB|FEEC)ï¿½
 		// $lookaheadGlyphs = array of glyphstrings making up Lookahead sequence
 		// 0  1  2  3
 		// each item being e.g. E0AD|E0AF|F1FD
@@ -2959,13 +2959,13 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 								if ($level==2 && strpos($lcoverage, $glyphs[$g])===false) { continue; }
 
 								$html .= '<div class="substitution">';
-								$html .= '<span class="unicode">'.$this->formatUni($glyphs[$g]).'&nbsp;</span> ';
+								$html .= '<span class="unicode">'.$this->formatUni($glyphs[$g]).' </span> ';
 								if ($level==2 && $exB) { $html .= $exB; }
-								$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($glyphs[$g]).'</span>';
+								$html .= '<span class="unchanged"> '.$this->formatEntity($glyphs[$g]).'</span>';
 								if ($level==2 && $exL) { $html .= $exL; }
-								$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+								$html .= '  &raquo; &raquo;  ';
 								if ($level==2 && $exB) { $html .= $exB; }
-								$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;">&nbsp;'.$this->formatEntity($glyphs[$g]).'</span>';
+								$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;"> '.$this->formatEntity($glyphs[$g]).'</span>';
 								if ($level==2 && $exL) { $html .= $exL; }
 								$html .= ' <span class="unicode">';
 								if ($Value['XPlacement']) { $html .= ' Xpl: '.$Value['XPlacement'].';'; }
@@ -2996,13 +2996,13 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 								$Value = $Values[$g];
 
 								$html .= '<div class="substitution">';
-								$html .= '<span class="unicode">'.$this->formatUni($glyphs[$g]).'&nbsp;</span> ';
+								$html .= '<span class="unicode">'.$this->formatUni($glyphs[$g]).' </span> ';
 								if ($level==2 && $exB) { $html .= $exB; }
-								$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($glyphs[$g]).'</span>';
+								$html .= '<span class="unchanged"> '.$this->formatEntity($glyphs[$g]).'</span>';
 								if ($level==2 && $exL) { $html .= $exL; }
-								$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+								$html .= '  &raquo; &raquo;  ';
 								if ($level==2 && $exB) { $html .= $exB; }
-								$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;">&nbsp;'.$this->formatEntity($glyphs[$g]).'</span>';
+								$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;"> '.$this->formatEntity($glyphs[$g]).'</span>';
 								if ($level==2 && $exL) { $html .= $exL; }
 								$html .= ' <span class="unicode">';
 								if ($Value['XPlacement']) { $html .= ' Xpl: '.$Value['XPlacement'].';'; }
@@ -3042,7 +3042,7 @@ F - "\${1}\${2} \${3}\${4} \${5} REPL\${6}\${8}"
 
 // Takes too long e.g. Calibri font - just list kerning pairs with this:
 $html .= '<div class="glyphs">';
-$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($glyphs[$p]).' </span>';
+$html .= '<span class="unchanged"> '.$this->formatEntity($glyphs[$p]).' </span>';
 
 								//PairSet table
 								$PairValueCount = $this->read_ushort();
@@ -3071,13 +3071,13 @@ $html .= ' '.$this->formatEntity($SecondGlyph).' ';
 
 /*
 									$html .= '<div class="substitution">';
-									$html .= '<span class="unicode">'.$this->formatUni($glyphs[$p]).'&nbsp;</span> ';
+									$html .= '<span class="unicode">'.$this->formatUni($glyphs[$p]).' </span> ';
 									if ($level==2 && $exB) { $html .= $exB; }
-									$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($glyphs[$p]).$this->formatEntity($SecondGlyph).'</span>';
+									$html .= '<span class="unchanged"> '.$this->formatEntity($glyphs[$p]).$this->formatEntity($SecondGlyph).'</span>';
 									if ($level==2 && $exL) { $html .= $exL; }
-									$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+									$html .= '  &raquo; &raquo;  ';
 									if ($level==2 && $exB) { $html .= $exB; }
-									$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;">&nbsp;'.$this->formatEntity($glyphs[$p]).$this->formatEntity($SecondGlyph).'</span>';
+									$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;"> '.$this->formatEntity($glyphs[$p]).$this->formatEntity($SecondGlyph).'</span>';
 									if ($level==2 && $exL) { $html .= $exL; }
 									$html .= ' <span class="unicode">';
 									if ($Value1['XPlacement']) { $html .= ' Xpl[1]: '.$Value1['XPlacement'].';'; }
@@ -3147,13 +3147,13 @@ $html .= '</div>';
 
 
 													$html .= '<div class="substitution">';
-													$html .= '<span class="unicode">'.$this->formatUni($FirstGlyph).'&nbsp;</span> ';
+													$html .= '<span class="unicode">'.$this->formatUni($FirstGlyph).' </span> ';
 													if ($level==2 && $exB) { $html .= $exB; }
-													$html .= '<span class="unchanged">&nbsp;'.$this->formatEntity($FirstGlyph).$this->formatEntity($SecondGlyph).'</span>';
+													$html .= '<span class="unchanged"> '.$this->formatEntity($FirstGlyph).$this->formatEntity($SecondGlyph).'</span>';
 													if ($level==2 && $exL) { $html .= $exL; }
-													$html .= '&nbsp; &raquo; &raquo; &nbsp;';
+													$html .= '  &raquo; &raquo;  ';
 													if ($level==2 && $exB) { $html .= $exB; }
-													$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;">&nbsp;'.$this->formatEntity($FirstGlyph).$this->formatEntity($SecondGlyph).'</span>';
+													$html .= '<span class="changed" style="font-feature-settings:\''.$tag.'\' 1;"> '.$this->formatEntity($FirstGlyph).$this->formatEntity($SecondGlyph).'</span>';
 													if ($level==2 && $exL) { $html .= $exL; }
 													$html .= ' <span class="unicode">';
 													if ($Value1['XPlacement']) { $html .= ' Xpl[1]: '.$Value1['XPlacement'].';'; }
@@ -3260,7 +3260,7 @@ $html .= '</div>';
 						// Example
 						$html .= '<div class="glyphs" style="font-feature-settings:\''.$tag.'\' 1;">Example(s): ';
 						for ($j=0;$j<min(count($BaseGlyphs),20);$j++) {
-							$html .= ' '.$this->formatEntity($BaseGlyphs[$j]).$this->formatEntity($firstMark,true).' &nbsp; ';
+							$html .= ' '.$this->formatEntity($BaseGlyphs[$j]).$this->formatEntity($firstMark,true).'   ';
 						}
 						$html .= '</div>';
 
@@ -3375,7 +3375,7 @@ $html .= '</div>';
 							// Example
 							$html .= '<div class="glyphs" style="font-feature-settings:\''.$tag.'\' 1;">Example(s): <span class="changed">';
 							for ($j=0;$j<min(count($Mark2Glyphs),20);$j++) {
-								$html .= ' '.$this->formatEntity($Mark2Glyphs[$j]).$this->formatEntity($firstMark,true).' &nbsp; ';
+								$html .= ' '.$this->formatEntity($Mark2Glyphs[$j]).$this->formatEntity($firstMark,true).'   ';
 							}
 							$html .= '</span></div>';
 						}
@@ -3481,7 +3481,7 @@ $html .= '</div>';
 								$exampleB[] = $this->formatEntityFirst($backtrackGlyphs[$ff]);
 							}
 							for ($ff=0;$ff<count($inputGlyphs);$ff++) {
-								$html .= '<div>Input #'.$ff.': <span class="unchanged">&nbsp;'.$this->formatEntityStr($inputGlyphs[$ff]).'&nbsp;</span></div>';
+								$html .= '<div>Input #'.$ff.': <span class="unchanged"> '.$this->formatEntityStr($inputGlyphs[$ff]).' </span></div>';
 								$exampleI[] = $this->formatEntityFirst($inputGlyphs[$ff]);
 							}
 							for ($ff=0;$ff<count($lookaheadGlyphs);$ff++) {

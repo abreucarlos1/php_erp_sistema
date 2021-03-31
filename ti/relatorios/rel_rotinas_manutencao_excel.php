@@ -105,7 +105,7 @@ foreach($array_manut as $cont)
 		
 		switch($regs["ti_frequencia"])
 		{
-			case 'DI�RIO':
+			case 'DIÁRIO':
 			
 				$array_diario[$regs["id_ti_rotina_manutencao"]][$mes_corrente][$regs["id_ti_analista"]][$regs["ti_data_manutencao"]][$regs["ti_rotina"]] = $regs["ti_manutencao_observacao"];
 				
@@ -178,7 +178,7 @@ foreach ($array_datas_mes as $mes=>$data)
 
 	$linha=9;	
 	
-	//DI�RIO
+	//DIÁRIO
 	foreach($array_diario as $id_manu=>$a_mes)
 	{
 		foreach($a_mes[sprintf("%02d",$mes)] as $codfun=>$a_datas)
@@ -359,7 +359,7 @@ foreach ($array_datas_mes as $mes=>$data)
 $objPHPExcel->setActiveSheetIndex((date('m')-1));
 
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="rotinas_manutencoes_"'.date('His').'".xlsx"');
 header('Cache-Control: max-age=0');

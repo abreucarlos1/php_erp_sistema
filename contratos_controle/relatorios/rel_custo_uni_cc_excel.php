@@ -176,7 +176,7 @@ header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-//1� folha
+//1ª folha
 $objPHPExcel->setActiveSheetIndex(0);
 
 $linha = 9;

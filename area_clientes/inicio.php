@@ -1,13 +1,13 @@
 <?php
 /*
-		Formul�rio Inicial	
+		Formulário Inicial	
 		
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
 		area_clientes/inicio.php
 		
-		data de cria��o: 04/06/2014
+		data de criação: 04/06/2014
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -65,7 +65,7 @@ function tela()
 		$conteudo .= "<tr valign=\"top\">";
 		//$conteudo .= "<td><img src=\"images/tag_".minusculas($cont_desp["modulo"]).".jpg\"></td>";
 
-		$conteudo .= "<td>&nbsp;";
+		$conteudo .= "<td> ";
 		
 		$conteudo .= "<table border=\"0\" width=\"100%\">";
 		
@@ -98,7 +98,7 @@ function tela()
 				$linhas = FALSE;
 			}
 			
-			$conteudo .= "<td class=\"tabela_body\" align=\"center\"><input class=\"".$class_botao."\" type=\"button\" name=\"".$cont["id_sub_modulo"]."\" id=\"".$cont["id_sub_modulo"]."\" value=\"".str_replace(" ","&nbsp;",$cont["sub_modulo"])."\" onclick=\"xajax_redireciona('".$cont["caminho"]."')\" ".$enabled." /></td>";
+			$conteudo .= "<td class=\"tabela_body\" align=\"center\"><input class=\"".$class_botao."\" type=\"button\" name=\"".$cont["id_sub_modulo"]."\" id=\"".$cont["id_sub_modulo"]."\" value=\"".str_replace(" "," ",$cont["sub_modulo"])."\" onclick=\"xajax_redireciona('".$cont["caminho"]."')\" ".$enabled." /></td>";
 			
 			$colunas++;
 			
@@ -123,7 +123,7 @@ function tela()
 		
 		$conteudo .= "</td>";
 		$conteudo .= "</tr>";
-		$conteudo .= "<tr><td colspan=\"2\" class=\"linha_divisao\">&nbsp;</td></tr>";
+		$conteudo .= "<tr><td colspan=\"2\" class=\"linha_divisao\"> </td></tr>";
 		$conteudo .= "</table>";	
 	//}
 
@@ -180,7 +180,7 @@ $smarty->assign("classe","../classes/".$conf->classe('inicio').".css");
 
 $sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
 $sql .= "WHERE contatos.id_contato = '" . $_SESSION["id_contato"] . "' ";
-$sql .= "AND empresas.id_empresa_erp = contatos.id_empresa_erp ";
+$sql .= "AND empresas.id_empresa = contatos.id_empresa ";
 
 //FAZ O SELECT
 $result = $db->select($sql,'MYSQL');

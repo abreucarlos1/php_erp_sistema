@@ -38,7 +38,7 @@ FROM
     JOIN ".DATABASE.".ordem_servico b on b.os = a.os AND b.reg_del = 0 AND b.id_os_status IN(1,2,7,14,15,16)
     JOIN ".DATABASE.".bms_item c on c.id_bms_pedido = a.id_bms_pedido AND c.reg_del = 0
     LEFT JOIN ".DATABASE.".bms_medicao d on d.id_bms_item = c.id_bms_item AND d.reg_del = 0 ".$complDataMedicao."
-    JOIN ".DATABASE.".empresas e ON e.id_empresa_erp = b.id_empresa_erp AND e.reg_del = 0 
+    JOIN ".DATABASE.".empresas e ON e.id_empresa = b.id_empresa AND e.reg_del = 0 
 WHERE 
 	a.reg_del = 0  AND reembolso_despesa = 0 AND (a.data_pedido > '2017-01-01' OR a.os IN(SELECT os FROM ".DATABASE.".bms_excecoes WHERE bms_excecoes.reg_del = 0))
 GROUP BY

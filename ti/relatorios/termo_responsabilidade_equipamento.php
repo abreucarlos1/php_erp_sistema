@@ -57,7 +57,7 @@ $doc->setValue('cpf', $cpf);
 $doc->setValue('descricao', $descricao);
 $doc->setValue('data', $data);
 $doc->setValue('acessorios', $acessorios);
-/*Fim tratamento das vari�veis*/			
+/*Fim tratamento das variáveis*/			
 	
 $doc->save($temp_file);
 

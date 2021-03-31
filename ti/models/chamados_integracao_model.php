@@ -23,16 +23,16 @@ class chamados_integracao_model{
 	
 			if($this->db->numero_registros==0)
 			{
-				//Regras de data m�nima para integra��o no cliente
+				//Regras de data mínima para integração no cliente
 				$data = $dados_form['data'];
 				
 				$dif = dif_datas_weekend(date('d/m/Y'), $data);
 				
-				//A regra � que o m�nimo de dias para abertura do chamado s�o 8
+				//A regra é que o mínimo de dias para abertura do chamado são 8
 				if ($dif < $minDias || empty($dados_form['data']))
 				{
 					$dataMinima = dateAddWithoutWeekEnds(date('Y-m-d'), $minDias, 'd/m/Y');
-					$retorno = array(0,'A data m�nima para integra��o � '.$dataMinima);
+					$retorno = array(0,'A data mínima para integração é '.$dataMinima);
 				}
 				else
 				{
@@ -58,7 +58,7 @@ class chamados_integracao_model{
 					}
 					else
 					{
-						//Inserindo a intera��o
+						//Inserindo a interação
 						$isql = "INSERT INTO ".DATABASE.".chamados_integracao_interacoes ";
 						$isql .= "(cii_ci_id, cii_desc, cii_cis_id, cii_id_funcionario, cii_data) ";
 						$isql .= "VALUES ";
@@ -76,8 +76,8 @@ class chamados_integracao_model{
 						
 						$this->db->insert($isql,'MYSQL');
 						
-						$sql = "SELECT empresa, id_empresa_erp, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
-						$sql .= "WHERE empresas.id_unidade = unidades.id_unidade AND id_empresa_erp = ".$dados_form['cliente']." ";
+						$sql = "SELECT empresa, id_empresa, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
+						$sql .= "WHERE empresas.id_unidade = unidades.id_unidade AND id_empresa = ".$dados_form['cliente']." ";
 						$sql .= "AND empresas.reg_del = 0 ";
 						$sql .= "AND unidades.reg_del = 0 ";
 						
@@ -89,7 +89,7 @@ class chamados_integracao_model{
 						$params 			= array();
 						$params['from']		= "recrutamento@dominio.com.br";
 						$params['from_name']= "RECURSOS HUMANOS";
-						$params['subject'] 	= "NOVA SOLICITA��O DE INTEGRA��O (".$dadosCliente['empresa'].' '.$dadosCliente['descricao'].' '.$dadosCliente['unidade'].")";
+						$params['subject'] 	= "NOVA SOLICITAÇÃO DE INTEGRAÇÃO (".$dadosCliente['empresa'].' '.$dadosCliente['descricao'].' '.$dadosCliente['unidade'].")";
 
                         		$sql = 
                         "SELECT
@@ -108,30 +108,30 @@ class chamados_integracao_model{
 						
 						$this->db->select($sql, 'MYSQL', true);
 												
-						$corpo = "<b>Novo(s) chamado(s) de integra��o N�ms: ".implode(',', $idChamados)."</b><br /><br />";
+						$corpo = "<b>Novo(s) chamado(s) de integração Nº(s): ".implode(',', $idChamados)."</b><br /><br />";
 						
 						foreach($this->db->array_select as $func)
 						{
 							$params['emails']['to'][] = array('email' => $func['email'], 'nome' => $func['funcionario']);
 							
 							if ($func['func'] == '*')
-							    $corpo .= "<b>Funcion�rio:</b> ".$func['funcionario'].".<br />";
+							    $corpo .= "<b>Funcionário:</b> ".$func['funcionario'].".<br />";
 						    else if ($func['id_funcionario'] == $func['ci_id_funcionario_abertura'])
 						        $corpo .= "<b>Solicitante:</b> ".$func['funcionario'].".<br />";
 						}						
 						
 						$corpo .= "<b>Cliente</b>: ".$dadosCliente['empresa'].' '.$dadosCliente['descricao'].' '.$dadosCliente['unidade'].'<br />';
 						$corpo .= "<b>data</b>: ".$dados_form['data']."<br />";
-						$corpo .= "<b>Descri��o</b>: ".maiusculas($dados_form['descricao_integracao']).'<br />';
+						$corpo .= "<b>Descrição</b>: ".maiusculas($dados_form['descricao_integracao']).'<br />';
 						
-						//Pegando o n�mero de chamados n�o encerrados at� o momento
+						//Pegando o número de chamados não encerrados até o momento
 						$sql = "SELECT COUNT(ci_id) numChamados FROM ".DATABASE.".chamados_integracao ";
 						$sql .= "WHERE reg_del = 0 ";
 						$sql .= "AND ci_cis_id NOT IN(5) ";
 						
 						$this->db->select($sql, 'MYSQL', true);
 						
-						$corpo .= "<b>Posi��o na fila:</b> ".$this->db->array_select[0]['numChamados'].'�<br />';
+						$corpo .= "<b>Posição na fila:</b> ".$this->db->array_select[0]['numChamados'].' <br />';
 						
 						$sql = "SELECT
                 					cis_desc
@@ -144,21 +144,25 @@ class chamados_integracao_model{
 						
 						$corpo .= "<b>status</b>: ".$this->db->array_select[0]['cis_desc'].'<br />';
 						
-						$mail = new email($params, 'chamados_integracao_cliente');
-						$mail->montaCorpoEmail($corpo);
-						$mail->Send();
+						if(ENVIA_EMAIL)
+						{
+							$mail = new email($params, 'chamados_integracao_cliente');
+							$mail->montaCorpoEmail($corpo);
+							$mail->Send();
+						}
+
 						$retorno = array(1, "Registro realizado corretamente!");
 					}
 				}			
 			}
 			else
 			{
-				$retorno = array(0, "Registro j� existente no banco de dados");			
+				$retorno = array(0, "Registro já existente no banco de dados");			
 			}		
 		}
 		else
 		{
-			$retorno = array(0, "ATEN��O: Todos os campos devem estar preenchidos");
+			$retorno = array(0, "ATENÇÃO: Todos os campos devem estar preenchidos");
 		}
 		
 		return $retorno;

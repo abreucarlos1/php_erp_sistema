@@ -198,8 +198,8 @@
 		$complemento = !isset($_SESSION['id_funcionario']) ? '?pagina='.$_SERVER['PHP_SELF'] : '';
 		$html = '<label class="labels">Acesso Negado, escolha uma das opções a seguir: </label><br /><br />';
 
-		$html .= '<button class="class_botao" onclick="history.back();">Voltar</button>&nbsp;';
-		$html .= '<button class="class_botao" onclick=location.href="../index.php'.$complemento.'";>Login</button>';
+		$html .= '<button class="class_botao" onclick="history.back();">Voltar</button> ';
+		$html .= '<button class="class_botao" onclick=location.href="../index.php'.$complemento.'";>login</button>';
 
 		echo '
 			<html lang="pt-br">

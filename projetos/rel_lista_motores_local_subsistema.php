@@ -21,31 +21,31 @@ function Header()
 	//$this->Ln(1);
 	
 	$this->SetFont('Arial','',6);
-	//Informa��es do Centro de Custo
-	$this->Cell(66,8,'',0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(66,8,'',0,0,'L',0); // CÉLULA LOGOTIPO 146
 	$this->SetFont('Arial','B',12);
-	$this->Cell(140,8,$this->Cliente(),1,1,'C',0); // C�LULA CLIENTE
+	$this->Cell(140,8,$this->Cliente(),1,1,'C',0); // CÉLULA CLIENTE
 	
 	$this->Image("../logotipos/logo_horizontal.jpg",219,17,59,10);
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO 
-	$this->HCell(140,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO 
+	$this->HCell(140,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // CÉLULA AREA / SUBSISTEMA
 
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(140,5.5,"LISTA DE MOTORES",1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(140,5.5,"LISTA DE MOTORES",1,0,'C',0); // CÉLULA COMPONENTE
 	
 	
 	$X = $this->GetX();
 	$this->Cell(64,5.5,'',1,0,'C',0);
 	$this->SetX($X);
 	$this->SetFont('Arial','',5);
-	$this->Cell(5,5.5,'N�: ',0,0,'L',0);
+	$this->Cell(5,5.5,'Nº: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(55,5.5,$this->Numdvm(),0,1,'C',0);
 
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 
 	$this->SetFont('Arial','B',10);
 	$this->HCell(140,5.5,$this->Titulo(),1,0,'C',0);
@@ -76,14 +76,14 @@ function Header()
 	$this->Cell(10,5.5,$this->PageNo().' / {nb}',0,1,'R',0);
 	
 	$this->SetFont('Arial','B',8);
-	$this->HCell(66,5.5,$this->unidade(),1,0,'C',0); // C�LULA LOGOTIPO
+	$this->HCell(66,5.5,$this->unidade(),1,0,'C',0); // CÉLULA LOGOTIPO
 	$this->HCell(140,5.5,$this->Titulo2(),1,0,'C',0);
 
 	$X = $this->GetX();
 	$this->Cell(64,5.5,'',1,0,'C',0);
 	$this->SetFont('Arial','',5);
 	$this->SetX($X);
-	$this->Cell(17,5.5,'N� CLIENTE: ',0,0,'L',0);
+	$this->Cell(17,5.5,'Nº CLIENTE: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(30,5.5,$this->Numcliente(),0,1,'C',0);	
 	
@@ -94,7 +94,7 @@ function Header()
 	$this->SetDrawColor(0,0,0);
 
 	/*
-	COMENTADO POR OT�VIO - LINHAS ANTERIORES � ALTERA��O DA MARGEM - 20/07/2006
+	COMENTADO POR OTÁVIO - LINHAS ANTERIORES Á ALTERAÇÃO DA MARGEM - 20/07/2006
 	$this->Line(20,15,280,15); // LINHA SUPERIOR
 	$this->Line(20,45,280,45); // LINHA INFERIOR
 	$this->Line(20,15,20,45); // LINHA ESQUERDA
@@ -118,7 +118,7 @@ function Header()
 	//$this->Line(195,15,195,280); // LINHA DIREITA 
 	$this->Line(76,15,76,45); // LINHA LOGOTIPO aqui
 	$this->Line(216,15,216,45); // LINHA DOC / FOLHA
-	//AT� AQUI
+	//ATÉ AQUI
 
 	$this->SetLineWidth(0,5);
 	
@@ -138,8 +138,8 @@ $db->db = 'ti';
 $db->conexao_db();
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "WHERE setor = 'EL�TRICA' ";
-$registro = mysql_query($sql,$db->conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+$sql .= "WHERE setor = 'ELÉTRICA' ";
+$registro = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção.");
 $cont = mysql_fetch_array($registro);
 $disciplina = $cont["setor"];
 $abrdisc = $cont["abreviacao"];
@@ -197,18 +197,18 @@ $pdf->SetMargins(10,15);
 $pdf->SetLineWidth(0.2);
 
 
-$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql1 .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
 $sql1 .= "AND empresas.id_unidade = unidades.id_unidade ";
-$registro1 = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql1);
+$registro1 = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql1);
 $reg1 = mysql_fetch_array($registro1);
 
 
 $sql = "SELECT * FROM Projetos.area, Projetos.subsistema ";
 $sql .= "WHERE subsistema.id_subsistema = '" .$_POST["id_subsistema"]. "' ";
 $sql .= "AND area.id_area = subsistema.id_area ";
-$registro = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 
 $sql3000 = "SELECT * FROM Projetos.area, Projetos.locais, Projetos.equipamentos ";
@@ -216,7 +216,7 @@ $sql3000 .= "WHERE locais.id_equipamento = equipamentos.id_equipamentos ";
 $sql3000 .= "AND area.id_area = locais.id_area ";
 $sql3000 .= "AND locais.id_local = '" . $_POST["id_local"]  . "' ";
 
-$registro3000 = mysql_query($sql3000,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql3000);
+$registro3000 = mysql_query($sql3000,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql3000);
 
 $reg3000 = mysql_fetch_array($registro3000);
 
@@ -224,8 +224,8 @@ $reg3000 = mysql_fetch_array($registro3000);
 //$pdf->departamento="ENGENHARIA";
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg3000["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg3000["ds_area"]; // �REA
+$pdf->subsistema = $reg3000["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg3000["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->numeros_interno = $_POST["numeros_interno"];
@@ -240,7 +240,7 @@ $pdf->titulo = $reg3000["cd_local"] . " " . $reg3000["nr_sequencia"] . " " . $re
 $pdf->titulo2 = $reg1["osdesc"];
 
 $pdf->emissao=date('d/m/Y');
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 
@@ -257,7 +257,7 @@ $pdf->Line(10,195,280,195); // LINHA INFERIOR pagina
 $pdf->Line(280,15,280,195); // LINHA DIREITA
 $pdf->SetLineWidth(0.2);
 
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(10,70);
 
 $pdf->SetFont('Arial','BU',20);
@@ -272,21 +272,21 @@ $pdf->Cell(280,10, $reg["ds_area"] ,0,1,'C',0);
 $pdf->Ln(5);
 $pdf->Cell(280,10, $reg3000["cd_local"] . " " . $reg3000["nr_sequencia"] . " " . $reg3000["ds_complemento"] ,0,1,'C',0);
 
-//REVIS�ES
+//REVISÕES
 $pdf->SetFont('Arial','B',8);
 
 $y = 155;
 
 $pdf->SetXY(25,$y);
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(50,4,'CONTROLE DE REVIS�ES',0,1,'L',0);
+$pdf->Cell(50,4,'CONTROLE DE REVISÕES',0,1,'L',0);
 $pdf->SetFont('Arial','',6);
 
 $pdf->Ln(1);
 
 $numregs = 4 - mysql_num_rows($reg_rev);
 
-//c�lulas em branco
+//células em branco
 for($a=0;$a<=$numregs;$a++)
 {
 	$y += 4;
@@ -303,17 +303,17 @@ while($revis = mysql_fetch_array($reg_rev))
 {
 	$sql_exe = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 	$sql_exe .= "WHERE id_funcionario = '".$revis["id_executante"]."' ";
-	$regexe = mysql_query($sql_exe,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe);
+	$regexe = mysql_query($sql_exe,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_exe);
 	$executante = mysql_fetch_array($regexe);
 	
 	$sql_ver = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 	$sql_ver .= "WHERE id_funcionario = '".$revis["id_verificador"]."' ";
-	$regver = mysql_query($sql_ver,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+	$regver = mysql_query($sql_ver,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 	$verificador = mysql_fetch_array($regver);
 	
 	$sql_apr = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 	$sql_apr .= "WHERE id_funcionario = '".$revis["id_aprovador"]."' ";
-	$regapr = mysql_query($sql_apr,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+	$regapr = mysql_query($sql_apr,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 	$aprovador = mysql_fetch_array($regapr);
 	
 	$y += 4;
@@ -331,19 +331,19 @@ while($revis = mysql_fetch_array($reg_rev))
 
 $sql_exe0 = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 $sql_exe0 .= "WHERE id_funcionario = '".$revis0["id_executante"]."' ";
-$regexe0 = mysql_query($sql_exe0,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe0);
+$regexe0 = mysql_query($sql_exe0,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_exe0);
 $contexe = mysql_fetch_array($regexe0);
 $executante0 = $contexe["abreviacao"];
 
 $sql_ver0 = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 $sql_ver0 .= "WHERE id_funcionario = '".$revis0["id_verificador"]."' ";
-$regver0 = mysql_query($sql_ver0,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+$regver0 = mysql_query($sql_ver0,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 $contver = mysql_fetch_array($regver0);
 $verificador0 = $contver["abreviacao"];
 
 $sql_apr0 = "SELECT abreviacao FROM ".DATABASE.".Funcionarios ";
 $sql_apr0 .= "WHERE id_funcionario = '".$revis0["id_aprovador"]."' ";
-$regapr0 = mysql_query($sql_apr0,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+$regapr0 = mysql_query($sql_apr0,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 $contapr = mysql_fetch_array($regapr0);
 $aprovador0 = $contapr["abreviacao"];
 
@@ -362,13 +362,13 @@ $pdf->SetXY(25,$y+4);
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10,4,'REV.',1,0,'C',0);
-$pdf->Cell(70,4,'ALTERA��O',1,0,'C',0);
+$pdf->Cell(70,4,'ALTERAÇÃO',1,0,'C',0);
 $pdf->Cell(20,4,'DATA',1,0,'C',0);
 $pdf->Cell(20,4,'EXEC.',1,0,'C',0);
 $pdf->Cell(20,4,'VERIF.',1,0,'C',0);
 $pdf->Cell(20,4,'APROV.',1,0,'C',0);		
 
-//REVIS�ES
+//REVISÕES
 
 $pdf->AddPage();
 
@@ -391,27 +391,27 @@ $pdf->Cell(40,10,"",1,0,'C',0);
 
 $pdf->SetXY(10,48);
 
-//IMPRIME OS TEXTOS DOS CABE�ALHOS
+//IMPRIME OS TEXTOS DOS CABEÇALHOS
 $pdf->Cell(20,5,"TAG",0,0,'C',0);
 
-$pdf->Cell(82,5,"SERVI�O",0,0,'C',0);
+$pdf->Cell(82,5,"SERVIÇO",0,0,'C',0);
 		
 $pdf->Cell(20,5,"PAINEL",1,0,'C',0);
 
-$pdf->Cell(15,5,"POT�NCIA",0,0,'C',0);
+$pdf->Cell(15,5,"POTÊNCIA",0,0,'C',0);
 
-$pdf->Cell(22,5,"TENS�O(V)",1,0,'C',0);
+$pdf->Cell(22,5,"TENSÃO(V)",1,0,'C',0);
 
 $pdf->Cell(26,5,"TIPO PARTIDA",0,0,'C',0);
 
-$pdf->Cell(20,5,"ROTA��O",1,0,'C',0);
+$pdf->Cell(20,5,"ROTAÇÃO",1,0,'C',0);
 
-$pdf->Cell(25,5,"CARCA�A",1,0,'C',0);
+$pdf->Cell(25,5,"CARCAÇA",1,0,'C',0);
 
-$pdf->Cell(40,5,"OBSERVA��O",0,1,'C',0);
+$pdf->Cell(40,5,"OBSERVAÇÃO",0,1,'C',0);
 
 
-//IMPRIME O SUBCABE�ALHO
+//IMPRIME O SUBCABEÇALHO
 $pdf->Cell(20,5,"",0,0,'C',0);
 
 $pdf->Cell(82,5,"",0,0,'C',0);
@@ -424,7 +424,7 @@ $pdf->Cell(22,5,"CORRENTE(A)",1,0,'C',0);
 
 $pdf->Cell(26,5,"",0,0,'C',0);
 
-$pdf->Cell(20,5,"N� P�LOS",1,0,'C',0);
+$pdf->Cell(20,5,"Nº PÓLOS",1,0,'C',0);
 
 $pdf->Cell(25,5,"FORMA. CONST",1,0,'C',0);
 
@@ -448,7 +448,7 @@ $sql2 .= "AND componentes.id_funcao = funcao.id_funcao ";
 $sql2 .= "AND componentes.id_dispositivo = dispositivos.id_dispositivo ";
 $sql2 .= "AND (dispositivos.ds_dispositivo = 'DEMARRADOR' OR dispositivos.ds_dispositivo = 'DISJUNTOR') ";
 $sql2 .= "ORDER BY processo, nr_malha, nr_malha_seq, nr_sequencia, ds_equipamento ";
-$regdm = mysql_query($sql2,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql2);
+$regdm = mysql_query($sql2,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql2);
 
 
 while ($dm = mysql_fetch_array($regdm))
@@ -471,7 +471,7 @@ $sql1 .= "AND componentes.id_funcao = funcao.id_funcao ";
 $sql1 .= "AND componentes.id_dispositivo = dispositivos.id_dispositivo ";
 $sql1 .= "AND (dispositivos.ds_dispositivo = 'MOTOR' OR dispositivos.ds_dispositivo = 'DISJUNTOR') ";
 $sql1 .= "ORDER BY processo, nr_malha, nr_malha_seq, nr_sequencia, ds_equipamento ";
-$regmalha = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql1);
+$regmalha = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql1);
 
 while ($malhas = mysql_fetch_array($regmalha))
 {
@@ -533,27 +533,27 @@ while ($malhas = mysql_fetch_array($regmalha))
 			
 			$pdf->SetXY(10,48);
 			
-			//IMPRIME OS TEXTOS DOS CABE�ALHOS
+			//IMPRIME OS TEXTOS DOS CABEÇALHOS
 			$pdf->Cell(20,5,"TAG",0,0,'C',0);
 			
-			$pdf->Cell(82,5,"SERVI�O",0,0,'C',0);
+			$pdf->Cell(82,5,"SERVIÇO",0,0,'C',0);
 					
 			$pdf->Cell(20,5,"PAINEL",1,0,'C',0);
 			
-			$pdf->Cell(15,5,"POT�NCIA",0,0,'C',0);
+			$pdf->Cell(15,5,"POTÊNCIA",0,0,'C',0);
 			
-			$pdf->Cell(22,5,"TENS�O(V)",1,0,'C',0);
+			$pdf->Cell(22,5,"TENSÃO(V)",1,0,'C',0);
 			
 			$pdf->Cell(26,5,"TIPO PARTIDA",0,0,'C',0);
 			
-			$pdf->Cell(20,5,"ROTA��O",1,0,'C',0);
+			$pdf->Cell(20,5,"ROTAÇÃO",1,0,'C',0);
 			
-			$pdf->Cell(25,5,"CARCA�A",1,0,'C',0);
+			$pdf->Cell(25,5,"CARCAÇA",1,0,'C',0);
 			
-			$pdf->Cell(40,5,"OBSERVA��O",0,1,'C',0);
+			$pdf->Cell(40,5,"OBSERVAÇÃO",0,1,'C',0);
 			
 			
-			//IMPRIME O SUBCABE�ALHO
+			//IMPRIME O SUBCABEÇALHO
 			$pdf->Cell(20,5,"",0,0,'C',0);
 			
 			$pdf->Cell(82,5,"",0,0,'C',0);
@@ -566,7 +566,7 @@ while ($malhas = mysql_fetch_array($regmalha))
 			
 			$pdf->Cell(26,5,"",0,0,'C',0);
 			
-			$pdf->Cell(20,5,"N� P�LOS",1,0,'C',0);
+			$pdf->Cell(20,5,"Nº PÓLOS",1,0,'C',0);
 			
 			$pdf->Cell(25,5,"FORMA. CONST",1,0,'C',0);
 			
@@ -586,7 +586,7 @@ while ($malhas = mysql_fetch_array($regmalha))
 		$sql .= "AND especificacao_padrao_detalhes.id_variavel = especificacao_padrao_variavel.id_variavel ";
 		$sql .= "ORDER BY sequencia ";
 		
-		$regcomp = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados1" . $sql);
+		$regcomp = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados1" . $sql);
 		
 		$espc = array();
 			
@@ -622,20 +622,20 @@ while ($malhas = mysql_fetch_array($regmalha))
 		
 		$pdf->Cell(20,5,$demarrador[$malhas["nr_malha"]."#".$malhas["nr_malha_seq"]],1,0,'C',0);
 		
-		$pdf->Cell(15,5,$espc["POT�NCIA"],0,0,'C',0);
+		$pdf->Cell(15,5,$espc["POTÊNCIA"],0,0,'C',0);
 		
-		$pdf->Cell(22,5,$espc["TENS�O NOMINAL"],1,0,'C',0);
+		$pdf->Cell(22,5,$espc["TENSÃO NOMINAL"],1,0,'C',0);
 		
 		$pdf->HCell(26,5,$espc["TIPO DE PARTIDA"],0,0,'C',0);
 		
-		$pdf->Cell(20,5,$espc["ROTA��O"],1,0,'C',0);
+		$pdf->Cell(20,5,$espc["ROTAÇÃO"],1,0,'C',0);
 		
-		$pdf->Cell(25,5,$espc["CARCA�A"],1,0,'C',0);
+		$pdf->Cell(25,5,$espc["CARCAÇA"],1,0,'C',0);
 		
-		$pdf->Cell(40,5,$espc["OBSERVA��O"],0,1,'C',0);
+		$pdf->Cell(40,5,$espc["OBSERVAÇÃO"],0,1,'C',0);
 		
 		
-		//IMPRIME O SUBCABE�ALHO
+		//IMPRIME O SUBCABEÇALHO
 		$pdf->Cell(20,5,"",0,0,'C',0);
 		
 		$pdf->Cell(82,5,"",0,0,'C',0);
@@ -648,7 +648,7 @@ while ($malhas = mysql_fetch_array($regmalha))
 		
 		$pdf->Cell(26,5,"",0,0,'C',0);
 		
-		$pdf->Cell(20,5,$espc["N�MERO DE P�LOS"],1,0,'C',0);
+		$pdf->Cell(20,5,$espc["Nº DE PÓLOS"],1,0,'C',0);
 		
 		$pdf->Cell(25,5,$espc["FORMA CONSTRUTIVA"],1,0,'C',0);
 		

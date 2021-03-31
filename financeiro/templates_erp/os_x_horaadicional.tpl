@@ -7,7 +7,7 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%">
 			<tr>
-				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 			</tr>
 		  </table>
 		  </td>
@@ -23,7 +23,7 @@
           </table></td>
         </tr>
       </table>
-    <div id="os_x_horaadicional" style="width:100%;">&nbsp;</div>
+    <div id="os_x_horaadicional" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

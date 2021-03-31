@@ -20,7 +20,7 @@
        			</table>
 	    </td>
         	<td colspan="2" valign="top" class="espacamento">
-            <div id="dv_rotinas">&nbsp;</div>
+            <div id="dv_rotinas"> </div>
 			<label class="labels">
   				<smarty>$campo[21]</smarty></label><br />
 						<select name="filtro" class="caixa" id="filtro" onkeypress="return keySort(this);" onchange="xajax_atualizatabela(xajax.getFormValues('frm',true));">

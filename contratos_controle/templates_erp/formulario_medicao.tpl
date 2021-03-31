@@ -38,15 +38,15 @@
           <td colspan="3" valign="top">
 			<table border="0" width="100%">
 		    <tr>
-		      <td width="20%"><label for="total_os" class="labels">Valor&nbsp;total/Projeto</label><br />
+		      <td width="20%"><label for="total_os" class="labels">Valor total/Projeto</label><br />
                 <input class="caixa" type="text" name="total_os" id="total_os" value="0" size="25" readonly="readonly" />
                 </td>
-		      	<td width="13%"><label for="valor" class="labels">Valor&nbsp;total/EDT</label><br />
+		      	<td width="13%"><label for="valor" class="labels">Valor total/EDT</label><br />
                 <input class="caixa" type="text" name="valor" id="valor" value="0" size="20" readonly="readonly" />
                 </td>
 				<td width="13%"><label for="ajuste" class="labels">Ajuste</label><br />
                 <input class="caixa" type="text" name="ajuste" id="ajuste" value="0" size="10" onkeyup="xajax_calcula(xajax.getFormValues('frm'),'ajuste');" /></td>
-				<td width="54%"><label for="valor_ajuste" class="labels">Valor&nbsp;ajustado</label><br />
+				<td width="54%"><label for="valor_ajuste" class="labels">Valor ajustado</label><br />
                 <input class="caixa" type="text" name="valor_ajuste" id="valor_ajuste" value="0" size="20" readonly="readonly" /></td>
 		    </tr>
             <tr>
@@ -57,9 +57,9 @@
                   </select><input class="caixa" type="text" name="ano" id="ano" value="<smarty>$ano</smarty>" size="5" />
               </div>
               </td>
-		      <td width="13%"><label for="percentual" class="labels">Perc.&nbsp;med.</label><br />
+		      <td width="13%"><label for="percentual" class="labels">Perc. med.</label><br />
                 <input class="caixa" type="text" name="percentual" id="percentual" value="0" size="10" onkeyup="xajax_calcula(xajax.getFormValues('frm'),'valor');" /></td>
-		      <td width="13%"><label for="valor_med" class="labels">Valor&nbsp;med.</label><br />
+		      <td width="13%"><label for="valor_med" class="labels">Valor med.</label><br />
                 <input class="caixa" type="text" name="valor_med" id="valor_med" value="0" size="20" onkeyup="xajax_calcula(xajax.getFormValues('frm'),'percent');" /></td>
 		      <td width="54%" valign="bottom">
               	<input type="button" class="class_botao" value="Inserir" name="btn_inserir" id="btn_inserir" disabled="disabled" onclick="xajax_insere(xajax.getFormValues('frm'))" /></td>
@@ -68,7 +68,7 @@
           </td>
         </tr>
       </table>
-	  <div id="medicoes" style="width:100%;">&nbsp;</div>
+	  <div id="medicoes" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

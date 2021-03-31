@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
@@ -11,7 +11,7 @@ $db->conexao_db();
 $db->db_ms = 'DADOSOFI';
 $db->conexao_ms_db(); 
 
-//FUN��ES
+//FUNÇÕES
 $sql = "SELECT * FROM ".DATABASE.".Cargos ";
 
 $reg = mysql_query($sql,$db->conexao);

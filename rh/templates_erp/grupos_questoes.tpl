@@ -12,7 +12,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 							</td>
 						</tr>
 					</table>
@@ -20,7 +20,7 @@
 				<td class="espacamento">
 					<table>
 						<tr>
-							<td><label for="bqg_titulo" class="labels">Titulo&nbsp;Grupo</label><br />
+							<td><label for="bqg_titulo" class="labels">Titulo Grupo</label><br />
 								<input size="120" type="text" id="bqg_titulo" name="bqg_titulo" class="caixa" placeholder="Titulo" />
 								<input type="hidden" id="bqg_id" name="bqg_id" />
                             </td>
@@ -30,7 +30,7 @@
 			</tr>
 		</table>
 		
-		<div id="div_grupos" style="width:100%;">&nbsp;</div>		
+		<div id="div_grupos" style="width:100%;"> </div>		
 	</form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

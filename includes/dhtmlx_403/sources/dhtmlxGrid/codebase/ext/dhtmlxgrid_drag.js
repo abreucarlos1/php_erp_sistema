@@ -137,7 +137,7 @@ dhtmlXGridObject.prototype._createDragNode=function(htmlObject,e){
 */
 dhtmlXGridObject.prototype._createSdrgc=function(){
     this._sdrgc=document.createElement("DIV");
-    this._sdrgc.innerHTML="&nbsp;";
+    this._sdrgc.innerHTML=" ";
     this._sdrgc.className="gridDragLine";
     this.objBox.appendChild(this._sdrgc);
 }

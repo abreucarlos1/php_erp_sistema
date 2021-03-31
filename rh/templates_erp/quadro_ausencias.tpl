@@ -18,7 +18,7 @@ div.gridbox table.row20px tr td
 			  <td width="148" valign="top" class="espacamento">
 			  <table width="100%" border="0">
 					<tr>
-						<td><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" <smarty>$alter</smarty> onClick="xajax_insere(xajax.getFormValues('frm',true));" /></td>
+						<td><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" <smarty>$alter</smarty> onclick="xajax_insere(xajax.getFormValues('frm',true));" /></td>
 					</tr>
 					<tr>
 					  <td><input name="btnexcluir" id="btnexcluir" type="button" class="class_botao" value="Excluir" onclick="" disabled="disabled" /></td>
@@ -47,7 +47,7 @@ div.gridbox table.row20px tr td
             </div>
                 <table border="0" width="100%">
                 <tr>
-                  <td><label class="labels"><smarty>$campo[2]</smarty>&nbsp;&nbsp;<span style="font-size:12px; font-weight:bold;">
+                  <td><label class="labels"><smarty>$campo[2]</smarty>  <span style="font-size:12px; font-weight:bold;">
 					<div id="nome_func"><smarty>$nome_funcionario</smarty></div>
 	              </label></td>
                   </tr>
@@ -58,7 +58,7 @@ div.gridbox table.row20px tr td
 	          	  <input name="data" type="text" class="caixa" id="data" size="10"  onKeyPress="transformaData(this, event);" onKeyUp="return autoTab(this,'tipo_motivo', 10);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onBlur="return checaTamanhoData(this,10); " /></td>
 				    <td width="85%" ><label for="tipo_motivo" class="labels"><smarty>$campo[4]</smarty></label><br />
                         <select name="tipo_motivo" class="caixa" id="tipo_motivo" onkeypress="return keySort(this);">
-                          <option value="1">REUNI&Atilde;O</option>
+                          <option value="1">REUNIÃO</option>
                           <option value="2">TRABALHO EXTERNO</option>
                           <option value="3">PARTICULAR</option>
                           <option value="4">FOLGA</option>
@@ -84,10 +84,10 @@ div.gridbox table.row20px tr td
                     <td><input class="class_botao" type="button" name="button" id="button" value="Seleciona" onclick="xajax_atualizatabela(xajax.getFormValues('frm'));" /></td>
                   </tr>
               </table></td>
-			  <td width="3" valign="top" class="<smarty>$classe</smarty>">&nbsp;</td>
+			  <td width="3" valign="top" class="<smarty>$classe</smarty>"> </td>
 			</tr>
 		</table>
-	  <div id="ausencias" style="width:100%;">&nbsp;</div>
+	  <div id="ausencias" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="../../templates_erp/footer.tpl"</smarty>

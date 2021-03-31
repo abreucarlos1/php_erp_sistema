@@ -11,7 +11,7 @@
 					</tr>
        			</table>
 			</td>
-        	<td colspan="2" valign="top" class="espacamento"><div id="tela" style="width:100%;">&nbsp;</div></td>
+        	<td colspan="2" valign="top" class="espacamento"><div id="tela" style="width:100%;"> </div></td>
         </tr>
       </table>
 </form>

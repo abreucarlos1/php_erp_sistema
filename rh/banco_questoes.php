@@ -147,7 +147,7 @@ function atualizatabela($filtro, $dados_form = '')
         $xml->writeElement('cell', $reg['bqp_peso']);
         $xml->writeElement('cell', $arrayAtual[$reg['bqp_atual']]);
         $xml->writeElement('cell', $reg['asr_descricao']);
-        $xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm(\"Deseja&nbsp;excluir&nbsp;esta&nbsp;pergunta?\")){xajax_excluir('.$reg['bqp_id'].');}></span>');
+        $xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm(\"Deseja excluir esta pergunta?\")){xajax_excluir('.$reg['bqp_id'].');}></span>');
         $xml->endElement();
     }
     
@@ -197,7 +197,7 @@ function atualizatabela_criterios($idPergunta)
         $xml->writeElement('cell', $reg['bqc_valor']);
         $xml->writeElement('cell', $reg['bqc_descricao']);
         $xml->writeElement('cell', $reg['bqc_ordem']);
-        $xml->writeElement('cell', '<span class="icone icone-excluir" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir_criterio('.$reg['bqc_id'].','.$reg['bqc_bqp_id'].');} />');
+        $xml->writeElement('cell', '<span class="icone icone-excluir" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir_criterio('.$reg['bqc_id'].','.$reg['bqc_bqp_id'].');} />');
         $xml->endElement();
     }
     
@@ -410,7 +410,7 @@ function grid(tabela, autoh, height, xml)
 			}
 		}
 	
-		mygrid.setHeader("ID, Texto, Grupo, Peso, Atual, Setor&nbsp;responsável, D");
+		mygrid.setHeader("ID, Texto, Grupo, Peso, Atual, Setor responsável, D");
 		mygrid.setInitWidths("50,*,200,50, 100,200,50");
 		mygrid.setColAlign("left,left,left,left,left,left,center");
 		mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");

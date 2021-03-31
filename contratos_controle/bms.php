@@ -288,9 +288,9 @@ function atualizatabela_itens($id_bms_pedido)
 	$xml->startElement('row');
 
 		$xml->writeAttribute('id', '999999');
-		$xml->writeElement('cell', '&nbsp;');
-		$xml->writeElement('cell', '&nbsp;');
-		$xml->writeElement('cell', '&nbsp;');
+		$xml->writeElement('cell', ' ');
+		$xml->writeElement('cell', ' ');
+		$xml->writeElement('cell', ' ');
 		$xml->writeElement('cell', '<b>A Planejar/A Medir</b>');
 		$xml->writeElement('cell', number_format($saldo,2,",","."));
 		$xml->writeElement('cell', number_format($totalMedido,2,",","."));
@@ -524,7 +524,7 @@ function atualizatabela_medicoes($id_bms_item)
 	$total = $db->array_select[0];
 	
 	$sql = "SELECT * FROM ".DATABASE.".bms_item 
-			JOIN (SELECT id_os codOs, id_empresa_erp idCliente FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON codOs = bms_item.id_os,
+			JOIN (SELECT id_os codOs, id_empresa idCliente FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON codOs = bms_item.id_os,
 			".DATABASE.".bms_medicao
 			JOIN (SELECT id_bms_controle idControle, bms_controle FROM ".DATABASE.".bms_controles WHERE bms_controles.reg_del = 0) AS bms_controle
 			ON idControle = id_bms_controle ";
@@ -562,7 +562,7 @@ function atualizatabela_medicoes($id_bms_item)
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $regs['id_bms_medicao']);
-			$xml->writeElement('cell', "&nbsp;");
+			$xml->writeElement('cell', " ");
 			$xml->writeElement('cell', mysql_php($regs['data']));
 			$xml->writeElement('cell', number_format($regs["valor_planejado"],2,",","."));
 			$xml->writeElement('cell', number_format($regs["valor_medido"],2,",","."));
@@ -601,16 +601,16 @@ function atualizatabela_medicoes($id_bms_item)
 			}
 			else
 			{
-				$xml->writeElement('cell', "&nbsp;");
+				$xml->writeElement('cell', " ");
 			}
 			
 			if ((!in_array($regs['id_bms_controle'], array(3,4,5)) && acesso_completo($_SESSION['id_funcionario'], ($regs['id_bms_controle'] == 1))) || $_SESSION['admin'] == 1)
 			{
-				$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;esta&nbsp;medição?")){xajax_excluir_medicao("'.$regs['id_bms_medicao'].'","'.$regs['id_bms_item'].'");}></span>');
+				$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir esta medição?")){xajax_excluir_medicao("'.$regs['id_bms_medicao'].'","'.$regs['id_bms_item'].'");}></span>');
 			}
 			else
 			{
-				$xml->writeElement('cell', "&nbsp;");
+				$xml->writeElement('cell', " ");
 			}
 			
 			$xml->writeElement('cell', '<span class="icone icone-balao cursor" onclick={buscar_observacoes("'.$regs['id_bms_medicao'].'");}></span>');
@@ -630,7 +630,7 @@ function atualizatabela_medicoes($id_bms_item)
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 				
 			if ($regs['id_bms_controle'] == 1)
@@ -639,7 +639,7 @@ function atualizatabela_medicoes($id_bms_item)
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 				
 		$xml->endElement();
@@ -650,19 +650,19 @@ function atualizatabela_medicoes($id_bms_item)
 	$idMedicao = isset($regs) ? $regs['id_bms_medicao'] : '0';
 		$xml->startElement('row');
 			$xml->writeAttribute('id', 'fim2_'.$idMedicao);
-			$xml->writeElement('cell', "&nbsp;");
+			$xml->writeElement('cell', " ");
 			$xml->writeElement('cell', '<b>TOTAIS</b>');
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 			$xml->writeElement('cell', '<b>'.number_format($val_med, 2, ',', '.').'</b>');
-			$xml->writeElement('cell', '&nbsp;');
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
+			$xml->writeElement('cell', ' ');
 			$xml->writeElement('cell', '<b>'.number_format($percent_medido, 2, ',', '.').'</b>');			
 			$xml->writeElement('cell', '<input type="hidden" value="'.number_format($val_sld, 2, ',', '.').'" id="saldoItem" name="saldoItem" /><b>'.number_format($val_sld, 2, ',', '.').'</b>');
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 			$xml->writeElement('cell', '<b>'.number_format($qtdMedido, 2, ',', '.').'</b>');
 			$xml->writeElement('cell', '<b>'.number_format($totalSaldoFaturado, 2, ',', '.').'</b>');
-			$xml->writeElement('cell', '&nbsp;');
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
+			$xml->writeElement('cell', ' ');
 		$xml->endElement();
 	
 	$xml->endElement();
@@ -1388,7 +1388,7 @@ function editar($os)
 	}
 		
 	$sql = "SELECT 
-				funcionario, nome_contato, bms_pedido.id_os, id_bms_pedido, obs, ref_cliente, condicao_pgto, data_pedido, data_termino, valor_pedido, ordem_servico.id_empresa_erp, ordem_servico.os, ordem_servico.id_os
+				funcionario, nome_contato, bms_pedido.id_os, id_bms_pedido, obs, ref_cliente, condicao_pgto, data_pedido, data_termino, valor_pedido, ordem_servico.id_empresa, ordem_servico.os, ordem_servico.id_os
 			FROM 
 				".DATABASE.".bms_pedido 
 				LEFT JOIN  ".DATABASE.".ordem_servico ON ordem_servico.id_os = bms_pedido.id_os AND ordem_servico.reg_del = 0  
@@ -1407,7 +1407,7 @@ function editar($os)
 	
 	foreach($db->array_select as $reg)
 	{
-		$resposta->addAssign('id_cliente', 'value', $reg['id_empresa_erp']);
+		$resposta->addAssign('id_cliente', 'value', $reg['id_empresa']);
 		$resposta->addAssign('coord_cli', 'value', $reg['nome_contato']);
 		$resposta->addAssign('coord_dvm', 'value', $reg['funcionario']);
 		
@@ -1755,13 +1755,13 @@ function inserePedidoAutomatico($AF5Orcame, $idOs)
 					
 					$db2->insert($isql, 'MYSQL');
 					
-					//Inserindo as medi��es planejadas caso haja encontrado data de fim de projeto
+					//Inserindo as medições planejadas caso haja encontrado data de fim de projeto
 					if (count($diasMedicoes) > 0 && empty($db2->erro))
 					{
 						$virgula = '';
 						$idItem = $db2->insert_id;
 						
-						//TOTAIS PARA AS PREVIS�ES DE MEDIÇÃO
+						//TOTAIS PARA AS PREVISÕES DE MEDIÇÃO
 						$totalDividido = $item['AF5_TOTAL'] / count($diasMedicoes);
 						$qtdDividida = $item['AF5_QUANT'] / count($diasMedicoes);
 						$percentDividido = $totalDividido / $item['AF5_TOTAL'] * 100; 
@@ -1824,7 +1824,7 @@ function atualizatabela($filtro = '', $status = '')
 			FROM
 				".DATABASE.".ordem_servico 
 				JOIN ".DATABASE.".ordem_servico_status ON ordem_servico_status.id_os_status = ordem_servico.id_os_status AND ordem_servico_status.reg_del = 0 
-				JOIN ".DATABASE.".empresas ON empresas.id_empresa_erp = ordem_servico.id_empresa_erp AND empresas.reg_del = 0 
+				JOIN ".DATABASE.".empresas ON empresas.id_empresa = ordem_servico.id_empresa AND empresas.reg_del = 0 
 				JOIN ".DATABASE.".bms_pedido ON bms_pedido.id_os = ordem_servico.id_os AND bms_pedido.reg_del = 0
 				LEFT JOIN(
 					SELECT
@@ -1922,7 +1922,7 @@ function atualizatabela($filtro = '', $status = '')
 		
 		if ($_SESSION['admin'] == 1)
 		{
-		    $xml[$lista]->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;pedido?")){xajax_excluir_pedido("'.$reg["id_bms_pedido"].'");}; />');
+		    $xml[$lista]->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir este pedido?")){xajax_excluir_pedido("'.$reg["id_bms_pedido"].'");}; />');
 		}
 		    
 	    $xml[$lista]->endElement();		
@@ -2241,7 +2241,7 @@ function buscar_observacoes($idMedicao)
 			$xml->writeAttribute('id', $reg['id_bms_observacao']);
 			$xml->writeElement('cell', mysql_php($reg["data"]));
 			$xml->writeElement('cell', $reg["observacao"]);
-			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;esta&nbsp;observação?")){xajax_excluir_observacao("'.$reg["id_bms_observacao"].'","'.$reg["id_bms_medicao"].'");};></span>');
+			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir esta observação?")){xajax_excluir_observacao("'.$reg["id_bms_observacao"].'","'.$reg["id_bms_medicao"].'");};></span>');
 		$xml->endElement();		
 	});
 	
@@ -2349,7 +2349,7 @@ function preencheComboPedidos()
 				".DATABASE.".bms_pedido
 				JOIN (
 				  SELECT
-					id_os idOs, id_empresa_erp, os, descricao
+					id_os idOs, id_empresa, os, descricao
 				  FROM
 					".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0 
 				) os
@@ -2418,7 +2418,7 @@ function verificar_apontamentos($idMedicao, $dados_form = array())
 				CONCAT(SUBSTRING(b.data, 1,8),dia_final)
 		END AS dataFinal,
 		
-		d.id_os, b.id_bms_medicao, d.hora_extra, a.id_funcionario funcMedicao, d.id_empresa_erp, a.descricao descItem,
+		d.id_os, b.id_bms_medicao, d.hora_extra, a.id_funcionario funcMedicao, d.id_empresa, a.descricao descItem,
 		e.dia_inicial, e.dia_final, COALESCE(mes, 0) mes,
 		e.tarifa_ha, e.tarifa_han, e.tarifa_ha_domingo, e.tarifa_ha_sabado, e.tarifa_ha_feriado, e.feriados, 
 		c.id_bms_medicao idMedicaoAnterior, ba.horas_adicionais_noturno
@@ -2427,7 +2427,7 @@ function verificar_apontamentos($idMedicao, $dados_form = array())
 		JOIN ".DATABASE.".bms_pedido p ON p.id_bms_pedido = a.id_bms_pedido AND p.reg_del = 0
 		JOIN ".DATABASE.".ordem_servico d ON d.id_os = a.id_os AND d.reg_del = 0 
 		JOIN ".DATABASE.".bms_medicao b ON b.id_bms_item = a.id_bms_item 
-		LEFT JOIN ".DATABASE.".bms_periodos_medicao_cliente e ON e.id_cliente = d.id_empresa_erp AND e.reg_del = 0
+		LEFT JOIN ".DATABASE.".bms_periodos_medicao_cliente e ON e.id_cliente = d.id_empresa AND e.reg_del = 0
 		LEFT JOIN ".DATABASE.".bms_medicao c ON c.reg_del = 0 AND c.id_bms_item = b.id_bms_item AND c.data < b.data
 		LEFT JOIN ".DATABASE.".bms_apontamentos ba ON ba.reg_del = 0 AND ba.id_bms_medicao = b.id_bms_medicao	
 			
@@ -2701,19 +2701,19 @@ function modal_periodo_cliente()
 				'<select id="selCliente" name="selCliente" class="caixa" style="width:100%;" onchange="xajax_editar_periodo_cliente(this.value);">'.
 																				'<option value="">Selecione</option>';
 	
-	$sql = "SELECT id_empresa_erp, empresa, descricao FROM ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql = "SELECT id_empresa, empresa, descricao FROM ".DATABASE.".empresas ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 	$sql .= "WHERE empresas.reg_del = 0 ";
 	$sql .= " ORDER BY empresa ";
 	
 	$db->select($sql, 'MYSQL', function($reg, $i) use(&$html){
-		$html .= "<option value='".$reg['id_empresa_erp']."'>".$reg['empresa']." - ".$reg['descricao']."</option>";
+		$html .= "<option value='".$reg['id_empresa']."'>".$reg['empresa']." - ".$reg['descricao']."</option>";
 	});
 	
 	$html .= '</select></td></tr>'.
 			 '<tr><td width="25%"><label class="labels">Período de Medição</label><br />'.
 				'<span style="float:left;">'.
-					'<input type="text" class="caixa" name="diaInicioMedicao" id="diaInicioMedicao" size="5" /><label class="labels">&nbsp;a&nbsp;</label>'.
+					'<input type="text" class="caixa" name="diaInicioMedicao" id="diaInicioMedicao" size="5" /><label class="labels"> a </label>'.
 					'<input type="text" class="caixa" name="diaFimMedicao" id="diaFimMedicao" size="5" /></span></td>'.
 				'<td width="25%"><label class="labels">tipo</labels><br />'.
 				'<select name="selMes" id="selMes" class="caixa">'.
@@ -2927,7 +2927,7 @@ function modal_anexar_pedido($os)
     
     if ($db->numero_registros > 0)
     {
-        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'">&nbsp;<span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
+        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'"> <span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
         
         if (!empty($db->array_select[0]['arquivo_pedido']))
         {
@@ -2944,7 +2944,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="pedido" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -2964,7 +2964,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="proposta" />'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -2986,7 +2986,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="contrato" />'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -2998,7 +2998,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="pedido" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
         
@@ -3007,7 +3007,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="contrato" />'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
         
@@ -3016,7 +3016,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="proposta" />'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
     }
@@ -3292,13 +3292,13 @@ function modal_informacoes_pedido($os)
         '<label class="labels" style="float:left;width:140px;">Forma de PGTO</label>'.
         '<input name="forma_pgto" class="caixa" type="text" placeholder="Digite uma forma de PGTO - 3X Mes - 10/20/30 ..." id="forma_pgto" size="90" value="'.$formaPgto.'" /><br />'.
         
-        '<label for="recebimento" style="float:left;width:140px;" class="labels">Data&nbsp;de&nbsp;Recebimento</label>'.
+        '<label for="recebimento" style="float:left;width:140px;" class="labels">Data de Recebimento</label>'.
         '<input name="recebimento" type="text" class="caixa" placeholder="Até 25/MÊS | Até 30/MÊS ..." id="recebimento"  value="'.$recebimento.'" /><br />'.
         
-        '<label for="data_medicao" style="float:left;width:140px;" class="labels">Data&nbsp;de&nbsp;Medição</label>'.
+        '<label for="data_medicao" style="float:left;width:140px;" class="labels">Data de Medição</label>'.
         '<input name="data_medicao" placeholder="30/MÊS | 10/MÊS ..." type="text" class="caixa" id="data_medicao"  value="'.$medicao.'" /><br />'.
         
-        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Período&nbsp;de&nbsp;Medição</label>'.
+        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Período de Medição</label>'.
         '<input name="periodo_medicao" type="text" class="caixa" placeholder="26 - 25 | 11 - 10 ..." id="periodo_medicao"  value="'.$periodoMed.'" /><br />'.
         
         '<label for="obs" style="float:left;width:140px;" class="labels">Outras informações</label>'.
@@ -3408,7 +3408,7 @@ function cancelar_saldo_remanescente($dados_form)
     
     $db->insert($isql, 'MYSQL');
     
-    //MANDAR EMAIL COM O MOTIVO DO CANCELAMENTO E PEDINDO PARA ALTERAR NO OR�AMENTO NO PROTHEUS.
+    //MANDAR EMAIL COM O MOTIVO DO CANCELAMENTO E PEDINDO PARA ALTERAR NO ORÇAMENTO NO PROTHEUS.
     $params 			= array();
     $params['from']		= "comercial@dominio.com.br";
     $params['from_name']= "BMS - CANCELAMENTO DE SALDO";
@@ -3522,7 +3522,7 @@ function showModalAnexoLiberacao($idMedicao, $idItem)
     }
     else
     {
-        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'">&nbsp;<span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
+        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'"> <span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
         $acao = 'onclick="if(confirm(\'Deseja realmente excluir este arquivo?\')){xajax_excluir_arquivo_liberacao(\''.$arquivo.'\',\''.$idItem.'\');}"';
         $html = "<button class='class_botao' style='width:250px;float:left;' onclick=window.open('../includes/documento.php?documento=".$pastaArquivos.'/'.$arquivo."');>VISUALIZAR DOCUMENTO</button>".
         sprintf($imgExcluir, $acao);
@@ -3694,7 +3694,7 @@ function verificarApontamentos(idMedicao, idCliente)
 					'<td width="30%"><label class="labels">tipo</labels></td>'+
 					
 					'<td><label class="labels">Período Selecionado</label></td></tr>'+
-					'<tr><td width="30%"><span style="float:left;"><input type="text" name="diaInicioMedicao" id="diaInicioMedicao" size="5" /><label class="labels">&nbsp;a&nbsp;</label>'+
+					'<tr><td width="30%"><span style="float:left;"><input type="text" name="diaInicioMedicao" id="diaInicioMedicao" size="5" /><label class="labels"> a </label>'+
 					'<input type="text" name="diaFimMedicao" id="diaFimMedicao" size="5" /></span></td>'+
 
 					'<td><select name="selMes" id="selMes">'+
@@ -3703,7 +3703,7 @@ function verificarApontamentos(idMedicao, idCliente)
 							'<option value="2">Mês Medição</option>'+
 						 '</select></td>'+
 					
-					'<td colspan="2"><input type="text" disabled="disabled" name="dataInicioMedicao" id="dataInicioMedicao" size="10" /><label class="labels">&nbsp;a&nbsp;</label>'+
+					'<td colspan="2"><input type="text" disabled="disabled" name="dataInicioMedicao" id="dataInicioMedicao" size="10" /><label class="labels"> a </label>'+
 					'<input type="text" disabled="readonly" name="dataFimMedicao" id="dataFimMedicao" size="10" /></td></tr>'+
 
 					'<tr><td colspan="3"><table width="100%"><tr><td width="30%"><label class="labels">Horas Normais</label></td><td>'+
@@ -3728,8 +3728,8 @@ function verificarApontamentos(idMedicao, idCliente)
 					'</tr>'+
 					'<tr><td><label class="labels">Total Horas Medição</label></td><td>'+
 					'<input disabled="disabled" type="text" name="txtTotalMedicao" id="txtTotalMedicao" size="10" /></td></tr>'+
-					'<tr><td>&nbsp;</td></tr>'+
-					'<tr><td colspan="2"><span class="icone icone-editar cursor" onclick="xajax_salvarInfoMedicao(xajax.getFormValues(\'frmApontamentosEncontrados\'));"></span>&nbsp;<label class="labels">Recalcular Medição</label></td>'+
+					'<tr><td> </td></tr>'+
+					'<tr><td colspan="2"><span class="icone icone-editar cursor" onclick="xajax_salvarInfoMedicao(xajax.getFormValues(\'frmApontamentosEncontrados\'));"></span> <label class="labels">Recalcular Medição</label></td>'+
 					'<td colspan="2"><input class="class_botao" style="width:200px;" type="button" value="Medir valor apurado" onclick="xajax_atualizar_medicoes(xajax.getFormValues(\'frmApontamentosEncontrados\'));divPopupInst.destroi();" /></td></tr>'+
 					'</table>'+
 				'</table></form>';
@@ -3745,9 +3745,9 @@ function showModalFeriados()
 	var feriado2 = feriados[1] != undefined ? feriados[1] : '';
 	var feriado3 = feriados[2] != undefined ? feriados[2] : '';
 	
-	var html = 	'<label class="labels">Feriado 1</label>&nbsp;<input type="text" value="'+feriado1+'" size="10" name="feriado[1]" id="feriado[1]" onKeyPress="transformaData(this, event);" /><br />'+
-				'<label class="labels">Feriado 2</label>&nbsp;<input type="text" value="'+feriado2+'" size="10" name="feriado[2]" id="feriado[2]" onKeyPress="transformaData(this, event);" /><br />'+
-				'<label class="labels">Feriado 3</label>&nbsp;<input type="text" value="'+feriado3+'" size="10" name="feriado[3]" id="feriado[3]" onKeyPress="transformaData(this, event);" /><br />'+
+	var html = 	'<label class="labels">Feriado 1</label> <input type="text" value="'+feriado1+'" size="10" name="feriado[1]" id="feriado[1]" onKeyPress="transformaData(this, event);" /><br />'+
+				'<label class="labels">Feriado 2</label> <input type="text" value="'+feriado2+'" size="10" name="feriado[2]" id="feriado[2]" onKeyPress="transformaData(this, event);" /><br />'+
+				'<label class="labels">Feriado 3</label> <input type="text" value="'+feriado3+'" size="10" name="feriado[3]" id="feriado[3]" onKeyPress="transformaData(this, event);" /><br />'+
 				'<input type="button" value="Concluído" onclick="concluirFeriados();" />'; 
 
 	modal(html, 'pp', 'Defina as datas de feriados', '1');
@@ -3964,7 +3964,7 @@ function grid(tabela, autoh, height, xml)
 			
 			var chkAll = '<input type="checkbox" id="chkTodos" style="margin:0;" onclick="mygrid.checkAll(this.checked);desbloquearBotaoExcluir();" />';
 			
-			mygrid.setHeader(chkAll+",Data,R$&nbsp;Planej,R$&nbsp;Medido, Dif.&nbsp;Med,%&nbsp;Plan,%&nbsp;Med, Saldo&nbsp;R$,Qtd.&nbsp;Planej,Qtd.&nbsp;Med,Dif.&nbsp;Fat,ST,NF,F,E,O,A,ME");
+			mygrid.setHeader(chkAll+",Data,R$ Planej,R$ Medido, Dif. Med,% Plan,% Med, Saldo R$,Qtd. Planej,Qtd. Med,Dif. Fat,ST,NF,F,E,O,A,ME");
 			mygrid.setInitWidths("30,80,90,90,*,*,*,100,*,*,*,30,*,30,30,30,30,35");
 			mygrid.setColAlign("center,center,right,right,left,left,left,left,left,right,right,center,left,center,center,center,center,center");
 			mygrid.setColTypes("ch,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -4074,7 +4074,7 @@ function modalMedicaoFatura()
 	
 	if (dataDigitada == '' || dataDigitada2 == '')
 	{
-		alert('� necess�rio selecionar a data e data Fim');
+		alert('É necessário selecionar a data e data Fim');
 		return false;
 	}
 		
@@ -4128,7 +4128,7 @@ function showModalNF(idMedicao, idItem)
 					'<label class="labels" style="float: left;">Número NF:</labels> <input type="text" placeholder="numero nf" class="caixa" id="numNF" name="numNF" /><br />'+
 					'<label class="labels" style="float: left;">Faturar a Menor:</labels>'+
 					'<input name="valor_faturado" type="text" class="caixa" id="valor_faturado" placeholder="valor faturar" size="15" maxlength="10" onKeyDown="FormataValor(frmFaturar.valor_faturado, 10, event)" />'+
-					"<input type='button' class='class_botao' style='width: 290px;' onclick=if(numNF.value==''){alert('Por&nbsp;favor,&nbsp;digite&nbsp;o&nbsp;número&nbsp;da&nbsp;NF')}else{xajax_faturar_medicao('"+idMedicao+"','"+idItem+"',numNF.value,valor_faturado.value)} value='Marcar Como Faturado' />"+
+					"<input type='button' class='class_botao' style='width: 290px;' onclick=if(numNF.value==''){alert('Por favor, digite o número da NF')}else{xajax_faturar_medicao('"+idMedicao+"','"+idItem+"',numNF.value,valor_faturado.value)} value='Marcar Como Faturado' />"+
 					"<input type='button' class='class_botao' id='btnAnexarLiberacao' style='width: 290px;' onclick=xajax_showModalAnexoLiberacao('"+idMedicao+"','"+idItem+"'); value='Anexar Doc. Liberação' />"+
 				'</form></div>';
 	modal(html, '140_300', 'DIGITE O NÚMERO DA NF');

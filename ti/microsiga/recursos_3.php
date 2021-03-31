@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
@@ -15,7 +15,7 @@ $db->conexao_ms_db();
 
 $sql = "SELECT * FROM ".DATABASE.".Bancos ";
 
-$cont = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+$cont = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 
 while($reg = mysql_fetch_array($cont))
 {
@@ -33,7 +33,7 @@ $sql .= "AND Funcionarios.situacao = 'ATIVO' ";
 $sql .= "GROUP BY Funcionarios.id_funcionario ";
 $sql .= "ORDER BY Funcionarios.funcionario ";
 
-$cont = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+$cont = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 
 $i = 1;
 
@@ -55,7 +55,7 @@ while($reg = mysql_fetch_array($cont))
 	$sql .= "WHERE salarios.id_funcionario = '".$reg["id_funcionario"]."' ";
 	$sql .= "ORDER BY data DESC LIMIT 1";
 	
-	$cont1 = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+	$cont1 = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 	
 	$reg1 = mysql_fetch_array($cont1);
 	
@@ -152,7 +152,7 @@ while($reg = mysql_fetch_array($cont))
 	
 	$sql = "SELECT * FROM ".DATABASE.".cargos_grupos ";
 	$sql .= "WHERE cargos_grupos.id_cargo_grupo =  '".$reg["id_cargo_grupo"]."' ";
-	$cont1 = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel selecionar os dados.".$sql);
+	$cont1 = mysql_query($sql,$db->conexao) or die("Não foi possível selecionar os dados.".$sql);
 	
 	$reg1 = mysql_fetch_array($cont1);
 	

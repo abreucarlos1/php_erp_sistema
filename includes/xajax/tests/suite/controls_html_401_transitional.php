@@ -411,7 +411,7 @@ function generateInputHidden()
 
 function generateContent()
 {
-	$nbsp = new clsLiteral('&nbsp;');
+	$nbsp = new clsLiteral(' ');
 	
 	return new clsDiv(array(
 		'children' => array(

@@ -62,7 +62,7 @@ mpdf-->
 
 <table width="100%" style="font-family: serif;" cellpadding="10"><tr>
 <td width="45%" style="border: 0.1mm solid #888888; "><span style="font-size: 7pt; color: #555555; font-family: sans;">SOLD TO:</span><br /><br />345 Anotherstreet<br />Little Village<br />Their City<br />CB22 6SO</td>
-<td width="10%">&nbsp;</td>
+<td width="10%"> </td>
 <td width="45%" style="border: 0.1mm solid #888888;"><span style="font-size: 7pt; color: #555555; font-family: sans;">SHIP TO:</span><br /><br />345 Anotherstreet<br />Little Village<br />Their City<br />CB22 6SO</td>
 </tr></table>
 

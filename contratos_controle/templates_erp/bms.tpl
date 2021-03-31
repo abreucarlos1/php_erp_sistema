@@ -54,18 +54,18 @@ div.gridbox table.row20px tr td
                           <td width="5%" align="left"><label for="valor_total" class="labels"><smarty>$campo[15]</smarty></label><br />
                            <input name="valor_total" id="valor_total" type="text" class="caixa" placeholder="Valor total" size="20" value="0" />
                           </td>
-                          <!--td width="18%"><label for="condicao_pgto" class="labels">Condi��es&nbsp;de&nbsp;PGTO</label><br />
+                          <!--td width="18%"><label for="condicao_pgto" class="labels">Condições de PGTO</label><br />
                            <select name="condicao_pgto" id="condicao_pgto" class="caixa" onkeypress="return keySort(this);">
                                   <smarty>html_options values=$option_cond_values output=$option_cond_output</smarty>
                           </select>
                           </td-->
-                          <td width="5%"><label for="data_pedido" class="labels">Data&nbsp;Início</label><br />
+                          <td width="5%"><label for="data_pedido" class="labels">Data Início</label><br />
                           	<input name="data_pedido" type="text" class="caixa" id="data_pedido" size="10" onKeyPress="transformaData(this, event);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onBlur="verificaDataErro(this.value, 'data_pedido');" /> 
                           </td>
-                          <td width="5%"><label for="data_termino" class="labels">Data&nbsp;Término</label><br />
+                          <td width="5%"><label for="data_termino" class="labels">Data Término</label><br />
                           	<input name="data_termino" type="text" class="caixa" id="data_termino" size="10" onKeyPress="transformaData(this, event);" value="" onBlur="verificaDataErro(this.value, 'data_termino');" /> 
                           </td>
-                          <td width="85%"><label for="ref_cliente" class="labels">Ref.:&nbsp;Cliente</label><br />
+                          <td width="85%"><label for="ref_cliente" class="labels">Ref.: Cliente</label><br />
                           <input name="ref_cliente" type="text" class="caixa" id="ref_cliente" /> 
                           </td>
                       </tr>
@@ -76,7 +76,7 @@ div.gridbox table.row20px tr td
                               <input name="obs_pedido" id="obs_pedido" type="text" class="caixa" placeholder="Observações" style="width:100%;" value="" />
                           </td>
                           <td width="5%" align="left">
-                              <label for="coord_cli" class="labels">Coordenador&nbsp;Cliente:</label><br />
+                              <label for="coord_cli" class="labels">Coordenador Cliente:</label><br />
                               <input name="coord_cli" id="coord_cli" disabled="disabled" type="text" class="caixa" placeholder="Coordenador Cliente" style="width:100%;" value="" />
                           </td>
                           <td width="90%" align="left">
@@ -102,11 +102,11 @@ div.gridbox table.row20px tr td
       <table width="100%">
       <tr>
           <td>
-			  <div class="labels" style="text-align: right;">Foram encontrados&nbsp;<span id="divNumeroRegistros"></span>&nbsp;registros</div>
+			  <div class="labels" style="text-align: right;">Foram encontrados <span id="divNumeroRegistros"></span> registros</div>
               <div id="my_tabbar" style="height:480px;"> </div>
 		          <div id="a10">
 		              <div id="dv_ped">
-						  <div id="div_pedidos">&nbsp;</div>
+						  <div id="div_pedidos"> </div>
 		                  <div id="gridPaginacao" style="float: left;"></div>
 		              </div>
 		          </div>
@@ -145,11 +145,11 @@ div.gridbox table.row20px tr td
 		                      <tr>
 		                          <td width="100%" align="left">
 		                          <input name="btninserir_itens" id="btninserir_itens" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onclick="xajax_insere_itens(xajax.getFormValues('frm', true));" />
-		                          &nbsp;<input name="btnlimpar_form" id="btnlimpar_formItens" type="button" class="class_botao" value="Cancelar" onclick="xajax_limparFormItens();xajax_atualizatabela_itens(document.getElementById('pedido_numero').value);" />
+		                           <input name="btnlimpar_form" id="btnlimpar_formItens" type="button" class="class_botao" value="Cancelar" onclick="xajax_limparFormItens();xajax_atualizatabela_itens(document.getElementById('pedido_numero').value);" />
 		                          </td>
 		                      </tr>
 		                  </table>
-		                  <div id="div_itens" style="width: 100%;">&nbsp;</div>
+		                  <div id="div_itens" style="width: 100%;"> </div>
 		              </div>
 		          </div>  
 		          <div id="a30">
@@ -161,10 +161,10 @@ div.gridbox table.row20px tr td
 		                          	<option value="">SELECIONE</option>
 		                          </select>
 		                          </td>
-		                          <td><label for="valor_item" class="labels">Valor&nbsp;Total</label><br />
+		                          <td><label for="valor_item" class="labels">Valor Total</label><br />
 		                          <input name="valor_item" type="text" class="caixa" id="valor_item" size="15" value="0" readonly="readonly" />
 		                          </td>
-		                          <td><label for="valor_planejado" class="labels">Valor&nbsp;Planj.</label><br />
+		                          <td><label for="valor_planejado" class="labels">Valor Planj.</label><br />
 		                           <input name="valor_planejado" type="text" class="caixa" id="valor_planejado" placeholder="Valor Pln." size="15" onKeyDown="FormataValor(frm.valor_planejado, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_valor_percent(document.getElementById('valor_item').value,this.value,'per',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                          <td><label for="id_status" class="labels">Status</label><br />
@@ -172,7 +172,7 @@ div.gridbox table.row20px tr td
 		                                  <option value="">SELECIONE</option>
 		                          </select>
 		                          </td>
-		                          <td><label for="valor_medido" class="labels">Valor&nbsp;Medido</label><br />
+		                          <td><label for="valor_medido" class="labels">Valor Medido</label><br />
 		                           <input name="valor_medido" type="text" class="caixa" disabled="disabled" placeholder="Valor medido" id="valor_medido" size="15" onKeyDown="FormataValor(frm.valor_medido, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_valor_percent(document.getElementById('valor_item').value,this.value,'per_med',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                          <td rowspan="3" align="left" valign="top">
@@ -190,14 +190,14 @@ div.gridbox table.row20px tr td
 		                          <td><label for="data_item" class="labels"><smarty>$campo[8]</smarty></label><br />
 		                           <input name="data_item" type="text" class="caixa" id="data_item" size="10" onKeyPress="transformaData(this, event);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onBlur="verificaDataErro(this.value, 'data_item');" />
 		                          </td>
-		                          <td><label for="quantidade_item" class="labels">Qtd.&nbsp;Total <span id="unidadeLbl"></span></label><br />
+		                          <td><label for="quantidade_item" class="labels">Qtd. Total <span id="unidadeLbl"></span></label><br />
 		                           <input name="quantidade_item" type="text" class="caixa" placeholder="Quantidade item" id="quantidade_item" size="15" value="0" readonly="readonly" />
 		                          </td>
-		                          <td><label for="percent_planejado" class="labels">%&nbsp;Planej.</label><br />
+		                          <td><label for="percent_planejado" class="labels">% Planej.</label><br />
 		                           <input name="percent_planejado" type="text" class="caixa" placeholder="% planejado" id="percent_planejado" size="15" maxlength="10" onKeyDown="FormataValor(frm.percent_planejado, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_valor_percent(document.getElementById('valor_item').value,this.value,'val',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                          <td></td>
-		                          <td><label for="percent_medido" class="labels">%&nbsp;Progresso</label><br />
+		                          <td><label for="percent_medido" class="labels">% Progresso</label><br />
 		                           <input name="percent_medido" type="text" class="caixa" placeholder="% medido" disabled="disabled" id="percent_medido" size="15" maxlength="10" onKeyDown="FormataValor(frm.percent_medido, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_valor_percent(document.getElementById('valor_item').value,this.value,'val_med',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                      </tr>
@@ -210,24 +210,24 @@ div.gridbox table.row20px tr td
 		                            	<input type="hidden" name="datas_replica_definidas" id="datas_replica_definidas" readonly="readonly" />
 		                            	<input type="hidden" name="qtds_replica_definidas" id="qtds_replica_definidas" readonly="readonly" />
 		                          </td>
-		                          <td><label class="labels">Qtd.&nbsp;Planj.<span id="unidadePlanLbl"></span></label><br />
+		                          <td><label class="labels">Qtd. Planj.<span id="unidadePlanLbl"></span></label><br />
 		                           <input name="quantidade_planejada" type="text" placeholder="Quantidade planejada" class="caixa" id="quantidade_planejada" size="15" onKeyDown="FormataValor(frm.quantidade_planejada, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_quantidade(document.getElementById('valor_item').value,this.value,'per',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                          <td></td>
-		                          <td><label class="labels">Qtd.&nbsp;Medido. <span id="unidadeMedLbl"></span></label><br />
+		                          <td><label class="labels">Qtd. Medido. <span id="unidadeMedLbl"></span></label><br />
 		                           <input name="quantidade_medida" type="text" class="caixa" placeholder="Quantidade medida" disabled="disabled" id="quantidade_medida" size="15" onKeyDown="FormataValor(frm.quantidade_medida, 10, event);" onkeypress="num_only();" onkeyup="xajax_calcula_quantidade(document.getElementById('valor_item').value,this.value,'per_med',document.getElementById('quantidade_item').value);" />
 		                          </td>
 		                      </tr>
 		                  </table>
 		                  <table border="0" width="100%">
 		                      <tr>
-		                          <td width="40%" align="left"><input name="btninserir_medicoes" id="btninserir_medicoes" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onclick="xajax_insere_medicoes(xajax.getFormValues('frm', true));" />&nbsp;
+		                          <td width="40%" align="left"><input name="btninserir_medicoes" id="btninserir_medicoes" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onclick="xajax_insere_medicoes(xajax.getFormValues('frm', true));" /> 
 		                              <input name="btnlimpar_form" id="btnlimpar_form" type="button" class="class_botao" value="Cancelar" onclick="xajax_limparFormMedicoes();xajax_preenchevalor(document.getElementById('id_item').value);" />
 		                              <input name="btnexcluir_selecionados" id="btnexcluir_selecionados" class="class_botao" value="Excluir Selecionados" disabled="disabled" style="width:auto;" onclick="excluir_itens_selecionados();" type="button" />
 		                          </td>
 		                      </tr>
 		                  </table>
-		                  <div id="div_medicoes" style="width: 100%;">&nbsp;</div>
+		                  <div id="div_medicoes" style="width: 100%;"> </div>
 		              </div>
 		          </div>         
 		          <div id="a40">
@@ -239,7 +239,7 @@ div.gridbox table.row20px tr td
 		          </div>
 		          <div id="a50">
 		              <div id="dv_ped_fin">
-						  <div id="div_pedidos_finalizados">&nbsp;</div>
+						  <div id="div_pedidos_finalizados"> </div>
 		              </div>
 		          </div>
           </td>

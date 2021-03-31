@@ -7,18 +7,18 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onClick="xajax_insere(xajax.getFormValues('frm_empresas'));" /></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Inserir" onclick="xajax_insere(xajax.getFormValues('frm_empresas'));" /></td>
 				</tr>
 				<tr>
-				  <td valign="middle"><input name="btnlista" type="button" class="class_botao" id="btnlista" onClick="window.open('relatorios/rel_empresafunc.php');" value="Lista Excel" /></td>
+				  <td valign="middle"><input name="btnlista" type="button" class="class_botao" id="btnlista" onclick="window.open('relatorios/rel_empresafunc.php');" value="Lista Excel" /></td>
 			  </tr>
 				<tr>
 					<td valign="middle">
-					<input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			  <tr>
 			    <td valign="middle">
-				    <label for="filtro_situacao" class="labels">Mostrar&nbsp;Situação</label><br />
+				    <label for="filtro_situacao" class="labels">Mostrar Situação</label><br />
                     <select name="filtro_situacao" class="caixa" id="filtro_situacao" onkeypress="return keySort(this);" onchange="xajax_atualizatabela(xajax.$('busca').value, this.value); ">
                       <option value="">TODAS</option>
                       <option value="0">INATIVA</option>
@@ -58,9 +58,9 @@
 			</table>
           	<table border="0" width="100%">
 				<tr>
-					<td width="12%"><label for="imposto" class="labels">Incide&nbsp;Imposto?</label><br />
+					<td width="12%"><label for="imposto" class="labels">Incide Imposto?</label><br />
 						<select name="imposto" class="caixa" id="imposto" onkeypress="return keySort(this);">
-							<option value="0" >N&Atilde;O</option>
+							<option value="0" >NÃO</option>
 							<option value="1" selected="selected">SIM</option>
 						</select></td>
 					<td width="11%"><label for="situacao" class="labels">Situação</label><br />
@@ -71,7 +71,7 @@
 					<td width="11%"><label for="cnpj" class="labels">CNPJ</label><br />
 						<input name="cnpj" type="text" class="caixa" id="cnpj" size="20" maxlength="19" placeholder="CNPJ" onKeyPress="return txtBoxFormat(document.frm_empresas, 'cnpj', '99.999.999/9999-99', event);" />
 					</td>
-					<td width="66%" valign="top"><label for="contratoColaboradorNumero" class="labels">Contrato&nbsp;N�</label><br />
+					<td width="66%" valign="top"><label for="contratoColaboradorNumero" class="labels">Contrato Nº</label><br />
 						<input type="text" class="caixa" readonly="readonly" style="text-align:right;" name="contratoColaboradorNumero" id="contratoColaboradorNumero" size="3" />/
 						<input type="text" name="contratoColaboradorAno" readonly="readonly" size=3 class="caixa" id="contratoColaboradorAno" onkeypress="return keySort(this);" />
 					</td>
@@ -101,7 +101,7 @@
 				<tr>
 					<td width="8%"><label for="agencia" class="labels">Ag&ecirc;ncia</label><br />
 						<input name="agencia" type="text" class="caixa" id="agencia" size="10" placeholder="Agência" /></td>
-					<td width="15%"><label for="banco" class="labels">Instituição&nbsp;Bancária</label><br />
+					<td width="15%"><label for="banco" class="labels">Instituição Bancária</label><br />
                       <select name="banco" class="caixa" id="banco" onkeypress="return keySort(this);">
                         <smarty>html_options values=$option_bancos_values output=$option_bancos_output</smarty>
                     </select></td>
@@ -119,7 +119,7 @@
 			</table></td>
         </tr>
       </table>
-	  <div id="empresas" style="width:100%; height: 400px; margin-top: 10px;">&nbsp;</div>
+	  <div id="empresas" style="width:100%; height: 400px; margin-top: 10px;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

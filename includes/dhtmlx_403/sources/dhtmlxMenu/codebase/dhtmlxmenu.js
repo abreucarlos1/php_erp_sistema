@@ -496,8 +496,8 @@ function dhtmlXMenuObject(base, skin) {
 		if (type.charAt(1)=="d") return; // can't click on disabled item
 		if (type.charAt(2)=="s") return; // can't click on separator
 		//
-		if (this.checkEvent("onClick")) {
-			this.callEvent("onClick", [id, this.conf.ctx_zoneid, casState]);
+		if (this.checkEvent("onclick")) {
+			this.callEvent("onclick", [id, this.conf.ctx_zoneid, casState]);
 		} else {
 			if ((type.charAt(1) == "d") || (this.conf.mode == "win" && type.charAt(2) == "t")) return;
 		}
@@ -872,7 +872,7 @@ dhtmlXMenuObject.prototype._updateItemImage = function(id, levelType) {
 		if (imgObj != null) {
 			var p = imgObj.parentNode;
 			p.removeChild(imgObj);
-			p.innerHTML = "&nbsp;";
+			p.innerHTML = " ";
 			p = imgObj = null;
 		}
 	}
@@ -1220,7 +1220,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(id, pos) {
 			t1.appendChild(img);
 		}
 	} else {
-		t1.innerHTML = "&nbsp;";
+		t1.innerHTML = " ";
 	}
 	
 	// text
@@ -1232,7 +1232,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(id, pos) {
 		t2t.innerHTML = this.itemPull[id]["title"];
 		t2.appendChild(t2t);
 	} else {
-		t2.innerHTML = "&nbsp;";
+		t2.innerHTML = " ";
 	}
 	
 	// hotkey/sublevel arrow
@@ -1252,7 +1252,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(id, pos) {
 			t3t.innerHTML = this.itemPull[id]["hotkey"];
 			t3.appendChild(t3t);
 		} else {
-			t3.innerHTML = "&nbsp;";
+			t3.innerHTML = " ";
 		}
 	}
 	tr.appendChild(this.conf.rtl?t3:t1);
@@ -1284,7 +1284,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(id, pos) {
 	}
 	tr.onclick = function(e) {
 		// added in 0.4, preven complex closing if user event not defined
-		if (!that.checkEvent("onClick") && that.itemPull[this.id]["complex"]) return;
+		if (!that.checkEvent("onclick") && that.itemPull[this.id]["complex"]) return;
 		//
 		e = e || event; e.cancelBubble = true;
 		if (e.preventDefault) e.preventDefault(); else e.returnValue = false;

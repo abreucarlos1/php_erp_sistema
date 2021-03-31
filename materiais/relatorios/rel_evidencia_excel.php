@@ -123,13 +123,13 @@ $db->select($sql, 'MYSQL',
 			
 			if (count($dadosCabecalho['arquivo']) > 1)
 			{
-				//Se n�o for o primeiro arquivo da lista, pular 3 linhas
+				//Se não for o primeiro arquivo da lista, pular 3 linhas
 				$linha++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8',$reg['desc_arquivo'].' - '.$reg['atividade']));
 								
 				$linha++;
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8','Cod. Barras'));
-				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Descri��o'));
+				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8','Descrição'));
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha, iconv('ISO-8859-1', 'UTF-8','Qtd.'));
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, iconv('ISO-8859-1', 'UTF-8','unidade'));
 				
@@ -159,7 +159,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 4, iconv('ISO-8859
 //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha+1, iconv('ISO-8859-1', 'UTF-8','Total'));
 //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha+1, iconv('ISO-8859-1', 'UTF-8','=sum(C6:C'.($linha-1).')'));
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=lista_materiais_".date('Y_m_d_H_i_s').".xlsx");
 header('Cache-Control: max-age=0');

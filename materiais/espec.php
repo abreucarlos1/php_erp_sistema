@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Especifica��es de clientes
+	Formulário de Especificações de clientes
 	
 	Criado por Carlos Eduardo  
 	
@@ -58,7 +58,7 @@ function alterar($dados_form)
 	}
 	else
 	{
-		$resposta->addAlert("Especifica��o alterada corretamente!");
+		$resposta->addAlert("Especificação alterada corretamente!");
 		//$resposta->addScriptCall("reset_campos('frm')");
 		//$resposta->addScriptCall("limpa_combo('selOs')");
 		$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
@@ -74,7 +74,7 @@ function insere($dados_form)
 	
 	$cliente 	= maiusculas($dados_form['cliente']);
 	$descricao 	= maiusculas($dados_form['nome']);
-	$os 		= $dados_form['selOs'][0];//Listas devem ser inseridas uma a uma, somente c�pias ser�o para v�rias os's 
+	$os 		= $dados_form['selOs'][0];//Listas devem ser inseridas uma a uma, somente cópias serão para várias os's 
 	
 	if (empty($cliente) || empty($descricao) || empty($os))
 	{
@@ -95,7 +95,7 @@ function insere($dados_form)
 	
 	if ($db->numero_registros > 0)
 	{
-		$resposta->addAlert("J� existe uma especifica��o com esta descri��o para este cliente");
+		$resposta->addAlert("Já existe uma especificação com esta descrição para este cliente");
 	}
 	else
 	{
@@ -112,7 +112,7 @@ function insere($dados_form)
 		{
 			$idCabecalho = $db->insert_id;
 
-			$resposta->addAlert("Especifica��o cadastrada corretamente!");
+			$resposta->addAlert("Especificação cadastrada corretamente!");
 			$resposta->addScriptCall("reset_campos('frm')");
 			$resposta->addAssign('selOs', 'value', $os);
 			$resposta->addAssign('cliente', 'value', $cliente);
@@ -235,9 +235,9 @@ function atualizatabela($dados_form)
 	  FROM
 	    materiais_old.espec_cabecalho
 	    JOIN(
-	    	SELECT id_empresa_erp, id_unidade, abreviacao, empresa FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0 AND status = 'CLIENTE'
+	    	SELECT id_empresa, id_unidade, abreviacao, empresa FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0 AND status = 'CLIENTE'
 	    ) cliente
-	    ON id_empresa_erp = ec_cliente
+	    ON id_empresa = ec_cliente
 	WHERE espec_cabecalho.reg_del = 0 ".$sql_filtro." ".$filtroOs."";
 	
 	$xml = new XMLWriter();
@@ -255,7 +255,7 @@ function atualizatabela($dados_form)
 				$xml->writeElement('cell', "<span class=\'icone icone-arquivo-xls cursor\' onclick=window.location=\'relatorios/rel_lista_materiais_espec.php?id_espec=".$reg['ec_id']."\'; style=\'cursor:pointer;\'><span>");
 				$xml->writeElement('cell', "<span class=\'icone icone-detalhes cursor\' onclick=xajax_getListaMateriais(xajax.getFormValues(\'frm\'),".$reg['ec_id']."); style=\'cursor:pointer;\'></span>");
 				$xml->writeElement('cell', "<span class=\'icone icone-agregar cursor\' onclick=xajax_copiarEspec(".$reg['ec_id'].",".$reg['ec_cliente']."); style=\'cursor:pointer;\'></span>");
-				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['ec_id'].");};></span>");
+				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['ec_id'].");};></span>");
 			$xml->endElement();
 		}
 	);
@@ -343,31 +343,31 @@ function getListaMateriais($dados_form, $codEspec)
 	$db = new banco_dados();
 	
 	$html = '';
-	//A lista de documentos n�o deve nem aparecer para sele��o quando a lista de materiais estiver emitida
+	//A lista de documentos não deve nem aparecer para seleção quando a lista de materiais estiver emitida
 	if ($status != 2)
 	{
-		$html .='<label style="float:left" class="labels">Filtrar</label>&nbsp;'.
+		$html .='<label style="float:left" class="labels">Filtrar</label> '.
 				'<input style="float:left" type="text" id="txtFiltro2" name="txtFiltro2" size="50" onkeyup="iniciaBusca3.verifica(this);" />'.
-				'&nbsp;<span class="icone icone-inserir cursor" id="imgSelecionarFamilias" onclick="showModalFamilias()" title="Selecionar Familias"></span><label style="float:left" class="labels">Familia</label><br /><br />'.
+				' <span class="icone icone-inserir cursor" id="imgSelecionarFamilias" onclick="showModalFamilias()" title="Selecionar Familias"></span><label style="float:left" class="labels">Familia</label><br /><br />'.
 				'<fieldset style="padding:10px;height:263px;"><legend class="labels">Escolha os produtos, quantidades e unidades para criar a lista</legend>'.
 				'<form id="frm_lista" name="frm_lista" method="post">'.
 					'<input type="hidden" value="'.$codEspec.'" id="codEspecCabecalho" name="codEspecCabecalho" />'.
-					'<div id="materiais_cadastrados">&nbsp;</div>'.
+					'<div id="materiais_cadastrados"> </div>'.
 					'<div><input type="button" style="margin-top:15px;" class="class_botao" value="Incluir na ESPEC" onclick="xajax_salvarLista(xajax.getFormValues(\'frm_lista\'));" /></div>'.
 				'</form>'.
 				'</fieldset>';
 	}
 	
-	$html .='<fieldset style="padding-left:0px;margin-top:30px;height:250px;"><legend class="labels">Produtos j� cadastrado na ESPECIFICA��O</legend>'.
+	$html .='<fieldset style="padding-left:0px;margin-top:30px;height:250px;"><legend class="labels">Produtos já cadastrado na ESPECIFICAÇÃO</legend>'.
 			'<form id="frm_lista_edicao" name="frm_lista_edicao" method="post"><div id="div_lista_materiais"></div>'.
 			'<input type="hidden" value="'.$codEspec.'" id="id_espec_cabecalho" name="id_espec_cabecalho" />'.
 			'<div><input type="button" style="width: 150px; margin-top:15px;" class="class_botao" value="Excluir Selecionados" onclick="xajax_excluirSelecionados(xajax.getFormValues(\'frm_lista_edicao\'));" /></div>'.
 			'</form>'.
 			'</fieldset>';
 	
-	$html .='<i><sub>Para cancelar a altera��o feche esta janela central.</sub><i>'.	
+	$html .='<i><sub>Para cancelar a alteração feche esta janela central.</sub><i>'.	
 	
-	$resposta->addScriptCall('modal', $html, 'g', 'Materiais atrelados a ESPECIFICA��O selecionada');
+	$resposta->addScriptCall('modal', $html, 'g', 'Materiais atrelados a ESPECIFICAÇÃO selecionada');
 	
 	//$resposta->addScript("xajax_getListaProdutos('','{$idLista}');");
 	
@@ -396,7 +396,7 @@ function salvarLista($dados_form)
 		$qtd = 0;
 		foreach($dados_form['chk'] as $idProduto => $valor)
 		{
-			//Agora o idProduto ser� o codigo de barras
+			//Agora o idProduto será o codigo de barras
 			if (empty($idProduto))
 				continue;
 	
@@ -417,7 +417,7 @@ function salvarLista($dados_form)
 		}
 		else
 		{
-			$resposta->addAlert("N�o foram selecionados produtos para inserir na ESPEC");
+			$resposta->addAlert("Não foram selecionados produtos para inserir na ESPEC");
 			return $resposta;
 		}
 	//}
@@ -511,9 +511,9 @@ FROM
 	LEFT JOIN(
 		SELECT ec_cliente, ec_os FROM materiais_old.espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_id = ".$idEspecCabecalho."
 	) spec
-	ON ec_cliente = id_empresa_erp
+	ON ec_cliente = id_empresa
 	,
-	".DATABASE.".unidade
+	".DATABASE.".unidades
 WHERE
 	empresas.id_unidade = unidades.id_unidade
 	AND empresas.status = 'CLIENTE'
@@ -532,7 +532,7 @@ ORDER BY empresa ";
 	$db->select($sql,'MYSQL', function ($reg, $i) use(&$html, &$selected, &$cliente){
 		$selected =  !empty($reg['ec_cliente']) ? 'SELECTED="SELECTED"' : '';
 		
-		$html .= '<option value="'.$reg["id_empresa_erp"].'" '.$selected.'>'.$reg["empresa"].' - '.$reg["descricao"].' - '.$reg["unidade"].'</option>';
+		$html .= '<option value="'.$reg["id_empresa"].'" '.$selected.'>'.$reg["empresa"].' - '.$reg["descricao"].' - '.$reg["unidade"].'</option>';
 		
 		if (!empty($reg['ec_cliente']) && $cliente == '')
 			$cliente = $reg['ec_cliente']; 
@@ -547,7 +547,7 @@ ORDER BY empresa ";
 	$html .= '<input type="button" value="Confirmar" id="btnCopiar" name="btnCopiar" class="class_botao" onclick=if(confirmarPreenchimento())xajax_salvarCopia(xajax.getFormValues("frmEspecCliente")); />';
 	$html .= '</form>';
 	
-	$resposta->addScriptCall('modal',$html,'g','Copiar Especifica��o cliente n�('.$idEspecCabecalho.')');
+	$resposta->addScriptCall('modal',$html,'g','Copiar Especificação cliente nº('.$idEspecCabecalho.')');
 	$resposta->addScript("xajax_getOsCliente(".$cliente.",".$idEspecCabecalho.");");
 	
 	return $resposta;
@@ -567,7 +567,7 @@ function getOsCliente($codCliente, $idEspecCabecalho = 0, $idDestino = 'selOsCli
 FROM
 	".DATABASE.".OS
 WHERE
-	id_empresa_erp = ".$codCliente."
+	id_empresa = ".$codCliente."
 	AND OS.reg_del = 0 
 ORDER BY OS";
 	
@@ -613,7 +613,7 @@ function salvarCopia($dados_form)
 	
 	foreach($dados_form['selOsCliente'] as $os)
 	{
-		//N�o inserir esta lista caso a OS j� esteja cadastrada para evitar duplicatas
+		//Não inserir esta lista caso a OS já esteja cadastrada para evitar duplicatas
 		if ($dados_form['osJaSalva'] == $os)
 			continue;
 			
@@ -720,7 +720,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'divLista':
-			mygrid.setHeader("Cliente, Descri��o Especifica��o, R,E, V, D");
+			mygrid.setHeader("Cliente, Descrição Especificação, R,E, V, D");
 			mygrid.setInitWidths("*,*,50,50,50,50");
 			mygrid.setColAlign("left,left,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -736,7 +736,7 @@ function grid(tabela, autoh, height, xml)
 		break;
 		case 'materiais_cadastrados':
 			var html = '<input type="checkbox" id="chkProduto" name="chkProduto" onclick="selecionaCheckboxProdutos()" />';
-			mygrid.setHeader(html+",Cod. Barras, Descri��o");
+			mygrid.setHeader(html+",Cod. Barras, Descrição");
 			mygrid.setInitWidths("40,100,*");
 			mygrid.setColAlign("left,left,left");
 			mygrid.setColTypes("ro,ro,ro");
@@ -744,14 +744,14 @@ function grid(tabela, autoh, height, xml)
 		break;
 		case 'div_lista_materiais':
 			var html = '<input type="checkbox" id="chkLista" name="chkLista" onclick="selecionaCheckboxLista()" />';
-			mygrid.setHeader(html+",Cod. Barras, Descri��o");
+			mygrid.setHeader(html+",Cod. Barras, Descrição");
 			mygrid.setInitWidths("40,100,*");
 			mygrid.setColAlign("left,left,left");
 			mygrid.setColTypes("ro,ro,ro");
 			mygrid.setColSorting("na,str,str");
 		break;
 		case 'lista_familias':
-			mygrid.setHeader("C�digo, Descri��o, S");
+			mygrid.setHeader("Código, Descrição, S");
 			mygrid.setInitWidths("100,*,50");
 			mygrid.setColAlign("left,left,left");
 			mygrid.setColTypes("ro,ro,ro");
@@ -893,7 +893,7 @@ $conf = new configs();
 $array_cliente_values[] = "0";
 $array_cliente_output[] = "SELECIONE";
 	  
-$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND unidades.reg_del = 0 ";
@@ -901,7 +901,7 @@ $sql .= "AND empresas.status = 'CLIENTE' ";
 $sql .= "ORDER BY empresa ";
 
 $db->select($sql,'MYSQL', function ($regs, $i) use(&$array_cliente_values, &$array_cliente_output){
-	$array_cliente_values[] = $regs["id_empresa_erp"];
+	$array_cliente_values[] = $regs["id_empresa"];
 	$array_cliente_output[] = $regs["empresa"] . " - " . $regs["descricao"] . " - " . $regs["unidade"];
 });
 

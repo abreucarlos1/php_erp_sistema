@@ -1,4 +1,4 @@
-<?
+<?php
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
 

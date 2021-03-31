@@ -100,17 +100,17 @@ function seleciona_func($dados_form)
 		}
 									
 		$conteudo .= "<tr>";
-		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".mysql_php($cont_horas["data"])."</td>";
-		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$os."</td>";
-		$conteudo .= "<td align=\"left\" style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["tarefa"]."</td>";
-		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["codigo"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["descricao"] . " " . $cont_horas["complemento"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_inicial"],0,5)."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_final"],0,5)."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_normal"],0,5)."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_adicional"],0,5)."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$retrabalho."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onClick=\"javascript:if(apagar('". mysql_php($cont_horas["data"])."')){xajax_excluir('".$cont_horas["id_apontamento_horas"]."','". mysql_php($cont_horas["data"])."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
+		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".mysql_php($cont_horas["data"])."</td>";
+		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$os."</td>";
+		$conteudo .= "<td align=\"left\" style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["tarefa"]."</td>";
+		$conteudo .= "<td align=\"center\" style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["codigo"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$cont_horas["descricao"] . " " . $cont_horas["complemento"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_inicial"],0,5)."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_final"],0,5)."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_normal"],0,5)."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".substr($cont_horas["hora_adicional"],0,5)."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_horas["id_apontamento_horas"]."')\">".$retrabalho."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onclick=\"javascript:if(apagar('". mysql_php($cont_horas["data"])."')){xajax_excluir('".$cont_horas["id_apontamento_horas"]."','". mysql_php($cont_horas["data"])."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
 		$conteudo .= "</tr>";
 	}
 
@@ -133,26 +133,26 @@ function excluir($id_horas)
 	$sql = "SELECT TOP 1 R_E_C_N_O_ FROM DVM002 ";	
 	$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 	
-	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("N�o foi poss�vel a selec�o dos dados".$sql);
+	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 	$regs = mssql_fetch_array($regis);
 	
 	$recno = $regs["R_E_C_N_O_"] + 1;
 	
-	$incsql = "INSERT INTO DVM002 ";
-	$incsql .= "(ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
-	$incsql .= "VALUES (";
-	$incsql .= "'".$id_horas."', ";
-	$incsql .= "'E', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-	$incsql .= "'', ";
-	$incsql .= "'".$recno."') ";
+	$isql = "INSERT INTO DVM002 ";
+	$isql .= "(ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+	$isql .= "VALUES (";
+	$isql .= "'".$id_horas."', ";
+	$isql .= "'E', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+	$isql .= "'', ";
+	$isql .= "'".$recno."') ";
 	
 	//Carrega os registros
-	$registros = mssql_query($incsql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql.mssql_get_last_message());
+	$registros = mssql_query($isql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$isql.mssql_get_last_message());
 	
 	$resposta->addScript("xajax_seleciona_func(xajax.getFormValues('frm_alteracao',true));");
 
-	$resposta->addAlert("Horas exclu�das com sucesso.");
+	$resposta->addAlert("Horas excluídas com sucesso.");
 	
 	$db->fecha_db();
 	
@@ -453,7 +453,7 @@ function atualizar($dados_form)
 		$sql = "SELECT id_atividade, codigo, cod FROM ".DATABASE.".atividades ";
 		$sql .= "WHERE codigo = '".trim($compos["AF9_COMPOS"])."' ";
 		
-		$regis2 = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a selecao dos dados3".$sql);
+		$regis2 = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a selecao dos dados3".$sql);
 
 		if(mysql_num_rows($regis2)>0)
 		{		
@@ -676,7 +676,7 @@ function atualizar($dados_form)
 		$hn = sprintf("%02d",$qtd_h_n) .":".sprintf("%02d",$qtd_m_n);
 		$ha = sprintf("%02d",$qtd_h_a) .":".sprintf("%02d",$qtd_m_a);
 		
-		$sql = "SELECT id_empresa_erp FROM ".DATABASE.".empresas ";
+		$sql = "SELECT id_empresa FROM ".DATABASE.".empresas ";
 		$sql .= "WHERE empresas.id_cod_protheus = '".trim($cliente["AF8_CLIENT"])."' ";
 		$sql .= "AND empresas.id_loja_protheus = '".trim($cliente["AF8_LOJA"])."' ";
 		
@@ -756,9 +756,9 @@ function atualizar($dados_form)
 					//Alteração: 11/03/2008 por Carlos Abreu
 					//Evitar que seja inserida um cliente diferente da OS
 					$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico ";
-					$sql .= "WHERE empresas.id_empresa_erp = '".$cliente_dvm["id_empresa_erp"]."' ";
+					$sql .= "WHERE empresas.id_empresa = '".$cliente_dvm["id_empresa"]."' ";
 					$sql .= "AND ordem_servico.id_os = '".$proposta[2]."' ";
-					$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 
 					$regis = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$sql0);
 										
@@ -974,25 +974,25 @@ function atualizar($dados_form)
 							}							
 							
 							/*
-							$incsql = "INSERT INTO DVM002 ";
-							$incsql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
-							$incsql .= "VALUES ('" . trim($proposta[0]) . "', ";
-							$incsql .= "'" . trim($proposta[1]) . "', ";
-							$incsql .= "'" . trim($dados_form["disciplina"]) . "', ";
-							$incsql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
-							$incsql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
-							$incsql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
-							$incsql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
-							$incsql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
-							$incsql .= "1, ";
-							$incsql .= "1, ";
-							$incsql .= "1, ";
-							$incsql .= "" . $horas_total . ", ";
-							$incsql .= "" . $qtd_horas_adicional . ", ";
-							$incsql .= "'".$dados_form["id_horas"]."', ";
-							$incsql .= "'A', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-							$incsql .= "'', ";
-							$incsql .= "'".$recno."') ";
+							$isql = "INSERT INTO DVM002 ";
+							$isql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+							$isql .= "VALUES ('" . trim($proposta[0]) . "', ";
+							$isql .= "'" . trim($proposta[1]) . "', ";
+							$isql .= "'" . trim($dados_form["disciplina"]) . "', ";
+							$isql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
+							$isql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
+							$isql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
+							$isql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
+							$isql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
+							$isql .= "1, ";
+							$isql .= "1, ";
+							$isql .= "1, ";
+							$isql .= "" . $horas_total . ", ";
+							$isql .= "" . $qtd_horas_adicional . ", ";
+							$isql .= "'".$dados_form["id_horas"]."', ";
+							$isql .= "'A', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+							$isql .= "'', ";
+							$isql .= "'".$recno."') ";
 							*/
 							
 						}
@@ -1046,7 +1046,7 @@ function atualizar($dados_form)
 					
 					$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 					
-					$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("N�o foi poss�vel a selec�o dos dados".$sql);
+					$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 				
 					$regs = mssql_fetch_array($regis);
 					
@@ -1060,27 +1060,27 @@ function atualizar($dados_form)
 					
 					$horas_total = $qtd_horas_normal + $qtd_horas_adicional + $qtd_horas_adicional_not; 	
 					
-					$incsql = "INSERT INTO DVM002 ";
-					$incsql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
-					$incsql .= "VALUES ('" . trim($proposta[0]) . "', ";
-					$incsql .= "'" . trim($proposta[1]) . "', ";
-					$incsql .= "'" . trim($dados_form["disciplina"]) . "', ";
-					$incsql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
-					$incsql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
-					$incsql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
-					$incsql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
-					$incsql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
-					$incsql .= "1, ";
-					$incsql .= "1, ";
-					$incsql .= "1, ";
-					$incsql .= "" . $horas_total . ", ";
-					$incsql .= "" . $qtd_horas_adicional . ", ";
-					$incsql .= "'".$dados_form["id_horas"]."', ";
-					$incsql .= "'A', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-					$incsql .= "'', ";
-					$incsql .= "'".$recno."') ";
+					$isql = "INSERT INTO DVM002 ";
+					$isql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+					$isql .= "VALUES ('" . trim($proposta[0]) . "', ";
+					$isql .= "'" . trim($proposta[1]) . "', ";
+					$isql .= "'" . trim($dados_form["disciplina"]) . "', ";
+					$isql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
+					$isql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
+					$isql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
+					$isql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
+					$isql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
+					$isql .= "1, ";
+					$isql .= "1, ";
+					$isql .= "1, ";
+					$isql .= "" . $horas_total . ", ";
+					$isql .= "" . $qtd_horas_adicional . ", ";
+					$isql .= "'".$dados_form["id_horas"]."', ";
+					$isql .= "'A', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+					$isql .= "'', ";
+					$isql .= "'".$recno."') ";
 					//Carrega os registros
-					$regis = mssql_query($incsql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql.mssql_get_last_message());
+					$regis = mssql_query($isql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$isql.mssql_get_last_message());
 					
 					*/
 				}
@@ -1115,9 +1115,9 @@ function atualizar($dados_form)
 						//Alteração: 11/03/2008 por Carlos Abreu
 						//Evitar que seja inserida um cliente diferente da OS
 						$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico ";
-						$sql .= "WHERE empresas.id_empresa_erp = '".$dados_form["cliente"]."' ";
+						$sql .= "WHERE empresas.id_empresa = '".$dados_form["cliente"]."' ";
 						$sql .= "AND ordem_servico.id_os = '".$proposta[0]."' ";
-						$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+						$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 						
 						$regis = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$sql0);
 						
@@ -1197,7 +1197,7 @@ function atualizar($dados_form)
 						
 						$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 						
-						$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("N�o foi poss�vel a selec�o dos dados".$sql);
+						$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 					
 						$regs = mssql_fetch_array($regis);
 						
@@ -1211,28 +1211,28 @@ function atualizar($dados_form)
 						
 						$horas_total = $qtd_horas_normal + $qtd_horas_adicional + $qtd_horas_adicional_not; 	
 						
-						$incsql = "INSERT INTO DVM002 ";
-						$incsql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
-						$incsql .= "VALUES ('" . trim($proposta[0]) . "', ";
-						$incsql .= "'" . trim($proposta[1]) . "', ";
-						$incsql .= "'" . trim($dados_form["disciplina"]) . "', ";
-						$incsql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
-						$incsql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
-						$incsql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
-						$incsql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
-						$incsql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
-						$incsql .= "1, ";
-						$incsql .= "1, ";
-						$incsql .= "1, ";
-						$incsql .= "" . $horas_total . ", ";
-						$incsql .= "" . $qtd_horas_adicional . ", ";
-						$incsql .= "'".$dados_form["id_horas"]."', ";
-						$incsql .= "'A', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-						$incsql .= "'', ";
-						$incsql .= "'".$recno."') ";
+						$isql = "INSERT INTO DVM002 ";
+						$isql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+						$isql .= "VALUES ('" . trim($proposta[0]) . "', ";
+						$isql .= "'" . trim($proposta[1]) . "', ";
+						$isql .= "'" . trim($dados_form["disciplina"]) . "', ";
+						$isql .= "'FUN_".sprintf("%011d",$dados_form["funcionario"])."', ";
+						$isql .= "'" . str_replace("-","",php_mysql($dados_form["data"])) . "', ";
+						$isql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
+						$isql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
+						$isql .= "'" . strip_tags(maiusculas($dados_form["complemento"])) . "', ";
+						$isql .= "1, ";
+						$isql .= "1, ";
+						$isql .= "1, ";
+						$isql .= "" . $horas_total . ", ";
+						$isql .= "" . $qtd_horas_adicional . ", ";
+						$isql .= "'".$dados_form["id_horas"]."', ";
+						$isql .= "'A', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+						$isql .= "'', ";
+						$isql .= "'".$recno."') ";
 						
 						//Carrega os registros
-						$regis = mssql_query($incsql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql.mssql_get_last_message());
+						$regis = mssql_query($isql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a inserção dos dados".$isql.mssql_get_last_message());
 					
 						*/
 					}
@@ -1316,7 +1316,7 @@ function tarefas($dados_form, $selecionado = 0)
 	
 	$os = NULL;
 	
-	$os = explode("#",$dados_form["os"]);//0 - projeto / 1 - revis�o /2 - OS / 3- status
+	$os = explode("#",$dados_form["os"]);//0 - projeto / 1 - revisão /2 - OS / 3- status
 	
 	$db = new banco_dados;
 	

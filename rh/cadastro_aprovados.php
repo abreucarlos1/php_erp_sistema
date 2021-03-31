@@ -244,15 +244,18 @@ if (isset($_GET['acao']) && $_GET['acao'] == 'salvar' && !empty($_POST))
 					$corpo .= "local de Trabalho: ".$dados[0]['desclocal']."<br />";
 					$corpo .= "Por favor, verificar se os dados estão corretos.";
 				
-					//email
-					$params 			= array();
-					$params['from']		= "recrutamento@dominio.com.br";
-					$params['from_name']= "RECURSOS HUMANOS";
-					$params['subject'] 	= "CONCLUSÃO DE CADASTRO DE CANDIDATO APROVADO";
+					if(ENVIA_EMAIL)
+					{
+						//email
+						$params 			= array();
+						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from_name']= "RECURSOS HUMANOS";
+						$params['subject'] 	= "CONCLUSÃO DE CADASTRO DE CANDIDATO APROVADO";
 
-					$mail = new email($params,'conclusao_cadastro_aprovados');
-					$mail->montaCorpoEmail($corpo);
-					$mail->Send();
+						$mail = new email($params,'conclusao_cadastro_aprovados');
+						$mail->montaCorpoEmail($corpo);
+						$mail->Send();
+					}
 				}
 
 				exit(

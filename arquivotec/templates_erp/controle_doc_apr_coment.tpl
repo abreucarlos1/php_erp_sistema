@@ -7,10 +7,10 @@
           <td width="116" rowspan="2" valign="top" class="espacamento">
 		  <table width="100%" border="0">
 				<tr>
-					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatÛrio"/></td>
+					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relat√≥rio"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -39,17 +39,17 @@
                   </td>
 		    	</tr>
 				<tr>
-				  <td><label class="labels">Status&nbsp;DevoluÁ„o</label></td>
+				  <td><label class="labels">Status Devolu√ß√£o</label></td>
 		    	</tr>
 				<tr>
 				  <td>
                     <label class="labels"><input type="checkbox" name="chk_TODOS" id="chk_TODOS" value="-1" onclick="if(this.checked){setcheckbox('frm_rel','check');}else{setcheckbox('frm_rel','');}">TODOS</label><br>
 					<label class="labels"><input type="checkbox" name="chk_A" id="chk_A" value="A" />APROVADO</label><br>
-					<label class="labels"><input type="checkbox" name="chk_AC" id="chk_AC" value="AC" checked="checked" />APROVADO COM COMENT¡RIOS</label><br>
+					<label class="labels"><input type="checkbox" name="chk_AC" id="chk_AC" value="AC" checked="checked" />APROVADO COM COMENT√ÅRIOS</label><br>
 					<label class="labels"><input type="checkbox" name="chk_C" id="chk_C" value="C" />CANCELADO</label><br>
-					<label class="labels"><input type="checkbox" name="chk_N" id="chk_N" value="N" />N√O APROVADO</label><br>
-					<label class="labels"><input type="checkbox" name="chk_PI" id="chk_PI" value="PI" />PARA INFORMA«√O</label><br>
-					<label class="labels"><input type="checkbox" name="chk_NP" id="chk_NP" value="NP" />COMENT¡RIO N√O PROCEDENTE</label><br>
+					<label class="labels"><input type="checkbox" name="chk_N" id="chk_N" value="N" />N√ÉO APROVADO</label><br>
+					<label class="labels"><input type="checkbox" name="chk_PI" id="chk_PI" value="PI" />PARA INFORMA√á√ÉO</label><br>
+					<label class="labels"><input type="checkbox" name="chk_NP" id="chk_NP" value="NP" />COMENT√ÅRIO N√ÉO PROCEDENTE</label><br>
                   </td>
 		    	</tr>
 		  </table></td>

@@ -235,7 +235,7 @@ function dhtmlXFileUploader(p, swfPath, swfUrl, mode, swfLogs, slXap, slUrl, slL
 		
 		for (var a in this.b_opts) {
 			var k = document.createElement("DIV");
-			k.innerHTML = "&nbsp;";
+			k.innerHTML = " ";
 			k.className = "dhx_file_uploader_button button_"+a;
 			k.onclick = this.b_opts[a].onclick;
 			if (this.b_opts[a].tooltip) k.title = this.b_opts[a].tooltip;
@@ -266,9 +266,9 @@ function dhtmlXFileUploader(p, swfPath, swfUrl, mode, swfLogs, slXap, slUrl, slL
 		var t = document.createElement("DIV");
 		t._idd = id;
 		t.className = "dhx_file dhx_file_"+state;
-		t.innerHTML =   "<div class='dhx_file_param dhx_file_name'>&nbsp;</div>"+
+		t.innerHTML =   "<div class='dhx_file_param dhx_file_name'> </div>"+
 				"<div class='dhx_file_param dhx_file_progress'>"+progress+"%</div>"+
-				"<div class='dhx_file_param dhx_file_delete' title='Remove from list'>&nbsp;</div>";
+				"<div class='dhx_file_param dhx_file_delete' title='Remove from list'> </div>";
 		
 		this.p_files.appendChild(t);
 		
@@ -306,7 +306,7 @@ function dhtmlXFileUploader(p, swfPath, swfUrl, mode, swfLogs, slXap, slUrl, slL
 	}
 	
 	this._updateFileNameSize = function(id) {
-		this._items[id].childNodes[0].innerHTML = this._files[id].name+(!isNaN(this._files[id].size)?" ("+this._readableSize(this._files[id].size)+")":"&nbsp;");
+		this._items[id].childNodes[0].innerHTML = this._files[id].name+(!isNaN(this._files[id].size)?" ("+this._readableSize(this._files[id].size)+")":" ");
 		this._items[id].childNodes[0].title = this._files[id].name+(!isNaN(this._files[id].size)?" ("+this._readableSize(this._files[id].size)+")":"");
 	}
 	
@@ -321,7 +321,7 @@ function dhtmlXFileUploader(p, swfPath, swfUrl, mode, swfLogs, slXap, slUrl, slL
 	this._updateProgress = function(id, state, progress) {
 		if (state == "uploading" && progress < 100 && this._progress_type == "loader") {
 			this._items[id].childNodes[1].className = "dhx_file_param dhx_file_uploading";
-			this._items[id].childNodes[1].innerHTML = "&nbsp;";
+			this._items[id].childNodes[1].innerHTML = " ";
 		} else {
 			this._items[id].childNodes[1].className = "dhx_file_param dhx_file_progress";
 			this._items[id].childNodes[1].innerHTML = progress+"%";

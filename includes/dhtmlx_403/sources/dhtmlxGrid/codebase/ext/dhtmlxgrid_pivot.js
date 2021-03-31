@@ -55,7 +55,7 @@ dhtmlXGridObject.prototype.makePivot=function(cont,details){
    	}
    		
    	var that = this;
-	cont.innerHTML="<table cellspacing='0' cellpadding='0'><tr><td style='width:160px' align='center'></td><td>&nbsp;&nbsp;&nbsp;</td><td></td></tr></table><div></div>";
+	cont.innerHTML="<table cellspacing='0' cellpadding='0'><tr><td style='width:160px' align='center'></td><td>   </td><td></td></tr></table><div></div>";
 	var z1=this.makePivotSelect(this._column_list);
 		z1.style.width="80px";
 		z1.onchange=function(){

@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_integracao'));" value="Inserir" />					</td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnrelatorio" id="btnrelatorio" type="button" class="class_botao" value="Relat�rio" onclick='window.open("./relatorios/rel_integracao_excel.php", "_blank");' /></td>
+					<td valign="middle"><input name="btnrelatorio" id="btnrelatorio" type="button" class="class_botao" value="Relatório" onclick='window.open("./relatorios/rel_integracao_excel.php", "_blank");' /></td>
 				</tr>
 				<tr>
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -28,7 +28,7 @@
 						<input type="hidden" name="id_integracao" id="id_integracao" value="" /></td>
 					<td width="13%"><label for="cracha" class="labels">Cracha </label><br />
                     <input name="cracha" type="text" class="caixa" id="cracha" value="" size="12" maxlength="10" placeholder="Cracha" /></td>
-					<td width="18%"><label for="local_trabalho" class="labels">Local&nbsp;de&nbsp;trabalho</label><br />
+					<td width="18%"><label for="local_trabalho" class="labels">Local de trabalho</label><br />
                       <select name="local_trabalho" class="caixa" id="local_trabalho" onkeypress="return keySort(this);">
                         <smarty>html_options values=$option_local_values output=$option_local_output</smarty>
                     </select></td>
@@ -36,11 +36,11 @@
 			</table>
 		  <table border="0" width="100%">
 		    <tr>
-		      <td width="21%" valign="top"><label for="data_integracao" class="labels">Data&nbsp;da&nbsp;Integração </label><br />
+		      <td width="21%" valign="top"><label for="data_integracao" class="labels">Data da Integração </label><br />
               <input name="data_integracao" type="text" class="caixa" id="data_integracao" onkeypress="transformaData(this, event);" value="<smarty>$data_integracao</smarty>" onblur="xajax_calcula_vencimento(this.value,vigencia.value);return checaTamanhoData(this,10);" size="10" maxlength="10" /></td>
-		      <td width="18%" valign="top"><label for="vigencia" class="labels">Vig&ecirc;ncia&nbsp;(Meses)</label><br />
+		      <td width="18%" valign="top"><label for="vigencia" class="labels">Vig&ecirc;ncia (Meses)</label><br />
               <input name="vigencia" type="text" class="caixa" id="vigencia" value="12" onblur="xajax_calcula_vencimento(data_integracao.value,this.value);" size="8" maxlength="2" /></td>
-		      <td width="27%" valign="top"><label for="data_vencimento" class="labels">Vencimento&nbsp;da&nbsp;Integração </label><br />
+		      <td width="27%" valign="top"><label for="data_vencimento" class="labels">Vencimento da Integração </label><br />
               <input name="data_vencimento" type="text" class="caixa" id="data_vencimento" value="" size="10" maxlength="10" readonly="readonly" /></td>
 		      <td width="34%" valign="top"><label for="observacoes" class="labels">Follow Up</label><br />
 		      	<textarea cols="25" name="observacoes" id="observacoes"></textarea>
@@ -56,7 +56,7 @@
 		  </td>
         </tr>
       </table>
-	  <div id="integracao" style="width:100%;">&nbsp;</div>
+	  <div id="integracao" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

@@ -329,7 +329,7 @@ if($_POST["funcao"]=='desbloqueio')
 		
 		$tamanho_format = 0;
 		
-		$msg = "&nbsp;Os&nbsp;campos&nbsp;motivo&nbsp;e/ou&nbsp;anexo&nbsp;e/ou&nbsp;status&nbsp;e/ou&nbsp;data&nbsp;devem&nbsp;estar&nbsp;preenchidos!";
+		$msg = " Os campos motivo e/ou anexo e/ou status e/ou data devem estar preenchidos!";
 		
 		sleep(1);
 		
@@ -343,7 +343,7 @@ if($_POST["funcao"]=='desbloqueio')
 	{
 		//Preenche um array com dados de Usuários
 		$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO') ";
@@ -555,7 +555,7 @@ if($_POST["funcao"]=='desbloqueio')
 			//{
 			//    if(!empty($alocado['email']))
 			//    {
-			//        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+			//        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
 			//    }
 			//}
 			
@@ -570,35 +570,41 @@ if($_POST["funcao"]=='desbloqueio')
 			$str_mensagem .= "<p>em " . date('d/m/Y') . ", sendo registrado no sistema.</p>";
 			$str_mensagem .= "<p>Solicitante: " . $array_usrnome[$_SESSION["id_funcionario"]] . "</p>";
 			$str_mensagem .= "<p>Motivo do desbloqueio: " . trim(addslashes($_POST["motivo"])) . "</p>";
-			$str_mensagem .= "<p>&nbsp;</p>";
+			$str_mensagem .= "<p> </p>";
 			$str_mensagem .= "<p>Aguardando desbloqueio pelo arquivo técnico.</p>";
 			
 			$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($corpoEmail);
+			if(ENVIA_EMAIL)
+			{
 
-			if(!$mail->Send())
-			{
-				$result = 0;
+				$mail = new email($params);
 				
-				$erro = 0;
-				
-				$msg = "Erro e-mail!";
+				$mail->montaCorpoEmail($corpoEmail);
+
+				if(!$mail->Send())
+				{
+					$result = 0;
+					
+					$erro = 0;
+					
+					$msg = "Erro e-mail!";
+				}
+				else
+				{
+
+					
+					$result = 1;
+					
+					$erro = 0;	
+				}
 			}
-			else
-			{
-				?>
-                	<script>
-					alert('Solicitação enviada!');
-					</script>
-                <?php
-				
-				$result = 1;
-				
-				$erro = 0;	
-			}
+
+			?>
+				<script>
+				alert('Solicitação enviada!');
+				</script>
+			<?php
 			
 		}
 		
@@ -683,7 +689,7 @@ if($_POST["funcao"]=='comentario')
 					//Passa em todos os FILES do POST do xajax.upload
 					foreach($_FILES as $chave=>$valor)
 					{	
-						//n�o esta vazio o campo arquivo
+						//não esta vazio o campo arquivo
 						if(tiraacentos(addslashes($valor["name"]))!='')
 						{
 							$nome_arquivo = tiraacentos(addslashes($valor["name"])); //nome do arquivo (ex. "arquivo.dwg")
@@ -741,7 +747,7 @@ if($_POST["funcao"]=='comentario')
 								else
 								{
 									$erro = 7;
-									$msg = "Erro&nbsp;ao&nbsp;mover&nbsp;o&nbsp;arquivo";										
+									$msg = "Erro ao mover o arquivo";										
 									$result = 0;
 								}
 							}				
@@ -789,7 +795,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 			{								
 				//seleciona Cliente/OS para composição da pasta
 				$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresas.abreviacao_GED FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
-				$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+				$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 				$sql .= "AND ordem_servico.reg_del = 0 ";
 				$sql .= "AND empresas.reg_del = 0 ";
 				$sql .= "AND ordem_servico.id_os = '" . $_POST["id_os"] . "' ";
@@ -1020,7 +1026,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 										$sql .= "AND funcionarios.reg_del = 0 ";
 										$sql .= "AND usuarios.reg_del = 0 ";
 										$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
-										$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
+										$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 										$sql .= "ORDER BY funcionario ";
 										
 										$db->select($sql,'MYSQL',true);
@@ -1045,7 +1051,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 											$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 											$sql .= "AND funcionarios.reg_del = 0 ";
 											$sql .= "AND usuarios.reg_del = 0 ";
-											$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+											$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 									
 											$db->select($sql,'MYSQL',true);
 									
@@ -1054,7 +1060,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 											$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_fun["funcionario"]);
 											
 											$texto = "<p>Incluído CI no sistema:</p>";
-											$texto .= "<div id='div_doc'><strong>Nº:&nbsp;</strong> " . $cod_dvm . "</div>";
+											$texto .= "<div id='div_doc'><strong>Nº: </strong> " . $cod_dvm . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas($titulo). "</div>";
 											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>Data:</strong> " . date("d/m/Y") . "</div>";
@@ -1067,18 +1073,21 @@ if($_POST["funcao"]=='comunicacao_interna')
 										
 											$corpoEmail = "<html><body>" . $texto . "</body></html>";
 											
-											$mail = new email($params);
-											
-											$mail->montaCorpoEmail($corpoEmail);
-											
-											if(!$mail->Send())
+											if(ENVIA_EMAIL)
 											{
-												$erro = "Erro ao enviar e-mail!!! ".$mail->ErrorInfo;
+
+												$mail = new email($params);
+												
+												$mail->montaCorpoEmail($corpoEmail);
+												
+												if(!$mail->Send())
+												{
+													$erro = "Erro ao enviar e-mail!!! ".$mail->ErrorInfo;
+												}
+
 											}
-											else
-											{
-												$result = 1;
-											}
+
+											$result = 1;
 										}									
 									}
 								}
@@ -1111,7 +1120,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 					
 					//seleciona Cliente/OS para composição da pasta
 					$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresas.abreviacao_GED FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
-					$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 					$sql .= "AND ordem_servico.reg_del = 0 ";
 					$sql .= "AND empresas.reg_del = 0 ";
 					$sql .= "AND ordem_servico.id_os = '" . $reg_ver["id_os"] . "' ";
@@ -1270,7 +1279,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 									$sql .= "AND funcionarios.reg_del = 0 ";
 									$sql .= "AND usuarios.reg_del = 0 ";
 									$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
-									$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
+									$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 									$sql .= "ORDER BY funcionario ";
 									
 									$db->select($sql,'MYSQL',true);
@@ -1293,12 +1302,12 @@ if($_POST["funcao"]=='comunicacao_interna')
 											}
 										}													
 					
-										//Obt�m o funcionario emissor
+										//Obtém o funcionario emissor
 										$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
 										$sql .= "AND usuarios.reg_del = 0 ";
-										$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+										$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 								
 										$db->select($sql,'MYSQL',true);
 										
@@ -1314,7 +1323,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 											$params['emails']['to'][] = array('email' => $reg_fun["email"], 'nome' => $reg_fun["funcionario"]);
 																							
 											$texto = "<p>Alterada CI no sistema:</p>";
-											$texto .= "<div id='div_doc'><strong>Nº:&nbsp;</strong> " . $_POST["numero_registro"] . "</div>";
+											$texto .= "<div id='div_doc'><strong>Nº: </strong> " . $_POST["numero_registro"] . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas(addslashes($_POST["titulo"])). "</div>";
 											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>Data:</strong> " . date("d/m/Y") . "</div>";
@@ -1327,20 +1336,24 @@ if($_POST["funcao"]=='comunicacao_interna')
 											
 											$corpoEmail = "<html><body>" . $texto . "</body></html>";
 											
-											$mail = new email($params);
-											
-											$mail->montaCorpoEmail($corpoEmail);
+											if(ENVIA_EMAIL)
+											{
 
-											if(!$mail->Send())
-											{
-												$erro = "Erro ao enviar e-mail!!! ".$mail->ErrorInfo;
-											}
-											else
-											{
-												$erro = "";
+												$mail = new email($params);
 												
-												$result = 1;	
-											}												
+												$mail->montaCorpoEmail($corpoEmail);
+
+												if(!$mail->Send())
+												{
+													$erro = "Erro ao enviar e-mail!!! ".$mail->ErrorInfo;
+												}
+
+											}
+
+											$erro = "";
+													
+											$result = 1;									
+											
 										}
 									}
 								}							
@@ -1432,7 +1445,7 @@ if($_POST["funcao"]=='documento_referencia')
 								
 			//seleciona Cliente/OS para composição da pasta
 			$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresas.abreviacao_GED FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
-			$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND ordem_servico.reg_del = 0 ";
 			$sql .= "AND empresas.reg_del = 0 ";
 			$sql .= "AND ordem_servico.id_os = '" . $_POST["inc_id_os"] . "' ";
@@ -1727,7 +1740,7 @@ if($_POST["funcao"]=='documento_referencia')
 					
 					//seleciona Cliente/OS para composição da pasta
 					$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresas.abreviacao_GED FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
-					$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 					$sql .= "AND ordem_servico.reg_del = 0 ";
 					$sql .= "AND empresas.reg_del = 0 ";
 					$sql .= "AND ordem_servico.id_os = '" . $reg_ver["id_os"] . "' ";
@@ -2032,7 +2045,7 @@ else
 					{					
 						//Loop em todos os NumDVM do array
 						
-						$sql = "SELECT empresas.id_empresa_erp, empresas.abreviacao_GED, ordem_servico.os, ordem_servico.id_os, ordem_servico.descricao AS OS_Descricao, numeros_interno.id_numero_interno, numeros_interno.sequencia, 
+						$sql = "SELECT empresas.id_empresa, empresas.abreviacao_GED, ordem_servico.os, ordem_servico.id_os, ordem_servico.descricao AS OS_Descricao, numeros_interno.id_numero_interno, numeros_interno.sequencia, 
 							atividades.descricao AS atividades_Descricao, setores.abreviacao, setores.sigla, solicitacao_documentos_detalhes.versao_documento 
 						FROM ".DATABASE.".empresas, ".DATABASE.".ordem_servico, 
 							".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno 
@@ -2044,7 +2057,7 @@ else
 						AND atividades.reg_del = 0
 						AND numeros_interno.id_disciplina = setores.id_setor 
 						AND numeros_interno.id_atividade = atividades.id_atividade 
-						AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp 
+						AND ordem_servico.id_empresa = empresas.id_empresa 
 						AND numeros_interno.id_numero_interno IN (" . implode(",",$array_numdvm) . ") 
 						AND numeros_interno.id_numero_interno = solicitacao_documentos_detalhes.id_numero_interno ";
 	

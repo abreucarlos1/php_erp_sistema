@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de Endere�os (Sinais)
+		Formulário de Endereços (Sinais)
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/enderecos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -50,7 +50,7 @@ function preencheComponente($dados_form, $id_canal)
 	if($dados_form["acao"]=="")
 	{
 	
-		//Preenche o combo atrav�s do servidor - remotamente
+		//Preenche o combo através do servidor - remotamente
 	
 		$sql_componentes = "SELECT * FROM Projetos.processo, Projetos.dispositivos, Projetos.funcao, Projetos.componentes, Projetos.malhas, Projetos.subsistema, Projetos.area ";
 		$sql_componentes .= "WHERE componentes.id_malha = malhas.id_malha ";
@@ -112,7 +112,7 @@ function preencheComponente($dados_form, $id_canal)
 	
 			$selecionado = "";
 	
-			//Verifica se o componente � o que estava selecionado previamente no combo, caso positivo mant�m selecionado.
+			//Verifica se o componente é o que estava selecionado previamente no combo, caso positivo mantém selecionado.
 			if($dados_form[$id_canal]==$id_comp)
 			{
 				$selecionado = "selected";
@@ -181,7 +181,7 @@ function preencheComponente($dados_form, $id_canal)
 
 function iniciaComponente($id_slots)
 {
-	//Preenche os combos no in�cio, com os componentes do banco
+	//Preenche os combos no início, com os componentes do banco
 
 	$objResponse = new xajaxResponse();
 
@@ -291,15 +291,15 @@ $xajax->processRequests();
 
 <html>
 <head>
-<title>: : . ENDERE�OS . : :</title>
+<title>: : . ENDEREÇOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<?php $xajax->printJavascript('../xajax'); ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 function esvaziaCombo(id_canal)
@@ -328,8 +328,8 @@ status_canal = document.getElementById("status"+id_canal);
 	{
 	
 
-		//Fun��o para preencher os combos utilizando Ajax
-		status_canal.innerHTML='<img src="../images/buttons_action/loading.gif">&nbsp;AGUARDE';
+		//Função para preencher os combos utilizando Ajax
+		status_canal.innerHTML='<img src="../images/buttons_action/loading.gif"> AGUARDE';
 
 		xajax_preencheComponente(xajax.getFormValues('slot'),id_canal);
 	
@@ -341,7 +341,7 @@ status_canal = document.getElementById("status"+id_canal);
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -386,13 +386,13 @@ function sortSelect(obj){
   <tr>
     <td align="center">	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" class="label1" bgcolor="#BECCD9">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" class="label1" bgcolor="#BECCD9"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9"> <?php //menu() ?></td>
       </tr>
 <tr>
 <td>
@@ -403,7 +403,7 @@ function sortSelect(obj){
   <table width="100%" bgcolor="#FFFFFF" class="corpo_tabela">
     <tr>
       <td colspan="6" class="kks_nivel1">
-	  <? 
+	  <?php 
 
 
 		if($_POST["id_racks"] && $_POST["id_slots"])
@@ -432,34 +432,34 @@ function sortSelect(obj){
       </tr>
 
 			<tr>
-			  <td width="1%" height="37" class="label1">&nbsp;</td>
+			  <td width="1%" height="37" class="label1"> </td>
 			  <td width="99%" colspan="5" class="label1">
 			  <table width="100%" border="0">
                 <tr class="label1">
                   <td class="label1">CANAL</td>
-                  <td>&nbsp;</td>
-                  <td>ENDERE&Ccedil;O</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td>ENDEREÇO</td>
+                  <td> </td>
                   <td>ATRIBUTO</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>COMPONENTES</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
                 <tr class="label1">
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
-				<?
+				<?php
 				$i = 0;
 				
 				$sql2 = "SELECT * FROM Projetos.enderecos WHERE id_slots='" . $_GET["id_slots"] . "' ORDER BY nr_canal ";
@@ -483,33 +483,33 @@ function sortSelect(obj){
                 <tr>
 				  <td width="9%" class="label1"><input name="@<?= $i ?>" type="text" class="txt_box" size="10" value="<?= $nrcanal ?>">
 				    </td>
-                  <td width="3%">&nbsp;</td>
+                  <td width="3%"> </td>
                   <td width="3%"><input name="#<?= $i ?>" type="text" class="txt_box" size="50" maxlength="15" value="<?= $canal["cd_endereco"] ?>"></td>
-                  <td width="3%">&nbsp;</td>
+                  <td width="3%"> </td>
                   <td width="3%">
 
 				  <select name="%<?= $i ?>" class="txt_box" id="cd_atributo" onkeypress="return keySort(this);">
-					<option value="" <? if($canal["cd_atributo"]==''){ echo 'selected';} ?>>SELECIONE</option>
-					<option value="AI" <? if($canal["cd_atributo"]=='AI'){ echo 'selected';} ?>>AI - ENTRADA ANAL&Oacute;GICA</option>
-                    <option value="AO" <? if($canal["cd_atributo"]=='AO'){ echo 'selected';} ?>>AO - SA&Iacute;DA ANAL&Oacute;GICA</option>
-                    <option value="DI" <? if($canal["cd_atributo"]=='DI'){ echo 'selected';} ?>>DI - ENTRADA DIGITAL</option>
-                    <option value="DO" <? if($canal["cd_atributo"]=='DO'){ echo 'selected';} ?>>DO - SA&Iacute;DA DIGITAL</option>
+					<option value="" <?php if($canal["cd_atributo"]==''){ echo 'selected';} ?>>SELECIONE</option>
+					<option value="AI" <?php if($canal["cd_atributo"]=='AI'){ echo 'selected';} ?>>AI - ENTRADA ANALÓGICA</option>
+                    <option value="AO" <?php if($canal["cd_atributo"]=='AO'){ echo 'selected';} ?>>AO - SA&Iacute;DA ANALÓGICA</option>
+                    <option value="DI" <?php if($canal["cd_atributo"]=='DI'){ echo 'selected';} ?>>DI - ENTRADA DIGITAL</option>
+                    <option value="DO" <?php if($canal["cd_atributo"]=='DO'){ echo 'selected';} ?>>DO - SA&Iacute;DA DIGITAL</option>
                     </select> 
 
 				  </td>
                               
-                  <td width="3%">&nbsp;</td>
+                  <td width="3%"> </td>
                   <td width="12%"><div id="cntEndereco<?= $i ?>" style="border-width:1px; border-style:solid; border-color:#000000; width:5px;">
-				  <select name="<?= $i ?>" class="txt_box" onClick="preencheCombo('<?= $i ?>');" onChange="xajax_alteraComponente('<?= $i ?>');" onkeypress="return keySort(this);">
+				  <select name="<?= $i ?>" class="txt_box" onclick="preencheCombo('<?= $i ?>');" onChange="xajax_alteraComponente('<?= $i ?>');" onkeypress="return keySort(this);">
                     <option value="">NENHUM</option>
                   </select>
 				  </div>
                     <input name="num_canais" type="hidden" value="<?= $_GET["nr_canais"] ?>"></td>
-                  <td width="3%"><div class="texto_tabela" id="status<?= $i ?>" style="vertical-align:text-top;">&nbsp;</div></td>
-                  <td width="64%">&nbsp;</td>
-                  <td width="9%">&nbsp;</td>
+                  <td width="3%"><div class="texto_tabela" id="status<?= $i ?>" style="vertical-align:text-top;"> </div></td>
+                  <td width="64%"> </td>
+                  <td width="9%"> </td>
                 </tr>
-				<?
+				<?php
 				$i++;
 				}
 				?>
@@ -520,20 +520,20 @@ function sortSelect(obj){
 
     
 	<tr>
-      <td>&nbsp;</td>
+      <td> </td>
       <td colspan="6">
 	  	<input name="id_cartao" type="hidden" value="<?= $_GET["id_cartao"] ?>">
 		<input name="id_slots" type="hidden" id="id_slots" value="<?= $_GET["id_slots"] ?>">
 		<input name="id_racks" type="hidden" id="id_racks" value="<?= $_GET["id_racks"] ?>">
         <input name="nr_canais" type="hidden" id="nr_canais" value="<?= $_GET["nr_canais"] ?>">
         <input name="acao" type="hidden">
-        <input name="Alterar" type="button" class="btn" id="Alterar" value="ALTERAR" onClick="requer('slot')">
+        <input name="Alterar" type="button" class="btn" id="Alterar" value="ALTERAR" onclick="requer('slot')">
         <span class="label1">
-        <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='slots.php';">
+        <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='slots.php';">
         </span></td>
       </tr>
     <tr>
-      <td colspan="7">&nbsp;    </td>
+      <td colspan="7">     </td>
       </tr>
   </table>
   </div>
@@ -548,7 +548,7 @@ function sortSelect(obj){
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>
 

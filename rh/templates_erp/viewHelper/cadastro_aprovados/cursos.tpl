@@ -9,8 +9,8 @@
 					<tr>
 						<td><label class="labels">Especialização/Idioma</label></td>
 						<td><label class="labels">Instituição</label></td>
-						<td><label class="labels">Mês&nbsp;Início</label></td>
-						<td><label class="labels">Mês&nbsp;Conclusão</label></td>
+						<td><label class="labels">Mês Início</label></td>
+						<td><label class="labels">Mês Conclusão</label></td>
 						<td><label class="labels">Nível/Domínio</label></td>
 					</tr>
 					<smarty>foreach from=$post['cursos'] item=cursos</smarty>

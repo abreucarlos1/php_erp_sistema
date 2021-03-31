@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de Tipos	
+		Formulário de Tipos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/tipos.php
 
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -44,7 +44,7 @@ if ($_POST["acao"]=="editar")
 	$sql .= "tipo = '" . maiusculas($_POST["tipo"]) . "', ";
 	$sql .= "ds_tipo = '" . maiusculas($_POST["ds_tipo"]) . "' ";
 	$sql .= "WHERE tipos.id_tipos = '" . $_POST["id_tipos"] ."' ";
-	$registros = mysql_query($sql, $db->conexao) or die("N�o foi poss�vel a Atualização dos dados.".$sql);
+	$registros = mysql_query($sql, $db->conexao) or die("Não foi possível a Atualização dos dados.".$sql);
 
 
 
@@ -52,7 +52,7 @@ if ($_POST["acao"]=="editar")
 	<script>
 		alert('tipo atualizado com sucesso.');
 	</script>
-	<?
+	<?php
 	
 }
 
@@ -60,19 +60,19 @@ if ($_POST["acao"]=="editar")
 if ($_POST["acao"]=="salvar")
 {
 
-	//Cria senten�a de Inclusão no bd
-	$incsql = "INSERT INTO Projetos.tipos ";
-	$incsql .= "(tipo, ds_tipo) VALUES (";
-	$incsql .= "'" . maiusculas($_POST["tipo"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_tipo"]) . "') ";
+	//Cria sentença de Inclusão no bd
+	$isql = "INSERT INTO Projetos.tipos ";
+	$isql .= "(tipo, ds_tipo) VALUES (";
+	$isql .= "'" . maiusculas($_POST["tipo"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_tipo"]) . "') ";
 
-	$registros = mysql_query($incsql,$db->conexao) or die("Não foi possível a inserção dos dados");
+	$registros = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados");
 
 	?>
 	<script>
 		alert('tipo inserido com sucesso.');
 	</script>
-	<?
+	<?php
 
 }
 
@@ -80,12 +80,12 @@ if ($_POST["acao"]=="salvar")
  
 if ($_GET["acao"] == "deletar")
 {
-	mysql_query("DELETE FROM Projetos.tipos WHERE tipos.id_tipos = '".$_GET["id_tipos"]."' ",$db->conexao) or die ("N�o foi poss�vel excluir o registro. Motivo: " . mysql_error($db->conexao));
+	mysql_query("DELETE FROM Projetos.tipos WHERE tipos.id_tipos = '".$_GET["id_tipos"]."' ",$db->conexao) or die ("Não foi possível excluir o registro. Motivo: " . mysql_error($db->conexao));
 	?>
 	<script>
-		alert('tipo exclu�do com sucesso.');
+		alert('tipo excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -94,10 +94,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . TIPOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_tipos, tipo)
 {
@@ -118,7 +118,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -144,21 +144,21 @@ function abreimagem(pagina, imagem, wid, heig)
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //menu() ?></td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -176,51 +176,51 @@ function abreimagem(pagina, imagem, wid, heig)
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="19%" class="label1">N&ordm; TIPO </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="19%" class="label1">Nº TIPO </td>
+                      <td width="1%"> </td>
                       <td width="80%" class="label1">TIPO</td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="tipo" type="text" class="txt_box" id="requerido" value="<?= $tipos["tipo"] ?>" size="30" maxlength="2">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_tipo" type="text" class="txt_box" id="requerido" size="30" value="<?= $tipos["ds_tipo"] ?>">
                       </font></td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_tipos" type="hidden" id="id_tipos" value="<?= $tipos["id_tipos"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
-                    <input name="Alterar" type="button" class="btn" id="Alterar" value="Alterar" onClick="requer('subsistema')"></td>
+                    <input name="Alterar" type="button" class="btn" id="Alterar" value="Alterar" onclick="requer('subsistema')"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -231,50 +231,50 @@ function abreimagem(pagina, imagem, wid, heig)
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="19%" class="label1">N&ordm; TIPO </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="19%" class="label1">Nº TIPO </td>
+                      <td width="1%"> </td>
                       <td width="80%" class="label1">TIPO</td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="tipo" type="text" class="txt_box" id="requerido" size="30" maxlength="2">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_tipo" type="text" class="txt_box" id="requerido" size="30">
                       </font></td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
-                    <input name="Inserir" type="button" class="btn" id="Inserir" value="Inserir" onClick="requer('subsistema')"></td>
+                    <input name="Inserir" type="button" class="btn" id="Inserir" value="Inserir" onclick="requer('subsistema')"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -287,8 +287,8 @@ function abreimagem(pagina, imagem, wid, heig)
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_tipo";
@@ -301,20 +301,20 @@ function abreimagem(pagina, imagem, wid, heig)
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="33%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_tipo','<?= $ordem ?>')">N� TIPO</a></td>
-				  <td width="55%"><a href="#" class="cabecalho_tabela" onClick="ordenar('tipo','<?= $ordem ?>')">TIPO</a></td>
+				  <td width="33%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_tipo','<?= $ordem ?>')">Nº TIPO</a></td>
+				  <td width="55%"><a href="#" class="cabecalho_tabela" onclick="ordenar('tipo','<?= $ordem ?>')">TIPO</a></td>
 				  <td width="7%"  class="cabecalho_tabela">E</td>
 				  <td width="2%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 						
 					$sql = "SELECT * FROM Projetos.tipos ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
@@ -348,7 +348,7 @@ function abreimagem(pagina, imagem, wid, heig)
 					      <td width="5%"><div align="center"> <a href="javascript:editar('<?= $tipos["id_tipos"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="5%"><div align="center"> <a href="javascript:excluir('<?= $tipos["id_tipos"] ?>','<?= $tipos["ds_tipo"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>
@@ -365,7 +365,7 @@ function abreimagem(pagina, imagem, wid, heig)
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>
 

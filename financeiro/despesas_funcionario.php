@@ -139,7 +139,7 @@ function atualizatabela($dados_form)
 			{			
 				$cont = $db->array_select[0];		
 					
-				$imprimir = '&nbsp;';
+				$imprimir = ' ';
 				
 				switch ($cont_desp["status"])
 				{			
@@ -174,7 +174,7 @@ function atualizatabela($dados_form)
 					$xml->writeElement ('cell',mysql_php($cont_desp["data_adiantamento"]));
 					$xml->writeElement ('cell',mysql_php($cont_desp["data_prestacao_contas"]));
 					$xml->writeElement ('cell',$cont_desp["atividade"]);
-					$xml->writeElement ('cell',substr(mysql_php($cont_desp["periodo_inicial"]),0,10) . '&nbsp;á&nbsp;' . substr(mysql_php($cont_desp["periodo_final"]),0,10));
+					$xml->writeElement ('cell',substr(mysql_php($cont_desp["periodo_inicial"]),0,10) . ' á ' . substr(mysql_php($cont_desp["periodo_final"]),0,10));
 					$xml->writeElement ('cell',number_format($cont_desp["valor_adiantamento"],2,",",""));
 					$xml->writeElement ('cell',number_format($cont["total_despesas"],2,",",""));
 					$xml->writeElement ('cell',$status);
@@ -281,11 +281,11 @@ function editar($id_requisicao_despesa)
 		
 				//monta a tabela de despesas declaradas
 				$conteudo_acert = '<table width="99%" border="0"><tr>';
-				$conteudo_acert .= '<td width="10%"><label class="labels"><strong>valor&nbsp;adiantamento R$:&nbsp;</strong>'.number_format($cont["valor_adiantamento"],2,',','.').'<label></td>';
+				$conteudo_acert .= '<td width="10%"><label class="labels"><strong>valor adiantamento R$: </strong>'.number_format($cont["valor_adiantamento"],2,',','.').'<label></td>';
 				$conteudo_acert .= '</tr>';
 				
 				$conteudo_acert .= '<tr>';
-				$conteudo_acert .= '<td><label class="labels"><strong>data&nbsp;presta��o&nbsp;contas:&nbsp;</strong><label><input name="data_prestacao_contas" type="text" class="caixa" id="data_prestacao_contas" size="12"  onkeypress=transformaData(this, event); onkeyup=return autoTab(this, 10); value="'.$data_prest.'" onblur=return checaTamanhoData(this,10); /></td>';
+				$conteudo_acert .= '<td><label class="labels"><strong>data prestação contas: </strong><label><input name="data_prestacao_contas" type="text" class="caixa" id="data_prestacao_contas" size="12"  onkeypress=transformaData(this, event); onkeyup=return autoTab(this, 10); value="'.$data_prest.'" onblur=return checaTamanhoData(this,10); /></td>';
 				$conteudo_acert .= '</tr></table>';
 				
 				$resposta->addAssign("dv_adiantamento","innerHTML",$conteudo_acert);				
@@ -357,7 +357,7 @@ function editar($id_requisicao_despesa)
 					
 					$resposta->addAssign("itens","value",$i);
 					
-					//contabiliza os valores da requisi��o
+					//contabiliza os valores da requisição
 					$sql = "SELECT SUM(quantidade*valor_unitario) AS valor, SUM(valor_despesa) as total_despesa FROM ".DATABASE.".requisicao_despesas_necessidades ";
 					$sql .= "WHERE requisicao_despesas_necessidades.reg_del = 0 ";
 					$sql .= "AND requisicao_despesas_necessidades.id_requisicao_despesa = '".$id_requisicao_despesa."' ";
@@ -488,7 +488,7 @@ function atualizar($dados_form)
 			{				
 				//coordenador/responsavel pela requisição
 				$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-				$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+				$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 				$sql .= "AND funcionarios.reg_del = 0 ";
 				$sql .= "AND usuarios.reg_del = 0 ";
 				$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -510,16 +510,16 @@ function atualizar($dados_form)
 							
 				$texto = '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 				$texto .=' <tr>';
-				$texto .='	  <td><strong>Acerto&nbsp;Requisição&nbsp;de&nbsp;Despesa&nbsp;da&nbsp;OS&nbsp;'.sprintf('%05d', $cont['OS']).'&nbsp;'.$cont['descricao'].'</strong></td>';
+				$texto .='	  <td><strong>Acerto Requisição de Despesa da OS '.sprintf('%05d', $cont['OS']).' '.$cont['descricao'].'</strong></td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Requisição&nbsp;nº:&nbsp;</strong>'.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
+				$texto .='	<td><strong>Requisição nº: </strong>'.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Data&nbsp;acerto:&nbsp;</strong>'.$dados_form["data_prestacao_contas"].'</td>';
+				$texto .='	<td><strong>Data acerto: </strong>'.$dados_form["data_prestacao_contas"].'</td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
-				$texto .='	<td><strong>Valor&nbsp;declarado:&nbsp;R$&nbsp;</strong>'.number_format($valor_total,2,',','').'</td>';
+				$texto .='	<td><strong>Valor declarado: R$ </strong>'.number_format($valor_total,2,',','').'</td>';
 				$texto .=' </tr>';
 				$texto .=' <tr>';
 				$texto .='	<td>Já está lançado os valores das despesas no sistema.</td>';
@@ -547,13 +547,21 @@ function atualizar($dados_form)
 				{
 					$params['emails']['cc'][] = array('email' => $array_funcionarios[1][$_SESSION["id_funcionario"]], 'nome' => $array_funcionarios[0][$_SESSION["id_funcionario"]]);
 				}
-				
-				$mail = new email($params);
-				$mail->montaCorpoEmail($texto);
-				
-				if(!$mail->Send())
+
+				if(ENVIA_EMAIL)
+				{				
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($texto);
+					
+					if(!$mail->Send())
+					{
+						$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+					}
+				}
+				else 
 				{
-					$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+					$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 3);
 				}		
 				
 			}
@@ -626,7 +634,7 @@ function grid(tabela, autoh, height, xml)
 			}
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected1);	
-			mygrid.setHeader("Req&nbsp;nº, Projeto, Data&nbsp;Adiant., Data&nbsp;prest., Atividade/Obs., Período, Valor&nbsp;Adiant., Valor&nbsp;declar., Status, I",
+			mygrid.setHeader("Req nº, Projeto, Data Adiant., Data prest., Atividade/Obs., Período, Valor Adiant., Valor declar., Status, I",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("60,80,80,80,*,140,85,85,80,25");

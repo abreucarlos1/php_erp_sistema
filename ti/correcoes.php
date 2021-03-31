@@ -173,7 +173,7 @@ function buscar($dados_form)
         }
     }
 	
-    $header .= "<td type=\"img\"><label class=\"tabela_header\">&nbsp;</td>";
+    $header .= "<td type=\"img\"><label class=\"tabela_header\"> </td>";
     $header .= "</tr>";
 
     $footer = "</table>";

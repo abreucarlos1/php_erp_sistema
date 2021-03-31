@@ -87,7 +87,7 @@ dhtmlXForm.prototype.items.calendar = {
 			
 		});
 		
-		item._c.attachEvent("onClick", function(){
+		item._c.attachEvent("onclick", function(){
 			item._tempValue = null;
 		});
 		

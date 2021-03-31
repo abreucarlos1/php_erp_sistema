@@ -13,7 +13,7 @@
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			  </table></td>
-	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+	          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
 	        </tr>        
 	        <tr>
 	          <td colspan="2" valign="top">

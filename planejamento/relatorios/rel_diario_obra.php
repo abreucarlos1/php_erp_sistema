@@ -253,7 +253,7 @@ else
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">&nbsp;</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\"> </td>";
 	$conteudo .= "</tr>";
 	
 	
@@ -343,7 +343,7 @@ else
 		}
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td colspan=\"6\" align=\"left\">&nbsp;</td>";
+		$conteudo .= "<td colspan=\"6\" align=\"left\"> </td>";
 		$conteudo .= "</tr>";
 		
 		$conteudo .= "<tr>";
@@ -388,9 +388,9 @@ else
 			{
 				$conteudo .= "<tr>";
 				
-				$conteudo .= "<td align=\"left\">&nbsp;</td>";
+				$conteudo .= "<td align=\"left\"> </td>";
 				
-				$conteudo .= "<td align=\"left\">".$regatividade["descricao"]."&nbsp;".$regatividade["complemento"]."</td>";
+				$conteudo .= "<td align=\"left\">".$regatividade["descricao"]." ".$regatividade["complemento"]."</td>";
 
 				$conteudo .= "</tr>";
 			}

@@ -217,7 +217,7 @@ foreach ($array_setores as $chave=>$valor)
 }
 //Por enquanto os gráficos não estão funcionando
 /*
-//Gr�fico
+//Gráfico
 $dataseriesLabels1 = array(new PHPExcel_Chart_DataSeriesValues('String', 'CIVIL!$A$2', NULL, 1));
 
 $xAxisTickValues1 = array(new PHPExcel_Chart_DataSeriesValues('String', 'CIVIL!$B$3:$D$3', NULL, 4));

@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Visualizar Funcionarios	
+		Formulário de Visualizar Funcionarios	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -15,7 +15,7 @@ session_start();
 
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php?pagina=" . $_SERVER['PHP_SELF']);
 	exit;
 }
@@ -25,7 +25,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 $sql = "SELECT * FROM empresas ";
 $sql .= "LEFT JOIN unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 $sql .= "LEFT JOIN segmentos ON (segmentos.id_segmento = empresas.id_segmento AND segmentos.reg_del = 0) ";
-$sql .= "WHERE empresas.id_empresa_erp = '".$_GET["id_empresa"]."' ";
+$sql .= "WHERE empresas.id_empresa = '".$_GET["id_empresa"]."' ";
 $sql .= "AND empresas.reg_del = 0 ";
 
 $registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção." . $sql);
@@ -33,7 +33,7 @@ $registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleç
 $regs = mysql_fetch_array($registro);
 
 $sql = "SELECT * FROM contatos ";
-$sql .= "WHERE contatos.id_empresa_erp = '".$_GET["id_empresa"]."' ";
+$sql .= "WHERE contatos.id_empresa = '".$_GET["id_empresa"]."' ";
 $sql .= "AND contatos.reg_del = 0 ";
 $sql .= "AND contatos.situacao = 1 ";
 $sql .= "ORDER BY nome_contato ";
@@ -67,37 +67,37 @@ $registro1 = mysql_query($sql,$conexao) or die("Não foi possível fazer a sele�
 <table width="100%" border="0">
   <tr>
     <td width="13%" class="fonte_12_az">empresa:</td>
-    <td width="1%">&nbsp;</td>
+    <td width="1%"> </td>
     <td width="86%" class="caixa_txt"><?= $regs["empresa"]. ' - '.$regs["unidade"] ?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">Abreviação</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><?= $regs["abreviacao"]?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">Endereço</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><?= $regs["endereco"]. ' - '. $regs["bairro"] ?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">cidade</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><?= $regs["cidade"] . ' - '.  $regs["estado"] ?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">telefone</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><?= $regs["telefone"] ?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">fax</td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><?= $regs["fax"] ?></td>
   </tr>
   <tr>
     <td class="fonte_12_az">Home Page </td>
-    <td>&nbsp;</td>
+    <td> </td>
     <td class="caixa_txt"><a href="<?= $regs["homepage"] ?>" target="_blank"><?= $regs["homepage"] ?></a></td>
   </tr>
 </table>
@@ -114,15 +114,15 @@ $registro1 = mysql_query($sql,$conexao) or die("Não foi possível fazer a sele�
 		<td width="17%">celular</td>
         <td width="18%">Imprimir etiqueta </td>
   </tr>
-<?
+<?php
 	while($regs1 = mysql_fetch_array($registro1))
 	{
 	?>
 	  <tr class="fonte_11" bordercolor="#0099FF">
-		<td width="30%">&nbsp;<?= $regs1["nome_contato"] ?></td>
-		<td width="21%">&nbsp;<a href="mailto:<?= $regs1["email"] ?>"><?= $regs1["email"] ?></a></td>
-		<td width="14%">&nbsp;<?= $regs1["telefone"]. ' - '.$regs1["Ramal1"] ?></td>
-		<td width="17%">&nbsp;<?= $regs1["celular"] ?></td>
+		<td width="30%"> <?= $regs1["nome_contato"] ?></td>
+		<td width="21%"> <a href="mailto:<?= $regs1["email"] ?>"><?= $regs1["email"] ?></a></td>
+		<td width="14%"> <?= $regs1["telefone"]. ' - '.$regs1["Ramal1"] ?></td>
+		<td width="17%"> <?= $regs1["celular"] ?></td>
 		
 	    <td width="18%"><div align="center">
 	      
@@ -130,16 +130,16 @@ $registro1 = mysql_query($sql,$conexao) or die("Não foi possível fazer a sele�
           
 	      </div></td>
 	  </tr>
-  	<?
+  	<?php
   	}
 	if(mysql_num_rows($registro1)>0)
 	{
 	?>
 	  <tr class="fonte_11">
-		<td  colspan="4"><input type="hidden" name="id_empresa" value="<?= $regs["id_empresa_erp"] ?>" /></td>
-	    <td width="18%" align="center"><input class="botao_chumbo" name="btn" type="submit" value="&nbsp;Imprimir Etiqueta"/></td>
+		<td  colspan="4"><input type="hidden" name="id_empresa" value="<?= $regs["id_empresa"] ?>" /></td>
+	    <td width="18%" align="center"><input class="botao_chumbo" name="btn" type="submit" value=" Imprimir Etiqueta"/></td>
 	  </tr>
-	<?	
+	<?php	
 	}
 	
 ?>

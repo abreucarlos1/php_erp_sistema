@@ -63,7 +63,7 @@ function mostra_arq_cat($dados_form)
 	$sql .= "WHERE os_x_anexos_cat.id_os = '" . $dados_form["id_os"] . "' ";
 	$sql .= "AND os_x_anexos_cat.reg_del = 0 ";
 	$sql .= "AND os_x_anexos_cat.id_os = ordem_servico.id_os ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 
 	$db->select($sql,'MYSQL', true);
 
@@ -118,9 +118,9 @@ function atualizatabela($dados_form)
 		$sql_filtro .= " OR ordem_servico.palavras_chave LIKE '".$sql_texto."') ";		
 	}	
 		
-	$sql = "SELECT ordem_servico.os, ordem_servico.id_os, ordem_servico.descricao FROM ".DATABASE.".unidade, ".DATABASE.".empresas, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
+	$sql = "SELECT ordem_servico.os, ordem_servico.id_os, ordem_servico.descricao FROM ".DATABASE.".unidades, ".DATABASE.".empresas, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
 	$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 
@@ -292,11 +292,11 @@ function editar($id)
 		$array_func[$regs0["id_funcionario"]] = $regs0["funcionario"];
 	}
 
-	$sql = "SELECT *, empresas.id_empresa_erp FROM ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas, ".DATABASE.".ordem_servico ";
+	$sql = "SELECT *, empresas.id_empresa FROM ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas, ".DATABASE.".ordem_servico ";
 	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato) ";
 	$sql .= "WHERE ordem_servico.id_os = '" . $id_os . "' ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 
 	$db->select($sql,'MYSQL',true);
 
@@ -312,7 +312,7 @@ function editar($id)
 	
 	$resposta->addAssign("descricao","innerHTML",$reg_os["descricao"]);
 	
-	$resposta->addAssign("cliente","innerHTML",$reg_os["id_empresa_erp"] . " - " .$reg_os["empresa"]);
+	$resposta->addAssign("cliente","innerHTML",$reg_os["id_empresa"] . " - " .$reg_os["empresa"]);
 	
 	$resposta->addAssign("coord_cliente","innerHTML",$reg_os["nome_contato"]);
 	
@@ -503,16 +503,24 @@ function atualizar($dados_form, $tab='')
 		$texto .= 'Nome: '.maiusculas(addslashes($dados_form["nome_analise"])).'<br>';
 		$texto .= 'Data: '.$dados_form["data_analise"].'<br>';
 		
-		$mail = new email($params,'acompanhamento_os');
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar o e-mail.');
+
+			$mail = new email($params,'acompanhamento_os');
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar o e-mail.');
+			}
+			
+			$mail->ClearAllRecipients();
 		}
-		
-		$mail->ClearAllRecipients();			
+		else
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
+		}		
 	}
 	
 	return $resposta;
@@ -532,7 +540,7 @@ function analise_periodica($dados_form)
 	$sql .= "LEFT JOIN ".DATABASE.".setores ON setores.id_setor = os_x_analise_critica_periodica.id_disciplina ";
 	$sql .= "WHERE os_x_analise_critica_periodica.id_os = '" . $dados_form["id_os"] . "' ";
 	$sql .= "AND os_x_analise_critica_periodica.id_os = ordem_servico.id_os ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND os_x_analise_critica_periodica.reg_del = 0 ";
 	$sql .= "ORDER BY item, data_ap ";
 	
@@ -604,7 +612,7 @@ function analise_periodica($dados_form)
 			$xml->writeElement('cell',trim(str_replace("\n","<br>",addslashes($regs["acao_corretiva_ap"]))));
 			$xml->writeElement('cell',$status_str);
 			$xml->writeElement('cell',$img_anexo);
-			$xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclus�o&nbsp;do&nbsp;registro&nbsp;selecionado?")){xajax_excluir(' . $regs["id_os_x_analise_critica_periodica"] . ',"analise_periodica");}>');
+			$xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Confirma a exclusão do registro selecionado?")){xajax_excluir(' . $regs["id_os_x_analise_critica_periodica"] . ',"analise_periodica");}>');
 		$xml->endElement();			
 	}
 
@@ -696,7 +704,7 @@ function excluir($id, $tab='')
 			$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas, ".DATABASE.".os_x_analise_critica_periodica ";
 			$sql .= "WHERE os_x_analise_critica_periodica.id_os_x_analise_critica_periodica = '" . $id . "' ";
 			$sql .= "AND os_x_analise_critica_periodica.id_os = ordem_servico.id_os ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND os_x_analise_critica_periodica.reg_del = 0 ";
 			
 			$db->select($sql,'MYSQL',true);
@@ -816,9 +824,9 @@ function tab()
 {
 	myTabbar = new dhtmlXTabBar("my_tabbar");
 	
-	myTabbar.addTab("a10_", "Dados&nbsp;Projeto", null, null, true);
-	myTabbar.addTab("a30_", "Lista&nbsp;de&nbsp;Pendência");
-	myTabbar.addTab("a50_", "Análise&nbsp;Crítica&nbsp;final");
+	myTabbar.addTab("a10_", "Dados Projeto", null, null, true);
+	myTabbar.addTab("a30_", "Lista de Pendência");
+	myTabbar.addTab("a50_", "Análise Crítica final");
 	
 	myTabbar.tabs("a10_").attachObject("a10");
 	myTabbar.tabs("a30_").attachObject("a30");
@@ -848,7 +856,7 @@ function grid(tabela, autoh, height, xml)
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected);	
 
-			mygrid.setHeader("Projeto,Descricao,Custo&nbsp;planejado,Custo&nbsp;real,Saldo",
+			mygrid.setHeader("Projeto,Descricao,Custo planejado,Custo real,Saldo",
 				null,
 				["text-align:left","text-align:left","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("85,500,*,*,*");
@@ -873,7 +881,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.enableMultiline(true);
 			mygrid.attachEvent("onRowSelect",doOnRowSelected2);	
 
-			mygrid.setHeader("Item,Data,Disciplina,Pendência,Ident.&nbsp;problema,Solução&nbsp;possivel, Ação&nbsp;corretiva,Status,Anexo,D",
+			mygrid.setHeader("Item,Data,Disciplina,Pendência,Ident. problema,Solução possivel, Ação corretiva,Status,Anexo,D",
 				null,
 				["text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("40,65,120,70,*,*,*,*,70,40");

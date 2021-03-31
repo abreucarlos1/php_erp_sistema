@@ -49,7 +49,7 @@ Graph type:
  <option value="linepoints">line and points</option>
  <option value="points">points</option>
 </select>
-&nbsp; &nbsp;&nbsp;
+    
 Error bar type:
 <select name="which_error_type"> 
  <option value="tee">tee</option>

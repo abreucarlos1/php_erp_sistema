@@ -8,7 +8,7 @@
 <meta http-equiv="expires" content="0" />
 	<smarty>$xajax_javascript</smarty>
 
-<title>::.. Devemada Engenharia - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
+<title>::.. NOME EMPRESA - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
 
 <link href="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="stylesheet" type="text/css" />
 <link href="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css" rel="stylesheet" type="text/css" />
@@ -34,13 +34,13 @@
 			</tr>
 
 			<tr>
-				<td class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></td>
+				<td class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></td>
 			</tr>
 			<tr style="padding-bottom:8px;">
 				<td style="height:10px; padding-right:0px; text-align: right;">
 				<table width="140" border="0" align="left" cellpadding="0" cellspacing="0">
 					<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 					</tr>
 				</table>
 						<img class="mini_seta" src="../images/mini_seta.jpg" /><label class="link_1"><smarty>$smarty.session.login</smarty></label><img class="mini_seta" src="../images/mini_seta.jpg" /><a href="../inicio.php" class="link_1">Inicio</a><img class="mini_seta" src="../images/mini_seta.jpg" /><a href="../logout.php" class="link_1">Sair</a></td>

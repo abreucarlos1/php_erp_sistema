@@ -607,7 +607,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>bpmTopic<b>C</b> Class (centered) Odd and Even rows</p>
 <table class="bpmTopicC"><thead>
@@ -665,7 +665,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>bpmTopnTail Class </p>
 <table class="bpmTopnTail"><thead></thead><tbody>
@@ -722,7 +722,7 @@ This is data out of div
 <td>Also data</td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 <p>bpmTopnTail<b>C</b> Class (centered) Odd and Even rows</p>
 <table class="bpmTopnTailC"><thead>
 <tr class="headerrow"><th>Col/Row Header</th>
@@ -779,7 +779,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>TopnTail Class</p>
 <table class="bpmTopnTail"><thead>
@@ -827,7 +827,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <h4>Lists in a Table<bookmark content="Lists in a table" level="2" /><tocentry name="Tables" content="Lists in a table" level="0" /><indexentry content="Table:lists inside"  /></h4>
 <table class="bpmTopnTail"><thead>
@@ -891,7 +891,7 @@ Unordered list:
 </td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 
 <h4>Automatic Column Width<bookmark content="Automatic Column Width" level="2" /><tocentry name="Tables" content="Automatic column width" level="0" /><indexentry content="Table:automatic column width"  /></h4>
@@ -1033,7 +1033,7 @@ Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel a
 <tr><th>Another Row header</th><td>Also data</td><td>Also data</td></tr>
 <tr><th>Another Row header</th><td>Also data</td><td>Also data</td></tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 <h4>Autosizing Tables<bookmark content="Autosizing Tables" level="2" /><tocentry name="Tables" content="Autosizing tables" level="0" /><indexentry content="Table:autosizing"  /></h4>
 <p>Periodic Table of elements. Tables are set by default to reduce font size if complete words will not fit inside each cell, to a maximum of 1/1.4 * the set font-size. This value can be changed by setting $mpdf->shrink_tables_to_fit=1.8 or using html attribute &lt;table autosize="1.8"&gt;.</p>
@@ -1131,7 +1131,7 @@ Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel a
 <td>Cf </td><td>Es </td><td>Fm </td><td>Md </td><td>No </td><td>Lr </td><td></td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 <pagebreak />
 <h4>Rotated text in Tables<bookmark content="Rotated text in Tables" level="2" /><tocentry name="Tables" content="Rotated text in table" level="0" /><indexentry content="Table:rotated text"  /></h4>
@@ -1542,7 +1542,7 @@ Etiam id libero at magna pellentesque aliquet. Nulla sit amet ipsum id enim temp
 <select size="1" name="status"><option value="A">Active</option><option value="W" >New item from auto_manager: pending validation</option><option value="I" selected="selected">Incomplete record - pending</option><option value="X" >Flagged for Deletion</option> </select> followed by text
 <br /><br />
 <b>Input Radio</b>
-<input type="radio" name="recommended" value="0" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="1" > Keep &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
+<input type="radio" name="recommended" value="0" > No      <input type="radio" name="recommended" value="1" > Keep      <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
 <br /><br />
 <b>Input Text</b>
 <input type="text" size="190" name="doi" value="10.1258/jrsm.100.5.211"> 

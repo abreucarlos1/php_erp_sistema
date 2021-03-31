@@ -23,15 +23,15 @@
 			<div id="my_tabbar" style="height:400px;"> 
             
               <div id="a4">
-              <div id="dv_adiantamento">&nbsp;</div>     
-                <div id="dv_acerto_despesas">&nbsp;</div>
+              <div id="dv_adiantamento"> </div>     
+                <div id="dv_acerto_despesas"> </div>
             </div>
             </div>
             
             </td>
         </tr>
       </table>
-	  <div id="div_despesas" style="width:100%;">&nbsp;</div>
+	  <div id="div_despesas" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

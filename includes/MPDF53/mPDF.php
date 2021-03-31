@@ -1562,19 +1562,19 @@ function StartProgressBarOutput($mode=1) {
 			<span class="barheading">Writing HTML code</span> <br/>
 
 			<div class="progressBar">
-			<div id="element1"  class="innerBar">&nbsp;</div>
+			<div id="element1"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box1"></span>
 			</td><td style="width: 50%;">
 			<span class="barheading">Autosizing elements</span> <br/>
 			<div class="progressBar">
-			<div id="element4"  class="innerBar">&nbsp;</div>
+			<div id="element4"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box4"></span>
 			<br/><br/>
 			<span class="barheading">Writing Tables</span> <br/>
 			<div class="progressBar">
-			<div id="element7"  class="innerBar">&nbsp;</div>
+			<div id="element7"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box7"></span>
 			</td></tr>
@@ -1583,7 +1583,7 @@ function StartProgressBarOutput($mode=1) {
 	'; }
 	echo '			<span class="barheading">Writing PDF file</span> <br/>
 			<div class="progressBar">
-			<div id="element2"  class="innerBar">&nbsp;</div>
+			<div id="element2"  class="innerBar"> </div>
 			</div>
 			<span class="code" id="box2"></span>
 	   ';
@@ -1591,13 +1591,13 @@ function StartProgressBarOutput($mode=1) {
 			</td><td style="width: 50%;">
 			<span class="barheading">Memory usage</span> <br/>
 			<div class="progressBar">
-			<div id="element5"  class="innerBar">&nbsp;</div>
+			<div id="element5"  class="innerBar"> </div>
 			</div>
 			<span id="box5">0</span> '.ini_get("memory_limit").'<br />
 			<br/><br/>
 			<span class="barheading">Memory usage (peak)</span> <br/>
 			<div class="progressBar">
-			<div id="element6"  class="innerBar">&nbsp;</div>
+			<div id="element6"  class="innerBar"> </div>
 			</div>
 			<span id="box6">0</span> '.ini_get("memory_limit").'<br />
 			</td></tr>
@@ -5445,7 +5445,7 @@ function printobjectbuffer($is_table=false, $blockdir=false) {
 				$flags = array();
 				if ($objattr['disabled']) { $flags[] = 1; }	// readonly
 				if ($objattr['disabled']) { $flags[] = 3; }	// no export
-				if ($objattr['onClick']) { $js = $objattr['onClick']; }
+				if ($objattr['onclick']) { $js = $objattr['onclick']; }
 				else { $js = ''; }
 				$this->SetJSButton( $w, $h, $objattr['fieldname'],  $objattr['value'], $js, $objattr['ID'], $objattr['title'], $flags, $objattr['Indexed']);	// mPDF 5.2.05
 		     }
@@ -5479,7 +5479,7 @@ function printobjectbuffer($is_table=false, $blockdir=false) {
 				}
 				else if ($objattr['subtype'] == 'BUTTON') {
 					$this->SetFormButtonText( $objattr['value'] );
-					if ($objattr['onClick']) { $js = $objattr['onClick']; }
+					if ($objattr['onclick']) { $js = $objattr['onclick']; }
 					else { $js = ''; }
 					$this->SetJSButton( $w, $h, $objattr['fieldname'],  $objattr['value'], $js, 0, $objattr['title'], $flags, false, $objattr['background-col'], $objattr['border-col'], $objattr['noprint'] );	// mPDF 5.2.13 / 14
 				}
@@ -18151,7 +18151,7 @@ function OpenTag($tag,$attr)
 		$texto = 'X';
 		// mPDF 5.2.03
 		if ($this->useActiveForms) {
-			if (isset($attr['ONCLICK'])) { $objattr['onClick'] = $attr['ONCLICK']; }
+			if (isset($attr['ONCLICK'])) { $objattr['onclick'] = $attr['ONCLICK']; }
 			$objattr['type'] = 'input';
 			$type = 'IMAGE';
 		}
@@ -18182,7 +18182,7 @@ function OpenTag($tag,$attr)
 			$height = $this->FontSize + ($this->form_element_spacing['button']['outer']['v']*2)+($this->form_element_spacing['button']['inner']['v']*2);
 			// mPDF 5.2.03
 			if ($this->useActiveForms) {
-				if (isset($attr['ONCLICK'])) { $objattr['onClick'] = $attr['ONCLICK']; }
+				if (isset($attr['ONCLICK'])) { $objattr['onclick'] = $attr['ONCLICK']; }
 			}
 			break;
 
@@ -19569,7 +19569,7 @@ function OpenTag($tag,$attr)
 			break;
 		}
 
-		// change to &nbsp; spaces
+		// change to   spaces
 		if ($this->usingCoreFont) { 
 			$ls = str_repeat(chr(160).chr(160),($this->listlvl-1)*2) . $blt . ' '; 
 		}
@@ -32052,7 +32052,7 @@ function ConvertSize($size=5,$maxsize=0,$fontsize=false,$usefontsize=true){
 
 function lesser_entity_decode($html) {
   //supports the most used entity codes (only does ascii safe characters)
- 	$html = str_replace("&nbsp;"," ",$html);
+ 	$html = str_replace(" "," ",$html);
  	$html = str_replace("&lt;","<",$html);
  	$html = str_replace("&gt;",">",$html);
 
@@ -32131,7 +32131,7 @@ function AdjustHTML($html,$directionality='ltr',$usepre=true, $tabSpaces=8) {
 
 		// Converts < to &lt; when not a tag
 		$html = preg_replace('/<([^!\/a-zA-Z])/i','&lt;\\1',$html);
-		// mPDF changed to prevent &nbsp; chars replaced
+		// mPDF changed to prevent   chars replaced
 		$html = preg_replace("/[ ]+/",' ',$html);
 
 		$html = preg_replace('/\/li>\s+<\/(u|o)l/i','/li></\\1l',$html);
@@ -32159,7 +32159,7 @@ function AdjustHTML($html,$directionality='ltr',$usepre=true, $tabSpaces=8) {
 			$temp2[2][$iterator] = preg_replace('/</',"&lt;",$temp2[2][$iterator]);
 
 			$temp2[2][$iterator] = preg_replace('/\t/',str_repeat(" ",$tabSpaces),$temp2[2][$iterator]);
-			$temp2[2][$iterator] = preg_replace('/[ ]/',"&nbsp;",$temp2[2][$iterator]);
+			$temp2[2][$iterator] = preg_replace('/[ ]/'," ",$temp2[2][$iterator]);
 			$html = preg_replace('#<textarea(.*?)>(.*?)</textarea>#si','<aeratxet'.$temp2[1][$iterator].'>'.trim($temp2[2][$iterator]) .'</aeratxet>',$html,1);
 			$thereistextarea--;
 			$iterator++;
@@ -32180,7 +32180,7 @@ function AdjustHTML($html,$directionality='ltr',$usepre=true, $tabSpaces=8) {
 
 		// Converts < to &lt; when not a tag
 		$html = preg_replace('/<([^!\/a-zA-Z])/i','&lt;\\1',$html);
-		// mPDF changed to prevent &nbsp; chars replaced
+		// mPDF changed to prevent   chars replaced
 		$html = preg_replace("/[ ]+/",' ',$html);
 
 		$html = preg_replace('/\/li>\s+<\/(u|o)l/i','/li></\\1l',$html);
@@ -33384,7 +33384,7 @@ function _putform_bt( $form, $hPt ) {
 			$temp .= '/TP '.$this->form_button_icon[$form['T']]['pos'].' ';
 			$temp .= '/I '.($cc + $this->n).' 0 R ';		// Normal icon
 			$temp .= '/RI '.($cc + $this->n).' 0 R ';		// onMouseOver
-			$temp .= '/IX '.($cc + $this->n).' 0 R ';		// onClick / onMouseDown
+			$temp .= '/IX '.($cc + $this->n).' 0 R ';		// onclick / onMouseDown
 			$temp .= '/IF << /SW /A /S /A /A [0.0 0.0] >> ';	// Icon fit dictionary
 			if ($this->form_button_icon[ $form['T'] ]['Indexed']) { $cc++; }	// mPDF 5.2.10
 			$put_icon = 1;

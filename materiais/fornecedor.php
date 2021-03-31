@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Fornecedores de materiais
+	Formulário de Fornecedores de materiais
 	
 	Criado por Carlos Eduardo  
 	
@@ -47,7 +47,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 	 
 	if (empty($fornecedores))
 	{
-		exit('<script>alert("N�o foram encontrados fornecedores nesta planilha");</script>');
+		exit('<script>alert("Não foram encontrados fornecedores nesta planilha");</script>');
 	}
 		
 	$linha = 13;
@@ -76,7 +76,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				
 				if ($db->erro != '')
 				{
-					$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'ERRO: ALTERA��O');
+					$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'ERRO: ALTERAÇÃO');
 				}
 				else
 				{
@@ -87,7 +87,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 					
 					if ($db->erro != '')
 					{
-						$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'ERRO: INSERCAO');
+						$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'ERRO: INSERÇÃO');
 					}
 				}
 			}
@@ -98,13 +98,13 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			}
 		}
 		
-		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'FORNECEDOR '.$fornecErro.' NAO ENCONTRADO');
+		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(44, $linha, 'FORNECEDOR '.$fornecErro.' NÃO ENCONTRADO');
 		
 		$linha++;
 		$continuar 	= !empty($objPHPExcel->getActiveSheet()->getCell('A'.$linha)->getValue()) ? true : false;
 	}
 
-	// Redirect output to a client�s web browser (Excel2007)
+	// Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;filename='".date('dmYHis')."_resultado_{$name}'");
 	header('Cache-Control: max-age=0');
@@ -147,17 +147,17 @@ function atualizatabela_fornecedores()
 				$xml->writeAttribute('id', $reg['id_fornecedor']);
 				$xml->writeElement('cell', $reg['razao_social']);
 				$xml->writeElement('cell', $reg['nome_fantasia']);
-				$xml->writeElement('cell', $reg['logradouro'].','.$reg['numero'].'&nbsp;-&nbsp;'.$reg['complemento']);
+				$xml->writeElement('cell', $reg['logradouro'].','.$reg['numero'].' - '.$reg['complemento']);
 				$xml->writeElement('cell', $reg['bairro']);
 				$xml->writeElement('cell', $db2->array_select[0]['CC2_MUN']);
 				$xml->writeElement('cell', $reg['uf']);
 				
 				$xml->startElement('cell');
 					$xml->writeAttribute('title', 'Editar produtos fornecidos');
-					$xml->text("<span class=\'icone icone-detalhes cursor\' onclick=xajax_listaProdutosFornecidos(".$reg['id_fornecedor'].",\'".str_replace(' ', '&nbsp;', $reg['nome_fantasia'])."\');></span>");
+					$xml->text("<span class=\'icone icone-detalhes cursor\' onclick=xajax_listaProdutosFornecidos(".$reg['id_fornecedor'].",\'".str_replace(' ', ' ', $reg['nome_fantasia'])."\');></span>");
 				$xml->endElement();
 				
-				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_fornecedor'].");}; />");
+				$xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_fornecedor'].");}; />");
 			$xml->endElement();
 		}
 	);
@@ -470,7 +470,7 @@ function salvar_produtos($dados_form)
 	$db->insert($isql, 'MYSQL');
 	
 	if ($db->erro != '')
-		$resposta->addAlert('Houve uma falha ao tentar adicionar os componentes! Por favor, verifique os campos Pre�o e unidade');
+		$resposta->addAlert('Houve uma falha ao tentar adicionar os componentes! Por favor, verifique os campos Preço e unidade');
 	else
 	{
 		$resposta->addAlert('Componentes adicionados corretamente!');
@@ -505,7 +505,7 @@ function atualizatabela_unidade($idCampo)
 		function($reg, $i) use(&$xml,$idCampo)
 		{
 			$xml->startElement('row');
-				//$idCampo que chamou a fun��o e receber� o retorno
+				//$idCampo que chamou a função e receberá o retorno
 				$xml->writeAttribute('id', strtoupper($reg['unidade']).'_'.$idCampo);
 				$xml->writeElement('cell', strtoupper($reg['unidade']));
 			$xml->endElement();
@@ -539,7 +539,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 $smarty->assign("body_onload","xajax_atualizatabela_fornecedores('');");
 ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
@@ -565,7 +565,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'fornecedores':
-			mygrid.setHeader("Raz�o Social, Nome Fantasia, Endere�o, bairro, cidade, UF, F, D");
+			mygrid.setHeader("Razão Social, Nome Fantasia, Endereço, Bairro, Cidade, UF, F, D");
 			mygrid.setInitWidths("170,170,*,150,150,50,50,50");
 			mygrid.setColAlign("left,left,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -596,7 +596,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowSelect",carregarUnidadeSelecionada);
 		break;
 		case 'listacodigos':
-			mygrid.setHeader("C�digo, Descri��o,Pre�o, Unid.1, Pre�o, Unid.2");
+			mygrid.setHeader("Código, Descrição, Preço, Unid.1, Preço, Unid.2");
 			mygrid.setInitWidths("105,*,80,60,80,60");
 			mygrid.setColAlign("left,left,left,left,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -618,7 +618,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowSelect",editarProduto);
 		break;
 		case 'listacodigos_Fornecidos':
-			mygrid.setHeader("C�digo, Descri��o,Pre�o, Unid.1, Pre�o, Unid.2, Atualização");
+			mygrid.setHeader("Código, Descrição, Preço, Unid.1, Preço, Unid.2, Atualização");
 			mygrid.setInitWidths("105,*,80,60,80,60,80");
 			mygrid.setColAlign("left,left,left,left,left,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");

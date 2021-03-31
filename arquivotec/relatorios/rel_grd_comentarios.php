@@ -178,7 +178,7 @@ $sql .= "AND numeros_interno.reg_del = 0  ";
 $sql .= "AND ged_arquivos.reg_del = 0 ";
 $sql .= "AND ged_pacotes.reg_del = 0 ";
 $sql .= "AND grd.reg_del = 0 ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os_status NOT IN ('3','4','8','9','12') ";
 $sql .= "AND numeros_interno.id_disciplina = setores.id_setor ";
 $sql .= "AND numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";

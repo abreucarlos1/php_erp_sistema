@@ -42,7 +42,7 @@ function preencheos($id_coordenador)
 	$db = new banco_dados;
 	
 	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
@@ -158,7 +158,7 @@ foreach ($db->array_select as $regs)
 }
 
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";

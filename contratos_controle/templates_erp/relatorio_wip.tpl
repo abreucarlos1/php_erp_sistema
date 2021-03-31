@@ -8,7 +8,7 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-        					<input name="btninserir" type="submit" class="class_botao" id="btninserir" value="Gerar&nbsp;relatório" /></td>
+        					<input name="btninserir" type="submit" class="class_botao" id="btninserir" value="Gerar relatório" /></td>
 					</tr>
         			<tr>
         				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -22,7 +22,7 @@
 						<select name="mes" class="caixa" id="mes" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_per_values selected=$option_per_id output=$option_per_output</smarty>
 						</select>
-                        &nbsp;&nbsp;
+                          
 						<select name="ano" class="caixa" id="ano" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_ano_values selected=$option_ano_id output=$option_ano_output</smarty>
 						</select>

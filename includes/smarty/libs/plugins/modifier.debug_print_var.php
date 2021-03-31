@@ -30,7 +30,7 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
         case 'array' :
             $results = '<b>Array (' . count($var) . ')</b>';
             foreach ($var as $curr_key => $curr_val) {
-                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
+                $results .= '<br>' . str_repeat(' ', $depth * 2)
                  . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
                  . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;
@@ -41,7 +41,7 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
             $object_vars = get_object_vars($var);
             $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b>';
             foreach ($object_vars as $curr_key => $curr_val) {
-                $results .= '<br>' . str_repeat('&nbsp;', $depth * 2)
+                $results .= '<br>' . str_repeat(' ', $depth * 2)
                  . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
                  . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;

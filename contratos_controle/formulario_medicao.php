@@ -257,7 +257,7 @@ function atualizatabela($dados_form)
 				
 				$xml->startElement('cell');
 					
-					$img = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;medição?")){xajax_excluir("'.$regs["id_medicao"].'");}>';
+					$img = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão da medição?")){xajax_excluir("'.$regs["id_medicao"].'");}>';
 					
 					$xml->text($img);
 				$xml->endElement();
@@ -799,7 +799,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.attachEvent("onRowSelect",doOnRowSelected);	
 
-	mygrid.setHeader("Projeto,Disc.,Período,Percentual,Valor,%&nbsp;acumulado, Valor&nbsp;acumulado, Diferença/Saldo,D",
+	mygrid.setHeader("Projeto,Disc.,Período,Percentual,Valor,% acumulado, Valor acumulado, Diferença/Saldo,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("100,*,100,75,100,150,150,150,25");

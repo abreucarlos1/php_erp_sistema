@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de Replica��o de Componentes
+		Formulário de Replicação de Malhas
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/replicarmalhas.php
 		
-		data de cria��o: 28/04/2006
+		data de criação: 28/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -53,40 +53,40 @@ if ($_POST["acao"]=="salvar")
 		{
 			?>
 			<script>
-				alert('Malha j� cadastrada no banco de dados.');
+				alert('Malha já cadastrada no banco de dados.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.malhas ";
-			$incsql .= "(id_subsistema, id_processo, nr_malha, tp_malha, ds_servico) ";
-			$incsql .= "VALUES ('" . $_POST["id_subsistema"] . "', '" . $_POST["id_processo"] ."', ";
-			$incsql .= "'" . maiusculas($_POST["nr_malha"]) . "', '" . $_POST["tp_malha"] . "', ";
-			$incsql .= "'" . maiusculas($_POST["ds_servico"]) . "') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.malhas ";
+			$isql .= "(id_subsistema, id_processo, nr_malha, tp_malha, ds_servico) ";
+			$isql .= "VALUES ('" . $_POST["id_subsistema"] . "', '" . $_POST["id_processo"] ."', ";
+			$isql .= "'" . maiusculas($_POST["nr_malha"]) . "', '" . $_POST["tp_malha"] . "', ";
+			$isql .= "'" . maiusculas($_POST["ds_servico"]) . "') ";
 
-			$registros = mysql_query($incsql,$db->conexao) or die("Não foi possível a inserção dos dados");
+			$registros = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados");
 			
 			$malha = mysql_insert_id($db->conexao);
 			
 			$sql = "SELECT * FROM Projetos.componentes ";
 			$sql .= "WHERE id_malha = '" . $_POST["id_malha"] . "' ";
-			$registros = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados");
+			$registros = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados");
 			while($regs = mysql_fetch_array($registros))
 			{
 				if($_POST[$regs["id_componente"]]=="1")
 				{
-					//Cria senten�a de Inclusão no bd
-					$incsql = "INSERT INTO Projetos.componentes ";
-					$incsql .= "(id_funcao, id_malha, id_local, id_dispositivo, omit_proc, cd_tag_eq) VALUES (";
-					$incsql .= "'" . $regs["id_funcao"] . "', ";
-					$incsql .= "'" . $malha . "', ";
-					$incsql .= "'" . $regs["id_local"] . "', ";
-					$incsql .= "'" . $regs["id_dispositivo"] . "', ";
-					$incsql .= "'" . $_POST["omit_proc"] . "', ";
-					$incsql .= "'" . $regs["cd_tag_eq"] . "') ";
-					$regis = mysql_query($incsql,$db->conexao) or die("Não foi possível a inserção dos dados".$incsql);
+					//Cria sentença de Inclusão no bd
+					$isql = "INSERT INTO Projetos.componentes ";
+					$isql .= "(id_funcao, id_malha, id_local, id_dispositivo, omit_proc, cd_tag_eq) VALUES (";
+					$isql .= "'" . $regs["id_funcao"] . "', ";
+					$isql .= "'" . $malha . "', ";
+					$isql .= "'" . $regs["id_local"] . "', ";
+					$isql .= "'" . $regs["id_dispositivo"] . "', ";
+					$isql .= "'" . $_POST["omit_proc"] . "', ";
+					$isql .= "'" . $regs["cd_tag_eq"] . "') ";
+					$regis = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados".$isql);
 					
 					$comp = mysql_insert_id($db->conexao);
 					
@@ -94,29 +94,29 @@ if ($_POST["acao"]=="salvar")
 					$sql1 .= "WHERE id_dispositivo = '" . $regs["id_dispositivo"] . "' ";
 					$sql1 .= "AND id_funcao = '" . $regs["id_funcao"] . "' ";
 					$sql1 .= "AND id_tipo = '" . $regs["id_tipo"] . "' ";
-					$registros1 = mysql_query($sql1, $db->conexao) or die("N�o foi poss�vel a sele��o dos dados.");
+					$registros1 = mysql_query($sql1, $db->conexao) or die("Não foi possível a seleção dos dados.");
 					$count = mysql_num_rows($registros1);
 					if($count>0)
 					{
 						$regs1 = mysql_fetch_array($registros1);
 						
-						//Cria senten�a de Inclusão no bd
+						//Cria sentença de Inclusão no bd
 						$incsql1 = "INSERT INTO Projetos.especificacao_tecnica ";
 						$incsql1 .= "(id_especificacao_padrao, id_componente) ";
 						$incsql1 .= "VALUES (";
 						$incsql1 .= "'" . $regs1["id_especificacao_padrao"] . "', ";
 						$incsql1 .= "'" . $comp . "') ";
-						$registros2 = mysql_query($incsql1,$db->conexao) or die("Não foi possível a inserção dos dados".$incsql);
+						$registros2 = mysql_query($incsql1,$db->conexao) or die("Não foi possível a inserção dos dados".$isql);
 						
 						$esp = mysql_insert_id($db->conexao);
 						
 						$sql2 = "SELECT * FROM Projetos.especificacao_padrao_detalhes ";
 						$sql2 .= "WHERE id_especificacao_padrao = '" . $regs1["id_especificacao_padrao"] . "' ";
-						$regis = mysql_query($sql2, $db->conexao) or die("N�o foi poss�vel a sele��o dos dados.");
+						$regis = mysql_query($sql2, $db->conexao) or die("Não foi possível a seleção dos dados.");
 						
 						while($reg = mysql_fetch_array($regis))
 						{
-							//Cria senten�a de Inclusão no bd
+							//Cria sentença de Inclusão no bd
 							$incsql2 = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
 							$incsql2 .= "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
 							$incsql2 .= "VALUES (";
@@ -139,7 +139,7 @@ if ($_POST["acao"]=="salvar")
 				alert('Malha duplicada com sucesso.');
 				location.href='componentes.php';
 			</script>
-			<?
+			<?php
 			
 
 		}
@@ -152,13 +152,13 @@ if ($_POST["acao"]=="salvar")
 <title>: : . REPLICAR MALHA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para preenchimento dos comboboxes din�micos.
+//Função para preenchimento dos comboboxes dinâmicos.
 function preencheComboProcesso(combobox_destino, combobox, index)
 {
 /*
@@ -170,12 +170,12 @@ for (i=combobox_destino.length;i>0;i--)
 	}
 */	
 	
-<?
+<?php
 /*
 $sql = "SELECT * FROM processo ";
 $sql .= " ORDER BY processo ";
 
-$reg = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel estabelecer a conex�o com o banco de dados.". $sql);
+$reg = mysql_query($sql,$db->conexao) or die("Não foi possível estabelecer a conexão com o banco de dados.". $sql);
 
 	while ($cont = mysql_fetch_array($reg))
 	{
@@ -190,12 +190,14 @@ $reg = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel estabelecer a
 		}
 */
 
-<? //} ?>
+<?php
+
+//} ?>
 		
 
 }
 
-//Fun��o para preenchimento dos comboboxes din�micos.
+//Função para preenchimento dos comboboxes dinâmicos.
 function preencheComboFuncao(combobox_destino, combobox, index)
 {
 /*
@@ -207,7 +209,7 @@ for (i=combobox_destino.length;i>0;i--)
 	}
 	
 */	
-<?
+<?php
 
 /*
 $sql = "SELECT * FROM malhas, processo, funcao ";
@@ -215,7 +217,7 @@ $sql .= "WHERE processo.processo = malhas.processo ";
 $sql .= "AND processo.funcao = funcao.funcao ";
 $sql .= " ORDER BY malhas.processo ";
 
-$reg = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel estabelecer a conex�o com o banco de dados.". $sql);
+$reg = mysql_query($sql,$db->conexao) or die("Não foi possível estabelecer a conexão com o banco de dados.". $sql);
 
 	while ($cont = mysql_fetch_array($reg))
 	{
@@ -228,7 +230,8 @@ $reg = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel estabelecer a
 		}
 
 	*/
-<? //} ?>
+<?php
+ //} ?>
 		
 
 }
@@ -255,7 +258,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -283,13 +286,13 @@ function abreimagem(pagina, imagem, wid, heig)
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //menu() ?></td>
       </tr>
 	  <tr>
         <td>
@@ -298,30 +301,30 @@ function abreimagem(pagina, imagem, wid, heig)
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="10%"><span class="label1">subsistema</span></td>
-                      <td width="0%">&nbsp;</td>
+                      <td width="10%"><span class="label1">SUBSISTEMA</span></td>
+                      <td width="0%"> </td>
                       <td width="9%" class="label1">PROCESSO</td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="8%" class="label1">NR. malha </td>
-                      <td width="0%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="8%" class="label1">Nº MALHA </td>
+                      <td width="0%" class="label1"> </td>
                       <td width="9%" class="label1">TIPO MALHA </td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="17%" class="label1">omitir processo </td>
-                      <td width="20%" class="label1">&nbsp;</td>
-                      <td width="27%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="17%" class="label1">OMITIR PROCESSO</td>
+                      <td width="20%" class="label1"> </td>
+                      <td width="27%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td height="44"><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_subsistema" class="txt_box" id="requerido" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 				
 							$sql1 = "SELECT * FROM Projetos.subsistema, Projetos.malhas ";
 							$sql1 .= "WHERE subsistema.id_subsistema = malhas.id_subsistema ";
@@ -338,19 +341,19 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysql_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["id_subsistema"] ?>"<? if(($regs["id_subsistema"]==$_POST["id_subsistema"])||($regs["id_subsistema"]==$regs1["id_subsistema"])){ echo 'selected';}?>>
+                          <option value="<?= $regs["id_subsistema"] ?>"<?php if(($regs["id_subsistema"]==$_POST["id_subsistema"])||($regs["id_subsistema"]==$regs1["id_subsistema"])){ echo 'selected';}?>>
                             <?= $regs["nr_area"] . " - " .$regs["nr_subsistema"] . " - " . $regs["subsistema"] ?>
                             </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_processo" id="id_processo" class="txt_box" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 									
 									
 									$sql1 = "SELECT * FROM Projetos.processo, Projetos.malhas ";
@@ -365,25 +368,25 @@ function abreimagem(pagina, imagem, wid, heig)
 									while ($reg = mysql_fetch_array($regdescricao))
 										{
 											?>
-                          <option value="<?= $reg["id_processo"] ?>"<? if (($_POST["id_processo"]==$reg["id_processo"])||($regs1["id_processo"]==$reg["id_processo"])){ echo 'selected';}?>>
+                          <option value="<?= $reg["id_processo"] ?>"<?php if (($_POST["id_processo"]==$reg["id_processo"])||($regs1["id_processo"]==$reg["id_processo"])){ echo 'selected';}?>>
                           <?= $reg["processo"] . " - " . $reg["ds_processo"] . " - " . $reg["norma"] ?>
                           </option>
-                          <?
+                          <?php
 										}
 								
 								
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_malha" type="text" class="txt_box" id="nr_malha" size="20" value="<?= $_POST["nr_malha"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="tp_malha" class="txt_box" id="tp_malha" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 							
 							$sql1 = "SELECT * FROM Projetos.tipos, Projetos.malhas ";
 							$sql1 .= "WHERE tipos.tipo = malhas.tp_malha ";
@@ -397,62 +400,62 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysql_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["tipo"] ?>"<? if(($regs["tipo"]==$_POST["tp_malha"])||($regs["tipo"]==$regs1["tp_malha"])){ echo 'selected'; }?>>
+                          <option value="<?= $regs["tipo"] ?>"<?php if(($regs["tipo"]==$_POST["tp_malha"])||($regs["tipo"]==$regs1["tp_malha"])){ echo 'selected'; }?>>
                           <?= $regs["ds_tipo"] ?>
                           </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><div align="center">
                         <input name="omit_proc" type="checkbox" id="omit_" value="1">
                       </div></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
-                      <td><span class="label1">SERVI&Ccedil;O</span></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td><span class="label1">SERVIÇO</span></td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
-                        <?
+                        <?php
 							$sql1 = "SELECT * FROM Projetos.malhas ";
 							$sql1 .= "WHERE malhas.id_malha = '".$_POST["id_malha"]."' ";
 							$reg1 = mysql_query($sql1,$db->conexao) or die("Não foi possível realizar a seleção.");
 							$regs1 = mysql_fetch_array($reg1);
                         ?>
-                        <input name="ds_servico" type="text" class="txt_box" id="ds_servico" size="100" value="<? if($_POST["ds_servico"]!=''){ echo $_POST["ds_servico"];}else{ echo $regs1["ds_servico"];}  ?>">
+                        <input name="ds_servico" type="text" class="txt_box" id="ds_servico" size="100" value="<?php if($_POST["ds_servico"]!=''){ echo $_POST["ds_servico"];}else{ echo $regs1["ds_servico"];}  ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				 	 <input name="acao" type="hidden" id="acao" value="salvar">
 					 <input name="id_malha" type="hidden" id="id_malha" value="<?= $_POST["id_malha"] ?>">
-                    <input name="Inserir" type="button" class="btn" id="Inserir" value="DUPLICAR" onClick="requer('componentes')">
-                    <input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onClick="javascript:location.href='componentes.php';">
-                    <!-- <input name="Especifica��o t�cnica" type="button" class="btn" id="Malhas" value="Especifica��o t�cnica" onClick="javascript:location.href='especificacao tecnica.php';"> -->				</td>
+                    <input name="Inserir" type="button" class="btn" id="Inserir" value="DUPLICAR" onclick="requer('componentes')">
+                    <input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onclick="javascript:location.href='componentes.php';">
+                    <!-- <input name="Especificação técnica" type="button" class="btn" id="Malhas" value="Especificação técnica" onclick="javascript:location.href='especificacao_tecnica.php';"> -->				</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
@@ -468,8 +471,8 @@ function abreimagem(pagina, imagem, wid, heig)
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  <td width="14%">TAG</td>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = " ";
@@ -482,21 +485,21 @@ function abreimagem(pagina, imagem, wid, heig)
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="16%"><a href="#" class="cabecalho_tabela" onClick="ordenar('dispositivo','<?= $ordem ?>')">DISPOSITIVO</a></td>
-				  <td width="15%"><a href="#" class="cabecalho_tabela" onClick="ordenar('funcao','<?= $ordem ?>')">FUN&Ccedil;&Atilde;O</a></td>
-				  <td width="24%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_local','<?= $ordem ?>')">LOCAL</a></td>
-				  <td width="24%"><a href="#" class="cabecalho_tabela" onClick="ordenar('cd_tag_eq','<?= $ordem ?>')">TAG EQUIV.</a></td>
+				  <td width="16%"><a href="#" class="cabecalho_tabela" onclick="ordenar('dispositivo','<?= $ordem ?>')">DISPOSITIVO</a></td>
+				  <td width="15%"><a href="#" class="cabecalho_tabela" onclick="ordenar('funcao','<?= $ordem ?>')">FUNÇÃO</a></td>
+				  <td width="24%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_local','<?= $ordem ?>')">LOCAL</a></td>
+				  <td width="24%"><a href="#" class="cabecalho_tabela" onclick="ordenar('cd_tag_eq','<?= $ordem ?>')">TAG EQUIV.</a></td>
 				  <td width="4%"  class="cabecalho_tabela">DUP</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 					
 					$sql = "SELECT * FROM Projetos.area, Projetos.subsistema, Projetos.malhas, Projetos.dispositivos, Projetos.componentes, Projetos.processo, Projetos.funcao, Projetos.locais, Projetos.equipamentos  ";
 					$sql .= "WHERE area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -570,10 +573,10 @@ function abreimagem(pagina, imagem, wid, heig)
                             <?= $componentes["cd_tag_eq"] ?>
                           </div></td>
 					      <td width="8%"><div align="center"> <a href="javascript:excluir('<?= $componentes["id_componente"] ?>','<?= $componentes["ds_dispositivo"] ?>')"></a> 
-					        <input name="<?= $componentes["id_componente"] ?>" type="checkbox" id="dispositivo" value="1" <? if($_POST["acao"]!='salvar'){echo 'checked';}else{ if($_POST[$componentes["id_componente"]]=='1'){echo 'checked';}} ?>>
+					        <input name="<?= $componentes["id_componente"] ?>" type="checkbox" id="dispositivo" value="1" <?php if($_POST["acao"]!='salvar'){echo 'checked';}else{ if($_POST[$componentes["id_componente"]]=='1'){echo 'checked';}} ?>>
 					      </div></td>
 					</tr>
-						<?
+						<?php
 					}
 				?>
 			  </table>
@@ -589,7 +592,7 @@ function abreimagem(pagina, imagem, wid, heig)
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>
 

@@ -85,7 +85,7 @@ function atualizatabela($idContrato)
             $conteudo = "<span class=\'cursor\' onclick=\'window.parent.open(\"../includes/documento.php?documento=".$pastaCandidato.'/'.$reg['caq_arquivo']."&caminho=DOCUMENTOS_CANDIDATOS&janela=yes\",\"_blank\")\'><font style=\'text-decoration:underline;\'>".$reg['ctd_descricao']."</font></span>";
             $xml->writeElement('cell', $conteudo);
             
-            $conteudo = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;documento?\')){window.location=\'./anexar_documentos_candidatos.php?excluir=1&idDoc=".$reg['caq_id']."&id=".$idContrato."\';}></span>";
+            $conteudo = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este documento?\')){window.location=\'./anexar_documentos_candidatos.php?excluir=1&idDoc=".$reg['caq_id']."&id=".$idContrato."\';}></span>";
             $xml->writeElement('cell', $conteudo);
         }
         
@@ -96,7 +96,7 @@ function atualizatabela($idContrato)
             $conteudo ='<form style="margin:0;" name="frm_'.$reg['ctd_id'].'" id="frm_'.$reg['ctd_id'].'" action="candidato_upload.php" target="upload_target_'.$reg['ctd_id'].'" method="post" enctype="multipart/form-data" >';
             $conteudo .='<iframe id="upload_target_'.$reg['ctd_id'].'" name="upload_target_'.$reg['ctd_id'].'" src="#" style="border:0px solid #fff;display:none;"></iframe>';
             $conteudo .='<span id="txtup_'.$reg['ctd_id'].'" >';
-            $conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$reg['ctd_id'].'").submit(); name="myfile_'.$reg['ctd_id'].'" type="file" size="30" style="width: 60%;" />&nbsp;&nbsp;';
+            $conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$reg['ctd_id'].'").submit(); name="myfile_'.$reg['ctd_id'].'" type="file" size="30" style="width: 60%;" />  ';
             $conteudo .='</span>';
             $conteudo .='<input name="anexo_candidato_id" type="hidden" id="anexo_candidato_id" value="'.$idContrato.'">';
             $conteudo .='<input name="tipo_documento" type="hidden" id="tipo_documento" value="'.$reg["ctd_id"].'">';
@@ -175,7 +175,7 @@ function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);
 	
-	mygrid.setHeader("Documento, &nbsp;");
+	mygrid.setHeader("Documento,  ");
 	mygrid.setInitWidths("*,*");
 	mygrid.setColAlign("left,left");
 	mygrid.setColTypes("ro,ro");

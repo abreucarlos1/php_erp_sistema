@@ -15,13 +15,13 @@
 
 <title>::.. Empresa X - ERP  - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
 
-<link rel="stylesheet" href="../includes/dhtmlx_403/codebase/dhtmlx.css">
+<link rel="stylesheet" href="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/dhtmlx_403/codebase/dhtmlx.css">
 
 <link rel="stylesheet" href="<smarty>$classe</smarty>">
 
-<link rel="shortcut icon" href="favicon.ico" >
+<!-- <link rel="shortcut icon" href="favicon.ico" > -->
 
-<script src="../includes/utils.js"></script>
+<script src="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/utils.js"></script>
 </head>
 
 <body onload="<smarty>$body_onload</smarty>">

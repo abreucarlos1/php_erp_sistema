@@ -20,7 +20,7 @@
  * - values     (required) - array
  * - options    (required) - associative array
  * - checked    (optional) - array default not set
- * - separator  (optional) - ie <br> or &nbsp;
+ * - separator  (optional) - ie <br> or  
  * - output     (optional) - the output next to each radio button
  * - assign     (optional) - assign the output as an array to this variable
  * - escape     (optional) - escape the content (not value), defaults to true

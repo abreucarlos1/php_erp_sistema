@@ -345,7 +345,7 @@ else
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">&nbsp;</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\"> </td>";
 	$conteudo .= "</tr>";
 	
 	if($_POST["id_funcionario"]!=-1)
@@ -469,7 +469,7 @@ else
 		$conteudo .= "<td align=\"left\">DATA</td>";
 		$conteudo .= "<td align=\"left\">ATIVIDADE</td>";
 		$conteudo .= "<td align=\"left\">CÓDIGO</td>";
-		$conteudo .= "<td align=\"left\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\"> </td>";
 		$conteudo .= "<td align=\"left\">H. NORMAIS</td>";
 		$conteudo .= "<td align=\"left\">H. EXTRAS</td>";
 		$conteudo .= "</tr>";
@@ -539,27 +539,27 @@ else
 			$totalseca = 0;
 			
 			$conteudo .= "<tr>";
-			$conteudo .= "<td align=\"left\" colspan=\"3\">&nbsp;</td>";
+			$conteudo .= "<td align=\"left\" colspan=\"3\"> </td>";
 			$conteudo .= "<td align=\"left\"><B>SUBTOTAL:</B></td>";
 			$conteudo .= "<td align=\"left\">".$subtotaln[0] . ":" . $subtotaln[1]."</td>";
 			$conteudo .= "<td align=\"left\">".$subtotala[0] . ":" . $subtotala[1]."</td>";
 			$conteudo .= "</tr>";
 			
 			$conteudo .= "<tr>";
-			$conteudo .= "<td align=\"left\" colspan=\"6\">&nbsp;</td>";
+			$conteudo .= "<td align=\"left\" colspan=\"6\"> </td>";
 			$conteudo .= "</tr>";
 				
 		}
 
 		$conteudo .= "<tr>";
-		$conteudo .= "<td align=\"left\" colspan=\"3\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\" colspan=\"3\"> </td>";
 		$conteudo .= "<td align=\"left\"><B>TOTAL:</B></td>";
 		$conteudo .= "<td align=\"left\">".$THN[0] . ":" . $THN[1]."</td>";
 		$conteudo .= "<td align=\"left\">".$THA[0] . ":" . $THA[1]."</td>";
 		$conteudo .= "</tr>";
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td align=\"left\" colspan=\"6\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\" colspan=\"6\"> </td>";
 		$conteudo .= "</tr>";
 			
 	}	

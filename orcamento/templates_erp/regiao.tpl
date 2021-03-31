@@ -27,7 +27,7 @@
 		</td>
         </tr>
       </table>
-    <div id="regioes" style="width:100%;">&nbsp;</div>      
+    <div id="regioes" style="width:100%;"> </div>      
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

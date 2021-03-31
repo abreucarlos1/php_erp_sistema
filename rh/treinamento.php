@@ -91,7 +91,7 @@ function atualizatabela($filtro)
 			$xml->writeElement('cell', $reg['vigencia']);
 			
 			$xml->startElement('cell');
-				$xml->text('<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;item?")){xajax_excluir("'.$reg["id_rh_treinamento"].'");}></span>');
+				$xml->text('<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir este item?")){xajax_excluir("'.$reg["id_rh_treinamento"].'");}></span>');
 			$xml->endElement();
 			
 		$xml->endElement();		

@@ -15,7 +15,7 @@ function Header()
     //$this->Image($this->Logotipocliente(),21,16,30);
 	//$this->Image($this->Logotipocliente(),21,22,15,10);
 	$this->Image($this->Logotipocliente(),101,185,15,10);
-	$this->Image("../logotipos/logo_devemada.jpg",116,185,15,10);
+	$this->Image("../logotipos/logotipo.jpg",116,185,15,10);
     //Arial bold 12
     //Titulo(Largura,Altura,Texto,Borda,Quebra de Linha,Alinhamento,Preenchimento
 	//$this->Ln(1);
@@ -23,35 +23,35 @@ function Header()
 	
 	$this->SetXY(5,175);
 	
-	//Informa��es do Centro de Custo
-	$this->Cell(127,5,"",0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(127,5,"",0,0,'L',0); // CÉLULA LOGOTIPO 146
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(119,5,$this->Cliente(),1,0,'C',0); // C�LULA CLIENTE
+	$this->Cell(119,5,$this->Cliente(),1,0,'C',0); // CÉLULA CLIENTE
 	$this->SetFont('Arial','',6);
 	$this->Cell(17,5,'DOC:',0,0,'L',0);
-	$this->Cell(17,5,$this->setor() . '-' . $this->codigodoc() . '-' .$this->codigo(),0,1,'R',0); //setor - C�digo Documento - Sequencia
+	$this->Cell(17,5,$this->setor() . '-' . $this->codigodoc() . '-' .$this->codigo(),0,1,'R',0); //setor - Código Documento - Sequencia
 	$this->SetLineWidth(0.3);
 	
 	$this->Line(258,179,290,179); 
-	$this->Cell(127,5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(127,5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10); 
-	$this->Cell(119,5,$this->Subsistema() . " / " .$this->Area(),1,0,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(119,5,$this->Subsistema() . " / " .$this->Area(),1,0,'C',0); // CÉLULA AREA / SUBSISTEMA
 	$this->SetFont('Arial','',6);
 	$this->Cell(17,5,'EMISSÃO:',0,0,'L',0); //aqui
 	$this->Cell(17,5,$this->Emissao(),0,1,'R',0); //aqui
 	$this->Line(258,184,290,184);
-	$this->Cell(127,5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(127,5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(119,5,"LISTA DE LINHAS",0,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(119,5,"LISTA DE LINHAS",0,0,'C',0); // CÉLULA COMPONENTE
 	$this->SetFont('Arial','',6);
 	$this->Cell(17,5,'FOLHA:',0,0,'L',0);
 	$this->Cell(17,5,$this->PageNo().' de {nb}',0,1,'R',0);
 	$this->Line(258,189,290,189);
-	$this->Cell(127,5,"",0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(127,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(119,5,"GERAL",1,1,'C',0); // C�LULA COMPONENTE
-	$this->Cell(127,5,"",0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(119,5,"GERAL",1,1,'C',0); // CÉLULA COMPONENTE
+	$this->Cell(127,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->Cell(119,5,$this->Subsistema(),0,1,'C',0);
 	//$this->SetFont('Arial','B',8);
 	//$this->Cell(170,4,$this->Revisao(),0,1,'R',0);
@@ -102,12 +102,12 @@ $db->conexao_db();
 $sql1 = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
 //$sql1 .= "WHERE OS = 2594 ";
 $sql1 .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-$registro1 = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
+$registro1 = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg1 = mysql_fetch_array($registro1);
 
 $sql2 = "SELECT * FROM ".DATABASE.".setores ";
-$sql2 .= "WHERE setor = 'TUBULA��O' ";
+$sql2 .= "WHERE setor = 'TUBULAÇÃO' ";
 $regis = mysql_query($sql2,$db->conexao) or die("Não foi possível fazer a seleção." . $sql1);
 $disciplina = mysql_fetch_array($regis);
 
@@ -116,7 +116,7 @@ include ("../includes/conectdbproj.inc");
 $sql = "SELECT * FROM area, subsistema ";
 $sql .= "WHERE subsistema.id_subsistema = '" .$_POST["id_subsistema"]. "' ";
 $sql .= "AND area.id_area = subsistema.id_area ";
-$registro = mysql_query($sql,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 */
 
@@ -124,7 +124,7 @@ $reg = mysql_fetch_array($registro);
 $sql = "SELECT * FROM Projetos.area, Projetos.subsistema ";
 $sql .= "WHERE area.id_os = '" .$reg1["id_os"]. "' ";
 $sql .= "AND subsistema.id_area = area.id_area ";
-$registro = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 
 
@@ -136,12 +136,12 @@ $pdf->codigodoc="00"; //"00";
 $pdf->codigo="00"; //Numero OS
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->emissao=date("d/m/Y");
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 $pdf->AddPage('L');
@@ -161,7 +161,7 @@ $pdf->Line(5,25,290,25); // LINHA INFERIOR pagina
 $pdf->Line(290,25,290,200); // LINHA DIREITA
 $pdf->SetLineWidth(0.2);
 
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(5,70);
 
 $pdf->SetFont('Arial','BU',20);
@@ -175,11 +175,11 @@ $pdf->Ln(5);
 $pdf->SetFont('Arial','BU',16);
 $pdf->Cell(285,10, $reg["subsistema"] ,0,1,'C',0);
 
-//$pdf->Cell(127,5,"",1,0,'C',0); // C�LULA LOGOTIPO
-//$pdf->Cell(119,5,$malhas["ds_finalidade"],1,1,'C',0); // C�LULA COMPONENTE
+//$pdf->Cell(127,5,"",1,0,'C',0); // CÉLULA LOGOTIPO
+//$pdf->Cell(119,5,$malhas["ds_finalidade"],1,1,'C',0); // CÉLULA COMPONENTE
 $pdf->AddPage('L');
 			
-// P�gina de rosto acima	
+// Página de rosto acima	
 			
 //$posax = $pdf->GetX();
 //$posay = $pdf->GetY();
@@ -188,8 +188,8 @@ $pdf->AddPage('L');
 $pdf->SetX(5);
 $pdf->SetY(195);
 $pdf->SetFont('Arial','',6);
-$pdf->Cell(127,5,"",0,0,'C',0); // C�LULA LOGOTIPO
-$pdf->Cell(119,5,$malhas["ds_finalidade"],1,0,'C',0); // C�LULA COMPONENTE
+$pdf->Cell(127,5,"",0,0,'C',0); // CÉLULA LOGOTIPO
+$pdf->Cell(119,5,$malhas["ds_finalidade"],1,0,'C',0); // CÉLULA COMPONENTE
 $pdf->SetX($posax);
 $pdf->SetY($posay);
 //$pdf->SetAutoPageBreak(true,40);
@@ -214,7 +214,7 @@ $sql1 .= "AND locais.id_material = materiais.id_material ";
 $sql1 .= "AND locais.id_area = '" .$reg["id_area"] . "' ";
 $sql1 .= "ORDER BY fluidos.cd_fluido, locais.nr_sequencia, locais.nr_diametro  ";
 
-$regcomp = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql1);
+$regcomp = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql1);
 
 if(mysql_num_rows($regcomp)>0)
 {
@@ -239,26 +239,26 @@ if(mysql_num_rows($regcomp)>0)
 	
 	$pdf->SetXY(5,30);
 	
-	//IMPRIME OS TEXTOS DOS CABE�ALHOS
+	//IMPRIME OS TEXTOS DOS CABEÇALHOS
 	$pdf->HCell(30,5,"IDENT. LINHA",0,0,'C',0);
 	
 	$pdf->HCell(15,5,"ISOL.",0,0,'C',0);
 			
-	$pdf->HCell(40,5,"IN�CIO",0,0,'C',0);
+	$pdf->HCell(40,5,"INÍCIO",0,0,'C',0);
 
-	$pdf->HCell(40,5,"T�RMINO",0,0,'C',0);
+	$pdf->HCell(40,5,"TÉRMINO",0,0,'C',0);
 
 	$pdf->HCell(15,5,"PRES.",1,0,'C',0);
-	$pdf->HCell(15,5,"VAZ�O",1,0,'C',0);
+	$pdf->HCell(15,5,"VAZÃO",1,0,'C',0);
 	$pdf->HCell(15,5,"TEMP.",1,0,'C',0);
 
 	$pdf->HCell(60,5,"DOCUMENTO",0,0,'C',0);
 	
-	$pdf->HCell(45,5,"OBSERVA��O",0,0,'C',0);
+	$pdf->HCell(45,5,"OBSERVAÇÃO",0,0,'C',0);
 	
 	$pdf->HCell(10,5,"REV.",0,1,'C',0);
 	
-	//IMPRIME O SUBCABE�ALHO
+	//IMPRIME O SUBCABEÇALHO
 	$pdf->Cell(30,5,"",0,0,'C',0);
 	
 	$pdf->Cell(15,5,"",0,0,'C',0);
@@ -272,7 +272,7 @@ if(mysql_num_rows($regcomp)>0)
 	$pdf->HCell(15,5,"NORM.",1,0,'C',0);
 
 	$pdf->HCell(30,5,"FLUXOGRAMA",1,0,'C',0);
-	$pdf->HCell(30,5,"ISOM�TRICO",1,0,'C',0);
+	$pdf->HCell(30,5,"ISOMÉTRICO",1,0,'C',0);
 	
 	$pdf->Cell(45,5,"",0,0,'C',0);
 	
@@ -290,7 +290,7 @@ if(mysql_num_rows($regcomp)>0)
 		$pdf->HCell(40,5,$especificacao["ds_fim"],1,0,'C',0);
 		$pdf->HCell(15,5,$especificacao["nr_pressao"],1,0,'C',0);
 		$pdf->HCell(15,5,$especificacao["nr_vazao"],1,0,'C',0);
-		$pdf->HCell(15,5,$especificacao["nr_temperatura"]." �C",1,0,'C',0);
+		$pdf->HCell(15,5,$especificacao["nr_temperatura"]."ºC",1,0,'C',0);
 		$pdf->HCell(30,5,$especificacao["ds_fluxograma"],1,0,'C',0);
 		$pdf->HCell(30,5,$especificacao["ds_isometrico"],1,0,'C',0);
 		$pdf->Cell(45,5,"",1,0,'C',0);

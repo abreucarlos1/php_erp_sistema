@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de Grupos de materiais
+	Formulário de Grupos de materiais
 	
 	Criado por Carlos Abreu / Otávio Pamplona
 	
@@ -51,7 +51,7 @@ function atualizatabela()
 	        $xml->writeElement('cell', sprintf('%02d', $reg['codigo_grupo']));
 	        $xml->writeElement('cell', $reg['grupo']);
 	        
-	        $xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_grupo'].");};></span>");
+	        $xml->writeElement('cell', "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_grupo'].");};></span>");
 	        $xml->endElement();
 	});
 	
@@ -79,13 +79,13 @@ function insere($dados_form)
 			$dados_form['codigo'] = sprintf('%02d', intval($db->array_select[0]['ultimo']) + 1);
 		}
 		
-		$incsql = "INSERT INTO materiais_old.grupo ";
-		$incsql .= "(codigo_grupo,grupo) VALUES ( ";
-		$incsql .= "'" . $dados_form["codigo"] . "', ";
-		$incsql .= "'" . maiusculas($dados_form["grupo"]) . "') ";
+		$isql = "INSERT INTO materiais_old.grupo ";
+		$isql .= "(codigo_grupo,grupo) VALUES ( ";
+		$isql .= "'" . $dados_form["codigo"] . "', ";
+		$isql .= "'" . maiusculas($dados_form["grupo"]) . "') ";
 
 		//Carrega os registros
-		$db->insert($incsql,'MYSQL');
+		$db->insert($isql,'MYSQL');
 			
 		$resposta->addAlert("Grupo cadastrado com sucesso.");	
 		$resposta->addScript("window.location='./grupo.php';");	
@@ -130,13 +130,13 @@ function atualizar($dados_form)
 	if($dados_form["grupo"]!='')
 	{
 
-		$incsql = "UPDATE materiais_old.grupo SET ";
-		$incsql .= "codigo_grupo = '" . $dados_form["codigo"] . "', ";
-		$incsql .= "grupo = '" . maiusculas($dados_form["grupo"]) . "' ";
-		$incsql .= "WHERE id_grupo = '".$dados_form["id_grupo"]."' ";
+		$isql = "UPDATE materiais_old.grupo SET ";
+		$isql .= "codigo_grupo = '" . $dados_form["codigo"] . "', ";
+		$isql .= "grupo = '" . maiusculas($dados_form["grupo"]) . "' ";
+		$isql .= "WHERE id_grupo = '".$dados_form["id_grupo"]."' ";
 
 		//Carrega os registros
-		$db->update($incsql,'MYSQL');
+		$db->update($isql,'MYSQL');
 		
 		$resposta->addAlert("Grupo atualizado com sucesso.");
 		
@@ -207,7 +207,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("C�digo, Grupo,D");
+	mygrid.setHeader("Código, Grupo,D");
 	mygrid.setInitWidths("50,*,50");
 	mygrid.setColAlign("left,left,center");
 	mygrid.setColTypes("ro,ro,ro");

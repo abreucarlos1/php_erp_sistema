@@ -58,9 +58,9 @@ function atualizatabela($filtro)
 		$avancodata[$avf["id_os"]] = $avf["data"];
 	}
 	
-	$sql = "SELECT * FROM ".DATABASE.".unidade, ".DATABASE.".empresas, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status ";
+	$sql = "SELECT * FROM ".DATABASE.".unidades, ".DATABASE.".empresas, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status ";
 	$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND ordem_servico_status.os_status NOT LIKE 'ENCERRADA' ";
@@ -69,13 +69,13 @@ function atualizatabela($filtro)
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY empresa, unidade, OS ";
 	
-	$reg_os = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel ffazer a sele��o." . $sql_os);
+	$reg_os = mysql_query($sql,$db->conexao) or $resposta->addAlert("Não foi possível ffazer a seleção." . $sql_os);
 
 	$header = "<table id=\"tbl1\" class=\"dhtmlXGrid\" style=\"width:100%\">";
 	$header .= "<tr>";
-	$header .= "<td type=\"ro\">OS&nbsp;DVM</td>";
+	$header .= "<td type=\"ro\">OS INT</td>";
 	$header .= "<td type=\"ro\">Cliente</td>";
-	$header .= "<td type=\"ro\">Descri��o</td>";
+	$header .= "<td type=\"ro\">Descrição</td>";
 	$header .= "<td type=\"ro\">Previsto</td>";
 	$header .= "<td type=\"ro\">Realizado</td>";
 	$header .= "<td type=\"ro\">Saldo</td>";
@@ -142,7 +142,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <!-- Grid -->
@@ -170,10 +170,10 @@ function grid()
 
 </script>
 
-<?
+<?php
 
 
-$smarty->assign("nome_formulario","AVAN�O F�SICO");
+$smarty->assign("nome_formulario","AVANÇO FÍSICO");
 
 $smarty->assign("classe","setor_adm");
 

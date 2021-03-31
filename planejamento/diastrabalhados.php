@@ -54,7 +54,7 @@ $sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 $sql .= "AND apontamento_horas.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os_status IN (1,2,14,16) ";
 $sql .= "GROUP BY ordem_servico.os ";
 $sql .= "ORDER BY ordem_servico.os ";
@@ -156,7 +156,7 @@ $smarty->assign("check_equipe",$check);
 //status
 $check = "<br>";
 
-$check .= "<label class=\"labels\">Status&nbsp;funcionario<br><input type=\"checkbox\" name=\"chks_TODOS\" id=\"chks_TODOS\" value=\"-1\" onclick=\"if(this.checked){setcheckbox('frm_rel','check','chks');btninserir.disabled='';}else{setcheckbox('frm_rel','','chks');btninserir.disabled='disabled';}\">TODOS</label><br>";
+$check .= "<label class=\"labels\">Status funcionario<br><input type=\"checkbox\" name=\"chks_TODOS\" id=\"chks_TODOS\" value=\"-1\" onclick=\"if(this.checked){setcheckbox('frm_rel','check','chks');btninserir.disabled='';}else{setcheckbox('frm_rel','','chks');btninserir.disabled='disabled';}\">TODOS</label><br>";
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE situacao NOT IN ('CANCELADO') ";

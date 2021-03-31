@@ -118,28 +118,28 @@ img.crisp {
   <tbody>
   <tr>
     <td align="center" bgcolor="#cc9900"><img src="cc9900.gif" alt="" width="48" height="48"></td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center" bgcolor="#cc9900"><img src="cc9900_003.png" alt="" width="48" height="48"></td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center" bgcolor="#cc9900"><img src="cc9900.png" alt="" width="48" height="48"></td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center" bgcolor="#cc9900"><img src="cc9900_004.png" alt="" width="48" height="48"></td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center" bgcolor="#cc9900"><img src="cc9900_002.png" alt="" width="48" height="48"></td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center" bgcolor="#cc9900"><img src="cc9900_005.png" alt="" width="48" height="48"></td>
   </tr>
   <tr>
     <td align="center">Unlabelled GIF image<br />(the usual kind)</td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center">Unlabelled PNG image<br />(no gamma info)</td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center">PNG image with gamma 1/1.6<br />(i.e. 0.625)</td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center">PNG image with gamma 1/2.2<br />(i.e. 0.4545)</td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center">sRGB PNG image<br />("absolute colorimetric" rendering intent "sRGB")</td>
-    <td><font size="1">&nbsp;</font></td>
+    <td><font size="1"> </font></td>
     <td align="center">iCCP PNG images<br />("gamma 1.0" pixel data, linear ICC profiles: "iCCPGamma 1.0 profile")</td>
   </tr>
 </tbody></table>

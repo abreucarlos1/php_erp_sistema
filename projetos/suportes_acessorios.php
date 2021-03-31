@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de TIPOS DE SUPORTES	
+		Formulário de TIPOS DE SUPORTES	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/suportes_acessorios.php
 		
-		data de cria��o: 05/06/2006
+		data de criação: 05/06/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -46,9 +46,9 @@ if ($_POST["acao"]=="editar")
 	{
 		?>
 		<script>
-			alert('Acess�rio j� cadastrado no banco de dados.');
+			alert('Acessório já cadastrado no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
@@ -62,9 +62,9 @@ if ($_POST["acao"]=="editar")
 		
 		?>
 		<script>
-			alert('Acess�rio atualizado com sucesso.');
+			alert('Acessório atualizado com sucesso.');
 		</script>
-		<?
+		<?php
 	}		
 
 
@@ -83,26 +83,26 @@ if ($_POST["acao"]=="salvar")
 	{
 		?>
 		<script>
-			alert('Acess�rio j� cadastrado no banco de dados.');
+			alert('Acessório já cadastrado no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
 	{
-		//Cria senten�a de Inclusão no bd
-		$incsql = "INSERT INTO Projetos.suportes_acessorios ";
-		$incsql .= "(id_tipo_suporte, id_acessorio) VALUES (";
-		$incsql .= "'" . $_POST["id_tipo_suporte"] . "', ";
-		$incsql .= "'" . $_POST["id_acessorio"] . "') ";
+		//Cria sentença de Inclusão no bd
+		$isql = "INSERT INTO Projetos.suportes_acessorios ";
+		$isql .= "(id_tipo_suporte, id_acessorio) VALUES (";
+		$isql .= "'" . $_POST["id_tipo_suporte"] . "', ";
+		$isql .= "'" . $_POST["id_acessorio"] . "') ";
 	
-		$registros = $db->insert($incsql,'MYSQL');
+		$registros = $db->insert($isql,'MYSQL');
 	
 		?>
 		<script>
-			alert('Acess�rio inserido com sucesso.');
+			alert('Acessório inserido com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 
 }
@@ -117,25 +117,25 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Acess�rio exclu�do com sucesso.');
+		alert('Acessório excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
 <html>
 <head>
-<title>: : . SUPORTES - ACESS�RIOS . : :</title>
+<title>: : . SUPORTES - ACESSÓRIOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_suporte_acessorio, ds_tipo_suporte)
 {
-	if(confirm('Tem certeza que deseja excluir o acess�rio '+ds_tipo_suporte+' ?'))
+	if(confirm('Tem certeza que deseja excluir o acessório '+ds_tipo_suporte+' ?'))
 	{
 		location.href = '<?= $PHP_SELF ?>?acao=deletar&id_suporte_acessorio='+id_suporte_acessorio+'';
 	}
@@ -152,7 +152,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -176,18 +176,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -207,26 +207,26 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="1%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
                       <td width="13%" class="label1">SUPORTE  </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="19%" class="label1">ACESS&Oacute;RIO </td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="65%" class="label1">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="19%" class="label1">ACESSÓRIO </td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="65%" class="label1"> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_tipo_suporte" class="txt_box" id="id_tipo_suporte" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						
 						$sql = "SELECT * FROM Projetos.tipos_suportes ";
@@ -237,19 +237,19 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_tipo_suporte"] ?>" <? if($suportes_acessorios["id_tipo_suporte"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_tipo_suporte"] ?>" <?php if($suportes_acessorios["id_tipo_suporte"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
                         <?= $cont["cd_tipo_suporte"] . " - " . $cont["ds_tipo_suporte"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_acessorio" class="txt_box" id="id_acessorio" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						
 						$sql = "SELECT * FROM Projetos.tipos_suportes ";
@@ -260,38 +260,38 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_tipo_suporte"] ?>" <? if($suportes_acessorios["id_acessorio"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_tipo_suporte"] ?>" <?php if($suportes_acessorios["id_acessorio"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
                         <?= $cont["cd_tipo_suporte"] . " - " . $cont["ds_tipo_suporte"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_suporte_acessorio" type="hidden" id="id_suporte_acessorio" value="<?= $suportes_acessorios["id_suporte_acessorio"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -302,26 +302,26 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="1%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
                       <td width="13%" class="label1"> SUPORTE </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="17%" class="label1">ACESS&Oacute;RIO</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="67%" class="label1">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="17%" class="label1">ACESSÓRIO</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="67%" class="label1"> </td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_tipo_suporte" class="txt_box" id="id_tipo_suporte" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						$sql = "SELECT * FROM Projetos.tipos_suportes ";
 						$sql .= "ORDER BY cd_tipo_suporte ";
@@ -331,19 +331,19 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_tipo_suporte"] ?>" <? if($_POST["id_tipo_suporte"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_tipo_suporte"] ?>" <?php if($_POST["id_tipo_suporte"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
                         <?= $cont["cd_tipo_suporte"] . " - " . $cont["ds_tipo_suporte"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_acessorio" class="txt_box" id="id_acessorio" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 						
 						
 						$sql = "SELECT * FROM Projetos.tipos_suportes ";
@@ -354,37 +354,37 @@ window.moveTo(0,0);
 						while($cont = mysqli_fetch_array($reg))
 						{
 							?>
-                        <option value="<?= $cont["id_tipo_suporte"] ?>" <? if($_POST["id_acessorio"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
+                        <option value="<?= $cont["id_tipo_suporte"] ?>" <?php if($_POST["id_acessorio"]==$cont["id_tipo_suporte"]) { echo "selected"; } ?>>
                         <?= $cont["cd_tipo_suporte"] . " - " . $cont["ds_tipo_suporte"] ?>
                         </option>
-                        <?
+                        <?php
 							
 						}
 						
 						?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:location.href='menu_mectub.php';"></td>
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:location.href='menu_mectub.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -397,8 +397,8 @@ window.moveTo(0,0);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "cd_tipo_suporte";
@@ -411,20 +411,20 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
 				  <td width="33%">SUPORTE</td>
-				  <td width="45%">ACESS&Oacute;RIOS</td>
+				  <td width="45%">ACESSÓRIOS</td>
 				  <td width="3%"  class="cabecalho_tabela">E</td>
 				  <td width="2%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 					
 					$sql = "SELECT * FROM Projetos.suportes_acessorios, Projetos.tipos_suportes ";
 					$sql .= "WHERE suportes_acessorios.id_tipo_suporte = tipos_suportes.id_tipo_suporte ";
@@ -466,7 +466,7 @@ window.moveTo(0,0);
 						  <td width="3%"><div align="center"> <a href="javascript:editar('<?= $suportes_acessorios["id_suporte_acessorio"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="4%"><div align="center"> <a href="javascript:excluir('<?= $suportes_acessorios["id_suporte_acessorio"] ?>','<?= $acessorios["ds_tipo_suporte"]." - ". $acessorios["ds_tipo_suporte"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>

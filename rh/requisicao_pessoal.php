@@ -116,7 +116,7 @@ function atualizatabela($dados_form)
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 		
 		$xml->endElement();
@@ -215,19 +215,27 @@ function excluir($id_requisicao, $dados_form)
 			$mensagem_rh .= "<P>Motivo: " . $motivo . "</P>";
 			$mensagem_rh .= "<P>Clique <a href='http://ENDERECO/SISTEMA/rh/requisicao_pessoal_adm.php?id_requisicao=" . $id_requisicao . "'>aqui</a> para visualizar.</P></span>";
 			
-			$params 			= array();
-			$params['from']		= "recrutamento@dominio.com.br";
-			$params['from_name']= "SISTEMA REQUISIÇÃO DE PESSOAL - CANCELAMENTO DE VAGA";
-			$params['subject'] 	= "VAGA CANCELADA";
-			
-			$params['emails']['to'][] = array('email' => "recursos_humanos@dominio.com.br", 'nome' => "Recursos Humanos");
-
-			$mail = new email($params);
-			$mail->montaCorpoEmail($mensagem_rh);
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+
+				$params 			= array();
+				$params['from']		= "recrutamento@dominio.com.br";
+				$params['from_name']= "SISTEMA REQUISIÇÃO DE PESSOAL - CANCELAMENTO DE VAGA";
+				$params['subject'] 	= "VAGA CANCELADA";
+				
+				$params['emails']['to'][] = array('email' => "recrutamento@dominio.com.br", 'nome' => "Recursos Humanos");
+
+				$mail = new email($params);
+				$mail->montaCorpoEmail($mensagem_rh);
+				
+				if(!$mail->Send())
+				{
+					$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+				}
+			}
+			else
+			{
+				$resposta->addScriptCall('modal', $mensagem_rh, '300_650', 'Conteúdo email', 1);
 			}			
 		}
 		else
@@ -402,16 +410,18 @@ function insere($dados_form)
 			
 			$mensagem_rh .= "<P>Para visualizar a requisição basta acessar <a href='http://ENDERECO/EMPRESA'>SISTEMA</a>, clicar no módulo Recursos Humanos / Requisição de Pessoal - ADM</P></span>";
 	
-			$sql = "SELECT * FROM ".DATABASE.".usuarios ";
-			$sql .= "WHERE usuarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
-			$sql .= "AND reg_del = 0 ";
+			$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+			$sql .= "WHERE funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
+			$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
+			$sql .= "AND funcionarios.reg_del = 0 ";
+			$sql .= "AND usuarios.reg_del = 0 ";
 			
 			$db->select($sql,'MYSQL',true);
 			
 			$usuario_req = $db->array_select[0];
 			
 			$params = array();
-			$params['emails']['to'][] = array('email' => "recursos_humanos@dominio.com.br", 'nome' => "RECURSOS HUMANOS");
+			$params['emails']['to'][] = array('email' => "recrutamento@dominio.com.br", 'nome' => "RECURSOS HUMANOS");
 			
 			//Se vaga efetiva
 			if($dados_form["tipo"]=="1")
@@ -427,29 +437,29 @@ function insere($dados_form)
 			
 			if ($emailTi)
 			{
-				$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Suporte TI");
+				$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Suporte TI");
 			}
 		
-			$mail = new email($params);
-			$mail->montaCorpoEmail($mensagem_rh);
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+
+				$mail = new email($params);
+				$mail->montaCorpoEmail($mensagem_rh);
+				
+				if(!$mail->Send())
+				{
+					$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+				}
 			}
-			
+			else
+			{
+				$resposta->addScriptCall('modal', $mensagem_rh, '300_650', 'Conteúdo email', 3);
+			}
+				
 			//Adicionado e-mail ao financeiro quando mobilizaçã
 			//31/10/2016: Feito a pedido chamado 1019
 			if ($dados_form['mobilizacao_colaborador'] == 0 && !empty($dados_form["detalhes_mobilizacao"]))
 			{
-				$params = array();
-				$params['from']	= $usuario_req["email"];
-				$params['from_name'] = "SISTEMA REQUISIÇÃO DE PESSOAL - MOBILIZAÇÃO";
-				
-				$mail = new email($params, 'requisicao_mobilizacao_empresa');
-			
-				$params['subject'] 	= "MOBILIZAÇÃO SOLICITADA";
-
 				$mensagem_financeiro = "<span style=\"font-family:Arial, Helvetica, sans-serif; font-size:11px; padding:0px; margin:0px;\"><p>Há uma nova requisição no sistema:</P><BR>";
 				$mensagem_financeiro .= "<P>Nº: " . sprintf("%05d",$id_requisicao) . "</P>";
 				$mensagem_financeiro .= "<P>Data: " . date("d/m/Y") . "</P>";
@@ -458,12 +468,28 @@ function insere($dados_form)
 				$mensagem_financeiro .= "<P>Contrato: " . $contrato . "</P>";
 				$mensagem_financeiro .= "<P>Função: " . $reg_cargo["descricao"] . "</P><BR>";
 				$mensagem_financeiro .= "<P><b>Detalhes Mobilização</b>: " . $dados_form["detalhes_mobilizacao"] . "</P><BR>";
-				
-				$mail->montaCorpoEmail($mensagem_financeiro);
-				
-				if(!$mail->Send())
+
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+				
+					$params = array();
+					$params['from']	= $usuario_req["email"];
+					$params['from_name'] = "SISTEMA REQUISIÇÃO DE PESSOAL - MOBILIZAÇÃO";
+					
+					$mail = new email($params, 'requisicao_mobilizacao_empresa');
+				
+					$params['subject'] 	= "MOBILIZAÇÃO SOLICITADA";
+					
+					$mail->montaCorpoEmail($mensagem_financeiro);
+					
+					if(!$mail->Send())
+					{
+						$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+					}
+				}
+				else
+				{
+					$resposta->addScriptCall('modal', $mensagem_financeiro, '300_650', 'Conteúdo email', 4);
 				}
 			}
 			
@@ -577,7 +603,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Nº,status,Data&nbsp;Alteração,Solicitante,OS,D");
+	mygrid.setHeader("Nº,status,Data Alteração,Solicitante,OS,D");
 	mygrid.setInitWidths("50,100,100,*,*,50");
 	mygrid.setColAlign("left,left,left,left,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -596,7 +622,7 @@ function confirmaCancelamento(id_requisicao)
 		html += 'A requisição será cancelada.<br />Explique o motivo do cancelamento: </label><br /> ';
 		html += '<form id="frm_cancela" name="frm_cancela"><textarea cols="44" id="txt_motivo_cancelamento" name="txt_motivo_cancelamento" class="caixa" /></textarea><br /> ';
 		html += '<input type="button" id="btn_cancelar" class="class_botao" name="btn_cancelar" value="Confirmar" ';
-		html += ' onclick=if(confirm(\"Confirma&nbsp;o&nbsp;cancelamento&nbsp;da&nbsp;requisição?\")){xajax_excluir('+id_requisicao+',xajax.getFormValues("frm_cancela"))} /> ';
+		html += ' onclick=if(confirm(\"Confirma o cancelamento da requisição?\")){xajax_excluir('+id_requisicao+',xajax.getFormValues("frm_cancela"))} /> ';
 		html += '</form></div>';
 
 	modal(html, 'pp', 'Cancelamento da requisição Nº '+id_requisicao);

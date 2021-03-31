@@ -128,7 +128,7 @@ switch ($prefixo)
 		$sql .= "WHERE ordem_servico.id_os = '" . $id_nc . "' ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.reg_del = 0 ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		
 		$db->select($sql,'MYSQL',true);
 
@@ -289,7 +289,7 @@ switch ($prefixo)
 					$sql .= "AND OS.reg_del = 0 ";
 					$sql .= "AND empresas.reg_del = 0 ";
 					$sql .= "AND os_x_analise_critica_periodica.id_os = OS.id_os ";
-					$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 					$sql .= "ORDER BY item DESC, data_ap DESC, id_os_x_analise_critica_periodica DESC LIMIT 1 ";
 					
 					$db->select($sql,'MYSQL',true);
@@ -454,7 +454,7 @@ switch ($prefixo)
 						$sql .= "AND OS.reg_del = 0 ";
 						$sql .= "AND empresas.reg_del = 0 ";
 						$sql .= "AND os_x_analise_critica_periodica.id_os = OS.id_os ";
-						$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+						$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 						
 						
 						$db->select($sql,'MYSQL',true);

@@ -56,12 +56,12 @@
 			/* <![CDATA[ */
 			/* ]]> */
 		</style>
-<?
+<?php
 	$objTestScriptPlugin->printHeader($xajax, "Server-side Events", ob_get_clean());
 	ob_start();	
 ?>
 		<button onclick='alert("The event handlers returned ["+<?php $requestEvent->printScript(); ?>+"]");'>Fire event</button>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 	$objTestScriptPlugin->printStatusPanel();
 	$objTestScriptPlugin->printLogPanel();	

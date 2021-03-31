@@ -55,7 +55,7 @@ if($coordenador)
 }
 
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "AND (ordem_servico_status.os_status LIKE 'EM ANDAMENTO' ";
 $sql .= "OR ordem_servico_status.os_status LIKE 'AS BUILT' ";

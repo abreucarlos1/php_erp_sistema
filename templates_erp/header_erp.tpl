@@ -10,12 +10,12 @@
 	<smarty>$xajax_javascript</smarty>
 
 <title>::.. Empresa X - ERP  - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
-<link href="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="stylesheet" type="text/css" />
-<link href="../includes/dhtmlx/dhtmlxTabbar/codebase/dhtmlxtabbar.css" rel="stylesheet" type="text/css" />
+<link href="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="stylesheet" type="text/css" />
+<link href="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/dhtmlx/dhtmlxTabbar/codebase/dhtmlxtabbar.css" rel="stylesheet" type="text/css" />
 
 <link href="<smarty>$classe</smarty>" rel="stylesheet" type="text/css" />
 
-<script src="../includes/utils.js"></script>
+<script src="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/utils.js"></script>
 </head>
 
 <body  onload="<smarty>$body_onload</smarty>">
@@ -31,13 +31,13 @@
 			</tr>
 
 			<tr>
-				<td class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></td>
+				<td class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></td>
 			</tr>
 			<tr style="padding-bottom:20px;">
 				<td style="height:20px; padding-right:0px; text-align: right;">
 				<table width="140" border="0" align="left" cellpadding="0" cellspacing="0">
 					<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 					</tr>
 				</table>
 						<img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png" /><label class="link_1"><smarty>$smarty.session.login</smarty></label><img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png" /><a href="../inicio.php" class="link_1">Inicio</a><img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png" /><a href="../logout.php" class="link_1">Sair</a></td>

@@ -206,7 +206,7 @@ function atualizatabela($dados_form)
     {
         $arquivo = $reg_arquivos["base"] . "/" . $reg_arquivos["os"] . "/" . substr($reg_arquivos["os"],0,4) . DISCIPLINAS . $reg_arquivos["disciplina"] . "/" . $reg_arquivos["atividade"] . "/" . $reg_arquivos["sequencial"] . "/" . $reg_arquivos["nome_arquivo"];
         
-        $descricao_numdvm = "DVM-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
+        $descricao_numdvm = "INT-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
         
         //se for um arquivo
         if(is_file(DOCUMENTOS_GED.$arquivo) && file_exists(DOCUMENTOS_GED.$arquivo))
@@ -266,7 +266,7 @@ function atualizatabela($dados_form)
             $xml->text($imagem_bolinha);
             $xml->endElement();
             $xml->startElement ('cell');
-            $xml->text($imagem.'&nbsp;'.$descricao_numdvm);
+            $xml->text($imagem.' '.$descricao_numdvm);
             $xml->endElement();
             $xml->startElement ('cell');
             $xml->text($reg_arquivos["revisao_interna"].".". $reg_arquivos["versao_"]);
@@ -319,7 +319,7 @@ function atualizatabela($dados_form)
     return $resposta;
 }
 
-//Preenche os combos de disciplinas da janela de busca avan�ada
+//Preenche os combos de disciplinas da janela de busca avançada
 function preenchedisciplina($id_os)
 {
     $resposta = new xajaxResponse();
@@ -395,7 +395,7 @@ function preenche_info_os($id_os)
     $sql .= "AND ordem_servico.reg_del = 0 ";
     $sql .= "AND empresas.reg_del = 0 ";
     $sql .= "AND contatos.reg_del = 0 ";
-    $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+    $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
     $sql .= "AND ordem_servico.id_cod_resp = contatos.id_contato ";
     
     $db->select($sql,'MYSQL',true);
@@ -460,9 +460,9 @@ function preencheComentarios($id_ged_versao)
     }
     
     $conteudo_cabecalho = '<table border="0" width="100%"><tr>';
-    $conteudo_cabecalho .= '<td><div class="labels"><strong>Número&nbsp;Interno</<strong></div></td>';
+    $conteudo_cabecalho .= '<td><div class="labels"><strong>Número Interno</<strong></div></td>';
     $conteudo_cabecalho .= '<td><div class="labels"><strong>R/V</strong></div></td>';
-    $conteudo_cabecalho .= '<td><div class="labels"><strong>Número&nbsp;Cliente</<strong></div></td>';
+    $conteudo_cabecalho .= '<td><div class="labels"><strong>Número Cliente</<strong></div></td>';
     $conteudo_cabecalho .= '<td><div class="labels"><strong>Rev.C.</strong></div></td>';
     $conteudo_cabecalho .= '<td><div class="labels"><strong>GRD</strong></div></td>';
     
@@ -510,7 +510,7 @@ function preencheComentarios($id_ged_versao)
         }
         else
         {
-            $img_abrir = '&nbsp;';
+            $img_abrir = ' ';
         }
         
         $xml->startElement ('cell');
@@ -617,7 +617,7 @@ function preenche_versoes($id_ged_versao)
         }
         else
         {
-            $img_coment = '&nbsp;';
+            $img_coment = ' ';
         }
         
         $xml->startElement ('cell');
@@ -692,7 +692,7 @@ function grid(tabela, autoh, height, xml)
 		
 		mygrid.attachEvent("onRowSelect",doOnRowSelected);
 	
-		mygrid.setHeader("&nbsp;, Nº&nbsp;Interno, Rev./Ver., Nº&nbsp;Cliente, Rev.&nbsp;cliente, Tamanho, Data, Status, Finalidade, Status&nbsp;Dev.",
+		mygrid.setHeader(" , Nº Interno, Rev./Ver., Nº Cliente, Rev. cliente, Tamanho, Data, Status, Finalidade, Status Dev.",
 			null,
 			["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 		mygrid.setInitWidths("22,150,60,150,80,60,60,100,150,150");
@@ -703,7 +703,7 @@ function grid(tabela, autoh, height, xml)
 	
 	if(tabela=='div_versoes')
 	{
-		mygrid.setHeader("Arquivo, Rev./Ver., Rev.&nbsp;Cliente, A, C",
+		mygrid.setHeader("Arquivo, Rev./Ver., Rev. Cliente, A, C",
 			null,
 			["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 		mygrid.setInitWidths("250,80,80,60,60");
@@ -735,9 +735,9 @@ function popup_comentarios(id_ged_versao)
 
 	divPopupInst_2.inserir(500,420);
 	
-	conteudo = '<div id="div_cabecalho_comentarios">&nbsp;</div>';
-	conteudo += '<div id="rotulo_comentarios" class="labels">Arquivos&nbsp;de&nbsp;comentários:</div>';
-	conteudo += '<div id="div_comentarios_existentes" style="width:100%; height:300px; border: solid #CCCCCC 1px; overflow:auto;">&nbsp;</div>';
+	conteudo = '<div id="div_cabecalho_comentarios"> </div>';
+	conteudo += '<div id="rotulo_comentarios" class="labels">Arquivos de comentários:</div>';
+	conteudo += '<div id="div_comentarios_existentes" style="width:100%; height:300px; border: solid #CCCCCC 1px; overflow:auto;"> </div>';
 	conteudo += '<input type="button" class="class_botao" value="Voltar" onclick="divPopupInst_2.destroi();">';
 	
 	divPopupInst_2.div_conteudo.innerHTML = conteudo;

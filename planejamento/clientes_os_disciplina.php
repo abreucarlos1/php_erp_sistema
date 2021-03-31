@@ -33,13 +33,13 @@ function preencheclientes($id_status)
 	
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico, ".DATABASE.".empresas, ".DATABASE.".unidade ";
+	$sql = "SELECT * FROM ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico, ".DATABASE.".empresas, ".DATABASE.".unidades ";
 	$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND unidades.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND ordem_servico.id_os_status = '".$id_status."' ";
 	$sql .= "GROUP BY empresas.empresa, unidades.unidade ";
@@ -55,7 +55,7 @@ function preencheclientes($id_status)
 	
 	foreach($db->array_select as $os)
 	{		
-		$comb .= "xajax.$('escolhacliente').options[xajax.$('escolhacliente').length] = new Option('". $os["empresa"]." - ".$os["unidade"] ."','". $os["id_empresa_erp"] ."');";
+		$comb .= "xajax.$('escolhacliente').options[xajax.$('escolhacliente').length] = new Option('". $os["empresa"]." - ".$os["unidade"] ."','". $os["id_empresa"] ."');";
 	}
 
 	$resposta->addScript($comb);
@@ -71,12 +71,12 @@ function preencheos($id_empresa)
 	$db = new banco_dados;
 	
 	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.id_empresa_erp = '". $id_empresa ."' " ;
+	$sql .= "AND ordem_servico.id_empresa = '". $id_empresa ."' " ;
 	$sql .= "GROUP BY ordem_servico.os ";
 	$sql .= "ORDER BY ordem_servico.os ";
 	

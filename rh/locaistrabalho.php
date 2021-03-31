@@ -85,7 +85,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 		$xml->writeAttribute('id', $cont_desp['id_local']);
 		$xml->writeElement('cell', $cont_desp['descricao']);
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir("'.$cont_desp["id_local"].'");}; >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir("'.$cont_desp["id_local"].'");}; >');
 		$xml->endElement();	
 	}
 	
@@ -266,7 +266,7 @@ function grid(tabela, autoh, height, xml)
 	  mygrid.enableAutoHeight(autoh,height);
 	  mygrid.enableRowsHover(true,'cor_mouseover');
 
-	  mygrid.setHeader("Local&nbsp;de&nbsp;Trabalho, D");
+	  mygrid.setHeader("Local de Trabalho, D");
 	  mygrid.setInitWidths("*,50");
 	  mygrid.setColAlign("left,center");
 	  mygrid.setColTypes("ro,ro");

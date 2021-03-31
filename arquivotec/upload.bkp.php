@@ -7,14 +7,14 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 //ALTERADO - 10/05/2017
 function solicitacoes($id_os, $id_ged_arquivo, $funcao, $operacao)
 {
-	//gerencia o armazenamento das solicitacoes (opera��es solicita��o/checkin e checkout)
+	//gerencia o armazenamento das solicitacoes (operações solicitação/checkin e checkout)
 	//funcao = 1 --> solicitacao
 	//funcao = 2 --> checkin
 	//funcao = 3 --> checkout
 	//funcao = 4 --> desbloqueios
 	//operacao = 1 --> adiciona
 	//operacao = 2 --> retira
-	//operacao = 0 --> limpa solicita��o
+	//operacao = 0 --> limpa solicitação
 		
 	session_start();
 
@@ -41,7 +41,7 @@ function solicitacoes($id_os, $id_ged_arquivo, $funcao, $operacao)
 	{
 		switch ($funcao)
 		{
-			case 1://solicita��o
+			case 1://solicitação
 			{
 				if($operacao==1)
 				{
@@ -211,7 +211,7 @@ function solicitacoes($id_os, $id_ged_arquivo, $funcao, $operacao)
 				}
 			}
 			
-			case 4://solicita��es
+			case 4://solicitações
 			{
 				if($operacao==1)
 				{
@@ -297,14 +297,14 @@ if($_POST["funcao"]=='desbloqueio')
 	//passa nos arquivos
 	foreach($_FILES as $chave=>$valor)
 	{
-		//n�o esta vazio o campo arquivo
+		//não esta vazio o campo arquivo
 		if(tiraacentos(addslashes($valor["name"]))!='')
 		{			
 			$nome_arquivo = tiraacentos(addslashes($valor["name"])); //nome do arquivo (ex. "arquivo.dwg")
 			
 			$nome_tmp_arquivo = $valor["tmp_name"];
 			
-			//Se ainda n�o existir a pasta temporaria, cria
+			//Se ainda não existir a pasta temporaria, cria
 			if(!is_dir($diretorio_tmp))
 			{
 				mkdir($diretorio_tmp);
@@ -329,7 +329,7 @@ if($_POST["funcao"]=='desbloqueio')
 		
 		$tamanho_format = 0;
 		
-		$msg = "&nbsp;Os&nbsp;campos&nbsp;motivo&nbsp;e/ou&nbsp;anexo&nbsp;e/ou&nbsp;status&nbsp;e/ou&nbsp;data&nbsp;devem&nbsp;estar&nbsp;preenchidos!";
+		$msg = " Os campos motivo e/ou anexo e/ou status e/ou data devem estar preenchidos!";
 		
 		sleep(1);
 		
@@ -341,7 +341,7 @@ if($_POST["funcao"]=='desbloqueio')
 	}
 	else
 	{
-		//Preenche um array com dados de Usu�rios
+		//Preenche um array com dados de Usuários
 		$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
 		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
 		$sql .= "AND usuarios.reg_del = 0 ";
@@ -441,7 +441,7 @@ if($_POST["funcao"]=='desbloqueio')
 						
 						$novo_nome_arquivo = $filename.'_'.sprintf("%05d",$num_id).'.'.$extensao;
 						
-						//Atualiza o registro do arquivo inserido, definindo a vers�o atual do arquivo como a vers�o inserida acima
+						//Atualiza o registro do arquivo inserido, definindo a versão atual do arquivo como a versão inserida acima
 						$usql = "UPDATE ".DATABASE.".ged_desbloqueios SET ";
 						$usql .= "strarquivo = '".$novo_nome_arquivo ."' ";
 						$usql .= "WHERE ged_desbloqueios.id_ged_desbloqueio = '" . $num_id . "' ";
@@ -449,7 +449,7 @@ if($_POST["funcao"]=='desbloqueio')
 						
 						$db->update($usql,'MYSQL');	
 							
-						//Se ainda n�o existir a pasta de desbloqueios no diret�rio do arquivo, cria
+						//Se ainda não existir a pasta de desbloqueios no   do arquivo, cria
 						if(!is_dir($diretorio))
 						{
 							mkdir($diretorio);
@@ -463,14 +463,14 @@ if($_POST["funcao"]=='desbloqueio')
 							$msg = "O diretorio nao foi criado ".$diretorio;						
 						}
 						
-						//Verifica se o arquivo j� existe
+						//Verifica se o arquivo já existe
 						if(is_file($diretorio . $novo_nome_arquivo))
 						{
 							$result = 0;
 							
 							$erro = 0;
 							
-							$msg = "O seguinte arquivo de coment�rio j� existe para essa vers�o e n�o ser� inclu�do: ".$nome_arquivo;
+							$msg = "O seguinte arquivo de comentário já existe para essa versão e não será incluído: ".$nome_arquivo;
 						}
 						else
 						{
@@ -502,7 +502,7 @@ if($_POST["funcao"]=='desbloqueio')
 				}
 			}
 			
-			//exclui o registro de solicita��o
+			//exclui o registro de solicitação
 			if($campo_versoes[0]=='idgedarquivo')
 			{
 				$usql = "UPDATE ".DATABASE.".ged_solicitacoes SET ";
@@ -523,9 +523,9 @@ if($_POST["funcao"]=='desbloqueio')
 		if(count($array_num_arquivo)>0)
 		{
 			$params 			= array();
-			$params['from']		= 'arqtec@dominio.com.br';
+			$params['from']		= 'arquivotecnico@dominio.com.br';
 			$params['from_name']= "ARQUIVO DESBLOQUEADO GED";
-			$params['subject']  = "SOLICITA��O DE DESBLOQUEIO";
+			$params['subject']  = "SOLICITAÇÃO DE DESBLOQUEIO";
 			
 			//solicitante
 			if($array_usremail[$_SESSION["id_funcionario"]]!="")
@@ -534,9 +534,9 @@ if($_POST["funcao"]=='desbloqueio')
 			}
 			
 			//arquivo tecnico
-			$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo T�cnico");
+			$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 			
-			$str_mensagem = "<p>O(s) seguinte(s) documento(s) teve solicita��o de desbloqueio: </p>";
+			$str_mensagem = "<p>O(s) seguinte(s) documento(s) teve solicitação de desbloqueio: </p>";
 			
 			//Organizando por texto os nomes de arquivos
 			sort($array_num_arquivo);
@@ -549,8 +549,8 @@ if($_POST["funcao"]=='desbloqueio')
 			$str_mensagem .= "<p>em " . date('d/m/Y') . ", sendo registrado no sistema.</p>";
 			$str_mensagem .= "<p>Solicitante: " . $array_usrnome[$_SESSION["id_funcionario"]] . "</p>";
 			$str_mensagem .= "<p>Motivo do desbloqueio: " . trim(addslashes($_POST["motivo"])) . "</p>";
-			$str_mensagem .= "<p>&nbsp;</p>";
-			$str_mensagem .= "<p>Aguardando desbloqueio pelo arquivo t�cnico.</p>";
+			$str_mensagem .= "<p> </p>";
+			$str_mensagem .= "<p>Aguardando desbloqueio pelo arquivo técnico.</p>";
 			
 			$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";
 			
@@ -570,7 +570,7 @@ if($_POST["funcao"]=='desbloqueio')
 			{
 				?>
                 	<script>
-					alert('Solicita��o enviada!');
+					alert('Solicitação enviada!');
 					</script>
                 <?php
 				
@@ -637,7 +637,7 @@ if($_POST["funcao"]=='comentario')
 				
 				$diretorio = DOCUMENTOS_GED . $regs["base"] . "/" . $regs["os"] . "/" . substr($regs["os"],0,4) . DISCIPLINAS . $regs["disciplina"] . "/" . $regs["atividade"] . "/" . $regs["sequencial"];
 				
-				//Insere os coment�rios no banco - 20/04/2016
+				//Insere os comentários no banco - 20/04/2016
 				$isql = "INSERT INTO ".DATABASE.".ged_comentarios (id_ged_versao, comentario, id_funcionario) VALUES(";
 				$isql .= "'" . $regs["id_ged_versao"] . "', ";
 				$isql .= "'" . trim(addslashes($_POST["motivo"])) . "', ";
@@ -662,7 +662,7 @@ if($_POST["funcao"]=='comentario')
 					//Passa em todos os FILES do POST do xajax.upload
 					foreach($_FILES as $chave=>$valor)
 					{	
-						//n�o esta vazio o campo arquivo
+						//não esta vazio o campo arquivo
 						if(tiraacentos(addslashes($valor["name"]))!='')
 						{
 							$nome_arquivo = tiraacentos(addslashes($valor["name"])); //nome do arquivo (ex. "arquivo.dwg")
@@ -677,22 +677,22 @@ if($_POST["funcao"]=='comentario')
 							
 							$novo_nome_arquivo = $filename.'_'.sprintf("%05d",$id_comentario).'.'.$extensao;								
 												
-							//Se ainda n�o existir a pasta de coment�rios no diret�rio do arquivo, cria
+							//Se ainda não existir a pasta de comentários no   do arquivo, cria
 							if(!is_dir($diretorio . DIRETORIO_COMENTARIOS))
 							{
 								mkdir($diretorio . DIRETORIO_COMENTARIOS);
 							}
 					
-							//Verifica se o arquivo j� existe
+							//Verifica se o arquivo já existe
 							if(is_file($diretorio . DIRETORIO_COMENTARIOS . $novo_nome_arquivo))
 							{
 								$result = 0;
 								$erro = 7;
-								$msg = "O seguinte arquivo de coment�rio j� existe para essa vers�o e n�o ser� inclu�do: ".$valor["name"];
+								$msg = "O seguinte arquivo de comentário já existe para essa versão e não será incluído: ".$valor["name"];
 							}
 							else
 							{												
-								//Move o arquivo para o diret�rio de coment�rios
+								//Move o arquivo para o   de comentários
 								$move_comentario = move_uploaded_file($nome_tmp_arquivo,$diretorio . DIRETORIO_COMENTARIOS . $novo_nome_arquivo);											
 				
 								//Se foi movido com sucesso				
@@ -720,7 +720,7 @@ if($_POST["funcao"]=='comentario')
 								else
 								{
 									$erro = 7;
-									$msg = "Erro&nbsp;ao&nbsp;mover&nbsp;o&nbsp;arquivo";										
+									$msg = "Erro ao mover o arquivo";										
 									$result = 0;
 								}
 							}				
@@ -743,16 +743,16 @@ if($_POST["funcao"]=='comentario')
 if($_POST["funcao"]=='comunicacao_interna')
 {
 	$params 			= array();
-	$params['from']		= "arqtec@dominio.com.br";
-	$params['from_name']= "GED DEVEMADA";
+	$params['from']		= "arquivotecnico@dominio.com.br";
+	$params['from_name']= "GED EMPRESA";
 	
-	$params['subject'] 	= "COMUNICA��O INTERNA";
+	$params['subject'] 	= "COMUNICAÇÃO INTERNA";
 	
 	$arquivo = FALSE;
 	
 	if(php_mysql($_POST["data_registro"])=="0000-00-00")
 	{
-		$erro = "A data retornada esta inv�lida.";
+		$erro = "A data retornada esta inválida.";
 	}
 	else
 	{	
@@ -766,9 +766,9 @@ if($_POST["funcao"]=='comunicacao_interna')
 			//incluir
 			if($_POST["acao"]=='incluir')
 			{								
-				//seleciona Cliente/OS para composi��o da pasta
+				//seleciona Cliente/OS para composição da pasta
 				$sql = "SELECT OS.id_os, os.os, OS.descricao, empresas.abreviacao_GED FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
-				$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+				$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 				$sql .= "AND OS.reg_del = 0 ";
 				$sql .= "AND empresas.reg_del = 0 ";
 				$sql .= "AND OS.id_os = '" . $_POST["id_os"] . "' ";
@@ -846,8 +846,8 @@ if($_POST["funcao"]=='comunicacao_interna')
 							
 							$num_sequencia = sprintf("%04d",$reg_num["sequencial"]+1);
 							
-							//EX: DVM-0XXXX-TUB-TIPO DOC-SEQ
-							$cod_dvm = "DVM-". sprintf("%05d",$reg_docsref["os"])."-".$reg_setor["abreviacao"]."-".$reg_tipo["abreviacao"]."-".$num_sequencia;
+							//EX: INT-0XXXX-TUB-TIPO DOC-SEQ
+							$cod_dvm = "INT-". sprintf("%05d",$reg_docsref["os"])."-".$reg_setor["abreviacao"]."-".$reg_tipo["abreviacao"]."-".$num_sequencia;
 							
 							//Insere os dados
 							$isql = "INSERT INTO ".DATABASE.".documentos_referencia (id_os, id_disciplina, id_tipo_documento_referencia, numero_registro, numero_documento, sequencial, titulo, palavras_chave, origem, servico_id) VALUES( ";
@@ -856,7 +856,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 							$isql .= "'" . $id_tipo_doc . "', ";
 							$isql .= "'" . $cod_dvm . "', ";
 							
-							//se o numero do cliente estiver vazio, grava o nome DVM
+							//se o numero do cliente estiver vazio, grava o nome INT
 							if($_POST["numero_documento"]=="")
 							{
 								$isql .= "'" . $cod_dvm . "', ";	
@@ -884,7 +884,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 							}
 							else
 							{
-								//Insere a revis�o/revisao_documento --> 0/0
+								//Insere a revisão/revisao_documento --> 0/0
 								$isql = "INSERT INTO ".DATABASE.".documentos_referencia_revisoes (id_documento_referencia, texto_ci, versao_documento, revisao_documento, data_registro, data_inclusao, id_autor, id_editor) VALUES( ";
 								$isql .= "'" . $id_documento_referencia . "', ";
 								$isql .= "'" . maiusculas(addslashes($_POST["texto_ci"])) . "', ";
@@ -944,7 +944,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 											//monta diretorio base
 											$diretorio = DOCUMENTOS_GED . $abreviacao_cliente . "/" . $reg_docsref["os"] . "-" .$descricao_os . "/" . $reg_docsref["os"] . REFERENCIAS . $reg_tipo["pasta_base"] . "/".$disciplina;
 										
-											//Se n�o existir a PASTA
+											//Se não existir a PASTA
 											//ex: ./documentos/abr.cliente/os-descricao/os-REFERENCIA/pasta_base/disciplina/arquivo
 											if(!is_dir($diretorio))
 											{						
@@ -957,12 +957,12 @@ if($_POST["funcao"]=='comunicacao_interna')
 											//Obtem o nome do arquivo		
 											$nome_arquivo = tiraacentos(addslashes($_FILES["arquivo"]["name"]));
 											
-											//retira a extens�o
+											//retira a extensão
 											$array_flm = explode(".",$nome_arquivo);
 											
 											$extensao = $array_flm[count($array_flm)-1];
 											
-											//Checa se o arquivo j� existe e move o arquivo para o lugar correto
+											//Checa se o arquivo já existe e move o arquivo para o lugar correto
 											if(!is_file($diretorio . $cod_dvm.".".$extensao))
 											{				
 												//Move o arquivo
@@ -980,19 +980,19 @@ if($_POST["funcao"]=='comunicacao_interna')
 												}
 												else
 												{
-													$erro = "O documento n�o foi gravado no diretorio.";
+													$erro = "O documento não foi gravado no diretorio.";
 												}
 											}
 											else
 											{
-												//Se o arquivo j� existir
+												//Se o arquivo já existir
 												$erro = "O documento existe no caminho especificado.";
 											}															
 										}										
 										
-										//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICA��O INTERNA	
+										//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICAÇÃO INTERNA	
 																						
-										//Obt�m os Nomes/e-mails da equipe do projeto
+										//Obtém os Nomes/e-mails da equipe do projeto
 										$sql = "SELECT funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE os_x_funcionarios.id_os = '".$_POST["id_os"]."'  ";
 										$sql .= "AND os_x_funcionarios.reg_del = 0 ";
@@ -1019,7 +1019,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 												}											
 											}												
 										
-											//Obt�m o funcionario emissor
+											//Obtém o funcionario emissor
 											$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 											$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 											$sql .= "AND funcionarios.reg_del = 0 ";
@@ -1032,8 +1032,8 @@ if($_POST["funcao"]=='comunicacao_interna')
 											
 											$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_fun["funcionario"]);
 											
-											$texto = "<p>Inclu&iacute;do CI no sistema:</p>";
-											$texto .= "<div id='div_doc'><strong>N&deg;:&nbsp;</strong> " . $cod_dvm . "</div>";
+											$texto = "<p>Incluído CI no sistema:</p>";
+											$texto .= "<div id='div_doc'><strong>N&deg;: </strong> " . $cod_dvm . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas($titulo). "</div>";
 											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>data:</strong> " . date("d/m/Y") . "</div>";
@@ -1088,9 +1088,9 @@ if($_POST["funcao"]=='comunicacao_interna')
 					
 					$id_documento_referencia = $reg_ver["id_documento_referencia"];
 					
-					//seleciona Cliente/OS para composi��o da pasta
+					//seleciona Cliente/OS para composição da pasta
 					$sql = "SELECT OS.id_os, os.os, OS.descricao, empresas.abreviacao_GED FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
-					$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 					$sql .= "AND OS.reg_del = 0 ";
 					$sql .= "AND empresas.reg_del = 0 ";
 					$sql .= "AND OS.id_os = '" . $reg_ver["id_os"] . "' ";
@@ -1192,29 +1192,29 @@ if($_POST["funcao"]=='comunicacao_interna')
 										$dir_erro = false;
 										
 										
-										//Se ainda n�o existir a pasta de vers�es no diret�rio do arquivo, cria
+										//Se ainda não existir a pasta de versões no   do arquivo, cria
 										if(!is_dir($diretorio . "_versoes"))
 										{
-											//Se a cria��o do diret�rio n�o for feita com sucesso
+											//Se a criação do   não for feita com sucesso
 											if(!mkdir($diretorio . "_versoes",0777,true))
 											{
-												$erro = "Erro ao criar o diret�rio de vers�es.";
+												$erro = "Erro ao criar o   de versões.";
 											
 												$dir_erro = true;
 											}					
 											
 										}
 																					
-										//em caso de erro na cria��o do diret�rio, aborta
+										//em caso de erro na criação do  , aborta
 										if(!$dir_erro)
 										{	
-											//Move o arquivo atual para a pasta _versoes, com a extens�o do id documentos_referencia_revisoes
+											//Move o arquivo atual para a pasta _versoes, com a extensão do id documentos_referencia_revisoes
 											$move_antigo = rename($diretorio.$reg_ver["arquivo"],$diretorio . "_versoes/" . $reg_ver["nome_arquivo"] . "." . $reg_ver["id_documentos_referencia_revisoes"]);
 											
 											//Obtem o nome do arquivo		
 											$nome_arquivo = tiraacentos(addslashes($_FILES["arquivo"]["name"]));
 											
-											//retira a extens�o do arquivo
+											//retira a extensão do arquivo
 											$array_flm = explode(".",$nome_arquivo);
 												
 											$extensao = $array_flm[count($array_flm)-1];
@@ -1241,8 +1241,8 @@ if($_POST["funcao"]=='comunicacao_interna')
 										}
 									}
 									
-									//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICA��O						
-									//Obt�m os Nomes/e-mails da equipe do projeto
+									//ENVIA EMAIL A EQUIPE QUANDO TIPO DOCUMENTO FOR COMUNICAÇÃO						
+									//Obtém os Nomes/e-mails da equipe do projeto
 									$sql = "SELECT funcionario, email FROM ".DATABASE.".os_x_funcionarios, ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 									$sql .= "WHERE os_x_funcionarios.id_os = '".$_POST["id_os"]."'  ";
 									$sql .= "AND os_x_funcionarios.reg_del = 0 ";
@@ -1261,7 +1261,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 									else
 									{
 										$params 			= array();
-										$params['from']		= 'arqtec@dominio.com.br';
+										$params['from']		= 'arquivotecnico@dominio.com.br';
 										$params['from_name']= 'Arquivo Tecnico';
 																
 										foreach($db->array_select as $reg_equipe)
@@ -1272,7 +1272,7 @@ if($_POST["funcao"]=='comunicacao_interna')
 											}
 										}													
 					
-										//Obt�m o funcionario emissor
+										//Obtém o funcionario emissor
 										$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 										$sql .= "WHERE funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
 										$sql .= "AND funcionarios.reg_del = 0 ";
@@ -1289,11 +1289,11 @@ if($_POST["funcao"]=='comunicacao_interna')
 										{
 											$reg_fun = $db->array_select[0];
 											
-											$params['subject'] = "COMUNICA��O INTERNA: " . $reg_ver["numero_registro"] . " ALTERADA";
+											$params['subject'] = "COMUNICAÇÃO INTERNA: " . $reg_ver["numero_registro"] . " ALTERADA";
 											$params['emails']['to'][] = array('email' => $reg_fun["email"], 'nome' => $reg_fun["funcionario"]);
 																							
 											$texto = "<p>Alterada CI no sistema:</p>";
-											$texto .= "<div id='div_doc'><strong>N&deg;:&nbsp;</strong> " . $_POST["numero_registro"] . "</div>";
+											$texto .= "<div id='div_doc'><strong>N&deg;: </strong> " . $_POST["numero_registro"] . "</div>";
 											$texto .= "<div id='div_titulo'><strong>Assunto:</strong> " . maiusculas(addslashes($_POST["titulo"])). "</div>";
 											$texto .= "<div id='div_titulo'><strong>Emitente:</strong> " . $reg_fun["funcionario"]. "</div>";
 											$texto .= "<div id='div_data'><strong>data:</strong> " . date("d/m/Y") . "</div>";
@@ -1409,9 +1409,9 @@ if($_POST["funcao"]=='documento_referencia')
 				$arquivo = TRUE;	
 			}
 								
-			//seleciona Cliente/OS para composi��o da pasta
+			//seleciona Cliente/OS para composição da pasta
 			$sql = "SELECT OS.id_os, os.os, OS.descricao, empresas.abreviacao_GED FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
-			$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 			$sql .= "AND OS.reg_del = 0 ";
 			$sql .= "AND empresas.reg_del = 0 ";
 			$sql .= "AND OS.id_os = '" . $_POST["inc_id_os"] . "' ";
@@ -1426,8 +1426,8 @@ if($_POST["funcao"]=='documento_referencia')
 			{		
 				$reg_docsref = $db->array_select[0];											
 	
-				//Se tipo documento for Referencia t�cnica, escolhe disciplina
-				//caso contr�rio, seta a disciplina do tipo documento
+				//Se tipo documento for Referencia técnica, escolhe disciplina
+				//caso contrário, seta a disciplina do tipo documento
 				if($_POST["inc_tipo_doc"]==1)
 				{
 					//seleciona o tipo de documento (CI, ATA, PROPOSTA, ETC)
@@ -1533,7 +1533,7 @@ if($_POST["funcao"]=='documento_referencia')
 						
 						$reg_num_inc = $db->array_select[0];
 						
-						//se a sequencia j� estiver incluida, verifica se � >= a anterior
+						//se a sequencia já estiver incluida, verifica se é >= a anterior
 						if($reg_num_inc["sequencial"]>=$reg_num["sequencial"])
 						{
 							$sequencial = $reg_num_inc["sequencial"];
@@ -1545,8 +1545,8 @@ if($_POST["funcao"]=='documento_referencia')
 						
 						$num_sequencia = sprintf("%04d",$sequencial+1);
 						
-						//EX: DVM-0XXXX-TUB-TIPO DOC-SEQ
-						$cod_dvm = "DVM-". sprintf("%05d",$reg_docsref["os"])."-".$reg_setor["abreviacao"]."-".$reg_tipo["abreviacao"]."-".$num_sequencia;
+						//EX: INT-0XXXX-TUB-TIPO DOC-SEQ
+						$cod_dvm = "INT-". sprintf("%05d",$reg_docsref["os"])."-".$reg_setor["abreviacao"]."-".$reg_tipo["abreviacao"]."-".$num_sequencia;
 						
 						$array_rpl = array("/",".",":","&",")","(","{","}");
 						
@@ -1561,7 +1561,7 @@ if($_POST["funcao"]=='documento_referencia')
 						//Obtem o nome do arquivo		
 						$nome_arquivo = tiraacentos($_FILES["inc_arquivo"]["name"]);
 						
-						//retira a extens�o
+						//retira a extensão
 					
 						$array_flm = explode(".",$nome_arquivo);
 						
@@ -1569,7 +1569,7 @@ if($_POST["funcao"]=='documento_referencia')
 			
 						$filename = preg_replace('/\.[^.]*$/', '', $nome_arquivo);
 	
-						//Checa se o arquivo j� existe, se existir n�o inclui
+						//Checa se o arquivo já existe, se existir não inclui
 						if(!is_file($diretorio . $cod_dvm.".".$extensao))
 						{					
 							//Insere os dados
@@ -1581,7 +1581,7 @@ if($_POST["funcao"]=='documento_referencia')
 							$isql .= "'" . $_SESSION["id_funcionario"] . "', ";
 							$isql .= "'" . $cod_dvm . "', ";
 							
-							//se o numero do cliente estiver vazio, grava o nome DVM
+							//se o numero do cliente estiver vazio, grava o nome INT
 							if($_POST["inc_numdocumento"]=="")
 							{
 								$isql .= "'" . $cod_dvm . "', ";	
@@ -1621,7 +1621,7 @@ if($_POST["funcao"]=='documento_referencia')
 							//Se tiver arquivo, grava em diretorio temporario							
 							if($arquivo)
 							{
-								//Se n�o existir a PASTA, cria
+								//Se não existir a PASTA, cria
 								//ex: ./documentos/abr.cliente/os-descricao/os-REFERENCIA/pasta_base/disciplina/arquivo
 								if(!is_dir($diretorio))
 								{						
@@ -1631,7 +1631,7 @@ if($_POST["funcao"]=='documento_referencia')
 									}						
 								}
 								
-								//Checa se o arquivo j� existe e move o arquivo para o lugar correto
+								//Checa se o arquivo já existe e move o arquivo para o lugar correto
 								if(!is_file($diretorio . $cod_dvm.".".$extensao))
 								{				
 									//Move o arquivo
@@ -1663,7 +1663,7 @@ if($_POST["funcao"]=='documento_referencia')
 								}
 								else
 								{
-									//Se o arquivo j� existir
+									//Se o arquivo já existir
 									$erro = "O documento existe no caminho especificado.";
 									
 									$result = 0;
@@ -1705,9 +1705,9 @@ if($_POST["funcao"]=='documento_referencia')
 				{			
 					$reg_ver = $db->array_select[0];
 					
-					//seleciona Cliente/OS para composi��o da pasta
+					//seleciona Cliente/OS para composição da pasta
 					$sql = "SELECT OS.id_os, os.os, OS.descricao, empresas.abreviacao_GED FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
-					$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+					$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 					$sql .= "AND OS.reg_del = 0 ";
 					$sql .= "AND empresas.reg_del = 0 ";
 					$sql .= "AND OS.id_os = '" . $reg_ver["id_os"] . "' ";
@@ -1848,32 +1848,32 @@ if($_POST["funcao"]=='documento_referencia')
 										
 										$dir_erro = false;
 										
-										//Se ainda n�o existir a pasta de vers�es no diret�rio do arquivo, cria
+										//Se ainda não existir a pasta de versões no   do arquivo, cria
 										if(!is_dir($diretorio . "_versoes"))
 										{
-											//Se a cria��o do diret�rio n�o for feita com sucesso
+											//Se a criação do   não for feita com sucesso
 											if(!mkdir($diretorio . "_versoes",0777,true))
 											{
-												$erro = "Erro ao criar o diret�rio de vers�es.";
+												$erro = "Erro ao criar o   de versões.";
 											
 												$dir_erro = true;
 											}					
 											
 										}
 										
-										//em caso de erro na cria��o do diret�rio, aborta
+										//em caso de erro na criação do  , aborta
 										if(!$dir_erro)
 										{	
-											//Move o arquivo atual para a pasta _versoes, com a extens�o do id documentos_referencia_revisoes
+											//Move o arquivo atual para a pasta _versoes, com a extensão do id documentos_referencia_revisoes
 											$move_antigo = rename($diretorio.$reg_ver["arquivo"],$diretorio . "_versoes/" . $reg_ver["arquivo"] . "." . $reg_ver["id_documentos_referencia_revisoes"]);
 											
 											//Obtem o nome do arquivo		
 											$nome_arquivo = tiraacentos(addslashes($_FILES["arquivo"]["name"]));
 											
-											//retira a extens�o do arquivo
+											//retira a extensão do arquivo
 											$ext = explode(".",$nome_arquivo);
 											
-											//retira a extens�o do nome do arquivo cadastrado no banco
+											//retira a extensão do nome do arquivo cadastrado no banco
 											if($reg_ver["arquivo"]!='')
 											{
 												$arq_bd = explode(".",$reg_ver["arquivo"]);
@@ -1894,7 +1894,7 @@ if($_POST["funcao"]=='documento_referencia')
 									}
 									else
 									{
-										//atualiza o nome arquivo (caso n�o possua arquivo, copia do anterior os caminhos)
+										//atualiza o nome arquivo (caso não possua arquivo, copia do anterior os caminhos)
 										$usql = "UPDATE ".DATABASE.".documentos_referencia_revisoes SET ";
 										$usql .= "documentos_referencia_revisoes.nome_arquivo = '".$reg_ver["nome_arquivo"]."', ";
 										$usql .= "documentos_referencia_revisoes.arquivo = '".$reg_ver["arquivo"]."' ";
@@ -1957,7 +1957,7 @@ else
 	//Passa em todos os FILES do POST do xajax.upload
 	foreach($_FILES as $chave=>$valor)
 	{	
-		//n�o esta vazio o campo arquivo
+		//não esta vazio o campo arquivo
 		if(tiraacentos($valor["name"])!='')
 		{		
 			$array_nomearquivo = explode("_",$chave);
@@ -1990,7 +1990,7 @@ else
 				
 				case "0": //novos arquivos (upload)
 				
-					//Checa se o arquivo j� est� inserido no GED
+					//Checa se o arquivo já está inserido no GED
 					$sql = "SELECT * FROM ".DATABASE.".ged_arquivos, ".DATABASE.".numeros_interno ";
 					$sql .= "WHERE ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 					$sql .= "AND ged_arquivos.reg_del = 0 ";
@@ -2012,7 +2012,7 @@ else
 					{					
 						//Loop em todos os NumDVM do array
 						
-						$sql = "SELECT empresas.id_empresa_erp, empresas.abreviacao_GED, os.os, OS.id_os, OS.descricao AS OS_Descricao, numeros_interno.id_numero_interno, numeros_interno.sequencia, 
+						$sql = "SELECT empresas.id_empresa, empresas.abreviacao_GED, os.os, OS.id_os, OS.descricao AS OS_Descricao, numeros_interno.id_numero_interno, numeros_interno.sequencia, 
 							atividades.descricao AS atividades_Descricao, setores.abreviacao, setores.sigla, solicitacao_documentos_detalhes.versao_documento 
 						FROM ".DATABASE.".empresas, ".DATABASE.".OS, 
 							".DATABASE.".setores, ".DATABASE.".atividades, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno 
@@ -2024,7 +2024,7 @@ else
 						AND atividades.reg_del = 0
 						AND numeros_interno.id_disciplina = setores.id_setor 
 						AND numeros_interno.id_atividade = atividades.id_atividade 
-						AND OS.id_empresa_erp = empresas.id_empresa_erp 
+						AND OS.id_empresa = empresas.id_empresa 
 						AND numeros_interno.id_numero_interno IN (" . implode(",",$array_numdvm) . ") 
 						AND numeros_interno.id_numero_interno = solicitacao_documentos_detalhes.id_numero_interno ";
 	
@@ -2037,7 +2037,7 @@ else
 					
 						foreach($db->array_select as $reg_numdvm)
 						{	
-							//1 - Cria os diret�rios e sub-diret�rios			
+							//1 - Cria os diretórios e sub-diretórios			
 							$array_rpl = array("/",".",":","&");
 							$str_nome_documento = str_replace($array_rpl, " ",maiusculas(tiraacentos($reg_numdvm["atividades_Descricao"])));
 							$abreviacao_cliente = str_replace($array_rpl, " ",maiusculas(tiraacentos($reg_numdvm["abreviacao_GED"])));
@@ -2045,7 +2045,7 @@ else
 			
 							$cria_dir = true;
 	
-							//Se n�o existir a subpasta Nr do documento
+							//Se não existir a subpasta Nr do documento
 							if(!is_dir(DOCUMENTOS_GED . $abreviacao_cliente . "/" . $reg_numdvm["os"] . "-" .$descricao_os . "/" . $reg_numdvm["os"] . DISCIPLINAS . $reg_numdvm["os"] . "-" . maiusculas(tiraacentos($reg_numdvm["abreviacao"])) . "/" . $str_nome_documento . "/" . $reg_numdvm["os"] . "-" . $reg_numdvm["sequencia"]))
 							{
 								if(!mkdir(DOCUMENTOS_GED . $abreviacao_cliente . "/" . $reg_numdvm["os"] . "-" .$descricao_os . "/" . $reg_numdvm["os"] . DISCIPLINAS . $reg_numdvm["os"] . "-" . maiusculas(tiraacentos($reg_numdvm["abreviacao"])) . "/" . $str_nome_documento . "/" . $reg_numdvm["os"] . "-" . $reg_numdvm["sequencia"],0777,true))
@@ -2056,7 +2056,7 @@ else
 								}
 							
 							}
-							//Se o diret�rio existir e/ou foi criado com sucesso
+							//Se o   existir e/ou foi criado com sucesso
 							if($cria_dir)		
 							{
 								$str_caminho_arq = DOCUMENTOS_GED . $abreviacao_cliente . "/" . $reg_numdvm["os"] . "-" .$descricao_os . "/" . $reg_numdvm["os"] . DISCIPLINAS . $reg_numdvm["os"] . "-" . maiusculas(tiraacentos($reg_numdvm["abreviacao"])) . "/" . $str_nome_documento . "/" . $reg_numdvm["os"] . "-" . $reg_numdvm["sequencia"];		
@@ -2066,7 +2066,7 @@ else
 								//atribue o nome do arquivo
 								$nome_arquivo = $array_name[$reg_numdvm["id_numero_interno"]];
 						
-								//Checa se o nome do arquivo est� formado corretamente (com extens�o, etc)
+								//Checa se o nome do arquivo está formado corretamente (com extensão, etc)
 								if(substr_count($nome_arquivo,".")==0)
 								{
 									$erro = 6;
@@ -2075,7 +2075,7 @@ else
 								{
 									$nome_extensao_format = substr($nome_arquivo,strrpos($nome_arquivo,"_")+1,strrpos($nome_arquivo,".")-strrpos($nome_arquivo,"_")-1);
 							
-									//Reseta a vers�o
+									//Reseta a versão
 									//Modificado em 25/10/2010
 									//pega a versao_documento do solicitacao_documentos_detalhes							
 									if($reg_numdvm["versao_documento"]=="")
@@ -2090,15 +2090,15 @@ else
 									//Pega o nome do arquivo completo
 									$nome_arquivo_sem_versao = $array_name[$reg_numdvm["id_numero_interno"]];				
 						
-									//Checa se o arquivo j� existe e move o arquivo para o lugar correto
+									//Checa se o arquivo já existe e move o arquivo para o lugar correto
 									if(!is_file($str_caminho_arq . "/" . $nome_arquivo_sem_versao)) 
 									{						
 										//Move o arquivo
 										$move_arquivo = move_uploaded_file($array_tmp_name[$reg_numdvm["id_numero_interno"]],$str_caminho_arq . "/" . $nome_arquivo_sem_versao);
 																
-										//3 - Insere as informa��es do arquivo no banco de dados - GED
+										//3 - Insere as informações do arquivo no banco de dados - GED
 										
-										$descricao = "DVM-" . sprintf("%05d",$reg_numdvm["os"]) . "-" . $reg_numdvm["sigla"] . "-" .$reg_numdvm["sequencia"];
+										$descricao = "INT-" . sprintf("%05d",$reg_numdvm["os"]) . "-" . $reg_numdvm["sigla"] . "-" .$reg_numdvm["sequencia"];
 																
 										//Se arquivo foi movido com sucesso, insere no banco
 										if($move_arquivo)
@@ -2125,7 +2125,7 @@ else
 											//Pega o id do arquivo inserido
 											$id_ged_arquivo = $db->insert_id;									
 			
-											//Insere a vers�o inicial "0.0"
+											//Insere a versão inicial "0.0"
 											$isql = "INSERT INTO ".DATABASE.".ged_versoes (id_ged_arquivo, id_autor, arquivo, base, os, disciplina, atividade, strarquivo, sequencial, nome_arquivo, revisao_interna, revisao_cliente, versao_, versao_original) VALUES(";
 											$isql .= "'" . $id_ged_arquivo . "', ";
 											$isql .= "'" . $_SESSION["id_funcionario"] . "', ";
@@ -2158,7 +2158,7 @@ else
 											//Pega o id da versão inserida
 											$id_ged_versao = $db->insert_id;
 								
-											//Atualiza o registro do arquivo inserido, definindo a vers�o atual do arquivo como a vers�o inserida acima
+											//Atualiza o registro do arquivo inserido, definindo a versão atual do arquivo como a versão inserida acima
 											$usql = "UPDATE ".DATABASE.".ged_arquivos SET ";
 											$usql .= "id_ged_versao = '" . $id_ged_versao . "' ";
 											$usql .= "WHERE ged_arquivos.id_ged_arquivo = '" . $id_ged_arquivo . "' ";
@@ -2189,7 +2189,7 @@ else
 									}
 									else
 									{
-										//Se o arquivo j� existir
+										//Se o arquivo já existir
 										$erro = 1;
 									}
 								}
@@ -2202,7 +2202,7 @@ else
 						
 						if($cont_insere_arquivo && $cont_insere_versao && $cont_atualiza_arquivo)
 						{
-							//Sucesso, informa o usu�rio
+							//Sucesso, informa o usuário
 							$result = 1;
 							
 							$id_numero_interno = $reg_numdvm["id_numero_interno"];
@@ -2255,10 +2255,10 @@ else
 							
 							$cria_dir = true;
 							
-							//Se ainda n�o existir a pasta de vers�es no diret�rio do arquivo, cria
+							//Se ainda não existir a pasta de versões no   do arquivo, cria
 							if(!is_dir($caminho . DIRETORIO_VERSOES))
 							{
-								//Se a cria��o do diret�rio n�o for feita com sucesso
+								//Se a criação do   não for feita com sucesso
 								if(!mkdir($caminho . DIRETORIO_VERSOES))
 								{								
 									$erro = 4; 
@@ -2272,7 +2272,7 @@ else
 							//O diretorio foi criado e/ou existe com sucesso
 							if($cria_dir)
 							{
-								//Verifica a �ltima vers�o do arquivo
+								//Verifica a Última versão do arquivo
 								//Alterado por carlos abreu em 25/11/2010
 								$sql = "SELECT id_ged_versao, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, versao_, revisao_interna, revisao_cliente, arquivo, retorno FROM ".DATABASE.".ged_versoes ";
 								$sql .= "WHERE ged_versoes.id_ged_arquivo = '" . $reg_numdvm["id_ged_arquivo"] . "' ";
@@ -2288,7 +2288,7 @@ else
 						
 								$reg_versao = $db->array_select[0];
 											
-								//Se a sele��o dos dados de vers�o ocorreu com sucesso
+								//Se a seleção dos dados de versão ocorreu com sucesso
 								if($db->erro == '')
 								{				
 									$caminho_antigo = DOCUMENTOS_GED . $reg_versao["base"] . "/" . $reg_versao["os"] . "/" . substr($reg_versao["os"],0,4) . DISCIPLINAS . $reg_versao["disciplina"] . "/" . $reg_versao["atividade"] . "/" . $reg_versao["sequencial"];
@@ -2315,7 +2315,7 @@ else
 										//FLYSPRAY #61
 					
 										//acrescentado por carlos abreu 24/05/2010
-										//0 - volta status atual - n�o altera versao_documento
+										//0 - volta status atual - não altera versao_documento
 										$usql = "UPDATE ".DATABASE.".ged_versoes SET ";
 										$usql .= "retorno = '0' ";
 										$usql .= "WHERE ged_versoes.id_ged_versao = '".$reg_versao["id_ged_versao"]."' ";
@@ -2331,7 +2331,7 @@ else
 										$retorno[$reg_numdvm["id_ged_arquivo"]] = 0;								
 									}
 									
-									//Move o arquivo atual para a pasta _versoes, com a extens�o da vers�o
+									//Move o arquivo atual para a pasta _versoes, com a extensão da versão
 									$move_antigo = rename($caminho_antigo."/".$reg_numdvm["nome_arquivo"],$caminho_antigo . DIRETORIO_VERSOES ."/". $reg_numdvm["nome_arquivo"] . "." . $reg_versao["id_ged_versao"]);
 						
 									$nome_arquivo_novo = $array_name[$reg_numdvm["id_numero_interno"]];

@@ -138,14 +138,14 @@ function atualizatabela($filtro, $filtro_situacao="")
 		
 		if($db->numero_registros>0)
 		{
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		}
 		else
 		{
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;empresa&nbsp;selecionada?")){xajax_excluir("'.$cont_desp["id_empfunc"].'");}>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão da empresa selecionada?")){xajax_excluir("'.$cont_desp["id_empfunc"].'");}>');
 		}
 		
-		$conteudo = "<img src=\'".DIR_IMAGENS."web.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Enviar&nbsp;Relatório&nbsp;ao&nbsp;Financeiro?\')){xajax_enviarRelatorio(\'".$cont_desp["id_empfunc"]."\');} />";
+		$conteudo = "<img src=\'".DIR_IMAGENS."web.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Enviar Relatório ao Financeiro?\')){xajax_enviarRelatorio(\'".$cont_desp["id_empfunc"]."\');} />";
 		
 		$xml->writeElement('cell', $conteudo);
 		
@@ -408,7 +408,7 @@ function enviarRelatorio($idEmpresa)
 		$objPHPExcel->getActiveSheet()->setCellValue('B21', $reg['email_particular']);
 		$objPHPExcel->getActiveSheet()->setCellValue('C23', $reg['telefone'].','.$reg['celular']);
 		
-		//Dados Banc�rios em optante simples nacional
+		//Dados Bancários em optante simples nacional
 		$objPHPExcel->getActiveSheet()->setCellValue('C27', $reg['dv'].' '.$reg['instituicao']);
 		$objPHPExcel->getActiveSheet()->setCellValue('C28', $reg['empresa_agencia']);
 		$objPHPExcel->getActiveSheet()->setCellValue('E29', $reg['empresa_cc']);
@@ -416,7 +416,7 @@ function enviarRelatorio($idEmpresa)
 		$arrTipoEmpresa = array(1 => 'SIM', 2 => 'NÃO');
 		$objPHPExcel->getActiveSheet()->setCellValue('P28', $arrTipoEmpresa[$reg['tipo_empresa']]);
 		
-		//Informa��es sobre o trabalho a ser desenvolvido
+		//Informações sobre o trabalho a ser desenvolvido
 		$objPHPExcel->getActiveSheet()->setCellValue('E33', mysql_php($reg['data_inicio']));
 		$objPHPExcel->getActiveSheet()->setCellValue('E35', $reg['descricao']);
 		$objPHPExcel->getActiveSheet()->setCellValue('P35', $arrCC[trim($reg['id_centro_custo'])]);
@@ -450,24 +450,32 @@ function enviarRelatorio($idEmpresa)
 	$objWriter->save($filename);
 
 	$params = array();
-	$params['from'] = "sistemas@dominio.com.br";
+	$params['from'] = "ti@dominio.com.br";
 	$params['from_name'] = "RECURSOS HUMANOS";
 	$params['subject'] = "CADASTRO DE EMPRESA DE FUNCIONARIO";
 
 	$corpo = '<b>Segue em anexo novo cadastro de empresa de funcionário</b>';
 	
-	//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
-	$mail = new email($params, 'cadastro_empresa_funcionario');
-	$mail->montaCorpoEmail($corpo);
-	$mail->AddAttachment($filename, 'cadastro_empresa_funcionario.xlsx');
+	if(ENVIA_EMAIL)
+	{
+	
+		//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
+		$mail = new email($params, 'cadastro_empresa_funcionario');
+		$mail->montaCorpoEmail($corpo);
+		$mail->AddAttachment($filename, 'cadastro_empresa_funcionario.xlsx');
 
-	if(!$mail->Send())
-	{
-		$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		if(!$mail->Send())
+		{
+			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		}
+		else
+		{
+			$resposta->addAlert('E-mail enviado corretamente!');
+		}
 	}
-	else
+	else 
 	{
-		$resposta->addAlert('E-mail enviado corretamente!');
+		$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
 	}
 	
 	return $resposta;
@@ -502,7 +510,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Empresa, CNAE, Responsável, Função, Situação, Instituição, Agência, C.C, D, &nbsp;");
+	mygrid.setHeader("Empresa, CNAE, Responsável, Função, Situação, Instituição, Agência, C.C, D,  ");
 	mygrid.setInitWidths("*,65,*,*,80,100,80,80,80,50,50");
 	mygrid.setColAlign("left,center,left,left,center,left,left,left,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");

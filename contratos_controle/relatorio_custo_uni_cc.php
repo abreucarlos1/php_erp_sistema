@@ -15,7 +15,7 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(317))
 {
@@ -42,7 +42,7 @@ $array_centro_custo_output[] = "TODOS";
 
 $sql = "SELECT * FROM CTT010 WITH(NOLOCK) ";
 $sql .= "WHERE CTT010.D_E_L_E_T_ = '' ";
-$sql .= "AND CTT_BLOQ = '2' "; //SOMENTE OS CC N�O BLOQUEADOS
+$sql .= "AND CTT_BLOQ = '2' "; //SOMENTE OS CC NÃO BLOQUEADOS
 $sql .= "ORDER BY CTT010.CTT_DESC01 ";
 
 $db->select($sql,'MSSQL', true);

@@ -41,5 +41,7 @@ $smarty->assign("classe",CSS_FILE);
 
 $template = TEMPLATES_DIR."menu.tpl";
 
+$smarty->assign("larguraTotal",1);
+
 $smarty->display($template);
 ?>

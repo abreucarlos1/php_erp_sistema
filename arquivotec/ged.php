@@ -168,7 +168,7 @@ function seleciona_opcoes($id_ged_versao,$x,$y)
             $sql .= "AND tipos_referencia.id_tipo_referencia = tipos_documentos_referencia.id_tipo_referencia ";
             $sql .= "AND ordem_servico.id_os = documentos_referencia.id_os ";
             $sql .= "AND setores.id_setor = documentos_referencia.id_disciplina ";
-            $sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+            $sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
             
             $db->select($sql,'MYSQL',true);
             
@@ -574,7 +574,7 @@ function abrir($caminho)
                 $sql .= "AND tipos_referencia.id_tipo_referencia = tipos_documentos_referencia.id_tipo_referencia ";
                 $sql .= "AND ordem_servico.id_os = documentos_referencia.id_os ";
                 $sql .= "AND setores.id_setor = documentos_referencia.id_disciplina ";
-                $sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+                $sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
                 
                 $db->select($sql,'MYSQL',true);
                 
@@ -640,7 +640,7 @@ function abrir($caminho)
                 $sql .= "AND empresas.reg_del = 0 ";
                 $sql .= "AND grd.reg_del = 0 ";
                 $sql .= "AND ged_pacotes.reg_del = 0 ";
-                $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+                $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
                 $sql .= "AND ged_pacotes.id_os = ordem_servico.id_os ";
                 $sql .= "AND ged_pacotes.id_ged_pacote = grd.id_ged_pacote ";
                 
@@ -670,7 +670,7 @@ function abrir($caminho)
                 $sql .= "AND setores.reg_del = 0 ";
                 $sql .= "AND os_x_analise_critica_periodica.id_disciplina = setores.id_setor ";
                 $sql .= "AND os_x_analise_critica_periodica.id_os = ordem_servico.id_os ";
-                $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+                $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
                 
                 $db->select($sql,'MYSQL',true);
                 
@@ -695,7 +695,7 @@ function abrir($caminho)
                 $sql .= "AND ordem_servico.reg_del = 0 ";
                 $sql .= "AND empresas.reg_del = 0 ";
                 $sql .= "AND os_x_anexos_cat.id_os = ordem_servico.id_os ";
-                $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+                $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
                 
                 $db->select($sql,'MYSQL',true);
                 
@@ -1021,7 +1021,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
             $sql .= "AND tipos_referencia.id_tipo_referencia = tipos_documentos_referencia.id_tipo_referencia ";
             $sql .= "AND ordem_servico.id_os = documentos_referencia.id_os ";
             $sql .= "AND setores.id_setor = documentos_referencia.id_disciplina ";
-            $sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+            $sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
             $sql .= "AND documentos_referencia.id_os = '".$dados_form["id_os"]."' ";
             
             if($sql_filtro_ref)
@@ -1070,7 +1070,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
             $sql .= "AND ged_pacotes.reg_del = 0 ";
             $sql .= "AND ordem_servico.reg_del = 0 ";
             $sql .= "AND empresas.reg_del = 0 ";
-            $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+            $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
             $sql .= "AND ged_pacotes.id_os = ordem_servico.id_os ";
             $sql .= "AND ged_pacotes.id_ged_pacote = grd.id_ged_pacote ";
             $sql .= "ORDER BY ged_pacotes.numero_pacote ";
@@ -1106,7 +1106,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
             $sql .= "AND setores.reg_del = 0 ";
             $sql .= "AND os_x_analise_critica_periodica.id_disciplina = setores.id_setor ";
             $sql .= "AND os_x_analise_critica_periodica.id_os = ordem_servico.id_os ";
-            $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+            $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
             $sql .= "ORDER BY item, data_ap ";
             
             if($sql_filtro_acp)
@@ -1138,7 +1138,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
             $sql .= "AND ordem_servico.reg_del = 0 ";
             $sql .= "AND empresas.reg_del = 0 ";
             $sql .= "AND os_x_anexos_cat.id_os = ordem_servico.id_os ";
-            $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+            $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
             
             if($sql_filtro_act)
             {
@@ -1369,13 +1369,13 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
                 
                 $xml->startElement('row');
                 $xml->writeAttribute('id','REF_'.$id_documento_referencia);
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$imagem_bolinha);
                 $xml->writeElement('cell',$imagem);
                 $xml->writeElement('cell',$arquivo_descricao_ref[$id_documento_referencia]);
                 $xml->writeElement('cell',$revisao_documento);
                 $xml->writeElement('cell',$arquivo_numcli);
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$tamanho);
                 $xml->writeElement('cell',$data_modificacao);
                 $xml->writeElement('cell',$autor);
@@ -1406,17 +1406,17 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
                 
                 $xml->startElement('row');
                 $xml->writeAttribute('id','GRD_'.$id_grd);
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$imagem_bolinha);
                 $xml->writeElement('cell',$imagem);
                 $xml->writeElement('cell',$arquivo_num_grd[$id_grd]);
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$tamanho);
                 $xml->writeElement('cell',mysql_php($arquivo_data_grd[$id_grd]));
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->endElement();
             }
         }
@@ -1443,17 +1443,17 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
                 
                 $xml->startElement('row');
                 $xml->writeAttribute('id','ACP_'.$id_acp);
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$imagem_bolinha);
                 $xml->writeElement('cell',$imagem);
                 $xml->writeElement('cell',$arquivo_nome_acp[$id_acp]);
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$tamanho);
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->endElement();
             }
         }
@@ -1480,17 +1480,17 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
                 
                 $xml->startElement('row');
                 $xml->writeAttribute('id','ACT_'.$id_act);
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$imagem_bolinha);
                 $xml->writeElement('cell',$imagem);
                 $xml->writeElement('cell',$arquivo_nome_act[$id_act]);
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->writeElement('cell',$tamanho);
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
-                $xml->writeElement('cell','&nbsp;');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
+                $xml->writeElement('cell',' ');
                 $xml->endElement();
                 
             }
@@ -1643,23 +1643,23 @@ function dadosArquivo($id_ged_versao)
             $conteudo_info = "";
             $conteudo_info .= "<div id='tit_info' style='background-color:#EDEDED; width:100%;height:20px;text-align:right;'><img src='".DIR_IMAGENS."application_side_list.png' style='margin:2px; cursor:pointer' title='Fechar' onclick='dv_info(0);'></div>";
             $conteudo_info .= "<table border='0' class='labels' style='margin:10px; font-size:10px' width='90%' cellpadding='2'>";
-            $conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informações&nbsp;do&nbsp;Documento</td></tr>";
-            $conteudo_info .= "<tr><td colspan='2'>&nbsp;</td></tr>";
+            $conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informações do Documento</td></tr>";
+            $conteudo_info .= "<tr><td colspan='2'> </td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Arquivo:</td><td>" . $reg_checkin["nome_arquivo"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Tipo&nbsp;de&nbsp;documento:</td><td>" . $reg_checkin["atividade"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Tipo de documento:</td><td>" . $reg_checkin["atividade"] . "</td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Disciplina:</td><td>" . $reg_disciplina["setor"] . "</td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>R/V:</td><td>" . $reg_checkin["revisao_interna"]."." . $reg_checkin["versao_"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Rev.&nbsp;Cliente: </td><td>" . $reg_checkin["revisao_cliente"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título&nbsp;1:</td><td>" . $reg_checkin["tag"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título&nbsp;2:</td><td>" . $reg_checkin["tag2"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título&nbsp;3:</td><td>" . $reg_checkin["tag3"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título&nbsp;4:</td><td>" . $reg_checkin["tag4"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Rev. Cliente: </td><td>" . $reg_checkin["revisao_cliente"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 1:</td><td>" . $reg_checkin["tag"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 2:</td><td>" . $reg_checkin["tag2"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 3:</td><td>" . $reg_checkin["tag3"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 4:</td><td>" . $reg_checkin["tag4"] . "</td></tr>";
             
             if($num_emissoes>0)
             {
                 $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Emissões:</td><td>";
                 $conteudo_info .= "<table width='100%' class='labels' style='border: 1px #999999 solid; font-family: Arial; font-size:10px;' cellspacing='0' cellpadding='2'>";
-                $conteudo_info .= "<tr style='background:#EFEFEF solid;'><th># GRD</th><th>Dt.&nbsp;Emiss.</th><th>R/V</th><th>Rev.Cli</th><th>Fin</th></tr>";
+                $conteudo_info .= "<tr style='background:#EFEFEF solid;'><th># GRD</th><th>Dt. Emiss.</th><th>R/V</th><th>Rev.Cli</th><th>Fin</th></tr>";
                 
                 foreach($array_emiss as $valor)
                 {
@@ -1699,11 +1699,11 @@ function dadosArquivo($id_ged_versao)
             
             $conteudo_info = "<div id='tit_info' style='background-color:#EDEDED; width:100%;height:20px;text-align:right;'><img src='".DIR_IMAGENS."application_side_list.png' style='margin:2px; cursor:pointer' title='Fechar' onclick='dv_info(0);'></div>";
             $conteudo_info .= "<table border='0' class='labels' style='margin:10px; font-size:10px' width='90%' cellpadding='2'>";
-            $conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informações&nbsp;do&nbsp;Documento</td></tr>";
-            $conteudo_info .= "<tr><td colspan='2'>&nbsp;</td></tr>";
+            $conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informações do Documento</td></tr>";
+            $conteudo_info .= "<tr><td colspan='2'> </td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Arquivo:</td><td>" . $reg_arquivos_ref["arquivo"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Tipo&nbsp;de&nbsp;documento:</td><td>" . $reg_arquivos_ref["tipo_documento"] . "</td></tr>";
-            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título:&nbsp;</td><td>" . $reg_arquivos_ref["titulo"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Tipo de documento:</td><td>" . $reg_arquivos_ref["tipo_documento"] . "</td></tr>";
+            $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título: </td><td>" . $reg_arquivos_ref["titulo"] . "</td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>Disciplina: </td><td>" . $reg_arquivos_ref["setor"] . "</td></tr>";
             $conteudo_info .= "<tr><td valign='top' style='width:120px;'>R/V:</td><td>" . $reg_arquivos_ref["versao_documento"]."." . $reg_arquivos_ref["revisao_documento"] . "</td></tr>";
             $conteudo_info .= "</table>";
@@ -2543,10 +2543,10 @@ function enviar($dados_form)
         
         //Forma o e-mail
         $params 			= array();
-        $params['from']		= 'arqtec@dominio.com.br';
+        $params['from']		= 'arquivotecnico@dominio.com.br';
         $params['from_name']= $pedido["funcionario"];
         
-        $params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+        $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
         $params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);
         
         $corpoEmail = '';
@@ -2593,26 +2593,33 @@ function enviar($dados_form)
             $str_sel_arquivos .= "</table>";
             
             $params['subject'] 	= "ARQUIVOS ADICIONADOS AO PACOTE: " . sprintf("05d",$reg_pacote["os"]) . "-"  . sprintf("%04d",$reg_sel_pacote["numero_pacote"]);
-            $corpoEmail = "<html><body style='font: 11pt Arial'><p>Foram adicionados arquivos no pacote " . sprintf("%05d",$reg_pacote["os"]) . "-" . sprintf("%04d",$reg_sel_pacote["numero_pacote"]) . ":</p><div id='div_arquivos'>Arquivos: " . $str_sel_arquivos . "</div><div id='div_solicitante'>Solicitante: <a href='mailto:" . $reg_usuario["email"] . "'>" . $reg_usuario["Login"] . "</a></div><div id='div_data'>data da inclusão: " . date("d/m/Y") . "</div></body></html>";
+            $corpoEmail = "<html><body style='font: 11pt Arial'><p>Foram adicionados arquivos no pacote " . sprintf("%05d",$reg_pacote["os"]) . "-" . sprintf("%04d",$reg_sel_pacote["numero_pacote"]) . ":</p><div id='div_arquivos'>Arquivos: " . $str_sel_arquivos . "</div><div id='div_solicitante'>Solicitante: <a href='mailto:" . $reg_usuario["email"] . "'>" . $reg_usuario["login"] . "</a></div><div id='div_data'>data da inclusão: " . date("d/m/Y") . "</div></body></html>";
         }
         else
         {
             $params['subject'] 	= "NOVO PACOTE - OS: " . sprintf("%05d",$reg_pacote["os"]) . " - Pacote: " . sprintf("%04d",$num_novo_pacote);
-            $corpoEmail = "<html><body style='font: 11pt Arial'><p>Há um novo pacote no sistema: ".sprintf("%05d",$reg_pacote["os"]) . " - Pacote: " . sprintf("%04d",$num_novo_pacote)."</p><div id='div_solicitante'>Solicitante: <a href='mailto:" . $reg_usuario["email"] . "'>" . $reg_usuario["Login"] . "</a></div><div id='div_data'>data da solicitação: " . date("d/m/Y") . "</div></body></html>";
+            $corpoEmail = "<html><body style='font: 11pt Arial'><p>Há um novo pacote no sistema: ".sprintf("%05d",$reg_pacote["os"]) . " - Pacote: " . sprintf("%04d",$num_novo_pacote)."</p><div id='div_solicitante'>Solicitante: <a href='mailto:" . $reg_usuario["email"] . "'>" . $reg_usuario["login"] . "</a></div><div id='div_data'>data da solicitação: " . date("d/m/Y") . "</div></body></html>";
+        }
+
+        if(ENVIA_EMAIL)
+        {
+            
+            $mail = new email($params);
+            
+            $mail->montaCorpoEmail($corpoEmail);
+            
+            //Envia o e-mail
+            if(!$mail->Send())
+            {
+                $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+            }
+        } 
+        else 
+        {
+            $resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 1);
         }
         
-        $mail = new email($params);
-        $mail->montaCorpoEmail($corpoEmail);
-        
-        //Envia o e-mail
-        if(!$mail->Send())
-        {
-            $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-        }
-        else
-        {
-            $resposta->addAlert("Pacote enviado ao Arquivo Técnico com sucesso.");
-        }
+        $resposta->addAlert("Pacote enviado ao Arquivo Técnico com sucesso.");
         
         //rotina para limpar os cookies
         $resposta->addScript("xajax_limparSelecaoAtual(".$dados_form["id_os"].",0);");
@@ -2744,24 +2751,24 @@ function preenchePropriedades($id_ged_versao)
     //Forma o conteúdo da janela de Propriedades
     $conteudo = '<form method="POST" name="frm_propriedades" id="frm_propriedades">';
     $conteudo .= '<div id="conteudo" style="font-size:12px; width:90%; margin:5px;">';
-    $conteudo .= '<div id="tipo_arquivo" style="padding:5px;" onselectstart="return false" unselectable="on">' . $imagem . '&nbsp;<label class="labels"><strong>tipo&nbsp;de&nbsp;arquivo:&nbsp;</strong></label>' . $extensao . '</div>';
-    $conteudo .= '<div id="nome_arq" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome&nbsp;do&nbsp;Arquivo:&nbsp;</strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
-    $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho:&nbsp;</strong>' . $tamanho . '</label></div>';
-    $conteudo .= '<div id="autor" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Autor:&nbsp;' . $autor . '</label></div>';
-    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualização:&nbsp;' . $data_modificacao . '</label></div>';
-    $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nº&nbsp;Interno:&nbsp;</strong>' . $descricao_numdvm . '</label></div>';
+    $conteudo .= '<div id="tipo_arquivo" style="padding:5px;" onselectstart="return false" unselectable="on">' . $imagem . ' <label class="labels"><strong>tipo de arquivo: </strong></label>' . $extensao . '</div>';
+    $conteudo .= '<div id="nome_arq" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome do Arquivo: </strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
+    $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho: </strong>' . $tamanho . '</label></div>';
+    $conteudo .= '<div id="autor" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Autor: ' . $autor . '</label></div>';
+    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Última atualização: ' . $data_modificacao . '</label></div>';
+    $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nº Interno: </strong>' . $descricao_numdvm . '</label></div>';
     
     //Se não estiver na GRD, pode ser alterado
     if($num_grd == 0)
     {
-        $conteudo .= '<div id="autor" style="padding:5px;"><label class="labels"><strong>N&uacute;mero&nbsp;Cliente:&nbsp;</strong></label><input type="text" name="txt_numcliente" id="txt_numcliente" class="caixa" value="' . $reg_arquivo["numero_cliente"] . '" size="40"></div>';
+        $conteudo .= '<div id="autor" style="padding:5px;"><label class="labels"><strong>N&uacute;mero Cliente: </strong></label><input type="text" name="txt_numcliente" id="txt_numcliente" class="caixa" value="' . $reg_arquivo["numero_cliente"] . '" size="40"></div>';
     }
     else
     {
-        $conteudo .= '<div id="autor" style="padding:5px;"><label class="labels"><strong>N&uacute;mero&nbsp;Cliente:&nbsp;</strong>'.$reg_arquivo["numero_cliente"] . '</label></div>';
+        $conteudo .= '<div id="autor" style="padding:5px;"><label class="labels"><strong>N&uacute;mero Cliente: </strong>'.$reg_arquivo["numero_cliente"] . '</label></div>';
     }
     
-    $conteudo .= '<div id="div_propriedades">&nbsp;</div>';
+    $conteudo .= '<div id="div_propriedades"> </div>';
     
     //Se o arquivo estiver bloqueado
     if($reg_arquivo["status"]=="2")
@@ -2769,7 +2776,7 @@ function preenchePropriedades($id_ged_versao)
         $btn_gravar = 'disabled';
     }
     
-    $conteudo .= '<div id="botoes" style="text-align:right; width:100%; padding:5px;"><input type="hidden" id="id_ged_versao" name="id_ged_versao" value="' . $reg_arquivo["id_ged_versao"] . '"><input type="button" class="class_botao" value="Gravar&nbsp;alterações" onclick=if(confirm("Confirma&nbsp;as&nbsp;alterações&nbsp;feitas&nbsp;nas&nbsp;versões?")){xajax_atualizaVersoes(xajax.getFormValues("frm_propriedades"));}>&nbsp;&nbsp;&nbsp;<input type="button" class="class_botao" value="Voltar" onclick=xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
+    $conteudo .= '<div id="botoes" style="text-align:right; width:100%; padding:5px;"><input type="hidden" id="id_ged_versao" name="id_ged_versao" value="' . $reg_arquivo["id_ged_versao"] . '"><input type="button" class="class_botao" value="Gravar alterações" onclick=if(confirm("Confirma as alterações feitas nas versões?")){xajax_atualizaVersoes(xajax.getFormValues("frm_propriedades"));}>   <input type="button" class="class_botao" value="Voltar" onclick=xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
     
     $conteudo .= '</div>';
     
@@ -2825,7 +2832,7 @@ function preenchePropriedades($id_ged_versao)
         }
         else
         {
-            $img_coment = '&nbsp;';
+            $img_coment = ' ';
         }
         
         //Se a versão não for a atual, mostra o botão de "Reverter" e "Excluir", e o "Abrir" abre a versão
@@ -2833,24 +2840,24 @@ function preenchePropriedades($id_ged_versao)
         {
             $img_abrir = '<img style="cursor:pointer;" title="Abrir" src="'.DIR_IMAGENS.'procurar.png" onclick=xajax_abrir("ARQ_' . $reg_versoes["id_ged_versao"] . '_VER");>';
             
-            $img_restaurar = '<img style="cursor:pointer;" title="Restaurar" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(confirm("Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;restaurar&nbsp;a&nbsp;versão&nbsp;selecionada&nbsp;e&nbsp;torná-la&nbsp;a&nbsp;atual?")){xajax_restaurar("' . $reg_versoes["id_ged_versao"] . '");}>';
+            $img_restaurar = '<img style="cursor:pointer;" title="Restaurar" src="'.DIR_IMAGENS.'bt_desfazer.png" onclick=if(confirm("Tem certeza que deseja restaurar a versão selecionada e torná-la a atual?")){xajax_restaurar("' . $reg_versoes["id_ged_versao"] . '");}>';
             
             if(in_array($_SESSION["id_funcionario"],lista_arqtec()))
             {
-                $img_excluir = '<img style="cursor:pointer;" title="Excluir" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;Tem&nbsp;certeza&nbsp;que&nbsp;deseja&nbsp;EXCLUIR&nbsp;a&nbsp;versão&nbsp;selecionada?")){xajax_excluir_versoes("' . $reg_versoes["id_ged_versao"] . '");}>';
+                $img_excluir = '<img style="cursor:pointer;" title="Excluir" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: Tem certeza que deseja EXCLUIR a versão selecionada?")){xajax_excluir_versoes("' . $reg_versoes["id_ged_versao"] . '");}>';
             }
             else
             {
-                $img_excluir = '&nbsp;';
+                $img_excluir = ' ';
             }
         }
         else
         {
             $img_abrir = '<img style="cursor:pointer;" title="Abrir" src="'.DIR_IMAGENS.'procurar.png" onclick=xajax_abrir("ARQ_' . $reg_versoes["id_ged_versao"] . '");>';
             
-            $img_restaurar = '&nbsp;';
+            $img_restaurar = ' ';
             
-            $img_excluir = '&nbsp;';
+            $img_excluir = ' ';
         }
         
         $xml->startElement('row');
@@ -2916,7 +2923,7 @@ function preenchePropriedadesRef($id_documento_referencia)
     $sql .= "AND documentos_referencia.id_disciplina = setores.id_setor ";
     $sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
     $sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-    $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+    $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
     $sql .= "AND documentos_referencia.id_documento_referencia = '" . $id_documento_referencia . "' ";
     
     $db->select($sql,'MYSQL',true);
@@ -2968,12 +2975,12 @@ function preenchePropriedadesRef($id_documento_referencia)
     //Forma o conteúdo da janela de Propriedades
     $conteudo = '<form method="POST" name="frm_propriedades_ref" id="frm_propriedades_ref">';
     $conteudo .= '<div id="conteudo" style="font-size:12px; width:100%; margin:5px;">';
-    $conteudo .= '<div id="tipo_arquivo" style="padding:5px;" onselectstart="return false" unselectable="on">' . $imagem . '&nbsp;<label class="labels"><strong>tipo&nbsp;de&nbsp;arquivo:&nbsp;</strong></label>' . $extensao . '</div>';
-    $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome&nbsp;do&nbsp;Arquivo:&nbsp;</strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
-    $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho:&nbsp;</strong>' . $tamanho . '</label></div>';
-    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>&Uacute;ltima&nbsp;atualização:&nbsp;' . $data_modificacao . '</label></div>';
+    $conteudo .= '<div id="tipo_arquivo" style="padding:5px;" onselectstart="return false" unselectable="on">' . $imagem . ' <label class="labels"><strong>tipo de arquivo: </strong></label>' . $extensao . '</div>';
+    $conteudo .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome do Arquivo: </strong>' . $reg_arquivo["nome_arquivo"] . '</label></div>';
+    $conteudo .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho: </strong>' . $tamanho . '</label></div>';
+    $conteudo .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Última atualização: ' . $data_modificacao . '</label></div>';
     
-    $conteudo .= '<div id="div_propriedades_ref">&nbsp;</div>';
+    $conteudo .= '<div id="div_propriedades_ref"> </div>';
     
     $conteudo .= '<div id="botoes" style="text-align:right; width:100%; padding:5px;"><input type="button" class="class_botao" value="Voltar" onclick=xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
     
@@ -3190,7 +3197,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                     $form .= '<input type="hidden" id="operacao" name="operacao" value="'.$checkout.'">';
                     $form .= '<input type="hidden" id="funcao" name="funcao" value="checkout">';
                     $form .= '<iframe id="upload_target_'.$reg_id_arquivo["id_numero_interno"].'" name="upload_target_'.$reg_id_arquivo["id_numero_interno"].'" src="#" style="display:none;"></iframe>';
-                    $form .= '<span id="txtup_'.$reg_id_arquivo["id_numero_interno"].'"><input class="caixa" name="myfile_'.$reg_id_arquivo["id_numero_interno"].'" id="myfile_'.$reg_id_arquivo["id_numero_interno"].'" type="file" size="30">&nbsp;&nbsp;<input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
+                    $form .= '<span id="txtup_'.$reg_id_arquivo["id_numero_interno"].'"><input class="caixa" name="myfile_'.$reg_id_arquivo["id_numero_interno"].'" id="myfile_'.$reg_id_arquivo["id_numero_interno"].'" type="file" size="30">  <input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
                     $form .= '</form>';
                     
                     $xml->startElement('row');
@@ -3199,9 +3206,9 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                     $xml->writeElement('cell',$reg_id_arquivo["numero_cliente"]);
                     $xml->writeElement('cell',addslashes($reg_id_arquivo["atividades_Descricao"] . ' ' . $str_complemento));
                     $xml->writeElement('cell',$form);
-                    $xml->writeElement('cell','<p id="tam_'.$reg_id_arquivo["id_numero_interno"].'">&nbsp;</p>');
-                    $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_id_arquivo["id_numero_interno"].'">&nbsp;</p>');
-                    $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_id_arquivo["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;arquivo?")){xajax_excluir_upload('.$reg_id_arquivo["id_numero_interno"].','.$checkout.');delUpload('.$reg_id_arquivo["id_numero_interno"].')}></p>');
+                    $xml->writeElement('cell','<p id="tam_'.$reg_id_arquivo["id_numero_interno"].'"> </p>');
+                    $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_id_arquivo["id_numero_interno"].'"> </p>');
+                    $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_id_arquivo["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o arquivo?")){xajax_excluir_upload('.$reg_id_arquivo["id_numero_interno"].','.$checkout.');delUpload('.$reg_id_arquivo["id_numero_interno"].')}></p>');
                     $xml->endElement();
                     
                 }
@@ -3251,7 +3258,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                         $form .= '<input type="hidden" id="operacao" name="operacao" value="'.$checkout.'">';
                         $form .= '<input type="hidden" id="funcao" name="funcao" value="checkout">';
                         $form .= '<iframe id="upload_target_'.$reg_numdvm["id_numero_interno"].'" name="upload_target_'.$reg_numdvm["id_numero_interno"].'" src="#" style="display:none;"></iframe>';
-                        $form .= '<span id="txtup_'.$reg_numdvm["id_numero_interno"].'"><input class="caixa" name="myfile_'.$reg_numdvm["id_numero_interno"].'" id="myfile_'.$reg_numdvm["id_numero_interno"].'" type="file" size="30">&nbsp;&nbsp;<input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
+                        $form .= '<span id="txtup_'.$reg_numdvm["id_numero_interno"].'"><input class="caixa" name="myfile_'.$reg_numdvm["id_numero_interno"].'" id="myfile_'.$reg_numdvm["id_numero_interno"].'" type="file" size="30">  <input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
                         $form .= '</form>';
                         
                         $xml->startElement('row');
@@ -3260,9 +3267,9 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                         $xml->writeElement('cell',$reg_numdvm["numero_cliente"]);
                         $xml->writeElement('cell',addslashes($reg_numdvm["atividades_Descricao"] . ' ' . $str_complemento));
                         $xml->writeElement('cell',$form);
-                        $xml->writeElement('cell','<p id="tam_'.$reg_numdvm["id_numero_interno"].'">&nbsp;</p>');
-                        $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_numdvm["id_numero_interno"].'">&nbsp;</p>');
-                        $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_numdvm["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;arquivo?")){xajax_excluir_upload('.$reg_numdvm["id_numero_interno"].','.$checkout.');delUpload('.$reg_numdvm["id_numero_interno"].')}></p>');
+                        $xml->writeElement('cell','<p id="tam_'.$reg_numdvm["id_numero_interno"].'"> </p>');
+                        $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_numdvm["id_numero_interno"].'"> </p>');
+                        $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_numdvm["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o arquivo?")){xajax_excluir_upload('.$reg_numdvm["id_numero_interno"].','.$checkout.');delUpload('.$reg_numdvm["id_numero_interno"].')}></p>');
                         $xml->endElement();
                         
                     }
@@ -3367,7 +3374,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                 $form .= '<input type="hidden" id="operacao" name="operacao" value="'.$checkout.'">';
                 $form .= '<input type="hidden" id="funcao" name="funcao" value="checkout">';
                 $form .= '<iframe id="upload_target_'.$reg_nrdocs["id_numero_interno"].'" name="upload_target_'.$reg_nrdocs["id_numero_interno"].'" src="#" style="display:none;"></iframe>';
-                $form .= '<span id="txtup_'.$reg_nrdocs["id_numero_interno"].'"><input class="caixa" style="height:100%;" name="myfile_'.$reg_nrdocs["id_numero_interno"].'" id="myfile_'.$reg_nrdocs["id_numero_interno"].'" type="file" size="30">&nbsp;&nbsp;<input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
+                $form .= '<span id="txtup_'.$reg_nrdocs["id_numero_interno"].'"><input class="caixa" style="height:100%;" name="myfile_'.$reg_nrdocs["id_numero_interno"].'" id="myfile_'.$reg_nrdocs["id_numero_interno"].'" type="file" size="30">  <input type="submit" name="submitBtn" id="submitBtn" value="Upload"></span>';
                 $form .= '</form>';
                 
                 $xml->startElement('row');
@@ -3376,9 +3383,9 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
                 $xml->writeElement('cell',$reg_nrdocs["numero_cliente"]);
                 $xml->writeElement('cell',addslashes($reg_nrdocs["atividades_Descricao"] . ' ' . $str_complemento));
                 $xml->writeElement('cell',$form);
-                $xml->writeElement('cell','<p id="tam_'.$reg_nrdocs["id_numero_interno"].'">&nbsp;</p>');
-                $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_nrdocs["id_numero_interno"].'">&nbsp;</p>');
-                $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_nrdocs["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;arquivo?")){xajax_excluir_upload('.$reg_nrdocs["id_numero_interno"].','.$checkout.');delUpload('.$reg_nrdocs["id_numero_interno"].')}></p>');
+                $xml->writeElement('cell','<p id="tam_'.$reg_nrdocs["id_numero_interno"].'"> </p>');
+                $xml->writeElement('cell','<p style="visibility:hidden;" id="upload_'.$reg_nrdocs["id_numero_interno"].'"> </p>');
+                $xml->writeElement('cell','<p style="visibility:hidden;" id="delete_'.$reg_nrdocs["id_numero_interno"].'"><img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o arquivo?")){xajax_excluir_upload('.$reg_nrdocs["id_numero_interno"].','.$checkout.');delUpload('.$reg_nrdocs["id_numero_interno"].')}></p>');
                 $xml->endElement();
                 
             }
@@ -3792,8 +3799,8 @@ function preencheBuscaAvancada($tipo_busca="")
     
     if($tipo_busca==1)
     {
-        $sql = "SELECT empresas.id_empresa_erp, empresas.empresa, unidades.unidade
-				FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico ";
+        $sql = "SELECT empresas.id_empresa, empresas.empresa, unidades.unidade
+				FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico ";
         $sql .= "WHERE numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";
         $sql .= "AND numeros_interno.reg_del = 0 ";
         $sql .= "AND ged_arquivos.reg_del = 0 ";
@@ -3802,24 +3809,24 @@ function preencheBuscaAvancada($tipo_busca="")
         $sql .= "AND ordem_servico.reg_del = 0 ";
         $sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
         $sql .= "AND os.os > 1700 ";
-        $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+        $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
         $sql .= "AND empresas.id_unidade = unidades.id_unidade ";
     }
     else
     {
-        $sql = "SELECT empresas.id_empresa_erp, empresas.empresa, unidades.unidade
-				FROM ".DATABASE.".documentos_referencia, ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico ";
+        $sql = "SELECT empresas.id_empresa, empresas.empresa, unidades.unidade
+				FROM ".DATABASE.".documentos_referencia, ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico ";
         $sql .= "WHERE documentos_referencia.id_os = ordem_servico.id_os ";
         $sql .= "AND documentos_referencia.reg_del = 0 ";
         $sql .= "AND empresas.reg_del = 0 ";
         $sql .= "AND unidades.reg_del = 0 ";
         $sql .= "AND ordem_servico.reg_del = 0 ";
         $sql .= "AND os.os > 1700 ";
-        $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+        $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
         $sql .= "AND empresas.id_unidade = unidades.id_unidade ";
     }
     
-    $sql .= "GROUP BY empresas.id_empresa_erp, empresas.id_unidade ";
+    $sql .= "GROUP BY empresas.id_empresa, empresas.id_unidade ";
     $sql .= "ORDER BY empresa ";
     
     $db->select($sql,'MYSQL',true);
@@ -3835,7 +3842,7 @@ function preencheBuscaAvancada($tipo_busca="")
     
     foreach($db->array_select as $reg_os)
     {
-        $matriz_os[$reg_os["empresa"]." - ".$reg_os["unidade"]."-".$reg_os["id_empresa_erp"]] = $reg_os["id_empresa_erp"];
+        $matriz_os[$reg_os["empresa"]." - ".$reg_os["unidade"]."-".$reg_os["id_empresa"]] = $reg_os["id_empresa"];
     }
     
     //Preenche o combo de OS
@@ -3874,7 +3881,7 @@ function preenche_os_BuscaAvancada($dados_form)
     
     if($dados_form["busca_id_cliente"]!="")
     {
-        $sql .= "AND ordem_servico.id_empresa_erp = '".$dados_form["busca_id_cliente"]."' ";
+        $sql .= "AND ordem_servico.id_empresa = '".$dados_form["busca_id_cliente"]."' ";
     }
     
     $sql .= "GROUP BY ordem_servico.id_os ";
@@ -4050,7 +4057,7 @@ function buscaArquivos($string_busca,$seleciona_arquivo=false)
     $sql .= "AND documentos_referencia.id_disciplina = setores.id_setor ";
     $sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
     $sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-    $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+    $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
     $sql .= "AND documentos_referencia.id_os = os_x_funcionarios.id_os ";
     $sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
     $sql .= "AND (documentos_referencia_revisoes.arquivo LIKE '%" . addslashes($string_busca) . "%' ";
@@ -4106,7 +4113,7 @@ function buscaArquivos($string_busca,$seleciona_arquivo=false)
     
     if($nRegistrosBusca == 0 && $nRegistrosBuscaRef == 0)
     {
-        $conteudo .= '<div id="div_aviso" style="color:#999999; font-family:Arial; font-size:9px;">Nenhum&nbsp;arquivo&nbsp;encontrado.</div>';
+        $conteudo .= '<div id="div_aviso" style="color:#999999; font-family:Arial; font-size:9px;">Nenhum arquivo encontrado.</div>';
     }
     
     $resposta->addAssign("menu_div_fundo","innerHTML",$conteudo);
@@ -4308,7 +4315,7 @@ function buscaArquivosAvancada($dados_form)
                 }
                 else
                 {
-                    $chk = '&nbsp;';
+                    $chk = ' ';
                 }
                 
                 $xml->startElement('row');
@@ -4354,7 +4361,7 @@ function buscaArquivosAvancada($dados_form)
             $sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
             $sql .= "AND documentos_referencia.id_tipo_documento_referencia = tipos_documentos_referencia.id_tipos_documentos_referencia ";
             $sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-            $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+            $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
             $sql .= $sql_filtro_ref;
             $sql .= " ORDER BY documentos_referencia_revisoes.arquivo ASC ";
             
@@ -4538,23 +4545,23 @@ function preencheArquivosSol($id_os)
     $form = '<form action="" method="post" name="frm_arquivos" id="frm_arquivos" style="margin:10px;padding:0px">';
     $form .= '<input type="hidden" id="id_os" name="id_os" value="'.$id_os.'" readonly >';
     $form .= '<div id="conteudo" style="font-size:12px; width:100%; margin:5px;">';
-    $form .= '<div id="div_solicitacao">&nbsp;</div>';
+    $form .= '<div id="div_solicitacao"> </div>';
     
     $form .= '<table border="0" width="100%" cellspacing="5" cellpadding="5">';
     $form .= '<tr>';
     
     if($db->numero_registros > 0) //Se existirem pacotes
     {
-        $form .= '<td><input type="checkbox" name="chk_inclusao" id="chk_inclusao" value="1" onclick=if(this.checked){if(confirm("Atenção:&nbsp;Essa&nbsp;ação&nbsp;irá&nbsp;incluir&nbsp;os&nbsp;arquivos&nbsp;em&nbsp;um&nbsp;pacote&nbsp;EXISTENTE.&nbsp;Deseja&nbsp;continuar?")){xajax.$("sel_id_ged_pacote").style.visibility="visible";}else{this.checked=false;}}else{xajax.$("sel_id_ged_pacote").style.visibility="hidden";}; style="margin:0px;padding:0px" title="Incluir&nbsp;os&nbsp;documentos&nbsp;em&nbsp;um&nbsp;Pacote&nbsp;existente"><label class="labels">Incluir&nbsp;em&nbsp;pacote&nbsp;existente</label><br>';
+        $form .= '<td><input type="checkbox" name="chk_inclusao" id="chk_inclusao" value="1" onclick=if(this.checked){if(confirm("Atenção: Essa ação irá incluir os arquivos em um pacote EXISTENTE. Deseja continuar?")){xajax.$("sel_id_ged_pacote").style.visibility="visible";}else{this.checked=false;}}else{xajax.$("sel_id_ged_pacote").style.visibility="hidden";}; style="margin:0px;padding:0px" title="Incluir os documentos em um Pacote existente"><label class="labels">Incluir em pacote existente</label><br>';
         $form .= $cmb_pacote;
         $form .= "</td>";
     }
     
-    $form .= '<td><label class="labels">Muda&nbsp;finalidade&nbsp;para:</label><input name="chk_finalidade" type="checkbox" id="chk_finalidade" value="1" onclick=seta_combo(xajax.$("_finalidade").value,"frm_arquivos");><br>';
+    $form .= '<td><label class="labels">Muda finalidade para:</label><input name="chk_finalidade" type="checkbox" id="chk_finalidade" value="1" onclick=seta_combo(xajax.$("_finalidade").value,"frm_arquivos");><br>';
     $form .= $fin_emissao;
     $form .= '</td></tr>';
     $form .= '<tr>';
-    $form .= '<td><input name="btnenviar_solicitacao" class="class_botao" id="btnenviar_solicitacao" type="button" onclick=if(confirm("Confirma&nbsp;envio&nbsp;dos&nbsp;arquivos&nbsp;selecionados&nbsp;para&nbsp;o&nbsp;Arquivo&nbsp;T&eacute;cnico?")){xajax_enviar(xajax.getFormValues("frm_arquivos"));} value="Enviar Solicitação">&nbsp;&nbsp;&nbsp;<input type="button" id="id_voltar" value="Voltar" class="class_botao" onclick=divPopupInst.destroi(); ></td>';
+    $form .= '<td><input name="btnenviar_solicitacao" class="class_botao" id="btnenviar_solicitacao" type="button" onclick=if(confirm("Confirma envio dos arquivos selecionados para o Arquivo T&eacute;cnico?")){xajax_enviar(xajax.getFormValues("frm_arquivos"));} value="Enviar Solicitação">   <input type="button" id="id_voltar" value="Voltar" class="class_botao" onclick=divPopupInst.destroi(); ></td>';
     $form .= '</tr></table>';
     
     $form .= '</div>';
@@ -4620,7 +4627,7 @@ function preencheArquivosSol($id_os)
         
         //Seleciona os dados dos arquivos
         
-        $sql = "SELECT ged_arquivos.descricao, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.versao_, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_versoes.revisao_interna, ged_versoes.revisao_cliente, ged_versoes.numero_folhas AS numero_folhas, numeros_interno.id_formato, numeros_interno.numero_cliente, numeros_interno.sequencia, numeros_interno.cod_cliente, os.os, ordem_servico.id_os, setores.sigla, ordem_servico.id_empresa_erp, ged_arquivos.status
+        $sql = "SELECT ged_arquivos.descricao, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.versao_, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_versoes.revisao_interna, ged_versoes.revisao_cliente, ged_versoes.numero_folhas AS numero_folhas, numeros_interno.id_formato, numeros_interno.numero_cliente, numeros_interno.sequencia, numeros_interno.cod_cliente, os.os, ordem_servico.id_os, setores.sigla, ordem_servico.id_empresa, ged_arquivos.status
 						 FROM
 						 	".DATABASE.".ged_arquivos, ".DATABASE.".ged_versoes, ".DATABASE.".numeros_interno, ".DATABASE.".setores, ".DATABASE.".ordem_servico  ";
         $sql .= "WHERE ged_arquivos.id_ged_versao = ged_versoes.id_ged_versao ";
@@ -4648,7 +4655,7 @@ function preencheArquivosSol($id_os)
             $arq_id_ged_versao[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_ged_versao"];
             $caminho = DOCUMENTOS_GED . $reg_arquivos["base"] . "/" . $reg_arquivos["os"] . "/" . substr($reg_arquivos["os"],0,4) . DISCIPLINAS . $reg_arquivos["disciplina"] . "/" . $reg_arquivos["atividade"] . "/" . $reg_arquivos["sequencial"]."/".$reg_arquivos["nome_arquivo"];
             $status_arquivo[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["status"];
-            $codempresa[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_empresa_erp"];
+            $codempresa[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_empresa"];
             $cod_cliente[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["cod_cliente"];
             $descricao_arquivo[$reg_arquivos["id_ged_arquivo"]] = addslashes($reg_arquivos["descricao"]);
             $nome_arquivo[$reg_arquivos["id_ged_arquivo"]] = $caminho;
@@ -4773,7 +4780,7 @@ function preencheArquivosSol($id_os)
             }
             else
             {
-                $descricao = '&nbsp;';
+                $descricao = ' ';
             }
             
             if($doc_dvm_arquivo[$id_ged_arquivo])
@@ -4801,7 +4808,7 @@ function preencheArquivosSol($id_os)
             $xml->writeElement('cell',$sel_formato);
             $xml->writeElement('cell','<input type="text" class="caixa" id="copias_' . $id_ged_arquivo . '" name="copias_' . $id_ged_arquivo . '" size="3" title="Digite a quantidade de cópias" value="1" onkeyup=pulaCampo(this,event.keyCode);>');
             $xml->writeElement('cell','<input type="text" class="caixa" id="folhas_' . $id_ged_arquivo . '" name="folhas_' . $id_ged_arquivo . '" size="3" title="Digite a quantidade de folhas" value="' . $fls_arquivo[$id_ged_arquivo] . '"  onkeyup=pulaCampo(this,event.keyCode);>');
-            $xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" title="Retirar&nbsp;da&nbsp;seleção." style="cursor:pointer" onclick=xajax_selecaoCheckbox("chk_' . $id_ged_arquivo . '","false");xajax_preencheArquivosSol("'.$id_os.'");>');
+            $xml->writeElement('cell','<img src="'.DIR_IMAGENS.'apagar.png" title="Retirar da seleção." style="cursor:pointer" onclick=xajax_selecaoCheckbox("chk_' . $id_ged_arquivo . '","false");xajax_preencheArquivosSol("'.$id_os.'");>');
             
             $xml->endElement();
             
@@ -5076,21 +5083,21 @@ function sol_desbloquear($id_os)
         $resposta->addAlert("Os seguintes arquivos tem solicitação de desbloqueio no sistema e não serão incluidos:\n".$solicitados);
     }
     
-    $conteudo = '<form name="frm_desbloq" id="frm_desbloq" action="upload.php" target="upload_target_comentario" method="post" enctype="multipart/form-data" onsubmit=if(confirm("Enviar&nbsp;ao&nbsp;Arquivo&nbsp;Técnico?")){document.getElementById("submitBtn").disabled=true;startUpload('.$id_os.');};>';
+    $conteudo = '<form name="frm_desbloq" id="frm_desbloq" action="upload.php" target="upload_target_comentario" method="post" enctype="multipart/form-data" onsubmit=if(confirm("Enviar ao Arquivo Técnico?")){document.getElementById("submitBtn").disabled=true;startUpload('.$id_os.');};>';
     $conteudo .= '<iframe id="upload_target_comentario" name="upload_target_comentario" src="#" style="width:0;height:0;border:0px solid #fff;display:none;"></iframe>';
     $conteudo .= '<input type="hidden" name="funcao" id="funcao" value="desbloqueio">';
     $conteudo .= '<input type="hidden" name="id_os" id="id_os" value="'.$id_os.'">';
     
     $conteudo .= '<table border="0" width="100%">';
     
-    $conteudo .= '<tr><td colspan="2" class="nome_formulario" align="center">Solicitação&nbsp;Desbloqueio</td></tr>';
+    $conteudo .= '<tr><td colspan="2" class="nome_formulario" align="center">Solicitação Desbloqueio</td></tr>';
     
     //se houver arquivos a serem solicitados desbloqueios
     if(count($array_versoes[4])>0)
     {
         $conteudo .= '<tr>';
         $conteudo .= '<td colspan="2">';
-        $conteudo .= '<label class="labels"><strong>Motivo&nbsp;do&nbsp;desbloqueio</strong></label>';
+        $conteudo .= '<label class="labels"><strong>Motivo do desbloqueio</strong></label>';
         
         //Loop nos itens de desbloqueio/comentarios
         foreach($array_versoes[4] as $id_ged_versao)
@@ -5112,11 +5119,11 @@ function sol_desbloquear($id_os)
         $conteudo .= '</tr>';
         $conteudo .= '<tr>';
         $conteudo .= '<td align="left" width="10%">';
-        $conteudo .= '<label class="labels"><strong>Data&nbsp;devolução</strong></label><br>';
+        $conteudo .= '<label class="labels"><strong>Data devolução</strong></label><br>';
         $conteudo .= '<input type="text" class="caixa" name="data_devolucao" id="data_devolucao" value="'. date('d/m/Y').'" onkeypress="transformaData(this, event)" size="10">';
         $conteudo .= '</td>';
         $conteudo .= '<td align="left" width="90%">';
-        $conteudo .= '<label class="labels"><strong>Status&nbsp;devolução</strong></label><br>';
+        $conteudo .= '<label class="labels"><strong>Status devolução</strong></label><br>';
         $conteudo .= '<select name="status_devolucao" id="status_devolucao" class="caixa">';
         $conteudo .= '<option value="">SELECIONE</option>';
         
@@ -5131,7 +5138,7 @@ function sol_desbloquear($id_os)
         $conteudo .= '<td colspan="2">';
         $conteudo .= '<label class="labels"><strong>Anexo</strong></label><br>';
         $conteudo .= '<span id="txtup_'.$id_os.'"><input class="caixa" name="arquivo_'.$id_os.'" id="arquivo_'.$id_os.'" type="file" size="30" /></span>';
-        $conteudo .= '<p style="visibility:hidden;" id="upload_'.$id_os.'">&nbsp;</p>';
+        $conteudo .= '<p style="visibility:hidden;" id="upload_'.$id_os.'"> </p>';
         $conteudo .= '<span id="tam_'.$id_os.'"></span>';
         $conteudo .= '<span id="delete_'.$id_os.'"></span>';
         
@@ -5147,7 +5154,7 @@ function sol_desbloquear($id_os)
     
     $conteudo .= '<tr>';
     $conteudo .= '<td colspan="2">';
-    $conteudo .= '<input type="submit" name="submitBtn" id="submitBtn" class="class_botao" value="Incluir" '.$habilita.' />&nbsp;&nbsp;';
+    $conteudo .= '<input type="submit" name="submitBtn" id="submitBtn" class="class_botao" value="Incluir" '.$habilita.' />  ';
     $conteudo .= '<input type="button" value="Voltar" onclick=xajax_limpa_desbloqueios(xajax.getFormValues("frm_desbloq"));divPopupInst.destroi(); class="class_botao">';
     $conteudo .= '</td>';
     $conteudo .= '</tr>';
@@ -5264,7 +5271,7 @@ function desbloq_massa($dados_form)
     
     //Preenche um array com dados de Usuários
     $sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-    $sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+    $sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
     $sql .= "AND funcionarios.reg_del = 0 ";
     $sql .= "AND usuarios.reg_del = 0 ";
     $sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO') ";
@@ -5461,12 +5468,12 @@ function desbloq_massa($dados_form)
             }
             
             $params 			= array();
-            $params['from']		= 'arqtec@dominio.com.br';
+            $params['from']		= 'arquivotecnico@dominio.com.br';
             $params['from_name']= 'ARQUIVO DESBLOQUEADO GED';
             $params['subject'] 	= $reg_arquivo["descricao"]." - Documento desbloqueado no GED com comentarios: ";
             
             //GRUPO ARQUIVO TECNICO
-            $params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+            $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
             
             if($array_usremail[$reg_arquivo["id_editor"]]!='')
             {
@@ -5502,7 +5509,7 @@ function desbloq_massa($dados_form)
             {
                 if(!empty($alocado['email']))
                 {
-                    $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+                    $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
                 }
             }
             */
@@ -5516,17 +5523,18 @@ function desbloq_massa($dados_form)
             $str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$regs["id_funcionario_solicitante"]] . "</p>";
             $str_mensagem .= "<p>Motivo do desbloqueio: " . $regs["motivo_desbloqueio"] . "</p>";
             
-            $str_mensagem .= "<p>&nbsp;</p>";
+            $str_mensagem .= "<p> </p>";
             $str_mensagem .= "<p>O mesmo agora se encontra livre no sistema para edição.</p>";
             
             $corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";
             
-            $mail = new email($params);
-            
-            $mail->montaCorpoEmail($corpoEmail);
-            
-            if (HOST != 'localhost')
+            if(ENVIA_EMAIL)
             {
+
+                $mail = new email($params);
+                
+                $mail->montaCorpoEmail($corpoEmail);            
+
                 //Envia o e-mail
                 if(!$mail->Send())
                 {
@@ -5537,10 +5545,13 @@ function desbloq_massa($dados_form)
                     $erro = 0;
                 }
             }
-            else
+            else 
             {
+                $resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 2);
+
                 $erro = 0;
             }
+
         }
     }
     
@@ -5580,7 +5591,7 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
         
         //Preenche um array com dados de Usuários
         $sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-        $sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+        $sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario";
         $sql .= "AND funcionarios.reg_del = 0 ";
         $sql .= "AND usuarios.reg_del = 0 ";
         $sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO') ";
@@ -5810,7 +5821,7 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
                 {
                     if(!empty($alocado['email']))
                     {
-                        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+                        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
                     }
                 }
                 */
@@ -5824,30 +5835,33 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
                 $str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$regs["id_funcionario_solicitante"]] . "</p>";
                 $str_mensagem .= "<p>Motivo do desbloqueio: " . $motivoDesbloqueio . "</p>";
                 
-                $str_mensagem .= "<p>&nbsp;</p>";
+                $str_mensagem .= "<p> </p>";
                 $str_mensagem .= "<p>O mesmo agora se encontra livre no sistema para edição.</p>";
                 
                 $corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";
-                
-                $mail = new email($params);
-                
-                $mail->montaCorpoEmail($corpoEmail);
-                
-                //Envia o e-mail
-                if(!$mail->Send())
+
+                if(ENVIA_EMAIL)
                 {
-                    $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-                }
-                else
-                {
-                    if ($retornarAlerta)
-                        $resposta->addAlert("Documento desbloqueado com sucesso.");
-                }
                 
-                if ($retornarAlerta)
-                {
-                    $resposta->addScript("xajax_preencheArquivos(xajax.getFormValues('frm'));");
+                    $mail = new email($params);
+                    
+                    $mail->montaCorpoEmail($corpoEmail);
+                    
+                    //Envia o e-mail
+                    if(!$mail->Send())
+                    {
+                        $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+                    }
                 }
+                else 
+                {
+                    $resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 3);
+                }
+
+                $resposta->addAlert("Documento desbloqueado com sucesso.");
+                
+                $resposta->addScript("xajax_preencheArquivos(xajax.getFormValues('frm'));");
+               
             }
         }
         else
@@ -6174,13 +6188,13 @@ function preencheComentarios($id_ged_versao)
     }
     
     $form = '<div id="form_coment">';
-    $form .= '<div id="rotulo_comentarios"><label class="labels"><strong>Arquivos&nbsp;de&nbsp;comentários:</strong></label></div><br>';
+    $form .= '<div id="rotulo_comentarios"><label class="labels"><strong>Arquivos de comentários:</strong></label></div><br>';
     
     $form .= '<table border="0" width="100%" style="border:1px; border-style:solid; border-color:#069;">';
     $form .= '<tr>';
-    $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>Nº&nbsp;Interno</<strong></label></td>';
+    $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>Nº Interno</<strong></label></td>';
     $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>R/V</strong></label></td>';
-    $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>Nº&nbsp;Cliente</<strong></label></td>';
+    $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>Nº Cliente</<strong></label></td>';
     $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>Rev.C.</strong></label></td>';
     $form .= '<td style="border:1px; border-style:solid; border-color:#069;"><label class="labels"><strong>GRD</strong></label></td>';
     
@@ -6193,7 +6207,7 @@ function preencheComentarios($id_ged_versao)
     
     $form .= '</tr></table>';
     $form .= '</div><br>';
-    $form .= '<div id="div_comentarios_existentes">&nbsp;</div><br>';
+    $form .= '<div id="div_comentarios_existentes"> </div><br>';
     $form .= '<div id="botao"><input type="button" class="class_botao" value="Voltar" onclick=divPopupInst.destroi(1);popupPropriedades("'.$id_ged_versao.'");></div>';
     
     $resposta->addAssign("div_com","innerHTML",$form);
@@ -6222,7 +6236,7 @@ function preencheComentarios($id_ged_versao)
         }
         else
         {
-            $img_abrir = '&nbsp;';
+            $img_abrir = ' ';
         }
         
         $xml->startElement('row');
@@ -6257,7 +6271,7 @@ function filtra_os($id_os)
         $sql .= "WHERE ordem_servico.id_os = '".$id_os."' ";
         $sql .= "AND empresas.reg_del = 0 ";
         $sql .= "AND ordem_servico.reg_del = 0 ";
-        $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+        $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
         
         $db->select($sql,'MYSQL',true);
         
@@ -6363,17 +6377,17 @@ function preencheTitulos($id_ged_versao)
     $conteudo_compl .= '<form action="ged.php" method="post" name="frm_titulos" id="frm_titulos">';
     $conteudo_compl .= '<table border="0" width="100%">';
     $conteudo_compl .= '<tr>';
-    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Nº&nbsp;Interno</strong></label><BR><label class="labels">' . PREFIXO_DOC_GED . sprintf("%05d",$reg_complemento["os"]) . '-' . $reg_complemento["sigla"] . '-' .$reg_complemento["sequencia"] . '</label></td>';
-    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Nº&nbsp;Cliente</strong></label><BR><input type="text" name="numero_cliente" id="numero_cliente" class="caixa" value="' . $reg_complemento["numero_cliente"] . '" size="35"></td>';
+    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Nº Interno</strong></label><BR><label class="labels">' . PREFIXO_DOC_GED . sprintf("%05d",$reg_complemento["os"]) . '-' . $reg_complemento["sigla"] . '-' .$reg_complemento["sequencia"] . '</label></td>';
+    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Nº Cliente</strong></label><BR><input type="text" name="numero_cliente" id="numero_cliente" class="caixa" value="' . $reg_complemento["numero_cliente"] . '" size="35"></td>';
     $conteudo_compl .= '</tr></table>';
     
     $conteudo_compl .= '<table border="0" width="100%">';
     $conteudo_compl .= '<tr>';
-    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título&nbsp;1</strong></label><BR><input type="text" name="tag" id="tag" class="caixa" value="' . $reg_complemento["tag"] . '" size="35" '.$readonly.' ></td>';
-    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título&nbsp;2</strong></label><BR><input type="text" name="tag2" id="tag2" class="caixa" value="' . $reg_complemento["tag2"] . '" size="35"></td></tr>';
-    $conteudo_compl .= '<tr><td width="5%"><label class="labels"><strong>Título&nbsp;3</strong></label><BR><input type="text" name="tag3" id="tag3" class="caixa" value="' . $reg_complemento["tag3"] . '" size="35"></td>';
-    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título&nbsp;4</strong></label><BR><input type="text" name="tag4" id="tag4" class="caixa" value="' . $reg_complemento["tag4"] . '" size="35"></td>';
-    $conteudo_compl .= '<td width="90%">&nbsp;</td>';
+    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título 1</strong></label><BR><input type="text" name="tag" id="tag" class="caixa" value="' . $reg_complemento["tag"] . '" size="35" '.$readonly.' ></td>';
+    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título 2</strong></label><BR><input type="text" name="tag2" id="tag2" class="caixa" value="' . $reg_complemento["tag2"] . '" size="35"></td></tr>';
+    $conteudo_compl .= '<tr><td width="5%"><label class="labels"><strong>Título 3</strong></label><BR><input type="text" name="tag3" id="tag3" class="caixa" value="' . $reg_complemento["tag3"] . '" size="35"></td>';
+    $conteudo_compl .= '<td width="5%"><label class="labels"><strong>Título 4</strong></label><BR><input type="text" name="tag4" id="tag4" class="caixa" value="' . $reg_complemento["tag4"] . '" size="35"></td>';
+    $conteudo_compl .= '<td width="90%"> </td>';
     $conteudo_compl .= '</tr>';
     $conteudo_compl .= '</table>';
     $conteudo_compl .= '<table border="0" width="100%">';
@@ -6383,8 +6397,8 @@ function preencheTitulos($id_ged_versao)
     $conteudo_compl .= '</table>';
     $conteudo_compl .= '<table border="0" width="100%">';
     $conteudo_compl .= '<tr>';
-    $conteudo_compl .= '<tr><td><input type="button" id="id_btn_alterar" class="class_botao" value="Alterar&nbsp;Títulos" onclick=xajax_alterarTitulos(xajax.getFormValues("frm_titulos",true));>';
-    $conteudo_compl .= '&nbsp;<input type="hidden" name="id_ged_arquivo" id="id_ged_arquivo" value="'.$reg_complemento["id_ged_arquivo"].'"><input type="button" id="id_btn_voltar" class="class_botao" value="Voltar" onclick=divPopupInst.destroi();></td>';
+    $conteudo_compl .= '<tr><td><input type="button" id="id_btn_alterar" class="class_botao" value="Alterar Títulos" onclick=xajax_alterarTitulos(xajax.getFormValues("frm_titulos",true));>';
+    $conteudo_compl .= ' <input type="hidden" name="id_ged_arquivo" id="id_ged_arquivo" value="'.$reg_complemento["id_ged_arquivo"].'"><input type="button" id="id_btn_voltar" class="class_botao" value="Voltar" onclick=divPopupInst.destroi();></td>';
     $conteudo_compl .= '</tr></table></form>';
     
     $resposta->addAssign("div_tit","innerHTML",$conteudo_compl);
@@ -6819,7 +6833,7 @@ function grid(tabela, autoh, height, xml, header)
 	switch (header)
 	{
 		case 'GRD':
-			mygrid.setHeader("&nbsp;,&nbsp;,&nbsp;,Nº&nbsp;GRD,&nbsp;,&nbsp;,&nbsp;,Tamanho,Data&nbsp;emissão,&nbsp;,&nbsp;",
+			mygrid.setHeader(" , , ,Nº GRD, , , ,Tamanho,Data emissão, , ",
 				null,
 				["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("25,25,25,120,50,180,50,80,130,80,80");
@@ -6834,7 +6848,7 @@ function grid(tabela, autoh, height, xml, header)
 		case 'ACP':
 		case 'ACT':
 		
-			mygrid.setHeader("&nbsp;,&nbsp;,&nbsp;,Nome&nbsp;arquivo,&nbsp;,&nbsp;,&nbsp;,Tamanho,&nbsp;,&nbsp;,&nbsp;",
+			mygrid.setHeader(" , , ,Nome arquivo, , , ,Tamanho, , , ",
 				null,
 				["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("25,25,25,120,50,180,50,80,130,80,80");
@@ -6848,7 +6862,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'PROP':
 
-			mygrid.setHeader("Nome&nbsp;arquivo,Rev.&nbsp;Int.,Versão,Rev.&nbsp;Cli,A,C,R,E",
+			mygrid.setHeader("Nome arquivo,Rev. Int.,Versão,Rev. Cli,A,C,R,E",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("180,70,70,70,25,25,25,25");
@@ -6860,7 +6874,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'PROP_REF':
 
-			mygrid.setHeader("Nº;&nbsp;Int.,R/V,Autor,Editor,A",
+			mygrid.setHeader("Nº; Int.,R/V,Autor,Editor,A",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("180,50,80,80,25");
@@ -6872,7 +6886,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'SOLICITACAO':
 
-			mygrid.setHeader("&nbsp;,&nbsp;,Nº&nbsp;Int,Rev.&nbsp;Int,Versão,Nº&nbsp;cliente,complemento,Rev.&nbsp;Cli.,Doc.&nbsp;Int.,Tipo&nbsp;emissão,Tipo&nbsp;cópia,Formato,Cópias,Folhas,E",
+			mygrid.setHeader(" , ,Nº Int,Rev. Int,Versão,Nº cliente,complemento,Rev. Cli.,Doc. Int.,Tipo emissão,Tipo cópia,Formato,Cópias,Folhas,E",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("23,23,110,65,50,160,155,60,60,215,140,60,50,50,23");
@@ -6884,7 +6898,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'COMENTARIOS':
 
-			mygrid.setHeader("Comentário,Nome&nbsp;arquivo,A",
+			mygrid.setHeader("Comentário,Nome arquivo,A",
 				null,
 				["text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("250,150,25");
@@ -6896,7 +6910,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'CHECKOUT':
 			
-			mygrid.setHeader("Nº&nbsp;Int,Nº&nbsp;Cliente,Complemento,Arquivo,Tamanho,Progresso,E",
+			mygrid.setHeader("Nº Int,Nº Cliente,Complemento,Arquivo,Tamanho,Progresso,E",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("120,120,120,400,70,100,25");
@@ -6909,7 +6923,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'BUSCAPROJ':
 
-			mygrid.setHeader("&nbsp;,&nbsp;,&nbsp;,Arquivo,Nº&nbsp;Cliente,Autor,OS,Disciplina,Título&nbsp;1,Título&nbsp;2,Título&nbsp;3,Título&nbsp;4,A",
+			mygrid.setHeader(" , , ,Arquivo,Nº Cliente,Autor,OS,Disciplina,Título 1,Título 2,Título 3,Título 4,A",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("25,25,25,120,180,70,50,50,140,140,140,140,25");
@@ -6921,7 +6935,7 @@ function grid(tabela, autoh, height, xml, header)
 		
 		case 'BUSCAREF':
 		
-			mygrid.setHeader("&nbsp;,Arquivo,Nº&nbsp;registro,Nº&nbsp;documento,Autor,Titulo,OS,Disciplina,Palavras&nbsp;chave,Origem,A",
+			mygrid.setHeader(" ,Arquivo,Nº registro,Nº documento,Autor,Titulo,OS,Disciplina,Palavras chave,Origem,A",
 				null,
 				["text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("25,250,130,170,70,230,50,70,100,50,25");
@@ -6935,7 +6949,7 @@ function grid(tabela, autoh, height, xml, header)
 
 			var chkAll = "<input type=\'checkbox\' id=\'chkTodos\' style=\'margin:0;display:block;\' onclick='checkAll(this.checked);'/>";
 		
-			mygrid.setHeader(chkAll+",&nbsp;,&nbsp;,Nº&nbsp;Int,R/V,Nº&nbsp;Cliente,Rev.&nbsp;Cli.,Tamanho,Data,Autor,Editor",
+			mygrid.setHeader(chkAll+", , ,Nº Int,R/V,Nº Cliente,Rev. Cli.,Tamanho,Data,Autor,Editor",
 				null,
 				["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("25,25,25,150,40,180,50,80,130,80,80");
@@ -7087,7 +7101,7 @@ function popupMenu(operacao,x,y,id_ged_versao)
 		{
 			if(operacao==9 || operacao==2)
 			{
-				//array_itens[array_itens.length] = ['Sol.&nbsp;Desbloqueio', function () {RCmenuInst.destroi();popupSolDesBloq(id_ged_versao); },1,0];
+				//array_itens[array_itens.length] = ['Sol. Desbloqueio', function () {RCmenuInst.destroi();popupSolDesBloq(id_ged_versao); },1,0];
 			}
 			
 			if(operacao==5 || operacao==6)
@@ -7116,7 +7130,7 @@ function popupMenu(operacao,x,y,id_ged_versao)
 				}
 			}
 			
-			array_itens[array_itens.length] = ['Alterar&nbsp;Titulos', function () {RCmenuInst.destroi();popupTitulos(id_ged_versao); }, 1,1];
+			array_itens[array_itens.length] = ['Alterar Titulos', function () {RCmenuInst.destroi();popupTitulos(id_ged_versao); }, 1,1];
 		}
 	}
 

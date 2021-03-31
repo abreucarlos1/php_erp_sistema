@@ -91,7 +91,7 @@ else
 	$coordenador = "TODOS";	
 }
 
-//TABELA AE5 - GRUPOS DE COMPOSI��O
+//TABELA AE5 - GRUPOS DE COMPOSIÇÃO
 $sql = "SELECT * FROM AE5010 WITH(NOLOCK) ";
 $sql .= "WHERE AE5010.D_E_L_E_T_ = '' ";
 
@@ -396,18 +396,18 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="horas_prev_"'.date('His').'".xlsx"');
 header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-//1� folha
+//1ª folha
 $objPHPExcel->setActiveSheetIndex(0);
 
-//data emiss�o
-$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emiss�o: ".date('d/m/Y')));
+//data emissão
+$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"Data de emissão: ".date('d/m/Y')));
 
 //Nome Projeto
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859-1', 'UTF-8',$nome_projeto));
@@ -415,7 +415,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859
 //Nome cliente
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 6, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
-//Nome coordenador Devemada
+//Nome coordenador  
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 7, iconv('ISO-8859-1', 'UTF-8',$coordenador));
 
 //Nome coordenador cliente
@@ -489,7 +489,7 @@ for($j=8;$j<=9;$j++)
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10, $linha, "=(".num2alfa(8).$linha."-".num2alfa(9).($linha).")");	
 
 
-//2� folha
+//2ª folha
 $objPHPExcel->setActiveSheetIndex(1);
 
 $linha = 1;
@@ -511,8 +511,8 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+1).":I".($linha+1));
 
 	
-	//Nome coordenador DVM
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+2, "Coordenador DVM: ");
+	//Nome coordenador INT
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha+2, "Coordenador INT: ");
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha+2, iconv('ISO-8859-1', 'UTF-8',$array_ana_coord[$projeto]));
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+2).":B".($linha+2));
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+2).":I".($linha+2));
@@ -523,7 +523,7 @@ foreach($array_ana_proj as $projeto=>$descricao)
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+3).":B".($linha+3));
 	$objPHPExcel->getActiveSheet()->mergeCells("C".($linha+3).":I".($linha+3));
 
-	//cabe�alho
+	//cabeçalho
 	$objPHPExcel->getActiveSheet()->mergeCells("A".($linha+4).":K".($linha+4));
 
 	//item

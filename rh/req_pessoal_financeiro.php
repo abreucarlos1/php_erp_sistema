@@ -168,12 +168,12 @@ $smarty->assign("data_inicio",mysql_php($reg_financeiro["data_inicio"]));
 //PJ
 if ($tpContrato == 1) //A atividade só será necessária quando o tipo de contrato for PJ 
 {
-	$registro = '<td class="td_sp"><label class="labels">Empresa&nbsp; (R$)</label><br />';
+	$registro = '<td class="td_sp"><label class="labels">Empresa  (R$)</label><br />';
 	$registro .= "<input name='financeiro_empresa' type='text' class='caixa' onkeypress='calculaPericulosidade(this.value);' id='financeiro_empresa' size='10' onclick='this.value=\'\'' onKeyDown='FormataValor(this, 13, event);'	onKeyPress='num_only();' value='". number_format($reg_financeiro["salario_empresa"],2,",",".")."' ".$disabled." /></td>";
 	
 	$pj1 = '<td width="23%"><label class="labels">Atividade</label><br />';
 	$pj1 .= '<input class="caixa" name="txt_atividade" type="text" id="txt_atividade" size="40" value="'. $reg_financeiro['atividade'] .'" /></td>';
-	$pj1 .= '<td width="22%"><label class="labels">Data&nbsp;prevista&nbsp;para&nbsp;providenciar&nbsp;empresa</label><br />';
+	$pj1 .= '<td width="22%"><label class="labels">Data prevista para providenciar empresa</label><br />';
 	$pj1 .= '<input name="financeiro_data_empresa" type="text" class="caixa" id="financeiro_data_empresa" value="' . mysql_php($reg_financeiro["data_empresa"]) .'" size="10" maxlength="10" onkeypress="transformaData(this, event);" '. $disabled .' /></td>';
 
 	$check1 = '';
@@ -194,7 +194,7 @@ if ($tpContrato == 1) //A atividade só será necessária quando o tipo de contr
 }
 else
 {
-	$registro = '<td><label class="labels">Registro&nbsp;(R$)</label><br />';
+	$registro = '<td><label class="labels">Registro (R$)</label><br />';
 	$registro .= "<input name='financeiro_registro' type='text' class='caixa' onkeypress='calculaPericulosidade(this.value);' id='financeiro_registro' size='10' onclick='this.value=\'\'' onKeyDown='FormataValor(this, 13, event);'	onKeyPress='num_only();' value='". number_format($reg_financeiro["salario_registro"],2,",",".")."' ".$disabled." /></td>";
 	
 	$check1 = '';

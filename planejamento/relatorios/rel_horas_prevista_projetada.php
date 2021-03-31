@@ -126,7 +126,7 @@ $con0 = $db->select($sql,'MSSQL', true) or die('Erro'.$sql);
 
 foreach($db->array_select as $regs0)
 {	
-	//OBTEM O CUSTO OR�ADO DA TAREFA
+	//OBTEM O CUSTO ORÇADO DA TAREFA
 	$sql = "SELECT AF2_CUSTO, AF2_HDURAC FROM AF2010 ";
 	$sql .= "WHERE AF2010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF2010.AF2_ORCAME = '".$regs0["AF9_PROJET"]."' ";
@@ -147,7 +147,7 @@ foreach($db->array_select as $regs0)
 	
 	if($_POST["avanco"])
 	{	
-		//OBTEM O AVAN�O F�SICO DA TAREFA
+		//OBTEM O AVANÇO FÍSICO DA TAREFA
 		$sql = "SELECT AFF010.AFF_QUANT FROM AFF010 ";
 		$sql .= "WHERE AFF010.D_E_L_E_T_ = '' ";
 		$sql .= "AND AFF010.AFF_PROJET = '".$regs0["AF9_PROJET"]."' ";
@@ -168,7 +168,7 @@ foreach($db->array_select as $regs0)
 		
 		$regs_tarefa = $db->array_select[0];		
 	
-		//VERIFICA SE O AVAN�O � < 100%
+		//VERIFICA SE O AVANÇO É < 100%
 		if($regs_tarefa["AFF_QUANT"]/$regs0["AF9_QUANT"]<1)
 		{			
 			//coluna A

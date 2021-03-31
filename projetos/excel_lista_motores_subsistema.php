@@ -1,23 +1,23 @@
 <?php
 /*
 
-		Formul�rio de ESCOLHA DE SUBSISTEMA PARA ESPEC. TEC.	
+		Formulário de ESCOLHA DE SUBSISTEMA PARA ESPEC. TEC.	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/rel_escolhaarea.php
 		
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 	
 */
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-    // Usu�rio n�o logado! Redireciona para a p�gina de login
+    // Usuário não logado! Redireciona para a página de login
     header("Location: ../index.php");
     exit;
 }
@@ -35,7 +35,7 @@ include("../includes/conectdb.inc.php");
 $db = new banco_dados;
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "WHERE setor = 'EL�TRICA' ";
+$sql .= "WHERE setor = 'ELÉTRICA' ";
 
 $registro = $db->select($sql,'MYSQL');
 
@@ -66,23 +66,23 @@ $regsub = $db->select($sql,'MYSQL');
 <table width="1206" border="1">
   <tr>
   	<td width="98" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TAG</strong></div></td>
-    <td width="189" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>SERVI&Ccedil;O</strong></div></td>
+    <td width="189" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>SERVIÇO</strong></div></td>
 	<td width="89" height="23" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>PAINEL</strong></div></td>
-	<td width="106" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>POT&Ecirc;NCIA</strong></div></td>
-	<td width="96" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TENS&Atilde;O</strong></div></td>
+	<td width="106" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>POTÊNCIA</strong></div></td>
+	<td width="96" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TENSÃO</strong></div></td>
 	<td width="149" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TIPO DE PARTIDA </strong></div></td>
-	<td width="104" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>ROTA&Ccedil;&Atilde;O</strong></div></td>
-    <td width="141" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>CARCA&Ccedil;A</strong></div></td>
+	<td width="104" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>ROTAÇÃO</strong></div></td>
+    <td width="141" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>CARCAÇA</strong></div></td>
     <td width="176" rowspan="2" valign="top" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>OBS.</strong></div></td>
   </tr>
   <tr>
     <td height="23" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>COLUNA</strong></div></td>
     <td bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>CORRENTE</strong></div></td>
-    <td bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>N&ordm; P&Oacute;LOS </strong></div></td>
+    <td bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>Nº PÓLOS </strong></div></td>
     <td bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>FORM. CONST. </strong></div></td>
   </tr>
 
-<?
+<?php
 session_cache_limiter('private');
 session_start();
 
@@ -119,26 +119,26 @@ $pdf->SetAutoPageBreak(false,10);
 $pdf->SetMargins(10,15);
 $pdf->SetLineWidth(0.2);
 
-$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql1 .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
 $sql1 .= "AND empresas.id_unidade = unidades.id_unidade ";
-$registro1 = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql1);
+$registro1 = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql1);
 $reg1 = mysql_fetch_array($registro1);
 
 
 $sql = "SELECT * FROM Projetos.area, Projetos.subsistema ";
 $sql .= "WHERE subsistema.id_subsistema = '" .$_POST["id_subsistema"]. "' ";
 $sql .= "AND area.id_area = subsistema.id_area ";
-$registro = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 
 //Seta o cabeçalho
 //$pdf->departamento="ENGENHARIA";
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->numeros_interno = $_POST["numeros_interno"];
@@ -153,7 +153,7 @@ $pdf->titulo = $reg["subsistema"];
 $pdf->titulo2 = $reg1["osdesc"];
 
 $pdf->emissao=date('d/m/Y');
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 
@@ -170,7 +170,7 @@ $pdf->Line(10,195,280,195); // LINHA INFERIOR pagina
 $pdf->Line(280,15,280,195); // LINHA DIREITA
 $pdf->SetLineWidth(0.2);
 
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(10,70);
 
 $pdf->SetFont('Arial','BU',20);
@@ -185,14 +185,14 @@ $pdf->Cell(280,10, $reg["ds_area"] ,0,1,'C',0);
 $pdf->Ln(5);
 $pdf->Cell(280,10, $reg["subsistema"] ,0,1,'C',0);
 
-//REVIS�ES
+//REVISÕES
 $pdf->SetFont('Arial','B',8);
 
 $y = 155;
 
 $pdf->SetXY(25,$y);
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(50,4,'CONTROLE DE REVIS�ES',0,1,'L',0);
+$pdf->Cell(50,4,'CONTROLE DE REVISÕES',0,1,'L',0);
 $pdf->SetFont('Arial','',6);
 
 $pdf->Ln(1);
@@ -209,7 +209,7 @@ $reg_rev = $db->select($sql_rev,'MYSQL');
 
 $numregs = 4 - $db->numero_registros;
 
-//c�lulas em branco
+//células em branco
 for($a=0;$a<=$numregs;$a++)
 {
 	$y += 4;
@@ -300,13 +300,13 @@ $pdf->SetXY(25,$y+4);
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10,4,'REV.',1,0,'C',0);
-$pdf->Cell(70,4,'ALTERA��O',1,0,'C',0);
+$pdf->Cell(70,4,'ALTERAÇÃO',1,0,'C',0);
 $pdf->Cell(20,4,'DATA',1,0,'C',0);
 $pdf->Cell(20,4,'EXEC.',1,0,'C',0);
 $pdf->Cell(20,4,'VERIF.',1,0,'C',0);
 $pdf->Cell(20,4,'APROV.',1,0,'C',0);		
 
-//REVIS�ES
+//REVISÕES
 
 $pdf->AddPage();
 
@@ -329,27 +329,27 @@ $pdf->Cell(40,10,"",1,0,'C',0);
 
 $pdf->SetXY(10,48);
 
-//IMPRIME OS TEXTOS DOS CABE�ALHOS
+//IMPRIME OS TEXTOS DOS CABEÇALHOS
 $pdf->Cell(20,5,"TAG",0,0,'C',0);
 
-$pdf->Cell(82,5,"SERVI�O",0,0,'C',0);
+$pdf->Cell(82,5,"SERVIÇO",0,0,'C',0);
 		
 $pdf->Cell(20,5,"PAINEL",1,0,'C',0);
 
-$pdf->Cell(15,5,"POT�NCIA",0,0,'C',0);
+$pdf->Cell(15,5,"POTÊNCIA",0,0,'C',0);
 
-$pdf->Cell(18,5,"TENS�O",1,0,'C',0);
+$pdf->Cell(18,5,"TENSÃO",1,0,'C',0);
 
 $pdf->Cell(25,5,"TIPO PARTIDA",0,0,'C',0);
 
-$pdf->Cell(20,5,"ROTA��O",1,0,'C',0);
+$pdf->Cell(20,5,"ROTAÇÃO",1,0,'C',0);
 
-$pdf->Cell(30,5,"CARCA�A",1,0,'C',0);
+$pdf->Cell(30,5,"CARCAÇA",1,0,'C',0);
 
-$pdf->Cell(40,5,"OBSERVA��O",0,1,'C',0);
+$pdf->Cell(40,5,"OBSERVAÇÃO",0,1,'C',0);
 
 
-//IMPRIME O SUBCABE�ALHO
+//IMPRIME O SUBCABEÇALHO
 $pdf->Cell(20,5,"",0,0,'C',0);
 
 $pdf->Cell(82,5,"",0,0,'C',0);
@@ -362,7 +362,7 @@ $pdf->Cell(18,5,"CORRENTE",1,0,'C',0);
 
 $pdf->Cell(25,5,"",0,0,'C',0);
 
-$pdf->Cell(20,5,"N� P�LOS",1,0,'C',0);
+$pdf->Cell(20,5,"Nº PÓLOS",1,0,'C',0);
 
 $pdf->Cell(30,5,"FORMA. CONST",1,0,'C',0);
 
@@ -437,27 +437,27 @@ while ($malhas = mysqli_fetch_array($regmalha))
 		
 		$pdf->SetXY(10,48);
 		
-		//IMPRIME OS TEXTOS DOS CABE�ALHOS
+		//IMPRIME OS TEXTOS DOS CABEÇALHOS
 		$pdf->Cell(20,5,"TAG",0,0,'C',0);
 		
-		$pdf->Cell(82,5,"SERVI�O",0,0,'C',0);
+		$pdf->Cell(82,5,"SERVIÇO",0,0,'C',0);
 				
 		$pdf->Cell(20,5,"PAINEL",1,0,'C',0);
 		
-		$pdf->Cell(15,5,"POT�NCIA",0,0,'C',0);
+		$pdf->Cell(15,5,"POTÊNCIA",0,0,'C',0);
 		
-		$pdf->Cell(18,5,"TENS�O",1,0,'C',0);
+		$pdf->Cell(18,5,"TENSÃO",1,0,'C',0);
 		
 		$pdf->Cell(25,5,"TIPO PARTIDA",0,0,'C',0);
 		
-		$pdf->Cell(20,5,"ROTA��O",1,0,'C',0);
+		$pdf->Cell(20,5,"ROTAÇÃO",1,0,'C',0);
 		
-		$pdf->Cell(30,5,"CARCA�A",1,0,'C',0);
+		$pdf->Cell(30,5,"CARCAÇA",1,0,'C',0);
 		
-		$pdf->Cell(40,5,"OBSERVA��O",0,1,'C',0);
+		$pdf->Cell(40,5,"OBSERVAÇÃO",0,1,'C',0);
 		
 		
-		//IMPRIME O SUBCABE�ALHO
+		//IMPRIME O SUBCABEÇALHO
 		$pdf->Cell(20,5,"",0,0,'C',0);
 		
 		$pdf->Cell(82,5,"",0,0,'C',0);
@@ -470,7 +470,7 @@ while ($malhas = mysqli_fetch_array($regmalha))
 		
 		$pdf->Cell(25,5,"",0,0,'C',0);
 		
-		$pdf->Cell(20,5,"N� P�LOS",1,0,'C',0);
+		$pdf->Cell(20,5,"Nº PÓLOS",1,0,'C',0);
 		
 		$pdf->Cell(30,5,"FORMA. CONST",1,0,'C',0);
 		
@@ -524,20 +524,20 @@ while ($malhas = mysqli_fetch_array($regmalha))
 			
 	$pdf->Cell(20,5,$malhas["cd_local"].$malhas["nr_sequencia"],1,0,'C',0);
 	
-	$pdf->Cell(15,5,$espc["POT�NCIA"],0,0,'C',0);
+	$pdf->Cell(15,5,$espc["POTÊNCIA"],0,0,'C',0);
 	
-	$pdf->Cell(18,5,$espc["TENS�O NOMINAL"],1,0,'C',0);
+	$pdf->Cell(18,5,$espc["TENSÃO NOMINAL"],1,0,'C',0);
 	
 	$pdf->Cell(25,5,$espc["TIPO DE PARTIDA"],0,0,'C',0);
 	
-	$pdf->Cell(20,5,$espc["ROTA��O"],1,0,'C',0);
+	$pdf->Cell(20,5,$espc["ROTAÇÃO"],1,0,'C',0);
 	
-	$pdf->Cell(30,5,$espc["CARCA�A"],1,0,'C',0);
+	$pdf->Cell(30,5,$espc["CARCAÇA"],1,0,'C',0);
 	
 	$pdf->Cell(40,5,$malhas["ds_complemento"],0,1,'C',0);
 	
 	
-	//IMPRIME O SUBCABE�ALHO
+	//IMPRIME O SUBCABEÇALHO
 	$pdf->Cell(20,5,"",0,0,'C',0);
 	
 	$pdf->Cell(82,5,"",0,0,'C',0);
@@ -550,7 +550,7 @@ while ($malhas = mysqli_fetch_array($regmalha))
 	
 	$pdf->Cell(25,5,"",0,0,'C',0);
 	
-	$pdf->Cell(20,5,$espc["N�MERO DE P�LOS"],1,0,'C',0);
+	$pdf->Cell(20,5,$espc["Nº DE PÓLOS"],1,0,'C',0);
 	
 	$pdf->Cell(30,5,$espc["FORMA CONSTRUTIVA"],1,0,'C',0);
 	

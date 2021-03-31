@@ -546,7 +546,7 @@ dhtmlXGridObject.prototype._in_header_stat_max=function(t,i,c){
 		var ii = this._m_order?this._m_order[i]:i;
 		
 		var summ=-999999999;
-		if (this.getRowsNum()==0) return "&nbsp;";
+		if (this.getRowsNum()==0) return " ";
 		for (var j=0; j<this.rowsBuffer.length; j++)
 			summ=Math.max(summ,parseFloat(this._get_cell_value(this.rowsBuffer[j],ii)));
 		
@@ -560,7 +560,7 @@ dhtmlXGridObject.prototype._in_header_stat_min=function(t,i,c){
 		var ii = this._m_order?this._m_order[i]:i;
 		
 		var summ=999999999;
-		if (this.getRowsNum()==0) return "&nbsp;";
+		if (this.getRowsNum()==0) return " ";
 		for (var j=0; j<this.rowsBuffer.length; j++)
 			summ=Math.min(summ,parseFloat(this._get_cell_value(this.rowsBuffer[j],ii)));
 		return this._maskArr[i]?this._aplNF(summ,i):summ;
@@ -573,7 +573,7 @@ dhtmlXGridObject.prototype._in_header_stat_average=function(t,i,c){
 		var ii = this._m_order?this._m_order[i]:i;
 		
 		var summ=0; var count=0;
-		if (this.getRowsNum()==0) return "&nbsp;";
+		if (this.getRowsNum()==0) return " ";
 		for (var j=0; j<this.rowsBuffer.length; j++){
 			var v=parseFloat(this._get_cell_value(this.rowsBuffer[j],ii));
 			summ+=isNaN(v)?0:v;

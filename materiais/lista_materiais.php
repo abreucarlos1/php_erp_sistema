@@ -1,6 +1,6 @@
 <?php
 /*
-    Formul�rio de Fornecedores de materiais
+    Formulário de Fornecedores de materiais
     
     Criado por Carlos Eduardo  
     
@@ -36,15 +36,11 @@ function voltar()
 }
 
 /**
- * Verifica que o usu�rio est� na lista de pessoas autorizadas a realizar qualquer exclus�o neste sistema
+ * Verifica que o usuário está na lista de pessoas autorizadas a realizar qualquer exclusão neste sistema
  */
 function lista_autorizados()
 {
-	/**
-	 * 1133 - S�rgio Ramos
-	 * 576 - Norberto Muchuelo
-	 */
-	$arrLista = array(978,6,1133,576);
+	$arrLista = array('');
 
 	return in_array($_SESSION['id_funcionario'], $arrLista);
 }
@@ -76,7 +72,7 @@ function salvarLista($dados_form)
 		$idArquivo 	= 'null';
 	}
 
-	//Caso ainda n�o exista uma lista criada, cria uma lista e retorna o id inserido com vers�o = 0
+	//Caso ainda não exista uma lista criada, cria uma lista e retorna o id inserido com versão = 0
 	if(empty($idLista))
 	{
 		$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
@@ -86,7 +82,7 @@ function salvarLista($dados_form)
 	}
 	else
 	{
-		//Buscando o c�digo da �ltima vers�o
+		//Buscando o código da Última versão
 		$sql =
 "SELECT
 	MAX(revisao_documento)+1 proximaVersao
@@ -100,7 +96,7 @@ WHERE
 		$versaoCab = intval($db->array_select[0]['proximaVersao']);
 	}
 
-	/*Usamos a vers�o do cabecalho ou sempre come�amos do 0, neste caso, optei por deixar a vers�o nova sempre do 0 e apenas quando alterarmos o item acrescentar� 1*/
+	/*Usamos a versão do cabecalho ou sempre começamos do 0, neste caso, optei por deixar a versão nova sempre do 0 e apenas quando alterarmos o item acrescentará 1*/
 	//$revisao_documento = $versaoCab;
 	$revisao_documento = 0;
 
@@ -148,7 +144,7 @@ WHERE
 			
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar salvar a vers�o da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar salvar a versão da lista! ".$db->erro);
 			return $resposta;
 		}
 			
@@ -166,7 +162,7 @@ WHERE
 			
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabe�alho da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabeçalho da lista! ".$db->erro);
 			return $resposta;
 		}
 		//}
@@ -197,7 +193,7 @@ WHERE
 }
 
 /**
- * Fun��o respons�vel por salvar apenas a lista totalizada da OS
+ * Função responsável por salvar apenas a lista totalizada da OS
  * @param array $dados_form
  */
 function salvarListaOs($dados_form, $versao_documento = 0)
@@ -218,7 +214,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 		return $resposta;
 	}
 
-	//Caso ainda n�o exista uma lista criada, cria uma lista e retorna o id inserido com vers�o = 0
+	//Caso ainda não exista uma lista criada, cria uma lista e retorna o id inserido com versão = 0
 	if(empty($idListaOs))
 	{
 		$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
@@ -228,7 +224,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 	}
 	else
 	{
-		//Buscando o c�digo da �ltima vers�o
+		//Buscando o código da Última versão
 		$sql = "SELECT
 					MAX(revisao_documento)+1 proximaVersao
 				FROM
@@ -240,8 +236,8 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 
 		$revisao_documento = intval($db->array_select[0]['proximaVersao']);
 
-		//Excluindo todos os itens da lista para a cria��o de outra nova,
-		//Pois neste caso, estaremos criando uma nova vers�o
+		//Excluindo todos os itens da lista para a criação de outra nova,
+		//Pois neste caso, estaremos criando uma nova versão
 		$usql = "UPDATE
 					materiais_old.lista_materiais
 				SET 
@@ -308,7 +304,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar salvar a vers�o da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar salvar a versão da lista! ".$db->erro);
 			return $resposta;
 		}
 
@@ -326,7 +322,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabe�alho da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabeçalho da lista! ".$db->erro);
 			return $resposta;
 		}
 	}
@@ -385,8 +381,8 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		$idProduto	 = is_array($idProduto) ? $idProduto[0] : $idProduto;
 
 		/**
-		 * Busca o item na lista da OS atual para, caso j� exista, complementar a nova inser��o
-		 * Traz somente o �ltimo registro pois � o que interessa para uma poss�vel inser��o
+		 * Busca o item na lista da OS atual para, caso já exista, complementar a nova inserção
+		 * Traz somente o último registro pois é o que interessa para uma possível inserção
 		 */
 		$sql = "SELECT
 					id_lista_materiais, qtd
@@ -439,7 +435,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		{
 			/**
 			 * Caso o item tenha sido excluido na lista de origem, atribuir 0 ao valor deste item
-			 * Aqui subtraimos o valor anterior da lista tamb�m anterior
+			 * Aqui subtraimos o valor anterior da lista também anterior
 			 * Em seguida somamos com o novo valor da nova lista
 			 */
 			if ($itemExcluido == 0)
@@ -448,15 +444,15 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 			{
 				$qtd = $dadosListaAtual['qtd'] - $qtd;
 
-				//Remove a op��o marcar_excluido para n�o voltar a aparecer na lista
+				//Remove a opção marcar_excluido para não voltar a aparecer na lista
 				$usql = "UPDATE materiais_old.lista_materiais SET marcar_excluido = 0 WHERE reg_del = 0 AND id_lista_materiais = ".$idListaMat;
 				$db->update($usql, 'MYSQL');
 			}
 				
 			/**
-			 * Caso haja um registro de lista de materiais, usar a qtd_comprada j� existente e n�o uma poss�vel enviada do formul�rio
+			 * Caso haja um registro de lista de materiais, usar a qtd_comprada já existente e não uma possível enviada do formulário
 			 * Trecho descontinuado em 01/12/2016
-			 * Mantenho aqui para n�o ter que refazer toda a rotina
+			 * Mantenho aqui para não ter que refazer toda a rotina
 			 */
 			//$qtdComprada = $dadosListaAtual['qtd_comprada'];
 				
@@ -478,8 +474,8 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		}
 
 		/**
-		 * Inserindo a nova lista de materiais sem altera��es, exceto na data
-		 * Ap�s inserir o registro da lista de materiais, guarda o id gerado para inser��o da vers�o
+		 * Inserindo a nova lista de materiais sem alterações, exceto na data
+		 * Após inserir o registro da lista de materiais, guarda o id gerado para inserção da versão
 		 */
 		$isql  = "INSERT INTO materiais_old.lista_materiais (cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, versao_documento, marcar_alterado, id_disciplina) VALUES ";
 		$isql .= "('".$idProduto."', ".$idOs[0].", ".$idFunc.", '".$data."', ".$idListaOs.", ".$versao_documento.", 1, ".$disciplina.")";
@@ -494,7 +490,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		}
 
 		/**
-		 * vers�o com vers�o + 1, qtd (somada � j� existente no item da lista da OS), qtd comprada j� existente sem adicionais)
+		 * versão com versão + 1, qtd (somada já existente no item da lista da OS), qtd comprada já existente sem adicionais)
 		 */
 		$isql = "INSERT INTO materiais_old.lista_materiais_versoes
 					(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, cod_barras)
@@ -507,12 +503,12 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar salvar a vers�o da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar salvar a versão da lista! ".$db->erro);
 			return $resposta;
 		}
 
 		/**
-		 * Atualiza a lista de materiais inserida ou atualizada para apontar para a vers�o inserida
+		 * Atualiza a lista de materiais inserida ou atualizada para apontar para a versão inserida
 		 */
 		$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
@@ -524,14 +520,14 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		}
 
 		/**
-		 * Aumenta a vers�o do cabecalho selecionado
+		 * Aumenta a versão do cabecalho selecionado
 		 */
 		$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaOs} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabe�alho da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabeçalho da lista! ".$db->erro);
 			return $resposta;
 		}
 	}
@@ -594,7 +590,7 @@ function salvarListaEdicao($dados_form)
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar salvar a vers�o da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar salvar a versão da lista! ".$db->erro);
 			return $resposta;
 		}
 
@@ -612,7 +608,7 @@ function salvarListaEdicao($dados_form)
 
 		if ($db->erro != '')
 		{
-			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabe�alho da lista! ".$db->erro);
+			$resposta->addAlert("Houve uma falha ao tentar atualizar a revisao_documento do cabeçalho da lista! ".$db->erro);
 			return $resposta;
 		}
 	}
@@ -769,7 +765,7 @@ function getSpecs($dados_form)
 }
 
 /**
- * Fun��o respons�vel por trazer a lista de documentos do GED da OS
+ * Função responsável por trazer a lista de documentos do GED da OS
  * @param array $dados_form
  */
 function atualizatabela($dados_form)
@@ -888,7 +884,7 @@ function atualizatabela($dados_form)
 			
 			if ($autorizado && !empty($reg['id_lista_materiais_cabecalho']))
 			{
-				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;lista&nbsp;de&nbsp;materiais?\')){xajax_excluirListaMateriais(".$reg['id_lista_materiais_cabecalho'].");}></span>";
+				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir lista de materiais?\')){xajax_excluirListaMateriais(".$reg['id_lista_materiais_cabecalho'].");}></span>";
 			}
 			else
 			{
@@ -911,7 +907,7 @@ function atualizatabela($dados_form)
 		else
 		  $resposta->addScript('document.getElementById("btnlista").style.display="none";');
 
-		//Exibindo e escondendo o bot�o para gerar a lista personalizada com checkbox
+		//Exibindo e escondendo o botão para gerar a lista personalizada com checkbox
 		if ($db->numero_registros > 0)
 			$resposta->addScript('$("#trListasSelecionadas").show();');
 		else
@@ -937,7 +933,7 @@ function atualizatabela($dados_form)
 }
 
 /**
- * Fun��o que monta a tela contendo as duas listas (produtos cadastrados e lista cadastrada)
+ * Função que monta a tela contendo as duas listas (produtos cadastrados e lista cadastrada)
  * @param array $dados_form
  * @param integer $codDocumentos
  */
@@ -969,14 +965,14 @@ function getListaMateriais($dados_form, $codDocumentos)
 		//$resposta->addAssign('disciplina', 'value', $codDocumentos[2]);
 		$clausulaArquivo = " AND id_ged_arquivo = {$codDocumentos[0]}";
 	}
-	else if (!empty($dados_form['id_os']))/*Quando for uma lista da OS, mesmo que ainda n�o salva*/
+	else if (!empty($dados_form['id_os']))/*Quando for uma lista da OS, mesmo que ainda não salva*/
 	{
 		$clausulaOs = "AND id_os = {$os[0]}";
 
 		$clausulaDisciplina = !empty($disciplina) ? "AND id_disciplina = ".$disciplina : "";
 
 		/**
-		 * Quando tiver uma lista de OS j� salva
+		 * Quando tiver uma lista de OS já salva
 		 */
 		if (isset($dados_form['idListaOsPrincipal']) && !empty($dados_form['idListaOsPrincipal']))
 		{
@@ -984,9 +980,9 @@ function getListaMateriais($dados_form, $codDocumentos)
 			$clausulaIdOsNegativo = "AND idCabecalho <> {$dados_form['idListaOsPrincipal']}";
 				
 			/**
-			 * Este trecho s� ser� executado caso seja uma lista totalizada, ou seja, a lista da OS
-			 * Tamb�m caso j� esteja cadastrada no banco
-			 * N�o vai entrar aqui caso seja uma lista para arquivos do ged
+			 * Este trecho só será executado caso seja uma lista totalizada, ou seja, a lista da OS
+			 * Também caso já esteja cadastrada no banco
+			 * Não vai entrar aqui caso seja uma lista para arquivos do ged
 			 */
 			if (empty($codDocumentos))
 			{
@@ -1034,8 +1030,8 @@ function getListaMateriais($dados_form, $codDocumentos)
 		}
 	}
 
-	//Esta consulta traz as listas j� cadastradas na OS
-	//Pode ser uma (nos casos de listas individuais) ou v�rias (nos casos de lista da OS)
+	//Esta consulta traz as listas já cadastradas na OS
+	//Pode ser uma (nos casos de listas individuais) ou várias (nos casos de lista da OS)
 	$sql =
 "SELECT
 	DISTINCT id_lista_materiais_cabecalho, status, id_ged_arquivo, revisao_documento, cabecalho.versao_documento, revisao_real
@@ -1077,13 +1073,13 @@ WHERE
 
 	//Dados do cliente
 	$sql =
-"SELECT id_ged_arquivo, id_numero_interno, idOs, id_empresa_erp, OS, id_disciplina FROM ".DATABASE.".ged_arquivos
+"SELECT id_ged_arquivo, id_numero_interno, idOs, id_empresa, OS, id_disciplina FROM ".DATABASE.".ged_arquivos
 JOIN(
   SELECT id_numero_interno numDvm, id_os idOs, id_disciplina FROM ".DATABASE.".numeros_interno WHERE numeros_interno.reg_del = 0 {$clausulaOs} {$clausulaDisciplina}
 ) numeros_interno
 ON numDvm = ged_arquivos.id_numero_interno
 JOIN(
-  SELECT id_os, id_empresa_erp, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0
+  SELECT id_os, id_empresa, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0
 ) os
 ON id_os = idOs
 WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDisciplina}";
@@ -1091,18 +1087,18 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 	$os = '';
 	$idCliente = $db->select($sql, 'MYSQL', function($reg, $i) use(&$os){
 		$os = $reg['OS'];
-		return $reg['id_empresa_erp'];
+		return $reg['id_empresa'];
 	});
 
 	$html = '';
-	//A lista de documentos n�o deve nem aparecer para sele��o quando a lista de materiais estiver emitida
-	//Tamb�m n�o deve aparecer caso seja uma lista geral agrupando as listas dos documentos da OS
+	//A lista de documentos não deve nem aparecer para seleção quando a lista de materiais estiver emitida
+	//Também não deve aparecer caso seja uma lista geral agrupando as listas dos documentos da OS
 	$listaImplodida = count($idLista) > 0 ? implode(',', $idLista) : "<span id='numLista'>S/N</span>";
 	if ($status[0] != 2 && !empty($codDocumentos))
 	{
-		$html .='<table width="100%" style="border:solid 1px black;"><tr><td class="labels">Documentos Selecionados: '.$codDocumentos[1].' (Lista N� '.$listaImplodida.')</td></tr></table>'.
+		$html .='<table width="100%" style="border:solid 1px black;"><tr><td class="labels">Documentos Selecionados: '.$codDocumentos[1].' (Lista Nº '.$listaImplodida.')</td></tr></table>'.
 				'<br />'.
-				'<label class="labels">Filtrar</label>&nbsp;'.
+				'<label class="labels">Filtrar</label> '.
 				'<input type="text" id="txtFiltro" name="txtFiltro" size="50" onkeyup=iniciaBuscaListaMateriais.verifica(this,"'.implode(',', $idLista).'");larguraGrid(1024); />'.
 				'<img src="'.DIR_IMAGENS.'inserir.png" id="imgSelecionarFamilias" style="cursor:pointer" onclick="showModalFamilias()" title="Selecionar Familias" /><label class="labels">Filtrar por Familia</label>'.
 				'<fieldset style="padding:10px;height:273px;"><legend class="labels">Escolha os produtos, quantidades e unidades para criar a lista</legend>'.
@@ -1112,7 +1108,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 					'<input type="hidden" value="'.$idLista[0].'" id="id_lista" name="id_lista" />'.
 					'<input type="hidden" value="'.$codDocumentos[0].'" id="codDocumentos" name="codDocumentos" />'.
 					'<input type="hidden" value="'.$dados_form['disciplina'].'" id="codDisciplina" name="codDisciplina" />'.
-					'<div id="materiais_cadastrados">&nbsp;</div>'.
+					'<div id="materiais_cadastrados"> </div>'.
 					'<input type="button" style="margin-top:15px;" class="class_botao" value="Incluir na Lista" onclick="xajax_salvarLista(xajax.getFormValues(\'frm_lista\'));" />'.
 				'</form>'.
 				'</fieldset>';
@@ -1128,7 +1124,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 	{
 		$altura 	 = '340px';
 		$tituloModal = 'Lista de materiais da OS '.$os;
-		$compl = empty($dados_form['idListaOsPrincipal']) ? 'da OS ' : 'da OS (Lista N� '.$dados_form['idListaOsPrincipal'].')';
+		$compl = empty($dados_form['idListaOsPrincipal']) ? 'da OS ' : 'da OS (Lista Nº '.$dados_form['idListaOsPrincipal'].')';
 
 		if ($status[0] != 2 || empty($dados_form['idListaOsPrincipal']))
 		{
@@ -1153,7 +1149,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 		}
 	}
 
-	//Isto permite que o sistema bloqueio exclus�o de arquivos quando uma lista j� tiver sido emitida.
+	//Isto permite que o sistema bloqueio exclusão de arquivos quando uma lista já tiver sido emitida.
 	$liberaExclusoes = $versao_documento == 0 && $status[0] != 2 && $revisaoReal == 0 ? 1 : 0;
 
 	/**
@@ -1161,12 +1157,12 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 	 */
 	$numOs = explode('/',$dados_form['id_os']);
 	$listaImplodida = count($idLista) > 0 ? implode(',', $idLista) : "<span id='numLista2'>S/N</span>";
-	$compl =  '(Lista N� '.$listaImplodida.')';
+	$compl =  '(Lista Nº '.$listaImplodida.')';
 	$html .= '<br /><br />'.
-			'<label class="labels">Filtrar</label>&nbsp;'.
+			'<label class="labels">Filtrar</label> '.
 			'<input type="text" id="txtFiltroLista2" name="txtFiltroLista2" size="50" onkeyup=iniciaBuscaProdutosLista.verifica(this,"'.implode(',', $idLista).'"); />'.
 			'<fieldset style="padding-left:0px;height:'.$altura.';overflow:auto;overflow-y:hidden;">'.
-			'<legend class="labels">Produtos j� cadastrados na lista '.$compl.'</legend>'.
+			'<legend class="labels">Produtos já cadastrados na lista '.$compl.'</legend>'.
 			'<form id="frm_lista_edicao" name="frm_lista_edicao" method="post">'.
 				'<input type="hidden" value="'.$numOs[0].'" id="numeroOs" name="numeroOs" />'.
 				'<input type="hidden" value="'.$dados_form['id_os'].'" id="idOs" name="idOs" />'.
@@ -1186,7 +1182,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 
 	if ($status[0] != 2 || empty($codDocumentos))
 	{
-		/*$html .='<i><sub>Para cancelar a altera��o feche esta janela central.</sub><i>'.
+		/*$html .='<i><sub>Para cancelar a alteração feche esta janela central.</sub><i>'.
 		 '<span style="float:right;width:100%;margin-bottom: 10px">';*/
 
 		$html .='<span style="float:right;width:100%;margin-bottom: 10px">';
@@ -1194,7 +1190,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 		if (!empty($codDocumentos))
 		{
 			/**
-			 * O bot�o emitir lista nestes casos, quando n�o � a lista da OS servir� somente para caso o cliente queira a lista do documento em Excel
+			 * O botão emitir lista nestes casos, quando não é a lista da OS servirá somente para caso o cliente queira a lista do documento em Excel
 			 */
 			$html .="<input type='button' id='btnEmitirLista' style='margin-top:10px;' class='class_botao' value='Emitir Lista' onclick=xajax_emitirLista(document.getElementById('id_lista').value,'".$codDocumentos[0]."'); />".
 					'<input type="button" id="btnSalvarLista" style="margin-top:5px;" class="class_botao" value="Salvar Lista" onclick="if(disabledEnabledSalvarLista()){xajax_salvarListaEdicao(xajax.getFormValues(\'frm_lista_edicao\'));}" /></span>';
@@ -1206,7 +1202,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 				$html .="<input type='button' id='btnEmitirLista' style='margin-top:10px;' class='class_botao' value='Emitir Lista' onclick=xajax_emitirLista(".$idLista[0].",'',".$versao_documento."); />";
 			}
 				
-			//Agora somente poder� salvar a lista da os da primeira vez, depois n�o mais
+			//Agora somente poderá salvar a lista da os da primeira vez, depois não mais
 			if ($status[0] != 2 || empty($dados_form['idListaOsPrincipal']))
 			{
 				if (!empty($dados_form['idListaOsPrincipal']))
@@ -1236,7 +1232,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 				WHERE
 					id_lista_materiais_cabecalho = ".$idLista[0]."
 					AND reg_del = 0
-					#AND revLm > 0/*A REVIS�O 0 EXISTE ANTES DA PRIMEIRA EMISS�O, POR ESTE MOTIVO A IGNORAMOS*/
+					#AND revLm > 0/*A REVISÃO 0 EXISTE ANTES DA PRIMEIRA EMISSÃO, POR ESTE MOTIVO A IGNORAMOS*/
 				ORDER BY revLm DESC";
 
 				$options = '';
@@ -1248,7 +1244,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 
 				if (!empty($options))
 				{
-					$html .= "<label class='labels'>Selecione uma revis�o</label><select name='selRevisoes' id='selRevisoes' class='caixa'>".$options."</select>";
+					$html .= "<label class='labels'>Selecione uma revisão</label><select name='selRevisoes' id='selRevisoes' class='caixa'>".$options."</select>";
 				}
 
 				$html .='<input type="button" style="margin-top:0;" class="class_botao" value="Visualizar Lista" onclick=showOpcoesLista('.$idLista[0].',document.getElementById(\'selRevisoes\').value,document.getElementById(\'codDisciplina\').value); /></span>';
@@ -1275,13 +1271,13 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 		$resposta->addScript("xajax_getListaProdutos('','{$idLista[0]}', '{$idCliente[0]}', $idSpec);");
 	}
 
-	//Se j� houver uma lista criada, listar os produtos desta
+	//Se já houver uma lista criada, listar os produtos desta
 	if ($nRegistros > 0)
 	{
 		//Aqui funciona direito
 		$permiteExcluir = $liberaExclusoes ? 1 : 0;
 
-		//Caso n�o seja utilizada a segunda lista, utilizar a altura total para a primeira lista
+		//Caso não seja utilizada a segunda lista, utilizar a altura total para a primeira lista
 		$alturaCompleta = $statusListaOs == 2 ? 1 : 0;
 
 		$checar = empty($codDocumentos) ? 0 : 0;
@@ -1289,7 +1285,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 		//$resposta->addScript('xajax_getProdutosLista("'.implode(',', $idLista).'", "div_lista_materiais", '.$dados_form['idListaOsPrincipal'].', '.$checar.');');
 
 		/**
-		 * Aqui busco os produtos que est�o fora da lista da OS
+		 * Aqui busco os produtos que estáo fora da lista da OS
 		 */
 		if (empty($codDocumentos) && count($idListaOs))
 		$resposta->addScript('xajax_getProdutosLista("","'.implode(',', $idListaOs).'", "div_lista_materiais_nao_salvos", '.$dados_form['idListaOsPrincipal'].', 0);');
@@ -1298,7 +1294,7 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 }
 
 /**
- * Fun��o que carrega a lista de todos os produtos de um cliente(Soma de todas as ESPECS)
+ * Função que carrega a lista de todos os produtos de um cliente(Soma de todas as ESPECS)
  * @param item digitado em Filtrar $filtro
  * @param um ou mais ids $idLista
  * @param integer $idCliente
@@ -1399,13 +1395,13 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 				$input = "<input type=\'text\' disabled=\'disabled\' size=\'2\' name=\'qtd[{$reg['componentecodigo']}]\' id=\'qtd[{$reg['componentecodigo']}]\' />";
 				$xml->writeElement('cell', $input);
 
-				//O Simioli pediu para n�o escolher a unidade para ja vir o que est� cadastrado no produto
+				//O   pediu para não escolher a unidade para ja vir o que está cadastrado no produto
 				//$input = "<input type=\'text\' disabled=\'disabled\' size=\'2\' name=\'txtUnidade[{$reg['id_produto']}]\' id=\'txtUnidade[{$reg['id_produto']}]\' onclick=selecionarUnidade(\'txtUnidade[{$reg['id_produto']}]\'); />";
 				$input = "<input type=\'text\' readonly=\'readonly\' value=\'{$reg['unidade1']}\' size=\'2\' name=\'txtUnidade[{$reg['componentecodigo']}]\' id=\'txtUnidade[{$reg['componentecodigo']}]\' />";
 				$input .= "<input type=\'hidden\' disabled=\'disabled\' size=\'2\' name=\'txtPercentual[{$reg['componentecodigo']}]\' id=\'txtPercentual[{$reg['componentecodigo']}]\' onkeyup=calculaQtd(\'{$reg['componentecodigo']}\'); />";
 				$xml->writeElement('cell', $input);
 
-				//O Simiole tamb�m pediu para n�o aparecer a margem neste momento
+				//Para não aparecer a margem neste momento
 				//$xml->writeElement('cell', $input);
 
 				//$xml->writeElement('cell', "<span id=\'span_{$reg['id_produto']}\'></span>");
@@ -1425,10 +1421,10 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 }
 
 /**
- * Fun��o que carrega os materiais j� cadastrados na lista
+ * Função que carrega os materiais já cadastrados na lista
  * @param um ou mais ids $idLista
- * @param nome da div que ir� receber a lista $idDestino
- * @param c�digo da lista da OS, somente se tiver ser� usada
+ * @param nome da div que irá receber a lista $idDestino
+ * @param código da lista da OS, somente se tiver será usada
  */
 function getProdutosLista($filtro = '', $idLista, $idDestino = 'div_lista_materiais', $idListaOs = '', $checar = 0, $permiteExcluir = 1, $alturaCompleta = 0)
 {
@@ -1482,7 +1478,7 @@ function getProdutosLista($filtro = '', $idLista, $idDestino = 'div_lista_materi
 
 	/*
 	 * 26/09/2016
-	 * Criei a vari�vel campos para que quando for uma lista comum, n�o totalizar e quando for lista OS deve-se totalizar
+	 * Criei a variável campos para que quando for uma lista comum, não totalizar e quando for lista OS deve-se totalizar
 	 */
 	$sql .=
 "SELECT
@@ -1534,7 +1530,7 @@ FROM
 	) componentes
 	ON codBarrasComponente = componentecodigo ".$clausulaNaoOs;
 
-	//Verificando os itens que ainda n�o est�o na lista da OS
+	//Verificando os itens que ainda não estáo na lista da OS
 	if (!empty($idListaOs))
 	{
 		$sql .= "LEFT JOIN (
@@ -1590,7 +1586,7 @@ FROM
 	function ($reg, $i) use(&$xml, $atributo, $atrMargem, $listaOs, $checked, $idDestino, &$permiteExcluir)
 	{
 		$reg['qtd'] = number_format($reg['qtd'], 2, ',', '.');
-		//Este ID s� ser� diferente caso a lista seja de itens n�o salvos numa lista de OS existente
+		//Este ID só será diferente caso a lista seja de itens não salvos numa lista de OS existente
 		$xml->startElement('row');
 		$xml->writeAttribute('id', $reg["id_lista_materiais"]);
 
@@ -1621,7 +1617,7 @@ FROM
 		$bloqQtd = '';
 		$inputExcluido = '<input type="hidden" value="0" id="itemExcluido['.$indice.']" name="itemExcluido['.$indice.']" />';
 
-		//Caso haja sido excluido o item, na lista da os mostrar o valor 0, al�m da linha ficar vermelha e o campo qtd ficar bloqueado para edi��o
+		//Caso haja sido excluido o item, na lista da os mostrar o valor 0, além da linha ficar vermelha e o campo qtd ficar bloqueado para edição
 		if ($reg['marcar_excluido'] == 1)
 		{
 			//$reg['qtd'] = 0;
@@ -1652,7 +1648,7 @@ FROM
 			if (/*lista_autorizados() && */$permiteExcluir)
 			{
 				$input = "<input type=\'hidden\' disabled=\'disabled\' readonly=\'readonly\' style=\'width: 22px;\' size=\'2\' value=\'{$reg['revisao_documento']}\' name=\'revisao_documento[{$indice}]\' id=\'revisao_documento[{$indice}]\' />";
-				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Ao&nbsp;excluir&nbsp;um&nbsp;item&nbsp;este&nbsp;n�o&nbsp;poder�&nbsp;mais&nbsp;ser&nbsp;utilizado.&nbsp;Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir_produto_lista({$reg["id_lista_materiais"]},{$reg['id_lista_materiais_cabecalho']},document.getElementById(\'idCliente\').value,".intval($listaOs).")};></span>";
+				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Ao excluir um item este não poderá mais ser utilizado. Deseja excluir este item?\')){xajax_excluir_produto_lista({$reg["id_lista_materiais"]},{$reg['id_lista_materiais_cabecalho']},document.getElementById(\'idCliente\').value,".intval($listaOs).")};></span>";
 			}
 			else
 			$img = $input = '';
@@ -1678,7 +1674,7 @@ FROM
 }
 
 /**
- * Fun��o respons�vel por excluir um item da lista de materiais
+ * Função responsável por excluir um item da lista de materiais
  * @param int $id_lista_materiais - id do item na tabela lista_materiais
  */
 function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsLista)
@@ -1686,7 +1682,7 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 
-	//Neste caso n�o h� necessidade de excluir as vers�es pois, em caso de erro na exclus�o
+	//Neste caso não há necessidade de excluir as versões pois, em caso de erro na exclusão
 	$usql = "UPDATE materiais_old.lista_materiais SET marcar_excluido = 1, reg_del = 1, reg_who = ".$_SESSION['id_funcionario'].", data_del = '".date('Y-m-d')."' WHERE id_lista_materiais = {$id_lista_materiais}";
 	$db->update($usql, 'MYSQL');
 
@@ -1697,7 +1693,7 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 	else
 	{
 		/**
-		 * Aqui procuramos mais listas no mesmo cabecalho, caso n�o existam outras listas ent�o exclu�mos o cabecalho para n�o ficar lixo no banco de dados
+		 * Aqui procuramos mais listas no mesmo cabecalho, caso não existam outras listas então excluímos o cabecalho para não ficar lixo no banco de dados
 		 */
 		$sql = "SELECT id_lista_materiais_cabecalho FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho = ".$idLista;
 		$db->select($sql, 'MYSQL', true);
@@ -1713,8 +1709,8 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 
 		if (!$idOsLista)
 		{
-			//Procuramos uma lista da OS que contenha o mesmo item a ser exclu�do e o marcamos como exclu�do nesta outra lista
-			//Assim posso mostrar que este item foi atualizado como exclu�do
+			//Procuramos uma lista da OS que contenha o mesmo item a ser excluído e o marcamos como excluído nesta outra lista
+			//Assim posso mostrar que este item foi atualizado como excluído
 			/*$sql ="SELECT idLista FROM materiais_old.lista_materiais l
 			 JOIN(
 			 SELECT
@@ -1742,7 +1738,7 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 				
 			if ($db->erro != '')
 			{
-				$resposta->addAlert('Houve uma falha ao tentar marcar como exclu�do o registro vinculado a lista da OS.');
+				$resposta->addAlert('Houve uma falha ao tentar marcar como excluído o registro vinculado a lista da OS.');
 			}
 			else
 			{
@@ -1773,28 +1769,28 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 	$arrControle = array();
 
 	/**
-	 * 1 - Selecionando a revis�o e revis�o_real da lista selecionada
+	 * 1 - Selecionando a revisão e revisão_real da lista selecionada
 	 */
 	$sql = "SELECT versao_documento, revisao_real FROM materiais_old.lista_materiais_cabecalho WHERE lista_materiais_cabecalho.reg_del = 0 AND lista_materiais_cabecalho.id_lista_materiais_cabecalho =".$idLista;
 	$db->select($sql, 'MYSQL', true);
 	$dadosCabecalho = $db->array_select[0];
 
 	/**
-	 * Se a revis�o for 0, verifico que j� houve emiss�o e caso positivo, a revis�o n�o poder� ser 0 e sim 1
-	 * A revis�o real sempre ser� ela + 1 para podermos saber se esta lista j� foi emitida.
-	 * Obs.: Este problema ocorre porque antes da primeira emiss�o, a revis�o j� fica como 0, ou seja, quando acrescento + 1, a primeira revis�o sempre come�a de 1 e n�o do 0
+	 * Se a revisão for 0, verifico que já houve emissão e caso positivo, a revisão não poderá ser 0 e sim 1
+	 * A revisão real sempre será ela + 1 para podermos saber se esta lista já foi emitida.
+	 * Obs.: Este problema ocorre porque antes da primeira emissão, a revisão já fica como 0, ou seja, quando acrescento + 1, a primeira revisão sempre começa de 1 e não do 0
 	 */
 	$versao_documento = $versao_documento == 0 && intval($dadosCabecalho['revisao_real']) == 0 ? 0 : $versao_documento+1;
 	$revisaoReal = intval($dadosCabecalho['revisao_real'])+1;
 
 	/**
-	 * Passo o status da lista para emitido => 2, revisao_real + 1 e versao_documento baseado nas condi��es acima assim n�o � poss�vel editar esta lista
+	 * Passo o status da lista para emitido => 2, revisao_real + 1 e versao_documento baseado nas condições acima assim não é possível editar esta lista
 	 */
 	$usql = "UPDATE	materiais_old.lista_materiais_cabecalho	SET status = 2,	revisao_real = ".$revisaoReal.", versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = {$idLista}";
 	$db->update($usql, 'MYSQL');
 
 	/**
-	 * Caso n�o consiga alterar o cabecalho, paro o processo e adiciono o erro para o futuro alert no final da rotina
+	 * Caso não consiga alterar o cabecalho, paro o processo e adiciono o erro para o futuro alert no final da rotina
 	 */
 	if ($db->erro != '')
 	{
@@ -1803,8 +1799,8 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 	else
 	{
 		/**
-		 * Buscando todas as listas de materiais para o cabecalho selecionado na revis�o selecionada
-		 * Uso para inserir al�m dos dados b�sicos, a qtd_comprada e revis�o principalmente
+		 * Buscando todas as listas de materiais para o cabecalho selecionado na revisão selecionada
+		 * Uso para inserir além dos dados básicos, a qtd_comprada e revisão principalmente
 		 */
 		$sql = "SELECT id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_disciplina, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado, /*qtd_comprada, */id_lista_materiais, cod_barras  ";
 		$sql .= "FROM materiais_old.lista_materiais ";
@@ -1814,8 +1810,8 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 		$db2 = new banco_dados();
 
 		/**
-		 * Obs.: Caso seja a revis�o == 0, n�o fa�o a rotina abaixo
-		 * Obs.: Caso seja revis�o > 0, fazer as rotinas abaixo:
+		 * Obs.: Caso seja a revisão == 0, não faço a rotina abaixo
+		 * Obs.: Caso seja revisão > 0, fazer as rotinas abaixo:
 		 */
 		if ($versao_documento > 0)
 		{
@@ -1824,8 +1820,8 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 			 */
 			$db->select($sql, 'MYSQL', function($reg, $i) use(&$erro, &$db2, &$arrControle, &$versao_documento){
 				/**
-				 * Busco a vers�o a qual a lista atual est� vinculada
-				 * Uso para inserir a nova vers�o para a futura lista criada logo abaixo
+				 * Busco a versão a qual a lista atual está vinculada
+				 * Uso para inserir a nova versão para a futura lista criada logo abaixo
 				 */
 				$sql = "SELECT unidade, qtd, margem, id_funcionario, data_versao, revisao_documento+1 revisao_documento, id_lista_materiais, id_lista_materiais_cabecalho, id_produto, cod_barras ";
 				$sql .= "FROM materiais_old.lista_materiais_versoes ";
@@ -1835,7 +1831,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 				$versaoAnterior = $db2->array_select[0];
 
 				/**
-				 * Aqui fa�o o insert da nova vers�o com os dados da vers�o anterior, nova data e vers�o + 1
+				 * Aqui faço o insert da nova versão com os dados da versão anterior, nova data e versão + 1
 				 */
 				$isql = "INSERT INTO materiais_old.lista_materiais_versoes (unidade, qtd, margem, id_funcionario, data_versao, revisao_documento, id_lista_materiais, id_lista_materiais_cabecalho, fechado, cod_barras) ";
 				$isql .= "VALUES ('".$versaoAnterior['unidade']."', '".$versaoAnterior['qtd']."', '".$versaoAnterior['margem']."', '".$versaoAnterior['id_funcionario']."',";
@@ -1852,9 +1848,9 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 					$arrControle['versoes'][] = $idVersaoNova;
 
 					/**
-					 * Este trecho � respons�vel por:
+					 * Este trecho é responsável por:
 					 * Inserir a nova lista de materiais
-					 * Garantir que a revis�o � a mesma do cabecalho na coluna versao_documento e N�O (revisao_real)
+					 * Garantir que a revisão é a mesma do cabecalho na coluna versao_documento e NÃO (revisao_real)
 					 */
 					$isql = "INSERT INTO materiais_old.lista_materiais (id_produto, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado, /*qtd_comprada, */id_ged_arquivo, fechado, id_disciplina, cod_barras) ";
 					$isql .= "VALUES ('".$reg['id_produto']."', '".$reg['id_os']."', '".$reg['id_funcionario']."', NOW(), '".$reg['id_lista_materiais_cabecalho']."',";
@@ -1870,7 +1866,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 						$arrControle['lm'][] = $idLmNova;
 
 						/**
-						 * Altero a revisao_documento apontada com o c�digo da nova lista inserida
+						 * Altero a revisao_documento apontada com o código da nova lista inserida
 						 */
 						$usql = "UPDATE materiais_old.lista_materiais_versoes SET id_lista_materiais = ".$idLmNova." WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$idVersaoNova;
 						$db2->update($usql, 'MYSQL');
@@ -1893,8 +1889,8 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 		else
 		{
 			/**
-			 * Fechar as vers�es e listas vinculadas a esta revis�o
-			 * Usado apenas para totalizar a pr�xima lista
+			 * Fechar as versões e listas vinculadas a esta revisão
+			 * Usado apenas para totalizar a próxima lista
 			 */
 			$db->select($sql, 'MYSQL', function($reg, $i) use(&$db2){
 				$usql = "UPDATE materiais_old.lista_materiais_versoes SET fechado = 1 WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$reg['id_lista_materiais_versoes'];
@@ -1913,11 +1909,11 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 		//Voltando os dados em caso de erro em qualquer consulta
 		if (!empty($erro))
 		{
-			//Voltando o cabecalho ao que era antes da emiss�o
+			//Voltando o cabecalho ao que era antes da emissão
 			$usql = "UPDATE materiais_old.lista_materiais_cabecalho	SET status = 1,	versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = ".$idLista;
 			$db->update($usql, 'MYSQL');
 				
-			//Excluindo todas as vers�es inseridas
+			//Excluindo todas as versões inseridas
 			$usql = "UPDATE materiais_old.lista_materiais_versoes SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['versoes']).")";
 			$db->update($usql, 'MYSQL');
 				
@@ -1925,15 +1921,15 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 			$usql = "UPDATE materiais_old.lista_materiais SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['lm']).")";
 			$db->update($usql, 'MYSQL');
 				
-			$resposta->addAlert('ATEN��O: Houve uma falha na emiss�o da lista. NADA FOI ALTERADO. '.$erro);
+			$resposta->addAlert('ATENÇÃO: Houve uma falha na emissão da lista. NADA FOI ALTERADO. '.$erro);
 		}
 		else
 		{
-			//Dentro do script xajax n�o funciona window.open ent�o terei que abrir o arquivo na mesma janela
+			//Dentro do script xajax não funciona window.open então terei que abrir o arquivo na mesma janela
 			//$resposta->addScript("window.open('./emitir_lista_excel.php?idLista=".$idLista."', _blank);");
 			//$resposta->addScript("window.location = './emitir_lista_excel.php?idLista=".$idLista."&versao_documento=".($versao_documento+1)."';");
 				
-			$resposta->addAlert('Emiss�o realizada com sucesso!');
+			$resposta->addAlert('Emissão realizada com sucesso!');
 			$resposta->addScript('divPopupInst.destroi();');
 				
 			if (empty($codDocumento))
@@ -2074,7 +2070,7 @@ function excluirListaMateriais($idListaCabecalho)
 	
 	if (!lista_autorizados())
 	{
-	    $resposta->addAlert('Usuario sem permissao para excluir multiplas listas');
+	    $resposta->addAlert('Usuario sem permissão para excluir multiplas listas');
 	    return $resposta;
 	}
 	
@@ -2176,7 +2172,7 @@ function verificaAlteracoes()
 {
 	if (listaAlterada)
 	{
-		if (confirm('Existe uma lista em edi��o, deseja sair sem salv�-la?'))
+		if (confirm('Existe uma lista em edição, deseja sair sem salvá-la?'))
 		{
 			listaAlterada = false;
 			return true;
@@ -2204,7 +2200,7 @@ function showModalFamilias()
 {
 	var html =  '<div id="divListaFamilias"></div>';
 		
-	modal(html, 'm', 'SELECIONE UMA FAMILIA CADASTRADA PARA USA-LA NA BUSCA', 1);
+	modal(html, 'm', 'SELECIONE UMA FAMÍLIA CADASTRADA PARA USÁ-LA NA BUSCA', 1);
 	xajax_listaFamilias();
 }
 
@@ -2229,7 +2225,7 @@ function modalAdicionarValor(indice)
 		"<input type='button' class='class_botao' id='btnAdicionarValor' name='btnAdicionarValor' value='Adicionar' onclick=adicionaValorQtd(valorAdicional.value,\'"+indice+"\'); />";
 		modal(html, "ppp", "Digite um valor para somar", 1);
 
-		//Quando teclar enter, chamar a fun��o adicionaValorQtd
+		//Quando teclar enter, chamar a função adicionaValorQtd
 		$("#valorAdicional").keyup(function(event){
 		    if(event.keyCode == 13){
 		    	adicionaValorQtd(valorAdicional.value,indice);
@@ -2249,7 +2245,7 @@ function importarListaPdmsForm()
 					"<input type='file' id='arquivoImportacao' name='arquivoImportacao' /><br /><br />"+
 					"<input type='submit' class='class_botao' id='btnEnviarArquivo' name='btnEnviarArquivo'  value='Importar' />"+
 				"</form><br />"+
-				"<h4>ATEN��O: Ap�s a importa��o da lista, todas as altera��es e exclus�es dever�o ser realizadas atrav�s do m�dulo LISTA DE MATERIAIS.</h4>";
+				"<h4>ATENÇÃO: Após a importação da lista, todas as alterações e exclusões deverão ser realizadas através do módulo LISTA DE MATERIAIS.</h4>";
 	modal(html, "p", "Escolha um arquivo e clique em Importar");
 }
 
@@ -2354,10 +2350,10 @@ function showOpcoesLista(idLista, versao_documento, disciplina)
 	html += '<input type="hidden" value="'+disciplina+'" name="disciplina" id="disciplina" />';
 	
 	/*html += '<input type="checkbox" name="chkColunas[E]" id="chkColunas[E]" value="E" />';
-	html += '<label class="labels">Pre�o Unit�rio</label><br />';
+	html += '<label class="labels">Preço Unitário</label><br />';
 
 	html += '<input type="checkbox" name="chkColunas[F]" id="chkColunas[F]" value="f" />';
-	html += '<label class="labels">Pre�o total</label><br />';*/
+	html += '<label class="labels">Preço total</label><br />';*/
 
 	html += '<input type="checkbox" name="colunasAdicionais" id="colunasAdicionais" value="1" />';
 	html += '<label class="labels">Exibir colunas opcionais </label><br />';
@@ -2401,13 +2397,13 @@ function abrirRelatorio()
 		html += '<input type="hidden" value="'+id_disciplina+'" name="id_disciplina" id="id_disciplina" />';
 		html += '<input type="hidden" value="'+busca+'" name="busca" id="busca" />';
 		html += '<input type="hidden" value="'+id_lista_cabecalho+'" name="id_cabecalho" id="id_cabecalho" />';
-		html += '<input type="button" style="width:100%;" class="class_botao" value="RELAT�RIO DE EVID�NCIA" onclick="frm_relatorio.action=\''+acaoRelatorioEvidencia+'\',frm_relatorio.submit();" />';
-		html += '<input type="button" style="width:100%;" class="class_botao" value="RELAT�RIO DE RESUMO DE MATERIAL POR OS" onclick="frm_relatorio.action=\''+acaoRelatorioEvidenciaPdf+'\',frm_relatorio.submit();" />';
-		html += '<input type="button" style="width:100%;" class="class_botao" value="LISTA DE MATERIAL DE TUBULA��O" onclick="frm_relatorio.action=\''+acaoRelatorioFibriaExcel+'\',frm_relatorio.submit();" />';
-		html += '<input type="button" style="width:100%;" class="class_botao" value="GERAR LISTA DE COTA��O" onclick="frm_relatorio.action=\''+acaoListaCotacao+'\',frm_relatorio.submit();" />';
+		html += '<input type="button" style="width:100%;" class="class_botao" value="RELATÓRIO DE EVIDÊNCIA" onclick="frm_relatorio.action=\''+acaoRelatorioEvidencia+'\',frm_relatorio.submit();" />';
+		html += '<input type="button" style="width:100%;" class="class_botao" value="RELATÓRIO DE RESUMO DE MATERIAL POR OS" onclick="frm_relatorio.action=\''+acaoRelatorioEvidenciaPdf+'\',frm_relatorio.submit();" />';
+		html += '<input type="button" style="width:100%;" class="class_botao" value="LISTA DE MATERIAL DE TUBULAÇÃO" onclick="frm_relatorio.action=\''+acaoRelatorioFibriaExcel+'\',frm_relatorio.submit();" />';
+		html += '<input type="button" style="width:100%;" class="class_botao" value="GERAR LISTA DE COTAÇÃO" onclick="frm_relatorio.action=\''+acaoListaCotacao+'\',frm_relatorio.submit();" />';
 	html += '</form>';
 
-	modal(html, 'mp', 'RELAT�RIOS LISTA MATERIAIS');
+	modal(html, 'mp', 'RELATÓRIOS LISTA MATERIAIS');
 }
 
 function calculaQtd(idProduto)
@@ -2431,12 +2427,12 @@ function disabledEnabledSalvarLista()
 function disabledEnabledSalvarListaOS()
 {
 	var nChecados = $('#frm_lista_edicao input:checkbox:checked').length;
-	//-1 porque s�o todos os checkboxes de selecionar materiais menos o checkbox de selecionar todos
+	//-1 porque são todos os checkboxes de selecionar materiais menos o checkbox de selecionar todos
 	var nItensPossiveis = $('#frm_lista_edicao input:checkbox').length - 1;
 
 	if ($('#hiddenLiberaExclusoes').val() && $('#hiddenLiberaExclusoes').val() > 0 && nChecados < nItensPossiveis)
 	{
-		alert('A lista j� foi EMITIDA anteriormente portanto, todos os itens devem ser selecionados, mesmo que a quantidade a comprar seja "0"!');
+		alert('A lista já foi EMITIDA anteriormente portanto, todos os itens devem ser selecionados, mesmo que a quantidade a comprar seja "0"!');
 		return false;
 	}
 	else
@@ -2470,7 +2466,7 @@ function disabledEnabled(id_produto)
 function selecionarUnidade(ref)
 {
 	html = '<iframe height="630px" width="100%" style="border: none;" src="./unidade.php?ajax=1&adicional=1&ref='+ref+'" id="iframecodigoInteligente" name="iframecodigoInteligente"></iframe>';
-	modal(html, 'gg', 'CADASTRO / SELE��O DE UNIDADE',1);
+	modal(html, 'gg', 'CADASTRO / SELEÇÃO DE UNIDADE',1);
 }
 
 function grid(tabela, autoh, height, xml)
@@ -2485,7 +2481,7 @@ function grid(tabela, autoh, height, xml)
 	{
 		case 'documentos':
 			var html = "<input onclick=if($('.chkEmissao').length){selecionaCheckbox('frm')}; id='chkPrincipal' type='checkbox' value='0'>";
-			mygrid.setHeader(html+",Nome&nbsp;do&nbsp;Arquivo, Atividade, Num.&nbsp;Cliente,L,I,E");
+			mygrid.setHeader(html+",Nome do Arquivo, Atividade, Num. Cliente,L,I,E");
 			mygrid.setInitWidths("50,120,*,120,50,50,50");
 			mygrid.setColAlign("center,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
@@ -2506,7 +2502,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowSelect",doOnRowSelected);
 		break;
 		case 'materiais_cadastrados':
-			mygrid.setHeader("&nbsp;,Qtd.,unidade, Cod. Barras, Descri��o");
+			mygrid.setHeader(" ,Qtd.,unidade, Cod. Barras, Descrição");
 			mygrid.setInitWidths("40,60,60,100,*");
 			mygrid.setColAlign("left,left,left,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");
@@ -2514,21 +2510,21 @@ function grid(tabela, autoh, height, xml)
 		break;
 		case 'div_lista_materiais':
 			var html = '<input type="checkbox" id="chkProduto" name="chkProduto" onclick="selecionaCheckboxProdutos(\'frm_lista_edicao\')" />';
-			mygrid.setHeader(html+",A Comprar,unidade, Cod. Barras, Descri��o, Ver, E");
+			mygrid.setHeader(html+",A Comprar,unidade, Cod. Barras, Descrição, Ver, E");
 			mygrid.setInitWidths("40,90,80,100,550,40,40");
 			mygrid.setColAlign("left,left,left,left,left,left,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
 			mygrid.setColSorting("na,str,str,str,str,str,str");
 		break;
 		case 'div_lista_materiais_nao_salvos':
-			mygrid.setHeader("&nbsp;,Qtd.,unidade, Cod. Barras, Descri��o, Ver, E");
+			mygrid.setHeader(" ,Qtd.,unidade, Cod. Barras, Descrição, Ver, E");
 			mygrid.setInitWidths("40,90,60,100,*,40,40");
 			mygrid.setColAlign("left,left,left,left,left,left,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
 			mygrid.setColSorting("str,str,str,str,str,str,str");
 		break;
 		case 'divListaFamilias':
-			mygrid.setHeader("C�digo, Descri��o");
+			mygrid.setHeader("Código, Descrição");
 			mygrid.setInitWidths("100,*");
 			mygrid.setColAlign("left,left");
 			mygrid.setColTypes("ro,ro");

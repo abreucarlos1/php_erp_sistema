@@ -1,6 +1,6 @@
 <?php
 /*
-    Formul�rio de Sub-Grupos de materiais
+    Formulário de Sub-Grupos de materiais
     
     Criado por Carlos Abreu / Otávio Pamplona
     
@@ -10,7 +10,7 @@
     
     Versão 0 --> VERSÃO INICIAL - 15/12/2008
     Versao 1 --> Atualização da classe banco de dados - 21/01/2015 - Carlos Abreu
-    Versão 2 --> Atualização do layout - 27/10/2017 - Carlos M�ximo
+    Versão 2 --> Atualização do layout - 27/10/2017 - Carlos Máximo
 	Versão 3 --> Inclusão dos campos reg_del nas consultas - 01/12/2017 - Carlos Abreu		
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -105,7 +105,7 @@ function atualizatabela($filtro, $combo='')
 		    $xml->writeElement('cell', trim($reg["codigo_sub_grupo"]));
 		    $xml->writeElement('cell', trim($reg["sub_grupo"]));
 		    
-		    $img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;o&nbsp;item?\')){xajax_excluir(".$reg["id_sub_grupo"].");}></span>";
+		    $img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir o item?\')){xajax_excluir(".$reg["id_sub_grupo"].");}></span>";
 		    $xml->writeElement('cell', $img);
 		    $xml->endElement();
 		}
@@ -148,7 +148,7 @@ function insere($dados_form)
 		
 		$resposta->addScript("xajax_voltar();");
 	
-		//Avisa o usu�rio do sucesso no cadastro das horas.		
+		//Avisa o usuário do sucesso no cadastro das horas.		
 		$resposta->addAlert("sub_grupo cadastrado com sucesso.");	
 
 	}
@@ -286,7 +286,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("C�digo, Subgrupo, D");
+	mygrid.setHeader("Código, Subgrupo, D");
 	mygrid.setInitWidths("80,*,50");
 	mygrid.setColAlign("left,left,center");
 	mygrid.setColTypes("ro,ro,ro");

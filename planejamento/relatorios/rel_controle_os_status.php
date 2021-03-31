@@ -100,13 +100,13 @@ if($_POST["formato"]==0) //PDF
 	$pdf->AddPage();
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 	
 	if($_POST["status"]!=-1)
@@ -180,19 +180,19 @@ else //Excel
 	?>
 	<table width="100%" border="1" cellspacing="0" cellpadding="0">
 	<tr>
-		<td colspan="5"><strong>&nbsp;</strong></td>
+		<td colspan="5"><strong> </strong></td>
 		<td width="8%"><strong>OS/STATUS</strong></td>
 	</tr>
 	<?php
 		
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 	
 	if($_POST["status"]!=-1)
@@ -243,10 +243,10 @@ else //Excel
 		{
 			?>
             <tr>
-				<td colspan="6">&nbsp;</td>
+				<td colspan="6"> </td>
 			</tr>
 			<tr>
-				<td><strong>status:&nbsp;</strong></td>
+				<td><strong>status: </strong></td>
 				<td colspan="5"><strong><?= $regconth1["os_status"] ?></strong></td>
 			</tr>
 			<tr>

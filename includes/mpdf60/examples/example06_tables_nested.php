@@ -463,7 +463,7 @@ Text before table
 
 </div>
 
-<p>&nbsp;</p>
+<p> </p>
 
 
 <div style="border: 1px solid #000088; background-color: #DDDDFF; padding: 5mm;">

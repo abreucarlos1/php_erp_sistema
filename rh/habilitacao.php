@@ -99,7 +99,7 @@ function atualizatabela($filtro)
 		$xml->writeElement('cell', $cont_desp['categoria']);
 		$xml->writeElement('cell', mysql_php($cont_desp["data_emissao"]));
 		$xml->writeElement('cell', mysql_php($cont_desp["data_vencimento"]));
-		$xml->writeElement('cell', '<img style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir("'.$cont_desp['id_habilitacao'].'")}; src="'.DIR_IMAGENS.'apagar.png">');
+		$xml->writeElement('cell', '<img style="cursor:pointer;" onclick=if(confirm("Deseja excluir?")){xajax_excluir("'.$cont_desp['id_habilitacao'].'")}; src="'.DIR_IMAGENS.'apagar.png">');
 		$xml->endElement();
 	}
 
@@ -274,7 +274,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Funcionário, Nº&nbsp;CNH, Categoria, Data&nbsp;da&nbsp;Emissão, Data&nbsp;do&nbsp;Vencimento,D");
+	mygrid.setHeader("Funcionário, Nº CNH, Categoria, Data da Emissão, Data do Vencimento,D");
 	mygrid.setInitWidths("*,80,80,80,80,50");
 	mygrid.setColAlign("left,center,center,center,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");

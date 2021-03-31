@@ -37,14 +37,84 @@ function voltar()
 {
 	$resposta = new xajaxResponse();
 	
-	$resposta->addScript("document.getElementById('btninserir').disabled=true;");
+	$resposta->addScript("xajax.$('frm_os').reset(); ");
 	
-	$resposta->addEvent("btninserir","onclick","xajax_atualizar(xajax.getFormValues('frm_os')); ");
+	$resposta->addAssign("btninserir","value","Inserir");
+	
+	$resposta->addEvent("btninserir","onclick","xajax_insere(xajax.getFormValues('frm_os')); ");
 	
 	$resposta->addEvent("btnvoltar", "onclick", "history.back();");
 
 	return $resposta;
 
+}
+
+function insere($dados_form)
+{
+	$resposta = new xajaxResponse();
+	
+	$db = new banco_dados;
+	
+	if($dados_form["os"]!='' || $dados_form["descricao"]!='' || $dados_form["cliente"]!='' || $dados_form["titulo_1"]!='')
+	{
+		$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
+		$sql .= "WHERE empresas.id_empresa = '".$dados_form["cliente"]."' ";
+		$sql .= "AND ordem_servico.reg_del = 0 ";
+		$sql .= "AND empresas.reg_del = 0 ";
+		$sql .= "AND ordem_servico.os = '" . $dados_form["os"] . "' ";
+		
+		$db->select($sql, 'MYSQL',true);
+		
+		if ($db->erro != '')
+		{
+			$resposta->addAlert("Não foi possível executar a seleção.".$sql);
+		}
+		
+		if($db->numero_registros > 0)
+		{
+			$resposta->addAlert("Ordem de Serviço já cadastrado");
+		}
+		else
+		{
+			$isql = "INSERT INTO ".DATABASE.".ordem_servico ";
+			$isql .= "(ordem_servico_cliente, id_cod_coord, id_coord_aux, id_cod_resp, os, id_os_status, id_empresa, descricao, descricao_GED, titulo_1, titulo_2, data_inicio, data_fim, projeto_inicio, projeto_termino) ";
+			$isql .= "VALUES ('" . maiusculas($dados_form["oscliente"]) . "', ";
+			$isql .= "'" . $dados_form["coord"] . "', ";
+			$isql .= "'" . $dados_form["coordaux"] . "', ";
+			$isql .= "'" . $dados_form["coordcli"] . "', ";
+			$isql .= "'" . maiusculas($dados_form["os"]) . "', ";
+			$isql .= "'1', ";
+			$isql .= "'" . $dados_form["cliente"] . "', ";
+			$isql .= "'" . maiusculas($dados_form["descricao"]) . "', ";
+			$isql .= "'" . maiusculas(tiraacentos($dados_form["descricao"])) . "', ";
+			$isql .= "'" . maiusculas($dados_form["titulo_1"]) . "', ";
+			$isql .= "'" . maiusculas($dados_form["titulo_2"]) . "', ";
+			$isql .= "'" . php_mysql($dados_form["datainicio"]) . "', ";
+			$isql .= "'" . php_mysql($dados_form["datafim"]) . "', ";
+			$isql .= "'" . php_mysql($dados_form["datainicio"]) . "', ";
+			$isql .= "'" . php_mysql($dados_form["datafim"]) . "') ";
+
+			$registros = $db->insert($isql,'MYSQL');
+			
+			if ($db->erro != '')
+			{
+				$resposta->addAlert("Não foi possível a inserção dos dados".$isql);
+			}
+
+			$resposta->addScript("xajax_voltar('');");
+
+			$resposta->addScript("xajax_atualizatabela('', '1');");
+
+			$resposta->addAlert("Ordem de Serviço cadastrado com sucesso.");
+		}
+
+	}
+	else
+	{
+		$resposta->addAlert("Os campos devem estar preenchidos.");
+	}	
+	
+	return $resposta;
 }
 
 function atualizatabela($filtro, $combo='')
@@ -79,9 +149,9 @@ function atualizatabela($filtro, $combo='')
 		$sql_filtro .= " AND ordem_servico_status.id_os_status = '".$combo."' ";
 	}
 
-	$sql = "SELECT * FROM ".DATABASE.".unidade, ".DATABASE.".empresas, ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+	$sql = "SELECT * FROM ".DATABASE.".unidades, ".DATABASE.".empresas, ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
 	$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
@@ -94,7 +164,7 @@ function atualizatabela($filtro, $combo='')
 	
 	if ($db->erro != '')
 	{
-		$resposta->addAlert("Não foi possível fazer a seleção." . $sql_os);
+		$resposta->addAlert("Não foi possível fazer a seleção." . $sql);
 	}
 
 	$conteudo = "";
@@ -139,14 +209,14 @@ function editar($id_os)
 	
 	if ($db->erro != '')
 	{
-		$resposta->addAlert("Erro na conexão com o banco de dados.");
+		$resposta->addAlert("Erro na conexão com o banco de dados." . $sql);
 	}
 
 	if($db->numero_registros > 0)
 	{
 		$reg_os = $db->array_select[0];
 		
-		$resposta->addScript("seleciona_combo('" . $reg_os["id_empresa_erp"] . "','cliente'); ");
+		$resposta->addScript("seleciona_combo('" . $reg_os["id_empresa"] . "','cliente'); ");
 
 		$resposta->addAssign("id_os","value",$reg_os["id_os"]);
 		
@@ -160,15 +230,23 @@ function editar($id_os)
 		
 		$resposta->addAssign("titulo_2","value",$reg_os["titulo_2"]);
 		
-		$resposta->addScript("xajax_preencheCombo('".$reg_os["id_empresa_erp"]."','CONTATO','coordcli','".$reg_os["id_cod_resp"]."');");			
+		$resposta->addScript("xajax_preencheCombo('".$reg_os["id_empresa"]."','CONTATO','coordcli','".$reg_os["id_cod_resp"]."');");			
 	
-		$resposta->addScript("seleciona_combo('" . $reg_os["id_cod_coord"] . "', 'coorddvm');");
+		$resposta->addScript("seleciona_combo('" . $reg_os["id_cod_coord"] . "', 'coord');");
 		
 		$resposta->addScript("seleciona_combo('" . $reg_os["id_coord_aux"] . "','coordaux');");
-		
-		$resposta->addScript("document.getElementById('btninserir').disabled=false;");
 
-		$resposta->addEvent("btnvoltar", "onclick", "xajax_voltar();");	
+		$resposta->addAssign("datainicio","value",mysql_php($reg_os["data_inicio"]));
+
+		$resposta->addAssign("datafim","value",mysql_php($reg_os["data_fim"]));
+		
+		//$resposta->addScript("document.getElementById('btninserir').disabled=false;");
+
+		$resposta->addAssign("btninserir", "value", "Atualizar");
+	
+		$resposta->addEvent("btninserir", "onclick", "xajax_atualizar(xajax.getFormValues('frm'));");
+		
+		$resposta->addEvent("btnvoltar", "onclick", "xajax_voltar('');");
 	}
 	else
 	{
@@ -207,7 +285,7 @@ function atualizar($dados_form)
 	
 		$resposta->addScript("xajax_voltar();");
 		
-		$resposta->addAlert("OS atualizada com sucesso.");
+		$resposta->addAlert("Ordem Serviço atualizada com sucesso.");
 	}
 
 	return $resposta;
@@ -222,7 +300,7 @@ function preencheCombo($id, $nomecombo, $controle='', $selecionado='' )
 	switch ($nomecombo)
 	{
 		case "DISCIPLINA":
-			$sql = "SELECT * FROM ".DATABASE.".atividades ";
+			$sql = "SELECT id_atividade, descricao FROM ".DATABASE.".atividades ";
 			$sql .= "WHERE atividades.cod = '" . $id . "' ";
 			$sql .= "ORDER BY atividades.descricao ";
 				 
@@ -230,7 +308,7 @@ function preencheCombo($id, $nomecombo, $controle='', $selecionado='' )
 			
 			if ($db->erro != '')
 			{
-				$resposta->addAlert("Não foi possível selecionar as atividades!");
+				$resposta->addAlert("Não foi possível selecionar as atividades! " .$sql);
 			}
 			
 			$resposta->addScript("combo_destino = document.getElementById('id_atividade');");
@@ -245,8 +323,8 @@ function preencheCombo($id, $nomecombo, $controle='', $selecionado='' )
 		break;
 		
 		case "CONTATO":
-			$sql = "SELECT * FROM ".DATABASE.".contatos ";
-			$sql .= "WHERE contatos.id_empresa_erp = '" . $id . "' ";
+			$sql = "SELECT id_contato, nome_contato FROM ".DATABASE.".contatos ";
+			$sql .= "WHERE contatos.id_empresa = '" . $id . "' ";
 			$sql .= "ORDER BY contatos.nome_contato ";
 				
 			$db->select($sql,'MYSQL',true);
@@ -269,9 +347,38 @@ function preencheCombo($id, $nomecombo, $controle='', $selecionado='' )
 	return $resposta;
 }
 
+function excluir($id, $empresa)
+{
+	$resposta = new xajaxResponse();
+			
+	$db = new banco_dados();
+	
+	$usql = "UPDATE ".DATABASE.".ordem_servico SET ";
+	$usql .= "reg_del = 1, ";
+	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
+	$usql .= "data_del = '".date('Y-m-d')."' ";
+	$usql .= "WHERE ordem_servico.id_os = '".$id."' ";
+	$usql .= "AND reg_del = 0 ";
+	
+	$db->update($usql,'MYSQL');
+	
+	if ($db->erro != '')
+	{
+		$resposta->addAlert("Erro ".$sql);
+	}
+
+	$resposta->addScript("xajax_atualizatabela('', '1');");
+	
+	$resposta->addAlert("Ordem de Serviço excluido com sucesso.");
+	
+	return $resposta;
+}
+
 $xajax->registerFunction("voltar");
+$xajax->registerFunction("insere");
 $xajax->registerFunction("editar");
 $xajax->registerFunction("atualizar");
+$xajax->registerFunction("excluir");
 $xajax->registerFunction("atualizatabela");
 $xajax->registerFunction("preencheCombo");
 
@@ -281,47 +388,13 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('','1');");
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-function grid(tabela, autoh, height, xml)
-{
-	mygrid = new dhtmlXGridObject(tabela);
-
-	mygrid.enableAutoHeight(autoh,height);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	mygrid.setHeader("OS,OS&nbsp;Cliente,Cliente,Descrição,Coordenador,status");
-	mygrid.setInitWidths("50,100,*,*,*,100");
-	mygrid.setColAlign("center,center,left,left,left,left");
-	mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
-	mygrid.setColSorting("str,str,str,str,str,str");
-
-	mygrid.attachEvent("onRowSelect",'xajax_editar');
-	
-	mygrid.setSkin("dhx_skyblue");
-    mygrid.enableMultiselect(true);
-    mygrid.enableCollSpan(true);	
-	mygrid.init();
-	mygrid.loadXMLString(xml);
-}
-
-</script>
-
-<?php
-
 $conf = new configs();
 
 $array_cliente_values = NULL;
 $array_cliente_output = NULL;
 
-$array_coorddvm_values = NULL;
-$array_coorddvm_output = NULL;
+$array_coord_values = NULL;
+$array_coord_output = NULL;
 
 $array_status_values = NULL;
 $array_status_output = NULL;
@@ -335,7 +408,7 @@ $array_os_raiz_output = NULL;
 $array_cliente_values[] = "0";
 $array_cliente_output[] = "SELECIONE";
 	  
-$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql = "SELECT id_empresa, empresa, descricao, unidade  FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND empresas.status = 'CLIENTE' ";
 $sql .= "ORDER BY empresa ";
@@ -349,17 +422,17 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-	$array_cliente_values[] = $regs["id_empresa_erp"];
+	$array_cliente_values[] = $regs["id_empresa"];
 	$array_cliente_output[] = $regs["empresa"] . " - " . $regs["descricao"] . " - " . $regs["unidade"];
 }
 
-$array_coorddvm_values[] = "0";
-$array_coorddvm_output[] = "SELECIONE";
+$array_coord_values[] = "0";
+$array_coord_output[] = "SELECIONE";
 
 $array_coordca_values[] = "0";
 $array_coordca_output[] = "SELECIONE";
 
-$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+$sql = "SELECT id_funcionario, funcionario  FROM ".DATABASE.".funcionarios ";
 $sql .= "WHERE (funcionarios.nivel_atuacao = 'C' ";
 $sql .= "OR funcionarios.nivel_atuacao = 'CA' ";
 $sql .= "OR funcionarios.nivel_atuacao = 'D' ";
@@ -377,14 +450,14 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-		$array_coorddvm_values[] = $regs["id_funcionario"];
-		$array_coorddvm_output[] = $regs["funcionario"];
+		$array_coord_values[] = $regs["id_funcionario"];
+		$array_coord_output[] = $regs["funcionario"];
 		
 		$array_coordca_values[] = $regs["id_funcionario"];
 		$array_coordca_output[] = $regs["funcionario"];
 }
 
-$sql = "SELECT * FROM ".DATABASE.".ordem_servico_status ";
+$sql = "SELECT id_os_status, os_status FROM ".DATABASE.".ordem_servico_status ";
 
 /*
  * 13/05/2015
@@ -414,8 +487,8 @@ $smarty->assign("campo",$conf->campos('os'));
 
 $smarty->assign("option_cliente_values",$array_cliente_values);
 $smarty->assign("option_cliente_output",$array_cliente_output);
-$smarty->assign("option_coorddvm_values",$array_coorddvm_values);
-$smarty->assign("option_coorddvm_output",$array_coorddvm_output);
+$smarty->assign("option_coord_values",$array_coord_values);
+$smarty->assign("option_coord_output",$array_coord_output);
 $smarty->assign("option_coordca_values",$array_coordca_values);
 $smarty->assign("option_coordca_output",$array_coordca_output);
 $smarty->assign("option_status_values",$array_status_values);
@@ -425,5 +498,38 @@ $smarty->assign("nome_formulario","OS");
 
 $smarty->assign("classe",CSS_FILE);
 
+$smarty->assign("larguraTotal",1);
+
 $smarty->display('os.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script language="javascript">
+
+function grid(tabela, autoh, height, xml)
+{
+	mygrid = new dhtmlXGridObject(tabela);
+
+	mygrid.enableAutoHeight(autoh,height);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	mygrid.setHeader("OS,OS Cliente,Cliente,Descrição,Coordenador,status");
+	mygrid.setInitWidths("50,100,*,*,*,100");
+	mygrid.setColAlign("center,center,left,left,left,left");
+	mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
+	mygrid.setColSorting("str,str,str,str,str,str");
+
+	mygrid.attachEvent("onRowSelect",'xajax_editar');
+	
+	mygrid.setSkin("dhx_skyblue");
+    mygrid.enableMultiselect(true);
+    mygrid.enableCollSpan(true);	
+	mygrid.init();
+	mygrid.loadXMLString(xml);
+}
+
+</script>

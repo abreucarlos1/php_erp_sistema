@@ -1,6 +1,6 @@
 <?php
 /*
-		Formul�rio de Cadastro de Curr�culos	
+		Formulário de Cadastro de Currículos	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
@@ -8,11 +8,11 @@
 		../rh/cadastra_curriculo.php
 		
 		Versão 0 --> VERSÃO INICIAL : 01/06/2005
-		Versão 1 --> OTIMIZA��O DE C�DIGO / SIMPLIFICA��O NO PREENCHIMENTO
-		Versão 2 --> OTIMIZA��O DE C�DIGO / MUDAN�A LAY-OUT : 15/02/2007
+		Versão 1 --> OTIMIZAÇÃO DE CÓDIGO / SIMPLIFICAÇÃO NO PREENCHIMENTO
+		Versão 2 --> OTIMIZAÇÃO DE CÓDIGO / MUDANÇA LAY-OUT : 15/02/2007
 		Versão 3 --> Atualização Lay-out / smarty : 20/10/2008
 		Versão 4 --> Atualização banco de dados - 23/01/2015 - Carlos Abreu
-		Versão 5 --> Retorno para produ��o - 30/01/2017 - Carlos Abreu
+		Versão 5 --> Retorno para produção - 30/01/2017 - Carlos Abreu
 		Versão 6 --> Atualização layout - Carlos Abreu - 04/04/2017
 		Versão 7 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu		
 */
@@ -23,7 +23,7 @@ require_once(INCLUDE_DIR."include_form.inc.php");
 
 require_once(INCLUDE_DIR."encryption.php");
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(84))
 {
@@ -49,7 +49,7 @@ function insere($dados_form)
 	
 	$resposta = new xajaxResponse();
 
-	//Padr�o: sem arquivo para enviar.
+	//Padrão: sem arquivo para enviar.
 	$envio = 0;	
 	
 	if($dados_form["nome"]=="")
@@ -80,7 +80,7 @@ function insere($dados_form)
 				{
 					if($dados_form["funcao"]=="")
 					{
-						$resposta -> addAlert("O campo fun��o deve ser escolhido.");
+						$resposta -> addAlert("O campo função deve ser escolhido.");
 						$resposta -> addScript('document.getElementsByName("funcao")[0].focus();');
 						
 					}
@@ -88,7 +88,7 @@ function insere($dados_form)
 					{
 						if($_FILES["curriculo"]["name"]!="")
 						{
-							//Faz upload do arquivo do curr�culo (*.doc, *.txt ou *.rtf) e atualiza o campo LinkDoc, caso tenha sido selecionado.
+							//Faz upload do arquivo do currículo (*.doc, *.txt ou *.rtf) e atualiza o campo LinkDoc, caso tenha sido selecionado.
 							$chars = array("'","\"",")","(","\\","/");
 							
 							$tmp_arq = explode(".",$_FILES["curriculo"]["name"]);
@@ -103,19 +103,17 @@ function insere($dados_form)
 							//if($curriculo_type=="application/msword" || $curriculo_type=="text/plain" || $curriculo_type=="text/richtext" || $curriculo_type=="application/pdf")
 							if($ext =="docx" || $ext=="doc" || $ext=="txt" || $ext=="rtf" || $ext=="pdf")
 							{
-								//Arquivo v�lido 
+								//Arquivo válido 
 								$envio = 1;
 							
 							}
 							else
 							{
-								//Arquivo inv�lido
+								//Arquivo inválido
 								$envio = 2;
-								//echo "<font color='red' face='arial' size=1><b>O tipo de arquivo do curr�culo anexado n�o � permitido. S�o permitidos apenas arquivos de tipo .doc (Word) .txt (Texto puro) .rtf (Rich Text) e .pdf (Adobe Acrobat).</b></font>";
-								$resposta -> AddAlert("O tipo de arquivo do curr�culo anexado n�o � permitido");
-							}	
-							
-							
+								//echo "<font color='red' face='arial' size=1><b>O tipo de arquivo do currículo anexado não é permitido. São permitidos apenas arquivos de tipo .doc (Word) .txt (Texto puro) .rtf (Rich Text) e .pdf (Adobe Acrobat).</b></font>";
+								$resposta -> AddAlert("O tipo de arquivo do currículo anexado não é permitido");
+							}							
 						}
 						
 						if($envio==0 || $envio==1)						
@@ -124,10 +122,10 @@ function insere($dados_form)
 							
 							$senha = $enc->encrypt($num);
 													
-							$sql = "SELECT * FROM Curriculo.CONTA ";
-							$sql .= "LEFT JOIN Curriculo.DADOS ON (DADOS.UID = CONTA.UID AND DADOS.reg_del = 0) ";
-							$sql .= "WHERE EMAIL = '" . $dados_form["email"] . "' ";
-							$sql .= "AND CONTA.reg_del = 0 ";
+							$sql = "SELECT * FROM ".DATABASE.".curriculos_conta ";
+							$sql .= "LEFT JOIN ".DATABASE.".curriculos_dados ON (curriculos_dados.uid = curriculos_conta.uid AND curriculos_dados.reg_del = 0) ";
+							$sql .= "WHERE email = '" . $dados_form["email"] . "' ";
+							$sql .= "AND curriculos_conta.reg_del = 0 ";
 					
 							$db->select($sql,'MYSQL', true);
 							
@@ -135,11 +133,11 @@ function insere($dados_form)
 							{
 								$user1 = $db->array_select[0];
 								
-								$pass = $enc->decrypt($user1["SENHA_CRIPT"]);
+								$pass = $enc->decrypt($user1["senha_cript"]);
 								
 								if($curriculo_temp != "")
 								{
-									move_uploaded_file($_FILES["curriculo"]["tmp_name"],'curriculos/'.minusculas(tiraacentos(str_replace($chars,"",$dados_form["nome"]))). $user1["UID"] . "." . $ext);								
+									move_uploaded_file($_FILES["curriculo"]["tmp_name"],'curriculos/'.minusculas(tiraacentos(str_replace($chars,"",$dados_form["nome"]))). $user1["uid"] . "." . $ext);								
 								}
 						
 								if($envio==0)
@@ -148,53 +146,61 @@ function insere($dados_form)
 								}
 								else
 								{
-									$nome_arquivo_upload = "../rh/curriculos/" . tiraacentos(minusculas(str_replace($chars,"",$dados_form["nome"]))) . $user1["UID"] . "." . $ext;
+									$nome_arquivo_upload = "../rh/curriculos/" . tiraacentos(minusculas(str_replace($chars,"",$dados_form["nome"]))) . $user1["uid"] . "." . $ext;
 								}
 								
-								$usql = "UPDATE Curriculo.DADOS SET ";
+								$usql = "UPDATE ".DATABASE.".curriculos_dados SET ";
 								$usql .= "id_status = '".$dados_form["status"]."', ";
-								$usql .= "ATUALIZADO = '2', ";
+								$usql .= "atualizado = '2', ";
 								$usql .= "entrevistado = '".$dados_form["entrevistado"]."', ";
-								$usql .= "LinkDoc = '" . $nome_arquivo_upload . "' ";
-								$usql .= "WHERE DADOS.UID = '".$user1["UID"]."' ";
+								$usql .= "linkdoc = '" . $nome_arquivo_upload . "' ";
+								$usql .= "WHERE uid = '".$user1["uid"]."' ";
 								
 								$db->update($usql,'MYSQL');
 								
 								if($dados_form["email"]!="")
 								{
 								
-									$mensagem = "Foi detectado que seu curr�culo est� cadastrado em nosso site, e seus dados para acesso s�o:<br><br>\n\n";
-									$mensagem .= "Login: " . $dados_form["email"] . "<br>\n";
+									$mensagem = "Foi detectado que seu currículo está cadastrado em nosso site, e seus dados para acesso são:<br><br>\n\n";
+									$mensagem .= "login: " . $dados_form["email"] . "<br>\n";
 									$mensagem .= "Senha: " . $pass . "<br><br>\n\n";
 									$mensagem .= "Recursos Humanos  solicita que seus dados sejam atualizados.<br><br><br><br><br>\n\n\n\n\n";
-									$mensagem .= "Acesse nosso site atrav�s do http://www.devemada.com.br/conosco.php <br><br><br>\n\n\n";
+									$mensagem .= "Acesse nosso site através do http://www.empresa.com.br/conosco.php <br><br><br>\n\n\n";
 									$mensagem .= "Aguardamos a Atualização de seu cadastro.<br><br><br><br><br>\n\n\n\n\n";
 									$mensagem .= "E-mail enviado em ". date("d/m/Y") . " as " . date("H:i") . " <br>\n";
-									$mensagem .= "Este e-mail � enviado automaticamente, favor n�o responde-lo.<br>\n";
+									$mensagem .= "Este e-mail é enviado automaticamente, favor não responde-lo.<br>\n";
 									
-									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
-									$params['from_name']= "DEVEMADA ENGENHARIA";
-									$params['subject'] 	= "Atualização de curr�culo";
-									
-									$params['emails']['to'][] = array('email' => $dados_form["email"], 'nome' => $user1["DAD_NOME"]);
-							
-									$mail = new email($params);
-									$mail->montaCorpoEmail($mensagem);
-									
-									if(!$mail->Send())
+									if(ENVIA_EMAIL)
 									{
-										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+										$params 			= array();
+										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from_name']= NOME_EMPRESA;
+										$params['subject'] 	= "Atualização de currículo";
+										
+										$params['emails']['to'][] = array('email' => $dados_form["email"], 'nome' => $user1["dad_nome"]);
+								
+										$mail = new email($params);
+										$mail->montaCorpoEmail($mensagem);
+										
+										if(!$mail->Send())
+										{
+											$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+										}
+									}
+									else 
+									{
+										$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 1);
 									}
 									
-									$resposta->addAlert('E-mail j� cadastrado em nosso banco de dados.');
+									$resposta->addAlert('E-mail já cadastrado em nosso banco de dados.');
 								}
 							
 							}				
 							else
 							{								
-								//Inclui a conta do Usu�rio no banco de dados.
-								$isql = "INSERT INTO Curriculo.CONTA (EMAIL, SENHA_CRIPT) VALUES (";
+								//Inclui a conta do Usuário no banco de dados.
+								$isql = "INSERT INTO ".DATABASE.".curriculos_conta (email, senha_cript) VALUES (";
 								$isql .= "'" . minusculas(tiraacentos($dados_form["email"])) . "', ";
 								$isql .= "'" . $senha . "') ";
 								
@@ -216,8 +222,8 @@ function insere($dados_form)
 									$nome_arquivo_upload = "../rh/curriculos/" . tiraacentos(minusculas(str_replace($chars,"",$dados_form["nome"]))) . $user_id . "." . $ext;
 								}								
 								
-								//Inclui os dados do Usu�rio no banco de dados.
-								$isql = "INSERT INTO Curriculo.DADOS (UID, DAD_NOME, DAD_CID, DAD_EST, id_status, ATUALIZADO, data_atualizacao, entrevistado, LinkDoc) VALUES (";
+								//Inclui os dados do Usuário no banco de dados.
+								$isql = "INSERT INTO ".DATABASE.".curriculos_dados (uid, dad_nome, dad_cid, dad_est, id_status, atualizado, data_atualizacao, entrevistado, linkdoc) VALUES (";
 								$isql .= "'" . $user_id . "', ";
 								$isql .= "'" . ucwords(addslashes(trim($dados_form["nome"]))) . "', ";
 								$isql .= "'" . $dados_form["cidade"] . "', ";
@@ -230,14 +236,14 @@ function insere($dados_form)
 								
 								$db->insert($isql,'MYSQL');
 								
-								$isql = "INSERT INTO Curriculo.OBJETIVO (UID, id_area, id_cargo) VALUES(";
+								$isql = "INSERT INTO ".DATABASE.".curriculos_objetivos (uid, id_area, id_cargo) VALUES(";
 								$isql .= "'" . $user_id . "', ";
 								$isql .= "'" . $dados_form["modalidade"] . "', ";
 								$isql .= "'" . $dados_form["funcao"] . "') ";
 								
 								$db->insert($isql,'MYSQL');
 					
-								$isql = "INSERT INTO Curriculo.FORMACAO (UID, FOR_AUTOCAD, FOR_PDS, FOR_PDMS, FOR_MICRO, FOR_NR10) VALUES(";
+								$isql = "INSERT INTO ".DATABASE.".curriculos_formacao (uid, for_autocad, for_pds, for_pdms, for_micro, for_nr10) VALUES(";
 								$isql .= "'" . $user_id . "', ";
 								$isql .= "'" . $dados_form["autocad"] . "', ";
 								$isql .= "'" . $dados_form["pds"] . "', ";
@@ -249,32 +255,41 @@ function insere($dados_form)
 								
 								if($dados_form["email"]!="")
 								{
-									$mensagem = "A DEVEMADA ENGENHARIA cadastrou previamente seu curr�culo, e seus dados para acesso s�o:<br><br>\n\n";
-									$mensagem .= "Login: " . $dados_form["email"] . "<br>\n";
+									$mensagem = "A ".NOME_EMPRESA." cadastrou previamente seu currículo, e seus dados para acesso são:<br><br>\n\n";
+									$mensagem .= "login: " . $dados_form["email"] . "<br>\n";
 									$mensagem .= "Senha: " . $num . "<br><br>\n\n";
 									$mensagem .= "Recursos Humanos <br><br><br><br><br>\n\n\n\n\n";
-									$mensagem .= "Acesse nosso site atrav�s do http://www.devemada.com.br/conosco.php <br><br><br>\n\n\n";
+									$mensagem .= "Acesse nosso site através do http://www.empresa.com.br/conosco.php <br><br><br>\n\n\n";
 									$mensagem .= "Aguardamos seu cadastro.<br><br><br><br><br>\n\n\n\n\n";
 									$mensagem .= "E-mail enviado em ". date("d/m/Y") . " as " . date("H:i") . " <br>\n";
-									$mensagem .= "Este e-mail � enviado automaticamente, favor n�o responde-lo.<br>\n"; 
+									$mensagem .= "Este e-mail é enviado automaticamente, favor não responde-lo.<br>\n"; 
 									
-									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
-									$params['from_name']= "DEVEMADA ENGENHARIA";
-									$params['subject'] 	= 'Cadastro/Atualização de curr�culo';
-									
-									$params['emails']['to'][] = array('email' => $dados_form["email"], 'nome' => ucwords($dados_form["nome"]));
-							
-									$mail = new email($params);
-									$mail->montaCorpoEmail($mensagem);
-									
-									if(!$mail->Send())
+									if(ENVIA_EMAIL)
 									{
-										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+										$params 			= array();
+										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from_name']= NOME_EMPRESA;
+										$params['subject'] 	= 'Cadastro/Atualização de currículo';
+										
+										$params['emails']['to'][] = array('email' => $dados_form["email"], 'nome' => ucwords($dados_form["nome"]));
+								
+										$mail = new email($params);
+										
+										$mail->montaCorpoEmail($mensagem);
+										
+										if(!$mail->Send())
+										{
+											$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+										}
+									}
+									else 
+									{
+										$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 1);
 									}
 								}								
 								
-								$resposta -> AddAlert('Curr�culo cadastrado com sucesso!');
+								$resposta -> AddAlert('Currículo cadastrado com sucesso!');
 								
 								$resposta->addScript("xajax_voltar();");
 							}		
@@ -286,7 +301,7 @@ function insere($dados_form)
 			}
 			else
 			{
-				$resposta -> addAlert("Endere�o de e-mail inv�lido.");
+				$resposta -> addAlert("Endereço de e-mail inválido.");
 				
 				$resposta -> addScript('document.getElementsByName("email")[0].focus();');						
 			}						
@@ -389,7 +404,7 @@ foreach($db->array_select as $estado)
 	$array_estados_output[] = $estado["estado"];
 }
 
-$sql = "SELECT * FROM Curriculo.status ";
+$sql = "SELECT * FROM ".DATABASE.".curriculos_status ";
 
 $db->select($sql,'MYSQL',true);
 
@@ -413,7 +428,7 @@ $smarty->assign("option_status_output",$array_status_output);
 
 $smarty->assign("revisao_documento","V6");
 
-$smarty->assign("nome_formulario","CADASTRO DE CURR�CULOS");
+$smarty->assign("nome_formulario","CADASTRO DE CURRÍCULOS");
 
 $smarty->assign("classe",CSS_FILE);
 

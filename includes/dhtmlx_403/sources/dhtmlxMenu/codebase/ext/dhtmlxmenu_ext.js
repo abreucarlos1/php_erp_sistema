@@ -33,7 +33,7 @@ dhtmlXMenuObject.prototype._changeItemState = function(id, newState, levelType) 
 			
 			this._updateItemComplexState(this.idPrefix+id, this.itemPull[this.idPrefix+id]["complex"], false);
 			this._updateItemImage(id, levelType);
-			// if changeItemState attached to onClick event and changing applies to selected item all selection should be reparsed
+			// if changeItemState attached to onclick event and changing applies to selected item all selection should be reparsed
 			if ((this.idPrefix + this.conf.last_click == j) && (levelType != "TopLevel")) {
 				this._redistribSubLevelSelection(j, this.itemPull[j]["parent"]);
 			}
@@ -82,7 +82,7 @@ dhtmlXMenuObject.prototype.setItemText = function(id, text) {
 				if (tObj) {
 					tObj.parentNode.removeChild(tObj);
 					tObj = null;
-					this.idPull[id].childNodes[1].innerHTML = "&nbsp;";
+					this.idPull[id].childNodes[1].innerHTML = " ";
 				}
 			} else {
 				if (!tObj) {
@@ -283,8 +283,8 @@ dhtmlXMenuObject.prototype._checkboxOnClickHandler = function(id, type, casState
 	} else {
 		this.setCheckboxState(id, !state);
 	}
-	// call onClick if exists
-	if (this.checkEvent("onClick")) this.callEvent("onClick", [id]);
+	// call onclick if exists
+	if (this.checkEvent("onclick")) this.callEvent("onclick", [id]);
 };
 
 dhtmlXMenuObject.prototype.setCheckboxState = function(id, state) {
@@ -660,8 +660,8 @@ dhtmlXMenuObject.prototype._radioOnClickHandler = function(id, type, casState) {
 	} else {
 		this.setRadioChecked(group, id);
 	}
-	// call onClick if exists
-	if (this.checkEvent("onClick")) this.callEvent("onClick", [id]);
+	// call onclick if exists
+	if (this.checkEvent("onclick")) this.callEvent("onclick", [id]);
 };
 
 dhtmlXMenuObject.prototype.getRadioChecked = function(group) {

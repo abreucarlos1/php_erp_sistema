@@ -79,7 +79,7 @@ $db->select($sql, 'MYSQL',
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, $linha, iconv('ISO-8859-1', 'UTF-8',$reg['componentecodigo']));
 		
 		$descricao = empty($reg['descFamilia']) ? $reg['descricao'] : $reg['descFamilia'].', '.$reg['descricao'];
-		$obs = empty($reg['descFamilia']) ? 'N�O TEM FAMILIA CADASTRADA' : '';
+		$obs = empty($reg['descFamilia']) ? 'NÃO TEM FAMILIA CADASTRADA' : '';
 		
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, iconv('ISO-8859-1', 'UTF-8',$descricao));
 		$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, $linha, iconv('ISO-8859-1', 'UTF-8',$obs));
@@ -88,7 +88,7 @@ $db->select($sql, 'MYSQL',
 	}
 );
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=lista_materiais_espec_".date('Y_m_d_H_i_s').".xlsx");
 header('Cache-Control: max-age=0');

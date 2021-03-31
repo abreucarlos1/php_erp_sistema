@@ -16,20 +16,6 @@ require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
 require_once(INCLUDE_DIR."include_form.inc.php");
 
-$smarty = new Smarty;
-
-$smarty->left_delimiter = "<smarty>";
-
-$smarty->right_delimiter = "</smarty>";
-
-$smarty->template_dir = "templates";
-
-$smarty->compile_check = true;
-
-$smarty->force_compile = true;
-
-$db = new banco_dados;
-
 function voltar()
 {
 	$resposta = new xajaxResponse();
@@ -50,17 +36,17 @@ function atualizatabela()
 {
 	$resposta = new xajaxResponse();
 
-	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();
+	$xml = new XMLWriter();
 
-	$sql_vaga = "SELECT * FROM Curriculo.VAGAS ";
+	$db = new banco_dados;
+
+	$sql_vaga = "SELECT * FROM ".DATABASE.".curriculos_vagas ";
 	$sql_vaga .= "LEFT JOIN ".DATABASE.".setores ON (setores.id_setor = VAGAS.id_area) ";
 	$sql_vaga .= "LEFT JOIN ".DATABASE.".rh_funcoes ON (rh_funcoes.id_funcao = VAGAS.id_cargo) ";
 	$sql_vaga .= "LEFT JOIN ".DATABASE.".estados ON (estados.id_estado = VAGAS.id_estado) ";
 	$sql_vaga .= "LEFT JOIN ".DATABASE.".cidades ON (cidades.id_cidade = VAGAS.id_cidade) ";
 	
-	$reg_vaga = mysql_query($sql_vaga,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados".$sql_area);
+	$db->select($sql_vaga,'MYSQL',true);
 
 	$conteudo = "";
 	
@@ -68,25 +54,25 @@ function atualizatabela()
 	$header .= "<tr>";
 	$header .= "<td type=\"ro\">Inicio</td>";
 	$header .= "<td type=\"ro\">setor</td>";
-	$header .= "<td type=\"ro\">Fun��o</td>";
+	$header .= "<td type=\"ro\">Função</td>";
 	$header .= "<td type=\"ro\">cidade</td>";
 	$header .= "<td type=\"ro\">estado</td>";
-	$header .= "<td type=\"ro\">Descri��o</td>";
+	$header .= "<td type=\"ro\">Descrição</td>";
 	$header .= "<td width=\"30\" type=\"img\">D</td>";
 	$header .= "</tr>";
 	
 	$footer = "</table>";
 
-	while($cont_desp = mysql_fetch_array($reg_vaga))
+	foreach($db->array_select as $cont_desp)
 	{
 		$conteudo .= "<tr>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["vaga_inicio"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["setor"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["descricao"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["cidade"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["uf"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" onClick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["vaga_descricao"]."</td>";
-		$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onClick=\"javascript:if(apagar('". trim($cont_desp["area"])."')){xajax_excluir('".$cont_desp["id_vaga"]."','". trim($cont_desp["setor"])."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["vaga_inicio"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["setor"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["descricao"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["cidade"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["uf"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" onclick=\"xajax_editar('". $cont_desp["id_vaga"]."')\">".$cont_desp["vaga_descricao"]."</td>";
+		$conteudo .= "<td style=\"cursor:pointer;\" title=\"Apagar\" onclick=\"javascript:if(apagar('". trim($cont_desp["area"])."')){xajax_excluir('".$cont_desp["id_vaga"]."','". trim($cont_desp["setor"])."');}\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
 		$conteudo .= "</tr>";
 	}
 
@@ -94,8 +80,6 @@ function atualizatabela()
 	
 	$resposta->addScript("grid('');");
 	
-	$db->fecha_db();
-
 	return $resposta;
 }
 
@@ -104,15 +88,13 @@ function editar($id_vaga)
 	$resposta = new xajaxResponse();
 
 	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();	
 	
-	$sql_editar = "SELECT * FROM Curriculo.VAGAS ";
-	$sql_editar .= "WHERE VAGAS.id_vaga = '" . $id_vaga . "' ";	
+	$sql = "SELECT * FROM ".DATABASE.".curriculos_vagas ";
+	$sql .= "WHERE id_vaga = '" . $id_vaga . "' ";	
 
-	$cont_editar = mysql_query($sql_editar,$db->conexao) or $resposta->addAlert("Erro ao tentar selecionar os dados.");
+	$db->select($sql,'MYSQL',true);
 
-	$reg_editar = mysql_fetch_array($cont_editar);
+	$reg_editar = $db->array_select[0];
 	
 	$resposta->addScript("seleciona_combo('" . $reg_editar["id_area"] . "','vag_area'); ");
 	$resposta->addScript("seleciona_combo('" . $reg_editar["id_cargo"] . "','vag_cargo'); ");
@@ -120,7 +102,6 @@ function editar($id_vaga)
 	$resposta->addScript("seleciona_combo('" . $reg_editar["id_cidade"] . "','vag_cid'); ");
 
 	$resposta->addScript("xajax_preencheCombo('" . $reg_editar["id_estado"] . "','vag_cid','" . $reg_editar["id_cidade"] . "'); ");
-
 
 	$resposta->addAssign("vag_data","value",$reg_editar["vaga_inicio"]);
 	
@@ -133,8 +114,6 @@ function editar($id_vaga)
 	$resposta->addEvent("btninserir","onclick","xajax_atualizar(xajax.getFormValues('frm_vagas'))");
 	
 	$resposta->addEvent("btnvoltar","onclick","xajax_voltar()");
-	
-	$db->fecha_db();
 
 	return $resposta;
 }
@@ -144,27 +123,21 @@ function atualizar($dados_form)
 	$resposta = new xajaxResponse();
 
 	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();
 
-	$sql_atualizar = "UPDATE Curriculo.VAGAS SET ";
-	$sql_atualizar .= "id_area = '" . $dados_form["vag_area"] . "', ";
-	$sql_atualizar .= "id_cargo = '" . $dados_form["vag_cargo"] . "', ";
-	$sql_atualizar .= "id_estado = '" . $dados_form["vag_est"] . "', ";
-	$sql_atualizar .= "id_cidade = '" . $dados_form["vag_cid"] . "', ";
-	$sql_atualizar .= "vaga_inicio = '" . $dados_form["vag_data"] . "', ";	
-	$sql_atualizar .= "vaga_descricao = '" . $dados_form["vag_des"] . "') ";
-	
-	$sql_atualizar .= "WHERE VAGAS.id_vaga = '" . $dados_form["id_vaga"] . "' ";
+	$usql = "UPDATE ".DATABASE.".curriculos_vagas SET ";
+	$usql .= "id_area = '" . $dados_form["vag_area"] . "', ";
+	$usql .= "id_cargo = '" . $dados_form["vag_cargo"] . "', ";
+	$usql .= "id_estado = '" . $dados_form["vag_est"] . "', ";
+	$usql .= "id_cidade = '" . $dados_form["vag_cid"] . "', ";
+	$usql .= "vaga_inicio = '" . $dados_form["vag_data"] . "', ";	
+	$usql .= "vaga_descricao = '" . $dados_form["vag_des"] . "') ";	
+	$usql .= "WHERE VAGAS.id_vaga = '" . $dados_form["id_vaga"] . "' ";
 
-	$cont_atualizar = mysql_query($sql_atualizar,$db->conexao) or $resposta->addAlert("Erro ao tentar atualizar os dados.");
+	$db->update($usql,'MYSQL');
 
-	if($cont_atualizar)
-	{
-		$resposta->addAlert("Vaga atualizada com sucesso.");
-	}
+	$resposta->addAlert("Vaga atualizada com sucesso.");
 
-	$db->fecha_db();
+	$resposta->addScript("xajax_atualizatabela();");
 
 	return $resposta;
 }
@@ -174,8 +147,6 @@ function insere($dados_form)
 	$resposta = new xajaxResponse();
 	
 	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();
 	
 	$mail = new PHPMailer();
 	
@@ -185,73 +156,72 @@ function insere($dados_form)
 	{
 		//adicionado em 26/01/2007
 
-		$incsql = "INSERT INTO Curriculo.VAGAS ";
-		$incsql .= "(id_area, id_cargo, id_estado, id_cidade, vaga_inicio, vaga_descricao) ";
-		$incsql .= "VALUES ('" . $dados_form["vag_area"] . "', ";
-		$incsql .= "'" . $dados_form["vag_cargo"] . "', ";
-		$incsql .= "'" . $dados_form["vag_est"] . "', ";
-		$incsql .= "'" . $dados_form["vag_cid"] . "', ";
-		$incsql .= "'" . $dados_form["vag_data"] . "', ";
-		$incsql .= "'" . $dados_form["vag_des"] . "') ";
+		$isql = "INSERT INTO ".DATABASE.".curriculos_vagas ";
+		$isql .= "(id_area, id_cargo, id_estado, id_cidade, vaga_inicio, vaga_descricao) ";
+		$isql .= "VALUES ('" . $dados_form["vag_area"] . "', ";
+		$isql .= "'" . $dados_form["vag_cargo"] . "', ";
+		$isql .= "'" . $dados_form["vag_est"] . "', ";
+		$isql .= "'" . $dados_form["vag_cid"] . "', ";
+		$isql .= "'" . $dados_form["vag_data"] . "', ";
+		$isql .= "'" . $dados_form["vag_des"] . "') ";
+
 		//Carrega os registros
-		$registros = mysql_query($incsql,$db->conexao) or $resposta->addAlert("Não foi possível a inserção dos dados".$incsql);
+		$db->insert($isql,'MYSQL');
 		
-		$vaga = mysql_insert_id($db->conexao);
+		$vaga = $db->insert_id;
 		
-		$sql_vaga = "SELECT * FROM Curriculo.VAGAS ";
+		$sql_vaga = "SELECT * FROM ".DATABASE.".curriculos_vagas ";
 		$sql_vaga .= "LEFT JOIN ".DATABASE.".setores ON (setores.id_setor = VAGAS.id_area) ";
 		$sql_vaga .= "LEFT JOIN ".DATABASE.".rh_funcoes ON (rh_funcoes.id_funcao = VAGAS.id_cargo) ";
 		$sql_vaga .= "LEFT JOIN ".DATABASE.".estados ON (estados.id_estado = VAGAS.id_estado) ";
 		$sql_vaga .= "LEFT JOIN ".DATABASE.".cidades ON (cidades.id_cidade = VAGAS.id_cidade) ";
-		$sql_vaga .= "WHERE VAGAS.id_vaga = '".$vaga."' ";
+		$sql_vaga .= "WHERE curriculos_vagas.id_vaga = '".$vaga."' ";
 		
-		$reg_vaga = mysql_query($sql_vaga,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a sele��o dos dados".$sql_area);
+		$db->select($sql, 'MYSQL', true);
 		
-		$cont_vagas = mysql_fetch_array($reg_vaga);		
+		$cont_vagas = $db->array_select[0];		
 
-		$sql = "SELECT * FROM Curriculo.DADOS ";
-		$sql .= "LEFT JOIN Curriculo.CONTA ON (CONTA.UID = DADOS.UID) ";
-		$sql .= "LEFT JOIN Curriculo.OBJETIVO ON (DADOS.UID = OBJETIVO.UID) ";
+		$sql = "SELECT * FROM ".DATABASE.".curriculos_dados ";
+		$sql .= "LEFT JOIN ".DATABASE.".curriculos_conta ON (curriculos_conta.uid = curriculos_dados.uid) ";
+		$sql .= "LEFT JOIN ".DATABASE.".curriculos_objetivo ON (curriculos_dados.uid = curriculos_objetivo.uid) ";
 		$sql .= "WHERE EMAIL NOT LIKE '%@' ";
 		$sql .= "AND rec_notificacao = '1' ";
 		$sql .= "AND flag_funcionario = '0' ";
-		$sql .= "AND OBJETIVO.id_area = '".$dados_form["vag_area"]."' ";
-		$sql .= "AND OBJETIVO.id_cargo = '".$dados_form["vag_cargo"]."' ";
-		$sql .= "AND DADOS.data_atualizacao >= '2008-01-01' ";
-		$sql .= "ORDER BY DADOS.DAD_NOME ";
+		$sql .= "AND curriculos_objetivo.id_area = '".$dados_form["vag_area"]."' ";
+		$sql .= "AND curriculos_objetivo.id_cargo = '".$dados_form["vag_cargo"]."' ";
+		$sql .= "AND curriculos_dados.data_atualizacao >= '2008-01-01' ";
+		$sql .= "ORDER BY curriculos_dados.dad_nome ";
 		
-		$reg = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel a selecao dos dados".$sql);
+		$db->select($sql, 'MYSQL', true);
 		
-		$convites_enviados = mysql_num_rows($reg);
+		$convites_enviados = $db->numero_registros;
 		
-		while($cont = mysql_fetch_array($reg))
+		foreach($db->array_select as $cont)
 		{
-			$senha = $enc->decrypt($cont["SENHA_CRIPT"]);
+			$senha = $enc->decrypt($cont["senha_cript"]);
 			
 			$mensagem = "			
 			
-			Caro(a) ". $cont["DAD_NOME"]. " ,<br><br>
+			Caro(a) ". $cont["dad_nome"]. " ,<br><br>
 			
-			A EMPRESA em fase de expans�o, busca profissional para atuar em sua equipe.<br>
+			A ".NOME_EMPRESA." em fase de expansão, busca profissional para atuar em sua equipe.<br>
 			
-			Detectamos o seu perfil no banco de curr�culos cadastrado em nosso site para a seguinte oportunidade:<br><br>
+			Detectamos o seu perfil no banco de currículos cadastrado em nosso site para a seguinte oportunidade:<br><br>
 			
 			<b>Modalidade:</b> ". $cont_vagas["area"]."<br>
-			<b>Fun��o:</b> ". $cont_vagas["cargo"]."<br>
+			<b>Função:</b> ". $cont_vagas["cargo"]."<br>
 			<b>cidade:</b> ". $cont_vagas["cidade"]."<br>
 			<b>estado:</b> ". $cont_vagas["estado"].'/'.$cont_vagas["uf"]."<br>
 			<b>Inicio:</b> ". $cont_vagas["vaga_inicio"]."<br>
-			<b>Descri��o:</b> ". $cont_vagas["vaga_descricao"]."<br><br>
+			<b>Descrição:</b> ". $cont_vagas["vaga_descricao"]."<br><br>
 			
-			Caso voc� tenha interesse em participar do processo de sele��o, clique no link abaixo:<br>
+			Caso você tenha interesse em participar do processo de seleção, clique no link abaixo:<br>
 			
-			http://www.empresa.com.br/vagas_vali_ind.php?id_vaga=". $vaga. "&email=".$cont["EMAIL"]."<br><br> 
+			http://www.empresa.com.br/vagas_vali_ind.php?id_vaga=". $vaga. "&email=".$cont["email"]."<br><br>			
 			
+			Os seus dados de acesso são:<br> 
 			
-			
-			Os seus dados de acesso s�o:<br> 
-			
-			Login: ". $cont["EMAIL"] . "<br>
+			login: ". $cont["email"] . "<br>
 			
 			Senha: ". $senha . "<br><br>
 						
@@ -259,37 +229,41 @@ function insere($dados_form)
 			
 			http://www.empresa.com.br, no link TRABALHE CONOSCO.<br><br>
 			
-			Obrigado.<br><br><br>
+			Obrigado.<br><br><br>			
 			
+			Caso não queira mais receber as notificações de novas oportunidades, favor acessar o link abaixo:<br> 
 			
-			
-			Caso n�o queira mais receber as notifica��es de novas oportunidades, favor acessar o link abaixo:<br> 
-			
-			http://www.empresa.com.br/cancela_notificacao.php?id_vaga=". $vaga. "&email=".$cont["EMAIL"]."<br><br><br>
-			
-			
+			http://www.empresa.com.br/cancela_notificacao.php?id_vaga=". $vaga. "&email=".$cont["email"]."<br><br><br>			
 			
 			E-mail enviado em ". date('d/m/Y') . " as ".date('H:i')."<br>
 			</html>";
 			
-			$mail->From     = "recrutamento@dominio.com.br";
-			$mail->FromName = "EMPRESA - Notifica��o de oportunidade";
-			$mail->Host     = "smtp.devemada";
-			$mail->Mailer   = "smtp";
-			$mail->ContentType = "text/html";
-			
-			$mail->Subject = "Oportunidade de trabalho: ".$cont_vagas["area"]." - ".$cont_vagas["cargo"];
-			
-			$mail->Body = $mensagem;
-			
-			$mail->AddAddress(minusculas($cont["EMAIL"]), $cont["DAD_NOME"]);
-	
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+				$mail->From     = "recrutamento@dominio.com.br";
+				$mail->FromName = "EMPRESA - Notificação de oportunidade";
+				$mail->Host     = "smtp.dominio";
+				$mail->Mailer   = "smtp";
+				$mail->ContentType = "text/html";
+				
+				$mail->Subject = "Oportunidade de trabalho: ".$cont_vagas["area"]." - ".$cont_vagas["cargo"];
+				
+				$mail->Body = $mensagem;
+				
+				$mail->AddAddress(minusculas($cont["email"]), $cont["dad_nome"]);
+		
+				if(!$mail->Send())
+				{
+					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				}
+				
+				$mail->ClearAddresses();
 			}
-			
-			$mail->ClearAddresses();
+			else
+			{
+				$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 1);
+			}
 		
 		}
 		
@@ -298,24 +272,32 @@ function insere($dados_form)
 		
 		$texto .= "no perfil cadastrado.";
 		
-		$mail->From     = "recrutamento@dominio.com.br";
-		$mail->FromName = "EMPRESA - Notifica��o de oportunidade";
-		$mail->Host     = "smtp.dominio.com.br";
-		$mail->Mailer   = "smtp";
-		$mail->ContentType = "text/html";
-		
-		$mail->Subject = "Notifica��o do perfil de vaga";
-		
-		$mail->Body = $texto;
-		
-		$mail->AddAddress("recrutamento@dominio.com.br");
-
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+			$mail->From     = "recrutamento@dominio.com.br";
+			$mail->FromName = "EMPRESA - Notificação de oportunidade";
+			$mail->Host     = "smtp.dominio.com.br";
+			$mail->Mailer   = "smtp";
+			$mail->ContentType = "text/html";
+			
+			$mail->Subject = "Notificação do perfil de vaga";
+			
+			$mail->Body = $texto;
+			
+			$mail->AddAddress("recrutamento@dominio.com.br");
+
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+			
+			$mail->ClearAddresses();
 		}
-		
-		$mail->ClearAddresses();
+		else
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
+		}
 		
 			
 		//Zera o campo complemento
@@ -334,7 +316,7 @@ function insere($dados_form)
 		//Chama rotina para atualizar a tabela via AJAX
 		$resposta->addScript("xajax_atualizatabela();");
 	
-		//Avisa o usu�rio do sucesso no cadastro das horas.		
+		//Avisa o usuário do sucesso no cadastro das horas.		
 		$resposta->addAlert("Vaga cadastrada com sucesso.");
 	
 
@@ -352,9 +334,8 @@ function excluir($id, $what)
 	$resposta = new xajaxResponse();
 
 	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();			
 	
+	/*
 	$sql = "DELETE Curriculo.VAGAS, Curriculo.INDICACAO FROM Curriculo.VAGAS ";
 	$sql .= "LEFT JOIN Curriculo.INDICACAO ON (INDICACAO.id_vaga = VAGAS.id_vaga) ";
 	$sql .= "WHERE VAGAS.id_vaga = '".$id."' ";
@@ -367,6 +348,7 @@ function excluir($id, $what)
 	$resposta -> addAlert($what . " excluida com sucesso.");
 
 	$db->fecha_db();
+	*/
 
 	return $resposta;
 }
@@ -376,16 +358,14 @@ function preencheCombo($id, $controle='', $selecionado='' )
 	$resposta = new xajaxResponse();
 	
 	$db = new banco_dados;
-	$db->db = 'ti';
-	$db->conexao_db();
 
 	$sql = "SELECT * FROM ".DATABASE.".cidades ";
 	$sql .= "WHERE cidades.id_estado = '" . $id . "' ";
 	$sql .= "ORDER BY cidades.cidade ";
 		
-	$cont = mysql_query($sql,$db->conexao) or $resposta->addAlert("N�o foi poss�vel selecionar as cidades!");
+	$db->select($sql, 'MYSQL', true);
 
-	while($reg = mysql_fetch_array($cont))
+	foreach($db->array_select as $reg)
 	{
 		
 		$matriz[$reg["cidade"]] = $reg["id_cidade"];			
@@ -394,19 +374,10 @@ function preencheCombo($id, $controle='', $selecionado='' )
 	
 	$resposta->addNewOptions($controle, $matriz, $selecionado);
 	
-	$db->fecha_db();
-	
 	return $resposta;
 
 }
 
-//$xajax = new xajaxExtend;
-
-//$xajax->setCharEncoding("utf-8");
-
-//$xajax->decodeUTF8InputOn();
-
-//$xajax->registerPreFunction("checaSessao");
 $xajax->registerFunction("voltar");
 $xajax->registerFunction("insere");
 $xajax->registerFunction("excluir");
@@ -417,22 +388,15 @@ $xajax->registerFunction("preencheCombo");
 
 $xajax->processRequests();
 
-$smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'));
+$smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-$smarty->assign("body_onload","xajax_atualizatabela('',xajax.getFormValues('frm_vagas'));");
+$smarty->assign("body_onload","xajax_atualizatabela();");
 
 
 ?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<!-- Javascript para valida��o de dados -->
-<script type="text/javascript" src="../includes/validacao.js"></script>
-
-<script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
-<script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>		
-<script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
-<script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
-
-<script language="javascript">
+<script>
 
 function grid()
 {
@@ -447,7 +411,9 @@ function grid()
 
 </script>
 
-<?
+<?php
+
+$conf = new configs();
 
 $array_modalidade_values = NULL;
 $array_modalidade_output = NULL;
@@ -469,9 +435,9 @@ $array_estado_output[] = "SELECIONE";
 
 $sql = "SELECT * FROM ".DATABASE.".setores ORDER BY setor";
 
-$query_area = mysql_query($sql,$db->conexao);
+$db->select($sql, 'MYSQL', true);
 
-while($area = mysql_fetch_array($query_area))
+foreach($db->array_select as $area)
 {
 	$array_modalidade_values[] = $area["id_setor"];
 	$array_modalidade_output[] = $area["setor"];
@@ -481,9 +447,9 @@ while($area = mysql_fetch_array($query_area))
 $sql = "SELECT * FROM ".DATABASE.".rh_funcoes ";
 $sql .= "ORDER BY descricao ";
 
-$query_cargo = mysql_query($sql,$db->conexao );
+$db->select($sql, 'MYSQL', true);
 
-while($cargo = mysql_fetch_array($query_cargo)) 
+foreach($db->array_select as $cargo)
 {
 	$array_cargo_values[] = $cargo["id_funcao"];
 	$array_cargo_output[] = $cargo["descricao"];
@@ -491,9 +457,9 @@ while($cargo = mysql_fetch_array($query_cargo))
 
 $sql = "SELECT * FROM ".DATABASE.".estados ORDER BY uf ";
 
-$query_estado = mysql_query($sql,$db->conexao );
+$db->select($sql, 'MYSQL', true);
 
-while($estado = mysql_fetch_array($query_estado)) 
+foreach($db->array_select as $estado)
 {
 	$array_estado_values[] = $estado["id_estado"];
 	$array_estado_output[] = $estado["estado"];
@@ -509,11 +475,13 @@ $smarty->assign("option_cargo_output",$array_cargo_output);
 $smarty->assign("option_estado_values",$array_estado_values);
 $smarty->assign("option_estado_output",$array_estado_output);
 
-$smarty->assign("nome_formulario","CADASTRO DE VAGAS");
+$smarty->assign("cadastro_vagas","V3");
 
-$smarty->assign("classe","setor_adm");
+$smarty->assign("campo",$conf->campos('lostpass',$_COOKIE["idioma"]));
 
-$db->fecha_db();
+$smarty->assign("botao",$conf->botoes($_COOKIE["idioma"]));
+
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('vagas.tpl');
 

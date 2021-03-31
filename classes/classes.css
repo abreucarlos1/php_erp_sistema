@@ -52,6 +52,11 @@ body {
 	padding:0px;
 }
 
+.div_container{
+	width: auto;
+	padding: 20px;
+}
+
 
 .div_login {
 	border-radius:10px;

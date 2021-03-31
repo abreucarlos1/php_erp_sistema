@@ -3,10 +3,10 @@
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */
 define('FPDF_FONTPATH','../includes/font/');
@@ -24,31 +24,31 @@ function Header()
 //	$this->Image($this->Logotipocliente(),21,23,45,9);
 	
 	$this->SetFont('Arial','',6);
-	//Informa��es do Centro de Custo
-	$this->Cell(45,8,'',0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(45,8,'',0,0,'L',0); // CÉLULA LOGOTIPO 146
 	$this->SetFont('Arial','B',12);
-	$this->Cell(85,8,$this->Cliente(),1,1,'C',0); // C�LULA CLIENTE
+	$this->Cell(85,8,$this->Cliente(),1,1,'C',0); // CÉLULA CLIENTE
 	
 	$this->Image("../logotipos/logo_horizontal.jpg",150,17,45,8);
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO 
-	$this->HCell(85,5.5,"" ,1,1,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO 
+	$this->HCell(85,5.5,"" ,1,1,'C',0); // CÉLULA AREA / SUBSISTEMA
 
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(85,5.5,"ESPECIFICA��O PADR�O",1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(85,5.5,"ESPECIFICAÇÃO PADRÃO",1,0,'C',0); // CÉLULA COMPONENTE
 	
 	
 	$X = $this->GetX();
 	$this->Cell(45,5.5,'',1,0,'C',0);
 	$this->SetX($X);
 	$this->SetFont('Arial','',5);
-	$this->Cell(5,5.5,'N�: ',0,0,'L',0);
+	$this->Cell(5,5.5,'Nº: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(40,5.5,$this->Numdvm(),0,1,'C',0);
 
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 
 	$this->SetFont('Arial','B',10);
 	$this->HCell(85,5.5,$this->Titulo(),1,0,'C',0);
@@ -78,14 +78,14 @@ function Header()
 	$this->Cell(10,5.5,$this->PageNo().' / {nb}',0,1,'R',0);
 	
 	$this->SetFont('Arial','B',8);
-	$this->HCell(45,5.5,$this->unidade(),1,0,'C',0); // C�LULA LOGOTIPO
+	$this->HCell(45,5.5,$this->unidade(),1,0,'C',0); // CÉLULA LOGOTIPO
 	$this->HCell(85,5.5,$this->Titulo2(),1,0,'C',0);
 
 	$X = $this->GetX();
 	$this->Cell(45,5.5,'',1,0,'C',0);
 	$this->SetFont('Arial','',5);
 	$this->SetX($X);
-	$this->Cell(10,5.5,'N� CLIENTE: ',0,0,'L',0);
+	$this->Cell(10,5.5,'Nº CLIENTE: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(30,5.5,$this->Numcliente(),0,1,'C',0);	
 	
@@ -123,7 +123,7 @@ if($_POST["disciplina"]!='')
 	include("../includes/conectdb.inc");
 	$sql = "SELECT * FROM setores ";
 	$sql .= "WHERE id_setor = '".$_POST["disciplina"]."' ";
-	$registro = mysql_query($sql,$conexao) or die("Não foi poss&iacute;vel fazer a seleção.");
+	$registro = mysql_query($sql,$conexao) or die("Não foi possível fazer a seleção.");
 	$cont = mysql_fetch_array($registro);
 	$disciplina = $cont["setor"];
 	$abrdisc = $cont["abreviacao"];
@@ -192,23 +192,23 @@ $db = new banco_dados;
 include ("../includes/conectdb.inc");
 $sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM OS, empresas, unidade ";
 $sql1 .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
 $sql1 .= "AND empresas.id_unidade = unidades.id_unidade ";
-$registro1 = mysql_query($sql1,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql1);
+$registro1 = mysql_query($sql1,$conexao) or die("Não foi possível a seleção dos dados" . $sql1);
 $reg1 = mysql_fetch_array($registro1);
 
 include ("../includes/conectdbproj.inc");
 $sql = "SELECT * FROM area ";
 $sql .= "WHERE id_area = '" .$_POST["id_area"]. "' ";
-$registro = mysql_query($sql,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 
 //Seta o cabeçalho
 //$pdf->departamento="ENGENHARIA";
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->numeros_interno = $_POST["numeros_interno"];
@@ -226,7 +226,7 @@ $pdf->titulo2 = $reg1["osdesc"];
 */
 
 $pdf->emissao=date('d/m/Y');
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 $pdf->AddPage('p');
@@ -239,11 +239,11 @@ $pdf->Line(195,15,195,280); // LINHA DIREITA
 $pdf->SetLineWidth(0.2);
 
 
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(20,120);
 
 $pdf->SetFont('Arial','BU',20);
-$pdf->Cell(175,10,"ESPECIFICA��O PADR�O",0,1,'C',0);
+$pdf->Cell(175,10,"ESPECIFICAÇÃO PADRÃO",0,1,'C',0);
 $pdf->SetFont('Arial','BU',16);
 //$pdf->Cell(175,10,$disciplina,0,1,'C',0);
 $pdf->Ln(5);
@@ -255,21 +255,21 @@ $pdf->Ln(5);
 //$pdf->SetFont('Arial','BU',20);
 
 /*
-//REVIS�ES
+//REVISÕES
 $pdf->SetFont('Arial','B',8);
 
 $y = 240;
 
 $pdf->SetXY(25,$y);
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(50,4,'CONTROLE DE REVIS�ES',0,1,'L',0);
+$pdf->Cell(50,4,'CONTROLE DE REVISÕES',0,1,'L',0);
 $pdf->SetFont('Arial','',6);
 
 $pdf->Ln(1);
 
 $numregs = 4 - mysql_num_rows($reg_rev);
 
-//c�lulas em branco
+//células em branco
 for($a=0;$a<=$numregs;$a++)
 {
 	$y += 4;
@@ -287,17 +287,17 @@ while($revis = mysql_fetch_array($reg_rev))
 	include ("../includes/conectdb.inc");
 	$sql_exe = "SELECT abreviacao FROM Funcionarios ";
 	$sql_exe .= "WHERE id_funcionario = '".$revis["id_executante"]."' ";
-	$regexe = mysql_query($sql_exe,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe);
+	$regexe = mysql_query($sql_exe,$conexao) or die("Não foi possível a seleção dos dados" . $sql_exe);
 	$executante = $regexe["abreviacao"];
 	
 	$sql_ver = "SELECT abreviacao FROM Funcionarios ";
 	$sql_ver .= "WHERE id_funcionario = '".$revis["id_verificador"]."' ";
-	$regver = mysql_query($sql_ver,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+	$regver = mysql_query($sql_ver,$conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 	$verificador = $regver["abreviacao"];
 	
 	$sql_apr = "SELECT abreviacao FROM Funcionarios ";
 	$sql_apr .= "WHERE id_funcionario = '".$revis["id_aprovador"]."' ";
-	$regapr = mysql_query($sql_apr,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+	$regapr = mysql_query($sql_apr,$conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 	$aprovador = $regapr["abreviacao"];
 	
 	$y += 4;
@@ -316,19 +316,19 @@ while($revis = mysql_fetch_array($reg_rev))
 include ("../includes/conectdb.inc");
 $sql_exe0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_exe0 .= "WHERE id_funcionario = '".$revis0["id_executante"]."' ";
-$regexe0 = mysql_query($sql_exe0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_exe0);
+$regexe0 = mysql_query($sql_exe0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_exe0);
 $contexe = mysql_fetch_array($regexe0);
 $executante0 = $contexe["abreviacao"];
 
 $sql_ver0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_ver0 .= "WHERE id_funcionario = '".$revis0["id_verificador"]."' ";
-$regver0 = mysql_query($sql_ver0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_ver);
+$regver0 = mysql_query($sql_ver0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_ver);
 $contver = mysql_fetch_array($regver0);
 $verificador0 = $contver["abreviacao"];
 
 $sql_apr0 = "SELECT abreviacao FROM Funcionarios ";
 $sql_apr0 .= "WHERE id_funcionario = '".$revis0["id_aprovador"]."' ";
-$regapr0 = mysql_query($sql_apr0,$conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql_apr);
+$regapr0 = mysql_query($sql_apr0,$conexao) or die("Não foi possível a seleção dos dados" . $sql_apr);
 $contapr = mysql_fetch_array($regapr0);
 $aprovador0 = $contapr["abreviacao"];
 
@@ -347,13 +347,13 @@ $pdf->SetXY(25,$y+4);
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10,4,'REV.',1,0,'C',0);
-$pdf->Cell(70,4,'ALTERA��O',1,0,'C',0);
+$pdf->Cell(70,4,'ALTERAÇÃO',1,0,'C',0);
 $pdf->Cell(20,4,'DATA',1,0,'C',0);
 $pdf->Cell(20,4,'EXEC.',1,0,'C',0);
 $pdf->Cell(20,4,'VERIF.',1,0,'C',0);
 $pdf->Cell(20,4,'APROV.',1,0,'C',0);		
 
-//REVIS�ES
+//REVISÕES
 */
 
 $pdf->AddPage('p');
@@ -405,8 +405,8 @@ if($db->numero_registros>0)
 		$pdf->SetX(20);
 		$pdf->SetY(35);
 		$pdf->SetFont('Arial','',6);
-		$pdf->Cell(50,5,"",0,0,'L',0); // C�LULA LOGOTIPO
-		$pdf->Cell(95,5,"TAG: ".$reg["nr_area"]." ".$processo."".$malhas["dispositivo"]." ".$malhas["nr_malha"]." ".$malhas["funcao"],1,0,'C',0); // C�LULA COMPONENTE
+		$pdf->Cell(50,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
+		$pdf->Cell(95,5,"TAG: ".$reg["nr_area"]." ".$processo."".$malhas["dispositivo"]." ".$malhas["nr_malha"]." ".$malhas["funcao"],1,0,'C',0); // CÉLULA COMPONENTE
 		$pdf->SetX($posax);
 		$pdf->SetY($posay);
 		*/
@@ -427,7 +427,7 @@ if($db->numero_registros>0)
 			/*
 			$pdf->Cell(10,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(20,5,"1 - APLICA��O E DESCRI��O GERAL",0,1,'L',0);
+			$pdf->Cell(20,5,"1 - APLICAÇÃO E DESCRIÇÃO GERAL",0,1,'L',0);
 			$pdf->Ln(3);
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
@@ -439,7 +439,7 @@ if($db->numero_registros>0)
 		
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"SERVI�O",0,0,'L',0);
+			$pdf->Cell(35,5,"SERVIÇO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_servico"],0,1,'L',0);
 			
@@ -451,11 +451,11 @@ if($db->numero_registros>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"�REA DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(35,5,"ÁREA DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["nr_local"]." ".$reg["ds_area"] ,0,1,'L',0);
 			
-			if($malhas["setor"]=='EL�TRICA')
+			if($malhas["setor"]=='ELÉTRICA')
 			{
 				$sql = "SELECT * FROM Projetos.locais ";
 				$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -471,7 +471,7 @@ if($db->numero_registros>0)
 			}
 			else
 			{
-				if($malhas["setor"]=='MEC�NICA')
+				if($malhas["setor"]=='MECÂNICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -504,7 +504,7 @@ if($db->numero_registros>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"LOCAL DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(35,5,"LOCAL DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$tag ,0,1,'L',0);			
 			*/		
@@ -512,7 +512,7 @@ if($db->numero_registros>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"DESCRI��O",0,0,'L',0);
+			$pdf->Cell(35,5,"DESCRIÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_dispositivo"],0,1,'L',0);
 			
@@ -524,7 +524,7 @@ if($db->numero_registros>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"FUN��O",0,0,'L',0);
+			$pdf->Cell(35,5,"FUNÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_funcao"],0,1,'L',0);
 
@@ -533,7 +533,7 @@ if($db->numero_registros>0)
 			
 			$pdf->Cell(10,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(20,5,"2 - ESPECIFICA��O PADR�O" ,0,1,'L',0);
+			$pdf->Cell(20,5,"2 - ESPECIFICAÇÃO PADRÃO" ,0,1,'L',0);
 			$pdf->Ln(3);				
 			
 			$pdf->SetFont('Arial','',8);

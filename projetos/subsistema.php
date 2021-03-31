@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de Subsistemas	
+		Formulário de Subsistemas	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/subsistema.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016	
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016	
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }		
@@ -46,7 +46,7 @@ if ($_POST["acao"]=="editar")
 	<script>
 		alert('Subsistema atualizado com sucesso.');
 	</script>
-	<?
+	<?php
 	
 }
 
@@ -54,21 +54,21 @@ if ($_POST["acao"]=="editar")
 if ($_POST["acao"]=="salvar")
 {
 
-	//Cria senten�a de Inclusão no bd
-	$incsql = "INSERT INTO Projetos.subsistema ";
-	$incsql .= "(id_area, nr_subsistema, subsistema) VALUES (";
-	$incsql .= "'" . $_POST["id_area"] . "', ";
-	$incsql .= "'" . $_POST["nr_subsistema"] . "', ";
-	$incsql .= "'" . maiusculas($_POST["subsistema"]) . "') ";
+	//Cria sentença de Inclusão no bd
+	$isql = "INSERT INTO Projetos.subsistema ";
+	$isql .= "(id_area, nr_subsistema, subsistema) VALUES (";
+	$isql .= "'" . $_POST["id_area"] . "', ";
+	$isql .= "'" . $_POST["nr_subsistema"] . "', ";
+	$isql .= "'" . maiusculas($_POST["subsistema"]) . "') ";
 
 
-	$registros = $db->insert($incsql,'MYSQL');
+	$registros = $db->insert($isql,'MYSQL');
 
 	?>
 	<script>
 		alert('Subsistema inserido com sucesso.');
 	</script>
-	<?
+	<?php
 
 }
 
@@ -83,9 +83,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Subsistema exclu�do com sucesso.');
+		alert('Subsistema excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -94,11 +94,11 @@ if ($_GET["acao"] == "deletar")
 <title>: : . SUBSISTEMA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_subsistema, subsistema)
 {
@@ -119,7 +119,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -149,17 +149,17 @@ function abreimagem(pagina, imagem, wid, heig)
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -179,18 +179,18 @@ function abreimagem(pagina, imagem, wid, heig)
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="12%" class="label1">&Aacute;REA</td>
-                      <td width="0%">&nbsp;</td>
-                      <td width="12%" class="label1">N&ordm; SUBSISTEMA </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="12%" class="label1">ÁREA</td>
+                      <td width="0%"> </td>
+                      <td width="12%" class="label1">Nº SUBSISTEMA </td>
+                      <td width="1%"> </td>
                       <td width="75%" class="label1">SUBSISTEMA</td>
                     </tr>
                     <tr>
@@ -206,50 +206,50 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysqli_fetch_array($regarea))
 								{
 								  ?>
-                                  <option value="<?= $regs["id_area"] ?>" <? if($subsistema["id_area"]==$regs["id_area"]) { echo "selected"; } ?>>
+                                  <option value="<?= $regs["id_area"] ?>" <?php if($subsistema["id_area"]==$regs["id_area"]) { echo "selected"; } ?>>
                                     <?= $regs["nr_area"] . " - " . $regs["ds_projeto"] . " - " . $regs["ds_area"] ?> 
                                     </option>
-                                  <?
+                                  <?php
 								}
 							?>
                         </select>
                       </td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td>
                         <input name="nr_subsistema" type="text" class="txt_box" id="nr_subsistema" size="30" value="<?= $subsistema["nr_subsistema"] ?>">
                       </td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="subsistema" type="text" class="txt_box" id="subsitema" size="30" value="<?= $subsistema["subsistema"] ?>">
                       </font></td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_subsistema" type="hidden" id="id_subsistema" value="<?= $subsistema["id_subsistema"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Inserir4" type="button" class="btn" id="Inserir22" value="VOLTAR" onClick="javascript:location.href='<?= $PHP_SELF ?>'"></td>
+                    <input name="Inserir4" type="button" class="btn" id="Inserir22" value="VOLTAR" onclick="javascript:location.href='<?= $PHP_SELF ?>'"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 				
 			
 			 }
@@ -261,25 +261,25 @@ function abreimagem(pagina, imagem, wid, heig)
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="12%" class="label1">&Aacute;REA</td>
-                      <td width="0%">&nbsp;</td>
-                      <td width="12%" class="label1">N&ordm; SUBSISTEMA </td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="12%" class="label1">ÁREA</td>
+                      <td width="0%"> </td>
+                      <td width="12%" class="label1">Nº SUBSISTEMA </td>
+                      <td width="1%"> </td>
                       <td width="75%" class="label1">SUBSISTEMA</td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_area" class="txt_box" id="id_area" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 							//onChange="javascript:document.forms[0].nr_subsistema.focus()"
 						  	$sqlarea = "SELECT * FROM Projetos.area ";
 							$sqlarea .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ORDER BY ds_area";
@@ -289,45 +289,45 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysqli_fetch_array($regarea))
 								{
 									?>
-                          <option value="<?= $regs["id_area"] ?>"<? if($_POST["id_area"]==$regs["id_area"]) { echo "selected"; } ?>>
+                          <option value="<?= $regs["id_area"] ?>"<?php if($_POST["id_area"]==$regs["id_area"]) { echo "selected"; } ?>>
                             <?= $regs["nr_area"] . " - " . $regs["ds_projeto"] . " - " . $regs["ds_area"] ?>
                             </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_subsistema" type="text" class="txt_box" id="nr_subsistema" size="30" value="<?= $_POST["nr_subsistema"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="subsistema" type="text" class="txt_box" id="subsistema" size="30" value="<?= $_POST["subsistema"] ?>">
                       </font></td>
                     </tr>
                     <tr>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:location.href='menu_geral.php'">
-                    <input name="Inserir3" type="button" class="btn" id="Inserir3" value="MALHAS" onClick="javascript:location.href='malhas.php'">
+                    <input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:location.href='menu_geral.php'">
+                    <input name="Inserir3" type="button" class="btn" id="Inserir3" value="MALHAS" onclick="javascript:location.href='malhas.php'">
 					</td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td><span class="label1">regs:<font size="2" face="Arial, Helvetica, sans-serif">
-                  <?
+                  <?php
 							$sql = "SELECT * FROM Projetos.subsistema, Projetos.area ";
 							$sql .= "WHERE subsistema.id_area=area.id_area ";
 							$sql .= "AND area.id_os = '" . $_SESSION["id_os"] . "' ";
@@ -345,7 +345,7 @@ function abreimagem(pagina, imagem, wid, heig)
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -359,8 +359,8 @@ function abreimagem(pagina, imagem, wid, heig)
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_subsistema";
@@ -373,21 +373,21 @@ function abreimagem(pagina, imagem, wid, heig)
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="33%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_area','<?= $ordem ?>')">�REA</a></td>
-				  <td width="33%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_subsistema','<?= $ordem ?>')">N� SUBSISTEMA</a></td>
-				  <td width="55%"><a href="#" class="cabecalho_tabela" onClick="ordenar('subsistema','<?= $ordem ?>')">SUBSISTEMA</a></td>
+				  <td width="33%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_area','<?= $ordem ?>')">ÁREA</a></td>
+				  <td width="33%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_subsistema','<?= $ordem ?>')">Nº SUBSISTEMA</a></td>
+				  <td width="55%"><a href="#" class="cabecalho_tabela" onclick="ordenar('subsistema','<?= $ordem ?>')">SUBSISTEMA</a></td>
 				  <td width="7%"  class="cabecalho_tabela">E</td>
 				  <td width="2%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 					
 					$sql = "SELECT * FROM Projetos.subsistema, Projetos.area ";
 					$sql .= "WHERE subsistema.id_area=area.id_area ";
@@ -425,7 +425,7 @@ function abreimagem(pagina, imagem, wid, heig)
 					      <td width="5%"><div align="center"> <a href="javascript:editar('<?= $subsistema["id_subsistema"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="5%"><div align="center"> <a href="javascript:excluir('<?= $subsistema["id_subsistema"] ?>','<?= $subsistema["subsistema"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>

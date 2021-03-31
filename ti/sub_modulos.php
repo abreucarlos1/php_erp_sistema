@@ -243,7 +243,7 @@ function insere($dados_form)
 		
 			if (intval($permissao) == 0 && $dados_form['acesso_padrao'] == 1)
 			{
-				$resposta->addAlert('Por favor, preencha uma ou mais das op��es de permiss�o!');
+				$resposta->addAlert('Por favor, preencha uma ou mais das opções de permissão!');
 				return $resposta;
 			}
 			

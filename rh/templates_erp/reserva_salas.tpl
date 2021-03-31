@@ -45,10 +45,10 @@ vertical-align:text-top;
 		  <table border="0" width="100%">
 		    <tr>
 		      <td width="15%"><label class="labels"><smarty>$campo[4]</smarty></label><br />
-                <div id="inicial">&nbsp;</div>
+                <div id="inicial"> </div>
                 </td>
 		      <td width="85%"><label class="labels"><smarty>$campo[5]</smarty></label><br />
-				<div id="final">&nbsp;</div>
+				<div id="final"> </div>
                 </td>
 	        </tr>
 		    </table>
@@ -67,7 +67,7 @@ vertical-align:text-top;
       <table width="100%">
       <tr>
       <td>
-		<div id="my_tabbar" style="position: relative; width: 100%; height: 550px;">&nbsp;</div>
+		<div id="my_tabbar" style="position: relative; width: 100%; height: 550px;"> </div>
       </td>
       </tr>
       </table>

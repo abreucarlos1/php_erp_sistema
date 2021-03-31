@@ -108,12 +108,12 @@ function atualizatabela($filtro)
 				) func
 				ON idFunc = ci_id_funcionario
 				JOIN(
-					SELECT id_empresa_erp, empresa, descricao descEmp, unidade
-					FROM ".DATABASE.".empresas, ".DATABASE.".unidade
+					SELECT id_empresa, empresa, descricao descEmp, unidade
+					FROM ".DATABASE.".empresas, ".DATABASE.".unidades
 					WHERE empresas.id_unidade = unidades.id_unidade
 					AND empresas.status = 'CLIENTE' AND empresas.reg_del = 0
 				) cliente
-				ON id_empresa_erp = ci_id_cliente
+				ON id_empresa = ci_id_cliente
 			WHERE
 				chamados_integracao.reg_del = 0 ".$sql_filtro."
 			ORDER BY
@@ -140,7 +140,7 @@ function atualizatabela($filtro)
 		$xml->writeElement('cell', $cont_desp['cis_desc']);
 		
 		if(__ADMIN_CHAMADO__ && !in_array($cont_desp['cis_id'], array(5)))//5 - Chamado encerrado
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir("'.$cont_desp['ci_id'].'");}; >');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir("'.$cont_desp['ci_id'].'");}; >');
 		else
 			$xml->writeElement('cell', '');
 			
@@ -290,11 +290,11 @@ function atualizar($dados_form)
 				$corpo .= "<b>Solicitante:</b> ".$func['funcionario'].".<br />";
 		}
 		
-		$sql = "SELECT empresa, id_empresa_erp, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+		$sql = "SELECT empresa, id_empresa, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 		$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
-		$sql .= "AND id_empresa_erp = ".$dados_form['cliente'];
+		$sql .= "AND id_empresa = ".$dados_form['cliente'];
 		
 		$db->select($sql, 'MYSQL', true);
 		
@@ -315,10 +315,18 @@ function atualizar($dados_form)
 		$db->select($sql, 'MYSQL', true);
 		
 		$corpo .= "<b>status</b>: ".$db->array_select[0]['cis_desc'].'<br />';
+
+		if(ENVIA_EMAIL)
+		{
 		
-		$mail = new email($params, 'chamados_integracao_cliente');
-		$mail->montaCorpoEmail($corpo);
-		$mail->Send();
+			$mail = new email($params, 'chamados_integracao_cliente');
+			$mail->montaCorpoEmail($corpo);
+			$mail->Send();
+		
+		}
+		else {
+			$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+		}
 					
 		$resposta->addScript("xajax_atualizatabela('');");
 		$resposta->addScript("xajax_voltar();");
@@ -502,7 +510,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 $array_cliente_values[] = "0";
 $array_cliente_output[] = "SELECIONE";
 	  
-$sql = "SELECT empresa, id_empresa_erp, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql = "SELECT empresa, id_empresa, descricao, unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND unidades.reg_del = 0 ";
@@ -518,7 +526,7 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-	$array_cliente_values[] = $regs["id_empresa_erp"];
+	$array_cliente_values[] = $regs["id_empresa"];
 	$array_cliente_output[] = $regs["empresa"] . " - " . $regs["descricao"] . " - " . $regs["unidade"];
 }
 

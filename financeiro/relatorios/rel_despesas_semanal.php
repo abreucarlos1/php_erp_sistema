@@ -120,7 +120,7 @@ if($db->erro!='')
 
 $funcionarios = $db->array_select[0];
 
-//obtem as despesas cadastradas no or�amento
+//obtem as despesas cadastradas no orçamento
 /*	
 $sql = "SELECT AF2010.AF2_COMPOS, AF2010.AF2_DESCRI, AF2010.AF2_QUANT FROM AF1010, AF2010 ";
 $sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";

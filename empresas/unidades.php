@@ -67,7 +67,7 @@ function atualizatabela($filtro)
 
 	}
 	
-	$sql = "SELECT * FROM ".DATABASE.".unidade ";
+	$sql = "SELECT * FROM ".DATABASE.".unidades ";
 	$sql .= "WHERE unidades.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY descricao ";
@@ -113,7 +113,7 @@ function insere($dados_form)
 	
 	if($dados_form["abreviacao"]!='' || $dados_form["unidade"]!='')
 	{
-		$isql = "INSERT INTO ".DATABASE.".unidade ";
+		$isql = "INSERT INTO ".DATABASE.".unidades ";
 		$isql .= "(unidade, descricao) ";
 		$isql .= "VALUES ('" . maiusculas($dados_form["abreviacao"]) . "', ";
 		$isql .= "'" . maiusculas($dados_form["unidade"]) . "') ";
@@ -145,7 +145,7 @@ function editar($id)
 
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM ".DATABASE.".unidade  ";
+	$sql = "SELECT * FROM ".DATABASE.".unidades  ";
 	$sql .= "WHERE unidades.id_unidade = '".$id."' ";
 	$sql .= "AND unidades.reg_del = 0 ";
 	
@@ -181,7 +181,7 @@ function atualizar($dados_form)
 	
 	if($dados_form["abreviacao"]!='' || $dados_form["unidade"]!='')
 	{
-		$usql = "UPDATE ".DATABASE.".unidade SET ";
+		$usql = "UPDATE ".DATABASE.".unidades SET ";
 		$usql .= "unidade = '" . maiusculas($dados_form["abreviacao"]) . "', ";
 		$usql .= "descricao = '" . maiusculas($dados_form["unidade"]) . "' ";
 		$usql .= "WHERE id_unidade = '".$dados_form["id_unidade"]."' ";
@@ -232,7 +232,7 @@ function excluir($id)
 	else
 	{	
 
-		$usql = "UPDATE ".DATABASE.".unidade SET ";
+		$usql = "UPDATE ".DATABASE.".unidades SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";

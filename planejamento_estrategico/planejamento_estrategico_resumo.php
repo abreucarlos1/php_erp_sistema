@@ -74,7 +74,7 @@ if($_GET["liberado"]!="ok")
 
 	</form>
 
-<?
+<?php
 
 exit();
 
@@ -1626,7 +1626,7 @@ if (document.all)
 						alert('Você não possue acesso ao conteúdo.');
 						window.close();
 						</script>
-					<?
+					<?php
 					}
 					?>
 <div
@@ -1645,7 +1645,7 @@ align=center x:publishsource="Excel">
  <col width=87 style='mso-width-source:userset;mso-width-alt:3181;width:65pt'>
  <tr height=25 style='height:18.75pt'>
   <td height=25 class=xl7815980 width=355 style='height:18.75pt;width:266pt'><a
-  name="RANGE!A1:E87">MAPA ESTRAT�GICO / OBJETIVOS</a></td>
+  name="RANGE!A1:E87">MAPA ESTRATÉGICO / OBJETIVOS</a></td>
   <td class=xl7815980 width=324 style='border-left:none;width:243pt'>INDICADORES</td>
   <td class=xl7815980 width=85 style='border-left:none;width:64pt'>METAS</td>
   <td class=xl7815980 width=76 style='border-left:none;width:57pt'>PRAZO</td>
@@ -1655,18 +1655,18 @@ align=center x:publishsource="Excel">
  <tr height=25 style='height:18.75pt'>
   <td height=25 class=xl7915980 style='height:18.75pt;border-top:none'>Perspectiva
   Financeira</td>
-  <td class=xl8015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8115980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8215980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl8015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8115980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8215980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl8715980 style='height:12.75pt;border-top:none'>Objetivo
   Final</td>
-  <td class=xl9015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9515980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl9015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9515980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td rowspan=4 height=68 class=xl6815980 style='height:51.0pt;border-top:none'>F1:
@@ -1697,20 +1697,20 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl8715980 style='height:12.75pt;border-top:none'>Redução
   dos Custos</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl8915980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl9015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl9015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl7215980 style='height:12.75pt;border-top:none'>F2:
   Redução de 20% dos custos totais</td>
   <td class=xl7215980 style='border-top:none;border-left:none'>Vide F3 e F4</td>
   <td class=xl7115980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl7215980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl7215980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr class=xl6315980 height=51 style='mso-height-source:userset;height:38.25pt'>
   <td rowspan=2 height=102 class=xl6815980 style='height:76.5pt;border-top:
@@ -1740,7 +1740,7 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide F3b, I3</td>
   <td class=xl7115980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
+  width:64pt'> </td>
   <td class=xl9615980 width=76 style='border-top:none;border-left:none;
   width:57pt'>dez/09</td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
@@ -1751,11 +1751,11 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl9215980 style='height:12.75pt;border-top:none'>Aumento
   das Vendas</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl8915980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl9315980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl9315980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr class=xl6715980 height=51 style='mso-height-source:userset;height:38.25pt'>
   <td rowspan=3 height=102 class=xl6815980 style='height:76.5pt;border-top:
@@ -1793,21 +1793,21 @@ align=center x:publishsource="Excel">
   <td height=25 class=xl7915980 style='height:18.75pt;border-top:none'>Perspectiva
   do Cliente</td>
   <td class=xl8315980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl8415980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl8015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8215980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl8015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8215980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl9215980 style='height:12.75pt;border-top:none'>Atributos
   do serviço</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl8915980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl9015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl9015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl7315980 style='height:12.75pt;border-top:none'>C1:
@@ -1815,9 +1815,9 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I1</td>
   <td class=xl7115980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl7215980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl7215980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td rowspan=3 height=51 class=xl6815980 style='height:38.25pt;border-top:
@@ -1857,11 +1857,11 @@ align=center x:publishsource="Excel">
  <tr height=17 style='page-break-before:always;height:12.75pt'>
   <td height=17 class=xl9215980 style='height:12.75pt;border-top:none'>Relacionamento</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=34 style='mso-height-source:userset;height:25.5pt'>
   <td rowspan=6 height=119 class=xl11915980 width=355 style='border-bottom:
@@ -1873,19 +1873,19 @@ align=center x:publishsource="Excel">
   <td class=xl10515980 width=85 style='border-top:none;border-left:none;
   width:64pt'>dez/09</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>95%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=119 class=xl10515980 width=85 style='height:12.75pt;border-top:
   none;border-left:none;width:64pt'>jun/10</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>98%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=119 class=xl10215980 width=85 style='height:12.75pt;border-top:
   none;border-left:none;width:64pt'>em diante</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>99%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td rowspan=3 height=119 class=xl11915980 width=324 style='border-bottom:.5pt solid black;
@@ -1894,19 +1894,19 @@ align=center x:publishsource="Excel">
   <td class=xl10515980 width=85 style='border-top:none;border-left:none;
   width:64pt'>dez/09</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>90%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=119 class=xl10515980 width=85 style='height:12.75pt;border-top:
   none;border-left:none;width:64pt'>jun/10</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>93%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=119 class=xl10215980 width=85 style='height:12.75pt;border-top:
   none;border-left:none;width:64pt'>em diante</td>
   <td class=xl10615980 style='border-top:none;border-left:none'>95%</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=34 style='height:25.5pt'>
   <td height=34 class=xl7615980 width=355 style='height:25.5pt;border-top:none;
@@ -1915,18 +1915,18 @@ align=center x:publishsource="Excel">
   width:243pt'>Vide Projeto de Prospecção e fechamento de trabalhos com
   clientes novos</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl8715980 style='height:12.75pt;border-top:none'>Imagem</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=85 style='height:63.75pt'>
   <td height=85 class=xl7315980 style='height:63.75pt;border-top:none'>C6:
@@ -1965,21 +1965,21 @@ align=center x:publishsource="Excel">
   <td height=25 class=xl7915980 style='height:18.75pt;border-top:none'>Perspectiva
   Interna</td>
   <td class=xl8315980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10915980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8215980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8215980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Processos de Gestão Operacional</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=68 style='mso-height-source:userset;height:51.0pt'>
   <td rowspan=3 height=136 class=xl7015980 width=355 style='height:102.0pt;
@@ -2009,9 +2009,9 @@ align=center x:publishsource="Excel">
   <td height=34 class=xl7515980 width=355 style='height:25.5pt;border-top:none;
   width:266pt'>I2: Gestão de RH</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
+  width:64pt'> </td>
   <td class=xl10515980 width=76 style='border-top:none;border-left:none;
   width:57pt'>set/09</td>
   <td class=xl7615980 width=157 style='border-top:none;border-left:none;
@@ -2022,9 +2022,9 @@ align=center x:publishsource="Excel">
   .5pt solid black;height:89.25pt;border-top:none;width:266pt'>I3: Gestão de TI
   / Infra-estrutura</td>
   <td rowspan=2 class=xl13115980 style='border-bottom:.5pt solid black;
-  border-top:none'>&nbsp;</td>
+  border-top:none'> </td>
   <td rowspan=2 class=xl13315980 width=85 style='border-bottom:.5pt solid black;
-  border-top:none;width:64pt'>&nbsp;</td>
+  border-top:none;width:64pt'> </td>
   <td class=xl10515980 width=76 style='border-top:none;border-left:none;
   width:57pt'>dez/10</td>
   <td class=xl7615980 width=157 style='border-top:none;border-left:none;
@@ -2044,9 +2044,9 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I11, I12 e I13</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td rowspan=2 height=34 class=xl7015980 width=355 style='height:25.5pt;
@@ -2067,11 +2067,11 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Processos de Gestão de Clientes</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=51 style='height:38.25pt'>
   <td height=51 class=xl7615980 width=355 style='height:38.25pt;border-top:
@@ -2138,9 +2138,9 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide C6 e C7</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=51 style='height:38.25pt'>
   <td height=51 class=xl7515980 width=355 style='height:38.25pt;border-top:
@@ -2158,20 +2158,20 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Processos regulatórios e sociais</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl7515980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>I11: OHSAS 18.001</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   <td rowspan=3 class=xl11915980 width=157 style='border-bottom:.5pt solid black;
   border-top:none;width:118pt'>Implantação do sistema de gestão de normas
   técnicas</td>
@@ -2180,10 +2180,10 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl7515980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>I12: ISO 14.001</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl7515980 width=355 style='height:12.75pt;border-top:
@@ -2191,18 +2191,18 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I4</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=34 style='height:25.5pt'>
   <td height=34 class=xl7515980 width=355 style='height:25.5pt;border-top:none;
   width:266pt'>I14: Implementação e acompanhamento de plano de ações de
   responsabilidade social.</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
   width:118pt'>Projeto de ações de responsabilidade social</td>
   </tr>
@@ -2211,10 +2211,10 @@ align=center x:publishsource="Excel">
   none;width:266pt'>I15: Desenvolvimento dos projetos de formação de cultura de
   liderança e inovação.<span style='mso-spacerun:yes'></span></td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   <td class=xl10115980 width=157 style='width:118pt'>Projetos de formação de
   cultura de liderança e inovação.<span style='mso-spacerun:yes'></span></td>
   </tr>
@@ -2222,21 +2222,21 @@ align=center x:publishsource="Excel">
   <td height=25 class=xl7915980 style='height:18.75pt;border-top:none'>Perspectiva
   de Aprendizado e Crescimento</td>
   <td class=xl8315980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10915980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11015980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl8215980 style='border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11015980 style='border-top:none;border-left:none'> </td>
+  <td class=xl8215980 style='border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Capital Humano</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td rowspan=6 height=170 class=xl7015980 width=355 style='height:127.5pt;
@@ -2290,7 +2290,7 @@ align=center x:publishsource="Excel">
   border-top:none;width:266pt'>A2: Captação e retenção de mão-de-obra</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>A2a: Nº de vagas em aberto / total de funcionários trabalhando</td>
-  <td class=xl11815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl11815980 style='border-top:none;border-left:none'> </td>
   <td class=xl11515980 style='border-top:none;border-left:none'>dez/09</td>
   <td rowspan=4 class=xl7015980 width=157 style='border-top:none;width:118pt'>Projeto
   de Captação e Retenção de Mão de Obra</td>
@@ -2314,26 +2314,26 @@ align=center x:publishsource="Excel">
  <tr height=17 style='height:12.75pt'>
   <td height=102 class=xl7615980 width=324 style='height:12.75pt;border-top:
   none;border-left:none;width:243pt'>A2d: Índice de turn-over</td>
-  <td class=xl11815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  <td class=xl11815980 style='border-top:none;border-left:none'> </td>
   <td class=xl11515980 style='border-top:none;border-left:none'>dez/09</td>
   </tr>
  <tr height=17 style='page-break-before:always;height:12.75pt'>
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Capital da Informação</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=34 style='height:25.5pt'>
   <td rowspan=2 height=68 class=xl12515980 width=355 style='border-bottom:.5pt solid black;
   height:51.0pt;border-top:none;width:266pt'>A3: Implantação de softwares</td>
   <td rowspan=2 class=xl11915980 width=324 style='border-bottom:.5pt solid black;
-  border-top:none;width:243pt'>&nbsp;</td>
+  border-top:none;width:243pt'> </td>
   <td rowspan=2 class=xl12715980 style='border-bottom:.5pt solid black;
-  border-top:none'>&nbsp;</td>
+  border-top:none'> </td>
   <td rowspan=2 class=xl12915980 style='border-bottom:.5pt solid black;
   border-top:none'>dez/09</td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
@@ -2349,18 +2349,18 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I4</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=85 style='height:63.75pt'>
   <td height=85 class=xl7615980 width=355 style='height:63.75pt;border-top:
   none;width:266pt'>A5: Estruturação de base de dados</td>
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl11215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl11415980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl11415980 style='border-top:none;border-left:none'> </td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
   width:118pt'>Projeto de Adequação das bases de dados e políticas de
   tratamento da informação ( Ligado a ISO 27001)</td>
@@ -2369,11 +2369,11 @@ align=center x:publishsource="Excel">
   <td height=17 class=xl9415980 width=355 style='height:12.75pt;border-top:
   none;width:266pt'>Capital Organizacional</td>
   <td class=xl8815980 width=324 style='border-top:none;border-left:none;
-  width:243pt'>&nbsp;</td>
+  width:243pt'> </td>
   <td class=xl10315980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10415980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl9115980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10415980 style='border-top:none;border-left:none'> </td>
+  <td class=xl9115980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=56 style='mso-height-source:userset;height:42.0pt'>
   <td rowspan=4 height=203 class=xl12215980 width=355 style='border-bottom:
@@ -2399,17 +2399,17 @@ align=center x:publishsource="Excel">
   </tr>
  <tr height=49 style='mso-height-source:userset;height:36.75pt'>
   <td height=203 class=xl7615980 width=324 style='height:36.75pt;border-top:
-  none;border-left:none;width:243pt'>&nbsp;</td>
-  <td class=xl11715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl11615980 style='border-top:none;border-left:none'>&nbsp;</td>
+  none;border-left:none;width:243pt'> </td>
+  <td class=xl11715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl11615980 style='border-top:none;border-left:none'> </td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
   width:118pt'>Projeto para estabelecer cultura de liderança</td>
   </tr>
  <tr height=49 style='mso-height-source:userset;height:36.75pt'>
   <td height=203 class=xl7615980 width=324 style='height:36.75pt;border-top:
-  none;border-left:none;width:243pt'>&nbsp;</td>
-  <td class=xl11715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl11615980 style='border-top:none;border-left:none'>&nbsp;</td>
+  none;border-left:none;width:243pt'> </td>
+  <td class=xl11715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl11615980 style='border-top:none;border-left:none'> </td>
   <td class=xl7015980 width=157 style='border-top:none;border-left:none;
   width:118pt'>Projeto para estabelecer cultura de Inovação</td>
   </tr>
@@ -2419,9 +2419,9 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I2</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl7515980 width=355 style='height:12.75pt;border-top:
@@ -2429,9 +2429,9 @@ align=center x:publishsource="Excel">
   <td class=xl7615980 width=324 style='border-top:none;border-left:none;
   width:243pt'>Vide I14</td>
   <td class=xl10215980 width=85 style='border-top:none;border-left:none;
-  width:64pt'>&nbsp;</td>
-  <td class=xl10715980 style='border-top:none;border-left:none'>&nbsp;</td>
-  <td class=xl6815980 style='border-top:none;border-left:none'>&nbsp;</td>
+  width:64pt'> </td>
+  <td class=xl10715980 style='border-top:none;border-left:none'> </td>
+  <td class=xl6815980 style='border-top:none;border-left:none'> </td>
   </tr>
 </table>
 
@@ -2445,7 +2445,7 @@ align=center x:publishsource="Excel">
 </table>
 	<table width="100%" border="0">
   <tr>
-    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onClick="window.close()"></td>
+    <td align="right"><input name="Voltar" type="button" class="btn" id="Voltar" value="Voltar" onclick="window.close()"></td>
   </tr>
 </table>
 

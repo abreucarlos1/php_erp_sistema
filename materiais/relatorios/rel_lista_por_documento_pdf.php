@@ -1,10 +1,10 @@
 <?php
 /*
-		Lista de Evid�ncia	
+		Lista de Evidência	
 		
 		Criado por Carlos Eduardo
 		
-		data de cria��o: 14/12/2016
+		data de criação: 14/12/2016
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 01/12/2017 - Carlos Abreu	
@@ -38,7 +38,7 @@ class PDF extends FPDF
 	function Footer(){
 //		$this->SetY(-10);
 //	    $this->SetFont('Arial','I',8);
-//	    $this->Cell(200,10,'P�g. '.$this->PageNo().'/{nb}',0,0,'R');
+//	    $this->Cell(200,10,'Pág. '.$this->PageNo().'/{nb}',0,0,'R');
 	}
 }
 
@@ -51,7 +51,7 @@ $pdf->SetMargins(10,10,10,10);
 $pdf->SetLineWidth(0.5);
 
 //Seta o cabeçalho
-$pdf->titulo="RELAT�RIO DE ITENS POR DOCUMENTO";
+$pdf->titulo="RELATÓRIO DE ITENS POR DOCUMENTO";
 $pdf->emissao=date("d/m/Y");
 
 //Consulta
@@ -126,7 +126,7 @@ $sql = "SELECT
 		  ".$clausulaIdOs." ".$clausulaIdDisciplina."
 		ORDER BY componentecodigo";
 
-//CABE�ALHO DO ITEM (N�O DA P�GINA)
+//CABEÇALHO DO ITEM (NÃO DA PÁGINA)
 $sql2 = $sql.' LIMIT 0,1';
 $db->select($sql2, 'MYSQL', function ($reg, $i) use (&$pdf){
 	$pdf->titulo2 = $reg['desc_os'].' - '.$reg['setor'];
@@ -162,7 +162,7 @@ $db->select($sql, 'MYSQL', function ($reg, $i) use (&$pdf, &$cabecalhos, &$item,
 
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Cell(10, 5, 'ITEM', 'B', 0);
-		$pdf->Cell(180, 5, 'DESCRI��O', 'B', 0);
+		$pdf->Cell(180, 5, 'DESCRIÇÃO', 'B', 0);
 		$pdf->ln();
 		
 		$pdf->Cell(15, 5, $item, '', 0);

@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório" disabled="disabled" /></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -34,7 +34,7 @@
 						</select>
                         					
                      </td>                     
-				  <td width="82%"><label class="labels">Local&nbsp;de&nbsp;trabalho</label><br />
+				  <td width="82%"><label class="labels">Local de trabalho</label><br />
                     <select name="local_trabalho" class="caixa" id="local_trabalho">
                       <option value="">TODOS</option>				   
                       <smarty>html_options values=$option_local_values output=$option_local_output</smarty>

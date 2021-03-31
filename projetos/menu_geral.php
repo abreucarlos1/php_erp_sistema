@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de MENU DE PROJETOS	
+		Formulário de MENU DE PROJETOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/menuprojetos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016		
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016		
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -53,13 +53,13 @@ $_SESSION["OSdesc"] = $descos["descricao"];
 <title>: : . MENU DE PROJETOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -94,13 +94,13 @@ a:active {
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //menu() ?></td>
       </tr>
 	  <tr>
 
@@ -110,11 +110,11 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="7%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="32%">&nbsp;</td>
-              <td width="7%">&nbsp;</td>
+              <td width="7%"> </td>
+              <td width="27%"> </td>
+              <td width="27%"> </td>
+              <td width="32%"> </td>
+              <td width="7%"> </td>
             </tr>
             <tr>
               <td colspan="5"><div align="left" class="kks_nivel1">
@@ -122,40 +122,40 @@ a:active {
               </div></td>
               </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php
 					// Verifica as permissões de visualização
 
-							echo "<a href=\"area.php\" class=\"btnlink\">&Aacute;REAS</a>";
+							echo "<a href=\"area.php\" class=\"btnlink\">ÁREAS</a>";
 
 				  ?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
 							echo "<a href=\"subsistema	.php\" class=\"btnlink\">SUBSISTEMAS</a>";
 
 				?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
-							echo "<a href=\"classearea.php\" class=\"btnlink\">CLASSIFICA&Ccedil;&Atilde;O DE &Aacute;REA</a>";
+							echo "<a href=\"classearea.php\" class=\"btnlink\">CLASSIFICAÇÃO DE ÁREA</a>";
 
 				?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td><span class="btn">
-                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
+                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
               </span></td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

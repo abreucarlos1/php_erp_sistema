@@ -106,7 +106,7 @@ $db->select($sql, 'MYSQL',
 	}
 );
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=lista_materiais_".date('Y_m_d_H_i_s').".xlsx");
 header('Cache-Control: max-age=0');

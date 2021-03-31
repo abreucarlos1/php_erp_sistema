@@ -4,10 +4,10 @@
 
 $hhtml = '
 <htmlpageheader name="myHTMLHeaderOdd" style="display:none">
-<div style="background-color:#BBEEFF" align="center"><b>&nbsp;{PAGENO}&nbsp;</b></div>
+<div style="background-color:#BBEEFF" align="center"><b> {PAGENO} </b></div>
 </htmlpageheader>
 <htmlpagefooter name="myHTMLFooterOdd" style="display:none">
-<div style="background-color:#CFFFFC" align="center"><b>&nbsp;{PAGENO}&nbsp;</b></div>
+<div style="background-color:#CFFFFC" align="center"><b> {PAGENO} </b></div>
 </htmlpagefooter>
 <sethtmlpageheader name="myHTMLHeaderOdd" page="O" value="on" show-this-page="1" />
 <sethtmlpagefooter name="myHTMLFooterOdd" page="O" value="on" show-this-page="1" />

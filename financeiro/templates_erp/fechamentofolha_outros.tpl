@@ -23,9 +23,9 @@
         </tr>
         <tr>
           <td colspan="2" valign="top" class="espacamento">
-		  <div id="colaborador"><label class="labels"><strong>Funcionário:&nbsp;</strong><smarty>$colaborador</smarty></label></div>
-          <div id="dv_tipo"><label class="labels"><strong>Tipo:</strong>&nbsp;<smarty>$tipo</smarty></label></div>
-          <div id="dv_periodo"><label class="labels"><strong>Período:</strong>&nbsp;<smarty>$dataini</smarty>&nbsp;a&nbsp;<smarty>$datafin</smarty></label></div>
+		  <div id="colaborador"><label class="labels"><strong>Funcionário: </strong><smarty>$colaborador</smarty></label></div>
+          <div id="dv_tipo"><label class="labels"><strong>Tipo:</strong> <smarty>$tipo</smarty></label></div>
+          <div id="dv_periodo"><label class="labels"><strong>Período:</strong> <smarty>$dataini</smarty> a <smarty>$datafin</smarty></label></div>
           <table border="0" width="100%">
 				<tr>
 				  <td width="19%"><label for="valor" class="labels">Valor</label><br />				
@@ -37,7 +37,7 @@
           </td>
         </tr>
       </table>
-	  <div id="div_outros">&nbsp;</div>
+	  <div id="div_outros"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

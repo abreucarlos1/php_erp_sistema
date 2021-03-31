@@ -226,10 +226,10 @@ header('Cache-Control: max-age=0');
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
 
-//1� folha
+//1ª folha
 $objPHPExcel->setActiveSheetIndex(0);
 
-//data emiss�o
+//data emissão
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 3, iconv('ISO-8859-1', 'UTF-8',"data de emissão: ".date('d/m/Y')));
 
 //Nome Projeto
@@ -238,10 +238,10 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 5, iconv('ISO-8859
 //Nome cliente
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 6, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
-//Nome coordenador Devemada
+//Nome coordenador
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 7, iconv('ISO-8859-1', 'UTF-8',$coordenador));
 
-//Raz�o social
+//Razão social
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 15, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
 $cnpj = substr($regs1["A1_CGC"], 0, 2) . '.' . substr($regs1["A1_CGC"], 2, 3) . 
@@ -263,7 +263,7 @@ else
 //cep
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 17, iconv('ISO-8859-1', 'UTF-8',$cep));
 
-//ENDERE�O 
+//ENDEREÇO 
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 18, iconv('ISO-8859-1', 'UTF-8',trim($regs1["A1_END"]).', '.trim($regs1["A1_BAIRRO"]).', '.trim($regs1["A1_MUN"])));
 
 //Nome coordenador cliente
@@ -281,7 +281,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 23, iconv('ISO-885
 //DESCRICAO OS
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 30, iconv('ISO-8859-1', 'UTF-8',trim($regs1["AF1_DESCRI"])));
 
-//Raz�o social
+//Razão social
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, 33, iconv('ISO-8859-1', 'UTF-8',$nome_cliente));
 
 $linha = 9;

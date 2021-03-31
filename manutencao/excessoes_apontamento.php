@@ -80,7 +80,7 @@ function atualiza_tabela($dados_form)
 			  $xml->writeElement('cell', sec_to_time($reg["hr_inicio"]));
 			  $xml->writeElement('cell', sec_to_time($reg["hr_fim"]));
 			  $xml->writeElement('cell', ($reg["intervalo"])/60);
-			  $xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;item?")){xajax_excluir("'.$reg['id_exc_cal'].'")}; >');
+			  $xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir este item?")){xajax_excluir("'.$reg['id_exc_cal'].'")}; >');
 		  $xml->endElement();			
 	}
 		
@@ -350,7 +350,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("ID,OS,Funcionário,Inicio,Fim,Hora&nbsp;Ini,Hora&nbsp;Fim,Intervalo,D");
+	mygrid.setHeader("ID,OS,Funcionário,Inicio,Fim,Hora Ini,Hora Fim,Intervalo,D");
 	mygrid.setInitWidths("30,*,205,70,70,70,70,70,40");
 	mygrid.setColAlign("left,left,left,left,left,left,left,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");

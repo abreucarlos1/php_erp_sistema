@@ -118,7 +118,7 @@ while (false !== ($filename = readdir($dh)))
 				window.close();			
 			}
 		</script>
-		<?
+		<?php
 	}
 }
 

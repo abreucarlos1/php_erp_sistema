@@ -9,7 +9,7 @@
 			<table width="100%">
         		<tr>
         			<td valign="middle">
-						<input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+						<input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 					</td>
 				</tr>
 			</table>
@@ -25,7 +25,7 @@
 		</table>
 	</tr>
 </table>
-<div id="div_grid" style="width:100%;height:630px;">&nbsp;</div>
+<div id="div_grid" style="width:100%;height:630px;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

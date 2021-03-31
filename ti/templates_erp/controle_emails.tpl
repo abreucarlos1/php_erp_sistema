@@ -24,7 +24,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="22%"><label for="id_funcionario" class="labels">Funcion·rio</label><br />
+						<td width="22%"><label for="id_funcionario" class="labels">Funcion√°rio</label><br />
 							<select name="id_funcionario" class="caixa" id="emailGrupo" onkeypress="return keySort(this);">
 								<smarty>html_options values=$option_func_values output=$option_func_output</smarty>
 							</select>
@@ -42,7 +42,7 @@
   			</td>
         </tr>
       </table>	  
-	  <div id="divLista" style="width:100%;">&nbsp;</div>
+	  <div id="divLista" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

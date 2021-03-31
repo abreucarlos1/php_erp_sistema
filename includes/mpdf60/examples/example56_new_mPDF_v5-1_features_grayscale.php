@@ -155,24 +155,24 @@ div.text {
 <h4> Angle set AND points e.g. -moz-linear-gradient(34% 84% 30deg, red, orange, yellow...</h4>
 <table style="border-collapse: collapse; repeat scroll left top; border: none;">
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(top right 210deg, red, orange, yellow, green, blue, indigo, violet);">top right 210 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(top right 210deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(top right 210deg, red, orange, yellow, green, blue, indigo, violet);">top right 210 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(top right 210deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(30% 80% 60deg, red, orange, yellow, green, blue, indigo, violet);">30% 80% 60 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(30% 80% 60deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(30% 80% 60deg, red, orange, yellow, green, blue, indigo, violet);">30% 80% 60 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(30% 80% 60deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(10px 40px 325deg, red, orange, yellow, green, blue, indigo, violet);">10px 40px 325 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(10px 40px 325deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(10px 40px 325deg, red, orange, yellow, green, blue, indigo, violet);">10px 40px 325 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(10px 40px 325deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(bottom left 135deg, red, orange, yellow, green, blue, indigo, violet);">bottom left 135deg&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(bottom left 135deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(bottom left 135deg, red, orange, yellow, green, blue, indigo, violet);">bottom left 135deg </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(bottom left 135deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 </table>
 
@@ -182,23 +182,23 @@ div.text {
 <table style="border-collapse: collapse; repeat scroll left top; border: none;">
 <tr>
 <td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(bottom right, red, orange, yellow, green, blue, indigo, violet);">bottom right</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(bottom right, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(bottom right, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
 <td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(top, red, orange, yellow, green, blue, indigo, violet);">top</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(top, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(top, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
 <td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(10px 40px, red, orange, yellow, green, blue, indigo, violet);">10px 40px</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(10px 40px, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(10px 40px, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
 <td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(30% 10%, red, orange, yellow, green, blue, indigo, violet);">30% 10%</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(30% 10%, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(30% 10%, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 </table>
 
@@ -208,24 +208,24 @@ div.text {
 
 <table style="border-collapse: collapse; repeat scroll left top; border: none;">
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);">90 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);">90 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet);">120 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet);">120 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);">180 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);">180 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(180deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 <tr>
-<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(210deg, red, orange, yellow, green, blue, indigo, violet);">210 degrees&nbsp;</td>
-<td>&nbsp;</td>
-<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(210deg, red, orange, yellow, green, blue, indigo, violet);">&nbsp;</td>
+<td style="height: 25mm; width: 135mm; background-image: -moz-linear-gradient(210deg, red, orange, yellow, green, blue, indigo, violet);">210 degrees </td>
+<td> </td>
+<td style="height: 25mm; width: 10mm; background-image: -moz-linear-gradient(210deg, red, orange, yellow, green, blue, indigo, violet);"> </td>
 </tr>
 </table>
 
@@ -287,9 +287,9 @@ background: repeating-linear-gradient(red, blue 20px, red 40px);
 background: -moz-repeating-linear-gradient(top left -45deg, red, red 10px, rgba(255,255,255,0) 10px, rgba(255,255,255,0) 20px);
 </p>
 
-<div  style="float: right; width: 250px; height: 150px; background: -moz-repeating-linear-gradient(top left -45deg, red, red 10px, rgba(255,255,255,0) 10px, rgba(255,255,255,0) 20px);">&nbsp;</div>
+<div  style="float: right; width: 250px; height: 150px; background: -moz-repeating-linear-gradient(top left -45deg, red, red 10px, rgba(255,255,255,0) 10px, rgba(255,255,255,0) 20px);"> </div>
 
-<div  style="float: left; width: 250px; height: 150px; background: repeating-linear-gradient(red, blue 20px, red 40px);">&nbsp;</div>
+<div  style="float: left; width: 250px; height: 150px; background: repeating-linear-gradient(red, blue 20px, red 40px);"> </div>
 <br style="clear: both;" />
 <br />
 <br />
@@ -299,9 +299,9 @@ background: repeating-radial-gradient(20px 30px, circle farthest-side, red, yell
 <br /> <br />
 background: repeating-radial-gradient(red, blue 20px, red 40px);
 </p>
-<div  style="float: right; width: 250px; height: 150px; background: repeating-radial-gradient(red, blue 20px, red 40px);">&nbsp;</div>
+<div  style="float: right; width: 250px; height: 150px; background: repeating-radial-gradient(red, blue 20px, red 40px);"> </div>
 
-<div  style="float: left; width: 250px; height: 150px; background: repeating-radial-gradient(20px 30px, circle farthest-side, red, yellow, green 10px, yellow 15px, red 20px);">&nbsp;</div>
+<div  style="float: left; width: 250px; height: 150px; background: repeating-radial-gradient(20px 30px, circle farthest-side, red, yellow, green 10px, yellow 15px, red 20px);"> </div>
 <br style="clear: both;" />
 
 
@@ -315,7 +315,7 @@ border-radius: 155px / 100px;
 -moz-border-radius: 155px / 100px;
 box-shadow: 10px 10px 25px #CCC;
 -moz-box-shadow: 5px 5px 25px #CCC;
-background-image: -moz-radial-gradient(70% 30%, ellipse , #ffffff 0%, #F56991 50%, #8A2624 100%);">&nbsp;</div>
+background-image: -moz-radial-gradient(70% 30%, ellipse , #ffffff 0%, #F56991 50%, #8A2624 100%);"> </div>
 
 
 <div  style="float: left; width: 150px; height: 150px; padding: 15px; background: #F56991; color: #E8F3F8;
@@ -323,32 +323,32 @@ border-radius: 100px;
 -moz-border-radius: 100px;
 box-shadow: 10px 10px 25px #CCC;
 -moz-box-shadow: 5px 5px 25px #CCC;
-background-image: -moz-radial-gradient(70% 30%, circle , #ffffff 0%, #E56991 50%, #8A2624 100%);">&nbsp;</div>
+background-image: -moz-radial-gradient(70% 30%, circle , #ffffff 0%, #E56991 50%, #8A2624 100%);"> </div>
 <br style="clear: both;" />
 
 
 <div  style="float: right; width: 150px; height: 150px; border: 0.2mm solid black;
 background: radial-gradient(bottom left, farthest-side, red, blue 50px, pink);
 background-image: -moz-radial-gradient(red, yellow, #1E90FF);
-background: -webkit-gradient(linear, left bottom, left top, color-stop(0.48, rgb(107,14,86)), color-stop(0.74, rgb(140,41,112)), color-stop(0.87, rgb(168,70,146)));">&nbsp;</div>
+background: -webkit-gradient(linear, left bottom, left top, color-stop(0.48, rgb(107,14,86)), color-stop(0.74, rgb(140,41,112)), color-stop(0.87, rgb(168,70,146)));"> </div>
 
-<div  style="float: left; width: 150px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(red 5%, yellow 25%, #1E90FF 50%);">&nbsp;</div>
+<div  style="float: left; width: 150px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(red 5%, yellow 25%, #1E90FF 50%);"> </div>
 <br style="clear: both;" />
 
-<div style="float: right; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(bottom left, circle, red, yellow, #1E90FF);">&nbsp;</div>
+<div style="float: right; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(bottom left, circle, red, yellow, #1E90FF);"> </div>
 
-<div style="float: left; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(bottom left, ellipse, red, yellow, #1E90FF);">&nbsp;</div>
+<div style="float: left; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(bottom left, ellipse, red, yellow, #1E90FF);"> </div>
 <br style="clear: both;" />
 
-<div style="float: right; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(ellipse closest-side, red, yellow 10%, #1E90FF 50%, white);">&nbsp;</div>
+<div style="float: right; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(ellipse closest-side, red, yellow 10%, #1E90FF 50%, white);"> </div>
 
-<div style="float: left; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(ellipse farthest-corner, red, yellow 10%, #1E90FF 50%, white);">&nbsp;</div>
+<div style="float: left; width: 300px; height: 150px; border: 0.2mm solid black; background-image: -moz-radial-gradient(ellipse farthest-corner, red, yellow 10%, #1E90FF 50%, white);"> </div>
 <br style="clear: both;" />
 
 
-<p style="background-image: -moz-radial-gradient(center , red, orange, yellow, green, blue, indigo, violet);">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</p>
+<p style="background-image: -moz-radial-gradient(center , red, orange, yellow, green, blue, indigo, violet);"> <br /> <br /> <br /> <br /> <br /> <br /> </p>
 
-<p style="background-image: -moz-radial-gradient(center , circle closest-side, blue 0%, red 100%);">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</p>
+<p style="background-image: -moz-radial-gradient(center , circle closest-side, blue 0%, red 100%);"> <br /> <br /> <br /> <br /> <br /> </p>
 
 
 

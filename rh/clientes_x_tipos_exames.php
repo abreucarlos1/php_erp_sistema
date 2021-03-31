@@ -53,11 +53,11 @@ function atualizatabela($filtro)
 		}
 		
 		$sql_filtro = " WHERE empresa LIKE '".$sql_texto."' ";
-		$sql_filtro = " OR (id_empresa_erp LIKE '".$sql_texto."') ";	
+		$sql_filtro = " OR (id_empresa LIKE '".$sql_texto."') ";	
 	}
 	
 	$sql = 
-		"SELECT DISTINCT id_empresa_erp, empresa, descricao, unidade FROM ".DATABASE.".unidade, ".DATABASE.".empresas
+		"SELECT DISTINCT id_empresa, empresa, descricao, unidade FROM ".DATABASE.".unidades, ".DATABASE.".empresas
 		JOIN(
 		SELECT
 			*
@@ -66,7 +66,7 @@ function atualizatabela($filtro)
 		WHERE
 			tipos_exames_x_clientes.reg_del = 0
 		) exames
-		ON tec_cod_empresa = id_empresa_erp ".$sql_filtro." 
+		ON tec_cod_empresa = id_empresa ".$sql_filtro." 
 		WHERE
 			empresas.id_unidade = unidades.id_unidade";
 
@@ -83,9 +83,9 @@ function atualizatabela($filtro)
 	foreach($db->array_select as $cont_desp)
 	{
 		$xml->startElement('row');
-		$xml->writeAttribute('id', $cont_desp['id_empresa_erp']);
+		$xml->writeAttribute('id', $cont_desp['id_empresa']);
 		$xml->writeElement('cell', $cont_desp['empresa']. " - " . $cont_desp["descricao"] . " - " . $cont_desp["unidade"]);
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;a&nbsp;lista?")){xajax_excluir("'.$cont_desp["id_empresa_erp"].'");}; >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir a lista?")){xajax_excluir("'.$cont_desp["id_empresa"].'");}; >');
 		$xml->endElement();
 	}
 
@@ -257,7 +257,7 @@ function grid(tabela, autoh, height, xml)
 $array_cliente_values[] = "0";
 $array_cliente_output[] = "SELECIONE";
 	  
-$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND empresas.status = 'CLIENTE' ";
 $sql .= "ORDER BY empresa ";
@@ -271,7 +271,7 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-	$array_cliente_values[] = $regs["id_empresa_erp"];
+	$array_cliente_values[] = $regs["id_empresa"];
 	$array_cliente_output[] = $regs["empresa"] . " - " . $regs["descricao"] . " - " . $regs["unidade"];	
 }
 

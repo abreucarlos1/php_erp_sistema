@@ -30,7 +30,7 @@ class banco_dados
 				//$this->db_ms = "";		
 			break;
 			
-			case 2: //Ambiente de Produ��o
+			case 2: //Ambiente de Produção
 				//web
 				$this->host = "127.0.0.1";
 				$this->pass = "root";
@@ -155,94 +155,104 @@ class banco_dados
 		//SE TIPO FOR MYSQL
 		if($banco=='MYSQL')
 		{
-			//Faz a query
-			$this->result = mysqli_query($this->conexao,$sql);
-			
-			if(!$this->result)
+			if(!empty($sql))
 			{
-				$this->erro = "Erro na consulta no banco ".$banco." - ".mysqli_error($this->conexao)." - ".$sql;
-			
-				$this->erros($this->erro, PAGINA, 'sql');
+
+				//Faz a query
+				$this->result = mysqli_query($this->conexao,$sql);
+				
+				if(!$this->result)
+				{
+					$this->erro = "Erro na consulta no banco ".$banco." - ".mysqli_error($this->conexao)." - ".$sql;
+				
+					$this->erros($this->erro, PAGINA, 'sql');
+				}
+				else
+				{
+					switch ($type)
+					{
+						case 'SELECT':
+							
+							//retorna o numero de registros
+							$this->numero_registros = mysqli_num_rows($this->result);
+							
+							if(is_callable($tratamentoRetorno)) 
+							{
+								$i = 0;
+								
+								$ret = array();
+								
+								while ($reg = mysqli_fetch_assoc($this->result))
+								{
+									$ret[] = $tratamentoRetorno($reg, $i);//Funcao anonima passada na chamada $db->select($sql,'MYSQL',	function($reg, $i) use(&$array_os_values){$array_os_values[$i] = $reg['id_os'];});
+									
+									$i++;
+								}
+								
+								//Se for uma consulta limitada, ou seja, para paginacao
+								if (strripos($sql, 'LIMIT'))
+								{
+									//Removendo tudo abaixo do order by 
+									$ordPos = strripos($sql, 'ORDER BY');$line = __LINE__;
+									$orderBy  = substr($sql, $ordPos);
+									$sql = substr($sql, 0, $ordPos-1);
+									
+									//Criando uma subquery para totalizar 
+									$sql = "SELECT COUNT(*) as total FROM (".trim($sql).") AS TOTAL";
+									
+									$total = mysqli_fetch_assoc(mysqli_query($this->conexao,$sql));
+									//Alterando o numero de registros para o total encontrado
+									$this->numero_registros = intval($total['total']);
+									//Fim do tratamento da query
+								}
+								
+								return $ret;
+							}
+							else if ($tratamentoRetorno)
+							{
+								while($reg = mysqli_fetch_assoc($this->result))
+								{
+									if (is_array($reg))
+									{
+										$this->array_select[] = $reg;
+									}
+								}
+							}						
+
+						break;
+						
+						case 'INSERT':
+							//retorna o id inserido
+							$this->insert_id = mysqli_insert_id($this->conexao);
+												
+							//retorna o numero de registros afetados
+							$this->numero_registros = mysqli_affected_rows($this->conexao);
+						break;
+						
+						case 'UPDATE':
+							//retorna o numero de registros afetados
+							$this->numero_registros = mysqli_affected_rows($this->conexao);
+						break;
+						
+						case 'DELETE':
+							//retorna o numero de registros afetados
+							$this->numero_registros = mysqli_affected_rows($this->conexao);
+						break;
+
+						case 'EXEC':
+							//retorna o numero de registros afetados
+							//$this->numero_registros = mysqli_affected_rows($this->conexao);
+						break;
+					
+					}
+					return $this->result;					
+				}
 			}
 			else
 			{
-				switch ($type)
-				{
-					case 'SELECT':
-						
-						//retorna o numero de registros
-						$this->numero_registros = mysqli_num_rows($this->result);
-						
-						if(is_callable($tratamentoRetorno)) 
-						{
-							$i = 0;
-							
-							$ret = array();
-							
-							while ($reg = mysqli_fetch_assoc($this->result))
-							{
-								$ret[] = $tratamentoRetorno($reg, $i);//Funcao anonima passada na chamada $db->select($sql,'MYSQL',	function($reg, $i) use(&$array_os_values){$array_os_values[$i] = $reg['id_os'];});
-								
-								$i++;
-							}
-							
-							//Se for uma consulta limitada, ou seja, para paginacao
-							if (strripos($sql, 'LIMIT'))
-							{
-								//Removendo tudo abaixo do order by 
-								$ordPos = strripos($sql, 'ORDER BY');$line = __LINE__;
-								$orderBy  = substr($sql, $ordPos);
-								$sql = substr($sql, 0, $ordPos-1);
-								
-								//Criando uma subquery para totalizar 
-								$sql = "SELECT COUNT(*) as total FROM (".trim($sql).") AS TOTAL";
-								
-								$total = mysqli_fetch_assoc(mysqli_query($this->conexao,$sql));
-								//Alterando o numero de registros para o total encontrado
-								$this->numero_registros = intval($total['total']);
-								//Fim do tratamento da query
-							}
-							
-							return $ret;
-						}
-						else if ($tratamentoRetorno)
-						{
-							while($reg = mysqli_fetch_assoc($this->result))
-							{
-								if (is_array($reg))
-								{
-									$this->array_select[] = $reg;
-								}
-							}
-						}						
+				$this->erro = "Erro: Sem consulta.";
 
-					break;
-					
-					case 'INSERT':
-						//retorna o id inserido
-						$this->insert_id = mysqli_insert_id($this->conexao);
-											
-						//retorna o numero de registros afetados
-						$this->numero_registros = mysqli_affected_rows($this->conexao);
-					break;
-					
-					case 'UPDATE':
-						//retorna o numero de registros afetados
-					    $this->numero_registros = mysqli_affected_rows($this->conexao);
-					break;
-					
-					case 'DELETE':
-						//retorna o numero de registros afetados
-					    $this->numero_registros = mysqli_affected_rows($this->conexao);
-					break;
-
-					case 'EXEC':
-						//retorna o numero de registros afetados
-					    //$this->numero_registros = mysqli_affected_rows($this->conexao);
-					break;
-				
-				}
-				return $this->result;					
+				$this->erros($this->erro, PAGINA, 'sql');
 			}
 		}
 		else
@@ -361,7 +371,7 @@ class banco_dados
 		}
 	}
 
-	public function exec_query($sql = NULL,$banco = 'MYSQL')
+	public function exec_query($sql = NULL, $banco = 'MYSQL')
 	{
 		//Verifica se existe a consulta
 		if(is_null($sql))

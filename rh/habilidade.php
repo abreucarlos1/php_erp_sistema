@@ -81,7 +81,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 		$xml->writeAttribute('id', $cont_desp['id_rh_habilidade']);
 		$xml->writeElement('cell', $cont_desp['habilidade']);
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;a&nbsp;habilidade?")){xajax_excluir("'.$cont_desp['id_rh_habilidade'].'");}; >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir a habilidade?")){xajax_excluir("'.$cont_desp['id_rh_habilidade'].'");}; >');
 		$xml->endElement();	
 	}
 	

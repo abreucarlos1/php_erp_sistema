@@ -105,7 +105,7 @@ function preencheos($dados_form)
 	}
 	
 	//Inclusão pedida pelo Ewerton Paiva no chamado #1896
-	//Tentei incluir na consulta acima a OS 900 e ficou extremamente lento, da forma abaixo est� bem r�pido
+	//Tentei incluir na consulta acima a OS 900 e ficou extremamente lento, da forma abaixo está bem rápido
 	$sql .= "UNION ALL ";
 	$sql .= " SELECT AF1_ORCAME, AF1_DESCRI FROM AF1010 WITH(NOLOCK) ";
 	$sql .= "WHERE AF1_ORCAME = '0000000900' ";	

@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de Especifica��o T�cnica
+		Formulário de Especificação Técnica
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao tecnica.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016		
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016		
 */
 
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -31,12 +31,12 @@ include ("../includes/tools.inc.php");
 $db = new banco_dados;
 
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
-	// Arquivo de Inclusão de conex�o com o banco
+	// Arquivo de Inclusão de conexão com o banco
 	
-	//Executa o comando DELETE onde o id � enviado via javascript
+	//Executa o comando DELETE onde o id é enviado via javascript
 	$dsql = "DELETE FROM Projetos.especificacao_tecnica WHERE id_espec_tec = '".$_GET["id_componente"]."' ";
 	
 	$db->delete($dsql,'MYSQL');
@@ -48,17 +48,17 @@ if ($_GET["acao"]=="deletar")
 	?>
 	<script>
 		// Mostra mensagem de alerta e re-envia a pagina para a Atualização da tela
-		alert('Componente exclu�do com sucesso.');
+		alert('Componente excluído com sucesso.');
 		location.href = '<?= $PHP_SELF ?>';
 	</script>
-	<?
+	<?php
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
-	// Caso a��o seja editar...
+	// Caso ação seja editar...
 	case 'editar':
 	
 //		include ("../includes/tools.inc");
@@ -81,7 +81,7 @@ switch ($_POST["acao"])
 
 		$sql = $sql . "WHERE id_componente = '".$_POST["id_componente"]. "' ";
 		
-		//$registro = mysql_query($sql, $conexao) or die("N�o foi poss�vel a Atualização dos dados.");
+		//$registro = mysql_query($sql, $conexao) or die("Não foi possível a Atualização dos dados.");
 		mysql_close($conexao);
 		
 		?>
@@ -93,25 +93,25 @@ switch ($_POST["acao"])
 		*/
 	break;
 	
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar':
 	
 	//	include ("../includes/tools.inc");
 	
 	
-	// Verifica se o Projeto j� existe no banco
+	// Verifica se o Projeto já existe no banco
 	/*
 	$sql = "SELECT descricao_comp FROM Componentes WHERE descricao_comp = '". $_POST["descricao_comp"]. "' ";
 	$registro = mysql_query($sql, $conexao) or die("Não foi possível fazer a seleção.");
 	$equipamentos = mysql_fetch_array($registro);
 	$regs = mysql_num_rows($registro);
-	// Se o n�mero de registros for maior que zero, ent�o existe o mesmo registro...
+	// Se o número de registros for maior que zero, então existe o mesmo registro...
 	if ($regs>0)
 		{
 			?>
 			<script>
 				// Mostra uma mensagem de alerta 
-				alert('Componente j� cadastrado no banco de dados.');
+				alert('Componente já cadastrado no banco de dados.');
 				// Re-envia a pagina para resetar as variaveis
 				location.href='<?= $PHP_SELF ?>';
 			</script>		
@@ -121,14 +121,14 @@ switch ($_POST["acao"])
 	else
 		{
 		*/
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.especificacao_tecnica ";
-			$incsql .= "(id_espec_padrao, id_componente) ";
-			$incsql .= "VALUES ('". $_POST["id_espec_padrao"]. "', ";
-			$incsql .= "'". $_POST["id_componente"] ."') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.especificacao_tecnica ";
+			$isql .= "(id_espec_padrao, id_componente) ";
+			$isql .= "VALUES ('". $_POST["id_espec_padrao"]. "', ";
+			$isql .= "'". $_POST["id_componente"] ."') ";
 			
 			//Carrega os registros
-			$registro = $db->insert($incsql,'MYSQL');
+			$registro = $db->insert($isql,'MYSQL');
 		//}
 
 	?>
@@ -136,16 +136,16 @@ switch ($_POST["acao"])
 		alert('Componente inserido com sucesso.');
 		location.href='<?= $PHP_SELF ?>';
 	</script>
-	<?
+	<?php
 	//mysql_free_result($registro);
 
 	break;
 
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar_espec':
 	
 	
-	// Seleciona os m�dulos cadastrados
+	// Seleciona os módulos cadastrados
 	$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes WHERE id_espec_padrao='" . $_POST["id_espec_padrao"] . "' ORDER BY id_espec_det ";
 	
 	$regis = $db->select($sql,'MYSQL');
@@ -158,20 +158,20 @@ switch ($_POST["acao"])
 	
 	while ($cont_regs = mysqli_fetch_array($regis))
 		{
-			$incsql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
-			$incsql .= "(id_espec_tec, id_espec_det, conteudo) ";
-			$incsql .= "VALUES ('". $_POST["id_espec_tec"]. "', ";
-			$incsql .= " '" . $cont_regs["id_espec_det"] . "', ";
-			$incsql .= " '". maiusculas($_POST[$cont_regs["id_espec_det"]]) ."') ";
+			$isql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
+			$isql .= "(id_espec_tec, id_espec_det, conteudo) ";
+			$isql .= "VALUES ('". $_POST["id_espec_tec"]. "', ";
+			$isql .= " '" . $cont_regs["id_espec_det"] . "', ";
+			$isql .= " '". maiusculas($_POST[$cont_regs["id_espec_det"]]) ."') ";
 			//Carrega os registros
-			$registro = $db->insert($incsql,'MYSQL');			
+			$registro = $db->insert($isql,'MYSQL');			
 		}
 
 	?>
 	<script>
-		alert('Especifica��o alterada com sucesso.');
+		alert('Especificação alterada com sucesso.');
 	</script>
-	<?
+	<?php
 	
 	break;	
 
@@ -180,20 +180,20 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . ESPECIFICA��O T�CNICA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"> </script> 
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script language="javascript">
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -247,9 +247,9 @@ function PreencheTagEquiv()
 
 <td>
 <form name="espec_tec" method="post" action="<?= $PHP_SELF ?>">
-<?
+<?php
 
-// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 // para eventual Atualização
 
  if ($_GET["acao"]=='editar')
@@ -262,22 +262,22 @@ function PreencheTagEquiv()
 	*/	
  ?>	
 
-<!-- MODIFICA��O AQUI-->
+<!-- MODIFICAÇÃO AQUI-->
 
 	<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 	<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 		<tr>
-		  <td width="33%" class="cabecalho_tabela">T�PICO</td>
-		  <td width="34%" class="cabecalho_tabela">VARIAVEL</td>
-		  <td width="29%"  class="cabecalho_tabela">CONTE�DO</td>
-		  <td width="4%" class="cabecalho_tabela">&nbsp;</td>
+		  <td width="33%" class="cabecalho_tabela">TÓPICO</td>
+		  <td width="34%" class="cabecalho_tabela">VARIÁVEL</td>
+		  <td width="29%"  class="cabecalho_tabela">CONTEÚDO</td>
+		  <td width="4%" class="cabecalho_tabela"> </td>
 		</tr>
 	</table>
 	</div>
 	<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 	  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-		<?
-			// Arquivo de Inclusão de conex�o com o banco
+		<?php
+			// Arquivo de Inclusão de conexão com o banco
 			
 			$sql = "SELECT * FROM Projetos.especificacao_tecnica_detalhes, Projetos.especificacao_padrao_detalhes ";
 			$sql .= " WHERE Espec_padrao_detalhes.id_espec_det=Espec_tecnica_detalhes.id_espec_det ";
@@ -332,7 +332,7 @@ function PreencheTagEquiv()
 				  <input name="<?= $det["id_espec_det"] ?>" type="text" class="txt_box" value="<?= $det["conteudo"] ?>" size="50">
 				  </td>
 				</tr>
-				<?
+				<?php
 			}		
 		?>
 	  </table>
@@ -340,29 +340,29 @@ function PreencheTagEquiv()
 	  <div id="alterar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 	  <table width="100%" class="corpo_tabela">
 	  <tr>
-	    <td class="label1">&nbsp;</td>
+	    <td class="label1"> </td>
 	    <td class="label1"><input type="hidden" name="id_espec_padrao" id="id_espec_padrao" value="<?= $_GET["id_espec_padrao"] ?>">
           <input type="hidden" name="id_espec_tec" id="id_espec_tec" value="<?= $_GET["id_espec_tec"] ?>">
           <input type="hidden" name="acao" id="acao" value="salvar_espec">
-          <input name="Submit" type="submit" class="btn" value="ALTERAR">
-          <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();"></td>
+          <input name="submit" type="submit" class="btn" value="ALTERAR">
+          <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();"></td>
 	    </tr>
 	  <tr>
-	    <td width="1%" class="label1">&nbsp;</td>
-	    <td width="23" class="label1">&nbsp;</td>
+	    <td width="1%" class="label1"> </td>
+	    <td width="23" class="label1"> </td>
 	    </tr>
 	</table>	
 	</div>
 
 
 
- <?
+ <?php
 
  }
 else
 {
   ?>
-<!-- MODIFICA��O AQUI -->
+<!-- MODIFICAÇÃO AQUI -->
 
 <div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 <table width="100%" cellpadding="0" cellspacing="0" border=0 class="cabecalho_tabela">
@@ -372,7 +372,7 @@ else
       <!-- <td width="8%" class="cabecalho_tabela">V</td> -->
 	  <td width="8%" class="cabecalho_tabela">E</td>
       <td width="6%" class="cabecalho_tabela">D</td>
-	  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+	  <td width="2%" class="cabecalho_tabela"> </td>
     </tr>
 </table>
 
@@ -380,7 +380,7 @@ else
 
 <div id="tbbody" style="position:relative; width:100%; height:263px; z-index:2; overflow-y:scroll; overflow-x:hidden;">  
 <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela" border=0>
-	<?
+	<?php
 	
 		// Verifica se pode ver todos os projetos ou somente o que escolheu
 		
@@ -438,71 +438,71 @@ else
 			  <td width="38%" class="corpo_tabela"><div align="left"><?= $componentes["cod_g2c1"].$componentes["cod_g2c2"].$componentes["cod_g2c3"] . " - " . $componentes["cod_g3c3"] . $componentes["cod_g3c2"] . $componentes["seq_comp"] . " - " . $componentes["tag_equivalente"] ?></div></td>			
 			  <td width="47%" class="corpo_tabela"><div align="left"><?= $componentes["g3c3desc"] ." DE " . $componentes["g3c2desc"] . " " . $componentes["desemp"]    ?></div></td>
 			  <!-- <td width="9%" class="corpo_tabela" align="center"> -->
-			    <?
+			    <?php
 				// Verifica as permissões para editar
 				//if($_SESSION["ESPECIFICACAO TECNICA"]{1})
 				//{
 				?>
-                	<!-- <a href="#" onClick="editar('','')"><img src="../images/buttons/bt_visualizar.gif" width="22" height="22" border="0"></a></div> -->
-			    <?
+                	<!-- <a href="#" onclick="editar('','')"><img src="../images/buttons/bt_visualizar.gif" width="22" height="22" border="0"></a></div> -->
+			    <?php
 				//}
 				//else
 				//{
 				?>
-                <!-- <a href="#" onClick="javascript:alert('Voc&ecirc; não possue permissão para executar esta ação.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
-                <?				
+                <!-- <a href="#" onclick="javascript:alert('Voc&ecirc; não possue permissão para executar esta ação.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
+                <?php				
 				//}
 				?><!--</td>-->
 			  <td width="9%" class="corpo_tabela"><div align="center">
-			  <?
-				// Verifica as permiss�es para editar
+			  <?php
+				// Verifica as permissões para editar
 				//if($_SESSION["ESPECIFICACAO TECNICA"]{1})
 				//{
 				?>
-			  		<a href="#" onClick="editar('<?= $componentes["id_espec_padrao"] ?>','<?= $componentes["id_espec_tec"] ?>')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a></div>
-				<?
+			  		<a href="#" onclick="editar('<?= $componentes["id_espec_padrao"] ?>','<?= $componentes["id_espec_tec"] ?>')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a></div>
+				<?php
 				//}
 				//else
 				//{
 				?>
-					<!-- <a href="#" onClick="javascript:alert('Voc� n�o possue permiss�o para executar esta a��o.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
-				<?				
+					<!-- <a href="#" onclick="javascript:alert('Voce não possue permissão para executar esta ação.')"><img src="../images/buttons/editar.png" width="16" height="16" border="0"></a> -->
+				<?php				
 				//}
 				?>			  </td>
 			  <td width="6%" class="corpo_tabela"><div align="center">
-			  <?
-				// Verifica as permiss�es para deletar
+			  <?php
+				// Verifica as permissões para deletar
 				if($_SESSION["ESPECIFICACAO TECNICA"]{2})
 				{
 				?>
-			  		<a href="#" onClick="excluir('<?= $componentes["id_espec_tec"] ?>','<?= $componentes["descricao_comp"] ?>')"><img src="../images/buttons/apagar.png" width="18" height="18" border="0"></a></div>
-				<?
+			  		<a href="#" onclick="excluir('<?= $componentes["id_espec_tec"] ?>','<?= $componentes["descricao_comp"] ?>')"><img src="../images/buttons/apagar.png" width="18" height="18" border="0"></a></div>
+				<?php
 				}
 				else
 				{
 				?>
 
-					<a href="#" onClick="javascript:alert('Voc� n�o possue permiss�o para executar esta a��o.')"><img src="../images/buttons/apagar.png" width="16" height="16" border="0"></a>
-				<?				
+					<a href="#" onclick="javascript:alert('Voce não possue permissão para executar esta ação.')"><img src="../images/buttons/apagar.png" width="16" height="16" border="0"></a>
+				<?php				
 				}
 			  ?>			  </td>
     		</tr>
-			<?
+			<?php
 		}
 		
 		
 	?>
   </table>  
 </div>
-<?
+<?php
 /*
   <table width="100%" class="corpo_tabela" border=0>
     <tr>
-      <td class="label1">&nbsp;</td>
+      <td class="label1"> </td>
       <td width="99%" class="label1"><table width="100%"  border="0" align="left" cellpadding="0" cellspacing="0">
         <tr align="left">
           <td width="14%" class="label1">componente</td>
-          <td class="label1">especifica&Ccedil;&Atilde;o Padr&Atilde;o</td>
+          <td class="label1">especificaÇÃo PadrÃo</td>
           </tr>
         <tr align="left">
           <td width="14%"><font size="2" face="Arial, Helvetica, sans-serif">
@@ -558,11 +558,11 @@ else
       </table></td>
       </tr>
     <tr>
-      <td width="1%" class="label1">&nbsp;</td>
+      <td width="1%" class="label1"> </td>
       <td class="label1">
 	  <input name="acao" type="hidden" id="acao" value="salvar">
 		<?
-		// Verifica as permiss�es para incluir
+		// Verifica as permissões para incluir
 		//if($_SESSION["ESPECIFICACAO TECNICA"]{3})
 		//{
 		?>
@@ -572,7 +572,7 @@ else
 		//else
 		//{
 		?>
-			 <input name="Incluir" type="button" class="btn" id="Incluir" value="Incluir" onClick="javascript:alert('Voc� n�o possue permiss�o para executar esta a��o.')">
+			 <input name="Incluir" type="button" class="btn" id="Incluir" value="Incluir" onclick="javascript:alert('Voce não possue permissão para executar esta ação.')">
 		<?				
 		//}
 	  ?>			

@@ -8,7 +8,7 @@
 <meta http-equiv="expires" content="0" />
 	<smarty>$xajax_javascript</smarty>
 
-<title>::.. Devemada Engenharia - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
+<title>::.. NOME EMPRESA - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
 <link href="<smarty>$classe</smarty>" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="favicon.ico" >
 </head>
@@ -26,7 +26,7 @@
 			</tr>
 
 			<tr>
-				<td class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></td>
+				<td class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></td>
 			</tr>
 
 		</table>

@@ -13,7 +13,7 @@
 				</tr>
 				<tr>
 					<td valign="middle">
-						<input name="btnrelatorios" type="button" class="class_botao" id="btnrelatorios" onClick="xajax_abreJanela();" value="<smarty>$botoes[18]</smarty>" />					
+						<input name="btnrelatorios" type="button" class="class_botao" id="btnrelatorios" onclick="xajax_abreJanela();" value="<smarty>$botoes[18]</smarty>" />					
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +41,7 @@
 						<smarty>html_options values=$option_treina_values output=$option_treina_output</smarty>
 					</select>
 				</td>
-				<td width="96%" valign="top"><label for="tipo" class="labels">Classifica��o</label><br />
+				<td width="96%" valign="top"><label for="tipo" class="labels">Classificação</label><br />
 					<select name="tipo" class="caixa" id="tipo" onkeypress="return keySort(this);">
 					<smarty>html_options values=$option_tipo_values output=$option_tipo_output</smarty>
 				</select></td>
@@ -50,23 +50,23 @@
 	        	<td width="5%" colspan="2">
 	        		<table>
 	        			<tr>
-	        				<td width="5%"><label for="data_treinamento" class="labels">Data&nbsp;Trein.</label><br />
+	        				<td width="5%"><label for="data_treinamento" class="labels">Data Trein.</label><br />
 								<input name="data_treinamento" type="text" class="caixa" id="data_treinamento" onkeypress="transformaData(this, event);" value="<smarty>$data_treinamento</smarty>" onblur="xajax_calcula_vencimento(this.value,vigencia.value);return checaTamanhoData(this,10);" size="10" maxlength="10" />
 								<input name="data_observacao_status" type="hidden" class="caixa" id="data_observacao_status" />
 							</td>
 							<td width="5%">
-								<label class="labels">Vig&ecirc;ncia&nbsp;(Meses)</label><br />
+								<label class="labels">Vigência (Meses)</label><br />
 								<input name="vigencia" type="text" class="caixa" readonly="readonly" id="vigencia" size="8" maxlength="2" />
 							</td>
 							<td width="5%">
-								<label class="labels">Venc.&nbsp;Trein.</label><br />
+								<label class="labels">Venc. Trein.</label><br />
 								<input name="data_vencimento" type="text" class="caixa" readonly="readonly" id="data_vencimento" size="10" maxlength="10" readonly="readonly" />
 							</td>
 						</tr>
 						<tr>
 							<td width="5%" nowrap="nowrap">
-								<label for="duracao" class="labels">Carga Hor�ria</label><br />
-								<input name="duracao" type="text" class="caixa" id="duracao" value="" placeholder="Dura��o" size="8" />
+								<label for="duracao" class="labels">Carga Horária</label><br />
+								<input name="duracao" type="text" class="caixa" id="duracao" value="" placeholder="Duração" size="8" />
 							</td>
 							<td width="5%" nowrap="nowrap">
 								<label for="valor" class="labels">Valor Hora</label><br />
@@ -74,7 +74,7 @@
 								<textarea name="observacoes_situacao" type="text" id="observacoes_situacao" value="" style="display:none;"></textarea>
 								<input type="text" name="id_funcionario_verificacao" type="text" id="id_funcionario_verificacao" value="" style="display:none;"></textarea>
 							</td>
-							<td width="5%" valign="top"><label for="situacao" class="labels">Situa��o</label><br />
+							<td width="5%" valign="top"><label for="situacao" class="labels">Situação</label><br />
 								<input type='hidden' id='avaliar_eficacia' name='avaliar_eficacia' />
 								<select name="situacao" class="caixa" id="situacao" onchange="abreJanelaSituacao(this.value, xajax.$('idCabecalho').value,'<smarty>$smarty.now|date_format:"%d/%m/%Y"</smarty>',frm.avaliar_eficacia.value);">
 									<smarty>html_options values=$option_valores_values['situacao'] output=$option_valores_output['situacao']</smarty>
@@ -98,13 +98,13 @@
       <div id="div_filtros" style="float:left; text-align:left;height:40px">
       	<label class="labels">Filtros</label><br />
       	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="todos" class="caixa" /><label class="labels">Todos</label>
-      	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="concluidos" class="caixa" /><label class="labels">Conclu&iacute;dos</label>
+      	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="concluidos" class="caixa" /><label class="labels">Concluídos</label>
       	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="pendentes realizar" class="caixa" checked="checked" /><label class="labels">Realização Pendente</label>
       	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="pendentes eficacia" class="caixa" /><label class="labels">Eficácia Pendente</label>
       	<input onclick="iniciaBusca2.verifica(document.frm.busca);" type="radio" id="outrosFiltros" name="outrosFiltros" value="nao renovaveis" class="caixa" /><label class="labels">Não Renováveis</label>
       </div>
-	  <div id="treinamentos_efetuados" style="width:100%;">&nbsp;</div>
-      <label class="labels" style="float:left;display:none;"><i>Aten��o: alterar apenas itens planejados</i></label>
+	  <div id="treinamentos_efetuados" style="width:100%;"> </div>
+      <label class="labels" style="float:left;display:none;"><i>Atenção: alterar apenas itens planejados</i></label>
       <div style="float:right;"><label class="labels" id="numero_registros"></label></div>
 </form>
 </div>

@@ -91,7 +91,7 @@ function orcamento($cod_atividade, $id_setor = 0)
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text('<input type="text" class="caixa" size="3" maxlength="3" id="txt_'.$cont["id_cargo_grupo"].'" name="txt_'.$cont["id_cargo_grupo"].'" value="'.$cont["porcentagem"].'" onkeypress=num_only();>&nbsp;%');
+				$xml->text('<input type="text" class="caixa" size="3" maxlength="3" id="txt_'.$cont["id_cargo_grupo"].'" name="txt_'.$cont["id_cargo_grupo"].'" value="'.$cont["porcentagem"].'" onkeypress=num_only();> %');
 			$xml->endElement();
 			
 		$xml->endElement();
@@ -154,7 +154,7 @@ function atualizatabela($cod_atividade)
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;orçamento&nbsp;selecionado?")){xajax_excluir("' . $cont["atividades_orcamento"] . '");}\>');
+				$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão do orçamento selecionado?")){xajax_excluir("' . $cont["atividades_orcamento"] . '");}\>');
 			$xml->endElement();
 			
 		$xml->endElement();
@@ -592,7 +592,7 @@ function grid(tabela, autoh, height, xml)
 	switch (tabela)
 	{
 		case 'porcentagem':		
-			mygrid.setHeader("&nbsp;,Cargo,%",
+			mygrid.setHeader(" ,Cargo,%",
 				null,
 				["text-align:center","text-align:left","text-align:center"]);
 			mygrid.setInitWidths("30,*,50");

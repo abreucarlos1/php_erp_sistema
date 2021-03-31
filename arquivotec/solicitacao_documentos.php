@@ -57,7 +57,7 @@ function dados_os($id_os)
 	
 	$array_dados['descricao'] = $regs0["descricao"];
 	
-	$array_dados['id_cliente'] = $regs0["id_empresa_erp"];
+	$array_dados['id_cliente'] = $regs0["id_empresa"];
 	
 	$array_dados['titulo1'] = $regs0["titulo_1"];
 	
@@ -181,7 +181,7 @@ function atualizatabela($dados_form)
 		switch ($regs["status"])
 		{
 			case 0:
-				$status = 'NÃO&nbsp;ENVIADA';
+				$status = 'NÃO ENVIADA';
 			break;
 			case 1:
 				$status = 'ENVIADA';
@@ -193,17 +193,17 @@ function atualizatabela($dados_form)
 		
 		if(intval($regs['codigo_pedido'])==0 || $regs["status"] == 0)
 		{
-			$txt = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick = if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;pedido&nbsp;selecionado?")){xajax_excluir(' . $regs["id_solicitacao_documento"] . ');}>';
+			$txt = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick = if(confirm("Confirma a exclusão do pedido selecionado?")){xajax_excluir(' . $regs["id_solicitacao_documento"] . ');}>';
 		}
 		else
 		{
-			$txt = '&nbsp;';
+			$txt = ' ';
 		}
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id', 'sl_'.$regs["id_solicitacao_documento"]);
 			$xml->writeElement('cell', sprintf("%05d",$regs["id_solicitacao_documento"]));
-			$xml->writeElement('cell', sprintf("%010d",$regs["os"])."&nbsp;-&nbsp;".trim($regs["descricao"]));
+			$xml->writeElement('cell', sprintf("%010d",$regs["os"])." - ".trim($regs["descricao"]));
 			$xml->writeElement('cell', mysql_php($regs["data"]));
 			$xml->writeElement('cell', $status);
 			$xml->writeElement('cell', $txt);
@@ -296,7 +296,7 @@ function atualizatabela_itens($dados_form)
 	{	
 		if($regs['total_arquivos'] > 0)
 		{
-			$txt = '&nbsp;';
+			$txt = ' ';
 			
 			$hab_sol = false;
 		}
@@ -304,13 +304,13 @@ function atualizatabela_itens($dados_form)
 		{
 			if($regs0["status"]==0)
 			{
-				$txt = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick = if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;documento&nbsp;selecionado?")){xajax_excluir_item(' . $regs["id_solicitacao_documentos_detalhe"] . ');}>';
+				$txt = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick = if(confirm("Confirma a exclusão do documento selecionado?")){xajax_excluir_item(' . $regs["id_solicitacao_documentos_detalhe"] . ');}>';
 		
 				$hab_sol = true;
 			}
 			else
 			{
-				$txt = '&nbsp;';
+				$txt = ' ';
 				
 				$hab_sol = false;				
 			}
@@ -389,8 +389,8 @@ function enviar($dados_form)
 	$sql .= "AND solicitacao_documentos.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND usuarios.id_funcionario = solicitacao_documentos.id_funcionario ";
-	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_funcionario = solicitacao_documentos.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	
 	$db->select($sql, 'MYSQL',true);
 
@@ -547,14 +547,14 @@ function enviar($dados_form)
 					<td>OS: " . sprintf("%05d",$array_dados['os']) . " - " . $array_dados['descricao'] . " </td>
 					</tr>
 					<tr>
-					<td>Nº&nbsp;PEDIDO: " . sprintf("%05d",$pedido["id_solicitacao_documento"]) . " </td>
+					<td>Nº PEDIDO: " . sprintf("%05d",$pedido["id_solicitacao_documento"]) . " </td>
 					</tr>		
 					</table>
 					
 					<table width=\"100%\" border=\"1\">
 					  <tr>
-						<td width=\"10%\" class=\"style4\">Nº&nbsp;Interno</td>
-						<td width=\"10%\" class=\"style4\">Nº&nbsp;Cliente</td>
+						<td width=\"10%\" class=\"style4\">Nº Interno</td>
+						<td width=\"10%\" class=\"style4\">Nº Cliente</td>
 						<td width=\"10%\"><div align=\"center\" class=\"style4\">DISCIPLINA</div></td>			
 						<td width=\"6%\"><div align=\"center\" class=\"style4\">TIPO</div></td>
 						<td width=\"6%\"><div align=\"center\" class=\"style4\">FINALIDADE</div></td>
@@ -704,16 +704,23 @@ function enviar($dados_form)
 					$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 					$params['emails']['to'][] = array('email' => $pedido["email"], 'nome' => $pedido["funcionario"]);
 
-					$mail = new email($params, 'solicitacao_documentos');
-					
-					$mail->montaCorpoEmail($tabela);
-					
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert('Erro ao enviar e-mail.');
+						$mail = new email($params, 'solicitacao_documentos');
+						
+						$mail->montaCorpoEmail($tabela);
+						
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar e-mail.');
+						}
+						
+						$mail->ClearAddresses();
 					}
-					
-					$mail->ClearAddresses();
+					else 
+					{
+						$resposta->addScriptCall('modal', $tabela, '300_650', 'Conteúdo email', 3);
+					}
 				}					
 			}
 			else
@@ -1543,7 +1550,7 @@ function grid(tabela, autoh, height, xml)
 		
 	 	case 'itens':
 		
-			mygrid.setHeader("Nº&nbsp;item,Disciplina,Nº&nbsp;Cliente,Título&nbsp;1,Título&nbsp;2,Título&nbsp;3,Título&nbsp;4,Fmt,Fls,Rev.,D");
+			mygrid.setHeader("Nº item,Disciplina,Nº Cliente,Título 1,Título 2,Título 3,Título 4,Fmt,Fls,Rev.,D");
 			mygrid.setInitWidths("60,120,100,140,140,140,140,35,35,35,30");
 			mygrid.setColAlign("left,left,left,left,left,left,left,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");

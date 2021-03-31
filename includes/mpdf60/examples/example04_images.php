@@ -174,14 +174,14 @@ Image padding is supported as well as border and margin.
 <img src="tiger.jpg" rotate="180" width="100" /> 
 <img src="tiger.jpg" rotate="-90" width="100" /> 
 <br />
-<img src="tiger2.wmf" width="80" /> &nbsp; &nbsp; &nbsp;
-<img src="tiger2.wmf" rotate="90" width="80" /> &nbsp; &nbsp; &nbsp;
-<img src="tiger2.wmf" rotate="180" width="80" /> &nbsp; &nbsp; &nbsp;
+<img src="tiger2.wmf" width="80" />      
+<img src="tiger2.wmf" rotate="90" width="80" />      
+<img src="tiger2.wmf" rotate="180" width="80" />      
 <img src="tiger2.wmf" rotate="-90" width="80" />
 <br />
-<img src="tiger.svg" width="100" />&nbsp;
-<img src="tiger.svg" rotate="90" width="85" />&nbsp;
-<img src="tiger.svg" rotate="180" width="100" />&nbsp;
+<img src="tiger.svg" width="100" /> 
+<img src="tiger.svg" rotate="90" width="85" /> 
+<img src="tiger.svg" rotate="180" width="100" /> 
 <img src="tiger.svg" rotate="-90" width="85" /> 
 <br />
 

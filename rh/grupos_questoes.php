@@ -93,7 +93,7 @@ function atualizatabela()
 				$xml->writeAttribute('id', $reg['bqg_id']);
 				$xml->writeElement('cell', $reg['bqg_id']);
 				$xml->writeElement('cell', $reg['bqg_titulo']);
-				$xml->writeElement('cell', "<img style=\'cursor:pointer;\' src=\'".DIR_IMAGENS."apagar.png\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;grupo?\')){xajax_excluir(".$reg['bqg_id'].");} />");
+				$xml->writeElement('cell', "<img style=\'cursor:pointer;\' src=\'".DIR_IMAGENS."apagar.png\' onclick=if(confirm(\'Deseja excluir este grupo?\')){xajax_excluir(".$reg['bqg_id'].");} />");
 			$xml->endElement();
 	}
 					

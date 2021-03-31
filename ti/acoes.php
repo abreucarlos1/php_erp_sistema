@@ -99,7 +99,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $cont_desp["id_acao"]);
 			$xml->writeElement('cell', $cont_desp["acao"]);
-			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$cont_desp["id_acao"].'");}>');
+			$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão?")){xajax_excluir("'.$cont_desp["id_acao"].'");}>');
 		$xml->endElement();
 	}
 

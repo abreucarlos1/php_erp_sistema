@@ -13,10 +13,15 @@
 <table width="100%" border="0">               
         <tr>
         	<td width="116" valign="top" class="espacamento">
-        		<table width="100%">
+            <table width="100%">
+            <tr>
+            <td valign="middle">
+              <input name="btninserir" type="button" class="class_botao" id="btninserir" value="Inserir" onclick="xajax_insere(xajax.getFormValues('frm'));">
+            </td>
+          </tr>
         			<tr>
         				<td valign="middle">
-                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+                        <input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
                     	</td>
                    	</tr>
        			</table>
@@ -35,9 +40,18 @@
             <table width="100%" border="0">
               <tr>
                 <td width="16%"><label class="labels">Proposta</label><br />
-                <div class="labels" style="font-weight:bold" id="nr_proposta">&nbsp;</div></td>
-                <td width="84%"><label class="labels">Descrição</label><br />
-                <div class="labels" style="font-weight:bold" id="descri_proposta">&nbsp;</div></td>
+                <!-- <div class="labels" style="font-weight:bold" id="nr_proposta"> </div>-->
+                <input name="nr_proposta" type="text" class="caixa" id="nr_proposta" size="14">
+                </td>
+                  
+                <td width="16%"><label class="labels">Descrição</label><br />
+                <!-- <div class="labels" style="font-weight:bold" id="descri_proposta"> </div> -->
+                  <input name="descri_proposta" type="text" class="caixa" id="descri_proposta" size="100">
+                </td>
+                <td width="78%"><label for="exec_1" class="labels">Executante 1</label><br /> 
+                <select name="exec_1" class="caixa" id="exec_1" onkeypress="return keySort(this);">
+                <smarty>html_options values=$option_exec1_values output=$option_exec1_output</smarty>
+                </select></td>
                 <input type="hidden" id="id_proposta" name="id_proposta" value="" />
                 <input type="hidden" id="chk_del" name="chk_del[]" value="">
               </tr>
@@ -45,7 +59,7 @@
 			<table border="0" width="100%">
 				<tr>
 					<td width="37%"><label for="busca" class="labels">Buscar</label><br />
-                    <input name="busca" type="text" class="caixa" id="busca" placeholder="Busca" size="50" />&nbsp;&nbsp;
+                    <input name="busca" type="text" class="caixa" id="busca" placeholder="Busca" size="50" />  
                     <input name="btnbuscar" id="btnbuscar" type="button" class="class_botao" value="Buscar" onclick="xajax_atualizatabela(xajax.getFormValues('frm'),true);" />
                     </td>
 				</tr>
@@ -57,7 +71,7 @@
             <div id="my_tabbar" style="height:600px;"> </div>               
               
               <div id="a10">     
-                <div id="div_dados_cliente">&nbsp;</div>
+                <div id="div_dados_cliente"> </div>
             </div>
               
               <div id="a15">
@@ -69,13 +83,13 @@
                           <option value="">ESCOLHA A DISCIPLINA</option>
                           <smarty>html_options values=$option_disciplina_values output=$option_disciplina_output</smarty>
                       </select></td>								
-                      <td width="81%"><input name="btn_email" type="button" id="btn_email" class="class_botao" value="Enviar&nbsp;e-mail" disabled="disabled" onclick="if(confirm('Deseja enviar e-mail aos colaboradores autorizados?')){xajax_email(xajax.getFormValues('frm'))};"></td>
+                      <td width="81%"><input name="btn_email" type="button" id="btn_email" class="class_botao" value="Enviar e-mail" disabled="disabled" onclick="if(confirm('Deseja enviar e-mail aos colaboradores autorizados?')){xajax_email(xajax.getFormValues('frm'))};"></td>
                     </tr>
                   </table>
                   <table width="100%" border="1" >
                     <tr valign="top">
-                      <td width="50%" valign="top"><div id="div_aut_colab" style="width:99%;">&nbsp;</div></td>
-                      <td width="50%" valign="top"><div id="div_autorizados" style="width:99%;">&nbsp;</div></td>
+                      <td width="50%" valign="top"><div id="div_aut_colab" style="width:99%;"> </div></td>
+                      <td width="50%" valign="top"><div id="div_autorizados" style="width:99%;"> </div></td>
                     </tr>
                   </table>
                 </div>
@@ -98,14 +112,14 @@
                       <td width="30%"><input name="btn_subcontratado" class="class_botao" type="button" id="btn_subcontratado" value="Inserir" onclick="xajax_inc_subcontratado(xajax.getFormValues('frm'));"></td>            
                     </tr>
                   </table>                 
-                  <div id="div_subcontratados">&nbsp;</div>
+                  <div id="div_subcontratados"> </div>
                 </div>          
             </div>              
               <div id="a20">
                 <div id="div_control_escopo_geral" style="visibility:hidden; display:none;">
                   <table width="100%">
                     <tr>
-                      <td width="20%"><label for="escopogeral" class="labels">Escopo&nbsp;Geral</label><br />           
+                      <td width="20%"><label for="escopogeral" class="labels">Escopo Geral</label><br />           
                             <input name="escopogeral" type="text" class="caixa" id="escopogeral" placeholder="Escopo Geral" size="50">
                             <input name="h_escopogeral" id="h_escopogeral" type="hidden">
                       </td>
@@ -114,7 +128,7 @@
                         <smarty>html_options values=$option_estado_values output=$option_estado_output selected=$selecionado1</smarty>
                       </select>
                     </td>
-                    <td width="95%"><label for="id_cidade" class="labels">Local&nbsp;obra</label><br />
+                    <td width="95%"><label for="id_cidade" class="labels">Local obra</label><br />
                       <select name="id_cidade" class="caixa" id="id_cidade" onkeypress="return keySort(this);" >
                       </select>
                     </td>                              
@@ -125,7 +139,7 @@
                       <td width="80%"><input name="btn_escopo" type="button" id="btn_escopo" class="class_botao" value="Inserir" onclick="xajax_inc_escopogeral(xajax.getFormValues('frm'));"></td>            
                     </tr>
                   </table>                   
-                  <div id="div_escopo_geral">&nbsp;</div>
+                  <div id="div_escopo_geral"> </div>
                 </div>          
             </div>
               
@@ -133,15 +147,15 @@
                 <div id="div_control_escopo_detalhado" style="visibility:hidden">       
                   <table width="100%">
                     <tr>
-                      <td width="9%"><label class="labels">Escopo&nbsp;Geral</label><br />
-                        <div id="escop">&nbsp;</div>
+                      <td width="9%"><label class="labels">Escopo Geral</label><br />
+                        <div id="escop"> </div>
                       </td>
                       <td width="91%"><label class="labels">Disciplina</label><br />
-                        <div id="div_disciplina">&nbsp;</div>
+                        <div id="div_disciplina"> </div>
                       </td>								
                     </tr>
                   </table>
-                  <div id="div_escopo_detalhado" style="width:99%; margin-bottom:10px;">&nbsp;</div>
+                  <div id="div_escopo_detalhado" style="width:99%; margin-bottom:10px;"> </div>
                   <input name="btn_escopodet" type="button" id="btn_escopodet" value="Concluir" disabled="disabled" class="class_botao" onclick="xajax_inc_escopodetalhado(xajax.getFormValues('frm',true));">
                   <input name="btn_cancela" type="button" id="btn_cancela" value="Cancelar" disabled="disabled" class="class_botao" onclick="xajax_status_usuario(xajax.getFormValues('frm',true),1);">
                 </div>
@@ -151,30 +165,30 @@
                 <div id="div_control_mobilizacao" style="visibility:hidden;">       
                   <table width="100%">
                     <tr>
-                      <td width="12%"><label class="labels">Escopo&nbsp;Geral</label><br />
-                        <div id="mobilizacao">&nbsp;</div>
+                      <td width="12%"><label class="labels">Escopo Geral</label><br />
+                        <div id="mobilizacao"> </div>
                       </td>
-                      <td width="15%"><label class="labels">Tipo&nbsp;reembolso</label><br />
+                      <td width="15%"><label class="labels">Tipo reembolso</label><br />
                       <select name="id_tipo_reembolso" class="caixa" id="id_tipo_reembolso" onkeypress="return keySort(this);" onchange="if(this.value==2 || this.value==3){document.getElementById('taxa_adm').style.display='inline';if(this.value==2){document.getElementById('taxa_administrativa').value=0}else{document.getElementById('taxa_administrativa').value=10}}else{document.getElementById('taxa_administrativa').value=0;document.getElementById('taxa_adm').style.display='none'}" >
-                      <option value="1">NOTA&nbsp;FISCAL</option>
-                      <option value="2">NOTA&nbsp;DÉBITO</option>
-                      <option value="3">NOTA&nbsp;DÉBITO&nbsp;SEM&nbsp;COMP.</option>
+                      <option value="1">NOTA FISCAL</option>
+                      <option value="2">NOTA DÉBITO</option>
+                      <option value="3">NOTA DÉBITO SEM COMP.</option>
                       </select>
                       </td>
-                      <td width="73%"><div id="taxa_adm" style="display:none;"><label class="labels">Taxa&nbsp;administrativa</label><br />
-                        <input name="taxa_administrativa" type="text" class="caixa" id="taxa_administrativa" size="5" placeholder="Taxa&nbsp;administrativa" value="10" onkeypress = "num_only();">
+                      <td width="73%"><div id="taxa_adm" style="display:none;"><label class="labels">Taxa administrativa</label><br />
+                        <input name="taxa_administrativa" type="text" class="caixa" id="taxa_administrativa" size="5" placeholder="Taxa administrativa" value="10" onkeypress = "num_only();">
                         </div>
                       </td>
                     </tr>
                   </table>
-                  <div id="div_mobilizacao" style="width:99%; margin-bottom:10px;">&nbsp;</div>
+                  <div id="div_mobilizacao" style="width:99%; margin-bottom:10px;"> </div>
                   <input name="btn_mobilizacao" type="button" id="btn_mobilizacao" value="Concluir" disabled="disabled" class="class_botao" onclick="xajax_inc_mobilizacao(xajax.getFormValues('frm',true));">
                 </div>
               </div>
               
               <div id="a40">
                 <div id="div_control_resumo" style="visibility:hidden"> 
-                  <div id="div_resumo" style="width:99%">&nbsp;</div>
+                  <div id="div_resumo" style="width:99%"> </div>
                   <div id="barra_btn_quant">
                   </div>
                 </div>

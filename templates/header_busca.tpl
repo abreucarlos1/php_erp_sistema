@@ -22,27 +22,27 @@
 
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
-			<td width="109" class="fundo_cinza">&nbsp;</td>
-			<td width="66" class="fundo_azul">&nbsp;</td>
-			<td width="832" class="<smarty>$classe</smarty>">&nbsp;</td>
-			<td width="2" rowspan="4" class="<smarty>$classe</smarty>">&nbsp;</td>
+			<td width="109" class="fundo_cinza"> </td>
+			<td width="66" class="fundo_azul"> </td>
+			<td width="832" class="<smarty>$classe</smarty>"> </td>
+			<td width="2" rowspan="4" class="<smarty>$classe</smarty>"> </td>
 		  </tr>
 		  <tr>
 			<td colspan="2" rowspan="2"><img src="/ERP/images/logo_h.jpg" width="200" height="56" class="imagem_sp" /></td>
 			<td align="right" valign="middle"><img src="/ERP/images/setas.gif" width="22" height="13" class="imagem_sp" />
-				<label class="fonte_14"><smarty>$nome_formulario</smarty></label>&nbsp;</td>
+				<label class="fonte_14"><smarty>$nome_formulario</smarty></label> </td>
 			</tr>
 		  <tr>
 			<td align="right" valign="middle"><img src="/ERP/images/setas_menor.gif" width="18" height="10" class="imagem_sp" />
 				<label  class="fonte_12_az">
 				<smarty>$smarty.session.login</smarty>
-				</label>&nbsp;
-				<img src="/ERP/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../inicio.php" class="fonte_12_az">&nbsp;Inicio&nbsp;</a> <img src="/erp/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../logout.php" class="fonte_12_az">&nbsp;Sair</a>&nbsp;</td>
+				</label> 
+				<img src="/ERP/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../inicio.php" class="fonte_12_az"> Inicio </a> <img src="/erp/images/setas_menor.gif" width="18" height="10" class="imagem_sp" /><a href="../logout.php" class="fonte_12_az"> Sair</a> </td>
 			</tr>
 		  <tr>
-			<td class="fundo_cinza">&nbsp;</td>
-			<td class="fundo_azul">&nbsp;</td>
-			<td class="<smarty>$classe</smarty>">&nbsp;</td>
+			<td class="fundo_cinza"> </td>
+			<td class="fundo_azul"> </td>
+			<td class="<smarty>$classe</smarty>"> </td>
 			</tr>
 		</table>
 		

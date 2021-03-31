@@ -18,19 +18,19 @@
         	<td colspan="2" valign="top" class="espacamento">
 		  <table border="0" width="100%">
 				<tr>
-					<td width="19%"><label for="periodo" class="labels">Per&iacute;odo</label><br />
+					<td width="19%"><label for="periodo" class="labels">Período</label><br />
                     <select id="periodo" name="periodo" class="caixa" onchange="xajax_atualizafechamentos(xajax.getFormValues('frm'))" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_periodo_values output=$option_periodo_output</smarty>
                 	</select>
                     </td>
 				</tr>
 			</table>
-            <label class="labels">Selecione&nbsp;as&nbsp;NFs&nbsp;que&nbsp;não&nbsp;devem&nbsp;aparecer&nbsp;no&nbsp;relatório</label><br />
-		  <div id="div_escolha">&nbsp;</div>
+            <label class="labels">Selecione as NFs que não devem aparecer no relatório</label><br />
+		  <div id="div_escolha"> </div>
           </td>
         </tr>
       </table>
-	  <div id="arquivos">&nbsp;</div>
+	  <div id="arquivos"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

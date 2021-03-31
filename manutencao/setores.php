@@ -91,7 +91,7 @@ function atualizatabela($filtro)
 			$xml->writeElement('cell', $cont_desp["setor"]);
 			$xml->writeElement('cell', $cont_desp["sigla"]);
 			
-			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;setor&nbsp;selecionado?\')){xajax_excluir(\'".$cont_desp["id_setor"]."\');}>";
+			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma a exclusão do setor selecionado?\')){xajax_excluir(\'".$cont_desp["id_setor"]."\');}>";
 			$xml->writeElement('cell', $img);
 		$xml->endElement();
 	}
@@ -145,7 +145,7 @@ function insere($dados_form)
 	
 		$recno5 = $reg1["R_E_C_N_O_"] + 1;
 		
-		//INSERE NO PROTHEUS - TABELA GRUPO COMPOSI��O
+		//INSERE NO PROTHEUS - TABELA GRUPO COMPOSIÇÃO
 		$isql = "INSERT INTO AE5010 ";
 		$isql .= "(AE5_GRPCOM, AE5_DESCRI, R_E_C_N_O_, AE5_ID_DVM) ";
 		$isql .= "VALUES ('" . maiusculas($dados_form["abreviacao"]) . "', ";

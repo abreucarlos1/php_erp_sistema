@@ -84,7 +84,7 @@ function atualizatabela($filtro)
 		$xml->startElement('row');
 		$xml->writeAttribute('id', $cont_desp['id_rh_conhecimento']);
 		$xml->writeElement('cell', $cont_desp['conhecimento']);
-		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;conhecimento?")){xajax_excluir("'.$cont_desp["id_rh_conhecimento"].'");}; >');
+		$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja excluir o conhecimento?")){xajax_excluir("'.$cont_desp["id_rh_conhecimento"].'");}; >');
 		$xml->endElement();
 	}
 

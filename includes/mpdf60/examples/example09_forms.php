@@ -21,12 +21,12 @@ $html = '
 
 
 <b>Input Radio</b>
-<input type="radio" name="pre_publication" value="0" checked="checked" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="pre_publication" value="1" > Yes 
+<input type="radio" name="pre_publication" value="0" checked="checked" > No      <input type="radio" name="pre_publication" value="1" > Yes 
 <br /><br />
 
 
 <b>Input Radio</b>
-<input type="radio" name="recommended" value="0" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="1" > Keep &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
+<input type="radio" name="recommended" value="0" > No      <input type="radio" name="recommended" value="1" > Keep      <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
 <br /><br />
 
 
@@ -64,12 +64,12 @@ $html = '
 <br /><br />
 
 <b>Input Radio</b>
-<input type="radio" name="pre_publication" value="0" checked="checked" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="pre_publication" value="1" > Yes 
+<input type="radio" name="pre_publication" value="0" checked="checked" > No      <input type="radio" name="pre_publication" value="1" > Yes 
 <br /><br />
 
 
 <b>Input Radio</b>
-<input type="radio" name="recommended" value="0" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="1" > Keep &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
+<input type="radio" name="recommended" value="0" > No      <input type="radio" name="recommended" value="1" > Keep      <input type="radio" name="recommended" value="2"  checked="checked" > Choice 
 <br /><br />
 
 
@@ -105,10 +105,10 @@ $html = '
 
 <tr><td valign="top" align="right"><b>Select</b></td><td><select size="1" name="status"><option value="A">Active</option><option value="W" >New item from auto_manager: pending validation</option><option value="I" selected="selected">Incomplete record - pending</option><option value="X" >Flagged for Deletion</option> </select> <input type="hidden" name="old_status" value="A" /> </td></tr>
 
-<tr><td valign="bottom" align="right"><b>Input Radio</b></td><td><input type="radio" name="pre_publication" value="0"  checked > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="pre_publication" value="1" > Yes </td></tr>
+<tr><td valign="bottom" align="right"><b>Input Radio</b></td><td><input type="radio" name="pre_publication" value="0"  checked > No      <input type="radio" name="pre_publication" value="1" > Yes </td></tr>
 
 
-<tr><td valign="top" align="right"><b>Input Radio</b></td><td><input type="radio" name="recommended" value="0" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="1" > Keep &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="2"  checked="checked" > Choice </td></tr>
+<tr><td valign="top" align="right"><b>Input Radio</b></td><td><input type="radio" name="recommended" value="0" > No      <input type="radio" name="recommended" value="1" > Keep      <input type="radio" name="recommended" value="2"  checked="checked" > Choice </td></tr>
 
 <tr><td valign="top" align="right"><b>Input Text</b></td><td><input type="text" size="40" name="doi" value="10.1258/jrsm.100.5.211"> </td>
 </tr>
@@ -138,14 +138,14 @@ $html = '
 <form>
 
 <b>Input Radio</b>
-<input type="radio" name="pre_publication" value="0" checked="checked" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="pre_publication" value="1" > Yes  
+<input type="radio" name="pre_publication" value="0" checked="checked" > No      <input type="radio" name="pre_publication" value="1" > Yes  
 
 <br />
 
 <input type="hidden" name="doi" value="10.1258/jrsm.100.5.211" /> 
 <br />
 <b>Input Radio</b>
-<input type="radio" name="recommended" value="0" > No &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="1" > Keep &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="recommended" value="2"  checked="checked" > Choice   
+<input type="radio" name="recommended" value="0" > No      <input type="radio" name="recommended" value="1" > Keep      <input type="radio" name="recommended" value="2"  checked="checked" > Choice   
 
 <br /><br />
 

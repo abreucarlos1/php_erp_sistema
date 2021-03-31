@@ -99,8 +99,8 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', $regs['grupo']);
 			$xml->writeElement('cell', number_format($regs1['valor'],2,",","."));
 			$xml->writeElement('cell', mysql_php($regs1["data_alteracao"]));
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_tabela_valor_mo"].'","'.str_replace(" ","&nbsp;",$regs["grupo"]).'");>');
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;índice?&nbsp;Todo&nbsp;o&nbsp;histórico&nbsp;será&nbsp;excluído!")){xajax_excluir("'.$regs["id_tabela_valor_mo"].'")};>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_tabela_valor_mo"].'","'.str_replace(" "," ",$regs["grupo"]).'");>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do índice? Todo o histórico será excluído!")){xajax_excluir("'.$regs["id_tabela_valor_mo"].'")};>');
 		$xml->endElement();
 	}
 	
@@ -508,12 +508,12 @@ function hist($id_valor)
 		//verifica se é o id atual E tenha + de 1 registro
 		if($regs["id_tabela_valor_mo_historico"]==$regs["id_tabela_valor_atual"] && count($array_regs)==1)
 		{
-			$img = '&nbsp;';	
+			$img = ' ';	
 		}
 		else
 		{
 			
-			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;valor?")){xajax_excluir_hist("'.$regs["id_tabela_valor_mo_historico"].'")};>';	
+			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do valor?")){xajax_excluir_hist("'.$regs["id_tabela_valor_mo_historico"].'")};>';	
 		}
 		
 		$xml->startElement('row');
@@ -822,15 +822,15 @@ function historico(id_valor,descricao)
 	
 	conteudo += '<tr><td class="espacamento">';
 
-	conteudo += '<div id="corpo" style="width:100%;">&nbsp;</div>';
+	conteudo += '<div id="corpo" style="width:100%;"> </div>';
 	
 	conteudo += '</td></tr></table>';
 	
-	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja&nbsp;alterar&nbsp;os&nbsp;dados&nbsp;do&nbsp;índice?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">&nbsp;&nbsp;';
+	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja alterar os dados do índice?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">  ';
 	
 	conteudo += '<input type="button" class="class_botao" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();>';
 	
-	conteudo += '<div id="valores_hist" style="width:100%">&nbsp;</div></form>';	
+	conteudo += '<div id="valores_hist" style="width:100%"> </div></form>';	
 	
 	modal(conteudo, 'g', 'HISTÓRICO');	
 

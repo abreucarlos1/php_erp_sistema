@@ -93,7 +93,7 @@ function atualizatabela($filtro)
 			
 			$xml->writeElement('cell', $img);
 			
-			$img = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluir('.$reg['id'].');}></span>';
+			$img = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir?")){xajax_excluir('.$reg['id'].');}></span>';
 			$xml->writeElement('cell', $img);
 		$xml->endElement();
 	}

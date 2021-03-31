@@ -104,7 +104,7 @@ function enviarAvaliacao($dados_form)
 	
 	if ($db->erro != '')
 	{
-		$resposta->addAlert('Houve uma falha ao tentar enviar a avalia��o!');
+		$resposta->addAlert('Houve uma falha ao tentar enviar a avaliação!');
 		
 		return $resposta;
 	}

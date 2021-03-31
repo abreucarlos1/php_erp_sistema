@@ -122,7 +122,7 @@ dhtmlXTreeObject.prototype._drawNewHolder=function(s,mode){
 	var b=document.createElement("TD");
 	var b2=document.createElement("TD");
 	var z=document.createElement("DIV");
-	z.innerHTML="&nbsp;";
+	z.innerHTML=" ";
 	b.appendChild(z)
 	t.appendChild(b2); t.appendChild(b);
 	if (!mode){

@@ -112,14 +112,14 @@
 	$objTestScriptPlugin->printHeader($xajax, "Javascript Functions", ob_get_clean());
 ?>
 		<form id='mainForm' onsubmit='return false;'>
-<?
+<?php
 ob_start();
 ?>
 							<table class=''>
 								<tbody>
 									<tr>
 										<td width='25%'>
-											<div id='control'>&nbsp;</div>
+											<div id='control'> </div>
 										</td>
 										<td align='center'>
 											<input type='submit' value='Add' 
@@ -142,7 +142,7 @@ ob_start();
 									</tr>
 								</tbody>
 							</table>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 ?>
 		</form>

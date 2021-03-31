@@ -524,8 +524,8 @@ function dhtmlXCalendarObject(inps, skin) {
 			this._sel.firstChild.firstChild.firstChild.childNodes[0].className = "dhtmlxcalendar_selector_cell_left";
 			this._sel.firstChild.firstChild.firstChild.childNodes[1].className = "dhtmlxcalendar_selector_cell_middle";
 			this._sel.firstChild.firstChild.firstChild.childNodes[2].className = "dhtmlxcalendar_selector_cell_right";
-			this._sel.firstChild.firstChild.firstChild.childNodes[0].innerHTML = "&nbsp;";
-			this._sel.firstChild.firstChild.firstChild.childNodes[2].innerHTML = "&nbsp;";
+			this._sel.firstChild.firstChild.firstChild.childNodes[0].innerHTML = " ";
+			this._sel.firstChild.firstChild.firstChild.childNodes[2].innerHTML = " ";
 			
 			if (!this.conf.touch) {
 				this._sel.firstChild.firstChild.firstChild.childNodes[0].onmouseover = function(){
@@ -1978,7 +1978,7 @@ function dhtmlXCalendarObject(inps, skin) {
 		return this.callEvent("onArrowClick", args);
 	}
 	this._evOnClick = function(args) {
-		return this.callEvent("onClick", args);
+		return this.callEvent("onclick", args);
 	}
 	this._evOnMouseOut = function(args) {
 		return this.callEvent("onMouseOut", args);

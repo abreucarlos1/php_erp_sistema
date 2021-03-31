@@ -43,7 +43,7 @@ TODO (in the future...):
 
 Misc. Observations:
 - CSS + align = bug! (?)
-OBS1: para textos de mais de 1 p�gina, talvez tenha que juntar varios $texto_artigo
+OBS1: para textos de mais de 1 página, talvez tenha que juntar varios $texto_artigo
 antes de mandar gerar o PDF, para que o PDF gerado seja completo.
 OBS2: there are 2 types of spaces 32 and 160 (ascii values)
 OBS3: //! is a special comment to be used with source2doc.php, a script I created
@@ -412,7 +412,7 @@ function Footer()
 //! @desc The footer is printed in every page!
     //Position at 1.0 cm from bottom
     $this->SetY(-20);
-    //Copyright //especial para esta vers�o
+    //Copyright //especial para esta versão
     $this->SetFont('Arial','B',9);
   	$this->SetTextColor(0);
     //Arial italic 9
@@ -458,7 +458,7 @@ function WriteHTML($html)
         //Avoid crashing the script on PHP 4.0
         $version = phpversion();
         $version = str_replace('.','',$version);
-        if ($version >= 430) $e = html_entity_decode($e,ENT_QUOTES,'cp1252'); // changes &nbsp; and the like by their respective char
+        if ($version >= 430) $e = html_entity_decode($e,ENT_QUOTES,'cp1252'); // changes   and the like by their respective char
         else $e = lesser_entity_decode($e);
       }
       $e = str_replace(chr(160),chr(32),$e); //unify ascii code of spaces (in order to recognize all of them correctly)
@@ -3006,7 +3006,7 @@ function _tableWrite(&$table){
 
 /*
 ----  JUNK(?)/OLD CODE: ------
-// <? <- this fixes HIGHLIGHT PSPAD bug ... 
+// <?php <- this fixes HIGHLIGHT PSPAD bug ... 
 
 */
 

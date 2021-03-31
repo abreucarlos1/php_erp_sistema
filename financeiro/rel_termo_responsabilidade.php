@@ -79,7 +79,7 @@ $sql .= "WHERE adiantamento_funcionario.id_adiantamento_funcionario = '" . $_GET
 $sql .= "AND requisicao_despesas.responsavel_despesas = funcionarios.id_funcionario ";
 $sql .= "AND requisicao_despesas.id_requisicao_despesa = adiantamento_funcionario.id_requisicao_despesa ";
 $sql .= "AND requisicao_despesas.id_os = ordem_servico.id_os ";
-$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa_erp ";
+$sql .= "AND requisicao_despesas.id_empresa = empresas.id_empresa ";
 
 $registro = $db->select($sql,'MYSQL');
 

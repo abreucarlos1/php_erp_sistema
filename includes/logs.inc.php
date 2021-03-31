@@ -3,12 +3,12 @@ function logs($banco, $conexao, $usuario, $acao,$db='', $id_registro=0)
 {
 	session_start();
 /*
-//	LOGA AS AÇOES DOS USUÁRIOS
+//	LOGA AS AÃ‡Ã•ES DOS USUÃRIOS
 
-$banco -> banco de inserção dos dados
+$banco -> banco de inserÃ§Ã£o dos dados
 $conexao -> link da variavel $conexao
 $usuario -> nome do usuario
-$acao -> descrição da ação
+$acao -> descriÃ§Ã£o da aÃ§Ã£o
 $db -> banco alvo
 $id_registro -> registro afetado
 
@@ -17,18 +17,18 @@ $id_registro -> registro afetado
 	
 	$pagina = $formulario[count($formulario)-1];
 	
-	$incsql = "INSERT INTO logs.".$banco." ";
-	$incsql .= " (ip, usuario, data, hora, acao, db, id_registro, formulario) ";
-	$incsql .= "VALUES ('" . $_SERVER['REMOTE_ADDR'] . "', ";
-	$incsql .= "'" . $usuario . "', ";
-	$incsql .= "'" . date('Y-m-d') . "', ";
-	$incsql .= "'" . date('H:i:s') . "', ";
-	$incsql .= "'" . $acao . "', ";
-	$incsql .= "'" . $db . "', ";
-	$incsql .= "'" . $id_registro . "', ";
-	$incsql .= "'" . $pagina. "') ";
+	$isql = "INSERT INTO logs.".$banco." ";
+	$isql .= " (ip, usuario, data, hora, acao, db, id_registro, formulario) ";
+	$isql .= "VALUES ('" . $_SERVER['REMOTE_ADDR'] . "', ";
+	$isql .= "'" . $usuario . "', ";
+	$isql .= "'" . date('Y-m-d') . "', ";
+	$isql .= "'" . date('H:i:s') . "', ";
+	$isql .= "'" . $acao . "', ";
+	$isql .= "'" . $db . "', ";
+	$isql .= "'" . $id_registro . "', ";
+	$isql .= "'" . $pagina. "') ";
 	
-	$r = mysql_query($incsql,$conexao) or die("Não foi possível a inserção dos dados".$incsql);
+	$r = mysql_query($isql,$conexao) or die("NÃ£o foi possÃ­vel a inserÃ§Ã£o dos dados ".$isql);
 
 }
 

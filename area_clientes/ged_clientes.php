@@ -1,14 +1,14 @@
 <?php
 /**
  *
- *		Formul�rio de Gerenciamento Eletr�nico de Documentos	
+ *		Formulário de Gerenciamento Eletrônico de Documentos	
  *		
  *		Criado por Carlos Abreu  
  *		
  *		local/Nome do arquivo:
  *		area_clientes/ged_clientes.php
  *		
- *		data de cria��o: 04/06/2014
+ *		data de criação: 04/06/2014
  *		
  *		Versão 0 --> VERSÃO INICIAL
  *		Versão 1 --> Atualização de banco, e-mail - 20/01/2015 - Carlos Abreu	
@@ -44,11 +44,11 @@ function abrir($caminho, $nome_original="")
 			//Se for fornecido o segundo argumento
 			if($nome_original)
 			{
-				// Cria um cache do arquivo (com o nome original, sem a extens�o da vers�o) antes de enviar para o usu�rio
-				// Para evitar o cache do navegador e outros problemas, cria-se um diret�rio de cache com nome rand�mico
-				// Sempre remove o diret�rio tempor�rio antes de iniciar a opera��o
-				// Diret�rio tempor�rio = "/tmp/"
-				// Diret�rio de cache tempor�rio = "/tmp/(n�mero rand�mico)/"
+				// Cria um cache do arquivo (com o nome original, sem a extensão da versão) antes de enviar para o usuário
+				// Para evitar o cache do navegador e outros problemas, cria-se um diretório de cache com nome  randômico
+				// Sempre remove o diretório temporário antes de iniciar a operação
+				// Diretório temporário = "/tmp/"
+				// Diretório de cache temporário = "/tmp/(número randômico)/"
 		
 				//Explode o caminho do arquivo original
 				$array_arquivo = explode("/",$nome_original);
@@ -56,43 +56,43 @@ function abrir($caminho, $nome_original="")
 				//Pega o nome do arquivo
 				$arquivo_original = $array_arquivo[count($array_arquivo)-1];
 				
-				//Remove o �ltimo item (nome do arquivo)
+				//Remove o último item (nome do arquivo)
 				array_pop($array_arquivo);
 				
-				//Pega o diret�rio sem o nome do arquivo
+				//Pega o diretório sem o nome do arquivo
 				$diretorio_original = implode("/",$array_arquivo);
 			
-				//Remove o diret�rio tempor�rio
+				//Remove o   temporário
 				full_rmdir($diretorio_original . DIRETORIO_VERSOES."/tmp/");
 		
-				//Se n�o existir o diret�rio de vers�es, cria
+				//Se não existir o   de versões, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES);
 				}		
 				
-				//Se n�o existir o diret�rio tempor�rio, cria
+				//Se não existir o   temporário, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES."/tmp/"))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES."/tmp/");
 				}
 					
-				//Cria numera��o rand�mica para nomear diret�rio de cache tempor�rio
+				//Cria numeração  randômica para nomear   de cache temporário
 				$nr_rnd = rand(100000,999999);
 				
-				//Se n�o existir o diret�rio de cache tempor�rio, cria
+				//Se não existir o   de cache temporário, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/"))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/");
 				}			
 				
-				//Se o arquivo de cache tempor�rio existir, remove
+				//Se o arquivo de cache temporário existir, remove
 				if(is_file($diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/" . $arquivo_original))
 				{
 					unlink($diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/" . $arquivo_original);
 				}
 		
-				//Copia o arquivo com a extens�o da vers�o (.xxx.xxx) para a raiz do diret�rio tempor�rio, com o nome original do arquivo
+				//Copia o arquivo com a extensão da versão (.xxx.xxx) para a raiz do   temporário, com o nome original do arquivo
 				$copia_arquivo = copy($caminho, $diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/" . $arquivo_original);
 
 				$resposta->addScript('open_doc("'.urlencode($diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/" . $arquivo_original).'")');
@@ -113,8 +113,8 @@ function abrir($caminho, $nome_original="")
 function preenchePastas($dir, $dir_selecionado='')
 {
 	//Preenche a lista de pastas
-	//Cria uma sa�da em XML	
-	//Parte do diret�rio fornecido em $dir
+	//Cria uma saída em XML	
+	//Parte do   fornecido em $dir
 	$resposta = new xajaxResponse();
 
 	//Instancia o objeto
@@ -180,7 +180,7 @@ function preenchePastas($dir, $dir_selecionado='')
 		{
 			$dh = scandir($dir);	
 			
-			//Percorre o diret�rio
+			//Percorre o  
 			foreach($dh as $filename)
 			{ 			
 				if(!in_array($filename,array(".","..","_versoes","_comentarios")))
@@ -238,10 +238,10 @@ function preenchePastas($dir, $dir_selecionado='')
 	return $resposta;
 }
 
-//Preenche a lista de arquivos, conforme o diret�rio clicado pelo usu�rio
+//Preenche a lista de arquivos, conforme o   clicado pelo usuário
 function preencheArquivos($dados_form, $dir = '', $tipo = '')
 {
-	//Preenche a lista de arquivos, conforme o diret�rio clicado pelo usu�rio
+	//Preenche a lista de arquivos, conforme o   clicado pelo usuário
 	
 	$resposta = new xajaxResponse();
 
@@ -275,7 +275,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 			$nome_funcionario[$regs["id_funcionario"]] = $regs["nome_usuario"];
 		}
 		
-		//se n�o tiver dir informado (evento click das pastas)
+		//se não tiver dir informado (evento click das pastas)
 		if(!$dir)
 		{
 			$dados_form["disciplina"] ? $sql_filtro_proj .= "AND numeros_interno.id_disciplina = '" . $dados_form["disciplina"] . "' " : "";	
@@ -331,7 +331,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				// 3 - disciplina
 				// 4 - atividade
 				// 5 - sequencial
-				// 6 - Descri��o do arquivo 
+				// 6 - Descrição do arquivo 
 				if(count($diretorios)>3)
 				{	
 					foreach($diretorios as $chave=>$niveis)
@@ -438,7 +438,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//Armazena os dados em arrays, para uso posterior
 				$arquivo_id[$reg_arquivos["base"] . "/" . $reg_arquivos["os"] . "/" . substr($reg_arquivos["os"],0,4) . DISCIPLINAS . $reg_arquivos["disciplina"] . "/" . $reg_arquivos["atividade"] . "/" . $reg_arquivos["sequencial"] . "/" . $reg_arquivos["nome_arquivo"]] = $reg_arquivos["id_ged_arquivo"];
 				
-				$descricao_numdvm = "DVM-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
+				$descricao_numdvm = "INT-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
 				
 				$arquivo_descricao[$reg_arquivos["id_ged_arquivo"]] = $descricao_numdvm;
 		
@@ -476,7 +476,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 			$sql .= "AND documentos_referencia.id_tipo_documento_referencia = tipos_documentos_referencia.id_tipos_documentos_referencia ";
 			$sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
 			$sql .= "AND documentos_referencia.id_disciplina = setores.id_setor ";
-			$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 			$sql .= "AND documentos_referencia.id_os = '" . $dados_form["id_os"] . "' ";
 			
 			if($sql_filtro_ref)
@@ -522,11 +522,11 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 		
 		$header = "<table id=\"tbl1\" width=\"100%\" border=\"1\">";
 		$header .= "<tr>";
-		$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";
-		$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";
-		$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";	
-		$header .= "<td width=\"150\" type=\"ro\">N�mero DVM</td>"; //300
-		$header .= "<td width=\"180\" type=\"ro\">N�mero Cliente</td>";
+		$header .= "<td width=\"20\" type=\"ro\"> </td>";
+		$header .= "<td width=\"20\" type=\"ro\"> </td>";
+		$header .= "<td width=\"20\" type=\"ro\"> </td>";	
+		$header .= "<td width=\"150\" type=\"ro\">Nºmero INT</td>"; //300
+		$header .= "<td width=\"180\" type=\"ro\">Nºmero Cliente</td>";
 		$header .= "<td width=\"80\" type=\"ro\">Tamanho</td>";
 		$header .= "<td width=\"130\" type=\"ro\">data</td>";
 		$header .= "<td width=\"65\" type=\"ro\">Autor</td>";	
@@ -554,10 +554,10 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//Explode o nome do arquivo
 				$extensao_array = explode(".",basename($arquivo));
 				
-				//Pega somente a extens�o
+				//Pega somente a extensão
 				$extensao = $extensao_array[count($extensao_array)-1];					
 				
-				//Pega a imagem referente a extens�o
+				//Pega a imagem referente a extensão
 				$imagem = retornaImagem($extensao);						
 				
 				//Pega a imagem da bolinha referente ao status do arquivo
@@ -568,12 +568,12 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 						$imagem_bolinha = retornaImagem(0);
 					break;
 					
-					//arquivo em edi��o (check-in) - bolinha vermelha
+					//arquivo em edição (check-in) - bolinha vermelha
 					case 1:
 						$imagem_bolinha = retornaImagem(1);
 					break;
 					
-					//arquivo em emiss�o (emitido ao cliente)
+					//arquivo em emissão (emitido ao cliente)
 					case 2:
 						if($arquivo_situacao[$id_ged_arquivo]==0) //local
 						{
@@ -590,7 +590,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//Pega o tamanho
 				$tamanho = formataTamanho(filesize(DOCUMENTOS_GED.$arquivo));						
 				
-				//Pega a data de modifica��o
+				//Pega a data de modificação
 				$data_modificacao = date("d/m/Y H:i:s",filemtime(DOCUMENTOS_GED.$arquivo)); 
 				
 				//Pega o autor
@@ -599,7 +599,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//Pega o editor
 				$editor = $arquivo_editor[$id_ged_arquivo];
 				
-				//Pega a vers�o atual
+				//Pega a versão atual
 				//$revisao_documento = $arquivo_versao[$id_ged_arquivo] . "." . $arquivo_revisao[$id_ged_arquivo];
 				
 				//$versao_cliente = $arquivo_versao[$id_ged_arquivo];
@@ -611,7 +611,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				if($arquivo_status[$id_ged_arquivo]==0)
 				{
 					
-					$operacao = $extensao=="zip" ? "3" : "1"; //3= Check-in sendo ZIP; 1 = Check-in n�o sendo ZIP
+					$operacao = $extensao=="zip" ? "3" : "1"; //3= Check-in sendo ZIP; 1 = Check-in não sendo ZIP
 					//$operacao = "Check In";
 					//Atribue o evento para rclick no div
 					//$rclick = "popupMenu('" . $operacao . "',event); ";
@@ -621,7 +621,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				elseif($arquivo_status[$id_ged_arquivo]==1)
 				{
 					
-					$operacao = $extensao=="zip" ? "4" : "2"; //4= Check-out sendo ZIP; 2 = Check-out n�o sendo ZIP
+					$operacao = $extensao=="zip" ? "4" : "2"; //4= Check-out sendo ZIP; 2 = Check-out não sendo ZIP
 					//$operacao = "Check Out";
 					//Atribue o evento para rclick no div
 					//$rclick = "popupMenu('" . $operacao . "',event); ";
@@ -642,7 +642,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 					}
 				}
 				
-				//finalidade CERTIFICADO e DEVOLU��O APROVADO
+				//finalidade CERTIFICADO e DEVOLUÇÃO APROVADO
 				if($arquivo_fin_emissao[$id_ged_arquivo]==3 && $arquivo_status_dev[$id_ged_arquivo]=='A')
 				{
 					if($arquivo_status[$id_ged_arquivo]==2)
@@ -683,7 +683,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				{
 					$chk_disabled = "disabled";
 					
-					//se for autor e n�o posuir editor ou for o editor da vers�o atual e esta em edi��o(bloqueado check-in)
+					//se for autor e não posuir editor ou for o editor da versão atual e esta em edição(bloqueado check-in)
 					if((($arquivo_autor[$id_ged_arquivo]==$nome_funcionario[$_SESSION["id_funcionario"]] && $arquivo_editor[$id_ged_arquivo]) || ($nome_funcionario[$_SESSION["id_funcionario"]]==$arquivo_editor[$id_ged_arquivo])) && $arquivo_status[$id_ged_arquivo]==1)
 					{
 						$chk_disabled = "";
@@ -728,7 +728,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 		if(count($arquivo_ref_id)>0)
 		{
 			$conteudo .= "<tr>";
-			$conteudo .= "<td colspan=\"10\" align=\"CENTER\"><STRONG>REFER�NCIAS</STRONG></td>";
+			$conteudo .= "<td colspan=\"10\" align=\"CENTER\"><STRONG>REFERÊNCIAS</STRONG></td>";
 			$conteudo .= "</tr>";	
 		}
 				
@@ -742,16 +742,16 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//Explode o nome do arquivo
 				$extensao_array = explode(".",basename($arquivo));
 				
-				//Pega somente a extens�o
+				//Pega somente a extensão
 				$extensao = $extensao_array[count($extensao_array)-1];					
 				
-				//Pega a imagem referente a extens�o
+				//Pega a imagem referente a extensão
 				$imagem = retornaImagem($extensao);					
 						
 				//Pega o tamanho
 				$tamanho = formataTamanho(filesize(DOCUMENTOS_GED.$arquivo));						
 				
-				//Pega a data de modifica��o
+				//Pega a data de modificação
 				$data_modificacao = date("d/m/Y H:i:s",filemtime(DOCUMENTOS_GED.$arquivo)); 
 	
 				$autor = $arquivo_ref_autor[$id_documento_referencia];
@@ -759,7 +759,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				$editor = $arquivo_ref_editor[$id_documento_referencia];
 				
 				//$arquivo = $arquivo_descricao_ref[$id_documento_referencia];							
-				//Pega a vers�o atual
+				//Pega a versão atual
 				//$revisao_documento = $arquivo_ref_revisao[$id_documento_referencia] . "." . $arquivo_ref_versao[$id_documento_referencia];
 	
 				$arquivo_numcli = $arquivo_descricao_numdoc[$id_documento_referencia];
@@ -778,7 +778,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				
 				$conteudo .= "<tr>";					
 				//$conteudo .= "<td align=\"left\"><input type=\"checkbox\" value=\"1\" name=\"chk_ref_" . $id_documento_referencia . "\" onclick=\"data=new Date(); xajax_selecaoCheckbox(this.name, this.checked,data.getHours()+':'+data.getMinutes());\" " . $chk_checked . " " . $chk_disabled . "></td>";	
-				$conteudo .= "<td align=\"left\"&nbsp;</td>";
+				$conteudo .= "<td align=\"left\" </td>";
 				$conteudo .= "<td align=\"center\">".$imagem_bolinha."</td>";
 				$conteudo .= "<td align=\"center\">" . $imagem . "</td>";
 				$conteudo .= "<td align=\"left\"><div name=\"ref_itens_".$id_documento_referencia."\" id=\"ref_itens_".$id_documento_referencia."\" class=\"cell1\" style=\"width:17%; float:left; cursor:pointer; \" onclick=\"" . $onclick . " \" oncontextmenu=\"" . $onclick . $rclick . " return false;\" ondblclick=\"" . $dblclick . "\">" . $arquivo_descricao_ref[$id_documento_referencia] . "</div></td>";
@@ -790,7 +790,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 				//$conteudo .= "<td align=\"left\">". $revisao_documento ."</td>";
 				$conteudo .= "<td align=\"left\">". $arquivo_ref_revisao[$id_documento_referencia] ."</td>";
 				$conteudo .= "<td align=\"left\">". $arquivo_ref_versao[$id_documento_referencia] ."</td>";
-				$conteudo .= "<td align=\"left\">&nbsp;</td>";
+				$conteudo .= "<td align=\"left\"> </td>";
 				$conteudo .= "</tr>";
 	
 			}
@@ -817,7 +817,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
 		$resposta->addAlert("Deve selecionar a OS.");
 	}
 
-	//Destr�i a mensagem de carregamento
+	//Destrói a mensagem de carregamento
 	$resposta->addScript("divPopupInst.destroi();");
 	
 	return $resposta;
@@ -920,20 +920,20 @@ function dadosArquivo($id_ged_arquivo)
 	
 		$conteudo_info .= "<div id='tit_info' style='background-color:#EDEDED; width:100%;height:20px;text-align:right;'><img src='../images/silk/application_side_list.gif' style='margin:2px; cursor:pointer' title='Fechar' onclick='dv_info(0);'></div>";
 		$conteudo_info .= "<table border='0' class='fonte_descricao_campos' style='margin:10px; font-size:10px' width='90%' cellpadding='2'>";
-		$conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informa��es do Documento</td></tr>";
-		$conteudo_info .= "<tr><td colspan='2'>&nbsp;</td></tr>";
+		$conteudo_info .= "<tr><td colspan='2' style='font-size:20px;' align='center'>Informações do Documento</td></tr>";
+		$conteudo_info .= "<tr><td colspan='2'> </td></tr>";
 		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Arquivo: </td><td>" . $reg_checkin["nome_arquivo"] . "</td></tr>";
 		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>tipo de documento:</td><td>" . $reg_checkin["atividade"] . "</td></tr>";
 		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Disciplina: </td><td>" . $reg_disciplina["setor"] . "</td></tr>";
 		
-		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>T�tulo&nbsp;1:</td><td>" . $reg_checkin["tag"] . "</td></tr>";
-		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>T�tulo&nbsp;2:</td><td>" . $reg_checkin["tag2"] . "</td></tr>";
-		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>T�tulo&nbsp;3:</td><td>" . $reg_checkin["tag3"] . "</td></tr>";
-		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>T�tulo&nbsp;4:</td><td>" . $reg_checkin["tag4"] . "</td></tr>";
+		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 1:</td><td>" . $reg_checkin["tag"] . "</td></tr>";
+		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 2:</td><td>" . $reg_checkin["tag2"] . "</td></tr>";
+		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 3:</td><td>" . $reg_checkin["tag3"] . "</td></tr>";
+		$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Título 4:</td><td>" . $reg_checkin["tag4"] . "</td></tr>";
 		
 		if($id_emissao>0)
 		{	
-			$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Emiss�es:</td><td>";			
+			$conteudo_info .= "<tr><td valign='top' style='width:120px;'>Emissões:</td><td>";			
 			$conteudo_info .= "<table width='100%' class='fonte_descricao_campos' style='border: 1px #999999 solid; font-family: Arial; font-size:10px;' cellspacing='0' cellpadding='2'>";
 			$conteudo_info .= "<tr style='background: #EFEFEF solid; '><th># GRD</th><th>Dt. Emiss.</th><th>R/V</th><th>Fin</th></tr>";
 			
@@ -954,7 +954,7 @@ function dadosArquivo($id_ged_arquivo)
 	}
 	else
 	{
-		//Seleciona os dados dos arquivos de refer�ncia
+		//Seleciona os dados dos arquivos de referência
 		$sql = "SELECT * FROM ".DATABASE.".documentos_referencia, ".DATABASE.".documentos_referencia_revisoes ";
 		$sql .= "WHERE documentos_referencia.id_documento_referencia = '".$tipo_doc[1]."' ";
 		$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
@@ -1010,16 +1010,16 @@ function preenchePropriedades($id_ged_arquivo)
 	
 	$cont_grd = $db->select($sql_grd,'MYSQL');
 	
-	//Pega o nome do arquivo, sem o diret�rio
+	//Pega o nome do arquivo, sem o  
 	$arquivo = $reg_arquivo["nome_arquivo"];
 	
 	//Explode o nome do arquivo em um array
 	$array_extensao = explode(".",$arquivo);
 	
-	//Pega a extens�o do arquivo
+	//Pega a extensão do arquivo
 	$extensao = $array_extensao[count($array_extensao)-1];
 		
-	//Pega a imagem relativa a extens�o
+	//Pega a imagem relativa a extensão
 	$imagem = retornaImagem($extensao);
 
 	//Pega o tamanho do arquivo
@@ -1028,27 +1028,27 @@ function preenchePropriedades($id_ged_arquivo)
 	//Pega o autor
 	$autor = $nome_funcionario[$reg_arquivo["id_autor"]];
 	
-	//Pega a data de cria��o do arquivo (SER� ALTERADO - ARMAZENADO NO BANCO (?) )
+	//Pega a data de criação do arquivo (SERÁ ALTERADO - ARMAZENADO NO BANCO (?) )
 	$data_criacao  = date("d/m/Y H:i:s", filectime($caminho));
 	
-	//Pega a data de modifica��o do arquivo (SER� ALTERADO - ARMAZENADO NO BANCO (?))
+	//Pega a data de modificação do arquivo (SERÁ ALTERADO - ARMAZENADO NO BANCO (?))
 	$data_modificacao = date("d/m/Y H:i:s", filemtime($caminho));
 	
-	//Forma o conte�do da janela de Propriedades
+	//Forma o conteúdo da janela de Propriedades
 	$conteudo = "<form method=\"POST\" name=\"frm_propriedades\">";
 	$conteudo .= "<div id=\"conteudo\" class=\"fonte_11\" style=\"font-size:12px; width:100%; margin:10px;\">";
-		$conteudo .= "<div id=\"tipo_arquivo\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">" . $imagem . "&nbsp;tipo de arquivo: " . $extensao . "</div>";
+		$conteudo .= "<div id=\"tipo_arquivo\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">" . $imagem . " tipo de arquivo: " . $extensao . "</div>";
 		$conteudo .= "<div id=\"local\" style=\"padding:10px; border-top-style:groove; border-width:2px;\">Caminho: <div style=\"overflow:auto; width:95%; height:30px;border-style:inset; border-left-color:#999999; border-top-color: #999999; border-width:2px;\" onselectstart=\"return false\" unselectable=\"on\">" . $reg_arquivo["nome_arquivo"] . "</div></div>";
 		$conteudo .= "<div id=\"tamanho\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">Tamanho: " . $tamanho . "</div>";
 		$conteudo .= "<div id=\"autor\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">Autor: " . $autor . "</div>";		
-		$conteudo .= "<div id=\"data_modificacao\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">�ltima Atualização: " . $data_modificacao . "</div>";
+		$conteudo .= "<div id=\"data_modificacao\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">Última Atualização: " . $data_modificacao . "</div>";
 		
 		if(mysql_num_rows($cont_grd)=="0")
 		{
 			$conteudo .= "<div id=\"autor\" style=\"padding:10px;\">Numcliente: <input type=\"text\" name=\"txt_numcliente\" id=\"txt_numcliente\" class=\"caixa\" value=\"" . $reg_arquivo["numero_cliente"] . "\" size=\"40\"></div>";
 		}		
 
-		//Cria um array com as vers�es que possuem coment�rios
+		//Cria um array com as versões que possuem comentários
 		$sql_coment = "SELECT id_ged_versao FROM ".DATABASE.".ged_comentarios ";
 
 		$cont_coment = $db->select($sql_coment,'MYSQL');
@@ -1062,9 +1062,9 @@ function preenchePropriedades($id_ged_arquivo)
 		$header = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%;\" onselectstart=\"return false;\" unselectable=\"on\">";
 		$header .= "<tr>";
 		$header .= "<td width=\"290\" type=\"ro\">Nome do arquivo</td>";
-		$header .= "<td width=\"40\" type=\"ro\">Rev&nbsp;D</td>";
+		$header .= "<td width=\"40\" type=\"ro\">Rev D</td>";
 		$header .= "<td width=\"40\" type=\"ro\">Ver</td>";
-		$header .= "<td width=\"40\" type=\"ro\">Rev&nbsp;C</td>";
+		$header .= "<td width=\"40\" type=\"ro\">Rev C</td>";
 		$header .= "<td width=\"25\" type=\"ro\">A</td>";
 		$header .= "<td width=\"25\" type=\"ro\">C</td>";
 		$header .= "<td width=\"25\" type=\"ro\">R</td>";
@@ -1079,7 +1079,7 @@ function preenchePropriedades($id_ged_arquivo)
 
 		$cont_versoes = $db->select($sql_versoes,'MYSQL');
 
-		//Forma o conte�do das vers�es
+		//Forma o conteúdo das versões
 		while($reg_versoes = mysqli_fetch_assoc($cont_versoes))
 		{
 			$caminho = DOCUMENTOS_GED . $reg_versoes["base"] . "/" . $reg_versoes["os"] . "/" . substr($reg_versoes["os"],0,4) . DISCIPLINAS . $reg_versoes["disciplina"] . "/" . $reg_versoes["atividade"] . "/" . $reg_versoes["sequencial"];
@@ -1090,7 +1090,7 @@ function preenchePropriedades($id_ged_arquivo)
 			//Explode o nome do arquivo em um array
 			$array_extensao = explode(".",$reg_versoes["nome_arquivo"]);
 			
-			//Pega a extens�o do arquivo
+			//Pega a extensão do arquivo
 			$extensao = $array_extensao[count($array_extensao)-1];
 			
 			//$array_qtde_espacos = explode(" ",basename($reg_versoes["arquivo"]));
@@ -1134,42 +1134,42 @@ function preenchePropriedades($id_ged_arquivo)
 			
 			$conteudo_coment = "";
 
-			//Se existirem coment�rios para essa vers�o
+			//Se existirem comentários para essa versão
 			if(in_array($reg_versoes["id_ged_versao"],$array_comentarios))
 			{
-				$conteudo_coment = "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"popupComentarios(" . $reg_versoes["id_ged_arquivo"] . ",".$reg_versoes["id_ged_versao"].");\" title=\"Visualizar coment�rios dessa vers�o\"><img src=\"../images/silk/comment.gif\"></td>";
+				$conteudo_coment = "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"popupComentarios(" . $reg_versoes["id_ged_arquivo"] . ",".$reg_versoes["id_ged_versao"].");\" title=\"Visualizar comentários dessa versão\"><img src=\"../images/silk/comment.gif\"></td>";
 			}
 			else
 			{
-				$conteudo_coment = "<td align=\"left\">&nbsp;</td>";			
+				$conteudo_coment = "<td align=\"left\"> </td>";			
 			}
 			
-			//Se a vers�o n�o for a atual, mostra o bot�o de "Reverter" e "Excluir", e o "Abrir" abre a vers�o
+			//Se a versão não for a atual, mostra o botão de "Reverter" e "Excluir", e o "Abrir" abre a versão
 			if($reg_arquivo["id_ged_versao"]!=$reg_versoes["id_ged_versao"])
 			{
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $caminho . DIRETORIO_VERSOES ."/". $reg_versoes["nome_arquivo"] . "." . $reg_versoes["id_ged_versao"] . "','" . $caminho."/".$reg_versoes["nome_arquivo"] . "'); \" title=\"Abrir essa vers�o\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $caminho . DIRETORIO_VERSOES ."/". $reg_versoes["nome_arquivo"] . "." . $reg_versoes["id_ged_versao"] . "','" . $caminho."/".$reg_versoes["nome_arquivo"] . "'); \" title=\"Abrir essa versão\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
 				$conteudo_tbl .= $conteudo_coment;				
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"if(confirm('Tem certeza que deseja restaurar a vers�o selecionada e torn�-la a atual?')){xajax_restaurar('" . $reg_versoes["id_ged_versao"] . "'); } \" title=\"Restaurar essa vers�o\"><img src=\"../images/buttons_action/bt_desfazer.gif\"></td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"if(confirm('Tem certeza que deseja restaurar a versão selecionada e torná-la a atual?')){xajax_restaurar('" . $reg_versoes["id_ged_versao"] . "'); } \" title=\"Restaurar essa versão\"><img src=\"../images/buttons_action/bt_desfazer.gif\"></td>";
 
-				//if(in_array($_SESSION["id_funcionario"],array('6','818','909','910'))) //otavio, carlos abreu, valter, daniele
+				//if(in_array($_SESSION["id_funcionario"],array('6','818','909','910')))
 				if(in_array($_SESSION["id_funcionario"],lista_arqtec()))
 				{
 					//Adicionado 24/02/2010
-					$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"if(confirm('ATEN��O: Tem certeza que deseja EXCLUIR a vers�o selecionada?')){xajax_excluir_versoes('" . $reg_versoes["id_ged_versao"] . "');}\" title=\"Excluir vers�o\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
+					$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"if(confirm('ATENÇÃO: Tem certeza que deseja EXCLUIR a versão selecionada?')){xajax_excluir_versoes('" . $reg_versoes["id_ged_versao"] . "');}\" title=\"Excluir versão\"><img src=\"../images/buttons_action/apagar.gif\"></td>";
 				}
 				else
 				{
 					//Adicionado 24/02/2010
-					$conteudo_tbl .= "<td align=\"left\">&nbsp;</td>";
+					$conteudo_tbl .= "<td align=\"left\"> </td>";
 				}
 			}
 			else
 			{
-				//$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $reg_versoes["arquivo"] . "'); \" title=\"Abrir a vers�o atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $caminho."/".$reg_versoes["nome_arquivo"] . "'); \" title=\"Abrir a vers�o atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
+				//$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $reg_versoes["arquivo"] . "'); \" title=\"Abrir a versão atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" . $caminho."/".$reg_versoes["nome_arquivo"] . "'); \" title=\"Abrir a versão atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
 				$conteudo_tbl .= $conteudo_coment;
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\">&nbsp;</td>";
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\">&nbsp;</td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\"> </td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\"> </td>";
 			}
 			
 			$conteudo_tbl .= "</tr>";				
@@ -1186,13 +1186,13 @@ function preenchePropriedades($id_ged_arquivo)
 			$btn_gravar = "disabled";
 		}
 
-		//$conteudo .= "<div id=\"botoes\" style=\"text-align:right; width:90%; margin-left:10px; \"><input type=\"hidden\" id=\"id_ged_arquivo\" name=\"id_ged_arquivo\" value=\"" . $reg_arquivo["id_ged_arquivo"] . "\"><input type=\"button\" value=\"Gravar altera��es\" class=\"fonte_botao\" onclick=\"if(confirm('Confirma as altera��es feitas nas vers�es?')){xajax_atualizaVersoes(xajax.getFormValues('frm_propriedades'));}\" " . $btn_gravar . "><input type=\"button\" value=\"Voltar\" class=\"fonte_botao\" onclick=\"divPopupInst.destroi();xajax_buscaArquivosInicial(xajax.getFormValues('frm_ged'));\"></div>";	
-		$conteudo .= "<div id=\"botoes\" style=\"text-align:right; width:90%; margin-left:10px; \"><input type=\"hidden\" id=\"id_ged_arquivo\" name=\"id_ged_arquivo\" value=\"" . $reg_arquivo["id_ged_arquivo"] . "\"><input type=\"button\" value=\"Gravar altera��es\" class=\"fonte_botao\" onclick=\"if(confirm('Confirma as altera��es feitas nas vers�es?')){xajax_atualizaVersoes(xajax.getFormValues('frm_propriedades'));}\" " . $btn_gravar . "><input type=\"button\" value=\"Voltar\" class=\"fonte_botao\" onclick=\"xajax_preencheArquivos(xajax.getFormValues('frm_ged'));\"></div>";
+		//$conteudo .= "<div id=\"botoes\" style=\"text-align:right; width:90%; margin-left:10px; \"><input type=\"hidden\" id=\"id_ged_arquivo\" name=\"id_ged_arquivo\" value=\"" . $reg_arquivo["id_ged_arquivo"] . "\"><input type=\"button\" value=\"Gravar alterações\" class=\"fonte_botao\" onclick=\"if(confirm('Confirma as alterações feitas nas versões?')){xajax_atualizaVersoes(xajax.getFormValues('frm_propriedades'));}\" " . $btn_gravar . "><input type=\"button\" value=\"Voltar\" class=\"fonte_botao\" onclick=\"divPopupInst.destroi();xajax_buscaArquivosInicial(xajax.getFormValues('frm_ged'));\"></div>";	
+		$conteudo .= "<div id=\"botoes\" style=\"text-align:right; width:90%; margin-left:10px; \"><input type=\"hidden\" id=\"id_ged_arquivo\" name=\"id_ged_arquivo\" value=\"" . $reg_arquivo["id_ged_arquivo"] . "\"><input type=\"button\" value=\"Gravar alterações\" class=\"fonte_botao\" onclick=\"if(confirm('Confirma as alterações feitas nas versões?')){xajax_atualizaVersoes(xajax.getFormValues('frm_propriedades'));}\" " . $btn_gravar . "><input type=\"button\" value=\"Voltar\" class=\"fonte_botao\" onclick=\"xajax_preencheArquivos(xajax.getFormValues('frm_ged'));\"></div>";
 	$conteudo .= "</div>";
 	
 	$conteudo .= "</form>";
 	
-	//Atribue o conte�do
+	//Atribue o conteúdo
 	$resposta->addAssign("div_conteudo","innerHTML",$conteudo);
 	
 	$resposta->addScript("grid('tbl2',true,'110');");
@@ -1226,7 +1226,7 @@ function preenchePropriedadesRef($id_documento_referencia)
 	$sql .= "AND documentos_referencia.id_disciplina = setores.id_setor ";
 	$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
 	$sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 	$sql .= "AND documentos_referencia.id_documento_referencia = '" . $id_documento_referencia . "' ";	
 	
 	$cont_arquivo = $db->select($sql,'MYSQL');
@@ -1249,34 +1249,34 @@ function preenchePropriedadesRef($id_documento_referencia)
 	//monta diretorio base
 	$diretorio = DOCUMENTOS_GED.$reg_arquivo["abreviacao_GED"] . "/" . $reg_arquivo["os"] . "-" .$reg_arquivo["descricao"] . "/" . $reg_arquivo["os"] . REFERENCIAS . $reg_arquivo["pasta_base"] . "/".$disciplina;
 
-	//Pega o nome do arquivo, sem o diret�rio
+	//Pega o nome do arquivo, sem o  
 	$arquivo = $reg_arquivo["arquivo"];
 	
 	//Explode o nome do arquivo em um array
 	$array_extensao = explode(".",$arquivo);
 	
-	//Pega a extens�o do arquivo
+	//Pega a extensão do arquivo
 	$extensao = $array_extensao[count($array_extensao)-1];
 	
-	//Pega a imagem relativa a extens�o
+	//Pega a imagem relativa a extensão
 	$imagem = retornaImagem($extensao);
 	
 	//Pega o tamanho do arquivo
 	$tamanho = formataTamanho(filesize($diretorio.$arquivo));
 	
-	//Pega a data de cria��o do arquivo (SER� ALTERADO - ARMAZENADO NO BANCO (?) )
+	//Pega a data de criação do arquivo (SERÁ ALTERADO - ARMAZENADO NO BANCO (?) )
 	$data_criacao  = date("d/m/Y H:i:s", filectime($diretorio.$arquivo));
 	
-	//Pega a data de modifica��o do arquivo (SER� ALTERADO - ARMAZENADO NO BANCO (?))
+	//Pega a data de modificação do arquivo (SERÁ ALTERADO - ARMAZENADO NO BANCO (?))
 	$data_modificacao = date("d/m/Y H:i:s", filemtime($diretorio.$arquivo));
 	
-	//Forma o conte�do da janela de Propriedades
+	//Forma o conteúdo da janela de Propriedades
 	$conteudo = "<form method=\"POST\" name=\"frm_propriedades\">";
 	$conteudo .= "<div id=\"conteudo\" class=\"fonte_11\" style=\"font-size:12px; width:100%; margin:10px;\">";
-		$conteudo .= "<div id=\"tipo_arquivo\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">" . $imagem . "&nbsp;tipo de arquivo: " . $extensao . "</div>";
+		$conteudo .= "<div id=\"tipo_arquivo\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">" . $imagem . " tipo de arquivo: " . $extensao . "</div>";
 		$conteudo .= "<div id=\"local\" style=\"padding:10px; border-top-style:groove; border-width:2px;\">Caminho: <div style=\"overflow:auto; width:95%; height:30px;border-style:inset; border-left-color:#999999; border-top-color: #999999; border-width:2px;\" onselectstart=\"return false\" unselectable=\"on\">" . $diretorio.$arquivo . "</div></div>";
 		$conteudo .= "<div id=\"tamanho\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">Tamanho: " . $tamanho . "</div>";
-		$conteudo .= "<div id=\"data_modificacao\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">�ltima Atualização: " . $data_modificacao . "</div>";
+		$conteudo .= "<div id=\"data_modificacao\" style=\"padding:10px;\" onselectstart=\"return false\" unselectable=\"on\">Última Atualização: " . $data_modificacao . "</div>";
 		
 		$sql_rev = "SELECT * FROM ".DATABASE.".documentos_referencia, ".DATABASE.".documentos_referencia_revisoes ";
 		$sql_rev .= "WHERE documentos_referencia_revisoes.id_documento_referencia = '" . $id_documento_referencia . "' ";
@@ -1289,7 +1289,7 @@ function preenchePropriedadesRef($id_documento_referencia)
 		//Forma a tabela
 		$header = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%;\" onselectstart=\"return false;\" unselectable=\"on\">";
 		$header .= "<tr>";
-		$header .= "<td width=\"160\" type=\"ro\">N� DVM</td>";
+		$header .= "<td width=\"160\" type=\"ro\">Nº INT</td>";
 		$header .= "<td width=\"40\" type=\"ro\">R/V</td>";
 		$header .= "<td width=\"100\" type=\"ro\">Autor</td>";
 		$header .= "<td width=\"100\" type=\"ro\">Editor</td>";
@@ -1298,7 +1298,7 @@ function preenchePropriedadesRef($id_documento_referencia)
 		
 		$footer = "</table>";
 
-		//Forma o conte�do das vers�es
+		//Forma o conteúdo das versões
 		while($reg_versoes = mysqli_fetch_assoc($cont_versoes))
 		{
 			$conteudo_tbl .= "<tr>";
@@ -1311,16 +1311,16 @@ function preenchePropriedadesRef($id_documento_referencia)
 			
 			$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\">" . $nome_funcionario[$reg_versoes["id_editor"]] . "</td>";
 			
-			//Se a vers�o n�o for a atual
+			//Se a versão não for a atual
 			if($reg_versoes["id_documentos_referencia_revisoes"]!=$reg_arquivo["id_documento_referencia_revisoes"])
 			{
 				
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" .$diretorio."_versoes/".$reg_versoes["arquivo"] . "." . $reg_versoes["id_documentos_referencia_revisoes"] . "'); \" title=\"Abrir essa vers�o\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" .$diretorio."_versoes/".$reg_versoes["arquivo"] . "." . $reg_versoes["id_documentos_referencia_revisoes"] . "'); \" title=\"Abrir essa versão\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
 			}
 			else
 			{
 				//Original
-				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" .$diretorio.$reg_versoes["arquivo"] . "'); \" title=\"Abrir a vers�o atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
+				$conteudo_tbl .= "<td style=\"cursor:pointer;\" align=\"left\" onclick=\"xajax_abrir('" .$diretorio.$reg_versoes["arquivo"] . "'); \" title=\"Abrir a versão atual\"><img src=\"../images/buttons_action/bt_busca.gif\"></td>";
 			}
 			
 			$conteudo_tbl .= "</tr>";		
@@ -1337,7 +1337,7 @@ function preenchePropriedadesRef($id_documento_referencia)
 	
 	$conteudo .= "</form>";
 	
-	//Atribue o conte�do
+	//Atribue o conteúdo
 	$resposta->addAssign("div_conteudo","innerHTML",$conteudo);
 	
 	$resposta->addScript("grid('tbl2',true,'110');");
@@ -1345,7 +1345,7 @@ function preenchePropriedadesRef($id_documento_referencia)
 	return $resposta;
 }
 
-//Preenche os combos de atividades, da janela principal e da janela de busca avan�ada
+//Preenche os combos de atividades, da janela principal e da janela de busca avançada
 function preenchedocumentos($id, $id_os, $busca=false)
 {
 	$resposta = new xajaxResponse();
@@ -1355,7 +1355,7 @@ function preenchedocumentos($id, $id_os, $busca=false)
 	
 	if($busca)
 	{
-		//� utilizado um array ao inv�s de um NOT IN (SELECT id_numero_interno) por quest�o de performance.
+		//É utilizado um array ao invés de um NOT IN (SELECT id_numero_interno) por questão de performance.
 		//Seleciona os documentos
 		$sql = "SELECT * FROM ".DATABASE.".ged_arquivos, ".DATABASE.".numeros_interno, ".DATABASE.".numero_cliente, ".DATABASE.".atividades, ".DATABASE.".setores ";
 		$sql .= "WHERE numero_cliente.id_disciplina = setores.id_setor ";
@@ -1372,7 +1372,7 @@ function preenchedocumentos($id, $id_os, $busca=false)
 	}
 	else
 	{
-		//� utilizado um array ao inv�s de um NOT IN (SELECT id_numero_interno) por quest�o de performance.
+		//É utilizado um array ao invés de um NOT IN (SELECT id_numero_interno) por questão de performance.
 		//Seleciona os documentos
 		$sql = "SELECT * FROM ".DATABASE.".numeros_interno, ".DATABASE.".numero_cliente, ".DATABASE.".atividades, ".DATABASE.".setores ";
 		$sql .= "WHERE numero_cliente.id_disciplina = setores.id_setor ";
@@ -1436,8 +1436,8 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 	
 	$header = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%\" onselectstart=\"return false;\" unselectable=\"on\">";
 	$header .= "<tr>";
-	$header .= "<td width=\"120\" type=\"ro\">N�mero DVM</td>"; //300
-	$header .= "<td width=\"120\" type=\"ro\">N�mero Cliente</td>";
+	$header .= "<td width=\"120\" type=\"ro\">Nºmero INT</td>"; //300
+	$header .= "<td width=\"120\" type=\"ro\">Nºmero Cliente</td>";
 	$header .= "<td width=\"120\" type=\"ro\">complemento</td>";
 	$header .= "<td width=\"350\" type=\"ro\">Arquivo</td>";
 	$header .= "<td width=\"70\" type=\"ro\">Tamanho</td>";
@@ -1451,7 +1451,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 	{
 		switch($checkout)
 		{	
-			//Check Out de um arquivo, �nico (click mouse direito)
+			//Check Out de um arquivo único (click mouse direito)
 			case "1":
 			
 				$id_ged_arquivo = $dados_form["id_ged_arquivo"];
@@ -1463,13 +1463,13 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 				$sql .= "AND numero_cliente.id_atividade = atividades.id_atividade ";
 				$sql .= "AND ged_arquivos.id_ged_arquivo = ged_versoes.id_ged_arquivo ";
 				$sql .= "AND ged_arquivos.id_ged_arquivo = '".$dados_form["id_ged_arquivo"]."' ";
-				$sql .= "AND ged_arquivos.status = 1 "; //em edi��o
+				$sql .= "AND ged_arquivos.status = 1 "; //em edição
 				
 				$cont_id_arquivo = $db->select($sql,'MYSQL');				
 				
 				if($db->numero_registros==0)
 				{
-					$resposta->addAlert("N�o existem documentos dispon�veis.");
+					$resposta->addAlert("Não existem documentos disponíveis.");
 					$resposta->addScript("xajax.$('btn_checkout_enviar').disabled=true;");
 				}
 				else
@@ -1480,7 +1480,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 					$str_complemento = str_replace($reg_id_arquivo["atividades_Descricao"],"",$reg_id_arquivo["complemento"]);
 					
 					$conteudo .= "<tr height=\"30px\">";
-					$conteudo .= "<td align=\"left\">DVM-". sprintf("%05d",$reg_id_arquivo["os"]) . "-" .$reg_id_arquivo["sigla"]."-".$reg_id_arquivo["sequencia"] . "</td>";
+					$conteudo .= "<td align=\"left\">INT-". sprintf("%05d",$reg_id_arquivo["os"]) . "-" .$reg_id_arquivo["sigla"]."-".$reg_id_arquivo["sequencia"] . "</td>";
 					$conteudo .= "<td align=\"left\">".$reg_id_arquivo["numero_cliente"]."</td>";
 					$conteudo .= "<td align=\"left\">".$reg_id_arquivo["atividades_Descricao"] . " " . $str_complemento."</td>";
 					
@@ -1488,11 +1488,11 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 					$conteudo .= "<input type=\"hidden\" id=\"id_num_dvm\" name=\"id_num_dvm\" value=\"".$reg_id_arquivo["id_numero_interno"]."\">";
 					$conteudo .= "<input type=\"hidden\" id=\"operacao\" name=\"operacao\" value=\"".$checkout."\">";
 					$conteudo .= "<iframe id=\"upload_target_".$reg_id_arquivo["id_numero_interno"]."\" name=\"upload_target_".$reg_id_arquivo["id_numero_interno"]."\" src=\"#\" style=\"width:0;height:0;border:0px solid #fff;display:none;\"></iframe>";
-					$conteudo .= "<p id=\"txtup_".$reg_id_arquivo["id_numero_interno"]."\"><input class=\"caixa\" name=\"myfile_".$reg_id_arquivo["id_numero_interno"]."\" type=\"file\" size=\"30\" />&nbsp;&nbsp;<input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
+					$conteudo .= "<p id=\"txtup_".$reg_id_arquivo["id_numero_interno"]."\"><input class=\"caixa\" name=\"myfile_".$reg_id_arquivo["id_numero_interno"]."\" type=\"file\" size=\"30\" />  <input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
 					$conteudo .= "</form>";
-					$conteudo .= "<td><p id=\"tam_".$reg_id_arquivo["id_numero_interno"]."\">&nbsp;</p></td>";
+					$conteudo .= "<td><p id=\"tam_".$reg_id_arquivo["id_numero_interno"]."\"> </p></td>";
 					
-					$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_id_arquivo["id_numero_interno"]."\">&nbsp;</p></td>";
+					$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_id_arquivo["id_numero_interno"]."\"> </p></td>";
 					
 					$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"delete_".$reg_id_arquivo["id_numero_interno"]."\"><img src=\"../images/buttons_action/apagar.gif\" onclick=\"if(confirm('Deseja excluir o arquivo ')){xajax_excluir_upload(".$reg_id_arquivo["id_numero_interno"].",".$checkout.");delUpload(".$reg_id_arquivo["id_numero_interno"].")}\"></p></td>";
 					
@@ -1501,10 +1501,10 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 			
 			break;
 			
-			//Check Out de m�ltiplos arquivos
+			//Check Out de múltiplos arquivos
 			case "2":
 			
-				//adiciona na cx. de sele��o o NumDVM selecionado - verif. se necess�rio preencher junto o numero_cliente
+				//adiciona na cx. de seleção o NumDVM selecionado - verif. se necessário preencher junto o numero_cliente
 				$sql_numdvm = "SELECT *, atividades.descricao AS atividades_Descricao FROM ".DATABASE.".OS, ".DATABASE.".numeros_interno, ".DATABASE.".numero_cliente, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_versoes, ".DATABASE.".atividades ";	
 				$sql_numdvm .= "WHERE ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 				$sql_numdvm .= "AND numeros_interno.id_numcliente = numero_cliente.id_numcliente ";
@@ -1513,13 +1513,13 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 				$sql_numdvm .= "AND ged_arquivos.id_ged_arquivo = ged_versoes.id_ged_arquivo ";
 				$sql_numdvm .= "AND ged_arquivos.id_ged_versao = ged_versoes.id_ged_versao ";
 				$sql_numdvm .= "AND ged_arquivos.id_ged_arquivo IN (" . implode(",",$array_arquivos[3]) . ") ";
-				$sql_numdvm .= "AND ged_arquivos.status = 1 "; //em edi��o
+				$sql_numdvm .= "AND ged_arquivos.status = 1 "; //em edição
 				
 				$cont_numdvm = $db->select($sql_numdvm,'MYSQL');
 		
 				if($db->numero_registros==0)
 				{
-					$resposta->addAlert("N�o existem documentos dispon�veis. \n".$sql_numdvm);
+					$resposta->addAlert("Não existem documentos disponíveis. \n".$sql_numdvm);
 					
 					$resposta->addScript("xajax.$('btn_checkout_enviar').disabled=true;");
 				}
@@ -1531,7 +1531,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 						$str_complemento = str_replace($reg_numdvm["atividades_Descricao"],"",$reg_numdvm["complemento"]);
 						
 						$conteudo .= "<tr height=\"30px\">";
-						$conteudo .= "<td align=\"left\">DVM-". sprintf("%05d",$reg_numdvm["os"]) . "-" .$reg_numdvm["sigla"]."-".$reg_numdvm["sequencia"] . "</td>";
+						$conteudo .= "<td align=\"left\">INT-". sprintf("%05d",$reg_numdvm["os"]) . "-" .$reg_numdvm["sigla"]."-".$reg_numdvm["sequencia"] . "</td>";
 						$conteudo .= "<td align=\"left\">".$reg_numdvm["numero_cliente"]."</td>";
 						$conteudo .= "<td align=\"left\">".$reg_numdvm["atividades_Descricao"] . " " . $str_complemento."</td>";
 						
@@ -1539,11 +1539,11 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 						$conteudo .= "<input type=\"hidden\" id=\"id_num_dvm\" name=\"id_num_dvm\" value=\"".$reg_numdvm["id_numero_interno"]."\">";
 						$conteudo .= "<input type=\"hidden\" id=\"operacao\" name=\"operacao\" value=\"".$checkout."\">";
 						$conteudo .= "<iframe id=\"upload_target_".$reg_numdvm["id_numero_interno"]."\" name=\"upload_target_".$reg_numdvm["id_numero_interno"]."\" src=\"#\" style=\"width:0;height:0;border:0px solid #fff;display:none;\"></iframe>";
-						$conteudo .= "<p id=\"txtup_".$reg_numdvm["id_numero_interno"]."\"><input class=\"caixa\" name=\"myfile_".$reg_numdvm["id_numero_interno"]."\" type=\"file\" size=\"30\" />&nbsp;&nbsp;<input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
+						$conteudo .= "<p id=\"txtup_".$reg_numdvm["id_numero_interno"]."\"><input class=\"caixa\" name=\"myfile_".$reg_numdvm["id_numero_interno"]."\" type=\"file\" size=\"30\" />  <input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
 						$conteudo .= "</form>";
-						$conteudo .= "<td><p id=\"tam_".$reg_numdvm["id_numero_interno"]."\">&nbsp;</p></td>";
+						$conteudo .= "<td><p id=\"tam_".$reg_numdvm["id_numero_interno"]."\"> </p></td>";
 						
-						$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_numdvm["id_numero_interno"]."\">&nbsp;</p></td>";
+						$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_numdvm["id_numero_interno"]."\"> </p></td>";
 						
 						$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"delete_".$reg_numdvm["id_numero_interno"]."\"><img src=\"../images/buttons_action/apagar.gif\" onclick=\"if(confirm('Deseja excluir o arquivo ')){xajax_excluir_upload(".$reg_numdvm["id_numero_interno"].",".$checkout.");delUpload(".$reg_numdvm["id_numero_interno"].")}\"></p></td>";
 						
@@ -1609,7 +1609,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 	  
 		if($db->numero_registros==0)
 		{
-			$resposta->addAlert("N�o existem documentos dispon�veis.");
+			$resposta->addAlert("Não existem documentos disponíveis.");
 			$resposta->addScript("xajax.$('btn_checkout_enviar').disabled=true;");
 		}
 		else
@@ -1619,7 +1619,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 				$str_complemento = str_replace($reg_nrdocs["atividades_Descricao"],"",$reg_nrdocs["complemento"]);
 				
 				$conteudo .= "<tr height=\"30px\">";
-				$conteudo .= "<td align=\"left\">DVM - ". sprintf("%05d",$reg_nrdocs["os"]) . " - " .$reg_nrdocs["sigla"]." - ".$reg_nrdocs["sequencia"] . "</td>";
+				$conteudo .= "<td align=\"left\">INT - ". sprintf("%05d",$reg_nrdocs["os"]) . " - " .$reg_nrdocs["sigla"]." - ".$reg_nrdocs["sequencia"] . "</td>";
 				$conteudo .= "<td align=\"left\">".$reg_nrdocs["numero_cliente"]."</td>";
 				$conteudo .= "<td align=\"left\">".$reg_nrdocs["atividades_Descricao"] . " " . $str_complemento."</td>";
 				
@@ -1627,11 +1627,11 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 				$conteudo .= "<input type=\"hidden\" id=\"id_num_dvm\" name=\"id_num_dvm\" value=\"".$reg_nrdocs["id_numero_interno"]."\">";
 				$conteudo .= "<input type=\"hidden\" id=\"operacao\" name=\"operacao\" value=\"".$checkout."\">";
 				$conteudo .= "<iframe id=\"upload_target_".$reg_nrdocs["id_numero_interno"]."\" name=\"upload_target_".$reg_nrdocs["id_numero_interno"]."\" src=\"#\" style=\"width:0;height:0;border:0px solid #fff;display:none;\"></iframe>";
-				$conteudo .= "<p id=\"txtup_".$reg_nrdocs["id_numero_interno"]."\"><input class=\"caixa\" name=\"arquivo_".$reg_nrdocs["id_numero_interno"]."\" type=\"file\" size=\"30\" />&nbsp;&nbsp;<input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
+				$conteudo .= "<p id=\"txtup_".$reg_nrdocs["id_numero_interno"]."\"><input class=\"caixa\" name=\"arquivo_".$reg_nrdocs["id_numero_interno"]."\" type=\"file\" size=\"30\" />  <input type=\"submit\" name=\"submitBtn\" class=\"caixa\" value=\"Upload\" /></p></td>";
 				$conteudo .= "</form>";
-				$conteudo .= "<td><p id=\"tam_".$reg_nrdocs["id_numero_interno"]."\">&nbsp;</p></td>";
+				$conteudo .= "<td><p id=\"tam_".$reg_nrdocs["id_numero_interno"]."\"> </p></td>";
 				
-				$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_nrdocs["id_numero_interno"]."\">&nbsp;</p></td>";
+				$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"upload_".$reg_nrdocs["id_numero_interno"]."\"> </p></td>";
 				
 				$conteudo .= "<td><p style=\"visibility:hidden;\" id=\"delete_".$reg_nrdocs["id_numero_interno"]."\"><img src=\"../images/buttons_action/apagar.gif\" onclick=\"if(confirm('Deseja excluir o arquivo ')){xajax_excluir_upload(".$reg_nrdocs["id_numero_interno"].",".$checkout.");delUpload(".$reg_nrdocs["id_numero_interno"].")}\"></p></td>";
 				
@@ -1648,7 +1648,7 @@ function preencheNRDocumentos_grid($dados_form, $checkout=0)
 	return $resposta;
 }
 
-//Preenche os combos de disciplinas da janela de busca avan�ada
+//Preenche os combos de disciplinas da janela de busca avançada
 function preenchedisciplina($id_os, $combo='')
 {
 	//CRIADO POR CARLOS ABREU PARA FILTRAR AS DISCIPLINAS
@@ -1705,7 +1705,7 @@ function preenchedisciplina($id_os, $combo='')
 	return $resposta;
 }
 
-//Preenche os combos da busca avan�ada
+//Preenche os combos da busca avançada
 function preencheBuscaAvancada($tipo_busca="")
 {
 	$resposta = new xajaxResponse();
@@ -1716,19 +1716,19 @@ function preencheBuscaAvancada($tipo_busca="")
 	
 	if($tipo_busca==1)
 	{
-		$sql = "SELECT empresas.id_empresa_erp, empresas.empresa, unidades.unidade FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impress�o do escopo
+		$sql = "SELECT empresas.id_empresa, empresas.empresa, unidades.unidade FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
 		$sql .= "WHERE numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";
 		$sql .= "AND numeros_interno.id_os = OS.id_os ";
 		$sql .= "AND os.os > 1700 ";
-		$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 	}
 	else
 	{
-		$sql = "SELECT empresas.id_empresa_erp, empresas.empresa, unidades.unidade FROM ".DATABASE.".documentos_referencia, ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impress�o do escopo
+		$sql = "SELECT empresas.id_empresa, empresas.empresa, unidades.unidade FROM ".DATABASE.".documentos_referencia, ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
 		$sql .= "WHERE documentos_referencia.id_os = OS.id_os ";
 		$sql .= "AND os.os > 1700 ";
-		$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";		
 	}	
 	
@@ -1739,7 +1739,7 @@ function preencheBuscaAvancada($tipo_busca="")
 		
 	}
 	
-	$sql .= "GROUP BY empresas.id_empresa_erp, empresas.id_unidade ";
+	$sql .= "GROUP BY empresas.id_empresa, empresas.id_unidade ";
 	$sql .= "ORDER BY empresa ";
 	
 	$reg = $db->select($sql,'MYSQL'); 
@@ -1747,7 +1747,7 @@ function preencheBuscaAvancada($tipo_busca="")
 	while ($reg_os = mysqli_fetch_assoc($reg))
 	{	
    
-		$matriz_os[$reg_os["empresa"]." - ".$reg_os["unidade"]] = $reg_os["id_empresa_erp"];		
+		$matriz_os[$reg_os["empresa"]." - ".$reg_os["unidade"]] = $reg_os["id_empresa"];		
 	}
 
 	//Preenche o combo de OS
@@ -1756,7 +1756,7 @@ function preencheBuscaAvancada($tipo_busca="")
 	return $resposta;
 }
 
-//Preenche os combos da busca avan�ada
+//Preenche os combos da busca avançada
 function preenche_os_BuscaAvancada($dados_form)
 {
 	$resposta = new xajaxResponse();
@@ -1767,14 +1767,14 @@ function preenche_os_BuscaAvancada($dados_form)
 	
 	if($dados_form["tipo_busca"]==1)
 	{
-		$sql = "SELECT OS.id_os, os.os, OS.descricao FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impress�o do escopo
+		$sql = "SELECT OS.id_os, os.os, OS.descricao FROM ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
 		$sql .= "WHERE numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";
 		$sql .= "AND numeros_interno.id_os = OS.id_os ";
 		$sql .= "AND os.os > 1700 ";
 	}
 	else
 	{
-		$sql = "SELECT OS.id_os, os.os, OS.descricao FROM ".DATABASE.".documentos_referencia, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impress�o do escopo
+		$sql = "SELECT OS.id_os, os.os, OS.descricao FROM ".DATABASE.".documentos_referencia, ".DATABASE.".OS "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
 		$sql .= "WHERE documentos_referencia.id_os = OS.id_os ";
 		$sql .= "AND os.os > 1700 ";
 		
@@ -1782,7 +1782,7 @@ function preenche_os_BuscaAvancada($dados_form)
 	
 	if($dados_form["busca_id_cliente"]!="")
 	{
-		$sql .= "AND OS.id_empresa_erp = '".$dados_form["busca_id_cliente"]."' ";
+		$sql .= "AND OS.id_empresa = '".$dados_form["busca_id_cliente"]."' ";
 	}
 		
 	if($_SESSION["id_funcionario"]!=6)
@@ -1810,7 +1810,7 @@ function preenche_os_BuscaAvancada($dados_form)
 	return $resposta;
 }
 
-//Fun��o de busca de arquivos
+//Função de busca de arquivos
 function buscaArquivos($string_busca,$seleciona_arquivo=false)
 {
 	$resposta = new xajaxResponse();
@@ -1867,7 +1867,7 @@ function buscaArquivos($string_busca,$seleciona_arquivo=false)
 	$sql_busca_ref .= "AND documentos_referencia.id_disciplina = setores.id_setor ";
 	$sql_busca_ref .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
 	$sql_busca_ref .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-	$sql_busca_ref .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql_busca_ref .= "AND OS.id_empresa = empresas.id_empresa ";
 	$sql_busca_ref .= "AND documentos_referencia.id_os = os_x_funcionarios.id_os ";
 	$sql_busca_ref .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
 	$sql_busca_ref .= "AND (".DATABASE.".documentos_referencia_revisoes.arquivo LIKE '%" . addslashes($string_busca) . "%' ";
@@ -1929,7 +1929,7 @@ function buscaArquivos($string_busca,$seleciona_arquivo=false)
 	return $resposta;
 }
 
-//Fun��o de busca de arquivos avan�ada
+//Função de busca de arquivos avançada
 function buscaArquivosAvancada($dados_form)
 {
 	$resposta = new xajaxResponse();
@@ -1964,14 +1964,14 @@ function buscaArquivosAvancada($dados_form)
 		$array_arquivos[$regs["tipo"]][] = $regs["id_ged_arquivo"];	
 	}
 	
-	//Cria um array com os crit�rios da busca - PROJETO
+	//Cria um array com os critérios da busca - PROJETO
 	$dados_form["busca_id_os"] ? $array_sql_filtro[] = "numeros_interno.id_os = '" . $dados_form["busca_id_os"] . "' " : "";
 	$dados_form["busca_id_atividade"] ? $array_sql_filtro[] = "numero_cliente.id_atividade = '" . $dados_form["busca_id_atividade"] . "' " : "";	
 	$dados_form["busca_id_disciplina"] ? $array_sql_filtro[] = "numeros_interno.id_disciplina = '" . $dados_form["busca_id_disciplina"] . "' " : "";	
 	$dados_form["busca_observacao"] ? $array_sql_filtro[] = "ged_arquivos.descricao LIKE '%" . $dados_form["busca_observacao"] . "%' " : "";		
 	$dados_form["busca_texto"] ? $array_sql_filtro[] = "(solicitacao_documentos_detalhes.tag LIKE '%" . $dados_form["busca_texto"] . "%' OR solicitacao_documentos_detalhes.tag2 LIKE '%" . $dados_form["busca_texto"] . "%' OR solicitacao_documentos_detalhes.tag3 LIKE '%" . $dados_form["busca_texto"] . "%' OR solicitacao_documentos_detalhes.tag3 LIKE '%" . $dados_form["busca_texto"] . "%' OR solicitacao_documentos_detalhes.tag4 LIKE '%" . $dados_form["busca_texto"] . "%' OR numero_cliente.numero_cliente LIKE '%" . $dados_form["busca_texto"] . "%'  OR numeros_interno.sequencia LIKE '%" . $dados_form["busca_texto"] . "%' ) " : "";		
 	
-	//Cria um array com os crit�rios da busca - REFER�NCIA
+	//Cria um array com os critérios da busca - REFERÊNCIA
 	$dados_form["busca_id_os"] ? $array_sql_filtro_ref[] = "documentos_referencia.id_os = '" . $dados_form["busca_id_os"] . "' " : "";
 	
 	$dados_form["busca_id_disciplina"] ? $array_sql_filtro_ref[] = "documentos_referencia.id_disciplina = '" . $dados_form["busca_id_disciplina"] . "' " : "";	
@@ -2042,18 +2042,18 @@ function buscaArquivosAvancada($dados_form)
 			
 			$header = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%\" onselectstart=\"return false;\" unselectable=\"on\">";
 			$header .= "<tr>";
-			$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";
-			$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";
-			$header .= "<td width=\"20\" type=\"ro\">&nbsp;</td>";			
+			$header .= "<td width=\"20\" type=\"ro\"> </td>";
+			$header .= "<td width=\"20\" type=\"ro\"> </td>";
+			$header .= "<td width=\"20\" type=\"ro\"> </td>";			
 			$header .= "<td width=\"120\" type=\"ro\">Arquivo</td>";
-			$header .= "<td width=\"180\" type=\"ro\">N�mero Cliente</td>";
+			$header .= "<td width=\"180\" type=\"ro\">Nºmero Cliente</td>";
 			$header .= "<td width=\"70\" type=\"ro\">Autor</td>";
 			$header .= "<td width=\"50\" type=\"ro\">OS</td>";
 			$header .= "<td width=\"50\" type=\"ro\">Disc.</td>";
-			$header .= "<td width=\"140\" type=\"ro\">T�tulo 1</td>";
-			$header .= "<td width=\"140\" type=\"ro\">T�tulo 2</td>";
-			$header .= "<td width=\"140\" type=\"ro\">T�tulo 3</td>";
-			$header .= "<td width=\"140\" type=\"ro\">T�tulo 4</td>";
+			$header .= "<td width=\"140\" type=\"ro\">Título 1</td>";
+			$header .= "<td width=\"140\" type=\"ro\">Título 2</td>";
+			$header .= "<td width=\"140\" type=\"ro\">Título 3</td>";
+			$header .= "<td width=\"140\" type=\"ro\">Título 4</td>";
 			$header .= "<td width=\"50\" type=\"ro\">Abrir</td>";	
 			$header .= "</tr>";
 			
@@ -2067,10 +2067,10 @@ function buscaArquivosAvancada($dados_form)
 				//Explode o nome do arquivo
 				$extensao_array = explode(".",$reg_busca["nome_arquivo"]);
 				
-				//Pega somente a extens�o
+				//Pega somente a extensão
 				$extensao = $extensao_array[count($extensao_array)-1];	
 				
-				//Pega a imagem relativa a extens�o
+				//Pega a imagem relativa a extensão
 				$imagem = retornaImagem($extensao);
 
 				//Pega a imagem da bolinha referente ao status do arquivo
@@ -2097,7 +2097,7 @@ function buscaArquivosAvancada($dados_form)
 
 				//ADICIONADO POR CARLOS ABREU
 				//16/09/2010
-				$operacao = $extensao=="zip" ? "5" : "6"; //3= Check-in sendo ZIP; 1 = Check-in n�o sendo ZIP
+				$operacao = $extensao=="zip" ? "5" : "6"; //3= Check-in sendo ZIP; 1 = Check-in não sendo ZIP
 				
 				//Atribue o evento para onclick no div
 				$onclick = "xajax_dadosArquivo('".$reg_busca["id_ged_arquivo"]."'); ";
@@ -2111,7 +2111,7 @@ function buscaArquivosAvancada($dados_form)
 				
 				$resposta->addScript("document.body.onclick = function () { popupMenu('',event,'','".$caminho."'); } ");
 			
-				$imagem_vis = "<img src=\"../images/buttons_action/procurar.png\" title=\"Abrir vers�o atual\" style=\"cursor:pointer;\" onclick=\"xajax_abrir('" . $caminho . "');\">";
+				$imagem_vis = "<img src=\"../images/buttons_action/procurar.png\" title=\"Abrir versão atual\" style=\"cursor:pointer;\" onclick=\"xajax_abrir('" . $caminho . "');\">";
 				
 				$conteudo .= "<tr>";
 				
@@ -2121,7 +2121,7 @@ function buscaArquivosAvancada($dados_form)
 				}
 				else
 				{
-					$conteudo .= "<td>&nbsp;</td>";				
+					$conteudo .= "<td> </td>";				
 				}
 				
 				$conteudo .= "<td>" . $imagem_bolinha . "</td>";
@@ -2143,7 +2143,7 @@ function buscaArquivosAvancada($dados_form)
 			
 			$resposta->addScript("grid('tbl2',true,'350');");				
 				
-			//Corre��o bug
+			//Correção bug
 			$resposta->addScript("xajax.('div_busca_resultados').style.width='1150px'; ");		
 				
 
@@ -2157,7 +2157,7 @@ function buscaArquivosAvancada($dados_form)
 			$sql_busca .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
 			$sql_busca .= "AND documentos_referencia.id_tipo_documento_referencia = tipos_documentos_referencia.id_tipos_documentos_referencia ";
 			$sql_busca .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-			$sql_busca .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql_busca .= "AND OS.id_empresa = empresas.id_empresa ";
 		
 			$sql_busca .= $sql_filtro_ref;
 			
@@ -2170,10 +2170,10 @@ function buscaArquivosAvancada($dados_form)
 			$header = "<table id=\"tbl2\" class=\"dhtmlXGrid\" style=\"width:100%\" onselectstart=\"return false;\" unselectable=\"on\">";
 			$header .= "<tr>";
 			$header .= "<td width=\"250\" type=\"ro\">Arquivo</td>";
-			$header .= "<td width=\"130\" type=\"ro\">N� Registro</td>";
-			$header .= "<td width=\"170\" type=\"ro\">N� Documento</td>";
+			$header .= "<td width=\"130\" type=\"ro\">Nº Registro</td>";
+			$header .= "<td width=\"170\" type=\"ro\">Nº Documento</td>";
 			$header .= "<td width=\"70\" type=\"ro\">Autor</td>";
-			$header .= "<td width=\"230\" type=\"ro\">T�tulo</td>";
+			$header .= "<td width=\"230\" type=\"ro\">Título</td>";
 			$header .= "<td width=\"50\" type=\"ro\">OS</td>";
 			$header .= "<td width=\"70\" type=\"ro\">Disciplina</td>";
 			$header .= "<td width=\"100\" type=\"ro\">Palavras chave</td>";
@@ -2205,16 +2205,16 @@ function buscaArquivosAvancada($dados_form)
 		
 				$array_extensao = explode(".",$reg_busca["arquivo"]);
 				
-				//Pega a extens�o do arquivo
+				//Pega a extensão do arquivo
 				$extensao = $array_extensao[count($array_extensao)-1];
 				
-				//Pega a imagem relativa a extens�o
+				//Pega a imagem relativa a extensão
 				$imagem = retornaImagem($extensao);
 
 				$imagem_vis = "<img src=\"../images/buttons_action/procurar.png\" title=\"Abrir\" style=\"cursor:pointer;\" onclick=\"xajax_abrir('" . $diretorio.$reg_busca["arquivo"] . "');\">";
 
 				$conteudo .= "<tr>";
-				$conteudo .= "<td>".$imagem . "&nbsp;" . basename($reg_busca["arquivo"])."</td>";
+				$conteudo .= "<td>".$imagem . " " . basename($reg_busca["arquivo"])."</td>";
 				$conteudo .= "<td>" . $reg_busca["numero_registro"] . "</td>";	
 				$conteudo .= "<td>" . $reg_busca["numero_documento"] . "</td>";
 				$conteudo .= "<td>" . $nome_funcionario[$reg_busca["id_autor"]] . "</td>";		
@@ -2232,7 +2232,7 @@ function buscaArquivosAvancada($dados_form)
 
 			$resposta->addScript("grid('tbl2',true,'350');");		
 				
-			//Corre��o bug
+			//Correção bug
 			$resposta->addScript("xajax.('div_busca_resultados').style.width='1150px'; ");		
 		
 		break;
@@ -2251,10 +2251,10 @@ function visualizar($caminho)
 	{
 		$nome_arquivo = basename($caminho);
 		
-		//Pega o nome do arquivo upload sem a extens�o
+		//Pega o nome do arquivo upload sem a extensão
 		$nome_arquivo_format = substr($nome_arquivo,0,strrpos($nome_arquivo,"."));
 		
-		//Pega a extens�o do arquivo upload sem o nome
+		//Pega a extensão do arquivo upload sem o nome
 		$nome_extensao_format = substr($nome_arquivo,strrpos($nome_arquivo,"."),(strlen($nome_arquivo)-strrpos($nome_arquivo,".")));
 
 		switch($nome_extensao_format)
@@ -2268,42 +2268,42 @@ function visualizar($caminho)
 				
 				$diretorio_original = "documentos_dxf";
 	
-				//Remove o diret�rio tempor�rio
+				//Remove o   temporário
 				full_rmdir($diretorio_original . DIRETORIO_VERSOES."/tmp/");
 			
 				$nr_rnd = rand(100000,999999);
 			
-				//Se n�o existir o diret�rio de vers�es, cria
+				//Se não existir o   de versões, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES);
 				}
 				
-				//Se n�o existir o diret�rio tempor�rio, cria
+				//Se não existir o   temporário, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES."/tmp/"))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES."/tmp/");
 				}
 				
-				//Cria numera��o rand�mica para nomear diret�rio de cache tempor�rio
+				//Cria numeração  randômica para nomear de cache temporário
 				$nr_rnd = rand(100000,999999);
 				
-				//Se n�o existir o diret�rio de cache tempor�rio, cria
+				//Se não existir o   de cache temporário, cria
 				if(!is_dir($diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/"))
 				{
 					mkdir($diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/");
 				}
 				
-				//Se o arquivo de cache tempor�rio existir, remove
+				//Se o arquivo de cache temporário existir, remove
 				if(is_file($diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/" . $nome_arquivo))
 				{
 					unlink($diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/" . $nome_arquivo);
 				}
 		
-				//Copia o arquivo para o dir tempor�rio
+				//Copia o arquivo para o dir temporário
 				$copia_arquivo = copy($caminho,$diretorio_original . DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/" . $nome_arquivo);
 				
-				//Se o arquivo de cache tempor�rio existir, remove
+				//Se o arquivo de cache temporário existir, remove
 				if(is_file($diretorio_original .DIRETORIO_VERSOES. "/tmp/" . $nr_rnd . "/" . $nome_arquivo_format . ".dxf"))
 				{
 					unlink($diretorio_original . DIRETORIO_VERSOES."/tmp/" . $nr_rnd . "/" . $nome_arquivo_format . ".dxf");
@@ -2333,7 +2333,7 @@ function visualizar($caminho)
 			break;
 			
 			default:
-				$resposta->addAlert("N�o implementado para esse tipo de arquivo.");
+				$resposta->addAlert("Não implementado para esse tipo de arquivo.");
 			break;
 		
 		}
@@ -2343,43 +2343,43 @@ function visualizar($caminho)
 	return $resposta;
 }
 
-//Preenche coment�rios
+//Preenche comentários
 function preencheComentarios($id_ged_versao)
 {
 	$resposta = new xajaxResponse();
 	
 	$db = new banco_dados();
 
-	$sql_cabecalho_coment = "SELECT *, numeros_interno.sequencia FROM ".DATABASE.".ged_comentarios, ".DATABASE.".ged_versoes, ".DATABASE.".ged_arquivos, ".DATABASE.".numeros_interno, ".DATABASE.".numero_cliente, ".DATABASE.".OS, ".DATABASE.".setores,  ";
-	$sql_cabecalho_coment .= "".DATABASE.".ged_pacotes INNER JOIN ".DATABASE.".grd ON (ged_pacotes.id_ged_pacote = grd.id_ged_pacote) ";
-	$sql_cabecalho_coment .= "WHERE ged_comentarios.id_ged_versao = ged_versoes.id_ged_versao ";
-	$sql_cabecalho_coment .= "AND ged_versoes.id_ged_pacote = ged_pacotes.id_ged_pacote ";
-	$sql_cabecalho_coment .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
-	$sql_cabecalho_coment .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";	
-	$sql_cabecalho_coment .= "AND numeros_interno.id_numcliente = numero_cliente.id_numcliente ";
-	$sql_cabecalho_coment .= "AND numeros_interno.id_disciplina = setores.id_setor ";
-	$sql_cabecalho_coment .= "AND numeros_interno.id_os = OS.id_os ";
-	$sql_cabecalho_coment .= "AND ged_pacotes.id_ged_pacote = ged_versoes.id_ged_pacote ";
-	$sql_cabecalho_coment .= "AND ged_pacotes.id_ged_pacote = grd.id_ged_pacote ";
-	$sql_cabecalho_coment .= "AND ged_versoes.id_ged_versao = '" . $id_ged_versao . "' ";
+	$sql = "SELECT *, numeros_interno.sequencia FROM ".DATABASE.".ged_comentarios, ".DATABASE.".ged_versoes, ".DATABASE.".ged_arquivos, ".DATABASE.".numeros_interno, ".DATABASE.".numero_cliente, ".DATABASE.".OS, ".DATABASE.".setores,  ";
+	$sql .= "".DATABASE.".ged_pacotes INNER JOIN ".DATABASE.".grd ON (ged_pacotes.id_ged_pacote = grd.id_ged_pacote) ";
+	$sql .= "WHERE ged_comentarios.id_ged_versao = ged_versoes.id_ged_versao ";
+	$sql .= "AND ged_versoes.id_ged_pacote = ged_pacotes.id_ged_pacote ";
+	$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
+	$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";	
+	$sql .= "AND numeros_interno.id_numcliente = numero_cliente.id_numcliente ";
+	$sql .= "AND numeros_interno.id_disciplina = setores.id_setor ";
+	$sql .= "AND numeros_interno.id_os = OS.id_os ";
+	$sql .= "AND ged_pacotes.id_ged_pacote = ged_versoes.id_ged_pacote ";
+	$sql .= "AND ged_pacotes.id_ged_pacote = grd.id_ged_pacote ";
+	$sql .= "AND ged_versoes.id_ged_versao = '" . $id_ged_versao . "' ";
 	
-	$cont_cabecalho_coment = $db->select($sql_cabecalho_coment,'MYSQL');
+	$cont_cabecalho_coment = $db->select($sql,'MYSQL');
 
 	$reg_cabecalho_coment = mysqli_fetch_assoc($cont_cabecalho_coment);
 	
 	$conteudo_cabecalho = "<table border=\"0\" width=\"100%\"><tr>";
-	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">N�mero DVM</div></td>";
-	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">N�mero Cliente</div></td>";	
+	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Nº INT</div></td>";
+	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Nº Cliente</div></td>";	
 	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">GRD</div></td>";		
-	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Rev.&nbsp;D</div></td>";
-	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Rev.&nbsp;C</div></td>";		
+	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Rev. D</div></td>";
+	$conteudo_cabecalho .= "<td><div class=\"fonte_descricao_campos\">Rev. C</div></td>";		
 	$conteudo_cabecalho .= "</tr><tr>";
-	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">DVM-" . sprintf("%05d",$reg_cabecalho_coment["os"]) . "-" . $reg_cabecalho_coment["sigla"] . "-" . $reg_cabecalho_coment["sequencia"] . "</div></td>";		
+	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">INT-" . sprintf("%05d",$reg_cabecalho_coment["os"]) . "-" . $reg_cabecalho_coment["sigla"] . "-" . $reg_cabecalho_coment["sequencia"] . "</div></td>";		
 	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">" . $reg_cabecalho_coment["numero_cliente"] . "</div></td>";		
 	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">" . $reg_cabecalho_coment["os"] . "-" . sprintf("%03d",$reg_cabecalho_coment["numero_pacote"]) . "</div></td>";		
 	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">" . $reg_cabecalho_coment["revisao_interna"] . "</div></td>";
 	$conteudo_cabecalho .= "<td><div class=\"fonte_11\">" . $reg_cabecalho_coment["revisao_cliente"] . "</div></td>";
-	$conteudo_cabecalho .= "</tr><tr><td>&nbsp;</td></tr></table>";	
+	$conteudo_cabecalho .= "</tr><tr><td> </td></tr></table>";	
 	
 	$resposta->addAssign("div_cabecalho_comentarios","innerHTML",$conteudo_cabecalho);
 
@@ -2420,7 +2420,7 @@ function preencheComentarios($id_ged_versao)
 		}
 		
 		$conteudo_coment .= "<div id=\"coment_" . $reg_coment["id_ged_comentario"] . "\" class=\"tabela_celulas\" style=\"width:90%;\">" . $reg_coment["cmt_strarquivo"]. "</div>";
-		$conteudo_coment .= "<div id=\"abrir_coment_" . $reg_coment["id_ged_comentario"] . "\" class=\"tabela_celulas\" style=\"width:1%;\"><img src=\"../images/buttons_action/bt_busca.gif\" style=\"cursor:pointer;\" alt=\"Abrir arquivo de coment�rio\" onclick=\"xajax_abrir('" . $caminho . "." . sprintf("%03d",$reg_coment["sequencia_doc"]) . "', '" . $caminho . "');\"></div>";
+		$conteudo_coment .= "<div id=\"abrir_coment_" . $reg_coment["id_ged_comentario"] . "\" class=\"tabela_celulas\" style=\"width:1%;\"><img src=\"../images/buttons_action/bt_busca.gif\" style=\"cursor:pointer;\" alt=\"Abrir arquivo de comentário\" onclick=\"xajax_abrir('" . $caminho . "." . sprintf("%03d",$reg_coment["sequencia_doc"]) . "', '" . $caminho . "');\"></div>";
 		
 		$conteudo_coment .= "</div>";
 		
@@ -2442,7 +2442,7 @@ function filtra_os($os)
 	
 	$sql = "SELECT abreviacao_GED, OS, descricao FROM ".DATABASE.".empresas, ".DATABASE.".OS ";
 	$sql .= "WHERE OS.id_os = '".$os."' ";
-	$sql .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND OS.id_empresa = empresas.id_empresa ";
 	
 	$cont = $db->select($sql,'MYSQL');
 
@@ -2476,20 +2476,20 @@ function preencheTitulos($id_ged_arquivo)
 	$conteudo_compl .= "<form action=\"ged.php\" method=\"post\" name=\"frm_titulos\">";
 	$conteudo_compl .= "<table border=\"0\" width=\"100%\">";
 	$conteudo_compl .= "<tr>";
-	$conteudo_compl .= "<td><label class=\"label_descricao_campos\"><strong>Altera��o de T�tulos</strong></label></td>";
+	$conteudo_compl .= "<td><label class=\"label_descricao_campos\"><strong>Alteração de Títulos</strong></label></td>";
 	$conteudo_compl .= "</tr>";
 	$conteudo_compl .= "<tr>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">N�&nbsp;DVM</label><BR><input type=\"text\" name=\"n_dvm\" class=\"caixa\" value=\"" . "DVM-" . sprintf("%05d",$reg_complemento["os"]) . "-" . $reg_complemento["sigla"] . "-" .$reg_complemento["sequencia"] . "\" size=\"40\" readonly=\"readonly\"></td>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">N�&nbsp;Cliente</label><BR><input type=\"text\" name=\"numero_cliente\" id=\"numero_cliente\" class=\"caixa\" value=\"" . $reg_complemento["numero_cliente"] . "\" size=\"40\"></td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Nº INT</label><BR><input type=\"text\" name=\"n_dvm\" class=\"caixa\" value=\"" . "INT-" . sprintf("%05d",$reg_complemento["os"]) . "-" . $reg_complemento["sigla"] . "-" .$reg_complemento["sequencia"] . "\" size=\"40\" readonly=\"readonly\"></td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Nº Cliente</label><BR><input type=\"text\" name=\"numero_cliente\" id=\"numero_cliente\" class=\"caixa\" value=\"" . $reg_complemento["numero_cliente"] . "\" size=\"40\"></td>";
 	$conteudo_compl .= "</tr></table>";
 
 	$conteudo_compl .= "<table border=\"0\" width=\"100%\">";
 	$conteudo_compl .= "<tr>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">T�tulo&nbsp;1</label><BR><input type=\"text\" name=\"tag\" id=\"tag\" class=\"caixa\" value=\"" . $reg_complemento["tag"] . "\" size=\"40\"></td>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">T�tulo&nbsp;2</label><BR><input type=\"text\" name=\"tag2\" id=\"tag2\" class=\"caixa\" value=\"" . $reg_complemento["tag2"] . "\" size=\"40\"></td></tr>";
-	$conteudo_compl .= "<tr><td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">T�tulo&nbsp;3</label><BR><input type=\"text\" name=\"tag3\" id=\"tag3\" class=\"caixa\" value=\"" . $reg_complemento["tag3"] . "\" size=\"40\"></td>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">T�tulo&nbsp;4</label><BR><input type=\"text\" name=\"tag4\" id=\"tag4\" class=\"caixa\" value=\"" . $reg_complemento["tag4"] . "\" size=\"40\"></td>";
-	$conteudo_compl .= "<td class=\"td_sp\" width=\"90%\">&nbsp;</td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Título 1</label><BR><input type=\"text\" name=\"tag\" id=\"tag\" class=\"caixa\" value=\"" . $reg_complemento["tag"] . "\" size=\"40\"></td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Título 2</label><BR><input type=\"text\" name=\"tag2\" id=\"tag2\" class=\"caixa\" value=\"" . $reg_complemento["tag2"] . "\" size=\"40\"></td></tr>";
+	$conteudo_compl .= "<tr><td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Título 3</label><BR><input type=\"text\" name=\"tag3\" id=\"tag3\" class=\"caixa\" value=\"" . $reg_complemento["tag3"] . "\" size=\"40\"></td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"5%\"><label class=\"label_descricao_campos\">Título 4</label><BR><input type=\"text\" name=\"tag4\" id=\"tag4\" class=\"caixa\" value=\"" . $reg_complemento["tag4"] . "\" size=\"40\"></td>";
+	$conteudo_compl .= "<td class=\"td_sp\" width=\"90%\"> </td>";
 	$conteudo_compl .= "</tr>";
 	$conteudo_compl .= "</table>";
 	$conteudo_compl .= "<table border=\"0\" width=\"100%\">";
@@ -2559,7 +2559,7 @@ font-family:Arial, Helvetica, sans-serif;
 
 </style>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <script language="javascript" src="ged_clientes.js"></script>
@@ -2598,7 +2598,7 @@ function tonclick(id)
 function htree(id_tree)
 {	
 	myTree = dhtmlXTreeFromHTML(id_tree);
-	//Seta espa�amento no final do TreeGrid
+	//Seta espaçamento no final do TreeGrid
 	document.getElementById('tree1').childNodes[0].childNodes[0].style.marginBottom = '100px';
 	myTree.setSkin("modern");
 	mygrid.setSkin("dhx_skyblue");	
@@ -2819,8 +2819,8 @@ $conf = new configs();
 $db = new banco_dados;
 
 $sql = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".contatos, ".DATABASE.".empresas ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
-$sql .= "AND empresas.id_empresa_erp = contatos.id_empresa_erp ";
+$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
+$sql .= "AND empresas.id_empresa = contatos.id_empresa ";
 $sql .= "AND contatos.id_contato = '".$_SESSION["id_contato"]."' ";
 $sql .= "GROUP BY OS.id_os ";
 $sql .= "ORDER BY OS ";

@@ -25,7 +25,7 @@ function eXcell_context(cell){
 		this.cell._val=val;
 		var item  = this._sub.itemPull[this._sub.idPrefix+this.cell._val];
 		val = item?item.title:val;
-		this.setCValue((val||"&nbsp;"),val);
+		this.setCValue((val||" "),val);
 	}
 	this.edit = function(){
 		var arPos = this.grid.getPosition(this.cell);//,this.grid.objBox
@@ -50,7 +50,7 @@ eXcell_context.prototype = new eXcell;
 
 dhtmlXGridObject.prototype.setSubContext=function(ctx,s_index,t_index){
 	var that=this;
-	ctx.attachEvent("onClick",function(id,value){
+	ctx.attachEvent("onclick",function(id,value){
 		that._sub_id = id;
 		that.editStop();
 		ctx.hideContextMenu();

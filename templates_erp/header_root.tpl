@@ -27,4 +27,4 @@
         <div class="header" align="center">
         	<img align="middle" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>logo_erp.png" width="302" height="70">            
         </div>        
-        <p class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></p>
+        <p class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></p>

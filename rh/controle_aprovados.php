@@ -151,26 +151,26 @@ function atualizatabela($sql_texto)
 		$xml->writeElement('cell', $reg["nivel_atuacao"]);
 		$xml->writeElement('cell', $arrays['status'][$reg["status"]]);
 		if ($reg['status'] == 3 && (empty($reg['id_funcionario']) || $reg['situacao'] <> 'ATIVO'))
-			$xml->writeElement('cell', '<span class="icone icone-salvar cursor" onclick=if(confirm("ATENÇÃO:&nbsp;Deseja&nbsp;realmente&nbsp;exportar&nbsp;este&nbsp;cadastro?&nbsp;Só&nbsp;confirme&nbsp;caso&nbsp;o&nbsp;cadastro&nbsp;esteja&nbsp;completo.")){xajax_exportar("'.$reg["id"].'");}></span>');
+			$xml->writeElement('cell', '<span class="icone icone-salvar cursor" onclick=if(confirm("ATENÇÃO: Deseja realmente exportar este cadastro? Só confirme caso o cadastro esteja completo.")){xajax_exportar("'.$reg["id"].'");}></span>');
 		else
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 
 		if (empty($reg['id_funcionario']))
-			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$reg["id"].'");}></span>');
+			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Confirma a exclusão?")){xajax_excluir("'.$reg["id"].'");}></span>');
 		else
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 			
 		$xml->writeElement('cell', "<span class=\'icone icone-arquivo-pdf cursor\' onclick=window.open(\'relatorios/ficha_candidato_pdf.php?idCandidato=".$reg['id']."\',\'_blank\',\'width=1024,height=500\');></span>");
 		
 		if (empty($reg['id_funcionario']) || $reg['situacao'] <> 'ATIVO')
 			$xml->writeElement('cell', '<span class="icone icone-editar cursor" onclick=xajax_editar("'.$reg['id'].'");></span>');
 		else
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 
 		if ($reg['status'] == 3 && (empty($reg['id_funcionario']) || $reg['situacao'] <> 'ATIVO'))
-			$xml->writeElement('cell', '<span class="icone icone-cadeado-aberto cursor" onclick=if(confirm("ATENÇÃO:&nbsp;Deseja&nbsp;realmente&nbsp;liberar&nbsp;este&nbsp;cadastro?")){xajax_liberar("'.$reg["id"].'");}></span>');
+			$xml->writeElement('cell', '<span class="icone icone-cadeado-aberto cursor" onclick=if(confirm("ATENÇÃO: Deseja realmente liberar este cadastro?")){xajax_liberar("'.$reg["id"].'");}></span>');
 		else
-			$xml->writeElement('cell', '&nbsp;');	
+			$xml->writeElement('cell', ' ');	
 		
 		$xml->endElement();		
 	}
@@ -436,17 +436,23 @@ function enviarEmail($email,$cpf,$nome,$rash)
 	$corpo .= "Nosso Endereço: Rua XXXXXXXX, XX - Centro - XXXXXXX. CEP: XXXXXXXX <br /><br />";
 	$corpo .= "Ficamos a disposição para maiores esclarecimentos e informações!<br />Certo de sua atenção!";
 	
-	$mail = new email($params);
-	$mail->montaCorpoEmail($corpo);
+	if(ENVIA_EMAIL)
+	{
+		$mail = new email($params);
+		
+		$mail->montaCorpoEmail($corpo);
 
-	if(!$mail->Send())
-	{
-		$resposta->addAlert('ATENÇÃO: O Acesso foi cadastrado corretamente, mas o e-mail não foi enviado por algum motivo desconhecido. Por favor, entre em contato com o Candidato');
+		if(!$mail->Send())
+		{
+			$resposta->addAlert('ATENÇÃO: O Acesso foi cadastrado corretamente, mas o e-mail não foi enviado por algum motivo desconhecido. Por favor, entre em contato com o Candidato');
+		}
 	}
-	else
+	else 
 	{
-		$resposta->addAlert('Acesso cadastrado corretamente');
+		$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
 	}
+
+	$resposta->addAlert('Acesso cadastrado corretamente');
 	
 	$resposta->addScript('limparForm();');
 	$resposta->addScript('xajax_atualizatabela();');
@@ -591,7 +597,7 @@ function exportar($idCandidato)
 	
 	//Verificando se já existe email, login ou sigla no cadastro de funcionarios
 	$sql = 
-	"SELECT UPPER(sigla_func) sigla_func, UPPER(email) email, UPPER(Login) Login
+	"SELECT UPPER(sigla_func) sigla_func, UPPER(email) email, UPPER(login) login
 	FROM
 		".DATABASE.".funcionarios
 		JOIN(
@@ -615,8 +621,8 @@ function exportar($idCandidato)
 		if ($db->array_select[0]['email'] == $email)
 			$mensagem .= 'E-mail: '.$db->array_select[0]['email']." - ";
 			
-		if ($db->array_select[0]['Login'] == $login)
-			$mensagem .= 'Login: '.$db->array_select[0]['login']." - ";
+		if ($db->array_select[0]['login'] == $login)
+			$mensagem .= 'login: '.$db->array_select[0]['login']." - ";
 			
 		if ($db->array_select[0]['sigla_func'] == $sigla)
 			$mensagem .= 'Sigla: '.$db->array_select[0]['sigla_func'];
@@ -625,7 +631,7 @@ function exportar($idCandidato)
 		return $resposta;
 	}		
 	
-	//Insere o funcionario no banco Devemada
+	//Insere o funcionario no banco  
 	$isql = "INSERT INTO ".DATABASE.".funcionarios ";
 	$isql .= "(id_setor, nivel_atuacao, id_funcao, id_cargo, id_setor_aso, funcionario, nome_usuario, email_particular,
 	funcionario_endereco, funcionario_bairro, funcionario_cidade, ";
@@ -787,7 +793,7 @@ function exportar($idCandidato)
 			$senha = $enc->encrypt("123456");
 
 			$isql = "INSERT INTO ".DATABASE.".usuarios ";
-			$isql .= "(id_funcionario, email, Login, Senha, status, data_troca, perfil) ";
+			$isql .= "(id_funcionario, email, login, Senha, status, data_troca, perfil) ";
 			$isql .= "VALUES (";
 			$isql .= "'" . $idNovo . "', ";
 			$isql .= "'" . minusculas(trim($reg["cdvm_email"])) . "', ";
@@ -928,7 +934,7 @@ function exportar($idCandidato)
 				}
 				
 				//Dados da empresa pela OS
-				$sql = "SELECT id_empresa_erp FROM ".DATABASE.".ordem_servico ";
+				$sql = "SELECT id_empresa FROM ".DATABASE.".ordem_servico ";
 				$sql .= "WHERE id_os = ".$reg['id_os']." ";
 				$sql .= "AND reg_del = 0 ";
 				
@@ -936,7 +942,7 @@ function exportar($idCandidato)
 				
 				//Inserindo o chamado de integração no cliente
 				$dadosChamado = array(
-					'cliente' => $db->array_select[0]['id_empresa_erp'],
+					'cliente' => $db->array_select[0]['id_empresa'],
 					'funcionario' => $idNovo,
 					'descricao_integracao' => 'PEDIDO AUTOMÁTICO PARA NOVO COLABORADOR VIA CONTROLE DE CANDIDATOS APROVADOS',
 					'data' => dateAddWithoutWeekEnds(date('Y-m-d'), 8, 'd/m/Y')
@@ -976,7 +982,7 @@ function exportar($idCandidato)
 				$diasarray = getdate($diasestampa);
 
 				$corpo = CIDADE . ", ". $diasarray["mday"]." de ".meses($diasarray["mon"]-1,1)." de ".$diasarray["year"] ."<br><br><br>";
-				$corpo .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO&nbsp;DE&nbsp;USUÁRIO</span><br><br><br>";
+				$corpo .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO DE USUÁRIO</span><br><br><br>";
 				$corpo .= "Favor cadastrar o login e e-mail do novo funcionario:<br>";
 				$corpo .= "Nome: <strong>".maiusculas($reg["nome"])."</strong><br>";
 				$corpo .= "Funcao: <strong>".$cargo_descr."</strong><br>";
@@ -991,7 +997,7 @@ function exportar($idCandidato)
 				$corpo .= $retorno['dvmsys'] != '' ? 'Módulos SISTEMA: '.$retornoHtml['dvmsys'].'<br />' : '';
 				$corpo .= $retorno['protheus'] != '' ? 'Módulos Protheus: '.$retornoHtml['protheus'].'<br />' : '';
 				
-				$corpo .= "Login: <strong>".minusculas($reg["cdvm_login"])."</strong><br>";
+				$corpo .= "login: <strong>".minusculas($reg["cdvm_login"])."</strong><br>";
 				$corpo .= "E-mail: <strong>".minusculas($reg["cdvm_email"])."</strong><br>";
 				$corpo .= "Sigla: <strong>".minusculas($reg["cdvm_sigla"])."</strong><br><br><br><br>";
 				
@@ -1005,15 +1011,23 @@ function exportar($idCandidato)
 				$corpo .= "<strong>OBS:</strong>O sistema solicitará a troca da senha ao primeiro acesso.<br><br><br><br>";
 				$corpo .= "Atenciosamente, Depto. Recursos Humanos.";
 				
-				//email
-				$params 			= array();
-				$params['from']		= "recrutamento@dominio.com.br";
-				$params['from_name']= "RECURSOS HUMANOS";
-				$params['subject'] 	= "CADASTRO DE NOVO USUARIO";
+				if(ENVIA_EMAIL)
+				{
 
-				$mail = new email($params, 'controle_aprovados_novo_usuario');
-				$mail->montaCorpoEmail($corpo);
-				$mail->Send();
+					//email
+					$params 			= array();
+					$params['from']		= "recrutamento@dominio.com.br";
+					$params['from_name']= "RECURSOS HUMANOS";
+					$params['subject'] 	= "CADASTRO DE NOVO USUARIO";
+
+					$mail = new email($params, 'controle_aprovados_novo_usuario');
+					$mail->montaCorpoEmail($corpo);
+					$mail->Send();
+				}
+				else 
+				{
+					$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 2);
+				}
 				
 				/**
 				 * E-mails que serão enviados aos colaboradores
@@ -1030,17 +1044,26 @@ function exportar($idCandidato)
 				             <p>Agradecemos a colaboração.</p>
 				             <p>Nos colocamos é disposição para auxiliá-lo.</p>
 				             <p>Desejamos sucesso nessa nova jornada.</p><br />";
-				    
-				    $params 			= array();
-				    $params['from']		= "recrutamento@dominio.com.br";
-				    $params['from_name']= "RECURSOS HUMANOS";
-				    $params['subject'] 	= "Integração";
-				    
-				    $params['emails']['to'][] = array('email' => minusculas($reg["cdvm_email"]), 'nome' => $reg["nome"]);
-				    
-				    $mail = new email($params);
-				    $mail->montaCorpoEmail($corpo);
-				    $mail->Send();
+					
+					if (ENVIA_EMAIL) 
+					{
+							 
+						$params 			= array();
+						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from_name']= "RECURSOS HUMANOS";
+						$params['subject'] 	= "Integração";
+						
+						$params['emails']['to'][] = array('email' => minusculas($reg["cdvm_email"]), 'nome' => $reg["nome"]);
+						
+						$mail = new email($params);
+						$mail->montaCorpoEmail($corpo);
+						$mail->Send();
+					}
+					else 
+					{
+						$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 3);
+					}
+					
 				}
 				
 				/*
@@ -1051,19 +1074,26 @@ function exportar($idCandidato)
 				    $corpo = "<p>".$reg["nome"].",</p><br />
 								    <p>Segue:<br />
                                     1.	Procedimento para lançamento de horas no SISTEMA (anexo).<br />
-				                    2.	Login e senha para utilização do e-mail e SISTEMA (abaixo).<br /><br />";
-				    
-				    $params 			= array();
-				    $params['from']		= "recrutamento@dominio.com.br";
-				    $params['from_name']= "RECURSOS HUMANOS";
-				    $params['subject'] 	= "Integração";
-				    
-				    $params['emails']['to'][] = array('email' => minusculas($reg["cdvm_email"]), 'nome' => $reg["nome"]);
-				    
-				    $mail = new email($params);
-				    $mail->montaCorpoEmail($corpo);
-				   // $mail->addAttachment("./modelos_pdf/informacoes_de_acesso_novos_colaboradores.pdf");
-				    $mail->Send();
+				                    2.	login e senha para utilização do e-mail e SISTEMA (abaixo).<br /><br />";
+					
+					if(ENVIA_EMAIL)
+					{
+						$params 			= array();
+						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from_name']= "RECURSOS HUMANOS";
+						$params['subject'] 	= "Integração";
+						
+						$params['emails']['to'][] = array('email' => minusculas($reg["cdvm_email"]), 'nome' => $reg["nome"]);
+						
+						$mail = new email($params);
+						$mail->montaCorpoEmail($corpo);
+						// $mail->addAttachment("./modelos_pdf/informacoes_de_acesso_novos_colaboradores.pdf");
+						$mail->Send();
+					}
+					else 
+					{
+						$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 4);
+					}
 				}
 			}
 			
@@ -1203,7 +1233,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("&nbsp;,Candidato,Sal.,Vaga,Modalidade,N.&nbsp;Atu.,Status,E,D,I,A,L");
+	mygrid.setHeader(" ,Candidato,Sal.,Vaga,Modalidade,N. Atu.,Status,E,D,I,A,L");
 	mygrid.setInitWidths("30,250,80,*,170,80,120,30,30,30,30,30");
 	mygrid.setColAlign("left,left,left,left,left,left,left,center,center,center,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");

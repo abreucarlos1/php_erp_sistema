@@ -7,10 +7,10 @@
 			<td width="116" rowspan="3" valign="top" class="espacamento">
 				<table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
-						<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onClick="xajax_insere(xajax.getFormValues('frm_sub_grupo'));" /></td>
+						<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="<smarty>$botao[1]</smarty>" onclick="xajax_insere(xajax.getFormValues('frm_sub_grupo'));" /></td>
 					</tr>
 					<tr>
-						<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onClick="history.back();" /></td>
+						<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
 					</tr>
 					<tr>
 						<td valign="middle"><input name="id_sub_grupo" type="hidden" id="id_sub_grupo" value=""></td>

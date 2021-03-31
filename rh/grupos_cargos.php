@@ -194,11 +194,11 @@ function atualizatabela()
 		
 		if($db->numero_registros==0)
 		{		
-			$img = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;grupo?")){xajax_excluir("' . $regs["id_cargo_grupo"] . '");}>';
+			$img = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão do grupo?")){xajax_excluir("' . $regs["id_cargo_grupo"] . '");}>';
 		}
 		else
 		{
-			$img = '&nbsp;';
+			$img = ' ';
 		}	
 		
 		$xml->startElement('row');
@@ -756,7 +756,7 @@ function grid(tabela, autoh, height, xml)
 	{
 		case 'cargos':
 		
-			mygrid.setHeader("&nbsp;,Função",
+			mygrid.setHeader(" ,Função",
 				null,
 				["text-align:center","text-align:center"]);
 			mygrid.setInitWidths("30,*");

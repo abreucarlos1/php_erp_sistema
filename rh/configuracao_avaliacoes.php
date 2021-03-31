@@ -138,8 +138,8 @@ function atualizatabela()
         $xml->writeElement('cell', $reg['ava_titulo']);
         $xml->writeElement('cell', $reg['avt_descricao']);
         $xml->writeElement('cell', $arrayLiberado[$reg['ava_liberado']]);
-        $xml->writeElement('cell', $reg['respondidas'] > 0 ? "" : "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;esta&nbsp;avaliação?\')){xajax_excluir(".$reg['ava_id'].");}></span>");
-        $xml->writeElement('cell', $reg['ava_liberado'] == 0 ? "<span class=\'icone icone-aprovar cursor\' onclick=if(confirm(\'Deseja&nbsp;liberar&nbsp;esta&nbsp;avaliação?\')){xajax_liberarAvaliacao(".$reg['ava_id'].",".$reg['ava_alvo'].");}></span>" : '');
+        $xml->writeElement('cell', $reg['respondidas'] > 0 ? "" : "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir esta avaliação?\')){xajax_excluir(".$reg['ava_id'].");}></span>");
+        $xml->writeElement('cell', $reg['ava_liberado'] == 0 ? "<span class=\'icone icone-aprovar cursor\' onclick=if(confirm(\'Deseja liberar esta avaliação?\')){xajax_liberarAvaliacao(".$reg['ava_id'].",".$reg['ava_alvo'].");}></span>" : '');
         $xml->endElement();
     }
     
@@ -392,34 +392,41 @@ function liberarAvaliacao($id, $alvo = 0)
         
         $corpo = $model->montarApresentacao($id, true);
         
-        $mail = new email($params);
-        $mail->montaCorpoEmail($corpo);
-        
-        if(!$mail->Send())
+        if(ENVIA_EMAIL)
         {
-            $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+            $mail = new email($params);
+            $mail->montaCorpoEmail($corpo);
+            
+            if(!$mail->Send())
+            {
+                $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+            }
+        }
+        else {
+            $resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+        }
+
+
+        $usql = "UPDATE ".DATABASE.".avaliacoes SET ";
+		$usql .= "ava_liberado = 1 ";
+		$usql .= "WHERE ava_id = ".$id;
+        
+        $db->update($usql, 'MYSQL');
+        
+        if ($db->erro != '')
+        {
+            $resposta->addAlert('Houve uma falha ao tentar liberar a avaliação! '.$db->erro);
         }
         else
         {
-            $usql = "UPDATE ".DATABASE.".avaliacoes SET ";
-			$usql .= "ava_liberado = 1 ";
-			$usql .= "WHERE ava_id = ".$id;
+            //Finalmente, realizando os inserts na tabela de emails enviados
+            $db->insert($isql, 'MYSQL');
             
-            $db->update($usql, 'MYSQL');
-            
-            if ($db->erro != '')
-            {
-                $resposta->addAlert('Houve uma falha ao tentar liberar a avaliação! '.$db->erro);
-            }
-            else
-            {
-                //Finalmente, realizando os inserts na tabela de emails enviados
-                $db->insert($isql, 'MYSQL');
-                
-                $resposta->addAlert('Avaliação Liberada!');
-                $resposta->addScript('xajax_atualizatabela();');
-            }
+            $resposta->addAlert('Avaliação Liberada!');
+            $resposta->addScript('xajax_atualizatabela();');
         }
+        
     }
     else
     {

@@ -30,21 +30,21 @@ $dataRelatorio = php_mysql($_GET['data']);
 
 $sql = 
 "SELECT
-    bms_pedido.id_os, ordem_servico.os, valor_pedido, data_pedido data, numero_item, descricao, quantidade, valor, id_bms_pedido, condicao_pgto, id_empresa_erp, empresa, formato
+    bms_pedido.id_os, ordem_servico.os, valor_pedido, data_pedido data, numero_item, descricao, quantidade, valor, id_bms_pedido, condicao_pgto, id_empresa, empresa, formato
   FROM
   	(SELECT DISTINCT id_bms_pedido, data_pedido, valor_pedido, os, condicao_pgto FROM ".DATABASE.".bms_pedido WHERE bms_pedido.reg_del = 0 ".$clausulaOs.") bms_pedido
     LEFT JOIN (SELECT DISTINCT id_bms_pedido codPedido, id_bms_item, id_bms_controle, numero_item, descricao, quantidade, valor, id_unidade FROM ".DATABASE.".bms_item WHERE bms_item.reg_del = 0) bms_item
       ON codPedido = id_bms_pedido
-    JOIN (SELECT id_os, id_empresa_erp, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON os.id_os = bms_pedido.id_os 
+    JOIN (SELECT id_os, id_empresa, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0) os ON os.id_os = bms_pedido.id_os 
 	LEFT JOIN (SELECT id_formato, codigo_formato, formato FROM ".DATABASE.".formatos WHERE formatos.reg_del = 0) formatos ON bms_item.id_unidade = id_formato  
-  	JOIN ( SELECT empresa, id_empresa_erp codEmp, id_unidade FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0 JOIN ".DATABASE.".unidade ON id_unidade = id_unidade AND unidades.reg_del = 0) empresas ON CodEmp = OS.id_empresa_erp 
+  	JOIN ( SELECT empresa, id_empresa codEmp, id_unidade FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0 JOIN ".DATABASE.".unidades ON id_unidade = id_unidade AND unidades.reg_del = 0) empresas ON CodEmp = OS.id_empresa 
     LEFT JOIN (SELECT DISTINCT id_bms_medicao, id_bms_item codItem, valor_medido, valor_saldo, valor_planejado, data FROM ".DATABASE.".bms_medicao WHERE bms_medicao.reg_del = 0) bms_medicao ON bms_item.id_bms_item = codItem
 WHERE
 	data_pedido >= '{$dataRelatorio}' ".$complDataFim."
 GROUP BY
   bms_pedido.id_os, numero_item, id_bms_pedido
 ORDER BY
-	OS.id_empresa_erp, bms_pedido.id_os desc";
+	OS.id_empresa, bms_pedido.id_os desc";
 
 $objPHPExcel = PHPExcel_IOFactory::load('../modelos_excel/bms_vendas_periodo.xlsx');
 
@@ -80,8 +80,8 @@ $db->select($sql, 'MYSQL',
 		$cond = isset($cond[0]) ? $cond[0] : '';
 		*/
 		
-		$clientes[$reg['id_empresa_erp']]["A{$linha}"] = "A{$linha}";
-		$qtdClientes = count($clientes[$reg['id_empresa_erp']]);
+		$clientes[$reg['id_empresa']]["A{$linha}"] = "A{$linha}";
+		$qtdClientes = count($clientes[$reg['id_empresa']]);
 		
 		if ($qtdClientes == 1)
 		{

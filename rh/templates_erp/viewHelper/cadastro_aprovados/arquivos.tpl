@@ -5,7 +5,7 @@
 	</div>
 	
 	<div class='divCadastroCandidato'>
-		<label class='labels'>Login Empresa</label>
+		<label class='labels'>login Empresa</label>
 		<input type='text' class='caixa' id='empresa[login]' name='empresa[login]' value="<smarty>$post['empresa']['login']</smarty>" />
 	</div>
 </div>

@@ -280,7 +280,7 @@ ob_start();
 			}
 			/* ]]> */
 		</style>
-<?
+<?php
 	$objTestScriptPlugin->printHeader($xajax, "Callback Event Handlers", ob_get_clean(),"setupCallbacks();");
 	ob_start();
 ?>
@@ -311,7 +311,7 @@ ob_start();
 								</tr>
 							</tbody>
 						</table>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 	ob_start();
 ?>
@@ -383,7 +383,7 @@ ob_start();
 								</tr>
 							</tbody>
 						</table>
-<?
+<?php
 	$objTestScriptPlugin->printStatusPanel(ob_get_clean());
 	$objTestScriptPlugin->printLogPanel();
 	$objTestScriptPlugin->printDescriptionPanel("

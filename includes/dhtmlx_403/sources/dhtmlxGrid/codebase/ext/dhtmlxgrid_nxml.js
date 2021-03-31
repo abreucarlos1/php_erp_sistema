@@ -501,7 +501,7 @@ dhtmlXGridObject.prototype.printView = function(before,after){
                var color = this.columnColor[j]?'background-color:'+this.columnColor[j]+';':'';
             var align = this.cellAlign[j]?'text-align:'+this.cellAlign[j]+';':'';
             var cspan =  c.getAttribute("colspan");
-            html += '<td style="'+color+align+'" '+(cspan?'colSpan="'+cspan+'"':'')+'>'+(value===""?"&nbsp;":value)+'</td>';
+            html += '<td style="'+color+align+'" '+(cspan?'colSpan="'+cspan+'"':'')+'>'+(value===""?" ":value)+'</td>';
             if (cspan) j+=cspan-1;
            }
          html += '</tr>';

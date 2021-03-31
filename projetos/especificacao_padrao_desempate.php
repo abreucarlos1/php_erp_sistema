@@ -1,24 +1,23 @@
-<?
+<?php
 /*
-
-		Formul�rio de ESPECIFICA��O PADR�O DESEMPATE	
+		Formulário de ESPECIFICAÇÃO PADRÃO DESEMPATE	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao_padrao_desempate.php
 	
-		data de cria��o: 06/04/2006
+		data de criação: 06/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -45,9 +44,9 @@ if ($_POST["acao"]=="editar")
 		{
 			?>
 			<script>
-				alert('Desempate j� cadastrado no banco de dados.');
+				alert('Desempate já cadastrado no banco de dados.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
@@ -64,7 +63,7 @@ if ($_POST["acao"]=="editar")
 			<script>
 				alert('Desempate atualizado com sucesso.');
 			</script>
-			<?
+			<?php
 	}
 }
 
@@ -83,24 +82,24 @@ if ($_POST["acao"]=="salvar")
 		{
 			?>
 			<script>
-				alert('Desempate j� cadastrado no banco de dados.');
+				alert('Desempate já cadastrado no banco de dados.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.especificacao_padrao_desempate ";
-			$incsql .= "(ds_especificacao_desempate, desempate) ";
-			$incsql .= "VALUES ('" . maiusculas($_POST["ds_especificacao_desempate"]) . "', '" . maiusculas($_POST["desempate"]) . "') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.especificacao_padrao_desempate ";
+			$isql .= "(ds_especificacao_desempate, desempate) ";
+			$isql .= "VALUES ('" . maiusculas($_POST["ds_especificacao_desempate"]) . "', '" . maiusculas($_POST["desempate"]) . "') ";
 
-			$registros = $db->insert($incsql,'MYSQL');
+			$registros = $db->insert($isql,'MYSQL');
 			
 			?>
 			<script>
 				alert('Desempate inserido com sucesso.');
 			</script>
-			<?
+			<?php
 		}
 
 
@@ -117,9 +116,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Desempate exclu�do com sucesso.');
+		alert('Desempate excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -128,11 +127,11 @@ if ($_GET["acao"] == "deletar")
 <title>: : . MODIFICADOR . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_desempate, ds_especificacao_desempate)
 {
@@ -153,7 +152,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -175,18 +174,18 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -206,46 +205,46 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="18%" class="label1">C&Oacute;D. MODIFICADOR </td>
-                      <td width="1%" class="label1">&nbsp;</td>
+                      <td width="18%" class="label1">CÓD. MODIFICADOR </td>
+                      <td width="1%" class="label1"> </td>
                       <td width="36%" class="label1">MODIFICADOR</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="44%" class="label1">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="44%" class="label1"> </td>
                       </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="desempate" type="text" class="txt_box" id="desempate" value="<?= $desempate["desempate"] ?>" size="37" maxlength="1">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_especificacao_desempate" type="text" class="txt_box" id="ds_especificacao_desempate" value="<?= $desempate["ds_especificacao_desempate"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_desempate" type="hidden" id="id_desempate" value="<?= $desempate["id_desempate"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Inserir2" type="button" class="btn" id="Inserir22" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Inserir2" type="button" class="btn" id="Inserir22" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 		
 			 }
 			else
@@ -256,48 +255,48 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
-                      <td width="12%" class="label1">C&Oacute;D. MODIFICADOR </td>
-                      <td width="1%" class="label1">&nbsp;</td>
+                      <td width="12%" class="label1">CÓD. MODIFICADOR </td>
+                      <td width="1%" class="label1"> </td>
                       <td width="38%" class="label1">MODIFICADOR</td>
-                      <td width="49%" class="label1">&nbsp;</td>
+                      <td width="49%" class="label1"> </td>
                       </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="desempate" type="text" class="txt_box" id="desempate" value="<?= $_POST["desempate"] ?>" size="37" maxlength="1">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_especificacao_desempate" type="text" class="txt_box" id="ds_especificacao_desempate" value="<?= $_POST["ds_especificacao_desempate"] ?>" size="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Inserir22" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Inserir22" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -310,8 +309,8 @@ window.moveTo(0,0);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "especificacao_padrao_desempate";
@@ -324,20 +323,20 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="17%"><a href="#" class="cabecalho_tabela" onClick="ordenar('especificacao_padrao_desempate','<?= $ordem ?>')">C&Oacute;D. MODIFICADOR </a></td>
-				  <td width="75%"><a href="#" class="cabecalho_tabela" onClick="ordenar('ds_especificacao_desempate','<?= $ordem ?>')">MODIFICADOR</a></td>
+				  <td width="17%"><a href="#" class="cabecalho_tabela" onclick="ordenar('especificacao_padrao_desempate','<?= $ordem ?>')">CÓD. MODIFICADOR </a></td>
+				  <td width="75%"><a href="#" class="cabecalho_tabela" onclick="ordenar('ds_especificacao_desempate','<?= $ordem ?>')">MODIFICADOR</a></td>
 				  <td width="3%"  class="cabecalho_tabela">E</td>
 				  <td width="3%"  class="cabecalho_tabela">D</td>
-				  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="2%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 				
 					$sql = "SELECT * FROM Projetos.especificacao_padrao_desempate ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
@@ -372,11 +371,11 @@ window.moveTo(0,0);
 						    <?= $desempate["ds_especificacao_desempate"] ?>
 					      </div></td>
 						  <td width="3%"><div align="center">
-						 <a href="#" onClick="editar('<?= $desempate["id_desempate"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>						  
+						 <a href="#" onclick="editar('<?= $desempate["id_desempate"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>						  
 						 </div></td> 
-					      <td width="4%"><div align="center"> <a href="#" onClick="excluir('<?= $desempate["id_desempate"] ?>','<?= $desempate["ds_especificacao_desempate"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
+					      <td width="4%"><div align="center"> <a href="#" onclick="excluir('<?= $desempate["id_desempate"] ?>','<?= $desempate["ds_especificacao_desempate"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>

@@ -1280,7 +1280,7 @@ function HCell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=0, $link=''
 }
 
 
-//AT� AQUI!!!!!!!
+//ATÉ AQUI!!!!!!!
 
 
 function SetMargins($left,$top,$right=-1)

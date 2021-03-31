@@ -39,7 +39,7 @@ if($_GET["acao"]=='exportar')
 	}
 	else
 	{
-		$filtro = "AND empresas.id_empresa_erp = '" . $_GET["codempresa"] . "' ";
+		$filtro = "AND empresas.id_empresa = '" . $_GET["codempresa"] . "' ";
 	}
 	
 	if($_GET["type"]=="express")
@@ -56,7 +56,7 @@ if($_GET["acao"]=='exportar')
 	}	
 	
 	$sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
-	$sql .= "WHERE contatos.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "WHERE contatos.id_empresa = empresas.id_empresa ";
 	$sql .= "AND contatos.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND situacao = 1 ";
@@ -141,12 +141,12 @@ function atualizatabela($filtro, $combo='')
 	}
 	else
 	{
-		$sql_filtro .= " AND contatos.id_empresa_erp = '".$filtro."' ";
+		$sql_filtro .= " AND contatos.id_empresa = '".$filtro."' ";
 	}
 	
 	$sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
-	$sql .= "WHERE contatos.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql .= "WHERE contatos.id_empresa = empresas.id_empresa ";
 	$sql .= "AND contatos.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= $sql_filtro;
@@ -196,8 +196,8 @@ function atualizatabela($filtro, $combo='')
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id', $cont_desp['id_contato']);			
-			$xml->writeElement('cell', $cont_desp["nome_contato"]."&nbsp;-&nbsp;".$cont_desp["unidade"]);
-			$xml->writeElement('cell', $cont_desp["abreviacao"].'&nbsp;-&nbsp;'.$cont_desp["unidade"]);
+			$xml->writeElement('cell', $cont_desp["nome_contato"]." - ".$cont_desp["unidade"]);
+			$xml->writeElement('cell', $cont_desp["abreviacao"].' - '.$cont_desp["unidade"]);
 			$xml->writeElement('cell', $cont_desp["telefone"]);
 			$xml->writeElement('cell', $cont_desp["celular"]);
 			$xml->writeElement('cell', $situacao);
@@ -206,11 +206,11 @@ function atualizatabela($filtro, $combo='')
 			
 			$xml->writeElement('cell', $conteudo);
 		
-			$conteudo = "&nbsp;";
+			$conteudo = " ";
 			
 			if($qtd_reg_os == 0 && $qtd_reg_os_x_contato == 0)
 			{
-				$conteudo = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma?")){xajax_excluir("'.$cont_desp["id_contato"].'","'.$cont_desp["id_empresa_erp"].'");}>';
+				$conteudo = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma?")){xajax_excluir("'.$cont_desp["id_contato"].'","'.$cont_desp["id_empresa"].'");}>';
 			}
 			
 			$xml->writeElement('cell', $conteudo);
@@ -239,7 +239,7 @@ function insere($dados_form)
 	if($dados_form["empresa"]!='' || $dados_form["contato"]!='')
 	{
 		$sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
-		$sql .= "WHERE empresas.id_empresa_erp = '".$dados_form["empresa"]."' ";
+		$sql .= "WHERE empresas.id_empresa = '".$dados_form["empresa"]."' ";
 		$sql .= "AND contatos.reg_del = 0 ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND contatos.nome_contato = '".maiusculas($dados_form["contato"])."' ";
@@ -258,7 +258,7 @@ function insere($dados_form)
 		else
 		{
 			$isql = "INSERT INTO ".DATABASE.".contatos ";
-			$isql .= "(id_empresa_erp, nome_contato, situacao, telefone, cargo, departamento, decisao, data_nascimento, nome_secretaria, telefone_secretaria, celular, fax_contato, senha, email) ";
+			$isql .= "(id_empresa, nome_contato, situacao, telefone, cargo, departamento, decisao, data_nascimento, nome_secretaria, telefone_secretaria, celular, fax_contato, senha, email) ";
 			$isql .= "VALUES ('" . $dados_form["empresa"] . "', ";
 			$isql .= "'" . maiusculas($dados_form["contato"]) . "', ";
 			$isql .= "'" . $dados_form["situacao"] . "', ";
@@ -320,7 +320,7 @@ function editar($id)
 	
 	$descriptado = $enc->decrypt($regs["senha"]);
 	
-	$resposta->addScript("seleciona_combo('" . $regs["id_empresa_erp"] . "','empresa'); ");
+	$resposta->addScript("seleciona_combo('" . $regs["id_empresa"] . "','empresa'); ");
 	$resposta->addScript("seleciona_combo('" . $regs["situacao"] . "','situacao'); ");
 	$resposta->addScript("seleciona_combo('" . $regs["decisao"] . "','decisao'); ");
 	
@@ -363,7 +363,7 @@ function atualizar($dados_form)
 	if($dados_form["empresa"]!='' || $dados_form["contato"]!='')
 	{		
 		$sql = "SELECT * FROM ".DATABASE.".contatos ";
-		$sql .= "WHERE contatos.id_empresa_erp = '".$dados_form["empresa"]."' ";
+		$sql .= "WHERE contatos.id_empresa = '".$dados_form["empresa"]."' ";
 		$SQL .= "AND contatos.reg_del = 0 ";
 		$sql .= "AND contatos.nome_contato = '".maiusculas($dados_form["contato"])."' ";
 		$sql .= "AND contatos.cargo = '" . maiusculas($dados_form["cargo"]) . "' ";
@@ -392,7 +392,7 @@ function atualizar($dados_form)
 		else
 		{			
 			$usql = "UPDATE ".DATABASE.".contatos SET ";
-			$usql .= "id_empresa_erp = '" . $dados_form["empresa"] . "', ";
+			$usql .= "id_empresa = '" . $dados_form["empresa"] . "', ";
 			$usql .= "nome_contato = '" . maiusculas($dados_form["contato"]) . "', ";
 			$usql .= "cargo = '" . maiusculas($dados_form["cargo"]) . "', ";
 			$usql .= "departamento = '" . maiusculas($dados_form["departamento"]) . "', ";
@@ -484,11 +484,11 @@ function visualizar_contato($id)
 	$db = new banco_dados();
 	
 	$sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
-	$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
 	$sql .= "WHERE contatos.id_contato = '".$id."' ";
 	$sql .= "AND contatos.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND contatos.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND contatos.id_empresa = empresas.id_empresa ";
 	
 	$db->select($sql,'MYSQL',true);
 	
@@ -502,27 +502,27 @@ function visualizar_contato($id)
 	$html = '<table class="table">';
 	$html .= '<tr>';
 	$html .= '<th>Nome</th>';
-	$html .= '<td>'.$regs["nome_contato"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["nome_contato"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>Empresa</th>';
-	$html .= '<td>'.$regs["empresa"].' - '.$regs["unidade"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["empresa"].' - '.$regs["unidade"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>Telefone</th>';
-	$html .= '<td>'.$regs["telefone"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["telefone"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>Celular</th>';
-	$html .= '<td>'.$regs["celular"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["celular"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>Cargo</th>';
-	$html .= '<td>'.$regs["cargo"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["cargo"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>Departamento</th>';
-	$html .= '<td>'.$regs["departamento"].'&nbsp;</td>';
+	$html .= '<td>'.$regs["departamento"].' </td>';
 	$html .= '</tr>';
 	$html .= '<tr>';
 	$html .= '<th>E-mail </th>';
@@ -555,6 +555,49 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();");
 
+$db = new banco_dados();
+
+$array_empresa_values = NULL;
+$array_empresa_output = NULL;
+
+$sql = "SELECT * FROM ".DATABASE.".empresas ";
+$sql .= "LEFT JOIN ".DATABASE.".unidades ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
+$sql .= "WHERE empresas.reg_del = 0 ";
+$sql .= "ORDER BY empresa ";
+
+$res = $db->select($sql,'MYSQL');
+
+if ($db->erro != '')
+{
+	exit($sql);
+}
+
+//Passo o resource para a tpl pois são muitas empresas e não quero fazer dois loops para isto
+//Eliminei um loop aqui e faço apenas na tpl
+$smarty->assign('res_empresa', $res);
+
+
+if(in_array($_SESSION["id_funcionario"], array(0)))
+{
+	$smarty->assign("autorizado","");
+}
+else
+{
+	$smarty->assign("autorizado","disabled");
+}
+
+
+$smarty->assign('revisao_documento', 'V4');
+
+$smarty->assign('campo', $conf->campos('empresa_contatos'));
+
+$smarty->assign("botao", $conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->display('contatos.tpl');
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -604,48 +647,3 @@ function visualizar(id_contato)
 	windows = window.open(caminho);	
 }
 </script>
-
-<?php
-
-$db = new banco_dados();
-
-$array_empresa_values = NULL;
-$array_empresa_output = NULL;
-
-$sql = "SELECT * FROM ".DATABASE.".empresas ";
-$sql .= "LEFT JOIN ".DATABASE.".unidade ON (empresas.id_unidade = unidades.id_unidade AND unidades.reg_del = 0) ";
-$sql .= "WHERE empresas.reg_del = 0 ";
-$sql .= "ORDER BY empresa ";
-
-$res = $db->select($sql,'MYSQL');
-
-if ($db->erro != '')
-{
-	exit($sql);
-}
-
-//Passo o resource para a tpl pois são muitas empresas e não quero fazer dois loops para isto
-//Eliminei um loop aqui e faço apenas na tpl
-$smarty->assign('res_empresa', $res);
-
-/*
-if(in_array($_SESSION["id_funcionario"], array(17,6,978,1046,909,1213)))
-{
-	$smarty->assign("autorizado","");
-}
-else
-{
-	$smarty->assign("autorizado","disabled");
-}
-*/
-
-$smarty->assign('revisao_documento', 'V4');
-
-$smarty->assign('campo', $conf->campos('empresa_contatos'));
-
-$smarty->assign("botao", $conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('contatos.tpl');
-?>

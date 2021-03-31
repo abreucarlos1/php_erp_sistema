@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de MALHAS	
+		Formulário de MALHAS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/malhas.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016		
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -51,9 +51,9 @@ if ($_POST["acao"]=="editar")
 		{
 			?>
 			<script>
-				alert('Malha j� cadastrada no banco de dados.');
+				alert('Malha já cadastrada no banco de dados.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
@@ -74,7 +74,7 @@ if ($_POST["acao"]=="editar")
 			<script>
 				alert('Malha atualizada com sucesso.');
 			</script>
-			<?
+			<?php
 	}
 }
 
@@ -95,26 +95,26 @@ if ($_POST["acao"]=="salvar")
 		{
 			?>
 			<script>
-				alert('Malha j� cadastrada no banco de dados.');
+				alert('Malha já cadastrada no banco de dados.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.malhas ";
-			$incsql .= "(id_subsistema, id_processo, nr_malha, nr_malha_seq, tp_malha, new_malha, ds_servico) ";
-			$incsql .= "VALUES ('" . $_POST["id_subsistema"] . "', '" . $_POST["id_processo"] ."', ";
-			$incsql .= "'" . $_POST["nr_malha"] . "', '" . $_POST["nr_malha_seq"] . "', '" . $_POST["tp_malha"] . "', ";
-			$incsql .= "'" . $_POST["new_malha"] . "', '" . maiusculas($_POST["ds_servico"]) . "') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.malhas ";
+			$isql .= "(id_subsistema, id_processo, nr_malha, nr_malha_seq, tp_malha, new_malha, ds_servico) ";
+			$isql .= "VALUES ('" . $_POST["id_subsistema"] . "', '" . $_POST["id_processo"] ."', ";
+			$isql .= "'" . $_POST["nr_malha"] . "', '" . $_POST["nr_malha_seq"] . "', '" . $_POST["tp_malha"] . "', ";
+			$isql .= "'" . $_POST["new_malha"] . "', '" . maiusculas($_POST["ds_servico"]) . "') ";
 
-			$registros = $db->insert($incsql,'MYSQL');
+			$registros = $db->insert($isql,'MYSQL');
 			
 			?>
 			<script>
 				alert('Malha inserida com sucesso.');
 			</script>
-			<?
+			<?php
 
 		}
 }
@@ -135,9 +135,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Malha exclu�da com sucesso.');
+		alert('Malha excluída com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 
@@ -148,10 +148,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . MALHAS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_malha, ds_malha)
 {
@@ -172,7 +172,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -194,17 +194,17 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -224,26 +224,26 @@ window.moveTo(0,0);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="10%"><span class="label1">subsistema</span></td>
-                      <td width="0%">&nbsp;</td>
+                      <td width="0%"> </td>
                       <td width="9%" class="label1">processo</td>
-                      <td width="0%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
                       <td width="8%" class="label1">nr. malha </td>
-                      <td width="2%" class="label1">&nbsp;</td>
+                      <td width="2%" class="label1"> </td>
                       <td width="13%" class="label1">DIFERENCIADOR</td>
-                      <td width="2%" class="label1">&nbsp;</td>
+                      <td width="2%" class="label1"> </td>
                       <td width="13%" class="label1">tipo malha </td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="43%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="43%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td height="44"><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_subsistema" class="txt_box" id="id_subsistema" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 						  	$sql = "SELECT * FROM Projetos.subsistema, Projetos.area ";
 							$sql .= "WHERE area.id_os = '" .$_SESSION["id_os"]. "' ";
 							$sql .= "AND subsistema.id_area = area.id_area ";
@@ -254,18 +254,18 @@ window.moveTo(0,0);
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                          			<option value="<?= $regs["id_subsistema"] ?>"<? if($regs["id_subsistema"]==$malhas["id_subsistema"]){ echo 'selected';} ?>>
+                          			<option value="<?= $regs["id_subsistema"] ?>"<?php if($regs["id_subsistema"]==$malhas["id_subsistema"]){ echo 'selected';} ?>>
                             		<?= $regs["nr_area"] . " - " .$regs["nr_subsistema"] . " - " . $regs["subsistema"] ?>
                             		</option>
-                          			<?
+                          			<?php
 								}
 						  ?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><select name="id_processo" id="id_processo" class="txt_box" onkeypress="return keySort(this);">
                         <option value="">SELECIONE</option>
-                        <?
+                        <?php
 									
 									//Popula a combo-box de Função.
 									$sql = "SELECT * FROM Projetos.processo ";
@@ -277,28 +277,28 @@ window.moveTo(0,0);
 									while ($reg = mysqli_fetch_array($regdescricao))
 									{
 										?>
-										<option value="<?= $reg["id_processo"] ?>"<? if ($malhas["id_processo"]==$reg["id_processo"]){ echo 'selected';}?>>
+										<option value="<?= $reg["id_processo"] ?>"<?php if ($malhas["id_processo"]==$reg["id_processo"]){ echo 'selected';}?>>
 										<?= $reg["processo"] . " - " . $reg["ds_processo"] . " - " . $reg["norma"] ?>
 										</option>
-										<?
+										<?php
 									}
 								
 								
 							?>
                       </select></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_malha" type="text" class="txt_box" id="nr_malha" size="20" value="<?= $malhas["nr_malha"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_malha_seq" type="text" class="txt_box" id="nr_malha_seq" size="20" value="<?= $malhas["nr_malha_seq"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="tp_malha" class="txt_box" id="tp_malha" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 						  	$sql = "SELECT * FROM Projetos.tipos ";
 							$sql .= "ORDER BY ds_tipo ";
 							
@@ -307,58 +307,58 @@ window.moveTo(0,0);
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["tipo"] ?>"<? if($regs["tipo"]==$malhas["tp_malha"]){ echo 'selected';} ?>>
+                          <option value="<?= $regs["tipo"] ?>"<?php if($regs["tipo"]==$malhas["tp_malha"]){ echo 'selected';} ?>>
                           <?= $regs["ds_tipo"] ?>
                           </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
-                      <td width="21%"><span class="label1">servi&Ccedil;O</span></td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="21%"><span class="label1">serviÇO</span></td>
+                      <td width="3%"> </td>
                       <td width="58%">NOVA MALHA </td>
-                      <td width="9%">&nbsp;</td>
-                      <td width="9%">&nbsp;</td>
+                      <td width="9%"> </td>
+                      <td width="9%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_servico" type="text" class="txt_box" id="ds_servico" value="<?= $malhas["ds_servico"]?>" size="50" maxlength="50" >
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td><input name="new_malha" type="checkbox" id="new_malha" value="1" <? if($malhas["new_malha"]){ echo 'checked';} ?>></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td><input name="new_malha" type="checkbox" id="new_malha" value="1" <?php if($malhas["new_malha"]){ echo 'checked';} ?>></td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_malha" type="hidden" id="id_malha" value="<?= $malhas["id_malha"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Inserir4" type="button" class="btn" id="Inserir22" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Inserir4" type="button" class="btn" id="Inserir22" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -369,31 +369,31 @@ window.moveTo(0,0);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="10%"><span class="label1">subsistema</span></td>
-                      <td width="0%">&nbsp;</td>
+                      <td width="0%"> </td>
                       <td width="9%" class="label1">PROCESSO</td>
-                      <td width="0%" class="label1">&nbsp;</td>
-                      <td width="8%" class="label1">NR. malha </td>
-                      <td width="2%" class="label1">&nbsp;</td>
+                      <td width="0%" class="label1"> </td>
+                      <td width="8%" class="label1">Nº malha </td>
+                      <td width="2%" class="label1"> </td>
                       <td width="12%" class="label1">DIFERENCIADOR</td>
-                      <td width="2%" class="label1">&nbsp;</td>
+                      <td width="2%" class="label1"> </td>
                       <td width="10%" class="label1">TIPO MALHA  </td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="46%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="46%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td height="44"><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_subsistema" class="txt_box" id="id_subsistema" onkeypress="return keySort(this);">
 						<option value="">SELECIONE</option>
-                          <?
+                          <?php
 						  	$sql = "SELECT * FROM Projetos.subsistema, Projetos.area ";
 							$sql .= "WHERE area.id_os = '" .$_SESSION["id_os"]. "' ";
 							$sql .= "AND subsistema.id_area = area.id_area ";
@@ -404,17 +404,17 @@ window.moveTo(0,0);
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-									<option value="<?= $regs["id_subsistema"] ?>"<? if($regs["id_subsistema"]==$_POST["id_subsistema"]){ echo 'selected';}?>><?= $regs["nr_area"] . " - " .$regs["nr_subsistema"] . " - " . $regs["subsistema"] ?></option>
-									<?
+									<option value="<?= $regs["id_subsistema"] ?>"<?php if($regs["id_subsistema"]==$_POST["id_subsistema"]){ echo 'selected';}?>><?= $regs["nr_area"] . " - " .$regs["nr_subsistema"] . " - " . $regs["subsistema"] ?></option>
+									<?php
 								}
 							?>
                          </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_processo" id="id_processo" class="txt_box" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 									
 									//Popula a combo-box de Função.
 									$sql = "SELECT * FROM Projetos.processo ";
@@ -426,29 +426,29 @@ window.moveTo(0,0);
 									while ($reg = mysqli_fetch_array($regdescricao))
 									{
 											?>
-										  <option value="<?= $reg["id_processo"] ?>"<? if ($_POST["id_processo"]==$reg["id_processo"]){ echo 'selected';}?>>
+										  <option value="<?= $reg["id_processo"] ?>"<?php if ($_POST["id_processo"]==$reg["id_processo"]){ echo 'selected';}?>>
 										  <?= $reg["processo"] . " - " . $reg["ds_processo"] . " - " . $reg["norma"] ?>
 										  </option>
-										  <?
+										  <?php
 									}
 								
 								
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_malha" type="text" class="txt_box" id="nr_malha" size="20" value="<?= $_POST["nr_malha"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_malha_seq" type="text" class="txt_box" id="nr_malha_seq" size="20" value="<?= $_POST["nr_malha_seq"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="tp_malha" class="txt_box" id="tp_malha" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 						  	$sql = "SELECT * FROM Projetos.tipos ";
 							$sql .= "ORDER BY ds_tipo ";
 							
@@ -457,53 +457,53 @@ window.moveTo(0,0);
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["tipo"] ?>"<? if($regs["tipo"]==$_POST["tp_malha"]){ echo 'selected'; }?>>
+                          <option value="<?= $regs["tipo"] ?>"<?php if($regs["tipo"]==$_POST["tp_malha"]){ echo 'selected'; }?>>
                             <?= $regs["ds_tipo"] ?>
                           </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr class="label1">
-                      <td width="21%"><span class="label1">SERVI&Ccedil;O</span></td>
-                      <td width="3%">&nbsp;</td>
+                      <td width="21%"><span class="label1">SERVIÇO</span></td>
+                      <td width="3%"> </td>
                       <td width="13%">nova malha </td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="62%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="62%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_servico" type="text" class="txt_box" id="ds_servico" value="<?= $_POST["ds_servico"] ?>" size="50" maxlength="50">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><input name="new_malha" type="checkbox" id="new_malha" value="1" checked ></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="INSERIR">
-                    <input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:history.back();">
-                    <input name="Inserir3" type="button" class="btn" id="Inserir3" value="COMPONENTES" onClick="javascript:location.href='componentes.php'">
-                    <input name="Inserir4" type="button" class="btn" id="Inserir4" value="EQUIPAMENTOS" onClick="javascript:location.href='equipamentos.php'"></td>
+                    <input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:history.back();">
+                    <input name="Inserir3" type="button" class="btn" id="Inserir3" value="COMPONENTES" onclick="javascript:location.href='componentes.php'">
+                    <input name="Inserir4" type="button" class="btn" id="Inserir4" value="EQUIPAMENTOS" onclick="javascript:location.href='equipamentos.php'"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td class="label1">regs:<font size="2" face="Arial, Helvetica, sans-serif">
-                    <?
+                    <?php
 							$sql = "SELECT * FROM Projetos.malhas, Projetos.processo, Projetos.subsistema, Projetos.tipos, Projetos.area ";
 							$sql .= "WHERE malhas.id_subsistema=subsistema.id_subsistema ";
 							$sql .= "AND malhas.tp_malha=tipos.tipo ";
@@ -526,7 +526,7 @@ window.moveTo(0,0);
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			
 			?>
@@ -540,8 +540,8 @@ window.moveTo(0,0);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "nr_subsistema, processo, nr_malha, nr_malha_seq ";
@@ -558,26 +558,26 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="17%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_subsistema','<?= $ordem ?>')">SUBSISTEMA</a></td>
-				  <td width="14%"><a href="#" class="cabecalho_tabela" onClick="ordenar('processo','<?= $ordem ?>')">PROCESSO</a></td>
-				  <td width="11%"><a href="#" class="cabecalho_tabela" onClick="ordenar('nr_malha','<?= $ordem ?>')">NR. MALHA </a></td>
-				  <td width="13%"><a href="#" class="cabecalho_tabela" onClick="ordenar('tp_malha','<?= $ordem ?>')">TIPO MALHA </a></td>
-				  <td width="33%"><a href="#" class="cabecalho_tabela" onClick="ordenar('ds_servico','<?= $ordem ?>')">SERVI&Ccedil;O</a></td>
-				  <td width="6%"><a href="#" class="cabecalho_tabela" onClick="ordenar('new_malha','<?= $ordem ?>')">NOVA</a></td>
+				  <td width="17%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_subsistema','<?= $ordem ?>')">SUBSISTEMA</a></td>
+				  <td width="14%"><a href="#" class="cabecalho_tabela" onclick="ordenar('processo','<?= $ordem ?>')">PROCESSO</a></td>
+				  <td width="11%"><a href="#" class="cabecalho_tabela" onclick="ordenar('nr_malha','<?= $ordem ?>')">Nº MALHA </a></td>
+				  <td width="13%"><a href="#" class="cabecalho_tabela" onclick="ordenar('tp_malha','<?= $ordem ?>')">TIPO MALHA </a></td>
+				  <td width="33%"><a href="#" class="cabecalho_tabela" onclick="ordenar('ds_servico','<?= $ordem ?>')">SERVIÇO</a></td>
+				  <td width="6%"><a href="#" class="cabecalho_tabela" onclick="ordenar('new_malha','<?= $ordem ?>')">NOVA</a></td>
 				  <td width="2%"  class="cabecalho_tabela">E</td>
 				  <td width="2%"  class="cabecalho_tabela">D</td>
-				  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="2%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 			
-					// Mostra os funcion�rios
+					// Mostra os funcionários
 					
 					$sql = "SELECT * FROM Projetos.malhas, Projetos.processo, Projetos.subsistema, Projetos.tipos, Projetos.area ";
 					$sql .= "WHERE malhas.id_subsistema=subsistema.id_subsistema ";
@@ -646,13 +646,14 @@ window.moveTo(0,0);
                           </div></td>
 						  <td width="33%"><div align="center"><?= $malhas["ds_servico"] ?></div></td>
 						  
-						  <td width="6%"><div align="center"><? if($malhas["new_malha"]){?><img src="../images/buttons/aprovado.gif" width="16" height="16" border="0"><? } ?>&nbsp;</div></td>
+						  <td width="6%"><div align="center"><?php if($malhas["new_malha"]){?><img src="../images/buttons/aprovado.gif" width="16" height="16" border="0"><?php
+						 } ?> </div></td>
 						  <td width="3%"><div align="center">
-						 <a href="#" onClick="editar('<?= $malhas["id_malha"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>						  
+						 <a href="#" onclick="editar('<?= $malhas["id_malha"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>						  
 						 </div></td> 
-					      <td width="3%"><div align="center"> <a href="#" onClick="excluir('<?= $malhas["id_malha"] ?>','<?= str_replace('"','',$malhas["ds_servico"]) ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
+					      <td width="3%"><div align="center"> <a href="#" onclick="excluir('<?= $malhas["id_malha"] ?>','<?= str_replace('"','',$malhas["ds_servico"]) ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
 
 				?>

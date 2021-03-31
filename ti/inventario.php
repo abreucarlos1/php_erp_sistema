@@ -53,7 +53,7 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
 		*
 	FROM
 		(SELECT id_funcionario codigoFuncionario, funcionario FROM ".DATABASE.".funcionarios WHERE funcionarios.reg_del = 0) funcionario
-		LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_funcionario = codigoFuncionario AND usuarios.reg_del = 0)
+		LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0)
 		JOIN(
           SELECT * FROM ".DATABASE.".inventario
           JOIN(
@@ -88,11 +88,11 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
     			 * Enviando o email
     			 */
     			$params 			= array();
-    			$params['from']		= "suporte@dominio.com.br";
+    			$params['from']		= "ti@dominio.com.br";
     			$params['from_name']= "Tecnologia e Sistemas";
     			$params['subject'] 	= "Baixa do equipamento ".$reg_usuario["patrimonio"]." - ".$reg_usuario["equipamento"];
     	
-    			$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas");
+    			$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Sistemas");
     			
     			if ($reg_usuario['situacao'] == 'ATIVO')
     				$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);
@@ -104,11 +104,20 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
     					<p><b>Colaborador responsável</b>: ".$reg_usuario["funcionario"]."</p>
     					<p><b>data da baixa</b>: " . date("d/m/Y") . "</p>
     				</body>
-    			 </html>";
-    			
-    			$mail = new email($params);
-    			$mail->montaCorpoEmail($corpo);
-    			$enviado = $mail->Send();
+				 </html>";
+				
+				if(ENVIA_EMAIL)
+				{    			
+					$mail = new email($params);
+					$mail->montaCorpoEmail($corpo);
+					$enviado = $mail->Send();
+				}
+				else 
+				{
+					$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+				}
+
+
 		    }
 			
 		    $enviado = isset($enviado) ? $enviado : HOST == 'localhost';
@@ -493,11 +502,11 @@ function insere($dados_form)
 						 * Enviando o email
 						 */
 						$params 			= array();
-						$params['from']		= "suporte@dominio.com.br";
+						$params['from']		= "ti@dominio.com.br";
 						$params['from_name']= "Tecnologia e Sistemas";
 						$params['subject'] 	= 'Empréstimo do equipamento '.$reg_usuario["patrimonio"].' - '.$reg_usuario["equipamento"];
 						
-						$params['emails']['to'][] = array('email' => "suporte@dominio.com.br", 'nome' => "Sistemas");
+						$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Sistemas");
 						$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);		
 						
 						$corpo = 

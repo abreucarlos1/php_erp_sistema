@@ -20,7 +20,7 @@
           <td colspan="2" valign="top" class="espacamento">
           <table width="100%" border="0">
               <tr>
-                <td width="13%"><label for="tipo_indice" class="labels">Tipo&nbsp;índice</label><br />
+                <td width="13%"><label for="tipo_indice" class="labels">Tipo índice</label><br />
                                 <select name="tipo_indice" class="caixa" id="tipo_indice" onkeypress="return keySort(this);" >
                                 <smarty>html_options values=$option_indice_values output=$option_indice_output</smarty>
                   </select>
@@ -34,7 +34,7 @@
 		</td>
         </tr>
       </table>
-    <div id="indices" style="width:100%;">&nbsp;</div>      
+    <div id="indices" style="width:100%;"> </div>      
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

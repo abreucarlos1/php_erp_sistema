@@ -12,7 +12,7 @@
 				<th width="80px">funcionario</th>
 				<th width="50px">Qtd. Horas Necessarias</th>
 				<th width="10px">
-					&nbsp;
+					 
 				</th>
 			</tr>
 			<smarty>counter start=0 skip=1 assign="count"</smarty>

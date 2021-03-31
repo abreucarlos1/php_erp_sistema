@@ -248,7 +248,7 @@
 			white-space: nowrap;
 		}
 		</style>
-<?
+<?php
 	$objTestScriptPlugin->printHeader($xajax, "Client-side Event Handlers", ob_get_clean());
 	ob_start();
 ?>		
@@ -280,7 +280,7 @@
 				</table>
 			</div>
 		</form>
-<?
+<?php
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 	$objTestScriptPlugin->printStatusPanel();
 	$objTestScriptPlugin->printLogPanel();

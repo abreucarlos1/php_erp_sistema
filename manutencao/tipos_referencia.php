@@ -87,7 +87,7 @@ function atualizatabela($filtro)
 			$xml->writeElement('cell', $grv);
 			$xml->writeElement('cell', $cont_desp["pasta_base"]);
 		
-			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;tipo&nbsp;selecionado?\')){xajax_excluir(\'".$cont_desp["id_tipo_referencia"]."\');}>";
+			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma a exclusão do tipo selecionado?\')){xajax_excluir(\'".$cont_desp["id_tipo_referencia"]."\');}>";
 			$xml->writeElement('cell', $img);
 		$xml->endElement();
 	}
@@ -265,7 +265,7 @@ function grid(tabela, autoh, height, xml)
 		}
 	}
 
-	mygrid.setHeader("Tipo&nbsp;Referência, Grava&nbsp;Disciplina, Pasta&nbsp;Base, D");
+	mygrid.setHeader("Tipo Referência, Grava Disciplina, Pasta Base, D");
 	mygrid.setInitWidths("*,100,*,50");
 	mygrid.setColAlign("left,center,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro");

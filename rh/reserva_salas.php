@@ -181,13 +181,13 @@ function atualizatabela($dados_form, $sala = 'JADE')
 			if(($array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][4] == $_SESSION["id_funcionario"]) && $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0])
 			{
 				//edicao permitida
-				$edicao = 'onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;reserva&nbsp;selecionada?")){xajax_cancelar("'. $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0].'","'.$sala.'");} style="cursor:pointer;background-color:#FF8000;" ';				
+				$edicao = 'onclick=if(confirm("Confirma a exclusão da reserva selecionada?")){xajax_cancelar("'. $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0].'","'.$sala.'");} style="cursor:pointer;background-color:#FF8000;" ';				
 			}
 			else
 			{
 				if((in_array($_SESSION["id_funcionario"],array(6,953))) && $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0])
 				{
-					$edicao = 'onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;reserva&nbsp;selecionada?")){xajax_cancelar("'. $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0].'","'.$sala.'");} style="cursor:pointer;background-color:#C6FFC6;" ';
+					$edicao = 'onclick=if(confirm("Confirma a exclusão da reserva selecionada?")){xajax_cancelar("'. $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0].'","'.$sala.'");} style="cursor:pointer;background-color:#C6FFC6;" ';
 				}
 				else
 				{
@@ -197,11 +197,11 @@ function atualizatabela($dados_form, $sala = 'JADE')
 			
 			if($array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][0])
 			{						
-				$texto = $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][1].'<br>'.$array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][2].'&nbsp;as&nbsp;'.$array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][3].'<br>';
+				$texto = $array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][1].'<br>'.$array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][2].' as '.$array_info[php_mysql(calcula_data($data_ini,"sum","day",$j))][$i][3].'<br>';
 			}
 			else
 			{					
-				$texto = '&nbsp;';
+				$texto = ' ';
 			}
 			
 			$table = '<table width="100%">';
@@ -554,7 +554,7 @@ function tab(array_tabs)
 				
 		myTabbar.addTab(array_tabs[i], array_tabs[i], null, null, active);
 		
-		myTabbar.tabs(array_tabs[i]).attachHTMLString('<div id="div_'+array_tabs[i]+'" >&nbsp;</div>');				
+		myTabbar.tabs(array_tabs[i]).attachHTMLString('<div id="div_'+array_tabs[i]+'" > </div>');				
 	}
 	
 	function sel_tab(idNew,idOld)

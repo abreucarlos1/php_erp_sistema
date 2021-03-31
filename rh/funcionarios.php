@@ -174,7 +174,7 @@ function atualizatabela($filtro='', $dados_form='')
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 			
 			$conteudo = $divMotivoNR."<img style=\'cursor:pointer;\' ".$complAcoesNr." src=\'".$img."\'>";
@@ -207,13 +207,20 @@ function editar($id)
 	$resposta->addScript("xajax.$('frm_funcionarios').reset(); ");
 
 	$resposta->addAssign("id_funcionario", "value", "");
-	$resposta->addAssign("$('#data_admissao').attr('readonly','readonly');");
-	$resposta->addAssign("$('#salario_inicial').attr('readonly','readonly');");
-	$resposta->addAssign("$('#horario_entrada').attr('readonly','readonly');");
-	$resposta->addAssign("$('#horario_saida').attr('readonly','readonly');");
-	$resposta->addAssign("$('#horario_refeicao').attr('readonly','readonly');");
-	$resposta->addAssign("$('#descanso_semanal').attr('readonly','readonly');");
-	$resposta->addAssign("$('#demissao').attr('readonly','readonly');");
+
+	$resposta->addScript("$('#data_admissao').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#salario_inicial').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#horario_entrada').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#horario_saida').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#horario_refeicao').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#descanso_semanal').attr('readonly','readonly');");
+	
+	$resposta->addScript("$('#demissao').attr('readonly','readonly');");
 	
 	$resposta->addAssign("visu","innerHTML","");
 
@@ -230,7 +237,7 @@ function editar($id)
 
 	//Seleciona os dados da requisicao escolhida
 	$sql = "SELECT * FROM ".DATABASE.".rh_funcoes, ".DATABASE.".funcionarios ";
-	$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_funcionario = funcionarios.id_funcionario AND usuarios.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0) ";
 	$sql .= "LEFT JOIN ".DATABASE.".setor_aso ON (funcionarios.id_setor_aso = setor_aso.id_setor_aso AND setor_aso.reg_del = 0) ";
 	$sql .= "LEFT JOIN ".DATABASE.".setores ON funcionarios.id_setor = setores.id_setor AND setores.reg_del = 0 ";
 	$sql .= "LEFT JOIN (
@@ -420,7 +427,7 @@ function editar($id)
 		$resposta->addAssign("salario_hora","value",number_format($reg_sal["salario_hora"],2,",","."));
 		$resposta->addScript("seleciona_combo('" . $reg_sal["id_tipo_salario"] . "', 'tipo_salario'); ");
 		$resposta->addAssign("data_admissao","value",mysql_php($reg_date["data"]));
-		$resposta->addScript("seleciona_combo('" . $reg_sal[" tipo_contrato"] . "', 'tipo_contrato'); ");
+		$resposta->addScript("seleciona_combo('" . $reg_sal["tipo_contrato"] . "', 'tipo_contrato'); ");
 		$resposta->addScript("seleciona_combo('" . $reg_editar["situacao"] . "', 'situacao'); ");
 		$resposta->addScript("seleciona_combo('" . $reg_editar["id_empfunc"] . "', 'empresa_dvm_funcionario'); ");
 		$resposta->addScript("seleciona_combo('" . $reg_editar["id_cod_fornec"] . "', 'empresa_funcionario'); ");
@@ -438,7 +445,7 @@ function editar($id)
 		$resposta->addScript("seleciona_combo('" . $reg_editar["id_produto"] . "', 'produto'); ");
 		$resposta->addScript("seleciona_combo('" . $reg_editar["item_contabil"] . "', 'site'); ");
 		$resposta->addAssign("email","value",minusculas($reg_editar["email"]));
-		$resposta->addAssign("login","value",$reg_editar["Login"]);
+		$resposta->addAssign("login","value",$reg_editar["login"]);
 
 		// Se CLT
 		if($reg_sal[" tipo_contrato"]=="EST" || $reg_sal[" tipo_contrato"]=="CLT" || $reg_sal[" tipo_contrato"]=="SC+CLT" || $reg_sal[" tipo_contrato"]=="SC+CLT+MENS")
@@ -454,20 +461,20 @@ function editar($id)
 			$resposta->addAssign("horario_saida","value",$reg_editar["horario_saida"]);
 			$resposta->addAssign("descanso_semanal","value",$reg_editar["descanso_semanal"]);
 			
-			$resposta->addAssign("$('#salario_inicial').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_entrada').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_saida').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_refeicao').attr('readonly','readonly');");
-			$resposta->addAssign("$('#descanso_semanal').attr('readonly','readonly');");
+			$resposta->addScript("$('#salario_inicial').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_entrada').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_saida').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_refeicao').attr('readonly','readonly');");
+			$resposta->addScript("$('#descanso_semanal').attr('readonly','readonly');");
 		}
 		else
 		{
 			
-			$resposta->addAssign("$('#salario_inicial').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_entrada').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_saida').attr('readonly','readonly');");
-			$resposta->addAssign("$('#horario_refeicao').attr('readonly','readonly');");
-			$resposta->addAssign("$('#descanso_semanal').attr('readonly','readonly');");
+			$resposta->addScript("$('#salario_inicial').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_entrada').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_saida').attr('readonly','readonly');");
+			$resposta->addScript("$('#horario_refeicao').attr('readonly','readonly');");
+			$resposta->addScript("$('#descanso_semanal').attr('readonly','readonly');");
 		}
 
 		$sql = "SELECT * FROM ".DATABASE.".rh_formacao ";
@@ -612,7 +619,7 @@ function insere($dados_form)
 
 		if($dados_form["funcionario"]!="" && $dados_form["login"]!="" && $dados_form["email"]!="" && $dados_form["setor"]!="" && $dados_form["infra_ti"]!="" && $dados_form["nivel_atuacao"]!="" && $dados_form["local_trabalho"]!="" && $dados_form["situacao"]!="" && $dados_form["funcao_dvm"]!="" && $dados_form["cargo_dvm"]!="")
 		{
-			//Verifica se o Login fornecido existe no banco
+			//Verifica se o login fornecido existe no banco
 			//Otavio - 16/08/2007
 			$sql = "SELECT login FROM ".DATABASE.".usuarios ";
 			$sql .= "WHERE login LIKE '" . $dados_form["login"] . "' ";
@@ -646,9 +653,9 @@ function insere($dados_form)
 						}
 					}
 
-					//Insere o funcionario no banco Devemada
+					//Insere o funcionario no banco  
 					$isql = "INSERT INTO ".DATABASE.".funcionarios ";
-					$isql .= "(id_setor, nivel_atuacao, Codcargo, id_cargo, id_setor_aso, funcionario, nome_usuario, email_particular, funcionario_endereco, funcionario_bairro, funcionario_cidade, ";
+					$isql .= "(id_setor, nivel_atuacao, id_funcao, id_cargo, id_setor_aso, funcionario, nome_usuario, email_particular, funcionario_endereco, funcionario_bairro, funcionario_cidade, ";
 					$isql .= "funcionario_cep, funcionario_estado, filiacao_pai, filiacao_mae, nacionalidade_pai, ";
 					$isql .= "nacionalidade_mae, ctps_num, ctps_serie, reservista_num, reservista_categoria, titulo_eleitor, titulo_zona, titulo_secao, identidade_num, ";
 					$isql .= "identidade_emissor, data_emissao, cpf, naturalidade, id_nacionalidade, estado_nascimento, data_nascimento, id_empfunc, ";
@@ -743,12 +750,11 @@ function insere($dados_form)
 					else
 					{
 						$id_funcionario = $db->insert_id;
-
 						/*
 						 * Adicionado em 30/01/2015
 						 * Carlos Máximo
 						 */
-						$dados_form['id_funcionario'] = $id_funcionario;
+						$dados_form['id_funcionario'] = $id_funcionario;						
 						
 						$erros = gravarNecessidadesColaborador($dados_form);
 
@@ -758,6 +764,7 @@ function insere($dados_form)
 							
 							return $resposta;
 						}
+						
 						/*
 						 * Finalizado
 						 */						
@@ -800,9 +807,9 @@ function insere($dados_form)
 
 						//Insere o usuario
 						$isql = "INSERT INTO ".DATABASE.".usuarios ";
-						$isql .= "(id_funcionario, email, login, senha, status) ";
+						$isql .= "(email, login, senha, status) ";
 						$isql .= "VALUES (";
-						$isql .= "'" . $id_funcionario . "', ";
+						//$isql .= "'" . $id_funcionario . "', ";
 						$isql .= "'" . minusculas(trim($dados_form["email"])) . "', ";
 						$isql .= "'" . trim($dados_form["login"]) . "', ";
 						$isql .= "'" . $senha . "', ";
@@ -817,6 +824,18 @@ function insere($dados_form)
 						else
 						{
 							$id_usuario = $db->insert_id;
+
+							//atualiza o registro do funcionario
+							$usql = "UPDATE ".DATABASE.".funcionarios SET ";
+							$usql .= "id_usuario = '" . $id_usuario . "' ";
+							$usql .= "WHERE id_funcionario = '".$id_funcionario."' ";
+	
+							$db->update($usql,'MYSQL');
+	
+							if($db->erro!='')
+							{
+								$resposta->addAlert($db->erro);
+							}
 
 							//niveis de atuacao que nao apontam horas no sistema
 							$nivel_atuacao = array('P'); //PACOTE
@@ -850,7 +869,8 @@ function insere($dados_form)
 							$reg_local = $db->array_select[0];
 
 							$local_trabalho = $reg_local["descricao"];
-
+							
+							/*
 							$sql = "SELECT * FROM CTT010 WITH(NOLOCK) ";
 							$sql .= "WHERE D_E_L_E_T_ = '' "; //CENTRO DE CUSTO
 							$sql .= "AND CTT_CUSTO = '".$dados_form["centrocusto"]."' "; //SOMENTE OS CC NAO BLOQUEADOS
@@ -863,6 +883,7 @@ function insere($dados_form)
 							}
 
 							$regs_cc = $db->array_select[0];
+							*/
 
 							if(!in_array($nivel_atuacao,$dados_form["nivel_atuacao"]))
 							{
@@ -899,6 +920,8 @@ function insere($dados_form)
 								if($db->erro!='')
 								{
 									$resposta->addAlert($db->erro);
+
+									return $resposta;
 								}
 
 								$DEPENDENTES = "";
@@ -946,15 +969,24 @@ function insere($dados_form)
 								$sql .= "SELECT sms.id_sub_modulo, sm.sub_modulo, sms.codigo_acesso ";
 								$sql .= "FROM ".DATABASE.".sub_modulos_x_setor sms ";
 								$sql .= "JOIN ".DATABASE.".sub_modulos sm on sm.id_sub_modulo = sms.id_sub_modulo ";
-								$sql .= "WHERE sub_modulos_x_setor.reg_del = 0 ";
-								$sql .= "AND sub_modulos_x_setor.id_setor_aso = ".$dados_form['setor_aso']." ";
+								$sql .= "WHERE sms.reg_del = 0 ";
+								$sql .= "AND sms.id_setor_aso = ".$dados_form['setor_aso']." ";
 								$sql .= "AND sms.tipo_acesso_padrao IN(".$arrTipoAcesso[$dados_form['tipo_contrato']].",2)";
 								
 								$db->select($sql, 'MYSQL', true);
+
+								if($db->erro!='')
+								{
+									$resposta->addAlert($db->erro);
+
+									return $resposta;
+								}
 								
 								//Montando um único sql para inserir numa unica transação com o banco de dados
 								$virgula = '';
+
 								$isql = "INSERT INTO ".DATABASE.".permissoes (id_usuario, id_sub_modulo, permissao) VALUES ";
+								
 								foreach($db->array_select as $reg_permissoes)
 								{
 									$isql .= $virgula."(".$id_usuario.", ".$reg_permissoes['id_sub_modulo'].", ".$reg_permissoes['codigo_acesso'].")";
@@ -976,65 +1008,65 @@ function insere($dados_form)
 
 									$ADMISSAO = "<table width=\"100%\" border=\"0\">";
 									$ADMISSAO .="<tr>
-												<td width=\"7%\">&nbsp;</td>
+												<td width=\"7%\"> </td>
 												<td width=\"19%\"><span style=\"color: #006699;	font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">".NOME_EMPRESA."</span></td>
-												<td width=\"67%\">&nbsp;</td>
-												<td width=\"7%\">&nbsp;</td>
+												<td width=\"67%\"> </td>
+												<td width=\"7%\"> </td>
 											  </tr>";
 									$ADMISSAO .= "<tr>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
+												<td> </td>
 												<td colspan=\"2\">".CIDADE.", ". date('d')." de ". meses(date('m')-1,1)." de ".date('Y') ."</td>
-												<td>&nbsp;</td>
+												<td> </td>
 											  </tr>";
 
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
+												<td> </td>
 												<td>A/C  </td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
-												<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">ADMISSÃO&nbsp;DE&nbsp;FUNCIONÁRIO</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">ADMISSÃO DE FUNCIONÁRIO</td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
+												<td> </td>
 												<td colspan=\"2\">Gentileza providenciar o processo de admissão do funcionário abaixo:</td>
-												<td>&nbsp;</td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
-												<td>&nbsp;</td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
 											  </tr>";
 									$ADMISSAO .="<tr>
-												<td>&nbsp;</td>
+												<td> </td>
 												<td colspan=\"2\">";
 									$ADMISSAO .="		<table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="		<tr>
@@ -1045,14 +1077,14 @@ function insere($dados_form)
 														<td width=\"10%\" rowspan=\"2\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">FILIAÇÃO</td>
 														<td width=\"6%\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">PAI: </td>
 														<td width=\"33%\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". maiusculas($dados_form["pai"]) ."</td>
-														<td width=\"3%\">&nbsp;</td>
+														<td width=\"3%\"> </td>
 														<td width=\"13%\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">NACIONALIDADE:</td>
 														<td width=\"35%\" colspan=\"4\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". maiusculas($dados_form["nacionalidade_pai"]) ."</td>
 													</tr>";
 									$ADMISSAO .="      <tr>
 														<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">MÃE:</td>
 														<td style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". maiusculas($dados_form["mae"]) ."</td>
-														<td>&nbsp;</td>
+														<td> </td>
 														<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">NACIONALIDADE:</td>
 														<td colspan=\"4\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". maiusculas($dados_form["nacionalidade_mae"]) ."</td>
 													</tr>";
@@ -1060,13 +1092,13 @@ function insere($dados_form)
 														<td colspan=\"9\">";
 									$ADMISSAO .="				<table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="		          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-																<td width=\"16%\">CARTEIRA&nbsp;TRABALHO</td>
+																<td width=\"16%\">CARTEIRA TRABALHO</td>
 																<td width=\"7%\">SÉRIE</td>
-																<td width=\"15%\">CARTEIRA&nbsp;RESERVISTA</td>
+																<td width=\"15%\">CARTEIRA RESERVISTA</td>
 																<td width=\"13%\">CATEGORIA</td>
-																<td width=\"11%\">T&Iacute;TULO&nbsp;ELEITOR</td>
-																<td width=\"16%\">CÉDULA&nbsp;DE&nbsp;IDENTIDADE</td>
-																<td width=\"12%\">ORGÃO&nbsp;EMISSOR</td>
+																<td width=\"11%\">T&Iacute;TULO ELEITOR</td>
+																<td width=\"16%\">CÉDULA DE IDENTIDADE</td>
+																<td width=\"12%\">ORGÃO EMISSOR</td>
 																<td width=\"10%\">CPF</td>
 															</tr>";
 									$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
@@ -1082,13 +1114,13 @@ function insere($dados_form)
 									$ADMISSAO .="            </table>";
 									$ADMISSAO .="            <table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="	            <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-																<td width=\"16%\">DATA&nbsp;DE&nbsp;NASCIMENTO</td>
+																<td width=\"16%\">DATA DE NASCIMENTO</td>
 																<td width=\"7%\">IDADE</td>
 																<td width=\"15%\">NACIONALIDADE</td>
 																<td width=\"13%\">NATURALIDADE</td>
 																<td width=\"11%\">ESTADO</td>
-																<td width=\"16%\">ESTADO&nbsp;CIVIL</td>
-																<td width=\"12%\">GRAU&nbsp;DE&nbsp;INSTRUCÃO</td>
+																<td width=\"16%\">ESTADO CIVIL</td>
+																<td width=\"12%\">GRAU DE INSTRUCÃO</td>
 															</tr>";
 
 									$sql = "SELECT * FROM ".DATABASE.".rh_escolaridade ";
@@ -1148,7 +1180,7 @@ function insere($dados_form)
 															</tr>";
 									$ADMISSAO .="	            <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 																<td width=\"16%\">NOME</td>
-																<td width=\"7%\">DATA&nbsp;DE&nbsp;NASCIMENTO </td>
+																<td width=\"7%\">DATA DE NASCIMENTO </td>
 																<td width=\"15%\">PARENTESCO</td>
 															</tr>";
 
@@ -1164,8 +1196,8 @@ function insere($dados_form)
 																<td colspan=\"3\">PIS</td>
 														  </tr>";
 									$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-																<td width=\"16%\">CADASTRADO&nbsp;EM: </td>
-																<td width=\"7%\">N&Uacute;MERO</td>
+																<td width=\"16%\">CADASTRADO EM: </td>
+																<td width=\"7%\">NÚMERO</td>
 																<td width=\"15%\">BANCO</td>
 														  </tr>";
 									$ADMISSAO .="            <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
@@ -1181,11 +1213,11 @@ function insere($dados_form)
 													<td colspan=\"9\">";
 									$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="				<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">";
-									$ADMISSAO .="		            <td width=\"16%\">DATA&nbsp;DA&nbsp;ADMISSÃO </td>
-																<td width=\"7%\">NATUREZA&nbsp;DO&nbsp;CARGO</td>
-																<td width=\"15%\">SALÁRIO&nbsp;INICIAL</td>
+									$ADMISSAO .="		            <td width=\"16%\">DATA DA ADMISSÃO </td>
+																<td width=\"7%\">NATUREZA DO CARGO</td>
+																<td width=\"15%\">SALÁRIO INICIAL</td>
 																
-																<td width=\"11%\">DATA&nbsp;DE&nbsp;INÍCIO</td>
+																<td width=\"11%\">DATA DE INÍCIO</td>
 															</tr>";
 
 									$sql = "SELECT * FROM ".DATABASE.".rh_cargos ";
@@ -1215,13 +1247,13 @@ function insere($dados_form)
 													<td colspan=\"9\">";
 									$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="     			<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-																<td colspan=\"4\">HORÁRIO&nbsp;DE&nbsp;TRABALHO </td>
+																<td colspan=\"4\">HORÁRIO DE TRABALHO </td>
 															</tr>";
 									$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 																<td width=\"16%\">ENTRADA </td>
 																<td width=\"7%\">REFEIÇÃO</td>
 																<td width=\"15%\">SAÍDA </td>
-																<td width=\"13%\">DESCANSO&nbsp;SEMANAL  </td>
+																<td width=\"13%\">DESCANSO SEMANAL  </td>
 															</tr>";
 									$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
 																<td>". $dados_form["horario_entrada"] ."</td>
@@ -1236,7 +1268,7 @@ function insere($dados_form)
 													<td colspan=\"9\">";
 									$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 									$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-															<td colspan=\"6\">CARACTERÍSTICAS&nbsp;FÍSICAS </td>
+															<td colspan=\"6\">CARACTERÍSTICAS FÍSICAS </td>
 														  </tr>";
 									$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 															<td width=\"16%\">COR</td>
@@ -1259,7 +1291,7 @@ function insere($dados_form)
 									$ADMISSAO .="   </tr>";
 									$ADMISSAO .="	</table>";
 									$ADMISSAO .="</td>
-											  <td>&nbsp;</td>
+											  <td> </td>
 											 </tr>";
 									$ADMISSAO .="<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 												<td colspan=\"4\" >Rua XXXXXXX, XXXX - Centro - XXXXXXX - SP</td>
@@ -1273,24 +1305,33 @@ function insere($dados_form)
 
 									$ADMISSAO .="</table>";
 
-									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
-									$params['from_name']= "RECURSOS HUMANOS";
-									$params['subject'] 	= "ADMISSÃO FUNCIONÁRIO";
-
-									//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
-									$mail = new email($params, 'admissao_funcionario');
-									
-									$mail->montaCorpoEmail($ADMISSAO);
-
-									if(!$mail->Send())
+									if(ENVIA_EMAIL)
 									{
-										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+										$params 			= array();
+										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from_name']= "RECURSOS HUMANOS";
+										$params['subject'] 	= "ADMISSÃO FUNCIONÁRIO";
+
+										//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
+										$mail = new email($params, 'admissao_funcionario');
+										
+										$mail->montaCorpoEmail($ADMISSAO);
+
+										if(!$mail->Send())
+										{
+											$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+										}
+
+										$mail->ClearAddresses();
+									}
+									else
+									{
+										$resposta->addScriptCall('modal', $ADMISSAO, '300_650', 'Conteúdo email', 2);
 									}
 								}
 
 								$TI = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ". date('Y') ."<br><br><br>";
-								$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO&nbsp;DE&nbsp;USUÁRIO</span><br><br><br>";
+								$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO DE USUÁRIO</span><br><br><br>";
 								$TI .= "Favor cadastrar o login e e-mail do novo funcionario:<br>";
 								$TI .= "Nome: <strong>".maiusculas($dados_form["funcionario"])."</strong><br>";
 								$TI .= "Funcao: <strong>".$cargo_descr."</strong><br>";
@@ -1307,7 +1348,7 @@ function insere($dados_form)
 									$TI .= $tiHtml;
 								}
 
-								$TI .= "Login: <strong>".$dados_form["login"]."</strong><br>";
+								$TI .= "login: <strong>".$dados_form["login"]."</strong><br>";
 								$TI .= "E-mail: <strong>".minusculas($dados_form["email"])."</strong><br><br><br><br>";
 
 								$TI .= "Primeiro acesso a rede:<br><br>";
@@ -1317,25 +1358,34 @@ function insere($dados_form)
 								$TI .= "Acesso SISTEMA:<br><br>";
 								$TI .= "Usuário:<strong>".$dados_form["login"]."</strong><br>";
 								$TI .= "Senha:<strong>123456</strong><br><br>";
-								$TI .= "<strong>OBS:</strong>O sistema solicitaRÁ a troca da senha ao primeiro acesso.<br><br><br><br>";
+								$TI .= "<strong>OBS:</strong>O sistema solicitará a troca da senha ao primeiro acesso.<br><br><br><br>";
 								$TI .= "Atenciosamente, Depto. Recursos Humanos.";
-
-								$params 			= array();
-								$params['from']		= "recrutamento@dominio.com.br";
-								$params['from_name']= "RECURSOS HUMANOS";
-								$params['subject'] 	= "CADASTRO DE NOVO USUÁRIO";
-
-								$mail = new email($params, 'novo_usuario');
 								
-								$mail->montaCorpoEmail($TI);
-
-								if(!$mail->Send())
+								if(ENVIA_EMAIL)
 								{
-									$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									$params 			= array();
+									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from_name']= "RECURSOS HUMANOS";
+									$params['subject'] 	= "CADASTRO DE NOVO USUÁRIO";
+
+									$mail = new email($params, 'novo_usuario');
+									
+									$mail->montaCorpoEmail($TI);
+
+									if(!$mail->Send())
+									{
+										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									}
+
+									$mail->ClearAddresses();
+								}
+								else
+								{
+									$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 3);
 								}
 
 								$DEPT = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ". date('Y') ."<br><br><br>";
-								$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO&nbsp;DE&nbsp;USUÁRIO</span><br><br><br>";
+								$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO DE USUÁRIO</span><br><br><br>";
 								$DEPT .= "Nome: <strong>".maiusculas($dados_form["funcionario"])."</strong><br>";
 								$DEPT .= "Funcao: <strong>".$cargo_descr."</strong><br><br><br>";
 								$DEPT .= "Centro Custo: <strong>".$dados_form["centrocusto"]." - ".$regs_cc["CTT_DESC01"]."</strong><br><br><br>";
@@ -1344,43 +1394,61 @@ function insere($dados_form)
 								$DEPT .= "Data inicio: <strong>".$dados_form["data_inicio"]."</strong><br>";
 								$DEPT .= "Local Trabalho: <strong>".$local_trabalho."</strong><br><br><br>";
 								$DEPT .= "Atenciosamente, Depto. Recursos Humanos.";
-
-								$params 			= array();
-								$params['from']		= "recrutamento@dominio.com.br";
-								$params['from_name']= "RECURSOS HUMANOS";
-								$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR";
-
-								$mail = new email($params, 'novo_colaborador');
 								
-								$mail->montaCorpoEmail($DEPT);
-								
-								if(!$mail->Send())
+								if(ENVIA_EMAIL)
 								{
-									$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									$params 			= array();
+									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from_name']= "RECURSOS HUMANOS";
+									$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR";
+
+									$mail = new email($params, 'novo_colaborador');
+									
+									$mail->montaCorpoEmail($DEPT);
+									
+									if(!$mail->Send())
+									{
+										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									}
+
+									$mail->ClearAddresses();
+								}
+								else 
+								{
+									$resposta->addScriptCall('modal', $DEPT, '300_650', 'Conteúdo email', 4);
 								}
 							}
 							else
 							{
 								$PCT = CIDADE. ", ". date('d') ." de ".meses(date('m')-1,1)." de ". date('Y') ."<br><br><br>";
-								$PCT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO&nbsp;DE&nbsp;USUÁRIO</span><br><br><br>";
+								$PCT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">CADASTRO DE USUÁRIO</span><br><br><br>";
 								$PCT .= "Nome: <strong>".maiusculas($dados_form["funcionario"])."</strong><br>";
 								$PCT .= "Função: <strong>".$cargo_descr."</strong><br><br><br>";
 								$PCT .= "Centro Custo: <strong>".$dados_form["centrocusto"]." - ".$regs_cc["CTT_DESC01"]."</strong><br><br><br>";
 								$PCT .= "E-mail: <strong>".minusculas($dados_form["email"])."</strong><br><br><br><br>";
 								$PCT .= "Atenciosamente, Depto. Recursos Humanos.";
-
-								$params 			= array();
-								$params['from']		= "recrutamento@dominio.com.br";
-								$params['from_name']= "RECURSOS HUMANOS";
-								$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR - PACOTE";
-
-								$mail = new email($params, 'novo_colaborador_pacote');
 								
-								$mail->montaCorpoEmail($PCT);
-
-								if(!$mail->Send())
+								if(ENVIA_EMAIL)
 								{
-									$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									$params 			= array();
+									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from_name']= "RECURSOS HUMANOS";
+									$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR - PACOTE";
+
+									$mail = new email($params, 'novo_colaborador_pacote');
+									
+									$mail->montaCorpoEmail($PCT);
+
+									if(!$mail->Send())
+									{
+										$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+									}
+
+									$mail->ClearAddresses();
+								}
+								else 
+								{
+									$resposta->addScriptCall('modal', $PCT, '300_650', 'Conteúdo email', 5);
 								}
 							}
 
@@ -1390,12 +1458,16 @@ function insere($dados_form)
 							 * TAP - Alteração do cadastro de funcionários
 							 */
 							//Adicionado o contrato do colaborador
+							
 							$erro = gravarExigenciasCliente($dados_form);
 							
 							if ($erro != '')
 							{
 								$resposta->addAlert($erro);
+
+								return $resposta;
 							}
+							
 							/**
 							 * Final das alteracoes 28/01/2015
 							 */
@@ -1406,12 +1478,16 @@ function insere($dados_form)
 							 * TAP - Alteração do cadastro de funcionários
 							 */	
 							//Adicionado o contrato do colaborador
+							
 							$erro = gravarAjudaCusto($dados_form);
 							
 							if ($erro != '')
 							{
 								$resposta->addAlert($erro);
+
+								return $resposta;
 							}
+							
 							/**
 							 * Final das alteracoes 27/02/2015
 							 */
@@ -1420,7 +1496,7 @@ function insere($dados_form)
 							
 							$resposta->addScript("xajax_atualizatabela('',xajax.getFormValues('frm_funcionarios')); ");
 							
-							$resposta->addAlert("funcionario cadastrado com sucesso.");
+							$resposta->addAlert("Funcionário cadastrado com sucesso.");
 						}
 					}
 				}
@@ -1451,8 +1527,8 @@ function getNecessidadesEmail($dados_form)
 			  ".DATABASE.".rh_necessidades_x_funcionario r
 			LEFT JOIN(SELECT * FROM ".DATABASE.".infra_estrutura WHERE infra_estrutura.reg_del = 0) infra
 			ON id_infra_estrutura = id_necessidade
-			WHERE rh_necessidades_x_funcionario.reg_del = 0
-			AND rh_necessidades_x_funcionario.id_funcionario = ".$dados_form['id_funcionario'];
+			WHERE r.reg_del = 0
+			AND r.id_funcionario = ".$dados_form['id_funcionario'];
 
 	$db->select($sql,'MYSQL',true);
 
@@ -1558,7 +1634,7 @@ function atualizar($dados_form)
 			}
 
 			$sql = "SELECT * FROM ".DATABASE.".rh_funcoes, ".DATABASE.".setores, ".DATABASE.".funcionarios ";
-			$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_funcionario = funcionarios.id_funcionario AND usuarios.reg_del = 0) ";
+			$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0) ";
 			$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
 			$sql .= "AND rh_funcoes.reg_del = 0 ";
 			$sql .= "AND setores.reg_del = 0 ";
@@ -1622,6 +1698,7 @@ function atualizar($dados_form)
 
 				$arq_foto = redimensionar($_FILES["foto"],$dados_form["id_funcionario"],$reg_editar["arquivo_foto"]);
 
+				/*
 				$sql = "SELECT * FROM CTT010 WITH(NOLOCK) ";
 				$sql .= "WHERE D_E_L_E_T_ = '' "; //CENTRO DE CUSTO
 				$sql .= "AND CTT_CUSTO = '".$dados_form["centrocusto"]."' ";
@@ -1634,6 +1711,7 @@ function atualizar($dados_form)
 				}
 
 				$regs_cc = $db->array_select[0];
+				*/
 
 				$usql = "UPDATE ".DATABASE.".funcionarios SET ";
 				$usql .= "id_setor = '" . $dados_form["setor"] . "', ";
@@ -1723,7 +1801,7 @@ function atualizar($dados_form)
 				}
 
 				//Alteração na tabela de salários apenas para algumas pessoas
-				if (in_array($_SESSION['id_funcionario'], array(6,978,12)) && !empty($dados_form['data_admissao']))
+				if (in_array($_SESSION['id_funcionario'], array(0)) && !empty($dados_form['data_admissao']))
 				{
 					$usql = "UPDATE ".DATABASE.".salarios SET ";
 					$usql .= "data = '".php_mysql($dados_form['data_admissao'])."' ";
@@ -1740,8 +1818,8 @@ function atualizar($dados_form)
 
 				//Insere o usuario
 				$sql = "SELECT * FROM ".DATABASE.".usuarios U ";
-				$sql .= "JOIN ".DATABASE.".funcionarios f ON f.id_funcionario = U.id_funcionario AND f.reg_del = 0 ";
-				$sql .= "WHERE U.id_funcionario = '".$dados_form["id_funcionario"]."' ";
+				$sql .= "JOIN ".DATABASE.".funcionarios f ON f.id_usuario = U.id_usuario AND f.reg_del = 0 ";
+				$sql .= "WHERE f.id_funcionario = '".$dados_form["id_funcionario"]."' ";
 				$sql .= "AND U.reg_del = 0 ";
 				
 				$db->select($sql, 'MYSQL',true);
@@ -1752,9 +1830,9 @@ function atualizar($dados_form)
 				if ($db->numero_registros == 0)
 				{
 					$isql = "INSERT INTO ".DATABASE.".usuarios ";
-					$isql .= "(id_funcionario, email, login, senha, status) ";
+					$isql .= "(email, login, senha, status) ";
 					$isql .= "VALUES (";
-					$isql .= "'" . $dados_form['id_funcionario'] . "', ";
+					//$isql .= "'" . $dados_form['id_funcionario'] . "', ";
 					$isql .= "'" . minusculas(trim($dados_form["email"])) . "', ";
 					$isql .= "'" . trim($dados_form["login"]) . "', ";
 					$isql .= "'" . $senha . "', ";
@@ -1771,47 +1849,65 @@ function atualizar($dados_form)
 				//Envio de email caso haja alteração de e-mail, principalmente devido á mudança de PJ para CLT ou vice versa
 				if($retornoUsuario['email'] != $dados_form['email'])
 				{
-					$params 			= array();
-					$params['from']		= "suporte@dominio.com.br";
-					$params['from_name']= "RH - Alteração de E-mail";
-					$params['subject'] 	= "ALTERAÇÃO DE E-MAIL DE COLABORADOR";
-					$params['emails']['to'][] = array('email' => 'suporte@dominio.com.br', 'nome' => 'Suporte');
-
-					$corpoAlteracao =  "<b>ALTERAÇÃO DE E-MAIL DE COLABORADOR</b>: ".$retornoUsuario['funcionario']."<br />";
-					$corpoAlteracao .= "<b>E-MAIL ANTERIOR</b>: ".$retornoUsuario['email']."<br />";
-					$corpoAlteracao .= "<b>E-MAIL ATUAL</b> ".$dados_form['email']."<br />";
-					$corpoAlteracao .= "<b>AO TI,<br />Favor, alterar o e-mail do colaborador citado no Active Directory.</b> ";
-					
-					$mail = new email($params);
-					
-					$mail->montaCorpoEmail($corpoAlteracao);
-
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						$params 			= array();
+						$params['from']		= "ti@dominio.com.br";
+						$params['from_name']= "RH - Alteração de E-mail";
+						$params['subject'] 	= "ALTERAÇÃO DE E-MAIL DE COLABORADOR";
+						$params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte');
+
+						$corpoAlteracao =  "<b>ALTERAÇÃO DE E-MAIL DE COLABORADOR</b>: ".$retornoUsuario['funcionario']."<br />";
+						$corpoAlteracao .= "<b>E-MAIL ANTERIOR</b>: ".$retornoUsuario['email']."<br />";
+						$corpoAlteracao .= "<b>E-MAIL ATUAL</b> ".$dados_form['email']."<br />";
+						$corpoAlteracao .= "<b>AO TI,<br />Favor, alterar o e-mail do colaborador citado no Active Directory.</b> ";
+						
+						$mail = new email($params);
+						
+						$mail->montaCorpoEmail($corpoAlteracao);
+
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						}
+
+						$mail->ClearAddresses();
+					}
+					else
+					{
+						$resposta->addScriptCall('modal', $corpoAlteracao, '300_650', 'Conteúdo email', 6);	
 					}
 				}
 				
 				//Envio de email caso haja alteração de status, principalmente devido á mudança de Fechamento Folha para Ativo
 				if($retornoUsuario['situacao'] != $dados_form["situacao"])
 				{
-					$params 			= array();
-					$params['from']		= "suporte@dominio.com.br";
-					$params['from_name']= "RH - Reativacao de colaborador";
-					$params['subject'] 	= "ALTERAÇÃO DE SITUAÇÃO DE COLABORADOR";
-					$params['emails']['to'][] = array('email' => 'suporte@dominio.com.br', 'nome' => 'Suporte');
-
-					$corpoAlteracao =  "<b>ALTERAÇÃO DE SITUAÇÃO DE COLABORADOR</b>: ".$retornoUsuario['funcionario']."<br />";
-					$corpoAlteracao .= "<b>SITUAÇÃO ANTERIOR</b>: ".$retornoUsuario['situacao']."<br />";
-					$corpoAlteracao .= "<b>SITUAÇÃO ATUAL</b> ".$dados_form['situacao'];
-					
-					$mail = new email($params);
-					
-					$mail->montaCorpoEmail($corpoAlteracao);
-
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						$params 			= array();
+						$params['from']		= "ti@dominio.com.br";
+						$params['from_name']= "RH - Reativacao de colaborador";
+						$params['subject'] 	= "ALTERAÇÃO DE SITUAÇÃO DE COLABORADOR";
+						$params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte');
+
+						$corpoAlteracao =  "<b>ALTERAÇÃO DE SITUAÇÃO DE COLABORADOR</b>: ".$retornoUsuario['funcionario']."<br />";
+						$corpoAlteracao .= "<b>SITUAÇÃO ANTERIOR</b>: ".$retornoUsuario['situacao']."<br />";
+						$corpoAlteracao .= "<b>SITUAÇÃO ATUAL</b> ".$dados_form['situacao'];
+						
+						$mail = new email($params);
+						
+						$mail->montaCorpoEmail($corpoAlteracao);
+
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						}
+
+						$mail->ClearAddresses();
+					}
+					else 
+					{
+						$resposta->addScriptCall('modal', $corpoAlteracao, '300_650', 'Conteúdo email', 7);
 					}
 				}
 				
@@ -1851,7 +1947,7 @@ function atualizar($dados_form)
 							equipamento, e.num_dvm
 						FROM
 							".DATABASE.".inventario i
-							JOIN ti.equipamentos e on e.id_equipamento = i.id_equipamento
+							JOIN ".DATABASE.".equipamentos e on e.id_equipamento = i.id_equipamento
 						WHERE
 							i.reg_del = 0
 							AND e.reg_del = 0
@@ -1886,65 +1982,65 @@ function atualizar($dados_form)
 					{
 						$DEMISSAO = "<table width=\"100%\" border=\"0\">";
 						$DEMISSAO .="<tr>
-											<td width=\"7%\">&nbsp;</td>
+											<td width=\"7%\"> </td>
 											<td width=\"19%\"><span style=\"color: #006699;	font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">".NOME_EMPRESA."</span></td>
-											<td width=\"67%\">&nbsp;</td>
-											<td width=\"7%\">&nbsp;</td>
+											<td width=\"67%\"> </td>
+											<td width=\"7%\"> </td>
 										</tr>";
 						$DEMISSAO .= "<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
+											<td> </td>
 											<td colspan=\"2\">". CIDADE .", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."</td>
-											<td>&nbsp;</td>
+											<td> </td>
 										</tr>";
 
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
+											<td> </td>
 											<td>A/C  </td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
-											<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">DESLIGAMENTO&nbsp;DE&nbsp;FUNCIONÁRIO</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">DESLIGAMENTO DE FUNCIONÁRIO</td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
+											<td> </td>
 											<td colspan=\"2\">Gentileza providenciar o processo de desligamento do funcionário abaixo:</td>
-											<td>&nbsp;</td>
+											<td> </td>
 										</tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
-											<td>&nbsp;</td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
+											<td> </td>
 										 </tr>";
 						$DEMISSAO .="<tr>
-											<td>&nbsp;</td>
+											<td> </td>
 											<td colspan=\"2\">";
 						$DEMISSAO .="		<table width=\"100%\" border=\"1\">";
 						$DEMISSAO .="			<tr>
@@ -1952,7 +2048,7 @@ function atualizar($dados_form)
 														<td colspan=\"8\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". maiusculas($dados_form["funcionario"]) ."</td>
 													</tr>";
 						$DEMISSAO .="	  		<tr>
-														<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">DATA&nbsp;DE&nbsp;SAÍDA:</td>
+														<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">DATA DE SAÍDA:</td>
 														<td colspan=\"8\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". $dados_form["data_desligamento"] ."</td>
 													</tr>";
 						$DEMISSAO .="      		<tr>
@@ -1973,70 +2069,90 @@ function atualizar($dados_form)
 										<td colspan=\"4\" >Site: http://www.empresa.com.br - E-mail: empresa@dominio.com.br</td>
 									  </tr>";
 						$DEMISSAO .="</table>";
-
-						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
-						$params['from_name']= "RECURSOS HUMANOS";
-						$params['subject'] 	= "DESLIGAMENTO FUNCIONARIO - CLT";
-
-						$mail = new email($params, 'desligamento_funcionario');
 						
-						$mail->montaCorpoEmail($DEMISSAO);
-
-						if(!$mail->Send())
+						if(ENVIA_EMAIL)
 						{
-							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+							$params 			= array();
+							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from_name']= "RECURSOS HUMANOS";
+							$params['subject'] 	= "DESLIGAMENTO FUNCIONARIO - CLT";
+
+							$mail = new email($params, 'desligamento_funcionario');
+							
+							$mail->montaCorpoEmail($DEMISSAO);
+
+							if(!$mail->Send())
+							{
+								$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+							}
+
+							$mail->ClearAddresses();
+						}
+						else 
+						{
+							$resposta->addScriptCall('modal', $DEMISSAO, '300_650', 'Conteúdo email', 8);	
 						}
 
 						$resposta->addScriptCall("imprimir_formularios('".$dados_form["id_funcionario"]."')");
 					}
 
 					$TI = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."<br><br><br>";
-					$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">USUÁRIO&nbsp;PRESTES&nbsp;A&nbsp;SER&nbsp;DESLIGADO</span><br><br><br>";
+					$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">USUÁRIO PRESTES A SER DESLIGADO</span><br><br><br>";
 					$TI .= "Nome: <strong>".$dados_form["funcionario"]."</strong><br>";
 					$TI .= "Função: <strong>".$reg_editar["descricao"]."</strong><br><br><br>";
 					$TI .= "Centro Custo: <strong>".$dados_form["centrocusto"]." - ".$regs_cc["CTT_DESC01"]."</strong><br><br><br>";
-					$TI .= "Login: <strong>".$dados_form["login"]."</strong><br>";
+					$TI .= "login: <strong>".$dados_form["login"]."</strong><br>";
 					$TI .= "E-mail: <strong>".$dados_form["email"]."</strong><br>";
 					$TI .= $equipamentos.'<br><br><br>';
 										
 					$TI .= "Atenciosamente, Depto. Recursos Humanos.";
 
-					$params 			= array();
-					$params['from']		= "recrutamento@dominio.com.br";
-					$params['from_name']= "RECURSOS HUMANOS";
-					$params['subject'] 	= "USUÁRIO PRESTES A SER DESLIGADO";
-
-					$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-					$sql .= "WHERE funcionarios.nivel_atuacao IN ('C','S') ";
-					$sql .= "AND funcionarios.reg_del = 0 ";
-					$sql .= "AND usuarios.reg_del = 0 ";
-					$sql .= "AND funcionarios.situacao = 'ATIVO' ";
-					$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
-
-					$db->select($sql,'MYSQL',true);
-
-					if($db->erro!='')
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert($db->erro);
+
+						$params 			= array();
+						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from_name']= "RECURSOS HUMANOS";
+						$params['subject'] 	= "USUÁRIO PRESTES A SER DESLIGADO";
+
+						$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
+						$sql .= "WHERE funcionarios.nivel_atuacao IN ('C','S') ";
+						$sql .= "AND funcionarios.reg_del = 0 ";
+						$sql .= "AND usuarios.reg_del = 0 ";
+						$sql .= "AND funcionarios.situacao = 'ATIVO' ";
+						$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
+
+						$db->select($sql,'MYSQL',true);
+
+						if($db->erro!='')
+						{
+							$resposta->addAlert($db->erro);
+						}
+
+						foreach ($db->array_select as $reg_coord)
+						{
+							$params['emails']['to'][] = array('email' => $reg_coord["email"], 'nome' => $reg_coord["funcionario"]);
+						}
+
+						$mail = new email($params, 'usuario_sera_desligado');
+						
+						$mail->montaCorpoEmail($TI);
+
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						}
+
+						$mail->ClearAddresses();
 					}
-
-					foreach ($db->array_select as $reg_coord)
+					else 
 					{
-						$params['emails']['to'][] = array('email' => $reg_coord["email"], 'nome' => $reg_coord["funcionario"]);
-					}
-
-					$mail = new email($params, 'usuario_sera_desligado');
-					
-					$mail->montaCorpoEmail($TI);
-
-					if(!$mail->Send())
-					{
-						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 9);
 					}
 
 					$DEPT = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."<br><br><br>";
-					$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">USUÁRIO&nbsp;PRESTES&nbsp;A&nbsp;SER&nbsp;DESLIGADO</span><br><br><br>";
+					$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">USUÁRIO PRESTES A SER DESLIGADO</span><br><br><br>";
 					$DEPT .= "Nome: <strong>".$dados_form["funcionario"]."</strong><br>";
 					$DEPT .= "Função: <strong>".$reg_editar["descricao"]."</strong><br><br><br>";
 					$DEPT .= "Centro Custo: <strong>".$dados_form["centrocusto"]." - ".$regs_cc["CTT_DESC01"]."</strong><br><br><br>";
@@ -2044,18 +2160,28 @@ function atualizar($dados_form)
 					$DEPT .= $equipamentos.'<br><br><br>';
 					$DEPT .= "Atenciosamente, Depto. Recursos Humanos.";
 
-					$params 			= array();
-					$params['from']		= "recrutamento@dominio.com.br";
-					$params['from_name']= "RECURSOS HUMANOS";
-					$params['subject'] 	= "COLABORADOR EM FECHAMENTO / AVISO PREVIO(CLT)";
-
-					$mail = new email($params, 'colaborador_fechamento');
-					
-					$mail->montaCorpoEmail($DEPT);
-
-					if(!$mail->Send())
+					if(ENVIA_EMAIL)
 					{
-						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+						$params 			= array();
+						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from_name']= "RECURSOS HUMANOS";
+						$params['subject'] 	= "COLABORADOR EM FECHAMENTO / AVISO PREVIO(CLT)";
+
+						$mail = new email($params, 'colaborador_fechamento');
+						
+						$mail->montaCorpoEmail($DEPT);
+
+						if(!$mail->Send())
+						{
+							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+						}
+
+						$mail->ClearAddresses();
+					}
+					else 
+					{
+						$resposta->addScriptCall('modal', $DEPT, '300_650', 'Conteúdo email', 10);
 					}
 
 					$usql = "UPDATE ".DATABASE.".os_x_funcionarios SET ";
@@ -2093,11 +2219,11 @@ function atualizar($dados_form)
 				    if($dados_form["situacao"]=="DESLIGADO" && !empty($dados_form["login"]))
 					{
 						$TI = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."<br><br><br>";
-						$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">DESLIGAMENTO&nbsp;de&nbsp;USUÁRIO</span><br><br><br>";
+						$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">DESLIGAMENTO de USUÁRIO</span><br><br><br>";
 						$TI .= "Fica aqui registrado o desligamento do colaborador: <br><br>";
 						$TI .= "Nome: <strong>".$dados_form["funcionario"]."</strong><br>";
 						$TI .= "Função: <strong>".$reg_editar["descricao"]."</strong><br><br><br>";
-						$TI .= "Login: <strong>".$dados_form["login"]."</strong><br>";
+						$TI .= "login: <strong>".$dados_form["login"]."</strong><br>";
 						$TI .= "E-mail: <strong>".$dados_form["email"]."</strong><br><br>";
 						$TI .= "Favor providenciar os procedimentos de back-up da maquina, quando aplicado, e<br>";
 						$TI .= "remover a conta do usuário acima citado.<br>";
@@ -2105,7 +2231,7 @@ function atualizar($dados_form)
 						$TI .= "Atenciosamente, Depto. Recursos Humanos.";
 
 						$DEPT = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."<br><br><br>";
-						$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">DESLIGAMENTO&nbsp;de&nbsp;USUÁRIO</span><br><br><br>";
+						$DEPT .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">DESLIGAMENTO de USUÁRIO</span><br><br><br>";
 						$DEPT .= "Fica aqui registrado o desligamento do colaborador: <br><br>";
 						$DEPT .= "Nome: <strong>".$dados_form["funcionario"]."</strong><br>";
 						$DEPT .= "Cargo: <strong>".$reg_editar["descricao"]."</strong><br><br><br>";
@@ -2163,8 +2289,9 @@ function atualizar($dados_form)
 							}
 						}
 
-						$sql = "SELECT * FROM ".DATABASE.".usuarios ";
-						$sql .= "WHERE usuarios.id_funcionario = '".$dados_form["id_funcionario"]."' ";
+						$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+						$sql .= "WHERE funcionarios.id_funcionario = '".$dados_form["id_funcionario"]."' ";
+						$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 						$sql .= "AND reg_del = 0 ";
 
 						$db->select($sql,'MYSQL',true);
@@ -2197,7 +2324,7 @@ function atualizar($dados_form)
 							}
 						}
 						
-						//metodo antigo de permiss�es
+						//metodo antigo de permissões
 						$usql = "UPDATE ".DATABASE.".permissoes SET ";
 						$usql .= "reg_del = 1, ";
 						$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
@@ -2213,7 +2340,6 @@ function atualizar($dados_form)
 						}
 						
 						//exclui das equipes
-
 						$usql = "UPDATE ".DATABASE.".os_x_funcionarios SET ";
 						$usql .= "reg_del = 1, ";
 						$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
@@ -2229,7 +2355,6 @@ function atualizar($dados_form)
 						}
 						
 						//exclui o usuário
-
 						$usql = "UPDATE ".DATABASE.".usuarios SET ";
 						$usql .= "reg_del = 1, ";
 						$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
@@ -2244,35 +2369,54 @@ function atualizar($dados_form)
 							$resposta->addAlert($db->erro);
 						}
 
-						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
-						$params['from_name']= "RECURSOS HUMANOS";
-						$params['subject'] 	= "DESLIGAMENTO DE USUARIO";
-
-						$mail = new email($params, 'desligamento_usuario');
-						
-						$mail->montaCorpoEmail($TI);
-
-						if(!$mail->Send())
+						if(ENVIA_EMAIL)
 						{
-							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+							$params 			= array();
+							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from_name']= "RECURSOS HUMANOS";
+							$params['subject'] 	= "DESLIGAMENTO DE USUARIO";
+
+							$mail = new email($params, 'desligamento_usuario');
+							
+							$mail->montaCorpoEmail($TI);
+
+							if(!$mail->Send())
+							{
+								$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+							}
+
+							$mail->ClearAddresses();
+						}
+						else 
+						{
+							$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 11);
 						}
 
-						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
-						$params['from_name']= "RECURSOS HUMANOS";
-						$params['subject'] 	= "DESLIGAMENTO DE COLABORADOR";
-
-						$mail = new email($params, 'desligamento_colaborador');
-						
-						$mail->montaCorpoEmail($DEPT);
-
-						if(!$mail->Send())
+						if(ENVIA_EMAIL)
 						{
-							$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+							$params 			= array();
+							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from_name']= "RECURSOS HUMANOS";
+							$params['subject'] 	= "DESLIGAMENTO DE COLABORADOR";
+
+							$mail = new email($params, 'desligamento_colaborador');
+							
+							$mail->montaCorpoEmail($DEPT);
+
+							if(!$mail->Send())
+							{
+								$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+							}
+
+							$mail->ClearAddresses();
+						}
+						else 
+						{
+							$resposta->addScriptCall('modal', $DEPT, '300_650', 'Conteúdo email', 12);
 						}
 						
 						//inativa o recurso no PROTHEUS
+						/*
 						$usql = "UPDATE AE8010 SET ";
 						$usql .= "AE8_ATIVO = '2' ";
 						$usql .= "WHERE AE8_RECURS = 'FUN_".sprintf("%011d",$dados_form["id_funcionario"])."' ";
@@ -2284,6 +2428,7 @@ function atualizar($dados_form)
 						{
 							$resposta->addAlert($db->erro);
 						}
+						*/
 					}
 					else
 					{
@@ -2336,8 +2481,8 @@ function atualizar($dados_form)
 
 						$usql = "UPDATE ".DATABASE.".usuarios SET ";
 						$usql .= "email = '" . minusculas(trim($dados_form["email"])) . "', ";
-						$usql .= "Login = '" . trim($dados_form["login"]) . "' ";
-						$usql .= "WHERE id_funcionario = '" . $dados_form["id_funcionario"] . "' ";
+						$usql .= "login = '" . trim($dados_form["login"]) . "' ";
+						$usql .= "WHERE id_usuario = '" . $reg_u["id_usuario"] . "' ";
 						$usql .= "AND reg_del = 0 ";
 
 						$db->update($usql,'MYSQL');
@@ -2458,7 +2603,8 @@ function atualizar($dados_form)
 					{
 						$status = 1;
 					}
-
+					
+					/*
 					$usql = "UPDATE AE8010 SET ";
 					$usql .= "AE8_EQUIP = '".sprintf("%010d",$dados_form["setor"])."', ";
 					$usql .= "AE8_FUNCAO = '".sprintf("%09d",$ae8_funcao)."', ";
@@ -2474,6 +2620,7 @@ function atualizar($dados_form)
 					{
 						$resposta->addAlert($db->erro);
 					}
+					*/
 				}
 
 				$resposta->addAlert("funcionario atualizado com sucesso.");
@@ -2481,26 +2628,36 @@ function atualizar($dados_form)
 				//$resposta->addScript("window.location='".$_SERVER['PHP_SELF']."';");
 
 				$TI = CIDADE . ", ". date('d')." de ".meses(date('m')-1,1)." de ".date('Y') ."<br><br><br>";
-				$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO&nbsp;DE&nbsp;USUÁRIO</span><br><br><br>";
+				$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO DE USUÁRIO</span><br><br><br>";
 				$TI .= "Fica aqui registrado a alteracao do colaborador: <br><br>";
 				$TI .= "ID: <strong>".$dados_form["id_funcionario"]."</strong><br>";
 				$TI .= "Nome: <strong>".$dados_form["funcionario"]."</strong><br>";
 				$TI .= "Função: <strong>".$reg_editar["descricao"]."</strong><br><br><br>";
 				$TI .= "E-mail: <strong>".$dados_form["email"]."</strong><br><br>";
 				$TI .= "Atenciosamente, Depto. Recursos Humanos.";
-				
-				$params 			= array();
-				$params['from']		= "recrutamento@dominio.com.br";
-				$params['from_name']= "RECURSOS HUMANOS";
-				$params['subject'] 	= "ALTERACAO DE USUARIO";
 
-				$mail = new email($params, 'alteracao_usuario');
-				
-				$mail->montaCorpoEmail($TI);
-
-				if(!$mail->Send())
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				
+					$params 			= array();
+					$params['from']		= "recrutamento@dominio.com.br";
+					$params['from_name']= "RECURSOS HUMANOS";
+					$params['subject'] 	= "ALTERACAO DE USUARIO";
+
+					$mail = new email($params, 'alteracao_usuario');
+					
+					$mail->montaCorpoEmail($TI);
+
+					if(!$mail->Send())
+					{
+						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					}
+
+					$mail->ClearAddresses();
+				}
+				else
+				{
+					$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 13);
 				}
 			}
 			
@@ -2525,6 +2682,7 @@ function gravarNecessidadesColaborador($dados_form)
 	$dataInclusao = date('Y-m-d');
 
 	$erro = '';
+	$erroBanco = '';
 	
 	$db = new banco_dados();
 
@@ -2541,6 +2699,8 @@ function gravarNecessidadesColaborador($dados_form)
 		
 		$erroBanco = $db->erro;
 	}
+
+	//$resposta->addAlert(print_r($dados_form['infra_ti']));
 	
 	if (count($dados_form['infra_ti']) > 0 && $erroBanco == '')
 	{
@@ -2600,7 +2760,7 @@ function gravarNecessidadesColaborador($dados_form)
 	}
 	else
 	{
-		$erro = 'Por favor, selecione uma opção de Equipamentos em Condições contratuais!';
+		$erro = 'Por favor, selecione uma opção de Equipamentos em Condições contratuais!'. $idFuncionario . $erroBanco;
 	}
 
 	return $erro;
@@ -2780,7 +2940,7 @@ function gravarExigenciasCliente($dados_form)
 									(id_tipo_contratacao,id_funcionario,nome_subcontratado,id_empresa,id_clausula_reajuste,id_clausula_refeicao,id_clausula_transporte,
 									 id_clausula_hospedagem,id_clausula_refeicao_mob,id_clausula_transporte_mob,id_clausula_hospedagem_mob,id_clausula_tipo_contrato,
 									 valor_contrato,id_disciplina,id_local_trabalho,data_inicio,data_fim,vigencia,numero_contrato,
-									 id_empresa_erp, numero_contrato_cliente, numero_os)
+									 id_empresa, numero_contrato_cliente, numero_os)
 								VALUES(0,
 									 " . $dados_form["id_funcionario"] . ",
 									 '',
@@ -3095,7 +3255,7 @@ function envia_microsiga($id)
 	}
 
 	$sql = "SELECT * FROM ".DATABASE.".rh_funcoes, ".DATABASE.".setores, ".DATABASE.".funcionarios ";
-	$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (usuarios.id_funcionario = funcionarios.id_funcionario AND usuarios.reg_del = 0) ";
+	$sql .= "LEFT JOIN ".DATABASE.".usuarios ON (funcionarios.id_usuario = usuarios.id_usuario AND usuarios.reg_del = 0) ";
 	$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
 	$sql .= "AND rh_funcoes.reg_del = 0 ";
 	$sql .= "AND setores.reg_del = 0 ";
@@ -3523,6 +3683,7 @@ function envia_microsiga($id)
 		}
 
 		//Insere o recurso no banco microsiga
+		/*
 		$sql = "SELECT TOP 1 R_E_C_N_O_ FROM AE8010 WITH(NOLOCK) ";
 		$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 
@@ -3574,11 +3735,13 @@ function envia_microsiga($id)
 		{
 			$resposta->addAlert($db->erro);
 		}
+		*/
 
 		//SE RECURSO FOR CLT
 		if($matricula!='')
 		{
 			//Insere o FUNCIONARIO no banco microsiga
+			/*
 			$sql = "SELECT TOP 1 R_E_C_N_O_ FROM SRA010 WITH(NOLOCK) ";
 			$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 
@@ -3650,6 +3813,7 @@ function envia_microsiga($id)
 			{
 				$tabela_x5[trim($regs['X5_TABELA'])][trim($regs["X5_CHAVE"])] = trim(maiusculas($regs["X5_DESCRI"]));
 			}
+			*/
 			
 			//SELECIONA OS DEPENDENTES
 			$DEPENDENTES = "";
@@ -3676,65 +3840,65 @@ function envia_microsiga($id)
 		
 			$ADMISSAO = "<table width=\"100%\" border=\"0\">";
 			$ADMISSAO .="<tr>
-						<td width=\"7%\">&nbsp;</td>
+						<td width=\"7%\"> </td>
 						<td width=\"19%\"><span style=\"color: #006699;	font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">".NOME_EMPRESA."</span></td>
-						<td width=\"67%\">&nbsp;</td>
-						<td width=\"7%\">&nbsp;</td>
+						<td width=\"67%\"> </td>
+						<td width=\"7%\"> </td>
 					  </tr>";
 			$ADMISSAO .= "<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 						<td colspan=\"2\">".CIDADE.", ". date('d')." de ". meses(date('m')-1,1)." de ".date('Y') ."</td>
-						<td>&nbsp;</td>
+						<td> </td>
 					  </tr>";
 
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 						<td>A/C </td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
-						<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">ADMISSÃO&nbsp;DE&nbsp;FUNCIONÁRIO</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td colspan=\"2\" align=\"center\" style=\"color: #FF0000; font-weight: bold;\">ADMISSÃO DE FUNCIONÁRIO</td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 						<td colspan=\"2\">Gentileza providenciar o processo de admissão do funcionário abaixo:</td>
-						<td>&nbsp;</td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
+						<td> </td>
 					  </tr>";
 			$ADMISSAO .="<tr>
-						<td>&nbsp;</td>
+						<td> </td>
 						<td colspan=\"2\">";
 			$ADMISSAO .="		<table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="		<tr>
@@ -3745,14 +3909,14 @@ function envia_microsiga($id)
 								<td width=\"10%\" rowspan=\"2\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">FILIAÇÃO</td>
 								<td width=\"6%\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">PAI: </td>
 								<td width=\"33%\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". $reg_editar["filiacao_pai"] ."</td>
-								<td width=\"3%\">&nbsp;</td>
+								<td width=\"3%\"> </td>
 								<td width=\"13%\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">NACIONALIDADE:</td>
 								<td width=\"35%\" colspan=\"4\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". $reg_editar["nacionalidade_pai"] ."</td>
 							</tr>";
 			$ADMISSAO .="      <tr>
 								<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">MÃE:</td>
 								<td style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". $reg_editar["filiacao_mae"] ."</td>
-								<td>&nbsp;</td>
+								<td> </td>
 								<td style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">NACIONALIDADE:</td>
 								<td colspan=\"4\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">". $reg_editar["nacionalidade_mae"] ."</td>
 							</tr>";
@@ -3760,13 +3924,13 @@ function envia_microsiga($id)
 								<td colspan=\"9\">";
 			$ADMISSAO .="				<table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="		          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-										<td width=\"16%\">CARTEIRA&nbsp;TRABALHO</td>
+										<td width=\"16%\">CARTEIRA TRABALHO</td>
 										<td width=\"7%\">SÉRIE</td>
-										<td width=\"15%\">CARTEIRA&nbsp;RESERVISTA</td>
+										<td width=\"15%\">CARTEIRA RESERVISTA</td>
 										<td width=\"13%\">CATEGORIA</td>
-										<td width=\"11%\">TÍTULO&nbsp;ELEITOR</td>
-										<td width=\"16%\">CÉDULA&nbsp;DE&nbsp;IDENTIDADE</td>
-										<td width=\"12%\">ORGÃO&nbsp;EMISSOR</td>
+										<td width=\"11%\">TÍTULO ELEITOR</td>
+										<td width=\"16%\">CÉDULA DE IDENTIDADE</td>
+										<td width=\"12%\">ORGÃO EMISSOR</td>
 										<td width=\"10%\">CPF</td>
 									</tr>";
 			$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
@@ -3782,13 +3946,13 @@ function envia_microsiga($id)
 			$ADMISSAO .="            </table>";
 			$ADMISSAO .="            <table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="	            <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-										<td width=\"16%\">DATA&nbsp;DE&nbsp;NASCIMENTO</td>
+										<td width=\"16%\">DATA DE NASCIMENTO</td>
 										<td width=\"7%\">IDADE</td>
 										<td width=\"15%\">NACIONALIDADE</td>
 										<td width=\"13%\">NATURALIDADE</td>
 										<td width=\"11%\">ESTADO</td>
-										<td width=\"16%\">ESTADO&nbsp;CIVIL</td>
-										<td width=\"12%\">GRAU&nbsp;DE&nbsp;INSTRUÇÃO</td>
+										<td width=\"16%\">ESTADO CIVIL</td>
+										<td width=\"12%\">GRAU DE INSTRUÇÃO</td>
 									</tr>";
 			$ADMISSAO .="              <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
 										<td>". $reg_editar["data_nascimento"] ."</td>
@@ -3834,7 +3998,7 @@ function envia_microsiga($id)
 									</tr>";
 			$ADMISSAO .="	            <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 										<td width=\"16%\">NOME</td>
-										<td width=\"7%\">DATA&nbsp;DE&nbsp;NASCIMENTO </td>
+										<td width=\"7%\">DATA DE NASCIMENTO </td>
 										<td width=\"15%\">PARENTESCO</td>
 									</tr>";
 
@@ -3850,7 +4014,7 @@ function envia_microsiga($id)
 										<td colspan=\"3\">PIS</td>
 								  </tr>";
 			$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-										<td width=\"16%\">CADASTRADO&nbsp;EM: </td>
+										<td width=\"16%\">CADASTRADO EM: </td>
 										<td width=\"7%\">NÚMERO</td>
 										<td width=\"15%\">BANCO</td>
 								  </tr>";
@@ -3867,11 +4031,11 @@ function envia_microsiga($id)
 							<td colspan=\"9\">";
 			$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="				<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">";
-			$ADMISSAO .="		            <td width=\"16%\">DATA&nbsp;DA&nbsp;ADMISSÃO </td>
-										<td width=\"7%\">NATUREZA&nbsp;DO&nbsp;CARGO</td>
-										<td width=\"15%\">SÁLARIO&nbsp;INICIAL</td>
+			$ADMISSAO .="		            <td width=\"16%\">DATA DA ADMISSÃO </td>
+										<td width=\"7%\">NATUREZA DO CARGO</td>
+										<td width=\"15%\">SÁLARIO INICIAL</td>
 										
-										<td width=\"11%\">DATA&nbsp;DE&nbsp;INICIO</td>
+										<td width=\"11%\">DATA DE INICIO</td>
 									</tr>";
 
 			$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
@@ -3888,13 +4052,13 @@ function envia_microsiga($id)
 							<td colspan=\"9\">";
 			$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="     			<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-										<td colspan=\"4\">HORÁRIO&nbsp;DE&nbsp;TRABALHO </td>
+										<td colspan=\"4\">HORÁRIO DE TRABALHO </td>
 									</tr>";
 			$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 										<td width=\"16%\">ENTRADA </td>
-										<td width=\"7%\">REFEI&Ccedil;&Atilde;O</td>
+										<td width=\"7%\">REFEIÇÃO</td>
 										<td width=\"15%\">SAÍDA </td>
-										<td width=\"13%\">DESCANSO&nbsp;SEMANAL  </td>
+										<td width=\"13%\">DESCANSO SEMANAL  </td>
 									</tr>";
 			$ADMISSAO .="		        <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-size: 10px;\">
 										<td>". $reg_editar["horario_entrada"] ."</td>
@@ -3909,7 +4073,7 @@ function envia_microsiga($id)
 							<td colspan=\"9\">";
 			$ADMISSAO .="			<table width=\"100%\" border=\"1\">";
 			$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
-									<td colspan=\"6\">CARACTERÍSTICAS&nbsp;FÍSICAS </td>
+									<td colspan=\"6\">CARACTERÍSTICAS FÍSICAS </td>
 								  </tr>";
 			$ADMISSAO .="	          <tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 									<td width=\"16%\">COR</td>
@@ -3932,7 +4096,7 @@ function envia_microsiga($id)
 			$ADMISSAO .="   </tr>";
 			$ADMISSAO .="	</table>";
 			$ADMISSAO .="</td>
-					  <td>&nbsp;</td>
+					  <td> </td>
 					 </tr>";
 			$ADMISSAO .="<tr align=\"center\" style=\"font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px;\">
 						<td colspan=\"4\" >Rua XXXXXXXXX, XX - Centro - XXXXXXXX - SP</td>
@@ -3946,19 +4110,28 @@ function envia_microsiga($id)
 
 			$ADMISSAO .="</table>";
 
-			$params 			= array();
-			$params['from']		= "recrutamento@dominio.com.br";
-			$params['from_name']= "RECURSOS HUMANOS";
-			$params['subject'] 	= "ADMISSÃO FUNCIONARIO";
-
-			//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
-			$mail = new email($params, 'admissao_funcionario');
-			
-			$mail->montaCorpoEmail($ADMISSAO);
-
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				$params 			= array();
+				$params['from']		= "recrutamento@dominio.com.br";
+				$params['from_name']= "RECURSOS HUMANOS";
+				$params['subject'] 	= "ADMISSÃO FUNCIONARIO";
+
+				//Agora passando o segundo parametro buscaremos os e-mails direto no banco de dados
+				$mail = new email($params, 'admissao_funcionario');
+				
+				$mail->montaCorpoEmail($ADMISSAO);
+
+				if(!$mail->Send())
+				{
+					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				}
+
+				$mail->ClearAddresses();
+			}
+			else 
+			{
+				$resposta->addScriptCall('modal', $ADMISSAO, '300_650', 'Conteúdo email', 14);
 			}
 		
 		}
@@ -4108,7 +4281,7 @@ function marcarNR($dados_form)
 		LEFT JOIN(
 			SELECT * FROM ".DATABASE.".usuarios WHERE usuarios.reg_del = 0 			
 		) usuarios
-		ON usuarios.id_funcionario = funcionarios.id_funcionario
+		ON funcionarios.id_usuario = usuarios.id_usuario
 	WHERE
 		funcionarios.reg_del = 0
 		AND funcionarios.id_funcionario = '".$dados_form['cod_funcionario']."'";
@@ -4153,6 +4326,562 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('',xajax.getFormValues('frm_funcionarios'));xajax_getAjudaCustoAdicional();");
+
+$db = new banco_dados();
+
+$array_cargo_values = NULL;
+$array_cargo_output = NULL;
+
+$array_setor_values = NULL;
+$array_setor_output = NULL;
+
+$array_empresa_values = NULL;
+$array_empresa_output = NULL;
+
+$array_local_values = NULL;
+$array_local_output = NULL;
+
+$array_bancos_values = NULL;
+$array_bancos_output = NULL;
+
+$array_instrucao_values = NULL;
+$array_instrucao_output = NULL;
+
+$array_infra_values = NULL;
+$array_infra_output = NULL;
+
+$array_cargo_values[] = "";
+$array_cargo_output[] = "SELECIONE";
+
+$array_cc_values[] = '';
+$array_cc_output[] = 'SELECIONE...';
+
+//CARGOS
+$sql = "SELECT id_cargo_grupo, grupo FROM ".DATABASE.".rh_cargos ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY grupo ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $reg)
+{
+	$array_cargo_values[] = $reg["id_cargo_grupo"];
+	$array_cargo_output[] = $reg["grupo"];
+}
+
+$array_setor_values[] = "";
+$array_setor_output[] = "SELECIONE";
+
+$sql = "SELECT id_setor, setor FROM ".DATABASE.".setores ";
+$sql .= "WHERE id_setor NOT IN ('16','17','19','21','24','25') ";
+$sql .= "AND setores.reg_del = 0 ";
+$sql .= "ORDER BY setor ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $regset)
+{
+	$array_setor_values[] = $regset["id_setor"];
+	$array_setor_output[] = $regset["setor"];
+}
+
+$array_setor_aso_values[] = "";
+$array_setor_aso_output[] = "SELECIONE";
+
+
+$sql = "SELECT id_setor_aso, setor_aso FROM ".DATABASE.".setor_aso ";
+$sql .= "WHERE setor_aso.reg_del = 0 ";
+$sql .= "ORDER BY setor_aso ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_setor_aso_values[] = $cont["id_setor_aso"];
+	$array_setor_aso_output[] = $cont["setor_aso"];
+}
+
+$array_local_values[] = "";
+$array_local_output[] = "SELECIONE";
+
+$sql = "SELECT * FROM ".DATABASE.".local ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY descricao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $reg)
+{
+	$array_local_values[] = $reg["id_local"];
+	$array_local_output[] = $reg["descricao"];
+}
+
+$array_bancos_values[] = "";
+$array_bancos_output[] = "SELECIONE";
+
+$sql = "SELECT id_banco, dv, instituicao FROM ".DATABASE.".bancos ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY instituicao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $contbancos)
+{
+	$array_bancos_values[] = $contbancos["id_banco"];
+	$array_bancos_output[] = $contbancos["dv"]." - ".$contbancos["instituicao"];
+}
+
+$array_instituicao_values[] = "";
+$array_instituicao_output[] = "SELECIONE";
+
+$sql = "SELECT id_rh_instituicao_ensino, instituicao_ensino FROM ".DATABASE.".rh_instituicao_ensino ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY instituicao_ensino ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_instituicao_values[] = $regs["id_rh_instituicao_ensino"];
+	$array_instituicao_output[] = $regs["instituicao_ensino"];
+}
+
+$array_empresa_values[] = "0";
+$array_empresa_output[] = "NENHUMA";
+
+$array_empresa_dvm_values[] = "0";
+$array_empresa_dvm_output[] = "NENHUMA";
+
+$array_produto_values[] = "";
+$array_produto_output[] = "SELECIONE";
+
+$array_site_values[] = "";
+$array_site_output[] = "SELECIONE";
+
+$sql = "SELECT empresa_situacao, id_empfunc, empresa_func FROM ".DATABASE.".empresa_funcionarios ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY empresa_situacao DESC, empresa_func ASC ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	if($cont["empresa_situacao"]==1)
+	{
+		$situacao = "ATIVA";
+	}
+	else
+	{
+		$situacao = "INATIVA";
+	}
+
+	$array_empresa_dvm_values[] = $cont["id_empfunc"];
+	$array_empresa_dvm_output[] = $cont["empresa_func"]." - ".$situacao;
+}
+
+$array_infra_values = array();
+$array_infra_output = array();
+
+$array_softwares_values = array();
+$array_softwares_output = array();
+
+//INFRAESTRUTURA TI
+$sql = "SELECT id_infra_estrutura, infra_estrutura, uso FROM ".DATABASE.".infra_estrutura ";
+$sql .= "WHERE uso IN (1,2,3) ";
+$sql .= "AND reg_del = 0 ";
+$sql .= "ORDER BY infra_estrutura";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $reg)
+{
+	if (in_array($reg['uso'], array(1,2)))
+	{
+		$array_infra_values[] = $reg["id_infra_estrutura"];
+		$array_infra_output[] = $reg["infra_estrutura"];
+	}
+	else
+	{
+		$array_softwares_values[] = $reg["id_infra_estrutura"];
+		$array_softwares_output[] = $reg["infra_estrutura"];
+	}
+}
+
+$sql = "SELECT tipoAdicional, id_adicional, adicional  FROM ".DATABASE.".tipo_adicional
+		JOIN (
+			SELECT id_tipo_adicional tipoAdicional, adicional, id_adicional
+			FROM ".DATABASE.".rh_adicional WHERE rh_adicional.reg_del = 0 
+		) clausulas ON tipoAdicional = id_tipo_adicional AND tipo_adicional.reg_del = 0 
+		ORDER BY tipoAdicional, id_adicional ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$array_refeicao_values[] = "";
+$array_refeicao_output[] = "Selecione...";
+
+$array_transporte_values[] = "";
+$array_transporte_output[] = "Selecione...";
+
+$array_hotel_values[] = "";
+$array_hotel_output[] = "Selecione...";
+
+foreach ($db->array_select as $reg)
+{
+	switch($reg['tipoAdicional'])
+	{
+		case 1:
+			$array_refeicao_values[] = $reg["id_adicional"];
+			$array_refeicao_output[] = $reg["adicional"];
+		break;
+		case 2:
+			$array_transporte_values[] = $reg["id_adicional"];
+			$array_transporte_output[] = $reg["adicional"];
+		break;
+		case 3:
+			$array_hotel_values[] = $reg["id_adicional"];
+			$array_hotel_output[] = $reg["adicional"];
+		break;
+	}
+}
+
+//CONEXAO BANCO MICROSIGA
+/*
+$sql = "SELECT * FROM SA2010 WITH(NOLOCK) ";
+$sql .= "WHERE D_E_L_E_T_ = '' ";
+$sql .= "AND SA2010.A2_FABRICA = 2 "; //FORNECEDOR
+$sql .= "ORDER BY SA2010.A2_NREDUZ ";
+
+$db->select($sql,'MSSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_empresa_values[] = trim($regs["A2_COD"]);
+	$array_empresa_output[] = maiusculas($regs["A2_NREDUZ"]);
+}
+*/
+
+$sql = "SELECT tabela, chave, descricao FROM ".DATABASE.".genericos ";
+$sql .= "WHERE reg_del = 0 ";
+
+$db->select($sql,'MYSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	switch($regs['tabela'])
+	{
+		case '34';
+			$array_nacionalidade_values[] = trim($regs["chave"]);
+			$array_nacionalidade_output[] = maiusculas($regs["descricao"]);
+			break;
+		//ESTADO CIVIL
+		case '33';
+			$array_est_civ_values[] = trim($regs["chave"]);
+			$array_est_civ_output[] = maiusculas($regs["descricao"]);
+			break;
+		//GRAU INSTRUCAO
+		case '26';
+			$array_instrucao_values[] = trim($regs["chave"]);
+			$array_instrucao_output[] = maiusculas($regs["descricao"]);
+			break;
+		//CATEGORIA FUNCIONAL
+		case '28';
+			$array_categoria_funcional_values[] = trim($regs["chave"]);
+			$array_categoria_funcional_output[] = maiusculas($regs["descricao"]);
+			break;
+		//TIPO PAGAMENTO
+		case '40';
+			$array_tipo_pagamento_values[] = trim($regs["chave"]);
+			$array_tipo_pagamento_output[] = maiusculas($regs["descricao"]);
+			break;
+		//VINCULO EMPREGATICIO
+		case '25';
+			$array_vinculo_values[] = trim($regs["chave"]);
+			$array_vinculo_output[] = maiusculas($regs["descricao"]);
+			break;
+		//TIPO ADMISSAO
+		case '38';
+			$array_tipo_admissao_values[] = trim($regs["chave"]);
+			$array_tipo_admissao_output[] = maiusculas($regs["descricao"]);
+			break;
+		//TIPO SALARIAL
+		case '41';
+			$array_tipo_salario_values[] = trim($regs["chave"]);
+			$array_tipo_salario_output[] = maiusculas($regs["descricao"]);
+			break;
+	}
+}
+
+$array_turno_values[] = 1;
+$array_turno_output[] = maiusculas('Seg-Sex/08:00 as 17:00');
+
+/*
+
+$sql = "SELECT DISTINCT R6_TURNO, R6_DESC FROM SR6010 WITH(NOLOCK) "; //TURNO TRABALHO
+$sql .= "WHERE D_E_L_E_T_ = ' ' ";
+
+$db->select($sql,'MSSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_turno_values[] = trim($regs["R6_TURNO"]);
+	$array_turno_output[] = maiusculas($regs["R6_DESC"]);
+}
+
+$sql = "SELECT CTT_CUSTO, CTT_DESC01 FROM CTT010 WITH(NOLOCK) ";
+$sql .= "WHERE D_E_L_E_T_ = '' "; //CENTRO DE CUSTO
+$sql .= "AND CTT_BLOQ = '2' "; //SOMENTE OS CC NAO BLOQUEADOS
+
+$db->select($sql,'MSSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_cc_values[] = trim($regs["CTT_CUSTO"]);
+	$array_cc_output[] = trim($regs["CTT_CUSTO"]). ' - ' .maiusculas($regs["CTT_DESC01"]);
+}
+
+$sql = "SELECT B1_COD, B1_DESC FROM SB1010 WITH(NOLOCK) ";
+$sql .= "WHERE D_E_L_E_T_ = '' ";
+$sql .= "AND (B1_COD LIKE '11%' ";
+$sql .= "OR B1_COD LIKE '12%' ";
+$sql .= "OR B1_COD LIKE '13%') ";
+$sql .= "ORDER BY B1_DESC ";
+
+$db->select($sql,'MSSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_produto_values[] = trim($regs["B1_COD"]);
+	$array_produto_output[] = maiusculas($regs["B1_DESC"]);
+}
+
+//ITEM
+$sql = "SELECT CTD_ITEM, CTD_DESC01 FROM CTD010 WITH(NOLOCK) ";
+$sql .= "WHERE D_E_L_E_T_ = '' ";
+$sql .= "AND CTD_CLASSE = 2 ";
+
+$db->select($sql,'MSSQL', true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_site_values[] = trim($regs["CTD_ITEM"]);
+	$array_site_output[] = maiusculas($regs["CTD_DESC01"]);
+}
+*/
+
+$sql = "SELECT DISTINCT id_os, os, descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "AND ordem_servico.reg_del = 0 ";
+$sql .= "AND ordem_servico_status.reg_del = 0 ";
+$sql .= "AND ordem_servico_status.id_os_status IN (1,14,16) ";
+$sql .= "ORDER BY ordem_servico.os ";
+
+$db->select($sql,'MYSQL',true);
+
+$array_os_values[] = "";
+$array_os_output[] = "Selecione...";
+
+foreach ($db->array_select as $reg)
+{
+	$array_os_values[] = $reg["id_os"];
+	$array_os_output[] = $reg["os"].' - '.$reg['descricao'];
+}
+
+$sql = "SELECT MAX(numero_contrato) AS proximoContrato FROM ".DATABASE.".pj_contratos ";
+$sql .= "WHERE pj_contratos.reg_del = 0 ";
+
+$db->select($sql, 'MYSQL',true);
+
+$proximoContrato = $db->array_select[0];
+
+$nContrato = substr_replace($proximoContrato['proximoContrato'], '', -4, 4);
+$anoContrato = intval(substr($proximoContrato['proximoContrato'], -4));
+
+$smarty->assign('proximo_contrato', ($nContrato + 1));
+
+$anos = array();
+
+for($i = date('Y'); $i >= 2009; $i--)
+{
+	$anos[] = $i;
+}
+
+$smarty->assign('option_anos_values', $anos);
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("option_cargo_values",$array_cargo_values);
+$smarty->assign("option_cargo_output",$array_cargo_output);
+
+$smarty->assign("option_setor_values",$array_setor_values);
+$smarty->assign("option_setor_output",$array_setor_output);
+
+$smarty->assign("option_setor_aso_values",$array_setor_aso_values);
+$smarty->assign("option_setor_aso_output",$array_setor_aso_output);
+
+$smarty->assign("option_local_values",$array_local_values);
+$smarty->assign("option_local_output",$array_local_output);
+
+$smarty->assign("option_bancos_values",$array_bancos_values);
+$smarty->assign("option_bancos_output",$array_bancos_output);
+
+$smarty->assign("option_instituicao_values",$array_instituicao_values);
+$smarty->assign("option_instituicao_output",$array_instituicao_output);
+
+$smarty->assign("option_instrucao_values",$array_instrucao_values);
+$smarty->assign("option_instrucao_output",$array_instrucao_output);
+
+$smarty->assign("option_empresa_values",$array_empresa_values);
+$smarty->assign("option_empresa_output",$array_empresa_output);
+
+$smarty->assign("option_empresa_dvm_values",$array_empresa_dvm_values);
+$smarty->assign("option_empresa_dvm_output",$array_empresa_dvm_output);
+
+$smarty->assign("option_nacionalidade_values",$array_nacionalidade_values);
+$smarty->assign("option_nacionalidade_output",$array_nacionalidade_output);
+
+$smarty->assign("option_infra_values",$array_infra_values);
+$smarty->assign("option_infra_output",$array_infra_output);
+
+$smarty->assign("option_softwares_values",$array_softwares_values);
+$smarty->assign("option_softwares_output",$array_softwares_output);
+
+$smarty->assign("option_refeicao_values",$array_refeicao_values);
+$smarty->assign("option_refeicao_output",$array_refeicao_output);
+
+$smarty->assign("option_transporte_values",$array_transporte_values);
+$smarty->assign("option_transporte_output",$array_transporte_output);
+
+$smarty->assign("option_hotel_values",$array_hotel_values);
+$smarty->assign("option_hotel_output",$array_hotel_output);
+
+$smarty->assign("option_est_civ_values",$array_est_civ_values);
+$smarty->assign("option_est_civ_output",$array_est_civ_output);
+$smarty->assign("selecionado","S");
+
+$smarty->assign("option_categoria_funcional_values",$array_categoria_funcional_values);
+$smarty->assign("option_categoria_funcional_output",$array_categoria_funcional_output);
+$smarty->assign("selecionado_1","M");
+
+$smarty->assign("option_tipo_pagamento_values",$array_tipo_pagamento_values);
+$smarty->assign("option_tipo_pagamento_output",$array_tipo_pagamento_output);
+$smarty->assign("selecionado_2","M");
+
+$smarty->assign("option_vinculo_values",$array_vinculo_values);
+$smarty->assign("option_vinculo_output",$array_vinculo_output);
+$smarty->assign("selecionado_3","10");
+
+$smarty->assign("option_tipo_admissao_values",$array_tipo_admissao_values);
+$smarty->assign("option_tipo_admissao_output",$array_tipo_admissao_output);
+$smarty->assign("selecionado_4","9B");
+
+$smarty->assign("option_tipo_salario_values",$array_tipo_salario_values);
+$smarty->assign("option_tipo_salario_output",$array_tipo_salario_output);
+$smarty->assign("selecionado_5","001");
+
+$smarty->assign("option_turno_values",$array_turno_values);
+$smarty->assign("option_turno_output",$array_turno_output);
+
+$smarty->assign("option_cc_values",$array_cc_values);
+$smarty->assign("option_cc_output",$array_cc_output);
+
+$smarty->assign("option_produto_values",$array_produto_values);
+$smarty->assign("option_produto_output",$array_produto_output);
+
+$smarty->assign("option_site_values",$array_site_values);
+$smarty->assign("option_site_output",$array_site_output);
+
+$smarty->assign("data_inicio",date("d/m/Y"));
+
+$smarty->assign("data_desligamento",date("d/m/Y"));
+
+$smarty->assign("data_admissao",date("d/m/Y"));
+
+$smarty->assign('campo', $conf->campos('cadastro_funcionarios'));
+
+$smarty->assign('revisao_documento', 'V12');
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->display('funcionarios.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -4413,555 +5142,3 @@ $smarty->assign("body_onload","xajax_atualizatabela('',xajax.getFormValues('frm_
     }
     
 </script>
-
-<?php
-
-$db = new banco_dados();
-
-$array_cargo_values = NULL;
-$array_cargo_output = NULL;
-
-$array_setor_values = NULL;
-$array_setor_output = NULL;
-
-$array_empresa_values = NULL;
-$array_empresa_output = NULL;
-
-$array_local_values = NULL;
-$array_local_output = NULL;
-
-$array_bancos_values = NULL;
-$array_bancos_output = NULL;
-
-$array_instrucao_values = NULL;
-$array_instrucao_output = NULL;
-
-$array_infra_values = NULL;
-$array_infra_output = NULL;
-
-$array_cargo_values[] = "";
-$array_cargo_output[] = "SELECIONE";
-
-$array_cc_values[] = '';
-$array_cc_output[] = 'SELECIONE...';
-
-//CARGOS
-$sql = "SELECT id_cargo_grupo, grupo FROM ".DATABASE.".rh_cargos ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY grupo ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $reg)
-{
-	$array_cargo_values[] = $reg["id_cargo_grupo"];
-	$array_cargo_output[] = $reg["grupo"];
-}
-
-$array_setor_values[] = "";
-$array_setor_output[] = "SELECIONE";
-
-$sql = "SELECT id_setor, setor FROM ".DATABASE.".setores ";
-$sql .= "WHERE id_setor NOT IN ('16','17','19','21','24','25') ";
-$sql .= "AND setores.reg_del = 0 ";
-$sql .= "ORDER BY setor ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $regset)
-{
-	$array_setor_values[] = $regset["id_setor"];
-	$array_setor_output[] = $regset["setor"];
-}
-
-$array_setor_aso_values[] = "";
-$array_setor_aso_output[] = "SELECIONE";
-
-
-$sql = "SELECT id_setor_aso, setor_aso FROM ".DATABASE.".setor_aso ";
-$sql .= "WHERE setor_aso.reg_del = 0 ";
-$sql .= "ORDER BY setor_aso ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_setor_aso_values[] = $cont["id_setor_aso"];
-	$array_setor_aso_output[] = $cont["setor_aso"];
-}
-
-$array_local_values[] = "";
-$array_local_output[] = "SELECIONE";
-
-$sql = "SELECT * FROM ".DATABASE.".local ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY descricao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $reg)
-{
-	$array_local_values[] = $reg["id_local"];
-	$array_local_output[] = $reg["descricao"];
-}
-
-$array_bancos_values[] = "";
-$array_bancos_output[] = "SELECIONE";
-
-$sql = "SELECT id_banco, dv, instituicao FROM ".DATABASE.".bancos ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY instituicao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $contbancos)
-{
-	$array_bancos_values[] = $contbancos["id_banco"];
-	$array_bancos_output[] = $contbancos["dv"]." - ".$contbancos["instituicao"];
-}
-
-$array_instituicao_values[] = "";
-$array_instituicao_output[] = "SELECIONE";
-
-$sql = "SELECT id_rh_instituicao_ensino, instituicao_ensino FROM ".DATABASE.".rh_instituicao_ensino ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY instituicao_ensino ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_instituicao_values[] = $regs["id_rh_instituicao_ensino"];
-	$array_instituicao_output[] = $regs["instituicao_ensino"];
-}
-
-$array_empresa_values[] = "0";
-$array_empresa_output[] = "NENHUMA";
-
-$array_empresa_dvm_values[] = "0";
-$array_empresa_dvm_output[] = "NENHUMA";
-
-$array_produto_values[] = "";
-$array_produto_output[] = "SELECIONE";
-
-$array_site_values[] = "";
-$array_site_output[] = "SELECIONE";
-
-$sql = "SELECT empresa_situacao, id_empfunc, empresa_func FROM ".DATABASE.".empresa_funcionarios ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY empresa_situacao DESC, empresa_func ASC ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	if($cont["empresa_situacao"]==1)
-	{
-		$situacao = "ATIVA";
-	}
-	else
-	{
-		$situacao = "INATIVA";
-	}
-
-	$array_empresa_dvm_values[] = $cont["id_empfunc"];
-	$array_empresa_dvm_output[] = $cont["empresa_func"]." - ".$situacao;
-}
-
-$array_infra_values = array();
-$array_infra_output = array();
-
-$array_softwares_values = array();
-$array_softwares_output = array();
-
-//INFRAESTRUTURA TI
-$sql = "SELECT id_infra_estrutura, infra_estrutura, uso FROM ".DATABASE.".infra_estrutura ";
-$sql .= "WHERE uso IN (1,2,3) ";
-$sql .= "AND reg_del = 0 ";
-$sql .= "ORDER BY infra_estrutura";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $reg)
-{
-	if (in_array($reg['uso'], array(1,2)))
-	{
-		$array_infra_values[] = $reg["id_infra_estrutura"];
-		$array_infra_output[] = $reg["infra_estrutura"];
-	}
-	else
-	{
-		$array_softwares_values[] = $reg["id_infra_estrutura"];
-		$array_softwares_output[] = $reg["infra_estrutura"];
-	}
-}
-
-$sql = "SELECT tipoAdicional, id_adicional, rh_adicional  FROM ".DATABASE.".tipo_adicional
-		JOIN (
-			SELECT id_tipo_adicional tipoAdicional, rh_adicional, id_adicional
-			FROM ".DATABASE.".rh_adicional WHERE rh_adicional.reg_del = 0 
-		) clausulas ON tipoAdicional = id_tipo_adicional AND tipo_adicional.reg_del = 0 
-		ORDER BY tipoAdicional, id_adicional ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$array_refeicao_values[] = "";
-$array_refeicao_output[] = "Selecione...";
-
-$array_transporte_values[] = "";
-$array_transporte_output[] = "Selecione...";
-
-$array_hotel_values[] = "";
-$array_hotel_output[] = "Selecione...";
-
-foreach ($db->array_select as $reg)
-{
-	switch($reg['tipoAdicional'])
-	{
-		case 1:
-			$array_refeicao_values[] = $reg["id_adicional"];
-			$array_refeicao_output[] = $reg["rh_adicional"];
-		break;
-		case 2:
-			$array_transporte_values[] = $reg["id_adicional"];
-			$array_transporte_output[] = $reg["rh_adicional"];
-		break;
-		case 3:
-			$array_hotel_values[] = $reg["id_adicional"];
-			$array_hotel_output[] = $reg["rh_adicional"];
-		break;
-	}
-}
-
-//CONEXAO BANCO MICROSIGA
-/*
-$sql = "SELECT * FROM SA2010 WITH(NOLOCK) ";
-$sql .= "WHERE D_E_L_E_T_ = '' ";
-$sql .= "AND SA2010.A2_FABRICA = 2 "; //FORNECEDOR
-$sql .= "ORDER BY SA2010.A2_NREDUZ ";
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_empresa_values[] = trim($regs["A2_COD"]);
-	$array_empresa_output[] = maiusculas($regs["A2_NREDUZ"]);
-}
-
-$sql = "SELECT DISTINCT X5_TABELA, X5_CHAVE, X5_DESCRI FROM SX5010 WITH(NOLOCK) ";
-$sql .= "WHERE D_E_L_E_T_ = '' ";
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	switch($regs['X5_TABELA'])
-	{
-		case '34';
-			$array_nacionalidade_values[] = trim($regs["X5_CHAVE"]);
-			$array_nacionalidade_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//ESTADO CIVIL
-		case '33';
-			$array_est_civ_values[] = trim($regs["X5_CHAVE"]);
-			$array_est_civ_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//GRAU INSTRUCAO
-		case '26';
-			$array_instrucao_values[] = trim($regs["X5_CHAVE"]);
-			$array_instrucao_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//CATEGORIA FUNCIONAL
-		case '28';
-			$array_categoria_funcional_values[] = trim($regs["X5_CHAVE"]);
-			$array_categoria_funcional_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//TIPO PAGAMENTO
-		case '40';
-			$array_tipo_pagamento_values[] = trim($regs["X5_CHAVE"]);
-			$array_tipo_pagamento_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//VINCULO EMPREGATICIO
-		case '25';
-			$array_vinculo_values[] = trim($regs["X5_CHAVE"]);
-			$array_vinculo_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//TIPO ADMISSAO
-		case '38';
-			$array_tipo_admissao_values[] = trim($regs["X5_CHAVE"]);
-			$array_tipo_admissao_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-		//TIPO SALARIAL
-		case '41';
-			$array_tipo_salario_values[] = trim($regs["X5_CHAVE"]);
-			$array_tipo_salario_output[] = maiusculas($regs["X5_DESCRI"]);
-			break;
-	}
-}
-
-$sql = "SELECT DISTINCT R6_TURNO, R6_DESC FROM SR6010 WITH(NOLOCK) "; //TURNO TRABALHO
-$sql .= "WHERE D_E_L_E_T_ = ' ' ";
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_turno_values[] = trim($regs["R6_TURNO"]);
-	$array_turno_output[] = maiusculas($regs["R6_DESC"]);
-}
-
-$sql = "SELECT CTT_CUSTO, CTT_DESC01 FROM CTT010 WITH(NOLOCK) ";
-$sql .= "WHERE D_E_L_E_T_ = '' "; //CENTRO DE CUSTO
-$sql .= "AND CTT_BLOQ = '2' "; //SOMENTE OS CC NAO BLOQUEADOS
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_cc_values[] = trim($regs["CTT_CUSTO"]);
-	$array_cc_output[] = trim($regs["CTT_CUSTO"]). ' - ' .maiusculas($regs["CTT_DESC01"]);
-}
-
-$sql = "SELECT B1_COD, B1_DESC FROM SB1010 WITH(NOLOCK) ";
-$sql .= "WHERE D_E_L_E_T_ = '' ";
-$sql .= "AND (B1_COD LIKE '11%' ";
-$sql .= "OR B1_COD LIKE '12%' ";
-$sql .= "OR B1_COD LIKE '13%') ";
-$sql .= "ORDER BY B1_DESC ";
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_produto_values[] = trim($regs["B1_COD"]);
-	$array_produto_output[] = maiusculas($regs["B1_DESC"]);
-}
-
-//ITEM
-$sql = "SELECT CTD_ITEM, CTD_DESC01 FROM CTD010 WITH(NOLOCK) ";
-$sql .= "WHERE D_E_L_E_T_ = '' ";
-$sql .= "AND CTD_CLASSE = 2 ";
-
-$db->select($sql,'MSSQL', true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_site_values[] = trim($regs["CTD_ITEM"]);
-	$array_site_output[] = maiusculas($regs["CTD_DESC01"]);
-}
-*/
-
-$sql = "SELECT DISTINCT id_os, os, descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND ordem_servico.reg_del = 0 ";
-$sql .= "AND ordem_servico_status.reg_del = 0 ";
-$sql .= "AND ordem_servico_status.id_os_status IN (1,14,16) ";
-$sql .= "ORDER BY ordem_servico.os ";
-
-$db->select($sql,'MYSQL',true);
-
-$array_os_values[] = "";
-$array_os_output[] = "Selecione...";
-
-foreach ($db->array_select as $reg)
-{
-	$array_os_values[] = $reg["id_os"];
-	$array_os_output[] = $reg["os"].' - '.$reg['descricao'];
-}
-
-$sql = "SELECT MAX(numero_contrato) AS proximoContrato FROM ".DATABASE.".pj_contratos ";
-$sql .= "WHERE pj_contratos.reg_del = 0 ";
-
-$db->select($sql, 'MYSQL',true);
-
-$proximoContrato = $db->array_select[0];
-
-$nContrato = substr_replace($proximoContrato['proximoContrato'], '', -4, 4);
-$anoContrato = intval(substr($proximoContrato['proximoContrato'], -4));
-
-$smarty->assign('proximo_contrato', ($nContrato + 1));
-
-$anos = array();
-
-for($i = date('Y'); $i >= 2009; $i--)
-{
-	$anos[] = $i;
-}
-
-$smarty->assign('option_anos_values', $anos);
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("option_cargo_values",$array_cargo_values);
-$smarty->assign("option_cargo_output",$array_cargo_output);
-
-$smarty->assign("option_setor_values",$array_setor_values);
-$smarty->assign("option_setor_output",$array_setor_output);
-
-$smarty->assign("option_setor_aso_values",$array_setor_aso_values);
-$smarty->assign("option_setor_aso_output",$array_setor_aso_output);
-
-$smarty->assign("option_local_values",$array_local_values);
-$smarty->assign("option_local_output",$array_local_output);
-
-$smarty->assign("option_bancos_values",$array_bancos_values);
-$smarty->assign("option_bancos_output",$array_bancos_output);
-
-$smarty->assign("option_instituicao_values",$array_instituicao_values);
-$smarty->assign("option_instituicao_output",$array_instituicao_output);
-
-$smarty->assign("option_instrucao_values",$array_instrucao_values);
-$smarty->assign("option_instrucao_output",$array_instrucao_output);
-
-$smarty->assign("option_empresa_values",$array_empresa_values);
-$smarty->assign("option_empresa_output",$array_empresa_output);
-
-$smarty->assign("option_empresa_dvm_values",$array_empresa_dvm_values);
-$smarty->assign("option_empresa_dvm_output",$array_empresa_dvm_output);
-
-$smarty->assign("option_nacionalidade_values",$array_nacionalidade_values);
-$smarty->assign("option_nacionalidade_output",$array_nacionalidade_output);
-
-$smarty->assign("option_infra_values",$array_infra_values);
-$smarty->assign("option_infra_output",$array_infra_output);
-
-$smarty->assign("option_softwares_values",$array_softwares_values);
-$smarty->assign("option_softwares_output",$array_softwares_output);
-
-$smarty->assign("option_refeicao_values",$array_refeicao_values);
-$smarty->assign("option_refeicao_output",$array_refeicao_output);
-
-$smarty->assign("option_transporte_values",$array_transporte_values);
-$smarty->assign("option_transporte_output",$array_transporte_output);
-
-$smarty->assign("option_hotel_values",$array_hotel_values);
-$smarty->assign("option_hotel_output",$array_hotel_output);
-
-$smarty->assign("option_est_civ_values",$array_est_civ_values);
-$smarty->assign("option_est_civ_output",$array_est_civ_output);
-$smarty->assign("selecionado","S");
-
-$smarty->assign("option_categoria_funcional_values",$array_categoria_funcional_values);
-$smarty->assign("option_categoria_funcional_output",$array_categoria_funcional_output);
-$smarty->assign("selecionado_1","M");
-
-$smarty->assign("option_tipo_pagamento_values",$array_tipo_pagamento_values);
-$smarty->assign("option_tipo_pagamento_output",$array_tipo_pagamento_output);
-$smarty->assign("selecionado_2","M");
-
-$smarty->assign("option_vinculo_values",$array_vinculo_values);
-$smarty->assign("option_vinculo_output",$array_vinculo_output);
-$smarty->assign("selecionado_3","10");
-
-$smarty->assign("option_tipo_admissao_values",$array_tipo_admissao_values);
-$smarty->assign("option_tipo_admissao_output",$array_tipo_admissao_output);
-$smarty->assign("selecionado_4","9B");
-
-$smarty->assign("option_tipo_salario_values",$array_tipo_salario_values);
-$smarty->assign("option_tipo_salario_output",$array_tipo_salario_output);
-$smarty->assign("selecionado_5","001");
-
-$smarty->assign("option_turno_values",$array_turno_values);
-$smarty->assign("option_turno_output",$array_turno_output);
-
-$smarty->assign("option_cc_values",$array_cc_values);
-$smarty->assign("option_cc_output",$array_cc_output);
-
-$smarty->assign("option_produto_values",$array_produto_values);
-$smarty->assign("option_produto_output",$array_produto_output);
-
-$smarty->assign("option_site_values",$array_site_values);
-$smarty->assign("option_site_output",$array_site_output);
-
-$smarty->assign("data_inicio",date("d/m/Y"));
-
-$smarty->assign("data_desligamento",date("d/m/Y"));
-
-$smarty->assign("data_admissao",date("d/m/Y"));
-
-$smarty->assign('campo', $conf->campos('cadastro_funcionarios'));
-
-$smarty->assign('revisao_documento', 'V12');
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->assign("larguraTotal",1);
-
-$smarty->display('funcionarios.tpl');
-?>

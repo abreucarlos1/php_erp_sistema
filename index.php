@@ -15,7 +15,7 @@
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 13/11/2017 - Carlos Abreu 		
 */
 
-$userdvm = "";
+$user = "";
 
 //seta idioma se não estiver setado
 if (!isset($_COOKIE['idioma'])) 
@@ -25,9 +25,9 @@ if (!isset($_COOKIE['idioma']))
    setcookie("idioma",1,time()+60*60*24*180);
 }
 
-if (isset($_COOKIE['userdvm'])) 
+if (isset($_COOKIE['user'])) 
 {
-   $userdvm = $_COOKIE['userdvm'];
+   $user = $_COOKIE['user'];
 }
 
 require_once("config.inc.php"); //OK
@@ -38,13 +38,15 @@ require_once(INCLUDE_DIR."encryption.inc.php"); //OK
 
 function autenticacao($dados_form)
 {
+	//session_start();
+
+	$resposta = new xajaxResponse();
+
 	if(isset($_SESSION["id_sub_modulo"]))
 	{
 		unset($_SESSION["id_sub_modulo"]);
 	}
 
-	$resposta = new xajaxResponse();
-	
 	$conf = new configs();
 	
 	$enc = new Crypter(CHAVE);
@@ -70,8 +72,16 @@ function autenticacao($dados_form)
 	else
 	{
 		//verifica se administrador
-		if(($login == 'administrador' || $login == 'admin') && !strcmp($senha, $enc->decrypt($pass_adm)))
-		{			
+		if(($login == 'administrador' || $login == 'admin'))
+		{
+			// Agora verifica a senha
+			if(strcmp($senha, $enc->decrypt($pass_adm)))
+			{
+				$resposta->addAssign("mensagem","innerHTML",$msg[12]);
+						
+				return $resposta;
+			}			
+
 			$_SESSION["admin"] = TRUE;
 			
 			$_SESSION["login"] = $login;
@@ -79,6 +89,8 @@ function autenticacao($dados_form)
 			$_SESSION["nome_usuario"] = stripslashes("ADMINISTRADOR DO SISTEMA");			
 			
 			$_SESSION["id_usuario"] = 0;
+
+			$_SESSION["id_funcionario"] = 0;
 			
 			if($dados_form["pagina"]!="")
 			{
@@ -196,7 +208,7 @@ function autenticacao($dados_form)
 						return $resposta;
 					}
 				}
-				// Login inválido
+				// login inválido
 				else
 				{
 					$resposta->addAssign("mensagem","innerHTML",$msg[13]);
@@ -233,7 +245,7 @@ function enviar($dados_form)
 		$sql = "SELECT id_usuario, login, email FROM ".DATABASE.".usuarios ";
 		$sql .= "WHERE usuarios.reg_del = 0 ";
 		$sql .= "AND usuarios.login = '". minusculas(trim($dados_form["nome"])). "' ";
-		$sql .= "AND usuarios.email = '".minusculas(trim($dados_form["email"]))."') ";		
+		$sql .= "AND usuarios.email = '".minusculas(trim($dados_form["email"]))."' ";		
 
 		$db->select($sql,'MYSQL',true);
 
@@ -262,7 +274,7 @@ function enviar($dados_form)
 			{
 				$resposta->addAlert($db->erro);
 			}
-			
+
 			$mensagem = "Seus dados para acesso são:<br><br>\n\n";
 			$mensagem .= "login: " . $reg["login"] . "<br>\n";
 			$mensagem .= "Senha: " . $senha . "<br><br>\n\n";
@@ -271,30 +283,37 @@ function enviar($dados_form)
 			$mensagem .= "O envio desta confirmação foi registrado em nosso banco de dados em ". date("d/m/Y") . " as " . date("H:i") . " <br><br><br>\n\n\n";
 			$mensagem .= "E-mail enviado em ". date("d/m/Y") . " as " . date("H:i") . " <br>\n"; 
 
-			$params = array();
-			
-			$params['from']	= "empresa@dominio.com.br";
-			
-			$params['from_name'] = "RECUPERAÇÃO DE SENHA - EMPRESA X";
-			
-			$params['subject'] = "RECUPERAÇÃO DE SENHA";
-			
-			$params['emails']['to'][] = array('email' => $reg["email"], 'nome' => $reg["login"]);
-			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($mensagem);
-	
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert($msg[21].$mail->ErrorInfo);
+				$params = array();
+			
+				$params['from']	= "empresa@dominio.com.br";
+				
+				$params['from_name'] = "RECUPERAÇÃO DE SENHA - EMPRESA X";
+				
+				$params['subject'] = "RECUPERAÇÃO DE SENHA";
+				
+				$params['emails']['to'][] = array('email' => $reg["email"], 'nome' => $reg["login"]);
+				
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($mensagem);
+		
+				if(!$mail->Send())
+				{
+					$resposta->addAlert($msg[21].$mail->ErrorInfo);
+				}
+				else
+				{
+					$resposta->addAlert($msg[22]);
+				}
+				
+				$mail->ClearAddresses();
 			}
 			else
 			{
-				$resposta->addAlert($msg[22]);
+				$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 2);
 			}
-			
-			$mail->ClearAddresses();
 			
 		}
 		else
@@ -345,7 +364,7 @@ function atualiza($dados_form)
 	}
 	else
 	{
-		$sql = "SELECT * FROM ".DEVEMADA.".usuarios ";
+		$sql = "SELECT * FROM ".EMPRESA.".usuarios ";
 		$sql .="WHERE id_usuario = '".$dados_form["id_usuario"]."' ";
 		$sql .= "AND reg_del = 0 ";
 
@@ -428,7 +447,24 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V5");
+
+$smarty->assign("campo",$conf->campos('login'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("pagina",isset($_GET["pagina"]) ? $_GET["pagina"] : null);
+
+$smarty->assign("user",$user);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("index.tpl");
+
 ?>
+
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>utils.js"></script>
@@ -449,9 +485,9 @@ function esqueceusenha()
 	conteudo += '<label for="nome" class="labels">Usuário</label><br />';
 	conteudo += '<input name="nome" id="nome" type="text" placeholder="Usuário" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
 	conteudo += '<label for="email" class="labels">E-mail</label><br />';
-	conteudo += '<input name="email" id="email" type="text" placeholder="email" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
-	conteudo += '<label for="senha" class="labels">Nova&nbsp;senha</label><br />';
-	conteudo += '<input name="email" id="senha" type="password" placeholder="Senha" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
+	conteudo += '<input name="email" id="email" type="text" placeholder="E-mail" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
+	conteudo += '<label for="senha" class="labels">Nova senha</label><br />';
+	conteudo += '<input name="senha" id="senha" type="password" placeholder="Senha" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
 	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_enviar(xajax.getFormValues("frm_pass")); value="Enviar" />';
 	conteudo += '</form>';
 	
@@ -470,9 +506,9 @@ function troca_senha(login,id_usuario)
     conteudo += '<input name="id_usuario" id="id_usuario" type="hidden"  value="'+id_usuario+'"/>';
 	conteudo += '<label for="senha" class="labels">Senha</label><br />';
     conteudo += '<input name="senha" type="password" placeholder="Senha" class="caixa" style="text-transform:none;" id="senha" onKeyPress=limpa_div("mensagem"); size="30" /><br >';
-	conteudo += '<label for="confsenha" class="labels">Confirme&nbsp;a&nbsp;senha</label><br />';
+	conteudo += '<label for="confsenha" class="labels">Confirme a senha</label><br />';
     conteudo += '<input name="confsenha" type="password" placeholder="Confime a senha" class="caixa" style="text-transform:none;" id="confsenha" size="30" onblur=xajax_validar_senha(xajax.getFormValues("frm_pass")); /><br />';
-	conteudo += '<div class="alerta_erro" id="mensagem">&nbsp;</div><br />';
+	conteudo += '<div class="alerta_erro" id="mensagem"> </div><br />';
 	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_atualiza(xajax.getFormValues("frm_pass")); value="Alterar" />';
 	conteudo += '</form>';
 
@@ -482,22 +518,3 @@ function troca_senha(login,id_usuario)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V5");
-
-$smarty->assign("campo",$conf->campos('login'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("pagina",isset($_GET["pagina"]) ? $_GET["pagina"] : null);
-
-$smarty->assign("userdvm",$userdvm);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("index.tpl");
-?>

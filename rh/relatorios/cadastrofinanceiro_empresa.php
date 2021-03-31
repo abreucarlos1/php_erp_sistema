@@ -330,7 +330,7 @@ $pdf->Cell(10,5,"Sim",0,0,'L',0);
 $pdf->Cell(10,5,"",0,0,'C',0);
 $pdf->chkbox($chk_in_transporte[0]);
 $pdf->Cell(10,5,"Não",0,0,'L',0);
-//Refei��o
+//Refeição
 $pdf->chkbox($chk_in_refeicao[1]);
 $pdf->Cell(10,5,"Sim",0,0,'L',0);
 $pdf->Cell(10,5,"",0,0,'C',0);

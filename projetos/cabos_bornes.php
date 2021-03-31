@@ -1,21 +1,21 @@
-<?
+<?php
 /*
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -28,18 +28,18 @@ include ("../includes/tools.inc.php");
 $db = new banco_dados;
 
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
 
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
 	
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar':
 	
 	$dsql = "DELETE FROM Projetos.cabos_bornes WHERE cabos_bornes.id_cabo = '" . $_POST["id_cabo"] . "' ";
@@ -70,22 +70,22 @@ switch ($_POST["acao"])
 
 
 		//$e = $_POST[$i];	
-		//Cria senten�a de Inclusão no bd
+		//Cria sentença de Inclusão no bd
 		
-		$incsql = "INSERT INTO Projetos.cabos_bornes ";
-		$incsql .= "(id_cabo, id_cabo_veia, ds_borne_origem, ds_borne_destino, ds_borne_observacao) VALUES (";
-		$incsql .= "'". $_POST["id_cabo"] ."', ";
-		$incsql .= "'". $idcaboveia . "', ";
-		//$incsql .= "'".$idorigem. "', ";
-		//$incsql .= "'".$iddestino. "', ";
-		//$incsql .= "'".$idlocorigem. "', ";
-		//$incsql .= "'".$idlocdestino. "', ";
-		$incsql .= "'".$dsorigem. "', ";
-		$incsql .= "'".$dsdestino. "', ";
-		$incsql .= "'".$dsobs. "') ";
+		$isql = "INSERT INTO Projetos.cabos_bornes ";
+		$isql .= "(id_cabo, id_cabo_veia, ds_borne_origem, ds_borne_destino, ds_borne_observacao) VALUES (";
+		$isql .= "'". $_POST["id_cabo"] ."', ";
+		$isql .= "'". $idcaboveia . "', ";
+		//$isql .= "'".$idorigem. "', ";
+		//$isql .= "'".$iddestino. "', ";
+		//$isql .= "'".$idlocorigem. "', ";
+		//$isql .= "'".$idlocdestino. "', ";
+		$isql .= "'".$dsorigem. "', ";
+		$isql .= "'".$dsdestino. "', ";
+		$isql .= "'".$dsobs. "') ";
 
 		//Carrega os registros
-		$registro = $db->insert($incsql,'MYSQL');
+		$registro = $db->insert($isql,'MYSQL');
 	
 	}
 
@@ -93,7 +93,7 @@ switch ($_POST["acao"])
 	<script>
 		location.href = 'cabos.php';
 	</script>		
-	<?	
+	<?php	
 	break;
 	
 
@@ -105,16 +105,16 @@ switch ($_POST["acao"])
 <title>: : . BORNES . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -136,10 +136,10 @@ function maximiza()
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" class="label1" bgcolor="#BECCD9">&nbsp;</td>
+        <td height="25" align="left" class="label1" bgcolor="#BECCD9"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9"> </td>
       </tr>
 <tr>
 <td>
@@ -150,7 +150,7 @@ function maximiza()
   <table width="100%" bgcolor="#FFFFFF" class="corpo_tabela">
     <tr>
       <td colspan="6" class="kks_nivel1">
-	  <? 
+	  <?php 
 		if($_GET["id_cabo"])
 		{
 			$idcabo = $_GET["id_cabo"];
@@ -184,28 +184,28 @@ function maximiza()
       </tr>
 
 			<tr>
-			  <td width="1%" height="37" class="label1">&nbsp;</td>
+			  <td width="1%" height="37" class="label1"> </td>
 			  <td width="99%" colspan="5" class="label1">
 			  <table width="100%" border="0">
                 <tr class="label1">
                   <td width="9%"><div align="center">de</div></td>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>ident. cabo </td>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td width="9%"><div align="center">para</div></td>
-                  <td>&nbsp;</td>
-                  <td>observa&Ccedil;&Atilde;O</td>
+                  <td> </td>
+                  <td>observaÇÃO</td>
                 </tr>
                 <tr class="label1">
                   <td>borne</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                   <td>borne</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
-				<?
+				<?php
 				
 
 				$sql2 = "SELECT *, cabos_veias.id_cabo_veia AS idcaboveia FROM Projetos.cabos_veias ";
@@ -241,14 +241,14 @@ function maximiza()
 				?>
                 <tr>
 				  <td><input name="@<?= $veias["idcaboveia"] ?>" id="@<?= $veias["idcaboveia"] ?>" type="text" class="txt_boxcap" size="20" value="<?= $borneorigem ?>"></td>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="9%"><input name="#<?= $veias["idcaboveia"] ?>" id="#<?= $veias["idcaboveia"] ?>" type="text" class="txt_boxcap" size="20" value="<?= $veias["veia"] ?>" readonly="yes"></td>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td><input name="%<?= $veias["idcaboveia"] ?>" id="%<?= $veias["idcaboveia"] ?>" type="text" class="txt_boxcap" size="20" value="<?= $bornedestino ?>"></td>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="70%"><input name="*<?= $veias["idcaboveia"] ?>" id="*<?= $veias["idcaboveia"] ?>" type="text" class="txt_boxcap" value="<?= $borneobs ?>" size="50"></td>
                 </tr>
-				<?
+				<?php
 				}
 				?>
               </table>
@@ -258,18 +258,18 @@ function maximiza()
 
     
 	<tr>
-      <td>&nbsp;</td>
+      <td> </td>
       <td colspan="6">
 	  	<input name="id_cabo_tipo" id="id_cabo_tipo" type="hidden" value="<?= $idcabotipo ?>">
         <input name="id_cabo" id="id_cabo" type="hidden" value="<?= $idcabo ?>">
 		<input name="acao" id="acao" type="hidden" value="salvar">
         <input name="Alterar" type="submit" class="btn" id="Alterar" value="ALTERAR">
         <span class="label1">
-        <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
+        <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
         </span></td>
       </tr>
     <tr>
-      <td colspan="7">&nbsp;    </td>
+      <td colspan="7">     </td>
       </tr>
   </table>
   </div>

@@ -97,16 +97,16 @@ if($_POST["chk_excel"]==0)
 	//MOSTRA CLIENTES
 	if ($_POST["escolhacliente"]==-1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
-		$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+		$sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
 		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= $filtro;
-		$sql .= "GROUP BY empresas.id_empresa_erp ORDER BY empresas.empresa";
+		$sql .= "GROUP BY empresas.id_empresa ORDER BY empresas.empresa";
 	}
 	else
 	{
@@ -115,14 +115,14 @@ if($_POST["chk_excel"]==0)
 			$filtro .= "AND ordem_servico.id_os = '".$_POST["escolhaos"]."' ";
 		}
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
-		$sql .= "WHERE empresas.id_empresa_erp = '" . $_POST["escolhacliente"]."' ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE empresas.id_empresa = '" . $_POST["escolhacliente"]."' ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= $filtro;
@@ -157,7 +157,7 @@ if($_POST["chk_excel"]==0)
 		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
-		$sql .= "AND ordem_servico.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
+		$sql .= "AND ordem_servico.id_empresa = '" . $regcliente["id_empresa"]."' ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= "GROUP BY ordem_servico.os";
 		
@@ -236,7 +236,7 @@ else
 	$conteudo .= "</tr>";
 	
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"6\">&nbsp;</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"6\"> </td>";
 	$conteudo .= "</tr>";
 	
 	if($_POST["exibir"]!='')
@@ -247,16 +247,16 @@ else
 	//MOSTRA CLIENTES
 	if ($_POST["escolhacliente"]==-1)
 	{
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
 		$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
-		$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+		$sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
 		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= $filtro;
-		$sql .= "GROUP BY empresas.id_empresa_erp ORDER BY empresas.empresa";
+		$sql .= "GROUP BY empresas.id_empresa ORDER BY empresas.empresa";
 	}
 	else
 	{
@@ -265,14 +265,14 @@ else
 			$filtro .= "AND ordem_servico.id_os = '".$_POST["escolhaos"]."' ";
 		}
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
-		$sql .= "WHERE empresas.id_empresa_erp = '" . $_POST["escolhacliente"]."' ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".apontamento_horas, ".DATABASE.".ordem_servico ";
+		$sql .= "WHERE empresas.id_empresa = '" . $_POST["escolhacliente"]."' ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND unidades.reg_del = 0 ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= "AND apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= $filtro;
@@ -299,14 +299,14 @@ else
 		}
 		else
 		{
-			$conteudo .= "<td align=\"left\" colspan=\"3\">&nbsp;</td>";
+			$conteudo .= "<td align=\"left\" colspan=\"3\"> </td>";
 		}
 		
 		$conteudo .= "<td align=\"left\"><strong>HORAS</strong></td>";
 		$conteudo .= "</tr>";
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td align=\"left\" colspan=\"6\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\" colspan=\"6\"> </td>";
 		$conteudo .= "</tr>";
 	
 		//MOSTRA OS
@@ -315,7 +315,7 @@ else
 		$sql .= "WHERE apontamento_horas.id_os = ordem_servico.id_os ";
 		$sql .= "AND apontamento_horas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
-		$sql .= "AND ordem_servico.id_empresa_erp = '" . $regcliente["id_empresa_erp"]."' ";
+		$sql .= "AND ordem_servico.id_empresa = '" . $regcliente["id_empresa"]."' ";
 		$sql .= "AND apontamento_horas.data BETWEEN '". $data_ini ."' AND '". $datafim ."' ";
 		$sql .= "GROUP BY ordem_servico.os ";
 		$sql .= "ORDER BY ordem_servico.os ";
@@ -351,9 +351,9 @@ else
 			foreach ($array_disc as $regdisciplina)
 			{			
 				$conteudo .= "<tr>";
-				$conteudo .= "<td>&nbsp;</td>";
+				$conteudo .= "<td> </td>";
 				$conteudo .= "<td><strong>" . $regdisciplina["setor"] . "</strong></td>";
-				$conteudo .= "<td colspan=\"4\">&nbsp;</td>";
+				$conteudo .= "<td colspan=\"4\"> </td>";
 				$conteudo .= "</tr>";
 				
 				if($mostra_ativ)
@@ -380,9 +380,9 @@ else
 						$SUB_ATIV = $regatividade["HORAS_ATIV"]/3600;
 						
 						$conteudo .= "<tr>";					
-						$conteudo .= "<td colspan=\"2\">&nbsp;</td>";					
+						$conteudo .= "<td colspan=\"2\"> </td>";					
 						$conteudo .= "<td align=\"left\" colspan=\"3\">".$regatividade["descricao"]."</td>";
-						$conteudo .= "<td align=\"center\">&nbsp;" . str_replace('.',',',number_format($SUB_ATIV,2)) . "</td>";
+						$conteudo .= "<td align=\"center\"> " . str_replace('.',',',number_format($SUB_ATIV,2)) . "</td>";
 						$conteudo .= "</tr>";
 					}
 				}
@@ -392,9 +392,9 @@ else
 				$SUB_DISC = $regdisciplina["HORAS_DISC"]/3600;
 				
 				$conteudo .= "<tr>";
-				$conteudo .= "<td colspan=\"2\">&nbsp;</td>";
+				$conteudo .= "<td colspan=\"2\"> </td>";
 				$conteudo .= "<td colspan=\"3\" align=\"right\"><strong>SUB-TOTAL</strong></td>";
-				$conteudo .= "<td align=\"center\">&nbsp;" . str_replace('.',',',number_format($SUB_DISC,2)) . "</td>";
+				$conteudo .= "<td align=\"center\"> " . str_replace('.',',',number_format($SUB_DISC,2)) . "</td>";
 				$conteudo .= "</tr>";
 				
 			}
@@ -404,9 +404,9 @@ else
 			$SUB_OS = $regoss["OHT"]/3600;
 			
 			$conteudo .= "<tr>";
-			$conteudo .= "<td colspan=\"2\">&nbsp;</td>";
+			$conteudo .= "<td colspan=\"2\"> </td>";
 			$conteudo .= "<td colspan=\"3\" align=\"right\"><strong>SUB-TOTAL / OS</strong></td>";
-			$conteudo .= "<td align=\"center\">&nbsp;" . str_replace('.',',',number_format($SUB_OS,2)) . "</td>";
+			$conteudo .= "<td align=\"center\"> " . str_replace('.',',',number_format($SUB_OS,2)) . "</td>";
 			$conteudo .= "</tr>";
 				
 		}
@@ -414,13 +414,13 @@ else
 		$TOTAL = $total_cliente/3600;
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td align=\"left\" colspan=\"6\">&nbsp;</td>";
+		$conteudo .= "<td align=\"left\" colspan=\"6\"> </td>";
 		$conteudo .= "</tr>";
 		
 		$conteudo .= "<tr>";
-		$conteudo .= "<td colspan=\"2\">&nbsp;</td>";
+		$conteudo .= "<td colspan=\"2\"> </td>";
 		$conteudo .= "<td colspan=\"3\" align=\"right\"><strong>TOTAL</strong></td>";
-		$conteudo .= "<td align=\"center\">&nbsp;" . str_replace('.',',',number_format($TOTAL,2)) . "</td>";
+		$conteudo .= "<td align=\"center\"> " . str_replace('.',',',number_format($TOTAL,2)) . "</td>";
 		
 		$conteudo .= "</tr>";
 	}

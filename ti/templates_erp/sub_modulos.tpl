@@ -24,7 +24,7 @@
 							<smarty>html_options values=$option_modulo_values output=$option_modulo_output</smarty>
 						</select></td>
 					<td><label for="sub_modulo" class="labels"><smarty>$campo[4]</smarty></label><br />
-						<input name="sub_modulo" type="text" class="caixa" id="sub_modulo" size="50" placeholder="Sub-mÛdulo" /></td>
+						<input name="sub_modulo" type="text" class="caixa" id="sub_modulo" size="50" placeholder="Sub-m√≥dulo" /></td>
 				</tr>
 				<tr>	
 					<td colspan="2"><label for="sub_modulo_pai" class="labels"><smarty>$campo[10]</smarty></label><br />
@@ -43,7 +43,7 @@
 							<option value="0">MESMA JANELA</option>
 							<option value="1">OUTRA JANELA</option>
 							<option value="2">OUTRA JANELA / TAMANHO DEF.</option>
-                            <option value="3">ENDERE«O EXTERNO</option>
+                            <option value="3">ENDERE√áO EXTERNO</option>
 						</select></td>
 					<td width="9%"><label for="altura" class="labels"><smarty>$campo[8]</smarty></label><br />
 							<input name="altura" type="text" class="caixa" id="altura" size="5" disabled onkeypress="num_only();"/></td>
@@ -51,7 +51,7 @@
 							<input name="largura" type="text" class="caixa" id="largura" size="5" disabled onkeypress="num_only();" /></td>
 					<td width="15%"><label for="visivel" class="labels"><smarty>$campo[11]</smarty></label><br />
                       <select name="visivel" class="caixa" id="visivel" onkeypress="return keySort(this);" onchange="javascript:if(this.value==2){altura.disabled=false;largura.disabled=false;altura.focus();}else{altura.disabled=true;largura.disabled=true;}">
-                        <option value="0">N√O</option>
+                        <option value="0">N√ÉO</option>
                         <option value="1" selected="selected">SIM</option>
                       </select></td>
 				</tr>
@@ -59,10 +59,10 @@
 					<td colspan="5">
 						<table width="100%" border="0">
 							<tr>
-								<td width="9%"><label class="labels">Padrao</label><br />
+								<td width="9%"><label class="labels">Padr√£o</label><br />
 									<select name="acesso_padrao" class="caixa" id="acesso_padrao" onchange="mostraCamposAcessoPadrao(this.value);" onkeypress="return keySort(this);">
 			                        	<option value="1">Sim</option>
-			                        	<option value="0" selected="selected">N„o</option>
+			                        	<option value="0" selected="selected">N√£o</option>
 			                      	</select>
 								</td>
 								<td width="30%" id="td_modulo_padrao_1" style="display:none;">
@@ -104,8 +104,8 @@
             </td>
         </tr>
       </table>
-	  <div id="sub_modulos" style="width:100%;">&nbsp;</div>
-	  <div id="gridPaginacao" style="float: left;">&nbsp;</div>
+	  <div id="sub_modulos" style="width:100%;"> </div>
+	  <div id="gridPaginacao" style="float: left;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

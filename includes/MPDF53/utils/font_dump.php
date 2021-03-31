@@ -140,12 +140,12 @@ $justfinishedblankinvalid = false;
 			if ($range && $range == $lastrange) {
     				if (!$anyvalid) { 
 					if (!$justfinishedblankinvalid) { 
-						$html .= '<tr><td colspan="18" style="background-color:#555555; font-size: 4pt;">&nbsp;</td></tr>'; 
+						$html .= '<tr><td colspan="18" style="background-color:#555555; font-size: 4pt;"> </td></tr>'; 
 					}
 					$justfinishedblankinvalid = true;
 				}
     				else if (!$justfinishedblank ) { 
-					$html .= '<tr><td colspan="18" style="background-color:#FFAAAA; font-size: 4pt;">&nbsp;</td></tr>'; 
+					$html .= '<tr><td colspan="18" style="background-color:#FFAAAA; font-size: 4pt;"> </td></tr>'; 
 					$justfinishedblank = true;
 				}
 			}

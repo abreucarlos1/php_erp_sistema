@@ -131,7 +131,7 @@ function atualizatabela($filtro)
 				$xml->text(mysql_php($cont_desp["data_vencimento"]));
 			$xml->endElement();
 			$xml->startElement('cell');
-				$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.str_replace(' ','&nbsp;',$cont_desp["sgi_item"]).'")){xajax_excluir("'.$cont_desp["id_sgi_controle"].'","'.str_replace(' ','&nbsp;',$cont_desp["sgi_item"]).'");}>');
+				$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.str_replace(' ',' ',$cont_desp["sgi_item"]).'")){xajax_excluir("'.$cont_desp["id_sgi_controle"].'","'.str_replace(' ',' ',$cont_desp["sgi_item"]).'");}>');
 			$xml->endElement();
 		
 		$xml->endElement();	
@@ -285,7 +285,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Item, Requisito, Data&nbsp;realização, Vigência, Data&nbsp;vencimento, D",
+	mygrid.setHeader("Item, Requisito, Data realização, Vigência, Data vencimento, D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("100,600,100,60,110,30");

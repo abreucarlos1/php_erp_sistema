@@ -26,7 +26,7 @@
                                 </select>
                             </td>
                             <td>
-                            	<label class="labels">Período De</label><input name="periodo_de" type="text" class="caixa" id="periodo_de" size="10" onKeyPress="transformaData(this, event);" onBlur="return checaTamanhoData(this,10);" />&nbsp;
+                            	<label class="labels">Período De</label><input name="periodo_de" type="text" class="caixa" id="periodo_de" size="10" onKeyPress="transformaData(this, event);" onBlur="return checaTamanhoData(this,10);" /> 
                             	<label class="labels">Até</label><input name="periodo_ate" type="text" class="caixa" id="periodo_ate" size="10" onKeyPress="transformaData(this, event);" onBlur="return checaTamanhoData(this,10);" />
                             </td>
                             <td>

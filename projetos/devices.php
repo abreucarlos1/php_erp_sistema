@@ -1,27 +1,27 @@
-<?
+<?php
 /*
 
-		Formul�rio de Devices (Dispositivos)	
+		Formulário de Devices (Dispositivos)	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/devices.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Inclusão CLIENTE - 04/05/2006
-		Versão 2 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 2 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -55,7 +55,7 @@ if ($_POST["acao"]=="editar")
 	<script>
 		alert('Device atualizado com sucesso.');
 	</script>
-	<?
+	<?php
 	
 }
 
@@ -63,24 +63,24 @@ if ($_POST["acao"]=="editar")
 if ($_POST["acao"]=="salvar")
 {
 
-	//Cria senten�a de Inclusão no bd
-	$incsql = "INSERT INTO Projetos.devices ";
-	$incsql .= "(cd_dispositivo, ds_servico, ds_fabricante, ds_modelo, ds_rede, nr_no, nr_revisao) VALUES (";
-	$incsql .= "'" . maiusculas($_POST["cd_dispositivo"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_servico"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_fabricante"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_modelo"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["ds_rede"]) . "', ";
-	$incsql .= "'" . maiusculas($_POST["nr_no"]) . "', ";
-	$incsql .= "'" . $_POST["nr_revisao"] . "') ";
+	//Cria sentença de Inclusão no bd
+	$isql = "INSERT INTO Projetos.devices ";
+	$isql .= "(cd_dispositivo, ds_servico, ds_fabricante, ds_modelo, ds_rede, nr_no, nr_revisao) VALUES (";
+	$isql .= "'" . maiusculas($_POST["cd_dispositivo"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_servico"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_fabricante"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_modelo"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["ds_rede"]) . "', ";
+	$isql .= "'" . maiusculas($_POST["nr_no"]) . "', ";
+	$isql .= "'" . $_POST["nr_revisao"] . "') ";
 
-	$registros = $db->insert($incsql,'MYSQL');
+	$registros = $db->insert($isql,'MYSQL');
 
 	?>
 	<script>
 		alert('Device / Dispositivo inserido com sucesso.');
 	</script>
-	<?
+	<?php
 
 }
 
@@ -93,9 +93,9 @@ if ($_GET["acao"] == "deletar")
 	
 	?>
 	<script>
-		alert('Device / Dispositivo exclu�do com sucesso.');
+		alert('Device / Dispositivo excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -104,10 +104,10 @@ if ($_GET["acao"] == "deletar")
 <title>: : . DEVICES . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_devices, cd_dispositivo)
 {
@@ -128,7 +128,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -158,18 +158,18 @@ function abreimagem(pagina, imagem, wid, heig)
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -188,27 +188,27 @@ function abreimagem(pagina, imagem, wid, heig)
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="1%">&nbsp;</td>
-                  <td width="99%" align="left">&nbsp;</td>
+                  <td width="1%"> </td>
+                  <td width="99%" align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="10%" class="label1">CLIENTE</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">DISPOSITIVO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="33%"><span class="label1">SERVI&Ccedil;O</span></td>
-                      <td width="4%">&nbsp;</td>
-                      <td width="38%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="33%"><span class="label1">SERVIÇO</span></td>
+                      <td width="4%"> </td>
+                      <td width="38%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_cliente" class="txt_box" id="id_cliente" onkeypress="return keySort(this);">
                           <option value="">NENHUMA</option>
-                          <?
-						  	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+                          <?php
+						  	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 							$sql .= "WHERE empresas.id_unidade=unidades.id_unidade ORDER BY empresa";
 							
 							$reg = $db->select($sql,'MYSQL');
@@ -216,101 +216,101 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["id_empresa_erp"] ?>"<? if($regs["id_empresa_erp"]==$devices["id_cliente"]){ echo 'selected';} ?>>
+                          <option value="<?= $regs["id_empresa"] ?>"<?php if($regs["id_empresa"]==$devices["id_cliente"]){ echo 'selected';} ?>>
                             <?= $regs["empresa"]. " - " .$regs["descricao"] . " - " . $regs["unidade"] ?>
                             </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_dispositivo" type="text" class="txt_box" id="cd_dispositivo" size="30" maxlength="20" value="<?= $devices["cd_dispositivo"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_servico" type="text" class="txt_box" id="ds_servico" value="<?= $devices["ds_servico"] ?>" size="30" maxlength="25">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="13%"><span class="label1">FABRICANTE</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">MODELO</span></td>
-                      <td width="0%">&nbsp;</td>
-                      <td width="34%">&nbsp;</td>
-                      <td width="4%">&nbsp;</td>
-                      <td width="35%">&nbsp;</td>
+                      <td width="0%"> </td>
+                      <td width="34%"> </td>
+                      <td width="4%"> </td>
+                      <td width="35%"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fabricante" type="text" class="txt_box" id="ds_fabricante" value="<?= $devices["ds_fabricante"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_modelo" type="text" class="txt_box" id="ds_modelo" value="<?= $devices["ds_modelo"] ?>" size="30" maxlength="10">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="13%" class="label1">REDE</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="13%" class="label1">N&Oacute;</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="26%" class="label1">REVIS&Atilde;O</td>
-                      <td width="3%" class="label1">&nbsp;</td>
-                      <td width="43%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="13%" class="label1">NÓ</td>
+                      <td width="1%"> </td>
+                      <td width="26%" class="label1">REVISÃO</td>
+                      <td width="3%" class="label1"> </td>
+                      <td width="43%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_rede" type="text" class="txt_box" id="ds_rede" value="<?= $devices["ds_rede"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_no" type="text" class="txt_box" id="nr_no" value="<?= $devices["nr_no"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_revisao" type="text" class="txt_box" id="nr_revisao" value="<?= $devices["nr_revisao"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_devices" type="hidden" id="id_devices" value="<?= $devices["id_devices"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
                     <input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                    <input name="Racks2" type="button" class="btn" id="Racks2" value="VOLTAR" onClick="javascript:history.back();"></td>
+                    <input name="Racks2" type="button" class="btn" id="Racks2" value="VOLTAR" onclick="javascript:history.back();"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 			
 			 }
 			else
@@ -321,28 +321,28 @@ function abreimagem(pagina, imagem, wid, heig)
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="10%" class="label1">cliente</td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">DISPOSITIVO</span></td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="33%"><span class="label1">SERVI&Ccedil;O</span></td>
-                      <td width="4%">&nbsp;</td>
-                      <td width="38%">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="33%"><span class="label1">SERVIÇO</span></td>
+                      <td width="4%"> </td>
+                      <td width="38%"> </td>
                       </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <select name="id_cliente" class="txt_box" id="id_cliente" onkeypress="return keySort(this);">
                           <option value="">NENHUMA</option>
-                          <?
+                          <?php
 
-						  	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+						  	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 							$sql .= "WHERE empresas.id_unidade=unidades.id_unidade ORDER BY empresa";
 							
 							$reg = $db->select($sql,'MYSQL');
@@ -350,102 +350,102 @@ function abreimagem(pagina, imagem, wid, heig)
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                          <option value="<?= $regs["id_empresa_erp"] ?>"<? if($regs["id_empresa_erp"]==$areas["id_cliente"]){ echo 'selected';} ?>>
+                          <option value="<?= $regs["id_empresa"] ?>"<?php if($regs["id_empresa"]==$areas["id_cliente"]){ echo 'selected';} ?>>
                             <?= $regs["empresa"]. " - " .$regs["descricao"] . " - " . $regs["unidade"] ?>
                             </option>
-                          <?
+                          <?php
 								}
 							?>
                         </select>
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="cd_dispositivo" type="text" class="txt_box" id="cd_dispositivo" size="30" maxlength="20" value="<?= $_POST["cd_dispositivo"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_servico" type="text" class="txt_box" id="ds_servico" value="<?= $_POST["ds_servico"] ?>" size="30" maxlength="25">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td align="left"><table width="100%" border="0">
                     <tr>
                       <td width="13%"><span class="label1">FABRICANTE</span></td>
-                      <td width="1%">&nbsp;</td>
+                      <td width="1%"> </td>
                       <td width="13%"><span class="label1">MODELO</span></td>
-                      <td width="0%">&nbsp;</td>
-                      <td width="34%">&nbsp;</td>
-                      <td width="4%">&nbsp;</td>
-                      <td width="35%">&nbsp;</td>
+                      <td width="0%"> </td>
+                      <td width="34%"> </td>
+                      <td width="4%"> </td>
+                      <td width="35%"> </td>
                       </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_fabricante" type="text" class="txt_box" id="ds_fabricante" value="<?= $_POST["ds_fabricante"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_modelo" type="text" class="txt_box" id="ds_modelo" value="<?= $_POST["ds_modelo"] ?>" size="30" maxlength="10">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="13%" class="label1">REDE</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="13%" class="label1">N&Oacute;</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="26%" class="label1">REVIS&Atilde;O</td>
-                      <td width="3%" class="label1">&nbsp;</td>
-                      <td width="43%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="13%" class="label1">NÓ</td>
+                      <td width="1%"> </td>
+                      <td width="26%" class="label1">REVISÃO</td>
+                      <td width="3%" class="label1"> </td>
+                      <td width="43%" class="label1"> </td>
                       </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_rede" type="text" class="txt_box" id="ds_rede" value="<?= $_POST["ds_rede"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_no" type="text" class="txt_box" id="nr_no" value="<?= $_POST["nr_no"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
+                      <td> </td>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="nr_revisao" type="text" class="txt_box" id="nr_revisao" value="<?= $_POST["nr_revisao"] ?>" size="30" maxlength="20">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                       </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
                     <input name="Inserir" type="submit" class="btn" id="Inserir" value="Inserir">
-                    <input name="Racks2" type="button" class="btn" id="Racks2" value="VOLTAR" onClick="javascript:history.back();">
-                    <input name="Racks" type="button" class="btn" id="Racks" value="Racks" onClick="javascript:location.href='racks.php';"></td>
+                    <input name="Racks2" type="button" class="btn" id="Racks2" value="VOLTAR" onclick="javascript:history.back();">
+                    <input name="Racks" type="button" class="btn" id="Racks" value="Racks" onclick="javascript:location.href='racks.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -459,8 +459,8 @@ function abreimagem(pagina, imagem, wid, heig)
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
 				  
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "cd_dispositivo";
@@ -473,25 +473,25 @@ function abreimagem(pagina, imagem, wid, heig)
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
 				  <td width="22%">CLIENTE</td>
-				  <td width="14%"><a href="#" class="cabecalho_tabela" onClick="ordenar('cd_local','<?= $ordem ?>')">DISPOSITIVO</a></td>
-				  <td width="20%">SERVI�O</td>
+				  <td width="14%"><a href="#" class="cabecalho_tabela" onclick="ordenar('cd_local','<?= $ordem ?>')">DISPOSITIVO</a></td>
+				  <td width="20%">SERVIÇO</td>
 				  <td width="18%">FABRICANTE</td>
 				  <td width="18%">MODELO</td>				  
 				  <td width="3%" class="cabecalho_tabela">E</td>
 				  <td width="3%" class="cabecalho_tabela">D</td>
-				  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="2%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 			
-					// Mostra os funcion�rios
+					// Mostra os funcionários
 					$sql = "SELECT * FROM Projetos.devices ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
 					
@@ -506,9 +506,9 @@ function abreimagem(pagina, imagem, wid, heig)
 					
 						
 			
-						// Mostra os funcion�rios
+						// Mostra os funcionários
 						$sql1 = "SELECT * FROM ".DATABASE.".empresas ";
-						$sql1 .= "WHERE id_empresa_erp = '" .$devices["id_cliente"] . "' ";
+						$sql1 .= "WHERE id_empresa = '" .$devices["id_cliente"] . "' ";
 						
 						$registros = $db->select($sql1,'MYSQL');
 						
@@ -540,9 +540,9 @@ function abreimagem(pagina, imagem, wid, heig)
 						  <td width="3%"><div align="center"> <a href="javascript:editar('<?= $devices["id_devices"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="4%"><div align="center"> <a href="javascript:excluir('<?= $devices["id_devices"] ?>','<?= $devices["cd_dispositivo"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
-					// Libera a mem�ria
+					// Libera a memória
 				?>
 			  </table>
 			</div>

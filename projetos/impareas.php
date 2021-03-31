@@ -1,26 +1,26 @@
-<?
+<?php
 /*
 
-		Formul�rio de DEFINI��O DE EQUIPES	
+		Formulário de DEFINIÇÃO DE EQUIPES	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../os/definirequipe.php
 		
-		data de cria��o: 26/08/2005
+		data de criação: 26/08/2005
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Atualização LAYOUT - 31/03/2006
-		Versão 2 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 2 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -36,10 +36,10 @@ $db = new banco_dados;
 switch ($_POST["acao"])
 {
 	
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar':
 		
-		// Seleciona os m�dulos cadastrados
+		// Seleciona os módulos cadastrados
 		$sql_area = "SELECT * FROM Projetos.area ";
 		
 		$reg_area = $db->select($sql_area,'MYSQL');
@@ -337,18 +337,18 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . IMPORTAR �REA . : :</title>
+<title>: : . IMPORTAR ÁREA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
-<!-- Javascript para declara��o de vari�veis / checagem do estilo - MAC/PC -->
+<!-- Javascript para declaração de variáveis / checagem do estilo - MAC/PC -->
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -380,33 +380,33 @@ function altera()
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
 		  <table width="100%" class="corpo_tabela">
 				<tr>
-				  <td class="label1">&nbsp;</td>
+				  <td class="label1"> </td>
 				  <td class="label1">
 				  <table width="100%" border="0">
                     <tr>
                       <td width="10%" class="label1">CLIENTE</td>
-                      <td width="1%">&nbsp;</td>
-                      <td width="29%" class="label1">&nbsp;</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="59%" class="label1">&nbsp;</td>
+                      <td width="1%"> </td>
+                      <td width="29%" class="label1"> </td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="59%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td>
 					  <select name="cliente" class="txt_box"  id="cliente" onChange="altera()" onkeypress="return keySort(this);">
                         <option value="" selected>SELECIONE</option>
-                        <?
+                        <?php
 
 							$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".OS, Projetos.area ";
-							$sql .= "WHERE empresas.id_empresa_erp = OS.id_empresa_erp ";
+							$sql .= "WHERE empresas.id_empresa = OS.id_empresa ";
 							$sql .= "AND OS.id_os = area.id_os ";
 							$sql .= "GROUP BY empresas.empresa ";
 							
@@ -416,24 +416,24 @@ function altera()
 							while ($regs = mysqli_fetch_array($registro))
 							{
 								?>
-                        		<option value="<?= $regs["id_empresa_erp"] ?>" <? if($regs["id_empresa_erp"]==$_POST["cliente"]) { echo "selected"; } ?>>
+                        		<option value="<?= $regs["id_empresa"] ?>" <?php if($regs["id_empresa"]==$_POST["cliente"]) { echo "selected"; } ?>>
                           		<?= $regs["empresa"] ?>
                           		</option>
-                        		<?
+                        		<?php
 							}
 						
 							?>
                       </select></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table>
 				  </td>
 				  </tr>
 				<tr>
-				  <td class="label1">&nbsp;</td>
+				  <td class="label1"> </td>
 				  <td class="label1">
 				  <table width="100%" border="0">
 				  <tr class="label1">
@@ -441,12 +441,12 @@ function altera()
 				  </tr>
 				  
 				  <tr>
-				  <td><select name="os" class="txt_box"  id="os" <? if(!$_POST["cliente"]){ echo 'disabled'; }  ?> onkeypress="return keySort(this);">
+				  <td><select name="os" class="txt_box"  id="os" <?php if(!$_POST["cliente"]){ echo 'disabled'; }  ?> onkeypress="return keySort(this);">
                     <option value="" selected>SELECIONE</option>
-                    <?
+                    <?php
 							
 							$sql = "SELECT * FROM ".DATABASE.".OS ";
-							$sql .= "WHERE OS.id_empresa_erp NOT LIKE '".$_POST["cliente"]. "' ";
+							$sql .= "WHERE OS.id_empresa NOT LIKE '".$_POST["cliente"]. "' ";
 							$sql .= "ORDER BY OS ";
 							
 							$registro = $db->select($sql,'MYSQL');
@@ -455,10 +455,10 @@ function altera()
 							while ($regs = mysqli_fetch_array($registro))
 							{
 								?>
-                    <option value="<?= $regs["id_os"]."#". $regs["descricao"] ?>" <? if($regs["id_os"]==$_POST["os"]) { echo "selected"; } ?>>
+                    <option value="<?= $regs["id_os"]."#". $regs["descricao"] ?>" <?php if($regs["id_os"]==$_POST["os"]) { echo "selected"; } ?>>
                     <?= $regs["os"]." - ". $regs["descricao"] ?>
                     </option>
-                    <?
+                    <?php
 							}
 						
 							?>
@@ -467,10 +467,10 @@ function altera()
 				  </table>
 				  
 				  <table width="100%" border="0">
-				  <?
+				  <?php
 						
 						$sql1 = "SELECT * FROM Projetos.area, ".DATABASE.".OS ";
-						$sql1 .= "WHERE id_empresa_erp ='" . $_POST["cliente"] . "' ";
+						$sql1 .= "WHERE id_empresa ='" . $_POST["cliente"] . "' ";
 						$sql1 .= "AND OS.id_os = area.id_os ";
 						$sql1 .= "GROUP BY nr_area ";
 						
@@ -486,18 +486,18 @@ function altera()
 								  
 								  
 								  <td width="50%" class="label1"><input name="<?= $regs["nr_area"] ?>" type="checkbox" id="tag" value=1>
-								  <input name="text" type="text" class="txt_box" value="<?= $regs["nr_area"]." - ".$regs["ds_area"] ?>" size="80" readonly="yes">&nbsp;</td>					  				
+								  <input name="text" type="text" class="txt_box" value="<?= $regs["nr_area"]." - ".$regs["ds_area"] ?>" size="80" readonly="yes"> </td>					  				
 								  
 								  </tr>	
-								<?
+								<?php
 								}
 								else
 								{
 								?>
 								  <tr>
 								  <td width="50%" class="label1"><input name="<?= $regs["nr_area"] ?>" type="checkbox" id="tag" value=1>
-								  <input name="text" type="text" class="txt_box" value="<?= $regs["nr_area"]." - ".$regs["ds_area"] ?>" size="80" readonly="yes" >&nbsp;</td>					  				
-								  <?								
+								  <input name="text" type="text" class="txt_box" value="<?= $regs["nr_area"]." - ".$regs["ds_area"] ?>" size="80" readonly="yes" > </td>					  				
+								  <?php								
 								}
 								$c++;
 							}
@@ -508,11 +508,11 @@ function altera()
 				  </td>
 				  </tr>
 				<tr>
-				  <td width="3%" class="label1">&nbsp;</td>
+				  <td width="3%" class="label1"> </td>
 				  <td class="label1">
 				  <input name="acao" id="acao" type="hidden" value="salvar">
                   <input name="Incluir" type="submit" class="btn" id="Incluir" value="IMPORTAR">
-                  <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:window.close()">				  </td>
+                  <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:window.close()">				  </td>
 				  </tr>
 			  </table>
 		</td>

@@ -55,7 +55,7 @@ function smarty_function_html_table($params, $template)
     $td_attr = '';
     $cols = $cols_count = 3;
     $rows = 3;
-    $trailpad = '&nbsp;';
+    $trailpad = ' ';
     $vdir = 'down';
     $hdir = 'right';
     $inner = 'cols';

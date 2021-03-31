@@ -1602,19 +1602,19 @@ HTML language tags to distinguish Bulgarian, Russian, and Serbian,
 which have different italic forms for lowercase &#x431;, &#x433;, &#x434;, &#x43f;, and/or &#x442;:
 <table style="font-family:FreeSerif">
 <tr>
-<td><b>Bulgarian</b>: &nbsp;
-<td><span lang=BG>[&nbsp;&#x431;&#x433;&#x434;&#x43f;&#x442;</span>&nbsp;] &nbsp;
-<td><span lang=BG>[&nbsp;<i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span>&nbsp;] &nbsp;
+<td><b>Bulgarian</b>:  
+<td><span lang=BG>[ &#x431;&#x433;&#x434;&#x43f;&#x442;</span> ]  
+<td><span lang=BG>[ <i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span> ]  
 <td><span lang=BG><i> &#x41c;&#x43e;&#x433;&#x430; &#x434;&#x430; &#x44f;&#x43c; &#x441;&#x442;&#x44a;&#x43a;&#x43b;&#x43e; &#x438; &#x43d;&#x435; &#x43c;&#x435; &#x431;&#x43e;&#x43b;&#x438;.</i></span>
 <tr>
 <td><b>Russian</b>:
-<td><span lang=RU>[&nbsp;&#x431;&#x433;&#x434;&#x43f;&#x442;</span>&nbsp;] &nbsp;
-<td><span lang=RU>[&nbsp;<i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span>&nbsp;] &nbsp;
+<td><span lang=RU>[ &#x431;&#x433;&#x434;&#x43f;&#x442;</span> ]  
+<td><span lang=RU>[ <i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span> ]  
 <td><span lang=RU><i>&#x42f; &#x43c;&#x43e;&#x433;&#x443; &#x435;&#x441;&#x442;&#x44c; &#x441;&#x442;&#x435;&#x43a;&#x43b;&#x43e;, &#x44d;&#x442;&#x43e; &#x43c;&#x43d;&#x435; &#x43d;&#x435; &#x432;&#x440;&#x435;&#x434;&#x438;&#x442;.</i></span>
 <tr>
 <td><b>Serbian</b>:
-<td><span lang=SR>[&nbsp;&#x431;&#x433;&#x434;&#x43f;&#x442;</span>&nbsp;] &nbsp;
-<td><span lang=SR>[&nbsp;<i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span>&nbsp;] &nbsp;
+<td><span lang=SR>[ &#x431;&#x433;&#x434;&#x43f;&#x442;</span> ]  
+<td><span lang=SR>[ <i>&#x431;&#x433;&#x434;&#x43f;&#x442;</i></span> ]  
 <td> <span lang=SR><i>&#x41c;&#x43e;&#x433;&#x443; &#x458;&#x435;&#x441;&#x442;&#x438; &#x441;&#x442;&#x430;&#x43a;&#x43b;&#x43e; 
 &#x430;
 &#x434;&#x430; &#x43c;&#x438; 

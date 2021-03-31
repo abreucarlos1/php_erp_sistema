@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de ESCOLHA DE SUBSISTEMA PARA ESPEC. TEC.	
+		Formulário de ESCOLHA DE SUBSISTEMA PARA ESPEC. TEC.	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/rel_escolhaarea.php
 		
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -52,20 +52,20 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 		{
 			?>
 			<script>
-				alert('N�o � poss�vel emitir nesta revis�o.');
+				alert('Não é possível emitir nesta revisão.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
-			$incsql = "INSERT INTO ".DATABASE.".revisao_cliente ";
-			$incsql .= "(id_os, tipodoc, alteracao, id_executante, id_verificador, id_aprovador, versao_documento, data_emissao, qtd_folhas, numero_cliente, numeros_interno, documento ) ";
-			$incsql .= "VALUES ('" . $_SESSION["id_os"] ."', '". $_POST["relatorio"] . "', '". maiusculas($_POST["alteracao"]) . "',  ";
-			$incsql .= "'". $_POST["executante"] . "', '". $_POST["verificador"] . "', '". $_POST["aprovador"] . "', ";
-			$incsql .= "'". $_POST["versao_documento"] . "', '". date('Y-m-d') . "', '". $_POST["folhas"] . "', '". $_POST["numero_cliente"] . "', '". $_POST["numeros_interno"] . "', ";
-			$incsql .= "'". $_POST["numeros_interno"] .'_'. $_POST["numero_cliente"] .'_'.$_POST["versao_documento"].".pdf". "') ";
+			$isql = "INSERT INTO ".DATABASE.".revisao_cliente ";
+			$isql .= "(id_os, tipodoc, alteracao, id_executante, id_verificador, id_aprovador, versao_documento, data_emissao, qtd_folhas, numero_cliente, numeros_interno, documento ) ";
+			$isql .= "VALUES ('" . $_SESSION["id_os"] ."', '". $_POST["relatorio"] . "', '". maiusculas($_POST["alteracao"]) . "',  ";
+			$isql .= "'". $_POST["executante"] . "', '". $_POST["verificador"] . "', '". $_POST["aprovador"] . "', ";
+			$isql .= "'". $_POST["versao_documento"] . "', '". date('Y-m-d') . "', '". $_POST["folhas"] . "', '". $_POST["numero_cliente"] . "', '". $_POST["numeros_interno"] . "', ";
+			$isql .= "'". $_POST["numeros_interno"] .'_'. $_POST["numero_cliente"] .'_'.$_POST["versao_documento"].".pdf". "') ";
 
-			$registros = $db->insert($incsql,'MYSQL');
+			$registros = $db->insert($isql,'MYSQL');
 		
 			$envio_rel = true;
 
@@ -76,7 +76,7 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 		document.forms['areas'].acao.value='';
 	</script>
 	
-	<?
+	<?php
 
 }
 
@@ -85,13 +85,13 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 
 <html>
 <head>
-<title>: : . RELAT&Oacute;RIOS LISTA DE COMPONENTES . : :</title>
+<title>: : . RELATÓRIOS LISTA DE COMPONENTES . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 
 <script>
 
@@ -166,7 +166,7 @@ function enviar_subsistema(area)
 }
 */
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -204,10 +204,10 @@ a:active {
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
 
@@ -217,39 +217,39 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="14%">&nbsp;</td>
-              <td width="14%">&nbsp;</td>
-              <td width="17%">&nbsp;</td>
-              <td width="13%">&nbsp;</td>
-              <td width="20%">&nbsp;</td>
-              <td width="7%">&nbsp;</td>
-              <td width="15%">&nbsp;</td>
+              <td width="14%"> </td>
+              <td width="14%"> </td>
+              <td width="17%"> </td>
+              <td width="13%"> </td>
+              <td width="20%"> </td>
+              <td width="7%"> </td>
+              <td width="15%"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td colspan="7" align="center" class="kks_nivel1"> lista de componentes / processo </td>
               </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <!-- onChange="enviar(this[selectedIndex].value)" -->
-              </font><span class="label1">N&ordm; DVM</span></td>
-              <td class="label1">N&ordm; CLIENTE</td>
-              <td class="label1">revis&Atilde;O</td>
-              <td class="label1">EMISS&Atilde;O PARA CLIENTE</td>
+              </font><span class="label1">Nº INT</span></td>
+              <td class="label1">Nº CLIENTE</td>
+              <td class="label1">REVISÃO</td>
+              <td class="label1">EMISSÃO PARA CLIENTE</td>
               <td class="label1">EXCEL</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="btn"><div align="center"><span class="label1">
                 <input name="numeros_interno" type="text" class="txt_boxcap" id="numeros_interno" value="<?= $_POST["numeros_interno"] ?>" size="30">
               </span></div></td>
@@ -261,96 +261,96 @@ a:active {
               </span></td>
               <td class="btn"><input name="emissao" type="checkbox" id="emissao" value="1"></td>
               <td class="btn"><input name="excel" type="checkbox" id="excel" value="1"></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
-              <td colspan="5" class="label1"><div align="left">ALTERA&Ccedil;&Otilde;ES EFETUADAS </div></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td colspan="5" class="label1"><div align="left">ALTERAÇÕES EFETUADAS </div></td>
+              <td class="btn"> </td>
             </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td colspan="5" class="label1"><div align="left">
                 <input name="alteracao" type="text" class="txt_box" id="alteracao" value="<?= $_POST["alteracao"] ?>" size="100">
               </div></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="label1">EXECUTANTE</td>
               <td class="label1">VERIFICADOR</td>
               <td class="label1">APROVADOR</td>
-              <td class="label1">N&ordm; FOLHAS</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="label1">Nº FOLHAS</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif"><font size="2" face="Arial, Helvetica, sans-serif">
+              <td class="btn"> </td>
+              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="executante" class="txt_box" id="executante">
                   <option value="">SELECIONE</option>
-                  <?
-						$sql_funcionario = "SELECT * FROM ".DATABASE.".funcionarios ";
-						$sql_funcionario .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
-						$sql_funcionario .= "AND abreviacao NOT LIKE '' ";
-						$sql_funcionario .= "ORDER BY funcionarios.funcionario ";
+                  <?php
+						$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+						$sql .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
+						$sql .= "AND abreviacao NOT LIKE '' ";
+						$sql .= "ORDER BY funcionarios.funcionario ";
 						
-						$reg_funcionario = $db->select($sql_funcionario,'MYSQL');
+						$regs = $db->select($sql,'MYSQL');
 						
-							while ($cont_funcionario = mysqli_fetch_array($reg_funcionario))
+							while ($cont = mysqli_fetch_array($regs))
 							{
 							?>
-                  <option value="<?= $cont_funcionario["id_funcionario"] ?>">
-                    <?= $cont_funcionario["abreviacao"] ?>
+                  <option value="<?= $cont["id_funcionario"] ?>">
+                    <?= $cont["abreviacao"] ?>
                     </option>
-                  <?
+                  <?php
 							}									
 									
 						?>
                 </select>
               </font></font></td>
-              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif"><font size="2" face="Arial, Helvetica, sans-serif">
+              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="verificador" class="txt_box" id="verificador">
                   <option value="">SELECIONE</option>
-                  <?
-						$sql_funcionario = "SELECT * FROM ".DATABASE.".funcionarios ";
-						$sql_funcionario .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
-						$sql_funcionario .= "AND abreviacao NOT LIKE '' ";
-						$sql_funcionario .= "ORDER BY funcionarios.funcionario ";
+                  <?php
+						$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+						$sql .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
+						$sql .= "AND abreviacao NOT LIKE '' ";
+						$sql .= "ORDER BY funcionarios.funcionario ";
 						
-						$reg_funcionario = $db->select($sql_funcionario,'MYSQL');
+						$regs = $db->select($sql,'MYSQL');
 						
 		
-							while ($cont_funcionario = mysqli_fetch_array($reg_funcionario))
+							while ($cont = mysqli_fetch_array($regs))
 							{
 							?>
-                  <option value="<?= $cont_funcionario["id_funcionario"] ?>">
-                    <?= $cont_funcionario["abreviacao"] ?>
+                  <option value="<?= $cont["id_funcionario"] ?>">
+                    <?= $cont["abreviacao"] ?>
                     </option>
-                  <?
+                  <?php
 							}									
 									
 						?>
                 </select>
               </font></font></td>
-              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif"><font size="2" face="Arial, Helvetica, sans-serif">
+              <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="aprovador" class="txt_box" id="aprovador">
                   <option value="">SELECIONE</option>
-                  <?
-						$sql_funcionario = "SELECT * FROM ".DATABASE.".funcionarios ";
-						$sql_funcionario .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
-						$sql_funcionario .= "AND abreviacao NOT LIKE '' ";
-						$sql_funcionario .= "ORDER BY funcionarios.funcionario ";
+                  <?php
+						$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+						$sql .= "WHERE situacao NOT LIKE 'DESLIGADO' ";
+						$sql .= "AND abreviacao NOT LIKE '' ";
+						$sql .= "ORDER BY funcionarios.funcionario ";
 						
-						$reg_funcionario = $db->select($sql_funcionario,'MYSQL');
+						$regs = $db->select($sql,'MYSQL');
 												
-							while ($cont_funcionario = mysqli_fetch_array($reg_funcionario))
+							while ($cont = mysqli_fetch_array($regs))
 							{
 							?>
-                  <option value="<?= $cont_funcionario["id_funcionario"] ?>">
-                    <?= $cont_funcionario["abreviacao"] ?>
+                  <option value="<?= $cont["id_funcionario"] ?>">
+                    <?= $cont["abreviacao"] ?>
                     </option>
-                  <?
+                  <?php
 							}									
 									
 						?>
@@ -359,48 +359,48 @@ a:active {
               <td class="btn"><span class="label1">
                 <input name="folhas" type="text" class="txt_boxcap" id="folhas" value="<?= $_POST["folhas"] ?>" size="10">
               </span></td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr class="btn">
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="label1">DISCIPLINA</td>
-              <td class="btn"><span class="label1">&Aacute;REA</span></td>
-              <td class="btn">&nbsp;</td>
-              <td class="label1">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"><span class="label1">ÁREA</span></td>
+              <td class="btn"> </td>
+              <td class="label1"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="btn"><select name="disciplina" class="txt_box"  id="disciplina" onkeypress="return keySort(this);">
                 <option value="">GERAL</option>
-                <?
+                <?php
 						  	
-							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor NOT LIKE 'ARQUIVO T�CNICO' AND setor NOT LIKE 'ADMINISTRATIVO' ";
-							$sql .= " AND setor NOT LIKE 'TECNOLOGIA DE INFORMA��O' AND setor NOT LIKE 'COMERCIAL' AND setor NOT LIKE 'COORDENA��O' ";
-							$sql .= " AND setor NOT LIKE 'CIVIL' AND setor NOT LIKE 'GERAL' AND setor NOT LIKE 'ENGENHARIA B�SICA/PROCESSO' ";
-							$sql .= " AND setor NOT LIKE 'FINANCEIRO' AND setor NOT LIKE 'GEST�O DE QUALIDADE' AND setor NOT LIKE 'PLANEJAMENTO' ORDER BY setor ";
+							$sql = "SELECT * FROM ".DATABASE.".setores WHERE setor NOT LIKE 'ARQUIVO TÉCNICO' AND setor NOT LIKE 'ADMINISTRATIVO' ";
+							$sql .= " AND setor NOT LIKE 'TECNOLOGIA DE INFORMAÇÃO' AND setor NOT LIKE 'COMERCIAL' AND setor NOT LIKE 'COORDENAÇÃO' ";
+							$sql .= " AND setor NOT LIKE 'CIVIL' AND setor NOT LIKE 'GERAL' AND setor NOT LIKE 'ENGENHARIA BÁSICA/PROCESSO' ";
+							$sql .= " AND setor NOT LIKE 'FINANCEIRO' AND setor NOT LIKE 'GESTÃO DE QUALIDADE' AND setor NOT LIKE 'PLANEJAMENTO' ORDER BY setor ";
 							
 							$registro = $db->select($sql,'MYSQL');
 							
-							// Preenche o combobox com os pa&iacute;ses
+							// Preenche o combobox com os países
 							while ($cont = mysqli_fetch_array($registro))
 								{
 									?>
-                <option value="<?= $cont["id_setor"] ?>"<? if($cont["id_setor"]==$_POST["disciplina"]){ echo 'selected'; } ?>>
+                <option value="<?= $cont["id_setor"] ?>"<?php if($cont["id_setor"]==$_POST["disciplina"]){ echo 'selected'; } ?>>
                 <?= $cont["setor"] ?>
                 </option>
-                <?
+                <?php
 								}
 						
 						?>
@@ -408,7 +408,7 @@ a:active {
               <td class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="id_area" id="id_area" class="txt_box">
                   <option value="">SELECIONE</option>
-                  <?
+                  <?php
 					$sql = "SELECT * FROM Projetos.area ";
 					$sql .= "WHERE area.id_os = '" .$_SESSION["id_os"] . "' ";
 					
@@ -417,59 +417,59 @@ a:active {
 					while ($regs = mysqli_fetch_array($reg))
 						{
 							?>
-                  <option value="<?= $regs["id_area"] ?>"<? if($regs["id_area"]==$_POST["id_area"]){echo 'selected';} ?>>
+                  <option value="<?= $regs["id_area"] ?>"<?php if($regs["id_area"]==$_POST["id_area"]){echo 'selected';} ?>>
                   <?= $regs["nr_area"]. " - " .$regs["ds_area"]. " " .$regs["ds_divisao"] ?>
                   </option>
-                  <?
+                  <?php
 						}
 				  ?>
                 </select>
               </font></td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td class="btn"><input type="hidden" name="relatorio" id="relatorio" value=""></td>
               <td class="btn"><input type="hidden" name="acao" id="acao" value="">
-                <input type="button" name="Submit" value="OK" onClick="enviar_area(document.forms[0].id_area.value)"></td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+                <input type="button" name="submit" value="OK" onclick="enviar_area(document.forms[0].id_area.value)"></td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td colspan="5" class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td colspan="5" class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td colspan="5" class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td colspan="5" class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td colspan="7" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:history.back();"></td>
+              <td colspan="7" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:history.back();"></td>
               </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>
@@ -480,7 +480,7 @@ a:active {
   </tr>
 </table>
 </form>
-<?
+<?php
 	if($envio_rel)
 	{
 		$envio_rel = false;
@@ -490,7 +490,7 @@ a:active {
 				<script>	
 				enviar_area('<?= $_POST["id_area"] ?>');
 				</script>
-			<?			
+			<?php			
 		}
 		if($_POST["relatorio"]=='lista_componentes_subsistema')
 		{
@@ -498,7 +498,7 @@ a:active {
 				<script>	
 				enviar_subsistema('<?= $_POST["id_subsistema"] ?>');
 				</script>
-			<?			
+			<?php			
 		}
 	}
 ?>

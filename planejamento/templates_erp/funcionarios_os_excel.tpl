@@ -22,13 +22,13 @@
 					</tr>
 				<tr>
 					<td align="left">
-						<input name="dataini" type="text" class="caixa" id="dataini" size="10"  onkeypress="transformaData(this, event);" onkeyup="return autoTab(this,'datafim', 10);" />&nbsp;
-						<label class="labels">á</label>&nbsp;
+						<input name="dataini" type="text" class="caixa" id="dataini" size="10"  onkeypress="transformaData(this, event);" onkeyup="return autoTab(this,'datafim', 10);" /> 
+						<label class="labels">á</label> 
 						<input name="datafim" type="text" class="caixa" id="datafim" size="10"  onkeypress="transformaData(this, event);" />
 					</td>
 					</tr>
 				<tr>
-					<td><label class="labels">TIPO&nbsp;CONTRATAÇÃO</label></td>
+					<td><label class="labels">TIPO CONTRATAÇÃO</label></td>
 					</tr>
 				<tr>
 					<td>

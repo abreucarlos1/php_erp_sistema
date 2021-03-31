@@ -151,19 +151,19 @@ function atualizatabela($dados_form)
 		}
 		else
 		{
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		}
 			
 		if($cont_desp["conferido"]==0)
 		{
 			if (!empty($dataCarregamento))
 			{
-				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'aprovado.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;aprovar&nbsp;o&nbsp;documento?")){xajax_aprovar("'.$cont_desp["id_fechamento_docs"].'",1);} />');
-				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja&nbsp;reprovar&nbsp;o&nbsp;documento?")){xajax_aprovar("'.$cont_desp["id_fechamento_docs"].'",2);} />');
+				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'aprovado.png" style="cursor:pointer;" onclick=if(confirm("Deseja aprovar o documento?")){xajax_aprovar("'.$cont_desp["id_fechamento_docs"].'",1);} />');
+				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Deseja reprovar o documento?")){xajax_aprovar("'.$cont_desp["id_fechamento_docs"].'",2);} />');
 			}
 			else
 			{
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 		}
 		else
@@ -171,12 +171,12 @@ function atualizatabela($dados_form)
 			if($cont_desp["conferido"]==1)
 			{
 				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'accept.png" style="cursor:pointer;"/>');
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 			else
 			{
 				$xml->writeElement('cell', '<img src="'.DIR_IMAGENS.'reprovar.png" style="cursor:pointer;"/>');
-				$xml->writeElement('cell', '&nbsp;');
+				$xml->writeElement('cell', ' ');
 			}
 		}
 		$xml->endElement();
@@ -215,7 +215,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Tipo&nbsp;tributo,Competência,Data&nbsp;Inclusao,Arquivo,Aprova,Reprova");
+	mygrid.setHeader("Tipo tributo,Competência,Data Inclusao,Arquivo,Aprova,Reprova");
 	mygrid.setInitWidths("*,90,90,*,80,80");
 	mygrid.setColAlign("left,left,left,left,left,left");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro");

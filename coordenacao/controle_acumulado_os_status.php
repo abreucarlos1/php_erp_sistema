@@ -25,7 +25,7 @@ function preencheos($id_coordenador)
 	$db = new banco_dados;
 	
 	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-	$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "AND (ordem_servico.id_cod_coord = '". $id_coordenador ."' OR ordem_servico.id_coord_aux = '". $id_coordenador ."') " ;
 	$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
@@ -108,7 +108,7 @@ foreach ($db->array_select as $regs)
 }
 
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= $filtro;
 $sql .= "AND ordem_servico_status.id_os_status IN (1,2,4,16) ";

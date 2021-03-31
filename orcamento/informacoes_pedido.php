@@ -182,13 +182,13 @@ function modal_informacoes_pedido($os)
         '<label class="labels" style="float:left;width:140px;">Forma de PGTO</label>'.
         '<input name="forma_pgto" class="caixa" type="text" placeholder="Digite uma forma de PGTO - 3X Mes - 10/20/30 ..." id="forma_pgto" size="90" value="'.$formaPgto.'" /><br />'.
         
-        '<label for="recebimento" style="float:left;width:140px;" class="labels">data&nbsp;limite envio NF</label>'.
-        '<input name="recebimento" type="text" class="caixa" placeholder="At&ecirc; 25/M&Ecirc;s | At&ecirc; 30/M&Ecirc;S ..." id="recebimento"  value="'.$recebimento.'" /><br />'.
+        '<label for="recebimento" style="float:left;width:140px;" class="labels">data limite envio NF</label>'.
+        '<input name="recebimento" type="text" class="caixa" placeholder="At&ecirc; 25/MÊs | At&ecirc; 30/MÊS ..." id="recebimento"  value="'.$recebimento.'" /><br />'.
         
-        '<label for="data_medicao" style="float:left;width:140px;" class="labels">data&nbsp;de&nbsp;Medição</label>'.
-        '<input name="data_medicao" placeholder="30/M&Ecirc;s | 10/M&Ecirc;S ..." type="text" class="caixa" id="data_medicao"  value="'.$medicao.'" /><br />'.
+        '<label for="data_medicao" style="float:left;width:140px;" class="labels">data de Medição</label>'.
+        '<input name="data_medicao" placeholder="30/MÊs | 10/MÊS ..." type="text" class="caixa" id="data_medicao"  value="'.$medicao.'" /><br />'.
         
-        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Per&iacute;odo&nbsp;de&nbsp;Medição</label>'.
+        '<label for="periodo_medicao" style="float:left;width:140px;" class="labels">Período de Medição</label>'.
         '<input name="periodo_medicao" type="text" class="caixa" placeholder="26 - 25 | 11 - 10 ..." id="periodo_medicao"  value="'.$periodoMed.'" /><br />'.
         
         '<label for="obs" style="float:left;width:140px;" class="labels">Outras informações</label>'.
@@ -221,7 +221,7 @@ function modal_anexar_pedido($os)
     
     if ($db->numero_registros > 0)
     {
-        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'">&nbsp;<span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
+        $imgExcluir = '<button class="class_botao" %s style="margin-left:10px;'.$liberaExclusao.'"> <span class="icone icone-excluir icone-botao"></span>EXCLUIR</button>';
         
         if (!empty($db->array_select[0]['arquivo_pedido']))
         {
@@ -238,7 +238,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="pedido" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -258,7 +258,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="proposta" />'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -280,7 +280,7 @@ function modal_anexar_pedido($os)
                 '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
                 '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="contrato" />'.
                 '<input class="caixa" name="myfile" type="file" size="30" />'.
-                '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+                '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
                 '<input name="os" type="hidden" id="os" value="'.$os.'">'.
                 '</form></fieldset>';
         }
@@ -292,7 +292,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="pedido" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_pedido").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
         
@@ -301,7 +301,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="contrato" />'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_contrato").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
         
@@ -310,7 +310,7 @@ function modal_anexar_pedido($os)
             '<input name="nome_arquivo" class="caixa" type="text" id="nome_arquivo">'.
             '<input name="tipo_arquivo" type="hidden" id="tipo_arquivo" value="proposta" />'.
             '<input class="caixa" name="myfile" type="file" size="30" />'.
-            '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span>&nbsp;ANEXAR</button>'.
+            '<button class="class_botao" onclick=document.getElementById("frm_proposta").submit();><span class="icone icone-clips icone-botao"></span> ANEXAR</button>'.
             '<input name="os" type="hidden" id="os" value="'.$os.'">'.
             '</form></fieldset>';
     }

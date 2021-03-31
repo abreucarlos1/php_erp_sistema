@@ -111,7 +111,7 @@ $buttonShowOutput = new clsButton(array(
 	echo "<a href='" . $newRequestURI . "'>PHP5 (type 2)</a>";
 ?>
 </div>
-<?	
+<?php	
 	$objTestScriptPlugin->printControlPanel(ob_get_clean());
 	$objTestScriptPlugin->printStatusPanel();
 	$objTestScriptPlugin->printLogPanel();	

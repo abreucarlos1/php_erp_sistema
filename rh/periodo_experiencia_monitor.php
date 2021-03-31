@@ -158,7 +158,7 @@ function atualizatabela($filtro)
 				if ($reg['tipo_empresa'] == 0)
 					$xml->text('<span class="icone icone-envelope cursor" onclick="designarAvaliador('.$reg['id_funcionario'].')"></span>');
 				else
-					$xml->text('&nbsp;');
+					$xml->text(' ');
 			$xml->endElement();
 			
 			//Por enquanto somente CLT tem avaliação de período de experiência
@@ -223,7 +223,7 @@ function avisar_avaliador($dados_form)
 	CASE WHEN datediff(date_add(data_inicio, INTERVAL 45 DAY), now()) between -7 AND 7 THEN '45 dias' ELSE '90 dias' END periodo";
 	
 	$sql = "SELECT funcionario, email, funcionarios.id_funcionario, id_funcao, ".$camposPeriodos." FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del= 0 ";
 	$sql .= "AND funcionarios.id_funcionario IN(".$dados_form['selAvaliador'].", ".$dados_form['idFuncionario'].") ";
@@ -267,63 +267,73 @@ function avisar_avaliador($dados_form)
 	$corpo .= "<b>data Limite para avaliação:</b> ".$dataLimite."<br />";
 	$corpo .= "Por favor, acessar o módulo no SISTEMA Gestão de Pessoas / Período de experiência - avaliar";
 	
-	$params 			= array();
-	$params['from']		= "recrutamento@dominio.com.br";
-	$params['from_name']= "RECURSOS HUMANOS";
-	$params['subject'] 	= "AVALIAÇÃO DE PERÍODO DE EXPERIÊNCIA: ".$nomeAvaliado;
-	
-	$params['emails']['to'][] = array('email' => $emailAvaliador, 'nome' => $nomeAvaliador);
-	
-	$mail = new email($params, 'avaliacao_periodo_experiencia');
-	$mail->montaCorpoEmail($corpo);
-
-	if(!$mail->Send())
+	if(ENVIA_EMAIL)
 	{
-		$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+		$params 			= array();
+		$params['from']		= "recrutamento@dominio.com.br";
+		$params['from_name']= "RECURSOS HUMANOS";
+		$params['subject'] 	= "AVALIAÇÃO DE PERÍODO DE EXPERIÊNCIA: ".$nomeAvaliado;
+		
+		$params['emails']['to'][] = array('email' => $emailAvaliador, 'nome' => $nomeAvaliador);
+		
+		$mail = new email($params, 'avaliacao_periodo_experiencia');
+		$mail->montaCorpoEmail($corpo);
+
+		if(!$mail->Send())
+		{
+			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		}
+		else 
+		{
+			$resposta->addAlert('E-mail enviado ao colaborador '.$nomeAvaliador);
+		}
+	}
+	else 
+	{
+		$resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+	}
+
+	$arrAux = array('45 dias' => '1', '90 dias' => 2);
+	//Atualizando a tabela de período de experiência.
+	$sql = "SELECT * FROM ".DATABASE.".periodo_experiencia ";
+	$sql .= "WHERE periodo_experiencia.reg_del = 0 ";
+	$sql .= "AND periodo_experiencia.id_avaliado = ".$dados_form['idFuncionario']." ";
+	$sql .= "AND periodo_experiencia.periodo = ".$arrAux[$periodo];
+	
+	$db->select($sql, 'MYSQL', true);
+	
+	if ($db->numero_registros > 0)
+	{
+		$usql = "UPDATE 
+					".DATABASE.".periodo_experiencia 
+					SET id_avaliador = ".$dados_form['selAvaliador'].", 
+					id_avaliado = ".$dados_form['idFuncionario'].", 
+					periodo = ".$arrAux[$periodo]."
+				 WHERE id = ".$db->array_select[0]['id']." 
+				 AND reg_del = 0 ";
+				 
+		
+		$db->update($usql, 'MYSQL');
 	}
 	else
 	{
-		$arrAux = array('45 dias' => '1', '90 dias' => 2);
-
-		//Atualizando a tabela de período de experiência.
-		$sql = "SELECT * FROM ".DATABASE.".periodo_experiencia ";
-		$sql .= "WHERE periodo_experiencia.reg_del = 0 ";
-		$sql .= "AND periodo_experiencia.id_avaliado = ".$dados_form['idFuncionario']." ";
-		$sql .= "AND periodo_experiencia.periodo = ".$arrAux[$periodo];
-		
-		$db->select($sql, 'MYSQL', true);
-		
-		if ($db->numero_registros > 0)
-		{
-			$usql = "UPDATE 
-						".DATABASE.".periodo_experiencia 
-						SET id_avaliador = ".$dados_form['selAvaliador'].", 
-						id_avaliado = ".$dados_form['idFuncionario'].", 
-						periodo = ".$arrAux[$periodo]."
-					 WHERE id = ".$db->array_select[0]['id']." 
-					 AND reg_del = 0 ";
-					 
-			
-			$db->update($usql, 'MYSQL');
-		}
-		else
-		{
-			$isql = "INSERT INTO ".DATABASE.".periodo_experiencia (id_avaliado, id_avaliador, id_cargo, periodo) VALUES ";
-			$isql .= "(".$dados_form['idFuncionario'].", ".$dados_form['selAvaliador'].", ".$codCargo.", ".$arrAux[$periodo].")";
-			$db->insert($isql, 'MYSQL');
-		}
-		
-		if ($db->erro != '')
-		{
-			$resposta->addAlert('Erro ao tentar alterar o registro no banco de dados '.$db->erro);	
-		}
-		else
-		{
-			$resposta->addAlert('E-mail enviado ao colaborador '.$nomeAvaliador);
-			$resposta->addScript('xajax_atualizatabela();');
-			$resposta->addScript('divPopupInst.destroi();');
-		}
+		$isql = "INSERT INTO ".DATABASE.".periodo_experiencia (id_avaliado, id_avaliador, id_cargo, periodo) VALUES ";
+		$isql .= "(".$dados_form['idFuncionario'].", ".$dados_form['selAvaliador'].", ".$codCargo.", ".$arrAux[$periodo].")";
+		$db->insert($isql, 'MYSQL');
 	}
+	
+	if ($db->erro != '')
+	{
+		$resposta->addAlert('Erro ao tentar alterar o registro no banco de dados '.$db->erro);	
+	}
+	else
+	{
+		
+		$resposta->addScript('xajax_atualizatabela();');
+		$resposta->addScript('divPopupInst.destroi();');
+	}
+	
 	
 	return $resposta;
 }
@@ -364,7 +374,7 @@ function designarAvaliador(idFuncionario)
 					'<table><tr><td>'+
 						'<label class="labels">Avaliador</label>'+
 						'<select name="selAvaliador" id="selAvaliador" style="width:305px;"><option value="">Selecione</option></select>'+
-					'&nbsp;<input type="button" class="class_botao" value="Enviar" onclick="xajax_avisar_avaliador(xajax.getFormValues(\'frmDesignarAvaliador\'));" /></td></tr>'+
+					' <input type="button" class="class_botao" value="Enviar" onclick="xajax_avisar_avaliador(xajax.getFormValues(\'frmDesignarAvaliador\'));" /></td></tr>'+
 					'</table>'+
 				'</form>';
 

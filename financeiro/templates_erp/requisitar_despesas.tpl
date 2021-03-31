@@ -16,7 +16,7 @@
                       </td>
 					</tr>                  
                   <tr>
-                  <td><label class="labels">Filtrar&nbsp;status</label><br />
+                  <td><label class="labels">Filtrar status</label><br />
                      <select name="status" class="caixa" id="status" onchange="xajax_atualizatabela(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
                         <option value="0" selected="selected">REQUISITADOS</option>
                         <option value="1">ADIANTAMENTO</option>
@@ -34,8 +34,8 @@
              		 <div id="dv_dados">
 						<table width="100%" border="0">
                             <tr>
-                            	<td><div id="num_sol" class="labels">&nbsp;</div></td>
-                              <td><label class="labels"><smarty>$campo[4]</smarty>&nbsp;<strong><div id="nome_func"><smarty>$nome_funcionario</smarty></div></strong></label></td>
+                            	<td><div id="num_sol" class="labels"> </div></td>
+                              <td><label class="labels"><smarty>$campo[4]</smarty> <strong><div id="nome_func"><smarty>$nome_funcionario</smarty></div></strong></label></td>
                               </tr>
                         </table>
                         <table width="100%" border="0">
@@ -52,8 +52,8 @@
                             <div id="div_os_destino" style="display:none; z-index:15000;">
                         	<table width="100%" border="0">
                                 <tr>
-                                    <td><label for="os_destino" class="labels">OS&nbsp;destino</label><br /> 
-										<div id="combo_os_destino">&nbsp;</div>
+                                    <td><label for="os_destino" class="labels">OS destino</label><br /> 
+										<div id="combo_os_destino"> </div>
                                     </td>
                                 </tr>
                             </table>
@@ -65,9 +65,9 @@
                                 <td width="59%"><label class="labels"><smarty>$campo[8]</smarty></label>
                                     <table width="19%" border="0">
                                         <tr>
-                                        <td width="16%"><label class="labels">Data&nbsp;inicial</label><br />
+                                        <td width="16%"><label class="labels">Data inicial</label><br />
                                         	<input name="periodo_ini" type="text" class="caixa" id="periodo_ini" size="10" onkeypress="transformaData(this, event);" onkeyup="return autoTab(this, 10);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onblur="return checaTamanhoData(this,10); " /></td>
-                                        <td width="3%"><label class="labels">Data&nbsp;final</label><br />
+                                        <td width="3%"><label class="labels">Data final</label><br />
                                         	<input name="periodo_fim" type="text" class="caixa" id="periodo_fim" size="10" onkeypress="transformaData(this, event);" onkeyup="return autoTab(this, 10);" value="<smarty>$smarty.now|date_format:'%d/%m/%Y'</smarty>" onblur="return checaTamanhoData(this,10); " />
                                         
                                         </td>
@@ -120,29 +120,29 @@
                                                 SIM</label></td>
                                             <td width="70"><label class="labels">
                                                 <input id="radio2" name="cobrar_cliente" type="radio" value="0">
-                                                N&Atilde;O</label></td>
+                                                NÃO</label></td>
                                         </tr>
                                         </table></td>
                                   </tr>
                               </table>
 						<table width="100%" border="0">				
 						   <TR>
-								<TD style="text-align:center; border:solid; border-color:#000; border-width:1px;"><label class="labels">Valor&nbsp;orçado:&nbsp;</label><div id="dv_orcado">&nbsp;</div>
+								<TD style="text-align:center; border:solid; border-color:#000; border-width:1px;"><label class="labels">Valor orçado: </label><div id="dv_orcado"> </div>
                                 <input name="vlr_orc" type="hidden" id="vlr_orc"  value="0">
                                 <input name="vlr_sol" type="hidden" id="vlr_sol"  value="0">
                                 <input name="qtd_itensnec" type="hidden" id="qtd_itensnec" value="0">
                                 </TD>
-								<TD style="text-align:center; border:solid; border-color:#000; border-width:1px;"><label class="labels">Valor&nbsp;consumido:&nbsp;</label><div id="dv_consumido">&nbsp;</div></TD>
+								<TD style="text-align:center; border:solid; border-color:#000; border-width:1px;"><label class="labels">Valor consumido: </label><div id="dv_consumido"> </div></TD>
 						   </TR>
                         </table>
-                        <div id="div_necessidades">&nbsp;</div>
+                        <div id="div_necessidades"> </div>
                      </div>
                 </div>   
               </div>
         </td>
         </tr>
       </table>
-	  <div id="requisicao" style="width:100%;">&nbsp;</div>
+	  <div id="requisicao" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

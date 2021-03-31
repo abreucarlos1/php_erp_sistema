@@ -106,7 +106,7 @@ foreach($db->array_select as $reg)
 
 $smarty->assign("check_equipe",$check);
 
-$check_contrato = '<label class="labels">Tipo&nbsp;Contrato</label><br>';
+$check_contrato = '<label class="labels">Tipo Contrato</label><br>';
 
 $sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".salarios ";
 $sql .= "WHERE funcionarios.id_funcionario = salarios.id_funcionario ";

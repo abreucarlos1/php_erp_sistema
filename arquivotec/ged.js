@@ -279,9 +279,9 @@ function popupUpload_grid(checkout)
 {	
 	//this.metodo = 0; //0=upload normal;1=checkout;
 	
-	conteudo = '<div id="div_nrdocs">&nbsp;</div>';
+	conteudo = '<div id="div_nrdocs"> </div>';
 	
-	conteudo += '<table><tr><td><input type="button" class="class_botao" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick=dv_info(0);divPopupInst.destroi();dir_up();></td><td>&nbsp;</td></tr></table>';
+	conteudo += '<table><tr><td><input type="button" class="class_botao" name="btn_checkout_voltar" id="btn_checkout_voltar" value="Voltar" onclick=dv_info(0);divPopupInst.destroi();dir_up();></td><td> </td></tr></table>';
 	
 	modal(conteudo, 'gg', 'CHECK-OUT');	
 	
@@ -375,7 +375,7 @@ function stopUpload(success,id,filename,tamanho,erro,msg)
 
 function delUpload(id)
 {
-      document.getElementById('txtup_'+id).innerHTML = '<input class="caixa" name="myfile_'+id+'" type="file" size="30" />&nbsp;&nbsp;<input type="submit" name="submitBtn" id="submitBtn" value="Upload" />';
+      document.getElementById('txtup_'+id).innerHTML = '<input class="caixa" name="myfile_'+id+'" type="file" size="30" />  <input type="submit" name="submitBtn" id="submitBtn" value="Upload" />';
 	  document.getElementById('upload_'+id).innerHTML = "";
 	  document.getElementById('delete_'+id).style.visibility = 'hidden';
 	  document.getElementById('tam_'+id).innerHTML = "";
@@ -425,19 +425,19 @@ function popupUploadRef(caminho)
 	conteudo += '</div>';	
 	conteudo += '<span class="labels">Selecione o arquivo:</span>';
 	conteudo += '<input type="file" name="arquivo" id="arquivo" class="caixa">';
-	conteudo += '<p><input type="submit" value="Enviar" class="class_botao">&nbsp;<input type="button" class="class_botao" value="Voltar" onclick="divPopupInst.destroi();"></p>';
+	conteudo += '<p><input type="submit" value="Enviar" class="class_botao"> <input type="button" class="class_botao" value="Voltar" onclick="divPopupInst.destroi();"></p>';
 	conteudo += '</form>';
 	
-	modal(conteudo, 'p', 'UPLOAD&nbsp;REFERÊNCIAS');
+	modal(conteudo, 'p', 'UPLOAD REFERÊNCIAS');
 }
 
 //Cria div popup de envio de arquivos ao Arquivo Técnico
 function popupEnvia(id_os)
 {
 
-	conteudo = '<div id="div_solicita">&nbsp;</div>';
+	conteudo = '<div id="div_solicita"> </div>';
 	
-	modal(conteudo, 'gg', 'SOLICITAR&nbsp;EMISSÃO');
+	modal(conteudo, 'gg', 'SOLICITAR EMISSÃO');
 	
 	xajax_preencheArquivosSol(id_os);
 }
@@ -448,12 +448,12 @@ function popupVersoes_comentarios(id_ged_versao)
 	
 	conteudo = '';
 	
-	conteudo = '<div id="div_titulo" class="labels">&nbsp;</div>';
-	conteudo += '<div>&nbsp;</div>';
+	conteudo = '<div id="div_titulo" class="labels"> </div>';
+	conteudo += '<div> </div>';
 	conteudo += '<div id="div_tab" style="width:100%; height:350px;">';
 		conteudo += '<div id="a1">';
 			conteudo += '<form name="frm_prop" id="frm_prop" action="" method="post">';
-			conteudo += '<div id="div_propriedades" name="div_propriedades">&nbsp;</div>';
+			conteudo += '<div id="div_propriedades" name="div_propriedades"> </div>';
 			conteudo += '<input type="hidden" name="id_ged_versao" id="id_ged_versao" value="'+id_ged_versao+'">';
 			conteudo += '</form>';
 		
@@ -462,20 +462,20 @@ function popupVersoes_comentarios(id_ged_versao)
 		conteudo += '<div id="a2">';
 			conteudo += '<form name="frm_ver" id="frm_ver" action="" method="post">';
 			conteudo += '<label class="labels">Versões:</label>';
-			conteudo += '<div id="conteudo_versoes">&nbsp;</div>';
+			conteudo += '<div id="conteudo_versoes"> </div>';
 			conteudo += '<input type="hidden" name="id_ged_versao" id="id_ged_versao" value="'+id_ged_versao+'">';				
 		conteudo += '</form></div>';
 			
 		conteudo += '<div id="a3" style="overflow:auto;">';
 			
-			conteudo += '<form name="frm_com" id="frm_com" action="upload.php" target="upload_target" method="post" enctype="multipart/form-data" onsubmit=if((document.getElementById("motivo").value!="")||(document.getElementById("arquivo_'+id_ged_versao+'").value!="")){if(confirm("Deseja&nbsp;incluir&nbsp;comentário?")){startUpload('+id_ged_versao+');xajax_propriedades_comentarios(xajax.getFormValues("frm_com"));};}else{alert("Os&nbsp;campos&nbsp;devem&nbsp;ter&nbsp;conteudo!")};>';
+			conteudo += '<form name="frm_com" id="frm_com" action="upload.php" target="upload_target" method="post" enctype="multipart/form-data" onsubmit=if((document.getElementById("motivo").value!="")||(document.getElementById("arquivo_'+id_ged_versao+'").value!="")){if(confirm("Deseja incluir comentário?")){startUpload('+id_ged_versao+');xajax_propriedades_comentarios(xajax.getFormValues("frm_com"));};}else{alert("Os campos devem ter conteudo!")};>';
 			conteudo += '<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;display:none;"></iframe>';
 			
 			conteudo += '<input type="hidden" name="funcao" id="funcao" value="comentario">';
 			
 			conteudo += '<input type="hidden" name="id_ged_versao" id="id_ged_versao" value="'+id_ged_versao+'">';
 			
-			conteudo += '<div id="div_comentarios_existentes" style="height:80px;">&nbsp;</div>';
+			conteudo += '<div id="div_comentarios_existentes" style="height:80px;"> </div>';
 			
 			conteudo += '<div id="div_comentarios" style="overflow:auto;">';
 			
@@ -490,7 +490,7 @@ function popupVersoes_comentarios(id_ged_versao)
 			conteudo += '<label class="labels"><strong>Anexo</strong></label><br>';
 			conteudo += '<span id="txtup_'+id_ged_versao+'"><input class="caixa" name="arquivo_'+id_ged_versao+'" id="arquivo_'+id_ged_versao+'" type="file" size="30" /></span><br>';
 			conteudo += '<input type="submit" name="submitBtn" id="submitBtn" class="class_botao" value="Incluir" /><br>';
-			conteudo += '<p style="visibility:hidden;" id="upload_'+id_ged_versao+'">&nbsp;</p>';
+			conteudo += '<p style="visibility:hidden;" id="upload_'+id_ged_versao+'"> </p>';
 			conteudo += '<span class="caixa" id="tam_'+id_ged_versao+'"></span>';
 			conteudo += '<span class="caixa" id="delete_'+id_ged_versao+'"></span>';
 			conteudo += '</td>';
@@ -504,13 +504,13 @@ function popupVersoes_comentarios(id_ged_versao)
 			conteudo += '<form name="frm_des" id="frm_des" action="" method="post">';
 			conteudo += '<table border="0" width="100%">';			
 			conteudo += '<tr><td colspan="2">';
-			conteudo += '<div id="div_desbloqueios">&nbsp;</div>';
+			conteudo += '<div id="div_desbloqueios"> </div>';
 			conteudo += '<input type="hidden" name="id_ged_versao" id="id_ged_versao" value="'+id_ged_versao+'">';
 			conteudo += '<br></td></tr></table>';
 			conteudo += '</form>';
 		conteudo += '</div>';	
 	conteudo += '</div>';
-	conteudo += '<div id="div_voltar">&nbsp;</div>';
+	conteudo += '<div id="div_voltar"> </div>';
 	
 	//divPopupInst.div_conteudo.innerHTML = conteudo;
 	
@@ -564,9 +564,9 @@ function popupVersoes_comentarios(id_ged_versao)
 //Cria div popup de titulos de arquivos
 function popupTitulos(id_ged_versao)
 {
-	conteudo = '<div id="div_tit">&nbsp;</div>';
+	conteudo = '<div id="div_tit"> </div>';
 	
-	modal(conteudo, 'm', 'ALTERAÇÃO&nbsp;TÍTULOS');
+	modal(conteudo, 'm', 'ALTERAÇÃO TÍTULOS');
 	
 	xajax_preencheTitulos(id_ged_versao);	
 }
@@ -575,9 +575,9 @@ function popupTitulos(id_ged_versao)
 //Cria div popup de titulos de arquivos
 function popupSolDesBloq(id_os)
 {	
-	conteudo = '<div id="div_desbloq">&nbsp;</div>';
+	conteudo = '<div id="div_desbloq"> </div>';
 	
-	modal(conteudo, 'm', 'SOLICITAR&nbsp;DESBLOQUEIO');	
+	modal(conteudo, 'm', 'SOLICITAR DESBLOQUEIO');	
 	
 	xajax_sol_desbloquear(id_os);	
 }
@@ -586,10 +586,10 @@ function popupSolDesBloq(id_os)
 function popupGRDs()
 {
 	conteudo = '<form action="" method="post" name="frm_grds" id="frm_grds">';
-	conteudo += '<div id="div_titulo" class="labels">&nbsp;</div>';
-	conteudo += '<div id="div_ordem" style="width:100%; text-align:right"><label class="labels">Ordenar&nbsp;por:</label><br /><select name="ordem" id="ordem" class="caixa"><option value="" selected>NUMINT (padrão)</option><option value="1">NUMCLI</option></select></div>';
-	conteudo += '<div>&nbsp;</div>';	
-	conteudo += '<div id="conteudo_grds">&nbsp;</div><br />';
+	conteudo += '<div id="div_titulo" class="labels"> </div>';
+	conteudo += '<div id="div_ordem" style="width:100%; text-align:right"><label class="labels">Ordenar por:</label><br /><select name="ordem" id="ordem" class="caixa"><option value="" selected>NUMINT (padrão)</option><option value="1">NUMCLI</option></select></div>';
+	conteudo += '<div> </div>';	
+	conteudo += '<div id="conteudo_grds"> </div><br />';
 	conteudo += '<input type="hidden" name="id_ged_pacote" id="id_ged_pacote" value="">';
 	conteudo += '<p><input type="button" class="class_botao" value="Voltar" onclick="divPopupInst.destroi();"></p>';
 	conteudo += '</form>';
@@ -625,15 +625,15 @@ function popupBuscaAvancada(id_os,id_disciplina)
 	conteudo += '<div id="div_titulo1" style="clear:both;">';
 	conteudo += '<div class="labels">Busca</div><input type="text" name="busca_texto" id="busca_texto" class="caixa" size="70">';
 	conteudo += '</div>';	
-	conteudo += '<div>&nbsp;</div>';		
-	conteudo += '<div id="div_busca_resultados">&nbsp;</div>';	
+	conteudo += '<div> </div>';		
+	conteudo += '<div id="div_busca_resultados"> </div>';	
 	conteudo += '<div style="margin-top:10px;">';
-	conteudo += '<input type="button" class="class_botao" value="Buscar" onclick=xajax_buscaArquivosAvancada(xajax.getFormValues("frm_buscaavancada"));>&nbsp;<input name="btn_relatorios" id="btn_rel" class="class_botao" type="button" value="Relatórios" onclick=popupRel(); disabled="disabled">&nbsp;<input type="button" class="class_botao" value="Voltar" onclick=xajax.$("id_os").options[xajax.$("id_os").selectedIndex].value=document.getElementById("id_os_ant").value;xajax.$("disciplina").options[xajax.$("disciplina").selectedIndex].value=document.getElementById("id_disciplina_ant").value;divPopupInst.destroi();>';
+	conteudo += '<input type="button" class="class_botao" value="Buscar" onclick=xajax_buscaArquivosAvancada(xajax.getFormValues("frm_buscaavancada"));> <input name="btn_relatorios" id="btn_rel" class="class_botao" type="button" value="Relatórios" onclick=popupRel(); disabled="disabled"> <input type="button" class="class_botao" value="Voltar" onclick=xajax.$("id_os").options[xajax.$("id_os").selectedIndex].value=document.getElementById("id_os_ant").value;xajax.$("disciplina").options[xajax.$("disciplina").selectedIndex].value=document.getElementById("id_disciplina_ant").value;divPopupInst.destroi();>';
 	conteudo += '</div>';
 	conteudo += '</div>';
 	conteudo += '</form>';
 	
-	modal(conteudo, 'gg', 'BUSCA&nbsp;AVANÇADA');	
+	modal(conteudo, 'gg', 'BUSCA AVANÇADA');	
 }
 
 //Cria efeito de "item selecionado" ao passar com mouse
@@ -834,7 +834,7 @@ function buscaMenu(string,id)
 
 function popupPropriedades(id_ged_versao)
 {
-	conteudo = '<div id="div_prop">&nbsp;</div>';
+	conteudo = '<div id="div_prop"> </div>';
 	
 	modal(conteudo, 'm', 'PROPRIEDADES');
 	
@@ -843,9 +843,9 @@ function popupPropriedades(id_ged_versao)
 
 function popupPropriedadesRef(id)
 {
-	conteudo = '<div id="div_prop">&nbsp;</div>';
+	conteudo = '<div id="div_prop"> </div>';
 	
-	modal(conteudo, 'm', 'PROPRIEDADES&nbsp;REFERÊNCIAS');
+	modal(conteudo, 'm', 'PROPRIEDADES REFERÊNCIAS');
 	
 	xajax_preenchePropriedadesRef(id);	
 }
@@ -877,7 +877,7 @@ function popupRel()
 	conteudo += '<td valign="middle"><input name="btn_voltar" id="btn_voltar" type="button" class="class_botao" value="Voltar" onclick=divPopupInst.destroi(2);></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" >&nbsp;</td>';
+	conteudo += '<td valign="middle" > </td>';
 	conteudo += '</tr>';
 
 	modal(conteudo, 'p', 'RELATÓRIOS',2);
@@ -885,7 +885,7 @@ function popupRel()
 
 function popupComentarios(id_ged_versao)
 {
-	conteudo = '<div id="div_com">&nbsp;</div>';
+	conteudo = '<div id="div_com"> </div>';
 	
 	modal(conteudo, 'm', 'COMENTÁRIOS',1);
 	

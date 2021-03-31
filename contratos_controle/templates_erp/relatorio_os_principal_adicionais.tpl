@@ -18,7 +18,7 @@
         	<td colspan="2" valign="top" class="espacamento">
 		  <table border="0" width="100%">
  			  <tr>
-				<td width="13%"><label for="escolhaos" class="labels">OS&nbsp;principal</label><br />
+				<td width="13%"><label for="escolhaos" class="labels">OS principal</label><br />
 					<select name="escolhaos" class="caixa" id="escolhaos" onkeypress="return keySort(this);">
 					<smarty>html_options values=$option_os_values output=$option_os_output</smarty> 
 				  </select></td>

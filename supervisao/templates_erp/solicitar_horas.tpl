@@ -15,7 +15,7 @@
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 				<tr>
-					<td><label for="status" class="labels">Visualizar&nbsp;Status</label><br />
+					<td><label for="status" class="labels">Visualizar Status</label><br />
                   <select name="status" class="caixa" id="status" onchange="xajax_atualizatabela(xajax.getFormValues('frm_os'));" onkeypress="return keySort(this);">
 					<smarty>html_options values=$option_status_values output=$option_status_output selected=$option_status_selected </smarty>
                 </select></td>
@@ -80,7 +80,7 @@
 		</td>
         </tr>
       </table>
-  <div id="habilitados" style="width:100%;">&nbsp;</div>
+  <div id="habilitados" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

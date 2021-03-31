@@ -37,7 +37,7 @@ $db->select($sql,'MYSQL',true);
 $regsos = $db->array_select[0];
 
 /*
-//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+//PEGA A ULTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 $sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 ";
 $sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 $sql .= "AND AFE010.AFE_PROJET = '".sprintf("%010d",$regsos["os"])."' ";
@@ -73,7 +73,7 @@ $db->select($sql,'MSSQL', true);
 
 $dataprojet = $db->array_select[0];
 
-//Obtem a data do 1� e ultimo apontamento confirmado
+//Obtem a data do 1ª e ultimo apontamento confirmado
 $sql = "SELECT MIN(AFU_DATA) AS DATAINI, MAX(AFU_DATA) AS DATAFIM, SUM(AFU_HQUANT) AS HorasApont FROM AFU010, AF8010 ";
 $sql .= "WHERE AFU_PROJET = AF8_PROJET ";
 $sql .= "AND AFU_REVISA = AF8_REVISA ";

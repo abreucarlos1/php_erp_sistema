@@ -13,7 +13,7 @@
        			</table>
 			</td>
         	<td colspan="2" valign="top" class="espacamento">            
-            	  <div id="div_tree" align="left" style="width:100%; height:600px;">&nbsp;</div></td>
+            	  <div id="div_tree" align="left" style="width:100%; height:600px;"> </div></td>
         </tr>
       </table>
 </form>

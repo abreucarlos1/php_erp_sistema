@@ -15,12 +15,12 @@ window.dhtmlxDblCalendarObject = window.dhtmlXDoubleCalendarObject = window.dhtm
 	this.rightCalendar = new dhtmlXCalendarObject(parentId);
 	this.rightCalendar.hideTime();
 	
-	this.leftCalendar.attachEvent("onClick", function(d){
+	this.leftCalendar.attachEvent("onclick", function(d){
 		that._updateRange("rightCalendar", d, null);
 		that._evOnClick(["left", d]);
 	});
 	
-	this.rightCalendar.attachEvent("onClick", function(d){
+	this.rightCalendar.attachEvent("onclick", function(d){
 		that._updateRange("leftCalendar", null, d);
 		that._evOnClick(["right", d]);
 	});
@@ -90,7 +90,7 @@ window.dhtmlxDblCalendarObject = window.dhtmlXDoubleCalendarObject = window.dhtm
 	}
 	
 	this._evOnClick = function(args) {
-		return this.callEvent("onClick", args);
+		return this.callEvent("onclick", args);
 	}
 	this._evOnBeforeChange = function(args) {
 		return this.callEvent("onBeforeChange", args);

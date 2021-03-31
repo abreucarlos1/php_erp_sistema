@@ -1,23 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de TIPOS DE CABOS	
+		Formulário de TIPOS DE CABOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/cabos_tipos.php
-		
-		Verifica��o de a��es:
-		
-		Incluir : NOK
-		Alterar : NOK
-		Deletar : NOK
-		Permiss�es : NOK
-		Valida��es : NOK
-		Coment�rios : NOK		
-		
-		data de cria��o: 19/05/2006
+	
+		data de criação: 19/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -27,11 +18,11 @@
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -48,15 +39,15 @@ if ($_POST["acao"]=="editar")
 	$sql = "SELECT * FROM cabos_tipos WHERE ";
 	$sql .= "ds_cabo_tipo = '" . $_POST["ds_cabo_tipo"] . "' ";
 	$sql .= "AND ds_formacao = '" . $_POST["ds_formacao"] . "' ";
-	$regis = mysql_query($sql, $conexao) or die("N�o foi poss�vel a sele��o dos dados.");
+	$regis = mysql_query($sql, $conexao) or die("Não foi possível a seleção dos dados.");
 	
 	if(mysql_num_rows($regis)>0)
 	{
 		?>
 		<script>
-			alert('tipo de cabo j� cadastrado no banco de dados.');
+			alert('tipo de cabo já cadastrado no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
@@ -65,12 +56,12 @@ if ($_POST["acao"]=="editar")
 		$sql .= "ds_cabo_tipo = '" . $_POST["ds_cabo_tipo"] . "', ";
 		$sql .= "ds_formacao = '" . $_POST["ds_formacao"] . "' ";
 		$sql .= "WHERE id_cabo_tipo = '" . $_POST["id_cabo_tipo"] ."' ";
-		$registros = mysql_query($sql, $conexao) or die("N�o foi poss�vel a Atualização dos dados.");
+		$registros = mysql_query($sql, $conexao) or die("Não foi possível a Atualização dos dados.");
 		?>
 		<script>
 			alert('tipo de cabo atualizado com sucesso.');
 		</script>
-		<?
+		<?php
 	}		
 
 mysql_close($conexao);	
@@ -82,32 +73,32 @@ if ($_POST["acao"]=="salvar")
 	$sql = "SELECT * FROM cabos_tipos WHERE ";
 	$sql .= "ds_cabo_tipo = '" . $_POST["ds_cabo_tipo"] . "' ";
 	$sql .= "AND ds_formacao = '" . $_POST["ds_formacao"] . "' ";
-	$regis = mysql_query($sql, $conexao) or die("N�o foi poss�vel a sele��o dos dados.");
+	$regis = mysql_query($sql, $conexao) or die("Não foi possível a seleção dos dados.");
 	
 	if(mysql_num_rows($regis)>0)
 	{
 		?>
 		<script>
-			alert('tipo de cabo j� cadastrado no banco de dados.');
+			alert('tipo de cabo já cadastrado no banco de dados.');
 		</script>
-		<?
+		<?php
 	
 	}
 	else
 	{
-		//Cria senten�a de Inclusão no bd
-		$incsql = "INSERT INTO cabos_tipos ";
-		$incsql .= "(ds_cabo_tipo, ds_formacao) VALUES (";
-		$incsql .= "'" . $_POST["ds_cabo_tipo"] . "', ";
-		$incsql .= "'" . $_POST["ds_formacao"] . "') ";
+		//Cria sentença de Inclusão no bd
+		$isql = "INSERT INTO cabos_tipos ";
+		$isql .= "(ds_cabo_tipo, ds_formacao) VALUES (";
+		$isql .= "'" . $_POST["ds_cabo_tipo"] . "', ";
+		$isql .= "'" . $_POST["ds_formacao"] . "') ";
 	
-		$registros = mysql_query($incsql,$conexao) or die("Não foi possível a inserção dos dados" . $incsql);
+		$registros = mysql_query($isql,$conexao) or die("Não foi possível a inserção dos dados" . $isql);
 	
 		?>
 		<script>
 			alert('tipo de cabo inserido com sucesso.');
 		</script>
-		<?
+		<?php
 	}
 mysql_close($conexao);
 }
@@ -116,12 +107,12 @@ mysql_close($conexao);
  
 if ($_GET["acao"] == "deletar")
 {
-	mysql_query("DELETE FROM cabos_tipos WHERE id_cabo_tipo = '".$_GET["id_cabo_tipo"]."' ",$conexao) or die ("N�o foi poss�vel excluir o registro. Motivo: " . mysql_error($conexao));
+	mysql_query("DELETE FROM cabos_tipos WHERE id_cabo_tipo = '".$_GET["id_cabo_tipo"]."' ",$conexao) or die ("Não foi possível excluir o registro. Motivo: " . mysql_error($conexao));
 	?>
 	<script>
-		alert('tipo de cabo exclu�do com sucesso.');
+		alert('tipo de cabo excluído com sucesso.');
 	</script>
-	<?
+	<?php
 }
 ?>
 
@@ -130,13 +121,13 @@ if ($_GET["acao"] == "deletar")
 <title>: : . TIPOS DE CABOS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
-<!-- Javascript para declara��o de vari�veis / checagem do estilo - MAC/PC -->
+<!-- Javascript para declaração de variáveis / checagem do estilo - MAC/PC -->
 <script language="JavaScript" src="../includes/checkstyle.js" type="text/javascript"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 function excluir(id_cabo_tipo, ds_formacao)
 {
@@ -157,7 +148,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -187,24 +178,24 @@ MM_reloadPage(true);
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="33" bgcolor="#000099" class="menu_superior"><? titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
+        <td height="33" bgcolor="#000099" class="menu_superior"><?php titulo($_SESSION["nome_usuario"],$_SESSION["projeto"]) ?></td>
  	  </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;<? formulario() ?></td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> <?php formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php menu() ?></td>
       </tr>
 	  <tr>
         <td>
 		
 			
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			 if ($_GET["acao"]=='editar')
@@ -223,45 +214,45 @@ MM_reloadPage(true);
 
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="27%" class="label1">FINALIDADE</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="61%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="61%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_finalidade" type="text" class="txt_boxcap" id="requerido" size="40" value="<?= $cabos_tipos["ds_formacao"] ?>">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="id_cabo_finalidade" type="hidden" id="id_cabo_finalidade" value="<?= $cabos_finalidades["id_cabo_finalidade"] ?>">
 				  <input name="acao" type="hidden" id="acao" value="editar">
-                    <input name="Alterar" type="button" class="btn" id="Alterar" value="Alterar" onClick="requer('cabos_tipos')">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
+                    <input name="Alterar" type="button" class="btn" id="Alterar" value="Alterar" onclick="requer('cabos_tipos')">
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:location.href='<?= $PHP_SELF ?>';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /EDITAR -->
 
 			  </div>
-			 <?
+			 <?php
 				mysql_close($conexao);
 			
 			 }
@@ -273,45 +264,45 @@ MM_reloadPage(true);
 			  <!-- INSERIR -->
 			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td>&nbsp;</td>
-                  <td align="left">&nbsp;</td>
+                  <td> </td>
+                  <td align="left"> </td>
                 </tr>
                 <tr>
-                  <td width="1%">&nbsp;</td>
+                  <td width="1%"> </td>
                   <td width="99%" align="left">
 				  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td width="38%" class="label1">FINALIDADE</td>
-                      <td width="1%" class="label1">&nbsp;</td>
-                      <td width="50%" class="label1">&nbsp;</td>
+                      <td width="1%" class="label1"> </td>
+                      <td width="50%" class="label1"> </td>
                     </tr>
                     <tr>
                       <td><font size="2" face="Arial, Helvetica, sans-serif">
                         <input name="ds_finalidade" type="text" class="txt_boxcap" id="requerido" value="<?= $_POST["ds_formacao"] ?>" size="40">
                       </font></td>
-                      <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td> </td>
+                      <td> </td>
                     </tr>
                   </table></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td> </td>
                   <td>
 				  <input name="acao" type="hidden" id="acao" value="salvar">
-                    <input name="Inserir" type="button" class="btn" id="Inserir" value="Inserir" onClick="requer('cabos_tipos')">
-                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:location.href='menuprojetos.php';">
-                    <input name="Locais" type="button" class="btn" id="Locais" value="LOCAIS" onClick="javascript:location.href='locais.php';"></td>
+                    <input name="Inserir" type="button" class="btn" id="Inserir" value="Inserir" onclick="requer('cabos_tipos')">
+                    <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:location.href='menuprojetos.php';">
+                    <input name="Locais" type="button" class="btn" id="Locais" value="LOCAIS" onclick="javascript:location.href='locais.php';"></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
 			  </table>
 
 			<!-- /INSERIR -->	
 
 			  </div>
-			 <?
+			 <?php
 			}
 			?>
 			
@@ -324,8 +315,8 @@ MM_reloadPage(true);
 			<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "ds_cabo_tipo";
@@ -338,24 +329,24 @@ MM_reloadPage(true);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
-				  <td width="26%"><a href="#" class="cabecalho_tabela" onClick="ordenar('tipo','<?= $ordem ?>')">TIPO</a></td>
-				  <td width="62%">FORMA&Ccedil;&Atilde;O</td>
+				  <td width="26%"><a href="#" class="cabecalho_tabela" onclick="ordenar('tipo','<?= $ordem ?>')">TIPO</a></td>
+				  <td width="62%">FORMAÇÃO</td>
 				  <td width="5%"  class="cabecalho_tabela">E</td>
 				  <td width="4%"  class="cabecalho_tabela">D</td>
-				  <td width="3%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="3%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 						
 			</div>
 			<div id="tbbody" style="position:relative; width:100%; height:200px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
-					// Arquivo de Inclusão de conex�o com o banco
+				<?php
+					// Arquivo de Inclusão de conexão com o banco
 					include ("../includes/conectdbproj.inc");
 			
-					// Mostra os funcion�rios
+					// Mostra os funcionários
 					
 					$sql = "SELECT * FROM cabos_tipos ";
 					$sql .= "ORDER BY '" . $campo ."' ".$ordem." ";
@@ -387,9 +378,9 @@ MM_reloadPage(true);
 						  <td width="5%"><div align="center"> <a href="javascript:editar('<?= $cabos_tipos["id_cabo_tipo"] ?>')"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a> </div></td>
 					      <td width="4%"><div align="center"> <a href="javascript:excluir('<?= $cabos_tipos["id_cabo_tipo"] ?>','<?= $cabos_tipos["ds_formacao"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a> </div></td>
 					</tr>
-						<?
+						<?php
 					}
-					// Libera a mem�ria
+					// Libera a memória
 					mysql_close($conexao);
 				?>
 			  </table>

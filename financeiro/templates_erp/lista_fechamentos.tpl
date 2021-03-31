@@ -12,9 +12,9 @@
 			<div id="tbheader" style="position:relative; width:100%; height:18px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 				<tr>
-				  <td width="52%"><a href="#" class="cabecalho_tabela" onClick="ordenar('funcionario','<smarty>$ordem</smarty>')">FECHAMENTO</a></td>
+				  <td width="52%"><a href="#" class="cabecalho_tabela" onclick="ordenar('funcionario','<smarty>$ordem</smarty>')">FECHAMENTO</a></td>
 				  <td width="43%">LIBERADO</td>
-				  <td width="5%" class="cabecalho_tabela">&nbsp;</td>
+				  <td width="5%" class="cabecalho_tabela"> </td>
 				</tr>
 			</table>
 			</div>
@@ -29,8 +29,8 @@
         <td><table width="100%" border="0">
             <tr>
               <td width="55%"><input type="hidden" name="acao" value="alterar"><input name="Alterar" type="submit" class="btn" id="Alterar" value="Alterar">
-                <input name="Voltar" type="submit" class="btn" id="Voltar" value="Voltar" onClick="window.close()"></td>
-              <td width="45%">&nbsp;</td>
+                <input name="Voltar" type="submit" class="btn" id="Voltar" value="Voltar" onclick="window.close()"></td>
+              <td width="45%"> </td>
             </tr>
           </table></td>
       </tr>

@@ -1130,7 +1130,7 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 				$rowSpan = 1;
 
 				// initialize
-				$cellData = '&nbsp;';
+				$cellData = ' ';
 
 				// PHPExcel_Cell
 				if ($cell instanceof PHPExcel_Cell) {
@@ -1190,9 +1190,9 @@ class PHPExcel_Writer_HTML extends PHPExcel_Writer_Abstract implements PHPExcel_
 						}
 					}
 
-					// Converts the cell content so that spaces occuring at beginning of each new line are replaced by &nbsp;
-					// Example: "  Hello\n to the world" is converted to "&nbsp;&nbsp;Hello\n&nbsp;to the world"
-					$cellData = preg_replace("/(?m)(?:^|\\G) /", '&nbsp;', $cellData);
+					// Converts the cell content so that spaces occuring at beginning of each new line are replaced by  
+					// Example: "  Hello\n to the world" is converted to "  Hello\n to the world"
+					$cellData = preg_replace("/(?m)(?:^|\\G) /", ' ', $cellData);
 
 					// convert newline "\n" to '<br>'
 					$cellData = nl2br($cellData);

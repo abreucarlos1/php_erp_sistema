@@ -243,7 +243,7 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 		$sql .= "AND documentos_referencia.reg_del = 0 ";
 		$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 		$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= $filtro;
 		$sql .= "ORDER BY tipos_referencia.tipo_referencia, documentos_referencia.id_documento_referencia DESC, documentos_referencia.numero_registro DESC, setores.setor ";
 	
@@ -262,7 +262,7 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 		
 		foreach($db->array_select as $reg)
 		{
-			$rowHtml = '&nbsp;';
+			$rowHtml = ' ';
 			
 			$os = sprintf("%05d",$reg["os"]);
 			
@@ -308,21 +308,21 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 				
 				if($reg["arquivo"]!="")
 				{
-					$rowHtml = '<img src="'.DIR_IMAGENS.'anexo.png" onclick=open_doc("'.urlencode($diretorio.$reg["arquivo"]).'") title="Abrir&nbsp;Documento">';
+					$rowHtml = '<img src="'.DIR_IMAGENS.'anexo.png" onclick=open_doc("'.urlencode($diretorio.$reg["arquivo"]).'") title="Abrir Documento">';
 				}
 				else
 				{
-					$rowHtml = '&nbsp;';	
+					$rowHtml = ' ';	
 				}
 				
 				$xml->writeElement('cell',$rowHtml);
 	
-				$rowHtml = '&nbsp;';
+				$rowHtml = ' ';
 				
 				//permite apagar o registro
 				if(in_array($_SESSION["id_funcionario"], lista_autorizados()))
 				{
-					$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO:&nbsp;Todos&nbsp;os&nbsp;dados&nbsp;referentes&nbsp;a&nbsp;esse&nbsp;documento&nbsp;de&nbsp;referência&nbsp;serão&nbsp;EXCLUÍDOS&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'",1);} title="Excluir&nbsp;Documento">';
+					$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: Todos os dados referentes a esse documento de referência serão EXCLUÍDOS definitivamente. Deseja continuar?")){xajax_excluir("'.$reg["id_documento_referencia"].'",1);} title="Excluir Documento">';
 					
 					$xml->writeElement('cell',$rowHtml);
 				}
@@ -374,7 +374,7 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 		$sql .= "WHERE documentos_referencia_inclusao.id_os = ordem_servico.id_os ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND ordem_servico.reg_del = 0 ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= "AND documentos_referencia_inclusao.reg_del = 0 ";
 		$sql .= "AND documentos_referencia_inclusao.id_os = '".$dados_form["inc_id_os"]."' ";
 		$sql .= "ORDER BY tipos_referencia.tipo_referencia, documentos_referencia_inclusao.id_documento_ref_inclusao DESC, documentos_referencia_inclusao.numero_registro DESC, setores.setor ";
@@ -405,7 +405,7 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 		
 		foreach($db->array_select as $reg)
 		{
-			$rowHtml = '&nbsp;';
+			$rowHtml = ' ';
 			
 			$os = sprintf("%05d",$reg["os"]);
 			
@@ -451,21 +451,21 @@ function atualizatabela($dados_form, $limparServico = false, $tab = 1)
 				
 				if($reg["strarquivo"]!="")
 				{
-					$rowHtml = '<img src="'.DIR_IMAGENS.'anexo.png" onclick=open_doc("'.urlencode($diretorio.$reg["strarquivo"]).'") title="Abrir&nbsp;Documento">';
+					$rowHtml = '<img src="'.DIR_IMAGENS.'anexo.png" onclick=open_doc("'.urlencode($diretorio.$reg["strarquivo"]).'") title="Abrir Documento">';
 				}
 				else
 				{
-					$rowHtml = '&nbsp;';	
+					$rowHtml = ' ';	
 				}
 				
 				$xml->writeElement('cell',$rowHtml);
 	
-				$rowHtml = '&nbsp;';
+				$rowHtml = ' ';
 				
 				//permite o editor apagar o registro
 				if(in_array($_SESSION["id_funcionario"], lista_autorizados()))
 				{
-					$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO:&nbsp;Todos&nbsp;os&nbsp;dados&nbsp;referentes&nbsp;a&nbsp;esse&nbsp;documento&nbsp;de&nbsp;referência&nbsp;serão&nbsp;EXCLUÍDOS&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documento_ref_inclusao"].'",0);} title="Excluir&nbsp;Documento">';
+					$rowHtml = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: Todos os dados referentes a esse documento de referência serão EXCLUÍDOS definitivamente. Deseja continuar?")){xajax_excluir("'.$reg["id_documento_ref_inclusao"].'",0);} title="Excluir Documento">';
 					
 					$xml->writeElement('cell',$rowHtml);
 				}
@@ -545,7 +545,7 @@ function atualizatabela_revisoes($id_documento_referencia)
 	$sql .= "AND documentos_referencia.reg_del = 0 ";
 	$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 	$sql .= "AND documentos_referencia.id_os = ordem_servico.id_os ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND documentos_referencia_revisoes.id_documento_referencia = documentos_referencia.id_documento_referencia ";
 	$sql .= "ORDER BY revisao_documento DESC, id_documentos_referencia_revisoes DESC ";
 	
@@ -631,7 +631,7 @@ function atualizatabela_revisoes($id_documento_referencia)
 				}
 				else
 				{
-					$html = '&nbsp;';	
+					$html = ' ';	
 				}
 				
 			}
@@ -643,7 +643,7 @@ function atualizatabela_revisoes($id_documento_referencia)
 				}
 				else
 				{
-					$html = '&nbsp;';	
+					$html = ' ';	
 				}
 			}
 			
@@ -651,11 +651,11 @@ function atualizatabela_revisoes($id_documento_referencia)
 			
 			if(in_array($_SESSION["id_funcionario"], lista_autorizados()))
 			{			
-				$img_exc = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO:&nbsp;O&nbsp;documento&nbsp;de&nbsp;referência&nbsp;será&nbsp;EXCLUÍDO&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir("'.$reg["id_documentos_referencia_revisoes"].'",2);} title="Excluir&nbsp;Documento">';
+				$img_exc = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: O documento de referência será EXCLUÍDO definitivamente. Deseja continuar?")){xajax_excluir("'.$reg["id_documentos_referencia_revisoes"].'",2);} title="Excluir Documento">';
 			}
 			else
 			{
-				$img_exc = '&nbsp;';	
+				$img_exc = ' ';	
 			}
 			
 			$xml->writeElement('cell', $img_exc);			
@@ -797,7 +797,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 		$sql .= "AND documentos_referencia_inclusao.reg_del = 0 ";
 		$sql .= "AND documentos_referencia_inclusao.id_tipo_documento_referencia = tipos_documentos_referencia.id_tipos_documentos_referencia ";
 		$sql .= "AND tipos_documentos_referencia.id_tipo_referencia = tipos_referencia.id_tipo_referencia ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 		$sql .= "AND documentos_referencia_inclusao.id_documento_ref_inclusao = '".$id_doc_referencia."' ";
 	
 		$db->select($sql,'MYSQL',true);
@@ -877,7 +877,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 			$sql .= "AND documentos_referencia.reg_del = 0 ";
 			$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 			$sql .= "AND documentos_referencia.id_documento_referencia_revisoes = documentos_referencia_revisoes.id_documentos_referencia_revisoes ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND documentos_referencia.id_documento_referencia = '".$id_doc_referencia."' ";
 		
 			$db->select($sql,'MYSQL',true);
@@ -929,7 +929,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 			
 			if ($db->erro != '')
 			{
-				$resposta->addAlert("Não foi poss&iacute;vel excluir o registro: ".$db->erro);
+				$resposta->addAlert("Não foi possível excluir o registro: ".$db->erro);
 			}
 	
 			//seleciona o arquivo da ultima versao_documento/revisao_documento
@@ -977,7 +977,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 				
 				if ($db->erro != '')
 				{	
-					$resposta->addAlert("Não foi poss&iacute;vel excluir o registro: ".$db->erro);
+					$resposta->addAlert("Não foi possível excluir o registro: ".$db->erro);
 				}
 				
 				$copia_versao = false;
@@ -1041,7 +1041,7 @@ function excluir($id_doc_referencia,$funcao = 0)
 			$sql .= "AND documentos_referencia.reg_del = 0 ";
 			$sql .= "AND documentos_referencia_revisoes.reg_del = 0 ";
 			$sql .= "AND documentos_referencia.id_documento_referencia = documentos_referencia_revisoes.id_documento_referencia ";
-			$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+			$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 			$sql .= "AND documentos_referencia_revisoes.id_documentos_referencia_revisoes = '".$id_doc_referencia."' ";
 		
 			$db->select($sql,'MYSQL',true);
@@ -1254,7 +1254,7 @@ function concluir($dados_form)
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND documentos_referencia_inclusao.reg_del = 0 ";
 	$sql .= "AND documentos_referencia_inclusao.id_os = '".$dados_form["inc_id_os"]."' ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	
 	$db->select($sql,'MYSQL',true);
 	
@@ -1474,7 +1474,7 @@ function concluir($dados_form)
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND os_x_funcionarios.id_funcionario = funcionarios.id_funcionario ";
-		$sql .= "AND os_x_funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 		$sql .= "ORDER BY funcionario ";
 		
 		$db->select($sql,'MYSQL',true);
@@ -1486,15 +1486,23 @@ function concluir($dados_form)
 				$params['emails']['to'][] = array('email' => $reg_equipe["email"], 'nome' => $reg_equipe["funcionario"]);
 			}
 		}
-		
-		$mail = new email($params,'documento_referencia');
-		
-		$mail->montaCorpoEmail($texto);
-							
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+			$mail = new email($params,'documento_referencia');
+			
+			$mail->montaCorpoEmail($texto);
+								
+			if(!$mail->Send())
+			{
+				$resposta->addAlert($mail->ErrorInfo);
+			}
 		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
+		}
+
 					
 		$resposta->addAlert("Concluído com sucesso.");
 	}
@@ -1643,7 +1651,7 @@ function grid(tabela, autoh, height, xml)
 	{
 		case 'inc_div_docs_referencia':
 
-			mygrid.setHeader("OS, Nº&nbsp;Interno, Nº&nbsp;Doc., Disciplina, Tipo&nbsp;Documento, Título, Data, FMT, R, E/C, V, E");
+			mygrid.setHeader("OS, Nº Interno, Nº Doc., Disciplina, Tipo Documento, Título, Data, FMT, R, E/C, V, E");
 			mygrid.setInitWidths("60,138,138,90,110,200,70,40,40,40,40,40");
 			mygrid.setColAlign("left,left,center,left,left,left,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1663,7 +1671,7 @@ function grid(tabela, autoh, height, xml)
 			}
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected);
-			mygrid.setHeader("Nº&nbsp;Interno, Nº&nbsp;Doc., OS, Disciplina, Tipo&nbsp;Documento, Título, Data, FMT, R/V, E/C, A, E");
+			mygrid.setHeader("Nº Interno, Nº Doc., OS, Disciplina, Tipo Documento, Título, Data, FMT, R/V, E/C, A, E");
 			mygrid.setInitWidths("138,138,40,90,110,200,70,40,40,40,40,40");
 			mygrid.setColAlign("left,left,center,left,left,left,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -1671,7 +1679,7 @@ function grid(tabela, autoh, height, xml)
 		break;
 
 		case 'div_revisoes':
-			mygrid.setHeader("Revisão/Versão, data, GRD&nbsp;Cliente&nbsp;, Arquivo, Autor, Editor, E/C, A, E");
+			mygrid.setHeader("Revisão/Versão, data, GRD Cliente , Arquivo, Autor, Editor, E/C, A, E");
 			mygrid.setInitWidths("100,80,120,180,185,185,50,50,50");
 			mygrid.setColAlign("left,center,left,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");

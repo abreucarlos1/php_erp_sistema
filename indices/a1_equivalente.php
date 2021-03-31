@@ -102,7 +102,7 @@ $check = "";
 	 
 foreach ($db->array_select as $regs)
 {
-	$check .= "<input type=\"checkbox\" id=\"chk_".$regs["id_setor"]."\" name=\"chk_".$regs["id_setor"]."\" value=\"checkbox\">&nbsp;&nbsp;<label class=\"label_descricao_campos\">".$regs["setor"]."</label><br>";
+	$check .= "<input type=\"checkbox\" id=\"chk_".$regs["id_setor"]."\" name=\"chk_".$regs["id_setor"]."\" value=\"checkbox\">  <label class=\"label_descricao_campos\">".$regs["setor"]."</label><br>";
 }
 
 $smarty->assign("option_status_values",$array_status_values);

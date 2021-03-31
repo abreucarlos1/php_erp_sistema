@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de ESCOLHA DE MALHAS PARA ESPEC. TEC.	
+		Formulário de ESCOLHA DE MALHAS PARA ESPEC. TEC.	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/rel_escolhamalhas.php
 		
-		data de cria��o: 10/05/2006
+		data de criação: 10/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 	
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -36,14 +36,14 @@ $db = new banco_dados;
 
 <html>
 <head>
-<title>: : . ESPECIFICA&Ccedil;&Atilde;O T&Eacute;CNICA / &Aacute;REA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA / ÁREA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 function enviar(malhas)
@@ -57,7 +57,7 @@ function enviar(malhas)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -98,10 +98,10 @@ a:active {
         <td height="33" bgcolor="#000099" class="menu_superior"></td>
  	  </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
 
@@ -111,26 +111,26 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td colspan="4" align="center" class="kks_nivel1">ESCOLHA a malha </td>
               </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td colspan="2" rowspan="3" class="btn"><font size="2" face="Arial, Helvetica, sans-serif">
                 <select name="id_malha" id="id_malha" class="txt_box" onChange="enviar(this[selectedIndex].value)">
                   <option value="">SELECIONE</option>
-				  <?
+				  <?php
 						  	$sql = "SELECT * FROM Projetos.area, Projetos.subsistema, Projetos.malhas ";
 							$sql .= "WHERE area.os = '" .$_SESSION["os"] . "' ";
 							$sql .= "AND area.id_area = subsistema.id_area ";
@@ -141,38 +141,38 @@ a:active {
 							while ($regs = mysqli_fetch_array($reg))
 								{
 									?>
-                  					<option value="<?= $regs["id_malha"] ?>"<? if($regs["id_malha"]==$_POST["id_malha"]){echo 'selected';} ?>>
+                  					<option value="<?= $regs["id_malha"] ?>"<?php if($regs["id_malha"]==$_POST["id_malha"]){echo 'selected';} ?>>
                     				<?= $regs["nr_area"]. " - " .$regs["nr_subsistema"]. " - " .$regs["nr_malha"] . " " .$regs["ds_servico"]?>
                     				</option>
-                  					<?
+                  					<?php
 								}
 				  ?>
                 </select>
               </font></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td colspan="4" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onClick="javascript:history.back();"></td>
+              <td colspan="4" class="btn"><input name="Inserir2" type="button" class="btn" id="Inserir2" value="VOLTAR" onclick="javascript:history.back();"></td>
               </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

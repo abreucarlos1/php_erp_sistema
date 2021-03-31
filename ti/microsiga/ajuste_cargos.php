@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
@@ -33,7 +33,7 @@ while($cont = mysql_fetch_array($reg))
 	{
 		
 		$reg3 = mssql_fetch_array($con);
-		//Altera a fun��o no banco microsiga(RH)
+		//Altera a função no banco microsiga(RH)
 		$sql = "UPDATE AE8010 SET ";
 		$sql .= "AE8_FUNCAO = '".sprintf("%05d",$cont["id_cargo_grupo"])."' ";	
 		$sql .= "WHERE R_E_C_N_O_ = '".trim($reg3["R_E_C_N_O_"])."' ";														//ID CARGO													

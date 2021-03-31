@@ -552,16 +552,16 @@ function atualizatabela($filtro="", $tipo_filtro="")
 				}
 				else
 				{
-					$status = '&nbsp;';
+					$status = ' ';
 				}
 				
 				if($array_grd[$cont_pacotes["id_ged_pacote"]])
 				{
-					$del = '&nbsp;';		
+					$del = ' ';		
 				}
 				else
 				{
-					$del = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;pacote?&nbsp;Os&nbsp;arquivos&nbsp;relacionados&nbsp;serão&nbsp;liberados&nbsp;no&nbsp;sistema.")){xajax_excluir_pacote("' . $cont_pacotes["id_ged_pacote"] . '");}>';
+					$del = '<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir o pacote? Os arquivos relacionados serão liberados no sistema.")){xajax_excluir_pacote("' . $cont_pacotes["id_ged_pacote"] . '");}>';
 				}
 				
 				$xml->startElement('row');
@@ -672,7 +672,7 @@ function mostraPacote($id_ged_pacote)
 				$sql .= "AND ged_versoes.id_ged_pacote = ged_pacotes.id_ged_pacote ";
 				$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 				$sql .= "AND numeros_interno.id_os = ordem_servico.id_os ";
-				$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+				$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 				$sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 				$sql .= "AND ordem_servico.id_cod_resp = contatos.id_contato ";
 				$sql .= "AND ged_versoes.id_ged_pacote = '" . $id_ged_pacote . "' ";
@@ -807,7 +807,7 @@ function mostraPacote($id_ged_pacote)
 						
 							foreach($db->array_select as $reg_arquivos)
 							{
-								$descricao_numdvm = "DVM-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
+								$descricao_numdvm = "INT-" . sprintf("%05d",$reg_arquivos["os"]) . "-" . $reg_arquivos["sigla"] . "-" .$reg_arquivos["sequencia"];
 								
 								$base_arquivo = $reg_arquivos["base"] . "/" . $reg_arquivos["os"] . "/" . substr($reg_arquivos["os"],0,4) . DISCIPLINAS . $reg_arquivos["disciplina"] . "/" . $reg_arquivos["atividade"];
 								
@@ -928,11 +928,11 @@ function mostraPacote($id_ged_pacote)
 									
 									if($reg_info["status"] == 0 && $num_reg_arquivos>1 && $num_reg_grd == 0)
 									{
-										$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" title="Remover&nbsp;do&nbsp;pacote&nbsp;e&nbsp;liberar&nbsp;no&nbsp;GED" onclick=if(confirm("Essa&nbsp;ação&nbsp;irá&nbsp;retirar&nbsp;o&nbsp;arquivo&nbsp;nº&nbsp;' . $descricao_numdvm. '&nbsp;do&nbsp;pacote&nbsp;e&nbsp;liberar&nbsp;a&nbsp;edição&nbsp;do&nbsp;mesmo&nbsp;no&nbsp;GED.&nbsp;Confirma?")){xajax_liberar_versao("' . $reg_arquivos["id_ged_versao_pacote"] . '");}>';
+										$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" title="Remover do pacote e liberar no GED" onclick=if(confirm("Essa ação irá retirar o arquivo nº ' . $descricao_numdvm. ' do pacote e liberar a edição do mesmo no GED. Confirma?")){xajax_liberar_versao("' . $reg_arquivos["id_ged_versao_pacote"] . '");}>';
 									}
 									else
 									{
-										$del = '&nbsp;';
+										$del = ' ';
 									}
 									
 									$xml->startElement('row');
@@ -953,34 +953,34 @@ function mostraPacote($id_ged_pacote)
 											$xml->text($descricao_numdvm);
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '"><input type="text" class="caixa" name="txt_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja&nbsp;atualizar&nbsp;a&nbsp;Revisão&nbsp;Interna&nbsp;"+xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value}else{this.value=xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '"><input type="text" class="caixa" name="txt_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value}else{this.value=xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();
 										$xml->startElement ('cell');
 											$xml->text($reg_arquivos["versao_"]);
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '"><input type="text" class="caixa" name="txt_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '" style="width:100%;" onblur=if(xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja&nbsp;atualizar&nbsp;o&nbsp;Nº&nbsp;Cliente&nbsp;"+xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("numero_cliente",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '"><input type="text" class="caixa" name="txt_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '" style="width:100%;" onblur=if(xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar o Nº Cliente "+xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("numero_cliente",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_cliente"] . '"><input type="text" class="caixa" name="txt_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_cliente"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja&nbsp;atualizar&nbsp;a&nbsp;Revisão&nbsp;Cliente&nbsp;"+xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_cliente",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_cliente"] . '"><input type="text" class="caixa" name="txt_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_cliente"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Cliente "+xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_cliente",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_rev_cliente_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();
 										$xml->startElement ('cell');
 											$xml->text($tamanho);
 										$xml->endElement();										
 										$xml->startElement ('cell');
-											$xml->text('<select name="sel_form_' . $reg_arquivos["id_ged_arquivo"] . '" class="caixa" onclick=sel_form_vlr=this.options[this.selectedIndex].value; onchange=if(confirm("Confirma&nbsp;a&nbsp;alteração&nbsp;de&nbsp;formato?")){xajax_atualiza_campos("formato",this.value,'.$reg_arquivos["id_ged_versao_atual"].');}else{seleciona_combo(sel_form_vlr,"sel_form_'  . $reg_arquivos["id_ged_arquivo"] . '");}>' . $options_form . '</select>');
+											$xml->text('<select name="sel_form_' . $reg_arquivos["id_ged_arquivo"] . '" class="caixa" onclick=sel_form_vlr=this.options[this.selectedIndex].value; onchange=if(confirm("Confirma a alteração de formato?")){xajax_atualiza_campos("formato",this.value,'.$reg_arquivos["id_ged_versao_atual"].');}else{seleciona_combo(sel_form_vlr,"sel_form_'  . $reg_arquivos["id_ged_arquivo"] . '");}>' . $options_form . '</select>');
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["folhas"] . '"><input type="text" class="caixa" name="txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" id="txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["folhas"] . '" size="3" onkeypress=num_only(); onblur=if(xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja&nbsp;alterar&nbsp;a&nbsp;quantidade&nbsp;de&nbsp;folhas&nbsp;de&nbsp;"+xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax_atualiza_campos("folhas",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["folhas"] . '"><input type="text" class="caixa" name="txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" id="txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["folhas"] . '" size="3" onkeypress=num_only(); onblur=if(xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja alterar a quantidade de folhas de "+xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax_atualiza_campos("folhas",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_txt_fls_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();										
 										$xml->startElement ('cell');
-											$xml->text('<select name="sel_fin_'  . $reg_arquivos["id_ged_arquivo"] . '" class="caixa" onclick=sel_fin_vlr=this.options[this.selectedIndex].value; onchange=if(confirm("Confirma&nbsp;a&nbsp;alteração&nbsp;de&nbsp;finalidade?")){xajax_atualiza_campos("finalidade",this.value,'.$reg_arquivos["id_ged_versao_atual"].');}else{seleciona_combo(sel_fin_vlr,"sel_fin_'  . $reg_arquivos["id_ged_arquivo"] . '");}>' . $options_fin . '</select>');
+											$xml->text('<select name="sel_fin_'  . $reg_arquivos["id_ged_arquivo"] . '" class="caixa" onclick=sel_fin_vlr=this.options[this.selectedIndex].value; onchange=if(confirm("Confirma a alteração de finalidade?")){xajax_atualiza_campos("finalidade",this.value,'.$reg_arquivos["id_ged_versao_atual"].');}else{seleciona_combo(sel_fin_vlr,"sel_fin_'  . $reg_arquivos["id_ged_arquivo"] . '");}>' . $options_fin . '</select>');
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["copias"] . '"><input type="text" class="caixa" name="txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" id="txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["copias"] . '" size="2" onkeypress=num_only(); onblur=if(xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja&nbsp;alterar&nbsp;a&nbsp;quantidade&nbsp;de&nbsp;cópias&nbsp;de&"+xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax_atualiza_campos("copias",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["copias"] . '"><input type="text" class="caixa" name="txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" id="txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["copias"] . '" size="2" onkeypress=num_only(); onblur=if(xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja alterar a quantidade de cópias de&"+xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax_atualiza_campos("copias",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_txt_cp_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input title="Documento&nbsp;interno&nbsp;" type="checkbox" id="chk_doc_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="chk_doc_dvm_' . $reg_arquivos["id_ged_arquivo"] . '"  value="1" onclick=if(confirm("Confirma&nbsp;a&nbsp;alteração&nbsp;de&nbsp;documento&nbsp;interno&nbsp;para&nbsp;externo?")){xajax_atualiza_campos("documento_interno",this.checked,'.$reg_arquivos["id_ged_versao_atual"].');}else{if(this.checked){this.checked=false}else{this.checked=true}} '.$chk_doc_checked.'>');
+											$xml->text('<input title="Documento interno " type="checkbox" id="chk_doc_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="chk_doc_dvm_' . $reg_arquivos["id_ged_arquivo"] . '"  value="1" onclick=if(confirm("Confirma a alteração de documento interno para externo?")){xajax_atualiza_campos("documento_interno",this.checked,'.$reg_arquivos["id_ged_versao_atual"].');}else{if(this.checked){this.checked=false}else{this.checked=true}} '.$chk_doc_checked.'>');
 										$xml->endElement();
 										$xml->startElement ('cell');
 											$xml->text($del);
@@ -1099,7 +1099,7 @@ function enviaPacote($dados_form)
 				  
 				  //lista de usuarios para e-mail
 				  $sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-				  $sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+				  $sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 				  $sql .= "AND funcionarios.reg_del = 0 ";
 				  $sql .= "AND usuarios.reg_del = 0 ";
 				  $sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -1197,7 +1197,7 @@ function enviaPacote($dados_form)
 					  $sql .= "WHERE ordem_servico.id_os = '".$id_os."' ";
 					  $sql .= "AND ordem_servico.reg_del = 0 ";
 					  $sql .= "AND empresas.reg_del = 0 ";
-					  $sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+					  $sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 				  
 					  $db->select($sql,'MYSQL',true);
 
@@ -1474,18 +1474,18 @@ function propriedades_prop($dados_form)
 		$conteudo .= '<table border="0" width="100%">';
 		
 		$conteudo .= '<tr>';
-		$conteudo .= '<td width="5%"><label class="labels">Título&nbsp;1</label><br><input type="text" name="tag" id="tag" class="caixa" value="' . $regs["tag"] . '" size="40"></td>';
-		$conteudo .= '<td width="5%"><label class="labels">Título&nbsp;2</label><br><input type="text" name="tag2" id="tag2" class="caixa" value="' . $regs["tag2"] . '" size="40"></td>';
+		$conteudo .= '<td width="5%"><label class="labels">Título 1</label><br><input type="text" name="tag" id="tag" class="caixa" value="' . $regs["tag"] . '" size="40"></td>';
+		$conteudo .= '<td width="5%"><label class="labels">Título 2</label><br><input type="text" name="tag2" id="tag2" class="caixa" value="' . $regs["tag2"] . '" size="40"></td>';
 		$conteudo .= '</tr>';
 		
 		$conteudo .= '<tr>';
-		$conteudo .= '<td width="5%"><label class="labels">Título&nbsp;3</label><br><input type="text" name="tag3" id="tag3" class="caixa" value="' . $regs["tag3"] . '" size="40"></td>';
-		$conteudo .= '<td width="5%"><label class="labels">Título&nbsp;4</label><br><input type="text" name="tag4" id="tag4" class="caixa" value="' . $regs["tag4"] . '" size="40"></td>';
+		$conteudo .= '<td width="5%"><label class="labels">Título 3</label><br><input type="text" name="tag3" id="tag3" class="caixa" value="' . $regs["tag3"] . '" size="40"></td>';
+		$conteudo .= '<td width="5%"><label class="labels">Título 4</label><br><input type="text" name="tag4" id="tag4" class="caixa" value="' . $regs["tag4"] . '" size="40"></td>';
 		$conteudo .= '</tr>';
 	
 		$conteudo .= '<tr>';
-		$conteudo .= '<td width="5%"><label class="labels">data&nbsp;devolução</label><br><input name="data_devolucao" type="text" class="caixa" id="data_devolucao" size="10" onkeypress=transformaData(this, event); value="'.mysql_php($regs["data_devolucao"]).'"></td>';
-		$conteudo .= '<td width="5%"><label class="labels">status&nbsp;devolução</label><br>';
+		$conteudo .= '<td width="5%"><label class="labels">data devolução</label><br><input name="data_devolucao" type="text" class="caixa" id="data_devolucao" size="10" onkeypress=transformaData(this, event); value="'.mysql_php($regs["data_devolucao"]).'"></td>';
+		$conteudo .= '<td width="5%"><label class="labels">status devolução</label><br>';
 		
 		  $conteudo .= '<select name="status_devolucao" id="status_devolucao" class="caixa">';
 		  $conteudo .= '<option value="">SELECIONE</option>';
@@ -1514,7 +1514,7 @@ function propriedades_prop($dados_form)
 		
 		$conteudo .= "</table>";
 		
-		$conteudo .= '<input class="class_botao" type="button" value="Alterar Propriedades" onclick=xajax_atualizaPropriedades(xajax.getFormValues("frm_prop"));>&nbsp;&nbsp;';
+		$conteudo .= '<input class="class_botao" type="button" value="Alterar Propriedades" onclick=xajax_atualizaPropriedades(xajax.getFormValues("frm_prop"));>  ';
 		
 		$conteudo .= '<input class="class_botao" type="button" value="Voltar" onclick=divPopupInst.destroi();>';
 		
@@ -1588,7 +1588,7 @@ function propriedades_versoes($dados_form)
 			
 			if($regs["id_ged_versao"] == $reg_versoes["id_ged_versao"])
 			{
-				$ver = 'Versão&nbsp;do&nbsp;pacote';
+				$ver = 'Versão do pacote';
 				
 				$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'bt_busca.png" onclick=xajax_abrir("ARQ_' . $reg_versoes["id_ged_versao"] . '");>';
 			
@@ -1596,7 +1596,7 @@ function propriedades_versoes($dados_form)
 			}
 			else
 			{
-				$ver = '&nbsp;';
+				$ver = ' ';
 				
 				$img = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'bt_busca.png" onclick=xajax_abrir("ARQ_' . $reg_versoes["id_ged_versao"] . '_VER");>';
 				
@@ -1612,13 +1612,13 @@ function propriedades_versoes($dados_form)
 					$xml->text(basename(addslashes($reg_versoes["arquivo"])));
 				$xml->endElement();
 				$xml->startElement ('cell');
-					$xml->text('<input type="hidden" id="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" name="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '"><input type="text" class="caixa" name="text_rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja&nbsp;atualizar&nbsp;a&nbsp;Revisão&nbsp;Interna&nbsp;"+xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
+					$xml->text('<input type="hidden" id="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" name="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '"><input type="text" class="caixa" name="text_rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value+" para "+this.value+"?")){xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
 				$xml->endElement();
 				$xml->startElement ('cell');
 					$xml->text($reg_versoes["versao_"]);
 				$xml->endElement();
 				$xml->startElement ('cell');
-					$xml->text('<input type="hidden" id="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" name="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '"><input type="text" class="caixa" name="text_rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '" style="width:100%;" onblur=if(xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja&nbsp;atualizar&nbsp;a&nbsp;Revisão&nbsp;Cliente&nbsp;"+xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value+"&nbsp;para&nbsp;"+this.value+"?")){xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_cliente",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
+					$xml->text('<input type="hidden" id="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" name="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '"><input type="text" class="caixa" name="text_rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '" style="width:100%;" onblur=if(xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Cliente "+xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value+" para "+this.value+"?")){xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_cliente",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
 				$xml->endElement();
 				$xml->startElement ('cell');
 					$xml->text(addslashes($nome_funcionario[$reg_versoes["autor"]]));
@@ -1718,25 +1718,25 @@ function propriedades_comentarios($dados_form)
 				if($reg_coment["strarquivo"]!='')
 				{				
 					$xml->startElement ('cell');
-						$xml->text(retornaImagem($extensao).'&nbsp;'.addslashes($reg_coment["nome_arquivo"]));
+						$xml->text(retornaImagem($extensao).' '.addslashes($reg_coment["nome_arquivo"]));
 					$xml->endElement();
 					$xml->startElement ('cell');
-						$xml->text('<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" alt="Abrir&nbsp;arquivo&nbsp;de&nbsp;comentário" onclick=xajax_abrir("COM_' . $reg_coment["id_ged_comentario"] .'")>');
+						$xml->text('<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" alt="Abrir arquivo de comentário" onclick=xajax_abrir("COM_' . $reg_coment["id_ged_comentario"] .'")>');
 					$xml->endElement();
 
 				}
 				else
 				{
 					$xml->startElement ('cell');
-						$xml->text('&nbsp;');
+						$xml->text(' ');
 					$xml->endElement();
 					$xml->startElement ('cell');
-						$xml->text('&nbsp;');
+						$xml->text(' ');
 					$xml->endElement();
 				}
 				
 				$xml->startElement ('cell');
-					$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" alt="Remover&nbsp;arquivo&nbsp;de&nbsp;comentário" onclick=if(confirm("ATEN&Ccedil;&Atilde;O:&nbsp;O&nbsp;arquivo&nbsp;de&nbsp;comentário&nbsp;será&nbsp;exclu&iacute;do&nbsp;definitivamente.&nbsp;Deseja&nbsp;continuar?")){xajax_excluir_comentario(' . $reg_coment["id_ged_comentario"] . ');}>');
+					$xml->text('<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" alt="Remover arquivo de comentário" onclick=if(confirm("ATENÇÃO: O arquivo de comentário será excluído definitivamente. Deseja continuar?")){xajax_excluir_comentario(' . $reg_coment["id_ged_comentario"] . ');}>');
 				$xml->endElement();
 				
 			$xml->endElement();
@@ -1818,9 +1818,9 @@ function propriedades_desbloqueios($dados_form)
 		{
 			$id = 'DES_' . $reg_desbloq["id_ged_desbloqueio"];
 			
-			$apr = '<img src="'.DIR_IMAGENS.'accept.png"  style="cursor:pointer;" title="Desbloquear" onclick=if(confirm("Deseja&nbsp;aprovar&nbsp;o&nbsp;desbloqueio?")){xajax_desbloquear("'.$reg_desbloq["id_ged_versao"].'",0)};>';
+			$apr = '<img src="'.DIR_IMAGENS.'accept.png"  style="cursor:pointer;" title="Desbloquear" onclick=if(confirm("Deseja aprovar o desbloqueio?")){xajax_desbloquear("'.$reg_desbloq["id_ged_versao"].'",0)};>';
 			
-			$exc = '<img src="'.DIR_IMAGENS.'apagar.png"  style="cursor:pointer;" title="Recusar" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;desbloqueio?")){xajax_desbloquear("'.$reg_desbloq["id_ged_versao"].'",1)};>';
+			$exc = '<img src="'.DIR_IMAGENS.'apagar.png"  style="cursor:pointer;" title="Recusar" onclick=if(confirm("Deseja excluir o desbloqueio?")){xajax_desbloquear("'.$reg_desbloq["id_ged_versao"].'",1)};>';
 			
 			$xml->startElement('row');
 				$xml->writeAttribute('id',$id);
@@ -1835,13 +1835,13 @@ function propriedades_desbloqueios($dados_form)
 					$extensao = $extensao_array[count($extensao_array)-1];
 									
 					$xml->startElement ('cell');
-						$xml->text(retornaImagem($extensao).'&nbsp;'.addslashes($reg_desbloq["nome_arquivo"]));
+						$xml->text(retornaImagem($extensao).' '.addslashes($reg_desbloq["nome_arquivo"]));
 					$xml->endElement();
 				}
 				else
 				{
 					$xml->startElement ('cell');
-						$xml->text('&nbsp;');
+						$xml->text(' ');
 					$xml->endElement();					
 				}
 				
@@ -1892,7 +1892,7 @@ function retornaCliente($dados_form)
 	
 	//lista de usuarios para e-mail
 	$sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -2024,13 +2024,13 @@ function retornaCliente($dados_form)
 			
 			//Forma o e-mail
 			$params 			= array();
-			$params['from']		= 'arqtec@dominio.com.br';
+			$params['from']		= 'arquivotecnico@dominio.com.br';
 			$params['from_name']= 'Arquivo Tecnico';
 			
 			$params['subject'] = "RETORNO DE PACOTE - OS: " . sprintf("%05d",$reg_pacote["os"]) . " - Pacote: " . sprintf("%04d",$reg_pacote["numero_pacote"]).' COM COMENTARIOS';
 			
 			//arquivo técnico
-			$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+			$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 			
 			//autor do pacote
 			if($reg_usuario["email"]!='')
@@ -2052,7 +2052,7 @@ function retornaCliente($dados_form)
 			{
 			    if(!empty($alocado['email']))
 			    {
-			        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+			        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
 			    }
 			}
 			
@@ -2061,15 +2061,22 @@ function retornaCliente($dados_form)
 			//Adiciona a mensagem do corpo do e-mail
 			$corpoEmail = "<html><body style='font: 11pt Arial'><p>O seguinte pacote foi retornado do cliente e os arquivos estão liberados no sistema:</p><div id='div_solicitante'>Solicitante: <a href='mailto:" . $array_email[$reg_pacote["pct_id_autor"]] . "'>" . $array_func[$reg_pacote["pct_id_autor"]] . "</a></div><div id='div_data'>data da solicitação: " . mysql_php($reg_pacote["data"]) . "</div></body></html>";
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($corpoEmail);
-
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($corpoEmail);
+
+				if(!$mail->Send())
+				{
+					$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+				}
 			}
-		
+			else 
+			{
+				$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 1);
+			}
+
 			$resposta->addAlert("Arquivo retornado com sucesso.");
 			
 			foreach($array_retorno as $array_solicitantes=>$array_id)
@@ -2081,13 +2088,13 @@ function retornaCliente($dados_form)
 			if(count($solicitante)>0)
 			{
 				$params 			= array();
-				$params['from']		= 'arqtec@dominio.com.br';
+				$params['from']		= 'arquivotecnico@dominio.com.br';
 				$params['from_name']= 'Arquivo Tecnico';
 				
 				$params['subject'] = $reg_pacote["descricao"]." - DOCUMENTO DESBLOQUEADO: ";
 				
 				//GRUPO ARQUIVO TECNICO
-				$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Grupo Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Grupo Arquivo Técnico");
 				
 				//EDITOR DO ARQUIVO
 				if($array_email[$reg_pacote["id_editor"]]!="")
@@ -2118,12 +2125,12 @@ function retornaCliente($dados_form)
 				{
 				    if(!empty($alocado['email']))
 				    {
-				        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+				        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
 				    }
 				}
 				
 // 				$params['emails']['to'][] = array('email' => 'planejamento@dominio.com.br', 'nome' => 'Planejamento');
-//  				$params['emails']['cco'][] = array('email' => 'carlos.maximo@dominio.com.br', 'nome' => 'Carlos Maximo');
+//  				$params['emails']['cco'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'TI');
 				
 				$str_mensagem = "<p>O seguinte documento foi desbloqueado no sistema devido ao retorno do cliente: </p>";
 				$str_mensagem .= "<p>" . $reg_pacote["descricao"] . "</p>";
@@ -2134,18 +2141,25 @@ function retornaCliente($dados_form)
 				$str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$array_resultado["solicitante"]] . "</p>";
 				$str_mensagem .= "<p>Motivo do desbloqueio: " . $reg_pacote["comentario"] . "</p>";
 				
-				$str_mensagem .= "<p>&nbsp;</p>";
+				$str_mensagem .= "<p> </p>";
 				$str_mensagem .= "<p>O mesmo agora se encontra livre no sistema para edição.</p>";
 					
 				$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";	 
-				 
-				$mail = new email($params);
 				
-				$mail->montaCorpoEmail($corpoEmail);
-
-				if(!$mail->Send())
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($corpoEmail);
+
+					if(!$mail->Send())
+					{
+						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					}
+				}
+				else 
+				{
+					$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 2);
 				}
 			}				
 		
@@ -2203,16 +2217,16 @@ function preencheGRDs($id_ged_pacote)
 	{		
 		if($reg_grd["grd_status"]=="1")
 		{
-			$st = '<img src="'.DIR_IMAGENS.'application_form_delete.png" style="cursor:pointer;" title="Clique&nbsp;para&nbsp;marcar&nbsp;essa&nbsp;GRD&nbsp;como&nbsp;cancelada" onclick=if(confirm("Deseja&nbsp;marcar&nbsp;essa&nbsp;GRD&nbsp;como&nbsp;cancelada?")){xajax_cancelarGRD("' . $reg_grd["id_grd"] . '");}>';
+			$st = '<img src="'.DIR_IMAGENS.'application_form_delete.png" style="cursor:pointer;" title="Clique para marcar essa GRD como cancelada" onclick=if(confirm("Deseja marcar essa GRD como cancelada?")){xajax_cancelarGRD("' . $reg_grd["id_grd"] . '");}>';
 		}
 		else
 		{
-			$st = '&nbsp;';			
+			$st = ' ';			
 		}
 		
-		$vis = '<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" title="Visualizar&nbsp;GRD" onclick=window.open("relatorios/rel_ged_grd.php?id_grd=' . $reg_grd["id_grd"] . '");>';
+		$vis = '<img src="'.DIR_IMAGENS.'bt_busca.png" style="cursor:pointer;" title="Visualizar GRD" onclick=window.open("relatorios/rel_ged_grd.php?id_grd=' . $reg_grd["id_grd"] . '");>';
 		
-		$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" title="Clique&nbsp;para&nbsp;excluir&nbsp;definitivamente&nbsp;essa&nbsp;GRD" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;a&nbsp;GRD?")){xajax_excluirGRD("' . $reg_grd["id_grd"] . '");}>';
+		$del = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" title="Clique para excluir definitivamente essa GRD" onclick=if(confirm("Deseja excluir a GRD?")){xajax_excluirGRD("' . $reg_grd["id_grd"] . '");}>';
 		
 		$xml->startElement('row');
 			$xml->writeAttribute('id',$reg_grd["id_grd"]);
@@ -2573,7 +2587,7 @@ function atualizaPropriedades($dados_form)
 					
 					//Seleciona o Coordenadores
 					$sql = "SELECT funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-					$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+					$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 					$sql .= "AND funcionarios.reg_del = 0 ";
 					$sql .= "AND usuarios.reg_del = 0 ";
 					$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -2616,7 +2630,7 @@ function atualizaPropriedades($dados_form)
 							
 							$params['subject'] = "Comentário(s) devolvido pelo cliente - OS: ".sprintf("%05d",$reg_complemento["os"]);
 							
-							$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+							$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 							
 							if($array_coord[$reg_complemento["id_cod_coord"]]['email']!='')
 							{
@@ -2642,7 +2656,7 @@ function atualizaPropriedades($dados_form)
 							{
 							    if(!empty($alocado['email']))
 							    {
-							        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+							        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
 							    }
 							}
 
@@ -2650,7 +2664,7 @@ function atualizaPropriedades($dados_form)
 							$corpoEmail = "<html>";
 							$corpoEmail .= "<body style='font: 11pt Arial'><p>O seguinte arquivo do pacote teve comentários em ".$dados_form["data_devolucao"];
 							$corpoEmail .= "<div id='pacote'>Pacote: ".sprintf("%04d",$reg_grd["numero_pacote"]) . "-" . sprintf("%05d",$reg_grd["os"]) . "</div>";
-							$corpoEmail .= "<div id='div_numdvm'>Número Devemada: ". PREFIXO_DOC_GED . sprintf("%05d",$reg_complemento["os"]) . "-" . $reg_complemento["sequencia"] . "</div>";
+							$corpoEmail .= "<div id='div_numdvm'>Número interno: ". PREFIXO_DOC_GED . sprintf("%05d",$reg_complemento["os"]) . "-" . $reg_complemento["sequencia"] . "</div>";
 							$corpoEmail .= "<div id='div_numcli'>Número Cliente: " . $reg_complemento["numero_cliente"] . "</div>";
 							$corpoEmail .= "<div id='div_disc'>Disciplina: "  . $reg_complemento["setor"] . "</div>";
 							$corpoEmail .= "<div id='div_revisao'>Revisão / Versão: " . $reg_complemento["revisao_documento"] . "." . $reg_complemento["versao_documento"] . "</div>";
@@ -2658,13 +2672,20 @@ function atualizaPropriedades($dados_form)
 							$corpoEmail .= "<div id='div_data_sol'>data da solicitação do Pacote: " . mysql_php($reg_grd["data"]) . "</div>";
 							$corpoEmail .= "<div id='div_obs'>Favor encaminhar este e-mail para os responsáveis.</div></body></html>";
 							
-							$mail = new email($params);
-							
-							$mail->montaCorpoEmail($corpoEmail);
-
-							if(!$mail->Send())
+							if(ENVIA_EMAIL)
 							{
-								$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+								$mail = new email($params);
+								
+								$mail->montaCorpoEmail($corpoEmail);
+
+								if(!$mail->Send())
+								{
+									$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+								}
+							}
+							else 
+							{
+								$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 3);
 							}
 						}					
 					}				
@@ -2769,8 +2790,8 @@ function liberar_versao($id_ged_versao)
 	$sql .= "AND ged_versoes.id_ged_arquivo = ged_arquivos.id_ged_arquivo ";
 	$sql .= "AND ged_arquivos.id_numero_interno = numeros_interno.id_numero_interno ";
 	$sql .= "AND ged_versoes.id_ged_versao = '" . $id_ged_versao . "' ";
-	$sql .= "AND ged_pacotes.id_autor = usuarios.id_funcionario ";
-	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND ged_pacotes.id_autor = funcionarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 
 	$db->select($sql,'MYSQL',true);
 
@@ -2813,11 +2834,11 @@ function liberar_versao($id_ged_versao)
 			{
 				//Forma o e-mail
 				$params 			= array();
-				$params['from']		= 'arqtec@dominio.com.br';
+				$params['from']		= 'arquivotecnico@dominio.com.br';
 				$params['from_name']= 'Arquivo Tecnico';
 				
 				$params['subject'] = "Arquivo retirado de pacote: " . sprintf("%05d",$reg_pkt["os"]) . "-" . sprintf("%04d",$reg_pkt["numero_pacote"]);
-				$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 				
 				if($reg_pkt["email"]!='')
 				{
@@ -2826,18 +2847,25 @@ function liberar_versao($id_ged_versao)
 				
 				//Adiciona a mensagem do corpo do e-mail
 				$corpoEmail = "<html><body style='font: 11pt Arial'><p>O seguinte arquivo foi retirado do pacote " . sprintf("%05d",$reg_pkt["os"]) . "-" . sprintf("%04d",$reg_pkt["numero_pacote"]) . " e está liberado no sistema:</p>";
-				$corpoEmail .= "<div>Número Devemada: ". PREFIXO_DOC_GED . sprintf("%05d",$reg_pkt["os"]) . "-" . $reg_pkt["sigla"] . "-" . $reg_pkt["sequencia"] . "</div>";
+				$corpoEmail .= "<div>Número interno: ". PREFIXO_DOC_GED . sprintf("%05d",$reg_pkt["os"]) . "-" . $reg_pkt["sigla"] . "-" . $reg_pkt["sequencia"] . "</div>";
 				$corpoEmail .= "<div>Revisão / Versão: " . $reg_pkt["revisao_documento"] . "." . $reg_pkt["versao_documento"] . "</div>";
 				$corpoEmail .= "<div>data da solicitação do Pacote: " . mysql_php($reg_pkt["data"]) . "</div>";
 				$corpoEmail .= "<div>Retirado por: " . $_SESSION["login"] . "</div></body></html>";
 				
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($corpoEmail);
-
-				if(!$mail->Send())
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($corpoEmail);
+
+					if(!$mail->Send())
+					{
+						$resposta->addAlert('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+					}
+				}
+				else 
+				{
+					$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 4);
 				}
 			
 				$resposta->addAlert("Arquivo excluído do pacote e liberado no GED com sucesso. ");
@@ -3080,13 +3108,13 @@ function desbloquear($id_ged_versao, $status)
 	
 	$params = array();
 	
-	$params['from']	= 'arqtec@dominio.com.br';
+	$params['from']	= 'arquivotecnico@dominio.com.br';
 	
 	$params['from_name'] = 'Arquivo Tecnico';	
 	
 	//Preenche um array com dados de Usuários
 	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADODVM','CANCELADO') ";
@@ -3161,7 +3189,7 @@ function desbloquear($id_ged_versao, $status)
 			  
 			    $params['subject'] = $reg_pacote["descricao"]." - DOCUMENTO DESBLOQUEADO COM COMENTARIO: ";
 			  
-			    $params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+			    $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 			    				
 				//EDITOR DO ARQUIVO
 				if($array_usremail[$reg_pacote["id_editor"]]!="")
@@ -3195,12 +3223,12 @@ function desbloquear($id_ged_versao, $status)
 				{
 				    if(!empty($alocado['email']))
 				    {
-				        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['Login']);
+				        $params['emails']['to'][] = array('email' => $alocado['email'], 'nome' => $alocado['login']);
 				    }
 				}
 				
 // 				$params['emails']['to'][] = array('email' => 'planejamento@dominio.com.br', 'nome' => 'Planejamento');
-//  				$params['emails']['cco'][] = array('email' => 'carlos.maximo@dominio.com.br', 'nome' => 'Carlos Maximo');
+//  				$params['emails']['cco'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'TI');
 				
 				$str_mensagem = "<p>O seguinte documento foi desbloqueado manualmente no sistema: </p>";
 				$str_mensagem .= "<p>" . $reg_pacote["descricao"] . "</p>";
@@ -3211,30 +3239,36 @@ function desbloquear($id_ged_versao, $status)
 				$str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$array_resultado["solicitante"]] . "</p>";
 				$str_mensagem .= "<p>Motivo do desbloqueio: " . $motivoDesbloqueio . "</p>";
 				
-				$str_mensagem .= "<p>&nbsp;</p>";
+				$str_mensagem .= "<p> </p>";
 				$str_mensagem .= "<p>O mesmo agora se encontra livre no sistema para edição.</p>";
 					
 				$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";	 
 
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($corpoEmail);
-
-				if(!$mail->Send())
+				if(ENVIA_EMAIL)
 				{
-					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($corpoEmail);
+
+					if(!$mail->Send())
+					{
+						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					}
 				}
 				else
 				{
-					$resposta->addAlert("Documento desbloqueado com sucesso.");			
-				}		
+					$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 5);
+				}
+				
+				$resposta->addAlert("Documento desbloqueado com sucesso.");	
 			}
 			else
 			{
 			    $params['subject'] = "DOCUMENTO COM RECUSA DE DESBLOQUEIO: " . $reg_pacote["descricao"];
 				
 				//GRUPO ARQUIVO TECNICO
-				$params['emails']['to'][] = array('email' => "arqtec@dominio.com.br", 'nome' => "Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
 		
 				//DESBLOQUEADOR
 				if($array_usremail[$_SESSION["id_funcionario"]]!='')
@@ -3250,22 +3284,30 @@ function desbloquear($id_ged_versao, $status)
 				
 				$str_mensagem = "<p>O seguinte documento teve o desbloqueio recusado no sistema: </p>";
 				$str_mensagem .= "<p>" . $reg_pacote["descricao"] . "</p>";
-				$str_mensagem .= "<p>&nbsp;</p>";
+				$str_mensagem .= "<p> </p>";
 				$str_mensagem .= "<p>A recusa é ocasionado por informação insuficiente no motivo.</p>";
 					
 				$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";	 
-				 
-				$mail = new email($params);
 				
-				$mail->montaCorpoEmail($corpoEmail);
+				if(ENVIA_EMAIL)
+				{
 
-				if(!$mail->Send())
-				{
-					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($corpoEmail);
+
+					if(!$mail->Send())
+					{
+						$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					}
+					else
+					{
+						$resposta->addAlert("E-mail enviado com sucesso.");			
+					}
 				}
-				else
+				else 
 				{
-					$resposta->addAlert("E-mail enviado com sucesso.");			
+					$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 6);
 				}				
 			}
 			
@@ -3286,16 +3328,16 @@ function bloquear($id_ged_versao)
 	
 	$params = array();
 	
-	$params['from']	= 'arqtec@dominio.com.br';
+	$params['from']	= 'arquivotecnico@dominio.com.br';
 	
 	$params['from_name'] = 'Arquivo Tecnico';
 	
 	//Preenche um array com dados de Usuários
 	$sql = "SELECT funcionarios.id_funcionario, email, funcionario FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO', 'CANCELADODVM') ";
+	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','CANCELADO') ";
 
 	$db->select($sql,'MYSQL',true);
 	
@@ -3337,7 +3379,7 @@ function bloquear($id_ged_versao)
 	
 			$params['subject'] = "DOCUMENTO BLOQUEADO: " . $reg_arquivo["descricao"];
 			
-			$params['emails']['to'][] = array('email' => 'arqtec@dominio.com.br', 'nome' => "Arquivo Técnico");
+			$params['emails']['to'][] = array('email' => 'arquivotecnico@dominio.com.br', 'nome' => "Arquivo Técnico");
 			
 			//Editor
 			if($array_usremail[$reg_pacote["id_editor"]]!='')
@@ -3355,23 +3397,29 @@ function bloquear($id_ged_versao)
 			$str_mensagem .= "<p>" . $reg_pacote["descricao"] . "</p>";
 			$str_mensagem .= "<p>Editor: " . $array_usrlogin[$reg_pacote["id_editor"]] . "</p>";
 			$str_mensagem .= "<p>bloqueado por: " . $array_usrlogin[$_SESSION["id_funcionario"]] . " em " . date("d/m/Y - H:i:s") . "</p>";
-			$str_mensagem .= "<p>&nbsp;</p>";
+			$str_mensagem .= "<p> </p>";
 			$str_mensagem .= "<p>O mesmo agora se encontra bloqueado no sistema para edição.</p>";
 				
 			$corpoEmail = "<html><body>" . $str_mensagem . "</body></html>";	 
 
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($corpoEmail);			
+			if(ENVIA_EMAIL)
+			{
 
-			if(!$mail->Send())
-			{
-				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($corpoEmail);			
+
+				if(!$mail->Send())
+				{
+					$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				}
 			}
-			else
+			else 
 			{
-				$resposta->addAlert("Documento bloqueado com sucesso.");			
+				$resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 7);
 			}
+
+			$resposta->addAlert("Documento bloqueado com sucesso.");
 			
 			$resposta->addScript("xajax_mostraPacote(".$reg_pacote["id_ged_pacote"].")");
 		}
@@ -3503,7 +3551,7 @@ function grid(tabela, autoh, height, xml)
 			mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked1);
 			mygrid.attachEvent("onRightClick",doOnRightClick1);
 		
-			mygrid.setHeader("&nbsp;, &nbsp;, &nbsp;, Nome&nbsp;arquivo, Nº&nbsp;Interno, Rev.&nbsp;D, Ver., Nº&nbsp;Cliente, Rev.C, Tamanho, Formato, Fls., Fin., Cp., Doc.&nbsp;Int., D",
+			mygrid.setHeader(" ,  ,  , Nome arquivo, Nº Interno, Rev. D, Ver., Nº Cliente, Rev.C, Tamanho, Formato, Fls., Fin., Cp., Doc. Int., D",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("22,20,20,120,100,*,35,100,*,65,60,*,*,*,*,20");
@@ -3529,7 +3577,7 @@ function grid(tabela, autoh, height, xml)
 				
 				mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked2);
 
-				mygrid.setHeader("&nbsp;, Nome&nbsp;arquivo, Revisão&nbsp;Interna, Versão, Revisão&nbsp;Cli., Autor, Editor, Obs., A",
+				mygrid.setHeader(" , Nome arquivo, Revisão Interna, Versão, Revisão Cli., Autor, Editor, Obs., A",
 					null,
 					["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 				mygrid.setInitWidths("22,120,*,*,*,*,*,*,25");
@@ -3542,7 +3590,7 @@ function grid(tabela, autoh, height, xml)
 				if(tabela=='div_comentarios_existentes')
 				{
 				
-					mygrid.setHeader("Comentário, Autor, Nome&nbsp;Arquivo, A, E",
+					mygrid.setHeader("Comentário, Autor, Nome Arquivo, A, E",
 						null,
 						["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 					mygrid.setInitWidths("250,200,220,25,25");
@@ -3570,7 +3618,7 @@ function grid(tabela, autoh, height, xml)
 						
 						mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked3);
 						
-						mygrid.setHeader("Motivo&nbsp;desbloqueio, Arquivo, Status, Data&nbsp;devol., Solicitante, Data&nbsp;Sol., A, E",
+						mygrid.setHeader("Motivo desbloqueio, Arquivo, Status, Data devol., Solicitante, Data Sol., A, E",
 							null,
 							["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 						mygrid.setInitWidths("120,*,*,*,*,*,25,25");
@@ -3583,7 +3631,7 @@ function grid(tabela, autoh, height, xml)
 						if(tabela=='conteudo_grds')
 						{
 
-							mygrid.setHeader("Nº&nbsp;GRD, data, Visualizar, Cancelar, Excluir",
+							mygrid.setHeader("Nº GRD, data, Visualizar, Cancelar, Excluir",
 								null,
 								["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 							mygrid.setInitWidths("*,*,*,*,*");

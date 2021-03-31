@@ -133,9 +133,9 @@ SELECT
 	   JOIN materiais_old.componentes c ON c.cod_barras = lm.cod_barras AND c.reg_del = 0
 	   JOIN materiais_old.familia f ON f.id_familia = c.id_familia AND f.reg_del = 0
 	   JOIN ".DATABASE.".OS ON OS.id_os = lm.id_os AND OS.reg_del = 0 
-	   JOIN ".DATABASE.".empresas e ON e.id_empresa_erp = OS.id_empresa_erp AND e.reg_del = 0
+	   JOIN ".DATABASE.".empresas e ON e.id_empresa = OS.id_empresa AND e.reg_del = 0
 	   JOIN ".DATABASE.".setores s ON s.id_setor = lm.id_disciplina AND s.reg_del = 0 
-	   JOIN materiais_old.espec_cabecalho ec ON ec.ec_cliente = OS.id_empresa_erp AND ec.ec_os = OS.id_os AND ec.reg_del = 0
+	   JOIN materiais_old.espec_cabecalho ec ON ec.ec_cliente = OS.id_empresa AND ec.ec_os = OS.id_os AND ec.reg_del = 0
 	   JOIN materiais_old.espec_lista el ON el.el_ec_id = ec.ec_id AND el.el_cod_barras = lm.cod_barras AND el.reg_del = 0
 	
 	WHERE
@@ -216,7 +216,7 @@ $db->select($sql, 'MYSQL',
 
 if ($db->numero_registros == 0)
 {
-	exit('<script>alert("ATEN��O: A lista n�o est� pronta, por favor, realize a emiss�o da lista da OS.");window.close();</script>');
+	exit('<script>alert("ATENÇÃO: A lista não está pronta, por favor, realize a emissão da lista da OS.");window.close();</script>');
 }
 
 //Renomeando as planilhas para as specs
@@ -242,7 +242,7 @@ $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13, 5, iconv('ISO-885
 
 $objPHPExcel->setActiveSheetIndex(0);
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=lista_materiais_".date('Y_m_d_H_i_s').".xls");
 header('Cache-Control: max-age=0');

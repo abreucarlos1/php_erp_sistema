@@ -78,7 +78,7 @@ $sql .= "AND nao_conformidades.id_funcionario_criador = funcionarios.id_funciona
 $sql .= "AND nao_conformidades.id_setor = setores.id_setor ";
 $sql .= "AND tipos_origem.id_tipo_origem = nao_conformidades.id_tipo_origem ";
 $sql .= "AND tipos_documentos_planos_acao.id_tipo_documento = nao_conformidades.id_tipo_documento ";
-$sql .= "AND empresas.id_empresa_erp = nao_conformidades.id_cliente ";
+$sql .= "AND empresas.id_empresa = nao_conformidades.id_cliente ";
 $sql .= "AND nao_conformidades.id_nao_conformidade = '".$_GET["id_rnc"]."' ";
 
 $dados = $db->select($sql,'MYSQL',function($reg, $i){

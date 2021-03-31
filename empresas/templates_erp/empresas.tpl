@@ -94,7 +94,7 @@
 						<input name="telefone" type="text" class="caixa" id="telefone" placeholder="Telefone" onkeypress="return txtBoxFormat(document.frm_empresas, 'telefone', '(99) 9999-9999', event);" size="15" maxlength="14"/></td>
 					<td width="11%"><label for="fax" class="labels">Fax</label><br />
 						<input name="fax" type="text" class="caixa" id="fax" placeholder="Fax" onkeypress="return txtBoxFormat(document.frm_empresas, 'fax', '(99) 9999-9999', event);" size="15" maxlength="14"/></td>
-					<td width="40%"><label class="labels">Ex:&nbsp;(11)&nbsp;4795-4748, digitar somente números</label></td>
+					<td width="40%"><label class="labels">Ex: (XX) XXXX-XXXX, digitar somente números</label></td>
 				</tr>
 			</table>
           	<table border="0" width="100%">
@@ -105,7 +105,7 @@
 							<option value="2">MÉDIA</option>
 							<option value="3">ALTA</option>
 						</select></td>
-					<td width="30%"><label for="homepage" class="labels">Home&nbsp;Page</label><br /> 
+					<td width="30%"><label for="homepage" class="labels">Home Page</label><br /> 
 						<input name="homepage" type="text" class="caixa" placeholder="Homepage/Site" id="homepage" value="" size="40" /></td>
 					<td width="61%"><label for="logotipo" class="labels">Logotipo</label><br />
 						<input name="logotipo" type="file" class="caixa" id="logotipo" placeholder="Logotipo" size="40" />
@@ -126,7 +126,7 @@
 			</table></td>
         </tr>
       </table>
-    <div id="empresas" style="width:100%;">&nbsp;</div>
+    <div id="empresas" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

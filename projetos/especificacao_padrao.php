@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de Especificacao Padr�o	
+		Formulário de Especificacao Padrão	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao_padrao.php
 		
-		data de cria��o: 06/04/2006
+		data de criação: 06/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> MUDAN�A DOS CAMPOS - 25/04/2006
-		Versão 2 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> MUDANÇA DOS CAMPOS - 25/04/2006
+		Versão 2 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -31,11 +31,11 @@ include ("../includes/tools.inc.php");
 
 $db = new banco_dados;
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
 	
-	//Executa o comando DELETE onde o id � enviado via javascript
+	//Executa o comando DELETE onde o id é enviado via javascript
 	$dsql = "DELETE FROM Projetos.especificacao_padrao WHERE id_especificacao_padrao = '".$_GET["id_especificacao_padrao"]."' ";
 	
 	$db->delete($dsql,'MYSQL');
@@ -47,17 +47,17 @@ if ($_GET["acao"]=="deletar")
 	?>
 	<script>
 		// Mostra mensagem de alerta e re-envia a pagina para a Atualização da tela
-		alert('Especifica��o exclu�da com sucesso.');
+		alert('Especificação excluída com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 	
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
 
-	// Caso a��o seja editar...
+	// Caso ação seja editar...
 	case 'editar':
 		
 				//Checagem do logotipo, se vazio preenche com o logotipo atual.
@@ -92,15 +92,15 @@ switch ($_POST["acao"])
 		
 		$regs = $db->numero_registros;
 		
-		// Se o n�mero de registros for maior que zero, ent�o existe o mesmo registro...
+		// Se o número de registros for maior que zero, então existe o mesmo registro...
 		if ($regs>0)
 			{
 				?>
 				<script>
 					// Mostra uma mensagem de alerta 
-					alert('Especifica��o j� cadastrada no banco de dados.');
+					alert('Especificação já cadastrada no banco de dados.');
 				</script>		
-				<?
+				<?php
 			}
 		// Caso contrario, insere o campo com as variaveis 'postadas' pelo formulario
 		else
@@ -116,19 +116,19 @@ switch ($_POST["acao"])
 			
 			$registro = $db->update($sql,'MYSQL');
 
-			//logs($_SERVER['REMOTE_ADDR'],$_SESSION["nome_usuario"],$_SESSION["email"],date("d/n/Y"),date("H:i"),$_SERVER['PHP_SELF'],"ESPECIFICA��O PADR�O",$_POST["id_espec_padrao"],'registro alterado');			
+			//logs($_SERVER['REMOTE_ADDR'],$_SESSION["nome_usuario"],$_SESSION["email"],date("d/n/Y"),date("H:i"),$_SERVER['PHP_SELF'],"ESPECIFICAÇÃO PADRÃO",$_POST["id_espec_padrao"],'registro alterado');			
 
 			?>
 			<script>
 				location.href='<?= $PHP_SELF ?>';
 			</script>
-			<?
+			<?php
 		
 		}
 
 	break;
 	
-	// Caso a��o seja adicionar espec. padr�o
+	// Caso ação seja adicionar espec. padrão
 	case 'add_espec':
 	
 			//Checagem do logotipo, se vazio preenche com o logotipo atual.
@@ -154,7 +154,7 @@ switch ($_POST["acao"])
 			$tipico = "../images/ndisp.jpg";
 		}
 		
-		// Verifica se a especifica��o padrao j� existe no banco
+		// Verifica se a especificação padrao já existe no banco
 		$sql = "SELECT * FROM Projetos.especificacao_padrao ";
 		$sql .= "WHERE id_dispositivo = '". $_POST["id_dispositivo"]. "' ";
 		$sql .= "AND id_funcao = '". $_POST["id_funcao"]. "' ";
@@ -165,31 +165,31 @@ switch ($_POST["acao"])
 		
 		$regs = $db->numero_registros;
 		
-		// Se o n�mero de registros for maior que zero, ent�o existe o mesmo registro...
+		// Se o número de registros for maior que zero, então existe o mesmo registro...
 		if ($regs>0)
 		{
 			?>
 			<script>
 				// Mostra uma mensagem de alerta 
-				alert('Especifica��o j� cadastrada no banco de dados.');
+				alert('Especificação já cadastrada no banco de dados.');
 			</script>		
-			<?
+			<?php
 		}
 		// Caso contrario, insere o campo com as variaveis 'postadas' pelo formulario
 		else
 		{
-			//Cria senten�a de Inclusão no bd
-			$incsql = "INSERT INTO Projetos.especificacao_padrao ";
-			$incsql .= "(id_dispositivo, id_funcao, tipico, id_tipo) ";
-			$incsql .= "VALUES ('". $_POST["id_dispositivo"]. "', ";
-			$incsql .= "'". $_POST["id_funcao"] . "', ";
-			$incsql .= "'$tipico', ";
-			$incsql .= "'". $_POST["id_tipo"]. "') ";
+			//Cria sentença de Inclusão no bd
+			$isql = "INSERT INTO Projetos.especificacao_padrao ";
+			$isql .= "(id_dispositivo, id_funcao, tipico, id_tipo) ";
+			$isql .= "VALUES ('". $_POST["id_dispositivo"]. "', ";
+			$isql .= "'". $_POST["id_funcao"] . "', ";
+			$isql .= "'$tipico', ";
+			$isql .= "'". $_POST["id_tipo"]. "') ";
 
-			//logs($_SERVER['REMOTE_ADDR'],$_SESSION["nome_usuario"],$_SESSION["email"],date("d/n/Y"),date("H:i"),$_SERVER['PHP_SELF'],"ESPECIFICA��O PADR�O",mysql_insert_id($conexao),'registro inclu�do');			
+			//logs($_SERVER['REMOTE_ADDR'],$_SESSION["nome_usuario"],$_SESSION["email"],date("d/n/Y"),date("H:i"),$_SERVER['PHP_SELF'],"ESPECIFICAÇÃO PADRÃO",mysql_insert_id($conexao),'registro incluído');			
 			
 			//Carrega os registros
-			$registro = $db->insert($incsql,'MYSQL');
+			$registro = $db->insert($isql,'MYSQL');
 
 		}
 	
@@ -201,19 +201,19 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . ESPECIFICA��O PADR�O . : :</title>
+<title>: : . ESPECIFICAÇÃO PADRÃO . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 
 function excluir(id_especificacao_padrao)
 {
-	if(confirm('Tem certeza que deseja excluir a especifica��o?'))
+	if(confirm('Tem certeza que deseja excluir a especificação?'))
 	{
 		location.href = '<?= $PHP_SELF ?>?acao=deletar&id_especificacao_padrao='+id_especificacao_padrao+'';
 	}
@@ -246,7 +246,7 @@ function ordenar(campo,ordem)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -260,7 +260,7 @@ window.moveTo(0,0);
 </head>
 <body  class="body">
 <center>
-<form name="frm_especificacao_padrao" action="<? $PHP_SELF ?>" method="post" enctype="multipart/form-data">
+<form name="frm_especificacao_padrao" action="<?php $PHP_SELF ?>" method="post" enctype="multipart/form-data">
 <table width="100%" height="10%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td align="center">	
@@ -269,16 +269,16 @@ window.moveTo(0,0);
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
         <td>
-			<?
+			<?php
 			
-			// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+			// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 			// para eventual Atualização
 			
 			  if ($_GET["acao"]=='editar')
@@ -294,27 +294,27 @@ window.moveTo(0,0);
 				<div id="editar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 							  <table width="100%" class="corpo_tabela">
 								<tr>
-								<td>&nbsp;</td>
-								<td colspan="7">&nbsp;</td>
+								<td> </td>
+								<td colspan="7"> </td>
 								</tr>
 								
 								<tr>
-								  <td width="1%" class="label1">&nbsp;</td>
-								  <td width="6%" class="label1">FUN&Ccedil;&Atilde;O</td>
-								  <td width="1%" class="label1">&nbsp;</td>
-								  <td width="9%" class="label1">dispositivo</td>
-								  <td width="1%" class="label1">&nbsp;</td>
+								  <td width="1%" class="label1"> </td>
+								  <td width="6%" class="label1">FUNÇÃO</td>
+								  <td width="1%" class="label1"> </td>
+								  <td width="9%" class="label1">DISPOSITIVO</td>
+								  <td width="1%" class="label1"> </td>
 								  <td width="5%" class="label1">TIPO </td>
-								  <td width="1%" class="label1">&nbsp;</td>
-								  <td width="76%" class="label1">&nbsp;</td>
+								  <td width="1%" class="label1"> </td>
+								  <td width="76%" class="label1"> </td>
 								</tr>
 								<tr>
-									<td>&nbsp;</td>
+									<td> </td>
 									<td>
 									  <p>
 									    <select name="id_funcao" id="id_funcao" class="txt_box" onkeypress="return keySort(this);">
                                       <option value="">SELECIONE</option>
-                                      <?
+                                      <?php
 										
 										//Popula a combo-box de Descrição.
 										$sql = "SELECT * FROM Projetos.funcao ORDER BY ds_funcao ";
@@ -324,20 +324,20 @@ window.moveTo(0,0);
 										while ($reg = mysqli_fetch_array($regdescricao))
 											{
 												?>
-                                      <option value="<?= $reg["id_funcao"] ?>" <? if ($especpadrao["id_funcao"]==$reg["id_funcao"]){ echo 'selected';}?>>
+                                      <option value="<?= $reg["id_funcao"] ?>" <?php if ($especpadrao["id_funcao"]==$reg["id_funcao"]){ echo 'selected';}?>>
                                       <?= $reg["funcao"] . " - " . $reg["ds_funcao"]. " - " . $espec["norma"] ?>
                                       </option>
-                                      <?
+                                      <?php
 											}
 										?>
                                     </select>
 									</p>
 								  </td>
-									<td>&nbsp;</td>
+									<td> </td>
 								  <td>
 								  	<select name="id_dispositivo" id="id_dispositivo" class="txt_box" onkeypress="return keySort(this);">
                                       <option value="">SELECIONE</option>
-                                      <?
+                                      <?php
 												
 
 												
@@ -349,18 +349,18 @@ window.moveTo(0,0);
 												while ($reg = mysqli_fetch_array($regdescricao))
 													{
 														?>
-                                      <option value="<?= $reg["id_dispositivo"] ?>"<? if($especpadrao["id_dispositivo"]==$reg["id_dispositivo"]){ echo 'selected';}?>>
+                                      <option value="<?= $reg["id_dispositivo"] ?>"<?php if($especpadrao["id_dispositivo"]==$reg["id_dispositivo"]){ echo 'selected';}?>>
                                       <?= $reg["dispositivo"] . " - " . $reg["ds_dispositivo"] ?>
                                       </option>
-                                      <?
+                                      <?php
 													}
 											?>
                                     </select></td>					
-									<td>&nbsp;</td>
+									<td> </td>
 									<td>
 										<select name="id_tipo" id="id_tipo" class="txt_box" onkeypress="return keySort(this);">
 										<option value="">SELECIONE</option>
-										<?
+										<?php
 										
 										//Popula a combo-box de Função.
 
@@ -375,17 +375,17 @@ window.moveTo(0,0);
 										while ($reg = mysqli_fetch_array($regdescricao))
 											{
 												?>
-												<option value="<?= $reg["id_tipo"] ?>"<? if ($especpadrao["id_tipo"]==$reg["id_tipo"]){ echo 'selected';} ?>><?= $reg["ds_tipo"] ?></option>
-												<?
+												<option value="<?= $reg["id_tipo"] ?>"<?php if ($especpadrao["id_tipo"]==$reg["id_tipo"]){ echo 'selected';} ?>><?= $reg["ds_tipo"] ?></option>
+												<?php
 											}
 										
 										?>
 										</select>								  </td>
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
+									<td> </td>
+									<td> </td>
 								</tr>
 								<tr>
-								  <td>&nbsp;</td>
+								  <td> </td>
 								  <td colspan="7"><table width="100%" border="0">
                                     <tr>
                                       <td><span class="label1">t&Iacute;pico:
@@ -400,22 +400,22 @@ window.moveTo(0,0);
                                   </table></td>
 							    </tr>
 							<tr>
-							  <td>&nbsp;</td>
+							  <td> </td>
 							  <td colspan="7">
 								<input type="hidden" name="acao" id="acao" value="editar">
 								<input type="hidden" name="id_especificacao_padrao" id="id_especificacao_padrao" value="<?= $_GET["id_especificacao_padrao"] ?>">
 								<input type="hidden" name="tipicoatual" id="tipicoatual" value="<?= $especpadrao["tipico"] ?>">
-								<input name="Submit" type="submit" class="btn" value="ALTERAR">
+								<input name="submit" type="submit" class="btn" value="ALTERAR">
 								<span class="label1">
-								<input name="button2" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
+								<input name="button2" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
 								</span> </td>
 							  </tr>
-						<tr><td>&nbsp;</td>
-						<td colspan="7">&nbsp;</td>
+						<tr><td> </td>
+						<td colspan="7"> </td>
 						</tr>									
 						</table>
 			  </div>
-				<?			  
+				<?php			  
 			  }
 			  else
 			  {
@@ -423,25 +423,25 @@ window.moveTo(0,0);
 				<div id="salvar" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 			  <table width="100%" class="corpo_tabela">
 				<tr>
-				<td>&nbsp;</td>
-				<td colspan="7">&nbsp;</td>
+				<td> </td>
+				<td colspan="7"> </td>
 				</tr>
 				
 				<tr>
-				  <td width="1%" class="label1">&nbsp;</td>
-				  <td width="6%" class="label1">FUN&Ccedil;&Atilde;O</td>
-				  <td width="1%" class="label1">&nbsp;</td>
-				  <td width="9%" class="label1">dispositivo</td>
-				  <td width="1%" class="label1">&nbsp;</td>
+				  <td width="1%" class="label1"> </td>
+				  <td width="6%" class="label1">FUNÇÃO</td>
+				  <td width="1%" class="label1"> </td>
+				  <td width="9%" class="label1">DISPOSITIVO</td>
+				  <td width="1%" class="label1"> </td>
 				  <td width="5%" class="label1">TIPO </td>
-				  <td width="1%" class="label1">&nbsp;</td>
-				  <td width="76%" class="label1">&nbsp;</td>
+				  <td width="1%" class="label1"> </td>
+				  <td width="76%" class="label1"> </td>
 				</tr>
 				<tr>
-  					<td>&nbsp;</td>
+  					<td> </td>
   					<td><select name="id_funcao" id="id_funcao" class="txt_box" onkeypress="return keySort(this);">
                           <option value="">SELECIONE</option>
-                          <?
+                          <?php
 						
 						//Popula a combo-box de Descrição.
 						$sql = "SELECT * FROM Projetos.funcao ORDER BY ds_funcao ";
@@ -460,17 +460,17 @@ window.moveTo(0,0);
 								}
 								
 								?>
-							  <option value="<?= $reg["id_funcao"] ?>" <? if ($_POST["id_funcao"]==$reg["id_funcao"]){ echo 'selected';}?>>
+							  <option value="<?= $reg["id_funcao"] ?>" <?php if ($_POST["id_funcao"]==$reg["id_funcao"]){ echo 'selected';}?>>
 							  <?= $funcao . $reg["ds_funcao"] ?>
 							  </option>
-							  <?
+							  <?php
 							}
 						?>
                         </select></td>
-					<td>&nbsp;</td>
+					<td> </td>
   					<td><select name="id_dispositivo" id="id_dispositivo" class="txt_box" onkeypress="return keySort(this);">
                       <option value="">SELECIONE</option>
-                      <?
+                      <?php
 							$sql = "SELECT * FROM Projetos.dispositivos ";
 							//$sql .= "WHERE funcao='" . $_POST["funcao"] . "' 
 							$sql .= "ORDER BY ds_dispositivo ";
@@ -488,19 +488,19 @@ window.moveTo(0,0);
 										$disp ='';
 									}
 									?>
-								  <option value="<?= $reg["id_dispositivo"] ?>"<? if ($_POST["id_dispositivo"]==$reg["id_dispositivo"]){ echo 'selected';}?>>
+								  <option value="<?= $reg["id_dispositivo"] ?>"<?php if ($_POST["id_dispositivo"]==$reg["id_dispositivo"]){ echo 'selected';}?>>
 								  <?= $disp . $reg["ds_dispositivo"] ?>
 								  </option>
-								  <?
+								  <?php
 								}							
 								
 							?>
                     </select></td>
-  					<td>&nbsp;</td>
+  					<td> </td>
 					<td>
 						<select name="id_tipo" id="id_tipo" class="txt_box" onkeypress="return keySort(this);">
 						<option value="">SELECIONE</option>
-					  	<?
+					  	<?php
 						//Popula a combo-box de Função.
 						
 						$sql = "SELECT * FROM Projetos.tipo ";
@@ -511,17 +511,17 @@ window.moveTo(0,0);
 						while ($reg = mysqli_fetch_array($regdescricao))
 							{
 								?>
-								<option value="<?= $reg["id_tipo"] ?>"<? if ($_POST["id_tipo"]==$reg["id_tipo"]){ echo 'selected';}?>><?= $reg["ds_tipo"] ?></option>
-								<?
+								<option value="<?= $reg["id_tipo"] ?>"<?php if ($_POST["id_tipo"]==$reg["id_tipo"]){ echo 'selected';}?>><?= $reg["ds_tipo"] ?></option>
+								<?php
 							}
 						
 						?>
                 		</select>					</td>
-			        <td>&nbsp;</td>
-				    <td>&nbsp;</td>
+			        <td> </td>
+				    <td> </td>
 				</tr>
 				<tr>
-				  <td>&nbsp;</td>
+				  <td> </td>
 				  <td colspan="7"><table width="100%" border="0">
                     <tr>
                       <td><span class="label1">t&Iacute;pico:
@@ -536,30 +536,30 @@ window.moveTo(0,0);
                   </table></td>
 				  </tr>
 			<tr>
-			  <td>&nbsp;</td>
+			  <td> </td>
 			  <td colspan="7">
 			  	<input type="hidden" name="acao" id="acao" value="add_espec">
-			  	<input name="Submit" type="submit" class="btn" value="ADICIONAR">
+			  	<input name="submit" type="submit" class="btn" value="ADICIONAR">
 			  	<span class="label1">
-			  	<input name="button2" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
+			  	<input name="button2" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
 			  	</span> </td>
 			  </tr>
 		<tr>
-		<td>&nbsp;</td>
-		<td colspan="7">&nbsp;</td>
+		<td> </td>
+		<td colspan="7"> </td>
 		</tr>									
 		</table>
 	  </div>
 	  
-			  <?
+			  <?php
 			  }
 			
 ?>
 				<div id="tbheader1" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 				<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0" border=0>
 					<tr>
-				  <?
-					// Controle de ordena��o
+				  <?php
+					// Controle de ordenação
 					if($_GET["campo"]=='')
 					{
 						$campo = "ds_funcao";
@@ -572,23 +572,23 @@ window.moveTo(0,0);
 					{
 						$ordem="DESC";
 					}
-					//Controle de ordena��o
+					//Controle de ordenação
 				  ?>
 					
-					  <td width="35%"><div align="left"><a href="#" class="cabecalho_tabela" onClick="ordenar('ds_funcao','<?= $ordem ?>')">FUN&Ccedil;&Atilde;O</a></div></td>
-					  <td width="26%"><div align="left"><a href="#" class="cabecalho_tabela" onClick="ordenar('ds_componente','<?= $ordem ?>')">DISPOSITIVO</a></div></td>
-					  <td width="21%"><div align="left"><a href="#" class="cabecalho_tabela" onClick="ordenar('ds_tipo','<?= $ordem ?>')">TIPO</a></div></td>
+					  <td width="35%"><div align="left"><a href="#" class="cabecalho_tabela" onclick="ordenar('ds_funcao','<?= $ordem ?>')">FUNÇÃO</a></div></td>
+					  <td width="26%"><div align="left"><a href="#" class="cabecalho_tabela" onclick="ordenar('ds_componente','<?= $ordem ?>')">DISPOSITIVO</a></div></td>
+					  <td width="21%"><div align="left"><a href="#" class="cabecalho_tabela" onclick="ordenar('ds_tipo','<?= $ordem ?>')">TIPO</a></div></td>
 					  <td width="4%"  class="cabecalho_tabela">A</td>
 					  <td width="4%"  class="cabecalho_tabela">R</td>
 					  <td width="4%"  class="cabecalho_tabela">E</td>
 					  <td width="4%"  class="cabecalho_tabela">D</td>
-					  <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+					  <td width="2%" class="cabecalho_tabela"> </td>
 					</tr>
 				</table>
 				</div>
 				<div id="tbbody" style="position:relative; width:100%; height:400px; z-index:2; overflow-y:scroll; overflow-x:hidden; border-color:#999999; border-style:solid; border-width:1px;">
 				  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-					<?
+					<?php
 
 						$sql = "SELECT * FROM Projetos.especificacao_padrao, Projetos.dispositivos , Projetos.funcao, Projetos.tipo ";
 						$sql .= "WHERE especificacao_padrao.id_dispositivo = dispositivos.id_dispositivo ";
@@ -641,26 +641,26 @@ window.moveTo(0,0);
 							  
 							  <td width="5%" class="corpo_tabela" align="left"><div align="center">
 
-                                <a href="#" onClick="editarespec('<?= $espec["id_especificacao_padrao"] ?>')"><img src="../images/buttons_action/bt_visualizar.gif" width="22" height="22" border="0"></a>
+                                <a href="#" onclick="editarespec('<?= $espec["id_especificacao_padrao"] ?>')"><img src="../images/buttons_action/bt_visualizar.gif" width="22" height="22" border="0"></a>
 
                               </div></td>
 							  <td width="4%" class="corpo_tabela" align="center"><div align="center">
 
-                                <a href="#" onClick="replicar('<?= $espec["id_especificacao_padrao"] ?>',620,250)"><img src="../images/buttons_action/replicar.gif" width="15" height="13" border="0"></a>
+                                <a href="#" onclick="replicar('<?= $espec["id_especificacao_padrao"] ?>',620,250)"><img src="../images/buttons_action/replicar.gif" width="15" height="13" border="0"></a>
 
                               </div></td>
 							  <td width="5%" class="corpo_tabela"><div align="center">
-							<a href="#" onClick="editar('<?= $espec["id_especificacao_padrao"] ?>',620,250)"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>
+							<a href="#" onclick="editar('<?= $espec["id_especificacao_padrao"] ?>',620,250)"><img src="../images/buttons_action/editar.png" width="16" height="16" border="0"></a>
 
 							  
 							  </div></td>
 							  <td width="5%" class="corpo_tabela"><div align="center">
 
-									 <a href="#" onClick="excluir('<?= $espec["id_especificacao_padrao"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a>
+									 <a href="#" onclick="excluir('<?= $espec["id_especificacao_padrao"] ?>')"><img src="../images/buttons_action/apagar.png" width="16" height="16" border="0"></a>
 
 							  </div></td>
 							</tr>
-							<?
+							<?php
 						}
 					?>
 				  </table>

@@ -159,7 +159,7 @@ function atualizatabela($filtro, $div = 'div_grid')
 			}
 			else {
 			    $xml->startElement('cell');
-    			$xml->text('<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;registro?")){xajax_excluir("'.$reg["flt_id"].'");}></span>');
+    			$xml->text('<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir este registro?")){xajax_excluir("'.$reg["flt_id"].'");}></span>');
     			$xml->endElement();
     			
     			$xml->startElement('cell');
@@ -359,7 +359,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("&nbsp;,Nº Contrato, Local, Funcionário, OS, Inicio, Fim, Qtd. Horas,D,H");
+	mygrid.setHeader(" ,Nº Contrato, Local, Funcionário, OS, Inicio, Fim, Qtd. Horas,D,H");
 	mygrid.setInitWidths("30,100,150,*,*,80,80,60,30,30");
 	mygrid.setColAlign("center,left,left,left,left,left,left,left,center,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");

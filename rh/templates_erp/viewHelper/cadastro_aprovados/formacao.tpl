@@ -8,9 +8,9 @@
 				<table id="tbl_formacao">
 					<tr>
 						<td><label class="labels">Curso/Modalidade</label></td>
-						<td><label class="labels">Instituição&nbsp;Ensino</label></td>
-						<td><label class="labels">Mês&nbsp;Início</label></td>
-						<td><label class="labels">Mês&nbsp;Conclusão</label></td>
+						<td><label class="labels">Instituição Ensino</label></td>
+						<td><label class="labels">Mês Início</label></td>
+						<td><label class="labels">Mês Conclusão</label></td>
 						<td><label class="labels">Completo</label></td>
 						<td><label class="labels">Até Série</label></td>
 					</tr>

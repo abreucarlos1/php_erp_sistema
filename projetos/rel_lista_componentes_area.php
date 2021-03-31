@@ -1,10 +1,10 @@
 <?php
 /*
 
-		data de cria��o: 09/05/2006
+		data de criação: 09/05/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */
 define('FPDF_FONTPATH','../includes/font/');
@@ -28,31 +28,31 @@ function Header()
 	//$this->Ln(1);
 	
 	$this->SetFont('Arial','',6);
-	//Informa��es do Centro de Custo
-	$this->Cell(66,8,'',0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(66,8,'',0,0,'L',0); // CÉLULA LOGOTIPO 146
 	$this->SetFont('Arial','B',12);
-	$this->Cell(140,8,$this->Cliente(),1,1,'C',0); // C�LULA CLIENTE
+	$this->Cell(140,8,$this->Cliente(),1,1,'C',0); // CÉLULA CLIENTE
 	
 	$this->Image("../logotipos/logo_horizontal.jpg",219,17,59,10);
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO 
-	$this->HCell(140,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO 
+	$this->HCell(140,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // CÉLULA AREA / SUBSISTEMA
 
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(140,5.5,"LISTA DE COMPONENTES",1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(140,5.5,"LISTA DE COMPONENTES",1,0,'C',0); // CÉLULA COMPONENTE
 	
 	
 	$X = $this->GetX();
 	$this->Cell(64,5.5,'',1,0,'C',0);
 	$this->SetX($X);
 	$this->SetFont('Arial','',5);
-	$this->Cell(5,5.5,'N�: ',0,0,'L',0);
+	$this->Cell(5,5.5,'Nº: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(55,5.5,$this->Numdvm(),0,1,'C',0);
 
-	$this->Cell(66,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(66,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 
 	$this->SetFont('Arial','B',10);
 	$this->HCell(140,5.5,$this->Titulo(),1,0,'C',0);
@@ -83,14 +83,14 @@ function Header()
 	$this->Cell(10,5.5,$this->PageNo().' / {nb}',0,1,'R',0);
 	
 	$this->SetFont('Arial','B',8);
-	$this->HCell(66,5.5,$this->unidade(),1,0,'C',0); // C�LULA LOGOTIPO
+	$this->HCell(66,5.5,$this->unidade(),1,0,'C',0); // CÉLULA LOGOTIPO
 	$this->HCell(140,5.5,$this->Titulo2(),1,0,'C',0);
 
 	$X = $this->GetX();
 	$this->Cell(64,5.5,'',1,0,'C',0);
 	$this->SetFont('Arial','',5);
 	$this->SetX($X);
-	$this->Cell(17,5.5,'N� CLIENTE: ',0,0,'L',0);
+	$this->Cell(17,5.5,'Nº CLIENTE: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(30,5.5,$this->Numcliente(),0,1,'C',0);	
 	
@@ -101,7 +101,7 @@ function Header()
 	$this->SetDrawColor(0,0,0);
 
 	/*
-	COMENTADO POR OT�VIO - LINHAS ANTERIORES � ALTERA��O DA MARGEM - 20/07/2006
+	COMENTADO POR OTÁVIO - LINHAS ANTERIORES Á ALTERAÇÃO DA MARGEM - 20/07/2006
 	$this->Line(20,15,280,15); // LINHA SUPERIOR
 	$this->Line(20,45,280,45); // LINHA INFERIOR
 	$this->Line(20,15,20,45); // LINHA ESQUERDA
@@ -125,7 +125,7 @@ function Header()
 	//$this->Line(195,15,195,280); // LINHA DIREITA 
 	$this->Line(76,15,76,45); // LINHA LOGOTIPO aqui
 	$this->Line(216,15,216,45); // LINHA DOC / FOLHA
-	//AT� AQUI
+	//ATÉ AQUI
 	
 	$this->SetLineWidth(0,5);
 	
@@ -200,9 +200,9 @@ $pdf->SetAutoPageBreak(false,10);
 $pdf->SetMargins(10,15);
 $pdf->SetLineWidth(0.2);
 
-$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql1 = "SELECT OS, logotipo, OS.descricao AS osdesc, empresas.empresa, unidades.descricao AS unidade FROM ".DATABASE.".OS, ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql1 .= "WHERE id_os = '" . $_SESSION["id_os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
 $sql1 .= "AND empresas.id_unidade = unidades.id_unidade ";
 
 $registro1 = $db->select($sql1,'MYSQL');
@@ -220,8 +220,8 @@ $reg = mysqli_fetch_array($registro);
 //$pdf->departamento="ENGENHARIA";
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
 
 $pdf->numeros_interno = $_POST["numeros_interno"];
@@ -236,7 +236,7 @@ $pdf->titulo = '';
 $pdf->titulo2 = $reg1["osdesc"];
 
 $pdf->emissao=date('d/m/Y');
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 $pdf->AddPage('L');
@@ -250,7 +250,7 @@ $pdf->Line(10,195,280,195); // LINHA INFERIOR pagina
 $pdf->Line(280,15,280,195); // LINHA DIREITA
 $pdf->SetLineWidth(0.2);
 
-// P�gina de rosto abaixo
+// Página de rosto abaixo
 $pdf->SetXY(10,70);
 
 $pdf->SetFont('Arial','BU',20);
@@ -264,14 +264,14 @@ $pdf->Ln(5);
 $pdf->Cell(280,10, $reg["ds_area"] ,0,1,'C',0);
 $pdf->Ln(5);
 
-//REVIS�ES
+//REVISÕES
 $pdf->SetFont('Arial','B',8);
 
 $y = 155;
 
 $pdf->SetXY(25,$y);
 $pdf->SetFont('Arial','B',8);
-$pdf->Cell(50,4,'CONTROLE DE REVIS�ES',0,1,'L',0);
+$pdf->Cell(50,4,'CONTROLE DE REVISÕES',0,1,'L',0);
 $pdf->SetFont('Arial','',6);
 
 $pdf->Ln(1);
@@ -288,7 +288,7 @@ $reg_rev = $db->select($sql_rev,'MYSQL');
 
 $numregs = 4 - $db->numero_registros;
 
-//c�lulas em branco
+//células em branco
 for($a=0;$a<=$numregs;$a++)
 {
 	$y += 4;
@@ -379,28 +379,28 @@ $pdf->SetXY(25,$y+4);
 
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(10,4,'REV.',1,0,'C',0);
-$pdf->Cell(70,4,'ALTERA��O',1,0,'C',0);
+$pdf->Cell(70,4,'ALTERAÇÃO',1,0,'C',0);
 $pdf->Cell(20,4,'DATA',1,0,'C',0);
 $pdf->Cell(20,4,'EXEC.',1,0,'C',0);
 $pdf->Cell(20,4,'VERIF.',1,0,'C',0);
 $pdf->Cell(20,4,'APROV.',1,0,'C',0);		
 
-//REVIS�ES
+//REVISÕES
 
 
 $pdf->AddPage();
 
 $pdf->SetXY(10,48);
 
-// T�TULOS
+// TÍTULOS
 $pdf->SetFont('Arial','B',8);
 $pdf->Cell(33,4,"TAG",0,0,'L',0);
 $pdf->Cell(50,4,"COMPONENTE",0,0,'L',0);
-$pdf->Cell(40,4,"FUN��O",0,0,'L',0);
+$pdf->Cell(40,4,"FUNÇÃO",0,0,'L',0);
 $pdf->Cell(40,4,"LOCAL",0,0,'L',0);
 $pdf->Cell(30,4,"DISP.",0,0,'L',0);
 $pdf->Cell(35,4,"RACK",0,0,'L',0);
-$pdf->Cell(25,4,"ENDERE�O",0,0,'L',0);
+$pdf->Cell(25,4,"ENDEREÇO",0,0,'L',0);
 $pdf->Cell(10,4,"TIPO",0,0,'L',0);
 $pdf->Cell(10,4,"REV.",0,1,'L',0);
 $pdf->SetFont('Arial','',8);
@@ -425,11 +425,11 @@ while ($subsistema = mysqli_fetch_array($regsub))
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(33,4,"TAG",0,0,'L',0);
 			$pdf->Cell(50,4,"COMPONENTE",0,0,'L',0);
-			$pdf->Cell(40,4,"FUN��O",0,0,'L',0);
+			$pdf->Cell(40,4,"FUNÇÃO",0,0,'L',0);
 			$pdf->Cell(40,4,"LOCAL",0,0,'L',0);
 			$pdf->Cell(30,4,"DISP.",0,0,'L',0);
 			$pdf->Cell(35,4,"RACK",0,0,'L',0);
-			$pdf->Cell(25,4,"ENDERE�O",0,0,'L',0);
+			$pdf->Cell(25,4,"ENDEREÇO",0,0,'L',0);
 			$pdf->Cell(10,4,"TIPO",0,0,'L',0);
 			$pdf->Cell(10,4,"REV.",0,1,'L',0);
 			$pdf->SetFont('Arial','',8);
@@ -445,11 +445,11 @@ while ($subsistema = mysqli_fetch_array($regsub))
 				$pdf->SetFont('Arial','B',8);
 				$pdf->Cell(33,4,"TAG",0,0,'L',0);
 				$pdf->Cell(50,4,"COMPONENTE",0,0,'L',0);
-				$pdf->Cell(40,4,"FUN��O",0,0,'L',0);
+				$pdf->Cell(40,4,"FUNÇÃO",0,0,'L',0);
 				$pdf->Cell(40,4,"LOCAL",0,0,'L',0);
 				$pdf->Cell(30,4,"DISP.",0,0,'L',0);
 				$pdf->Cell(35,4,"RACK",0,0,'L',0);
-				$pdf->Cell(25,4,"ENDERE�O",0,0,'L',0);
+				$pdf->Cell(25,4,"ENDEREÇO",0,0,'L',0);
 				$pdf->Cell(10,4,"TIPO",0,0,'L',0);
 				$pdf->Cell(10,4,"REV.",0,1,'L',0);
 				$pdf->SetFont('Arial','',8);
@@ -553,7 +553,7 @@ while ($subsistema = mysqli_fetch_array($regsub))
 					}
 				}
 				
-				if($componentes["setor"]=='EL�TRICA')
+				if($componentes["setor"]=='ELÉTRICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -569,7 +569,7 @@ while ($subsistema = mysqli_fetch_array($regsub))
 				}
 				else
 				{
-					if($componentes["setor"]=='MEC�NICA')
+					if($componentes["setor"]=='MECÂNICA')
 					{
 						$sql = "SELECT * FROM Projetos.locais ";
 						$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";

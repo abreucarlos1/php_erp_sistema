@@ -60,7 +60,7 @@ if($os!=-1)
 }
 else
 {
-	//Execu��o, Aguard. Def. Clien., As built, ADMs
+	//Execução, Aguard. Def. Clien., As built, ADMs
 	$filtro0 .= "AND AF8_PROJET > '0000003000' ";
 	$filtro0 .= "AND AF8_FASE IN ('03','09','07') ";
 }
@@ -84,7 +84,7 @@ $db->select($sql, 'MSSQL', true);
 
 foreach($db->array_select as $regs0)
 {	
-	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+	//PEGA A ULTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 WITH(NOLOCK) ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFE010.AFE_PROJET = '".$regs0["AF8_PROJET"]."' ";
@@ -148,7 +148,7 @@ foreach($db->array_select as $regs0)
 	
 	$dataprojet = $db->array_select[0];
 	
-	//Obtem a data do 1� e ultimo apontamento confirmado
+	//Obtem a data do 1ª e ultimo apontamento confirmado
 	$sql = "SELECT MIN(AFU_DATA) AS DATAINI, MAX(AFU_DATA) AS DATAFIM, SUM(AFU_HQUANT) AS HorasApont FROM AFU010 WITH(NOLOCK), AF8010 WITH(NOLOCK) ";
 	$sql .= "WHERE AFU_PROJET = AF8_PROJET ";
 	$sql .= "AND AFU_REVISA = AF8_REVISA ";
@@ -245,7 +245,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
 $objPHPExcel->setActiveSheetIndex(0);

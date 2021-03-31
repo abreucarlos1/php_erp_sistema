@@ -738,7 +738,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Nº&nbsp;Contrato,Colaborador,Empresa,Opção,I,A,D",
+	mygrid.setHeader("Nº Contrato,Colaborador,Empresa,Opção,I,A,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("*,*,*,*,30,30,30");

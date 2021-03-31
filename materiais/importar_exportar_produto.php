@@ -1,6 +1,6 @@
 <?php
 /*
-	Exporta��o e importa��o de dados
+	Exportação e importação de dados
 	Criado por Carlos Eduardo  
 	
 	Versão 0 --> VERSÃO INICIAL - 13/05/2016
@@ -47,8 +47,8 @@ WHERE componentes.reg_del = 0 AND produto.id_produto IS NULL
 ORDER BY componentes.descricao";
 	
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0, 1, iconv('ISO-8859-1', 'UTF-8', 'codigo Barras'));
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, 1, iconv('ISO-8859-1', 'UTF-8', 'Descri��o'));
-	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 1, iconv('ISO-8859-1', 'UTF-8', 'Descri��o Longa'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, 1, iconv('ISO-8859-1', 'UTF-8', 'Descrição'));
+	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2, 1, iconv('ISO-8859-1', 'UTF-8', 'Descrição Longa'));
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 1, iconv('ISO-8859-1', 'UTF-8', 'unidade'));
 	$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4, 1, iconv('ISO-8859-1', 'UTF-8', 'Peso'));
 	
@@ -69,7 +69,7 @@ ORDER BY componentes.descricao";
 	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
 	
-	//Redirect output to a client�s web browser (Excel2007)
+	//Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;");
 	header('Cache-Control: max-age=0');
@@ -136,7 +136,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 		$linha++;
 	}
 	
-	// Redirect output to a client�s web browser (Excel2007)
+	// Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;filename=".date('dmYHis')."_resultado_{$name}");
 	header('Cache-Control: max-age=0');
@@ -144,7 +144,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 	$objWriter->save('php://output');
 }
 
-//Importar a descri��o curta
+//Importar a descrição curta
 if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) && $_GET['tipo'] == 'curta')
 {
 	require_once(INCLUDE_DIR."PHPExcel/Classes/PHPExcel.php");
@@ -190,7 +190,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 	}
 	
 	
-	// Redirect output to a client�s web browser (Excel2007)
+	// Redirect output to a clients web browser (Excel2007)
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header("Content-Disposition: attachment;filename='".date('dmYHis')."_resultado_{$name}'");
 	header('Cache-Control: max-age=0');

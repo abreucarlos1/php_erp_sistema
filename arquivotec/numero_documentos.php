@@ -255,14 +255,14 @@ function atualizatabela($dados_form)
                         if($array_ged_arquivos[$cont_desp["id_numero_interno"]])
                         {
                             $xml->startElement('cell');
-                            $xml->writeAttribute('title','Esse&nbsp;número&nbsp;Interno&nbsp;está&nbsp;sendo&nbsp;utilizado&nbsp;no&nbsp;GED.');
-                            $xml->text('&nbsp;');
+                            $xml->writeAttribute('title','Esse número Interno está sendo utilizado no GED.');
+                            $xml->text(' ');
                             $xml->endElement();
                         }
                         else
                         {
                             $xml->startElement('cell');
-                            $xml->text('<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO:&nbsp;Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;número&nbsp;Interno&nbsp;selecionado?O&nbsp;solicitante&nbsp;será&nbsp;informado&nbsp;via&nbsp;e-mail&nbsp;da&nbsp;exclusão.")){xajax_excluir("'.$cont_desp["id_numero_interno"].'","'. trim($os .'-'. $cont_desp["sequencia"]) .'");} style="cursor:pointer;" title="Clique&nbsp;para&nbsp;excluir" />');
+                            $xml->text('<img src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("ATENÇÃO: Confirma a exclusão do número Interno selecionado?O solicitante será informado via e-mail da exclusão.")){xajax_excluir("'.$cont_desp["id_numero_interno"].'","'. trim($os .'-'. $cont_desp["sequencia"]) .'");} style="cursor:pointer;" title="Clique para excluir" />');
                             $xml->endElement();
                         }
                         
@@ -399,7 +399,7 @@ function atualizar($dados_form)
         
         if($dados_form["id_disciplina"]!=="" && $dados_form["numero_cliente"]!=="" && $dados_form["id_atividade"]!=="0")
         {
-            //Verifica se existe algum arquivo inserido no GED relacionado a esse Número DVM
+            //Verifica se existe algum arquivo inserido no GED relacionado a esse Número INT
             $sql = "SELECT * FROM ".DATABASE.".ged_arquivos ";
             $sql .= "WHERE ged_arquivos.reg_del = 0 ";
             $sql .= "AND id_numero_interno = '" . $dados_form["id_numero_interno"] . "' ";
@@ -544,9 +544,10 @@ function excluir($id_numero_interno)
     {
         //ENVIAR E-MAIL AO SOLICITANTE AVISANDO DA EXCLUSÃO DE SEU NUMERO
         
-        $sql = "SELECT * FROM ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno, ".DATABASE.".setores, ".DATABASE.".ordem_servico, ".DATABASE.".solicitacao_documentos ";
-        $sql .= "LEFT JOIN ".DATABASE.".usuarios ON (solicitacao_documentos.id_funcionario = usuarios.id_funcionario) ";
+        $sql = "SELECT * FROM ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno, ".DATABASE.".setores, ".DATABASE.".ordem_servico, ".DATABASE.".solicitacao_documentos, ".DATABASE.".funcionarios ";
+        $sql .= "LEFT JOIN ".DATABASE.".usuarios ON (funcionarios.id_usuario = usuarios.id_usuario) ";
         $sql .= "WHERE solicitacao_documentos.reg_del = 0 ";
+        $sql .= "AND solicitacao_documentos.id_funcionario = funcionarios.id_funcionario ";
         $sql .= "AND solicitacao_documentos_detalhes.reg_del = 0 ";
         $sql .= "AND numeros_interno.reg_del = 0 ";
         $sql .= "AND setores.reg_del = 0 ";
@@ -579,19 +580,28 @@ function excluir($id_numero_interno)
             }
             
             $corpoEmail = "<html><body>O seguinte número interno foi excluído do sistema:<br>";
-            $corpoEmail .= "Solicitante: " . $reg_sol["Login"] . "<BR>";
+            $corpoEmail .= "Solicitante: " . $reg_sol["login"] . "<BR>";
             $corpoEmail .= "Número: " . PREFIXO_DOC_GED . sprintf("%05d",$reg_sol["os"]) . "-" .$reg_sol["sigla"]."-". $reg_sol["sequencia"] . "<BR><BR>";
             $corpoEmail .= "data da exclusão: " . date("d/m/Y");
             $corpoEmail .= "</body></html>";
             
-            $mail = new email($params, 'numero_dvm_excluido');
-            
-            $mail->montaCorpoEmail($corpoEmail);
-            
-            if(!$mail->Send())
+            if(ENVIA_EMAIL)
             {
-                $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+                $mail = new email($params, 'numero_dvm_excluido');
+                
+                $mail->montaCorpoEmail($corpoEmail);
+                
+                if(!$mail->Send())
+                {
+                    $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+                }
             }
+            else 
+            {
+                $resposta->addScriptCall('modal', $corpoEmail, '300_650', 'Conteúdo email', 3);
+            }
+
             
             $usql ="UPDATE ".DATABASE.".solicitacao_documentos_detalhes SET ";
             $usql .="solicitacao_documentos_detalhes.reg_del = 1, ";
@@ -777,7 +787,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Nº&nbsp;Interno,Nº&nbsp;Cliente,Documento,Disciplina,Solicitante,Dt.Solic.,D",
+	mygrid.setHeader("Nº Interno,Nº Cliente,Documento,Disciplina,Solicitante,Dt.Solic.,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center"]);
 	mygrid.setInitWidths("120,150,*,100,100,100,25");

@@ -928,7 +928,7 @@ dhtmlXCellObject.prototype.attachScheduler = function(day, mode, cont_id, schedu
 		obj.style.position = "relative";
 		obj.style.overflow = "hidden";
 		obj.className = "dhx_cal_container";
-		obj.innerHTML = '<div class="dhx_cal_navline"><div class="dhx_cal_prev_button">&nbsp;</div><div class="dhx_cal_next_button">&nbsp;</div><div class="dhx_cal_today_button"></div><div class="dhx_cal_date"></div>'+tabs+'</div><div class="dhx_cal_header"></div><div class="dhx_cal_data"></div>';
+		obj.innerHTML = '<div class="dhx_cal_navline"><div class="dhx_cal_prev_button"> </div><div class="dhx_cal_next_button"> </div><div class="dhx_cal_today_button"></div><div class="dhx_cal_date"></div>'+tabs+'</div><div class="dhx_cal_header"></div><div class="dhx_cal_data"></div>';
 	}
 	
 	this._attachObject(obj);
@@ -1363,7 +1363,7 @@ dhtmlXCellObject.prototype._attachObject = function(obj, type, htmlString, appen
 			obj = node;
 		} else {
 			var conf = type||{};
-			var text = (typeof(conf.text)=="string" && conf.text.length > 0 ? conf.text : "&nbsp;");
+			var text = (typeof(conf.text)=="string" && conf.text.length > 0 ? conf.text : " ");
 			var h = (typeof(conf.height) == "number" ? conf.height : false);
 			var obj = document.createElement("DIV");
 			//obj.className = "dhx_cell_statusbar_"+(this.conf.borders?"def":"no_borders");

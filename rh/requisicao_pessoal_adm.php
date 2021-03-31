@@ -133,11 +133,11 @@ if (isset($_GET['impressao']) && $_GET['impressao'] == 1 && isset($_GET['id_requ
 
 		foreach($db->array_select as $reg1)
 		{
-			$infra .= '<br />&nbsp;&nbsp;'.maiusculas($reg1['infra_estrutura']);
+			$infra .= '<br />  '.maiusculas($reg1['infra_estrutura']);
 		}		
 	}
 	
-	$infra .= '<br />&nbsp;&nbsp;'.maiusculas($reg['informacoes_ti']);
+	$infra .= '<br />  '.maiusculas($reg['informacoes_ti']);
 	$html .= "<b>RECURSO DE TI</b>: ".$infra."</p>";
 	
 	$html .= "<p align='center'><b>REQUISITOS DO CARGO</b></p><hr />";
@@ -162,7 +162,7 @@ if (isset($_GET['impressao']) && $_GET['impressao'] == 1 && isset($_GET['id_requ
 	
 	foreach($db->array_select as $reg1)
 	{
-		$requisitosCargo .= "<br />&nbsp;&nbsp;".maiusculas($reg1['conhecimento']);
+		$requisitosCargo .= "<br />  ".maiusculas($reg1['conhecimento']);
 	}	
 	
 	$sql = "SELECT * FROM ".DATABASE.".rh_funcoes, ".DATABASE.".rh_escolaridade ";
@@ -179,7 +179,7 @@ if (isset($_GET['impressao']) && $_GET['impressao'] == 1 && isset($_GET['id_requ
 	
 	foreach(explode(',', $reg['idiomas']) as $k => $idioma)
 	{
-		$idiomas .= "<br />&nbsp;&nbsp;".$arrIdiomas[$idioma].' '.$arrNiveisIdiomas[$reg['niveis_req'][$k]];
+		$idiomas .= "<br />  ".$arrIdiomas[$idioma].' '.$arrNiveisIdiomas[$reg['niveis_req'][$k]];
 	}
 	
 	$html .= "<p><b>ESCOLARIDADE</b>: ".$regTempoExperiencia['escolaridade']."<br />";
@@ -189,13 +189,13 @@ if (isset($_GET['impressao']) && $_GET['impressao'] == 1 && isset($_GET['id_requ
 	$html .= "</p>";
 	
 	$html .= "<p><b>EXPERIÊNCIAS, CONHECIMENTOS, HABILIDADES EM:</b>";
-	$html .= "&nbsp;".maiusculas($reg['experiencia']).'</p>';
+	$html .= " ".maiusculas($reg['experiencia']).'</p>';
 	
 	$html .= "<p><b>ASPECTOS COMPORTAMENTAIS:</b>";
-	$html .= "&nbsp;".maiusculas($reg['aspectos_comportamentais']).'</p>';
+	$html .= " ".maiusculas($reg['aspectos_comportamentais']).'</p>';
 	
 	$html .= "<p><b>REPORTE DIRETO PARA:</b>";
-	$html .= "&nbsp;".maiusculas($reg['reporte_direto']).'</p>';
+	$html .= " ".maiusculas($reg['reporte_direto']).'</p>';
 	
 	$html .= "</p>";
 	$html .= "<br /><br /><br /><br /><br /><br />";
@@ -300,20 +300,20 @@ function atualizatabela($dados_form)
 		
 		if($reg_requisicoes["id_status_requisicao"]=="2")
 		{
-			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir?")){xajax_excluirVaga("'.$reg_requisicoes["id_requisicao"].'")};></span>');
+			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir?")){xajax_excluirVaga("'.$reg_requisicoes["id_requisicao"].'")};></span>');
 		}
 		else
 		{
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		}
 		
 		if ($reg_requisicoes['ultimo_status'] == 10 && $reg_requisicoes['totalAbertos'] > 0)
 		{
-			$xml->writeElement('cell', '<span class="icone icone-salvar cursor" onclick=if(confirm("Deseja&nbsp;exportar&nbsp;os&nbsp;candidatos&nbsp;aprovados&nbsp;para&nbsp;o&nbsp;SISTEMA?")){xajax_exportarAprovados("'.$reg_requisicoes['id_requisicao'].'")}; style="cursor:pointer;"></span>');
+			$xml->writeElement('cell', '<span class="icone icone-salvar cursor" onclick=if(confirm("Deseja exportar os candidatos aprovados para o SISTEMA?")){xajax_exportarAprovados("'.$reg_requisicoes['id_requisicao'].'")}; style="cursor:pointer;"></span>');
 		}
 		else
 		{
-			$xml->writeElement('cell', '&nbsp;');
+			$xml->writeElement('cell', ' ');
 		}
 		
 		$xml->endElement();
@@ -367,15 +367,15 @@ function atualizatabelaCandidatos($id)
 		
 		if ($reg['ultimo_status'] != 10)
 		{		
-			$imgAprovar 	= $reg['candidato'] > 0 ? '<span class="icone icone-aprovar cursor" onclick=if(confirm("Deseja&nbsp;Aprovar?")){xajax_aprovarCandidato("'.$reg['id_rh_candidato'].'","'.intval($id).'")}; style="cursor:pointer;"></span>' : '';
+			$imgAprovar 	= $reg['candidato'] > 0 ? '<span class="icone icone-aprovar cursor" onclick=if(confirm("Deseja Aprovar?")){xajax_aprovarCandidato("'.$reg['id_rh_candidato'].'","'.intval($id).'")}; style="cursor:pointer;"></span>' : '';
 			$imgDetalhes 	= '<span class="icone icone-detalhes cursor" onclick=mostraDetalhes("'.$reg["id_rh_candidato"].'","'.$id.'"); style="cursor:pointer;"></span>';
-			$imgApagar 		= '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;Excluir?")){xajax_excluirCandidatos("'.$reg["id_rh_candidato"].'","'.intval($id).'")}; style="cursor:pointer;"></span>';
+			$imgApagar 		= '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja Excluir?")){xajax_excluirCandidatos("'.$reg["id_rh_candidato"].'","'.intval($id).'")}; style="cursor:pointer;"></span>';
 		}
 		else
 		{
-			$imgAprovar 	= '&nbsp;';
-			$imgDetalhes 	= '&nbsp;';
-			$imgApagar 		= '&nbsp;';
+			$imgAprovar 	= ' ';
+			$imgDetalhes 	= ' ';
+			$imgApagar 		= ' ';
 		}
 		
 		if ($reg['aprovacao'] == 1)
@@ -1048,20 +1048,26 @@ function enviarAprovadosFinanceiro($dados_form)
 	$mensagem .= "<P>Candidatos aprovados pelo RH:</P>";
 	$mensagem .= $candidatos;
 
-	$params = array();
-	$params['subject'] = "REQUISIÇÃO DE PESSOAL - CANDIDATOS SELECIONADOS RH";
-		
-	$mail = new email($params, 'requisicao_pessoal');
-	$mail->montaCorpoEmail($mensagem);
+	if(ENVIA_EMAIL)
+	{
 	
-	if(!$mail->Send())
-	{
-		$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		$params = array();
+		$params['subject'] = "REQUISIÇÃO DE PESSOAL - CANDIDATOS SELECIONADOS RH";
+			
+		$mail = new email($params, 'requisicao_pessoal');
+		$mail->montaCorpoEmail($mensagem);
+		
+		if(!$mail->Send())
+		{
+			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		}
 	}
-	else
+	else 
 	{
-		$resposta->addAlert("Requisição enviada com sucesso para o Financeiro.");
+		$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 1);
 	}
+
+	$resposta->addAlert("Requisição enviada com sucesso para o Financeiro.");
 	
 	return $resposta;
 }
@@ -1309,17 +1315,25 @@ function encerraVaga($dados_form)
 		$mensagem_rh .= "<P>Data: " . date("d/m/Y") . "</P>";
 		$mensagem_rh .= "<P>Solicitante: " . $_SESSION["nome_usuario"] . "</P>";
 		
-		$params = array();
-		$params['subject'] = "REQUISIÇÃO DE PESSOAL - ENCERRAMENTO DE VAGA";
-
-		$params['emails']['to'][] = array('email' => 'recursos_humanos@dominio.com.br', 'nome' => 'Recursos Humanos');
-		
-		$mail = new email($params);
-		$mail->montaCorpoEmail($mensagem_rh);
-				
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+
+			$params = array();
+			$params['subject'] = "REQUISIÇÃO DE PESSOAL - ENCERRAMENTO DE VAGA";
+
+			$params['emails']['to'][] = array('email' => 'recrutamento@dominio.com.br', 'nome' => 'Recursos Humanos');
+			
+			$mail = new email($params);
+			$mail->montaCorpoEmail($mensagem_rh);
+					
+			if(!$mail->Send())
+			{
+				$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+			}
+		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $mensagem_rh, '300_650', 'Conteúdo email', 2);
 		}
 		
 		$sql = "SELECT * FROM ".DATABASE.".requisicoes_pessoal, ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
@@ -1327,8 +1341,8 @@ function encerraVaga($dados_form)
 		$sql .= "AND requisicoes_pessoal.reg_del = 0 ";
 		$sql .= "AND usuarios.reg_del = 0 ";
 		$sql .= "AND funcionarios.reg_del = 0 ";
-		$sql .= "AND requisicoes_pessoal.id_solicitante = usuarios.id_funcionario ";
-		$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+		$sql .= "AND requisicoes_pessoal.id_solicitante = funcionarios.id_funcionario ";
+		$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 
 		$db->select($sql,'MYSQL',true);
 		
@@ -1341,17 +1355,25 @@ function encerraVaga($dados_form)
 		$mensagem .= "<P>Solicitante: " . $regs["funcionario"] . "</P>";
 		$mensagem .= "<P>Esta requisiÇÃo foi encerrada.</P>";
 		
-		$params = array();
-		$params['subject'] = "REQUISIÇÃO DE PESSOAL - ENCERRAMENTO DE VAGA";
-		
-		$params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["funcionario"]);
-		
-		$mail = new email($params);
-		$mail->montaCorpoEmail($mensagem);
-		
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+
+			$params = array();
+			$params['subject'] = "REQUISIÇÃO DE PESSOAL - ENCERRAMENTO DE VAGA";
+			
+			$params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["funcionario"]);
+			
+			$mail = new email($params);
+			$mail->montaCorpoEmail($mensagem);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+			}
+		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 3);
 		}
 		
 		$resposta->addScriptCall("xajax_atualizatabela(xajax.getFormValues('frm_pessoal'));");
@@ -1609,7 +1631,7 @@ function exportarAprovados($idRequisicao)
 				}
 				
 				$refeicao = $reg['in_refeicao'] == 1 ? 16 : 'null';//VR ou nada
-				$transporte = $reg['in_transporte'] == 1 ? 19 : 'null';//VT  ou N�o
+				$transporte = $reg['in_transporte'] == 1 ? 19 : 'null';//VT  ou Não
 				$hotel = $reg['in_hotel'] == 1 ? 24 : 27;//Por conta da EMPRESA ou Não tem hotel
 				
 				//Grava cliente_exigencias, estes dados vem de inclusões na tarifa
@@ -1709,8 +1731,8 @@ function alterarStatus($dados_form)
 	$sql .= "AND requisicoes_pessoal.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND requisicoes_pessoal.id_solicitante = usuarios.id_funcionario ";
-	$sql .= "AND usuarios.id_funcionario = funcionarios.id_funcionario ";
+	$sql .= "AND requisicoes_pessoal.id_solicitante = funcionarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 
 	$db->select($sql,'MYSQL',true);
 	
@@ -1754,12 +1776,19 @@ function alterarStatus($dados_form)
 	
 	$mensagem .= "<P>Novo status: ".$db->array_select[0]['status'];
 	
-	$mail = new email($params, 'alteracao_status_requisicao');
-	$mail->montaCorpoEmail($mensagem);
-	
-	if(!$mail->Send())
+	if(ENVIA_EMAIL)
 	{
-		$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+		$mail = new email($params, 'alteracao_status_requisicao');
+		$mail->montaCorpoEmail($mensagem);
+		
+		if(!$mail->Send())
+		{
+			$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+		}
+	}
+	else 
+	{
+		$resposta->addScriptCall('modal', $mensagem, '300_650', 'Conteúdo email', 4);
 	}
 	
 	$resposta->addScriptCall("xajax_atualizatabela(xajax.getFormValues('frm_pessoal'));");
@@ -1893,7 +1922,7 @@ function grid(tabela, autoh, height, xml)
 			
 			mygrid.attachEvent("onRowSelect",editar);
 		
-			mygrid.setHeader("Nº,status,Data&nbsp;Alteração,Solicitante,OS/Projeto,Req.&nbsp;Cliente,D,S");
+			mygrid.setHeader("Nº,status,Data Alteração,Solicitante,OS/Projeto,Req. Cliente,D,S");
 			mygrid.setInitWidths("60,*,100,*,*,80,50,50");
 			mygrid.setColAlign("left,left,left,left,left,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");

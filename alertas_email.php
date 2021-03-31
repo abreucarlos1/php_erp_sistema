@@ -22,7 +22,7 @@ function vencimento_senha()
 	$db = new banco_dados;
 
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO','SUSPENSO','CANCELADO') ";
@@ -79,34 +79,38 @@ function vencimento_senha()
 				//se faltar 10 dias para o vencimento, envia o e-mail
 				if($dias_restantes<=10)
 				{					
-					$Body = "<B><FONT FACE=ARIAL COLOR=RED>ATENÇÃO - SENHA DVMSYS</FONT></B><BR>";
+					$Body = "<B><FONT FACE=ARIAL COLOR=RED>ATENÇÃO - SENHA SISTEMA</FONT></B><BR>";
 					$Body .= "Sua senha expira em ".$dias_restantes." dia(s), favor trocar sua senha.<br>";
 					$Body .= "Ao fazer o login no sistema, escolha Trocar Senha no menu inicial.";
 					$Body .= "<br><br><br>";
 					
-					$params = array();
-					
-					$params['from']	= "tecnologia@dominio.com.br";
-					
-					$params['from_name'] = "Sistema ERP";
-					
-					$params['subject'] 	= "SENHA EXPIRANDO EM ".$dias_restantes." dia(s)";
-					
-					if(!empty($reg["email"]) && !empty($reg["funcionario"]))
+					if(ENVIA_EMAIL)
 					{
-						$params['emails']['to'][] = array('email' => $reg["email"], 'nome' => $reg["funcionario"]);
-					}
-					
-					$mail = new email($params);
-					
-					$mail->montaCorpoEmail($Body);
-										
-					if(!$mail->Send())
-					{
-						echo $mail->ErrorInfo;
-					}
-					
-					$mail->ClearAllRecipients();				
+
+						$params = array();
+						
+						$params['from']	= "ti@dominio.com.br";
+						
+						$params['from_name'] = "Sistema ERP";
+						
+						$params['subject'] 	= "SENHA EXPIRANDO EM ".$dias_restantes." dia(s)";
+						
+						if(!empty($reg["email"]) && !empty($reg["funcionario"]))
+						{
+							$params['emails']['to'][] = array('email' => $reg["email"], 'nome' => $reg["funcionario"]);
+						}
+						
+						$mail = new email($params);
+						
+						$mail->montaCorpoEmail($Body);
+											
+						if(!$mail->Send())
+						{
+							echo $mail->ErrorInfo;
+						}
+						
+						$mail->ClearAllRecipients();
+					}				
 				}
 			}
 		}
@@ -115,36 +119,40 @@ function vencimento_senha()
 	if(count($array_bloq)>0)
 	{
 		//ENVIA E-MAIL EXPIRADO	
-		$Body = "<B><FONT FACE=ARIAL COLOR=RED>ATENÇÃO - SENHA DVMSYS</FONT></B><BR>";
+		$Body = "<B><FONT FACE=ARIAL COLOR=RED>ATENÇÃO - SENHA SISTEMA</FONT></B><BR>";
 		$Body .= "Sua senha do ERP expirou, o sistema solicitará a troca no próximo login.<br>";
 		$Body .= "<br><br><br>";
 		
-		$params = array();
-		$params['from']	= "tecnologia@dominio.com.br";
-		$params['from_name'] = "Sistema ERP";
-		$params['subject'] = "SENHA ERP EXPIRADA, ACESSO AO SISTEMA BLOQUEADO";
-		
-		//Limpamos os emails anteriores
-		$params['emails']['to'] = array();
-		
-		foreach($array_bloq as $email=>$funcionario)
+		if(ENVIA_EMAIL)
 		{
-			if(!empty($email) && !empty($funcionario))
+
+			$params = array();
+			$params['from']	= "ti@dominio.com.br";
+			$params['from_name'] = "Sistema ERP";
+			$params['subject'] = "SENHA ERP EXPIRADA, ACESSO AO SISTEMA BLOQUEADO";
+			
+			//Limpamos os emails anteriores
+			$params['emails']['to'] = array();
+			
+			foreach($array_bloq as $email=>$funcionario)
 			{
-				$params['emails']['to'][] = array('email' => $email, 'nome' => $funcionario);
+				if(!empty($email) && !empty($funcionario))
+				{
+					$params['emails']['to'][] = array('email' => $email, 'nome' => $funcionario);
+				}
 			}
+			
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($Body);
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAllRecipients();
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($Body);
-		
-		if(!$mail->Send())
-		{
-			echo $mail->ErrorInfo;
-		}
-		
-		$mail->ClearAllRecipients();
 	}
 	
 	if(count($array_last_warning)>0)
@@ -155,29 +163,33 @@ function vencimento_senha()
 		$Body .= "Ao fazer o login no sistema, escolha Trocar Senha no menu inicial.";
 		$Body .= "<br><br><br>";
 		
-		$params = array();
-		$params['from']	= "tecnologia@dominio.com.br";
-		$params['from_name'] = "Sistema ERP";
-		$params['subject'] = "SENHA ERP EXPIRANDO, ÚLTIMO AVISO";
-		
-		//Limpamos os emails anteriores
-		$params['emails']['to'] = array();
-		
-		foreach($array_last_warning as $email=>$funcionario)
+		if(ENVIA_EMAIL)
 		{
-			$params['emails']['to'][] = array('email' => $email, 'nome' => $funcionario);
+
+			$params = array();
+			$params['from']	= "ti@dominio.com.br";
+			$params['from_name'] = "Sistema ERP";
+			$params['subject'] = "SENHA ERP EXPIRANDO, ÚLTIMO AVISO";
+			
+			//Limpamos os emails anteriores
+			$params['emails']['to'] = array();
+			
+			foreach($array_last_warning as $email=>$funcionario)
+			{
+				$params['emails']['to'][] = array('email' => $email, 'nome' => $funcionario);
+			}
+			
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($Body);
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAllRecipients();
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($Body);
-		
-		if(!$mail->Send())
-		{
-			echo $mail->ErrorInfo;
-		}
-		
-		$mail->ClearAllRecipients();
 	}			
 }
 
@@ -187,7 +199,7 @@ function rotinas_manutencao()
 
 	$params = array();
 	
-	$params['from']	= "suporte@dominio.com.br";
+	$params['from']	= "ti@dominio.com.br";
 	
 	$params['from_name'] = "ROTINAS DE MANUTENÇÕES";
 	
@@ -215,7 +227,7 @@ function rotinas_manutencao()
 	$sql .= "AND ti_rotinas_manutencoes.ti_data_previsao = '".$data_filtro."' ";
 	$sql .= "AND ti_rotinas.id_ti_rotina = ti_rotinas_frequencias.id_ti_rotina ";
 	$sql .= "AND ti_rotinas_frequencias.id_ti_frequencia = ti_frequencias.id_ti_frequencia ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "ORDER BY funcionario, ti_frequencia, ti_rotina ";
 
 	$db->select($sql,'MYSQL',true);
@@ -242,7 +254,7 @@ function rotinas_manutencao()
 			
 			foreach($rotina as $rot=>$data)
 			{
-				$texto .= "<p>&nbsp;&nbsp;&nbsp;&nbsp;".$data . " - " . $rot."</p>";
+				$texto .= "<p>    ".$data . " - " . $rot."</p>";
 			}
 			
 		}
@@ -251,17 +263,21 @@ function rotinas_manutencao()
 		{
 			$params['emails']['to'][] = array('email' => $array_funcionario[$funcionario], 'nome' => $funcionario);
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);		
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);		
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAddresses();
 		}
-		
-		$mail->ClearAddresses();
 	}	
 }
 
@@ -296,24 +312,28 @@ function vencimento_exame()
 		$texto .= "<B>Exame número:</b> ".$reg["id_rh_aso"]."<br>";
 		$texto .= "<b>Funcionário:</b> ".$reg["funcionario"]."<br><br><br>";
 
-		$params = array();
-		
-		$params['from']	= "empresa@dominio.com.br";
-		
-		$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
-		
-		$params['subject'] = 'VENCIMENTO DE EXAME PERIODICO EM 20 DIAS';
-		
-		$mail = new email($params, 'vencimento_exame_periodico');
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+
+			$params = array();
+			
+			$params['from']	= "empresa@dominio.com.br";
+			
+			$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
+			
+			$params['subject'] = 'VENCIMENTO DE EXAME PERIODICO EM 20 DIAS';
+			
+			$mail = new email($params, 'vencimento_exame_periodico');
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAddresses();
 		}
-		
-		$mail->ClearAddresses();
 		
 		$usql = "UPDATE ".DATABASE.".rh_aso SET ";
 		$usql .= "rh_aso.vencimento = '1' ";
@@ -370,24 +390,28 @@ function vencimento_integracao()
 		$texto .= "<B>Integracao numero:</b> ".$reg["id_rh_integracao"]."<br>";
 		$texto .= "<b>funcionario:</b> ".$reg["funcionario"]."<br><br><br>";
 		
-		$params = array();
-		
-		$params['from']	= "empresa@dominio.com.br";
-		
-		$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
-		
-		$params['subject'] = 'VENCIMENTO DE INTEGRACAO ('.$reg['funcionario'].') EM '.mysql_php($reg['data_vencimento']);
-		
-		$mail = new email($params, 'vencimento_integracao');
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+
+			$params = array();
+			
+			$params['from']	= "empresa@dominio.com.br";
+			
+			$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
+			
+			$params['subject'] = 'VENCIMENTO DE INTEGRACAO ('.$reg['funcionario'].') EM '.mysql_php($reg['data_vencimento']);
+			
+			$mail = new email($params, 'vencimento_integracao');
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAddresses();
 		}
-		
-		$mail->ClearAddresses();
 		
 		$usql = "UPDATE ".DATABASE.".rh_integracao SET ";
 		$usql .= "rh_integracao.vencimento = '1' ";
@@ -443,19 +467,23 @@ function vencimento_treinamento()
             $texto .= "favor providenciar um novo treinamento.<br><br>";
             $texto .= "<B>Treinamento número:</b> ".$reg["rti_id"]."<br>";
             $texto .= "<b>Funcionário:</b> ".$reg["funcionario"]."<br><br><br>";
-            
-            $params['from']	= "empresa@dominio.com.br";
-            
-            $params['from_name'] = "Recursos Humanos - Treinamentos";
-            
-            $mail = new email($params, 'vencimento_treinamento');
-            
-            $mail->montaCorpoEmail($corpoEmail);
-            
-            if(!$mail->Send())
-            {
-                echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-            }
+			
+			if(ENVIA_EMAIL)
+			{
+			
+				$params['from']	= "empresa@dominio.com.br";
+				
+				$params['from_name'] = "Recursos Humanos - Treinamentos";
+				
+				$mail = new email($params, 'vencimento_treinamento');
+				
+				$mail->montaCorpoEmail($corpoEmail);
+				
+				if(!$mail->Send())
+				{
+					echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+				}
+			}
         }
         
         //caso o treinamento esteja vencido, marcar como vencido (SITUAÇÃO = 4)
@@ -541,24 +569,28 @@ function vencimento_controles_sgi()
 			$texto = "<B><FONT FACE=ARIAL COLOR=RED>ATENÇÃO</FONT></B><BR>";
 			$texto .= "O Requisito SGI ".$reg1["sgi_requisito"]." com data de vencimento em: ".mysql_php($reg1["data_vencimento"])."<br>";
 			
-			$params = array();
-			
-			$params['from']	= "empresa@dominio.com.br";
-			
-			$params['from_name'] = "Recursos Humanos - Sistema de Treinamentos";
-			
-			$params['subject'] = $subject;
-			
-			$mail = new email($params, 'vencimento_controles_sgi');
-			
-			$mail->montaCorpoEmail($texto);	
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				echo $mail->ErrorInfo;
+
+				$params = array();
+				
+				$params['from']	= "empresa@dominio.com.br";
+				
+				$params['from_name'] = "Recursos Humanos - Sistema de Treinamentos";
+				
+				$params['subject'] = $subject;
+				
+				$mail = new email($params, 'vencimento_controles_sgi');
+				
+				$mail->montaCorpoEmail($texto);	
+				
+				if(!$mail->Send())
+				{
+					echo $mail->ErrorInfo;
+				}
+				
+				$mail->ClearAddresses();
 			}
-			
-			$mail->ClearAddresses();
 			
 			$usql = "UPDATE ".DATABASE.".sgi_controle SET ";
 			$usql .= $update;
@@ -609,24 +641,28 @@ function vencimento_habilitacao()
 		$texto .= "<B>Emissão:</b> ".mysql_php($reg["data_emissao"])."<br>";
 		$texto .= "<B>Vencimento:</b> ".mysql_php($reg["data_vencimento"])."<br><br><br>";
 		
-		$params = array();
-		
-		$params['from']	= "empresa@dominio.com.br";
-		
-		$params['from_name'] = "Recursos Humanos - Sistema de Habilitações";
-		
-		$params['subject'] = 'VENCIMENTO DE CNH EM 45 DIAS';
-		
-		$mail = new email($params, 'vencimento_cnh');
-		
-		$mail->montaCorpoEmail($texto);
-				
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
+
+			$params = array();
+			
+			$params['from']	= "empresa@dominio.com.br";
+			
+			$params['from_name'] = "Recursos Humanos - Sistema de Habilitações";
+			
+			$params['subject'] = 'VENCIMENTO DE CNH EM 45 DIAS';
+			
+			$mail = new email($params, 'vencimento_cnh');
+			
+			$mail->montaCorpoEmail($texto);
+					
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+			
+			$mail->ClearAddresses();
 		}
-		
-		$mail->ClearAddresses();
 		
 		$usql = "UPDATE ".DATABASE.".rh_habilitacao SET ";
 		$usql .= "rh_habilitacao.vencimento = 1 ";
@@ -690,7 +726,7 @@ function vencimento_avaliacao_eficacia()
 		die($db->erro);		
 	}
     
-    $titulo  = '<p style="font-family: Verdana, Arial; font-size: 12px; font-weight:bold;">TREINAMENTOS COM PEND&Ecirc;NCIA DE AVALIA&Ccedil;&Atilde;O DE EFIC&Aacute;CIA<b></br>';
+    $titulo  = '<p style="font-family: Verdana, Arial; font-size: 12px; font-weight:bold;">TREINAMENTOS COM PENDÊNCIA DE AVALIAÇÃO DE EFICÁCIA<b></br>';
 	
 	foreach($db->array_select as $regs)
     {
@@ -710,29 +746,39 @@ function vencimento_avaliacao_eficacia()
         //Montando o corpo do email para o RH
         $corpoRH .= $corpo;
         
-        //Envio de email para o gestor
-        $params = array();
-        $params['from'] = "empresa@dominio.com.br";
-        $params['from_name'] = "Recursos Humanos";
-        $params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
-        $params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["gestor"]);
-        
-        //Enviando o email ao gestor
-        //Esta variável é criada dentro do loop para garantir que será sempre zerada antes do envio
-        $mail = new email($params);
-        $mail->montaCorpoEmail($titulo.$corpo);
-        $mail->send();
+		//Envio de email para o gestor
+		
+		if(ENVIA_EMAIL)
+		{
+
+			$params = array();
+			$params['from'] = "empresa@dominio.com.br";
+			$params['from_name'] = "Recursos Humanos";
+			$params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
+			$params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["gestor"]);
+			
+			//Enviando o email ao gestor
+			//Esta variável é criada dentro do loop para garantir que será sempre zerada antes do envio
+			$mail = new email($params);
+			$mail->montaCorpoEmail($titulo.$corpo);
+			$mail->send();
+		}
     }
     
-    //Envio para o RH
-    $params = array();
-    $params['from'] = "empresa@dominio.com.br";
-    $params['from_name'] = "Recursos Humanos";
-    $params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
-        
-    $mail = new email($params, 'vencimento_treinamento');
-    $mail->montaCorpoEmail($titulo.$corpoRH);
-    $mail->send();
+	//Envio para o RH
+	
+	if(ENVIA_EMAIL)
+	{
+
+		$params = array();
+		$params['from'] = "empresa@dominio.com.br";
+		$params['from_name'] = "Recursos Humanos";
+		$params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
+			
+		$mail = new email($params, 'vencimento_treinamento');
+		$mail->montaCorpoEmail($titulo.$corpoRH);
+		$mail->send();
+	}
 }
 
 //arquivo técnico
@@ -777,7 +823,7 @@ function verifica_pacotes()
 	}	
 
 	$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 
@@ -833,17 +879,21 @@ function verifica_pacotes()
 		{		
 			$params['emails']['to'][] = array('email' => $array_emailusr[$chave_solicitante], 'nome' => $array_loginusr[$chave_solicitante]);		
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);
 
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo $mail->ErrorInfo;
-		}
+		
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);
 
-		$mail->ClearAddresses();
+			if(!$mail->Send())
+			{
+				echo $mail->ErrorInfo;
+			}
+
+			$mail->ClearAddresses();
+		}
 	}
 }
 
@@ -857,7 +907,7 @@ function verifica_devolucao()
 	//Seleciona o Coordenador principal da OS
 	$sql = "SELECT funcionarios.id_funcionario, funcionario, email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 	$sql .= "WHERE funcionarios.id_funcionario = '".$reg_verifica["id_cod_coord"]."' ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
@@ -960,17 +1010,21 @@ function verifica_devolucao()
 		
 		$params['emails']['to'][] = array('email' => 'arquivotecnico@dominio.com.br', 'nome' => 'Arquivo Técnico');		
 		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($Body);
-		
-		//Envia o e-mail
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo ('Erro ao enviar e-mail! '.$mail->ErrorInfo);
-		}
-	
-		$mail->ClearAddresses();		
+
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($Body);
+			
+			//Envia o e-mail
+			if(!$mail->Send())
+			{
+				echo ('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+			}
+		
+			$mail->ClearAddresses();
+		}		
 	}
 }
 
@@ -990,7 +1044,7 @@ function verifica_retorno()
 	$sql .= "WHERE funcionarios.id_funcionario = '".$reg_verifica["id_cod_coord"]."' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
   
 	$db->select($sql,'MYSQL',true);
@@ -1136,17 +1190,21 @@ function verifica_retorno()
 			
 			$Body .= "</body></html>";
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($Body);
-			
-			//Envia o e-mail
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				echo ('Erro ao enviar e-mail! '.$mail->ErrorInfo);
-			}
-		
-			$mail->ClearAddresses();			
+
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($Body);
+				
+				//Envia o e-mail
+				if(!$mail->Send())
+				{
+					echo ('Erro ao enviar e-mail! '.$mail->ErrorInfo);
+				}
+			
+				$mail->ClearAddresses();
+			}			
 		}	
 	}
 }
@@ -1169,7 +1227,7 @@ function verifica_docs_fin()
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND fechamento_folha.reg_del = 0 ";
 	$sql .= "AND fechamento_folha.periodo LIKE '".$data_period[2]."-".$data_period[1]."%' ";
-	$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	$sql .= "ORDER BY funcionarios.funcionario ";
 
@@ -1219,17 +1277,21 @@ function verifica_docs_fin()
 				{
 					$params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["funcionario"]);
 				}
-				
-				$mail = new email($params);
-				
-				$mail->montaCorpoEmail($txt);
-				
-				if(!$mail->Send())
+
+				if(ENVIA_EMAIL)
 				{
-					echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-				}
 				
-				$mail->ClearAddresses();
+					$mail = new email($params);
+					
+					$mail->montaCorpoEmail($txt);
+					
+					if(!$mail->Send())
+					{
+						echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+					}
+					
+					$mail->ClearAddresses();
+				}
 			}
 		}
 	}
@@ -1263,25 +1325,29 @@ function verifica_funcionario_44_89_dias()
 		$dias = $reg['dias'];
 		
 		$corpoEmail = "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">AVISO ".$dias." DIAS</span><br><br><br>";
-		$corpoEmail .= "Nome:&nbsp;<strong>".$reg["funcionario"]."</strong><br>";
-		$corpoEmail .= "data inicio:&nbsp;<strong>".mysql_php($reg['data_inicio'])."</strong><br>";					
+		$corpoEmail .= "Nome: <strong>".$reg["funcionario"]."</strong><br>";
+		$corpoEmail .= "data inicio: <strong>".mysql_php($reg['data_inicio'])."</strong><br>";					
 		
 		$params['from']	= "empresa@dominio.com.br";
 		
 		$params['from_name'] = "Recursos Humanos - Avaliação Experiência";
 		
 		$params['subject'] = "AVISO ".$dias." - ".trim($reg['funcionario']);
-		
-		$mail = new email($params, 'aviso_44_89');
-		
-		$mail->montaCorpoEmail($corpoEmail);
-	
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-		}
 		
-		$mail->ClearAddresses();		
+			$mail = new email($params, 'aviso_44_89');
+			
+			$mail->montaCorpoEmail($corpoEmail);
+		
+			if(!$mail->Send())
+			{
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+			
+			$mail->ClearAddresses();
+		}		
 	}	
 }
 
@@ -1322,22 +1388,26 @@ function avaliacao_treinamento_30_dias()
         $dias = $reg['dif'];
         
         $corpoEmail = "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">AVALIAÇÃO DE TREINAMENTO 30 DIAS</span><br><br><br>";
-        $corpoEmail .= "Nome:&nbsp;<strong>".$reg['funcionario']."</strong><br>";
-        $corpoEmail .= "Treinamento:&nbsp;<strong>".$reg['treinamento']."</strong><br>";
-        $corpoEmail .= "data Treinamento:&nbsp;<strong>".mysql_php($reg['rtc_data_treinamento'])."</strong><br>";
-        
-        $params['from']	= "empresa@dominio.com.br";
-        
-        $params['from_name'] = "Recursos Humanos - Treinamentos";
-        
-        $mail = new email($params, 'aviso_treinamento_30_dias');
-        
-        $mail->montaCorpoEmail($corpoEmail);
-        
-        if(!$mail->Send())
-        {
-            echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-        }
+        $corpoEmail .= "Nome: <strong>".$reg['funcionario']."</strong><br>";
+        $corpoEmail .= "Treinamento: <strong>".$reg['treinamento']."</strong><br>";
+        $corpoEmail .= "data Treinamento: <strong>".mysql_php($reg['rtc_data_treinamento'])."</strong><br>";
+				
+		if(ENVIA_EMAIL)
+		{
+
+			$params['from']	= "empresa@dominio.com.br";
+			
+			$params['from_name'] = "Recursos Humanos - Treinamentos";
+			
+			$mail = new email($params, 'aviso_treinamento_30_dias');
+			
+			$mail->montaCorpoEmail($corpoEmail);
+			
+			if(!$mail->Send())
+			{
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+		}
     }	
 }
 
@@ -1381,17 +1451,20 @@ function avaliacao_estagiario_179_dias()
 		
 		$corpoEmail = "Favor, realizar a <span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">AVALIAÇÃO DO(A) ESTAGIÁRIO(A) ".$reg['funcionario']."</span><br />";
 		
-		$params['from']	= "empresa@dominio.com.br";
-		$params['from_name'] = "Recursos Humanos - Avaliação Estágio";
-		$params['subject'] = "AVALIAÇÃO DO<sup>a</sup> ESTAGIÁRIO<sup>a</sup> ".$reg['funcionario'];
-		
-		$mail = new email($params, 'aviso_estagio_180_dias');
-		
-		$mail->montaCorpoEmail($corpoEmail);
-	
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			$params['from']	= "empresa@dominio.com.br";
+			$params['from_name'] = "Recursos Humanos - Avaliação Estágio";
+			$params['subject'] = "AVALIAÇÃO DO<sup>a</sup> ESTAGIÁRIO<sup>a</sup> ".$reg['funcionario'];
+			
+			$mail = new email($params, 'aviso_estagio_180_dias');
+			
+			$mail->montaCorpoEmail($corpoEmail);
+		
+			if(!$mail->Send())
+			{
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
 		}	
 	}	
 }
@@ -1434,23 +1507,27 @@ function fim_contrato_proximo()
         $dias = $reg['dif'];
         
         $corpoEmail = "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">Final contrato colaborador</span><br><br><br>";
-        $corpoEmail .= "Nome:&nbsp;<strong>".$reg['funcionario']."</strong><br>";
-        $corpoEmail .= "data Fim:&nbsp;<strong>".mysql_php($reg['flt_fim'])."</strong>";
-        
-        $params['from']	= "empresa@dominio.com.br";
-        
-        $params['from_name'] = "Recursos Humanos";
-        
-        $params['subject'] = "Final contrato colaborador";
-        
-        $mail = new email($params, 'fim_permanencia_colaborador_cliente');
-        
-        $mail->montaCorpoEmail($corpoEmail);
-        
-        if(!$mail->Send())
-        {
-            echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-        }
+        $corpoEmail .= "Nome: <strong>".$reg['funcionario']."</strong><br>";
+        $corpoEmail .= "data Fim: <strong>".mysql_php($reg['flt_fim'])."</strong>";
+		
+		if(ENVIA_EMAIL)
+		{
+
+			$params['from']	= "empresa@dominio.com.br";
+			
+			$params['from_name'] = "Recursos Humanos";
+			
+			$params['subject'] = "Final contrato colaborador";
+			
+			$mail = new email($params, 'fim_permanencia_colaborador_cliente');
+			
+			$mail->montaCorpoEmail($corpoEmail);
+			
+			if(!$mail->Send())
+			{
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+		}
     }
 }
 
@@ -1538,25 +1615,21 @@ function oss_finalizadas()
         $corpoEmail .= "<p>".sprintf('%05d', $os)." (".$reg['status'].")</p>";
     }
     
-    $params['from']	= "tecnologia@dominio.com.br";
+    $params['from']	= "ti@dominio.com.br";
     $params['from_name'] = "BMS - OS's finalizadas";
     $params['subject'] = "Lista de OS's finalizadas";
     
-    if (HOST != 'localhost')
-    {
-        $mail = new email($params, 'oss_finalizadas');
-        
-        $mail->montaCorpoEmail($corpoEmail);
-        
-        if(!$mail->Send())
-        {
-            echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-        }
-    }
-    else
-    {
-        print_r($corpoEmail);
-    }
+	if(ENVIA_EMAIL)
+	{
+		$mail = new email($params, 'oss_finalizadas');
+		
+		$mail->montaCorpoEmail($corpoEmail);
+		
+		if(!$mail->Send())
+		{
+			echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+		}
+	}
 }
 
 function encerrar_chamados()
@@ -1643,19 +1716,23 @@ function encerrar_chamados()
         $body .= '<b>status do Chamado: </b>'.$db->array_select[0]['statusChamado'].'<br />';
         $body .= '<b>Solicitante: </b>'.$nomeSolicitante.'<br />';
         $body .= '<b>descricao: </b>'.$db->array_select[0]['c_descricao'].'<br />';
-        
-        $params = array();
-        $params['emails']['to'][] = array('email' => $emailSolicitante, 'nome' => $nomeSolicitante);
-        $params['emails']['to'][] = array('email' => 'suporte@dominio.com.br', 'nome' => 'Suporte Técnico');
-        $params['subject'] = $subject;
-        
-        $mail = new email($params);
-        $mail->montaCorpoEmail($body);
-        
-        if (!$mail->send())
-            echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-        
-        $mail->clearAddresses();
+		
+		if(ENVIA_EMAIL)
+		{
+		
+			$params = array();
+			$params['emails']['to'][] = array('email' => $emailSolicitante, 'nome' => $nomeSolicitante);
+			$params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte Técnico');
+			$params['subject'] = $subject;
+			
+			$mail = new email($params);
+			$mail->montaCorpoEmail($body);
+			
+			if (!$mail->send())
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			
+			$mail->clearAddresses();
+		}
     }
 }
 
@@ -1678,7 +1755,7 @@ function aprova_solicitacoes_escopo()
 	{
 		//FUNCIONARIOS
 		$sql = "SELECT funcionarios.id_funcionario, funcionario, nivel_atuacao, setores.abreviacao, email FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".usuarios ";
-		$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario";
 		$sql .= "AND funcionarios.reg_del = 0 ";
 		$sql .= "AND setores.reg_del = 0 ";
 		$sql .= "AND usuarios.reg_del = 0 ";
@@ -1741,7 +1818,7 @@ function aprova_solicitacoes_escopo()
 		$sql .= "AND atividades.cod = setores.id_setor ";
 		$sql .= "AND solicitacao_hora.id_os = ordem_servico.id_os ";
 		$sql .= "AND solicitacao_hora.id_atividade = atividades.id_atividade ";
-		$sql .= "AND funcionarios.id_funcionario = usuarios.id_funcionario ";
+		$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario";
 		$sql .= "AND solicitacao_hora.id_aprovacao = 3 "; //APROVADO SUPERVISÃO
 		$sql .= "AND solicitacao_hora.data_aprovacao_supervisao <= '".php_mysql(checaDiasUteis(date("d/m/Y"),2,$ret,"sub"))."' ";
 		
@@ -1802,7 +1879,7 @@ function aprova_solicitacoes_escopo()
 			$params = array();
 			
 			//Concatena mensagem 
-			$texto = "<B><FONT FACE=ARIAL COLOR=RED>APROVA&Ccedil;&Atilde;O DE ALTERA&Ccedil;&Atilde;O DE ESCOPO - N&deg;: ".$cont["id_solicitacao_hora"]."</FONT></B><BR><br>";
+			$texto = "<B><FONT FACE=ARIAL COLOR=RED>APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - N&deg;: ".$cont["id_solicitacao_hora"]."</FONT></B><BR><br>";
 			$texto .= "<FONT FACE=ARIAL COLOR=RED>Motivo solicitação: ".$array_motivo[$cont["id_motivo_solicitacao"]]."</FONT><br><br>";
 			$texto .= "O colaborador ".$cont["funcionario"]." solicitou alteração de escopo.<br><br>";
 			$texto .= "Aprovada por SISTEMA em ".date('d/m/Y')."<br><br>";
@@ -1819,7 +1896,7 @@ function aprova_solicitacoes_escopo()
 				$texto .= "na tarefa: ".$reg_atividade["codigo"]." - ".$reg_atividade["descricao"]."<br><br>";						
 			//}
 			
-			$texto .= "Motivo aprovação: APROVA&Ccedil;&Atilde;O AUTOM&Aacute;TICA<br><br>";
+			$texto .= "Motivo aprovação: APROVAÇÃO AUTOMÁTICA<br><br>";
 			
 			$texto .= "Total de horas: ".number_format($cont["total_horas"],2,",","")."<br><br>";
 			
@@ -1830,13 +1907,17 @@ function aprova_solicitacoes_escopo()
 			$params['fromNameCompl'] = ' - Solicitação de alteração de escopo - APROVADO';
 			$params['subject'] = 'APROVAÇÃO DE ALTERAÇÃO DE ESCOPO - Nº: '.$cont["id_solicitacao_hora"];
 			
-			$mail = new email($params);
-			
-			$mail->montaCorpoEmail($texto);
-			
-			if(!$mail->Send())
+			if(ENVIA_EMAIL)
 			{
-				echo "Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento!";
+
+				$mail = new email($params);
+				
+				$mail->montaCorpoEmail($texto);
+				
+				if(!$mail->Send())
+				{
+					echo "Horas aprovadas, porém, houve uma falha ao tentar enviar o e-mail ao Planejamento!";
+				}
 			}		
 						
 			$usql = "UPDATE ".DATABASE.".solicitacao_hora SET ";
@@ -1872,7 +1953,7 @@ function pedidos_sem_anexo()
 			FROM
 				".DATABASE.".ordem_servico 
 				JOIN ".DATABASE.".ordem_servico_status ON ordem_servico_status.id_os_status = ordem_servico.id_os_status AND ordem_servico_status.reg_del = 0 
-				JOIN ".DATABASE.".empresas ON empresas.id_empresa_erp = ordem_servico.id_empresa_erp AND empresas.reg_del = 0 
+				JOIN ".DATABASE.".empresas ON empresas.id_empresa = ordem_servico.id_empresa AND empresas.reg_del = 0 
 				JOIN ".DATABASE.".bms_pedido ON bms_pedido.id_os = os.os AND bms_pedido.reg_del = 0
 				LEFT JOIN(
 					SELECT
@@ -1899,27 +1980,24 @@ function pedidos_sem_anexo()
     
     $body .= '</table>';
     
-    $params['from']	= "tecnologia@dominio.com.br";
+    $params['from']	= "ti@dominio.com.br";
     $params['from_name'] = "BMS - solicitacao_documentos sem anexo";
     $params['subject'] = "BMS - Lista de pedidos sem anexo";
     
     if ($db->numero_registros > 0)
     {
-        if (HOST != 'localhost')
-        {
-            $mail = new email($params, 'bms_pedidos_sem_anexo');
-            
-            $mail->montaCorpoEmail($body);
-            
-            if(!$mail->Send())
-            {
-                echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
-            }
-        }
-        else
-        {
-            print_r($body);
-        }
+		if(ENVIA_EMAIL)
+		{
+           	$mail = new email($params, 'bms_pedidos_sem_anexo');
+           
+			$mail->montaCorpoEmail($body);
+			
+			if(!$mail->Send())
+			{
+				echo('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
+		}
+
     }
 }
 

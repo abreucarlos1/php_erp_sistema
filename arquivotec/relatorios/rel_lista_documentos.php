@@ -629,8 +629,8 @@ else
 	$periodo = "";	
 } 
 
-$sql = "SELECT empresas.id_empresa_erp, empresa, os, descricao  FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql = "SELECT empresas.id_empresa, empresa, os, descricao  FROM ".DATABASE.".ordem_servico, ".DATABASE.".empresas ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND ordem_servico.id_os = '" . $_POST["id_os"] . "' ";
@@ -679,7 +679,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Aprovação",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -688,7 +688,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Construção",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -697,7 +697,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Certificado",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(5,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -706,7 +706,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Comentários",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -715,7 +715,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Cancelado",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(5,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -733,7 +733,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Preliminar",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -742,7 +742,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Conhecimento",0,0,'L',0);
 		
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -751,7 +751,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Devolução Documento",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(5,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -760,7 +760,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Consulta",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -769,7 +769,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Cópia Avançada",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(5,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -788,7 +788,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Liberado para Compra",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -797,7 +797,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Liberado para Execução",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -806,7 +806,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Conforme Comprado",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(5,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -815,7 +815,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Cotação",0,0,'L',0);	
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -854,7 +854,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Aprovado",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -863,7 +863,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Aprovado com comentários",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -878,7 +878,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Não Aprovado",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);
@@ -887,7 +887,7 @@ if($_POST["chk_excel"]==0)
 			$this->SetFont('Arial','',$tam_leg);
 			$this->Cell(30,4," = Para Informação",0,0,'L',0);
 			
-			//Espa�amento
+			//Espaçamento
 			$this->Cell(10,4,"",0,0,'L',0);
 			
 			$this->SetFont('Arial','B',$tam_leg);

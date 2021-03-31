@@ -18,7 +18,7 @@
 	</div>
 	
 	<div class='divCadastroCandidato'>
-		<label class="labels">UF&nbsp;Nasc.</label>
+		<label class="labels">UF Nasc.</label>
 		<select name="dados_pessoais[estado_nasc]" class="caixa" id="dados_pessoais[estado_nasc]" onkeypress="return keySort(this);">
 				<option value="">SELECIONE</option>
 				<smarty>html_options values=$option_uf_values selected=$dados_pessoais['cdp_uf_nasc'] output=$option_uf_values</smarty>
@@ -122,7 +122,7 @@
 	
 	<div class='divCadastroCandidatoLinha'>
 		<div class='divCadastroCandidato'>
-			<label class="labels">Estado&nbsp;Civil</label>
+			<label class="labels">Estado Civil</label>
 			<select name="dados_pessoais[estado_civil]" class="caixa" id="dados_pessoais[estado_civil]" onkeypress="return keySort(this);">
 				<smarty>html_options values=$option_est_civ_values output=$option_est_civ_output selected=$estado_civil_selecionado</smarty>
 			</select>

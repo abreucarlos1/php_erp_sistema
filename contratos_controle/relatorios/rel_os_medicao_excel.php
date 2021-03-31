@@ -40,7 +40,7 @@ ini_set('memory_limit', '2014M');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(619))
 {
@@ -51,13 +51,13 @@ require_once(INCLUDE_DIR."PHPExcel/Classes/PHPExcel.php");
 
 $db = new banco_dados();
 
-$chars = array("'","\"",")","(","\\","/",".",":","&","%","�","`","'","?");
+$chars = array("'","\"",")","(","\\","/",".",":","&","%","'","`","'","?");
 
 $mes = $_POST["mes"];
 
 $ano = $_POST["ano"];
 
-$array_meses = array("JANEIRO","FEVEREIRO","MAR�O","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
+$array_meses = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 if (intval($mes)==1)
 {
@@ -74,7 +74,7 @@ else
 $temp = explode("/",$data_ini);
 
 $d = $temp[0]; //26
-$m = $temp[1]; //02 //mar�o
+$m = $temp[1]; //02 
 $a = $temp[2]; //2006
 
 $diasestampa = mktime(0,0,0,$m+1,0,$ano);
@@ -120,7 +120,7 @@ foreach ($db->array_select as $regs1)
 	$array_coordenadores[$regs1["PA7_ID"]] = str_replace($chars,"",$regs1["PA7_NOME"]);	
 }
 
-//filtra as OS com pedidos e itens, excluindo as excess�es
+//filtra as OS com pedidos e itens, excluindo as excessões
 $sql = "SELECT bms_pedido.id_os, OS.id_os, OS.id_cod_coord FROM ".DATABASE.".bms_pedido, ".DATABASE.".bms_item, ".DATABASE.".OS "; 
 $sql .= "WHERE bms_pedido.reg_del = 0 "; 
 $sql .= "AND bms_item.reg_del = 0 ";
@@ -347,7 +347,7 @@ if (!$validlocale)
 	echo 'Unable to set locale to '.$locale." - reverting to en_us<br />\n";
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="planilha_os_medicao_'.date('Ymd-His').'.xlsx"');
 header('Cache-Control: max-age=0');

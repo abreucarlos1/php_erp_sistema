@@ -12,9 +12,9 @@
 					<td valign="middle" class="fundo_cinza" ><input name="btnvoltar" id="btnvoltar" type="button" class="botao_chanfrado" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
-          <td width="75" rowspan="2" >&nbsp;</td>
-          <td colspan="2">&nbsp;</td>
-          <td width="6" rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+          <td width="75" rowspan="2" > </td>
+          <td colspan="2"> </td>
+          <td width="6" rowspan="2" class="<smarty>$classe</smarty>"> </td>
         </tr>        
         <tr>
           <td colspan="2" valign="top" class="borda_alto borda_esquerda">
@@ -34,7 +34,7 @@
 						<select name="modalidade" id="modalidade" class="caixa" onkeypress="return keySort(this);">
 							<smarty>html_options values=$option_modalidade_values output=$option_modalidade_output</smarty>
 						</select></td>
-					<td width="37%" class="td_sp">&nbsp;</td>
+					<td width="37%" class="td_sp"> </td>
 				</tr>
 			</table>
           	<table border="0" width="100%">
@@ -43,7 +43,7 @@
 						<select name="funcao" class="caixa" id="funcao" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_funcao_values output=$option_funcao_output</smarty>
 						</select></td>
-					<td width="21%" class="td_sp"><label class="label_descricao_campos">Conhecimentos&nbsp;Específicos</label> 
+					<td width="21%" class="td_sp"><label class="label_descricao_campos">Conhecimentos Específicos</label> 
 						<select name="conhecimentos" class="txt_box" id="conhecimentos" onkeypress="return keySort(this);">
 								<option value="" selected="selected" >QUALQUER</option>
 								<option value="AUTOCAD" >AUTOCAD</option>
@@ -58,13 +58,13 @@
           	<table width="95%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="29%"><span class="td_sp">
-						<label class="label_descricao_campos">Trabalhou&nbsp;na&nbsp;</label>
+						<label class="label_descricao_campos">Trabalhou na </label>
 						<select name="trabalho" class="caixa" id="trabalho" onkeypress="return keySort(this);">
 							<option value="" selected="selected" >QUALQUER</option>
-							<option value="1" >N&Atilde;O</option>
+							<option value="1" >NÃO</option>
 							<option value="2" >SIM</option>
-							<option value="3" >TRABALHOU&nbsp;(RECOMENDADO)</option>
-							<option value="4" >TRABALHOU&nbsp;(N&Atilde;O RECOMENDADO)</option>
+							<option value="3" >TRABALHOU (RECOMENDADO)</option>
+							<option value="4" >TRABALHOU (NÃO RECOMENDADO)</option>
 						</select>
 					</span></td>
 					<td width="17%"><span class="td_sp">
@@ -76,22 +76,22 @@
 						</select>
 					</span></td>
 					<td width="11%"><span class="td_sp">
-						<label class="label_descricao_campos">A&nbsp;partir&nbsp;da&nbsp;data</label>
+						<label class="label_descricao_campos">A partir da data</label>
 						<input name="data" type="text" class="caixa" id="data" size="12" maxlength="10"  onkeypress="transformaData(this, event);" />
 					</span></td>
-					<td width="43%">&nbsp;</td>
+					<td width="43%"> </td>
 				</tr>
 			</table>
           	<table border="0" width="100%" style="margin-bottom:25px">
 
 				
 				<tr>
-					<td width="100%"><div class="fonte_descricao_campos" id="aguarde">&nbsp;</div><br />
+					<td width="100%"><div class="fonte_descricao_campos" id="aguarde"> </div><br />
 								<div class="label_descricao_campos" id="registros"></div>								</td>
 				</tr>
 			</table></td>
         </tr>
       </table>
-    <div id="curriculos" style="width:100%;">&nbsp;</div>
+    <div id="curriculos" style="width:100%;"> </div>
 </form>
 <smarty>include file="templates/footer.tpl"</smarty>

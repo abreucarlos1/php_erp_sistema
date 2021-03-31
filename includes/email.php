@@ -19,10 +19,10 @@ class email extends PHPMailer
 	public $emails = array();
 	
 	/**
-	 * Fun��o que busca os e-mails do banco de dados de acordo com o uso da classe emails
-	 * Ser� usada para n�o colocarmos mais emails no meio do codigo fonte
+	 * Função que busca os e-mails do banco de dados de acordo com o uso da classe emails
+	 * Será usada para não colocarmos mais emails no meio do codigo fonte
 	 * Ex de uso: colaborador_fechamento
-	 * 	Neste caso trar� os e-mails de Sandra Santanna, �rika Santos e Fernanda Mantoan
+	 * 	Neste caso trará os e-mails
 	 * @param varchar $uso
 	 */
 	
@@ -53,9 +53,9 @@ class email extends PHPMailer
 		$this->Mailer   = "smtp";
 		$this->ContentType = "text/html";
 				
-		$this->Subject = isset($params['subject']) ? $params['subject'] : "DVMSYS - ";
+		$this->Subject = isset($params['subject']) ? $params['subject'] : "SISTEMA - ";
 		
-		//Adiciona os e-mails se tiver e quando forem colocados durante o c�digo
+		//Adiciona os e-mails se tiver e quando forem colocados durante o código
 		//Ex: em loops que pegam o e-mail do colaborador pela OS
 		if (isset($params['emails']) && !empty($params['emails']))
 		{
@@ -82,7 +82,7 @@ class email extends PHPMailer
 	{
 		//$this->ClearAllRecipients();
 		
-		//Se for ambiente de testes ou local, todos os e-mails ser�o enviados para supor@domainda.com.br
+		//Se for ambiente de testes ou local, todos os e-mails serão enviados para suporte@domain.com.br
 		if (AMBIENTE_EMAIL == 1)
 		{
 			$texto = '';
@@ -91,8 +91,8 @@ class email extends PHPMailer
 			
 			$this->Subject = 'AMBIENTE DE TESTES - '.$this->Subject;
 			
-			//quando o email for para sistemas, verificar se os recipientes originais est�o OK,
-			//para caso contr�rio envia-los no corpo do email
+			//quando o email for para sistemas, verificar se os recipientes originais estão OK,
+			//para caso contrário envia-los no corpo do email
 			if (count($emails) > 0)
 			{
 				foreach($emails as $k => $email){
@@ -155,7 +155,7 @@ class email extends PHPMailer
 			}
 			else
 			{
-				$this->erros['semEmails'] = 'N�o existe e-mail para envio!';
+				$this->erros['semEmails'] = 'Não existe e-mail para envio!';
 				return false;
 			}
 		}

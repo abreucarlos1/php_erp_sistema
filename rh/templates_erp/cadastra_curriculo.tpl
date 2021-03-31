@@ -68,17 +68,17 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <label for="trabalhou" class="labels" style='width:100%'>J·&nbsp;trabalhou&nbsp;na&nbsp;Devemada?</label><br />
+                                            <label for="trabalhou" class="labels" style='width:100%'>J√° trabalhou na Empresa?</label><br />
                                              <select name="trabalhou" id="trabalhou" class="caixa" onkeypress="return keySort(this);">
                                                 <option value="sim">Sim</option>
-                                                <option value="n„o" selected="selected">N„o</option>
+                                                <option value="n√£o" selected="selected">N√£o</option>
                                             </select>	
                                         </td>
                                         <td>
                                             <label for="entrevistado" class="labels" style='width:100%'>Entrevistado?</label><br />
                                             <select name="entrevistado" id="entrevistado" class="caixa" onkeypress="return keySort(this);">
                                                 <option value="sim">Sim</option>
-                                                <option value="n„o" selected="selected">N„o</option>
+                                                <option value="n√£o" selected="selected">N√£o</option>
                                             </select>	
                                         </td>
                                     </tr>
@@ -96,7 +96,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="funcao" class="labels">FunÁ„o</label><br />                                
+                                <label for="funcao" class="labels">Fun√ß√£o</label><br />                                
                                 <select name="funcao" class="caixa" id="funcao" onkeypress="return keySort(this);">
                                     <smarty>html_options values=$option_cargo_values output=$option_cargo_output</smarty>
                                 </select>
@@ -104,7 +104,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <label class="labels" style='width:80%'>Deseja receber notificaÁıes de vagas</label>
+                                <label class="labels" style='width:80%'>Deseja receber notifica√ß√µes de vagas</label>
                                 <input name="notificacoes" id="notificacoes" value="1" type="checkbox">
                             </td>
                         </tr>
@@ -117,14 +117,14 @@
                             </tr>
                             <tr>
                                 <td>
-                               		<input name="autocad" value="AvanÁado" type="radio">
-                                    <label class="labels">AvanÁado</label>
+                               		<input name="autocad" value="Avan√ßado" type="radio">
+                                    <label class="labels">Avan√ßado</label>
                                     
-                                    <input name="autocad" value="Intermedi·rio" type="radio"> 
-                                    <label class="labels">Intermedi·rio</label>
+                                    <input name="autocad" value="Intermedi√°rio" type="radio"> 
+                                    <label class="labels">Intermedi√°rio</label>
                                     
-                                    <input name="autocad" value="B·sico" type="radio">
-                                    <label class="labels">B·sico</label>                                    
+                                    <input name="autocad" value="B√°sico" type="radio">
+                                    <label class="labels">B√°sico</label>                                    
                                 </td>
                             </tr>
                             <tr>
@@ -134,20 +134,20 @@
                             </tr>
                             <tr>
                                 <td>
-                                	<input name="pdms" value="AvanÁado" type="radio">	
-                                    <label class="labels">AvanÁado</label>
+                                	<input name="pdms" value="Avan√ßado" type="radio">	
+                                    <label class="labels">Avan√ßado</label>
                                     
-                                    <input name="pdms" value="Intermedi·rio" type="radio">
-                                    <label class="labels">Intermedi·rio</label>
+                                    <input name="pdms" value="Intermedi√°rio" type="radio">
+                                    <label class="labels">Intermedi√°rio</label>
                                     
-                                    <input name="pdms" value="B·sico" type="radio">
-                                    <label class="labels">B·sico</label>
+                                    <input name="pdms" value="B√°sico" type="radio">
+                                    <label class="labels">B√°sico</label>
                                     
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label class="labels">Anexe o seu currÌculo</label><br />
+                                    <label class="labels">Anexe o seu curr√≠culo</label><br />
                                     <input name="arquivo" type="file" class="caixa">
                                 </td>
                             </tr>

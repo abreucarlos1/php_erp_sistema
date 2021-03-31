@@ -33,12 +33,12 @@
 								<div id="periodo" style="display: none">
 									<table width="100%" border="0">
 										<tr>
-											<td width="4%"><label for="dataini" class="labels">DATA&nbsp;INICIAL</label><br />
+											<td width="4%"><label for="dataini" class="labels">DATA INICIAL</label><br />
                                             <input name="dataini" type="text" class="caixa" id="dataini" size="12" onKeyPress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" />
                                             </td>
 										</tr>
 										<tr>
-											<td><label for="datafim" class="labels">DATA&nbsp;FINAL</label><br />
+											<td><label for="datafim" class="labels">DATA FINAL</label><br />
                                             <input name="datafim" type="text" class="caixa" id="datafim" size="12" onKeyPress="transformaData(this, event);" onKeyUp="return autoTab(this,'escolhaos', 10);" />
                                             </td>
 										</tr>

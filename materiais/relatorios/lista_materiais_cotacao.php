@@ -1,6 +1,6 @@
 <?php
 /*
-		Relatório de Cota��o de materiais
+		Relatório de Cotação de materiais
 		
 		Criado por Carlos Eduardo  
 		
@@ -90,7 +90,7 @@ SELECT
 	   JOIN materiais_old.componentes c ON c.cod_barras = lm.cod_barras AND c.reg_del = 0
 	   JOIN materiais_old.familia f ON f.id_familia = c.id_familia AND f.reg_del = 0
 	   JOIN ".DATABASE.".OS ON OS.id_os = lm.id_os AND OS.reg_del = 0  
-	   JOIN ".DATABASE.".empresas e ON e.id_empresa_erp = OS.id_empresa_erp AND e.reg_del = 0
+	   JOIN ".DATABASE.".empresas e ON e.id_empresa = OS.id_empresa AND e.reg_del = 0
 	   JOIN ".DATABASE.".setores s ON s.id_setor = lm.id_disciplina AND s.reg_del = 0
 	
 	WHERE
@@ -154,10 +154,10 @@ foreach($objPHPExcel->getActiveSheet()->getRowDimensions() as $rd){
 
 if ($db->numero_registros == 0)
 {
-	exit('<script>alert("ATEN��O: Selecione uma ou mais listas para gerar esta planilha.");window.close();</script>');
+	exit('<script>alert("ATENÇÃO: Selecione uma ou mais listas para gerar esta planilha.");window.close();</script>');
 }
 
-// Redirect output to a client�s web browser (Excel2007)
+// Redirect output to a clients web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=lista_materiais_".date('Y_m_d_H_i_s').'.xlsx');
 header('Cache-Control: max-age=0');

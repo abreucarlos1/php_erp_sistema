@@ -13,7 +13,7 @@
 					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			  </table></td>
-	          <td rowspan="2" class="<smarty>$classe</smarty>">&nbsp;</td>
+	          <td rowspan="2" class="<smarty>$classe</smarty>"> </td>
 	        </tr>        
 	        <tr>
 	          <td colspan="2" valign="top">
@@ -28,8 +28,8 @@
 						<input type="text" class="caixa" size="20" id="descResumidaAtributo" name="descResumidaAtributo" />
 					</td>
 					<td class="td_sp">
-						<label class="labels">Compıe o CÛdigo</label><br />
-						<label class="labels">N„o</label> <input checked="checked" type="radio" class="caixa" id="rdoCompoeCodigo" name="rdoCompoeCodigo" value="0" />
+						<label class="labels">Comp√µe o C√≥digo</label><br />
+						<label class="labels">N√£o</label> <input checked="checked" type="radio" class="caixa" id="rdoCompoeCodigo" name="rdoCompoeCodigo" value="0" />
 						<label class="labels">Sim</label> <input type="radio" class="caixa" id="rdoCompoeCodigo" name="rdoCompoeCodigo" value="1" />
 					</td>
 				</tr>

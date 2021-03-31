@@ -67,7 +67,7 @@ function atualizatabela($filtro)
 				$xml->writeElement('cell', mysql_php($reg["data_validade"]));
 				$xml->writeElement('cell', $reg["fabricante"]);
 				$xml->writeElement('cell', $reg["observacoes"]);
-				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja&nbsp;excluir&nbsp;este&nbsp;item?\')){xajax_excluir(".$reg['id_epi'].");};></span>";
+				$img = "<span class=\'icone icone-excluir cursor\' onclick=if(confirm(\'Deseja excluir este item?\')){xajax_excluir(".$reg['id_epi'].");};></span>";
 				$xml->writeElement('cell', $img);
 			$xml->endElement();
 	});
@@ -88,7 +88,7 @@ function salvar($dados_form)
 	
 	if (!empty($dados_form["id_epi"]))
 	{
-		//Mantendo o hist�rico
+		//Mantendo o histórico
 		$usql = "UPDATE ".DATABASE.".epi SET ";
 		$usql .= "atual = 0 ";
 		$usql .= "WHERE epi.reg_del = 0 ";

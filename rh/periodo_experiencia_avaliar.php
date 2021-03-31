@@ -157,7 +157,7 @@ function atualizatabela($filtro)
 			
 			$xml->startElement('cell');
 				if (trim($reg['aprovado']) != '')
-					$xml->text('&nbsp;');
+					$xml->text(' ');
 				else
 					$xml->text('<span class="icone icone-inserir cursor" onclick="avaliar('.$reg['id'].')"></span>');
 			$xml->endElement();

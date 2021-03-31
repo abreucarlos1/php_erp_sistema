@@ -61,7 +61,7 @@ class PDF extends FPDF
 		$this->Ln(5);
 		
 		//Alterado por Carlos Abreu - 09/03/2009
-		//a pedido de Simioli
+		//a pedido de  
 		// Ordem dos campos Registro / cliente para cliente / registro
 		$this->Cell(50,5,"Nº CLIENTE",1,0,'L',0);
 		$this->Cell(30,5,"Nº REGISTRO",1,0,'L',0);
@@ -154,7 +154,7 @@ $array_docs = $db->array_select;
 
 $page = true;
 
-$origem = '&nbsp;';
+$origem = ' ';
 
 foreach($array_docs as $reg_origem)
 {	

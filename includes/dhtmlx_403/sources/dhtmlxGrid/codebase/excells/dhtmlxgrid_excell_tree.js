@@ -24,7 +24,7 @@ function eXcell_stree(cell){
 	this.setValue = function(val){
 		this.cell._val=val;
 		val = this._sub.getItemText(this.cell._val);
-		this.setCValue((val||"&nbsp;"),val);
+		this.setCValue((val||" "),val);
 	}
 	this.edit = function(){
 		this._sub.parentObject.style.display='block';

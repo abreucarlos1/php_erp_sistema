@@ -814,10 +814,10 @@ function modal(html, tamanho, titulo, idNew, dir_imagens, call_back)
 	
 	divPopupInst.inserir();
 	
-	titulo = titulo != undefined ? '<label class="labels" style="float: left;color:white;">'+titulo+'&nbsp;</label>' : ''; 
+	titulo = titulo != undefined ? '<label class="labels" style="float: left;color:white;">'+titulo+' </label>' : ''; 
 	
 	eventClick = 'divPopupInst.destroi('+idNew+');';
-	onClick = call_back != '' && call_back != undefined ? 'if('+call_back+'()){'+eventClick+'};' : eventClick;
+	onclick = call_back != '' && call_back != undefined ? 'if('+call_back+'()){'+eventClick+'};' : eventClick;
 	
 	//conteudo = '<p style="background-color:#647896;border:none;">'+titulo+'<img src="../imagens/cal_close.png" onclick=divPopupInst.destroi('+idNew+'); style="cursor:pointer;" /></p><div id="divConteudoModal">'+html+'</div>';
 	
@@ -885,7 +885,7 @@ function htmlPaginacao(recipient, page, limit, offset, total_registros, form, po
 			html += '<option value="'+i+'" '+selected+'>'+(i+1)+'</option>';
 		}
 		
-		html += '</select>&nbsp;';
+		html += '</select> ';
 		
 		if (possuiBuscar == true)
 		{
@@ -907,7 +907,7 @@ function htmlPaginacao(recipient, page, limit, offset, total_registros, form, po
 }
 
 /**
- * Função padrão para exibir o loader que já está no cabecalho do DVMSYS
+ * Função padrão para exibir o loader que já está no cabecalho do SISTEMA
  */
 function showLoader()
 {
@@ -916,7 +916,7 @@ function showLoader()
 }
 
 /**
- * Função padrão para esconder o loader que já está no cabecalho do DVMSYS
+ * Função padrão para esconder o loader que já está no cabecalho do SISTEMA
  */
 function hideLoader()
 {

@@ -33,7 +33,7 @@
 				</div></td>
 			</tr>
 		</table></td>
-		<td width="4%">&nbsp;</td>
+		<td width="4%"> </td>
 	  </tr>	  
 	</table>
 </form>

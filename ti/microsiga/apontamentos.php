@@ -1,5 +1,5 @@
 <?php
-// Dados da conex�o com banco de dados
+// Dados da conexão com banco de dados
 
 require("../includes/conectdb.inc.php");
 require("../includes/tools.inc.php");
@@ -39,7 +39,7 @@ while($cont = mysql_fetch_array($reg))
 	$sql = "SELECT ID FROM DVM002 ";
 	$sql .= "WHERE ID = '".$cont["id_apontamento_horas"]."' ";
 	
-	$regis = mssql_query($sql,$db->conexao_ms) or die("N�o foi poss�vel a selec�o dos dados".$sql);
+	$regis = mssql_query($sql,$db->conexao_ms) or die("Não foi possível a seleção dos dados".$sql);
 
 	if(mssql_num_rows($regis)<=0)
 	{
@@ -49,7 +49,7 @@ while($cont = mysql_fetch_array($reg))
 		$sql .= "AND AF8010.AF8_PROJET = '". $projeto. "' ";
 		$sql .= "ORDER BY AF8010.AF8_REVISA DESC ";	
 		
-		$regis0 = mssql_query($sql,$db->conexao_ms) or die("N�o foi poss�vel a selec�o dos dados".$sql);
+		$regis0 = mssql_query($sql,$db->conexao_ms) or die("Não foi possível a seleção dos dados".$sql);
 	
 		$regs0 = mssql_fetch_array($regis0);	
 	
@@ -57,7 +57,7 @@ while($cont = mysql_fetch_array($reg))
 		
 		$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 		
-		$regis = mssql_query($sql,$db->conexao_ms) or die("N�o foi poss�vel a selec�o dos dados".$sql);
+		$regis = mssql_query($sql,$db->conexao_ms) or die("Não foi possível a seleção dos dados".$sql);
 	
 		$regs = mssql_fetch_array($regis);
 		
@@ -75,31 +75,31 @@ while($cont = mysql_fetch_array($reg))
 		
 		$hf = explode(":",$cont["hora_final"]);
 		
-		$incsql = "INSERT INTO DVM002 ";
-		$incsql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
-		$incsql .= "VALUES ('" . $regs0["AF8_PROJET"] . "', ";
-		$incsql .= "'" . $regs0["AF8_REVISA"] . "', ";
-		$incsql .= "'" . $cont["tarefa"] . "', ";
-		$incsql .= "'FUN_".sprintf("%011d",$cont["id_funcionario"])."', ";
-		$incsql .= "'" . str_replace("-","",$cont["data"]) . "', ";
-		$incsql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
-		$incsql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
-		$incsql .= "'" . strip_tags($cont["complemento"]) . "', ";
-		$incsql .= "1, ";
-		$incsql .= "1, ";
-		$incsql .= "1, ";
-		$incsql .= "" . $h_quant . ", ";
-		$incsql .= "" . 0 . ", ";
-		$incsql .= "'".$cont["id_apontamento_horas"]."', ";
-		$incsql .= "'I', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-		$incsql .= "'', ";
-		$incsql .= "'".$recno."') ";
+		$isql = "INSERT INTO DVM002 ";
+		$isql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+		$isql .= "VALUES ('" . $regs0["AF8_PROJET"] . "', ";
+		$isql .= "'" . $regs0["AF8_REVISA"] . "', ";
+		$isql .= "'" . $cont["tarefa"] . "', ";
+		$isql .= "'FUN_".sprintf("%011d",$cont["id_funcionario"])."', ";
+		$isql .= "'" . str_replace("-","",$cont["data"]) . "', ";
+		$isql .= "'" . sprintf("%02d",$hi[0]) .":".sprintf("%02d",$hi[1]). "', ";
+		$isql .= "'" . sprintf("%02d",$hf[0]) .":".sprintf("%02d",$hf[1]) . "', ";
+		$isql .= "'" . strip_tags($cont["complemento"]) . "', ";
+		$isql .= "1, ";
+		$isql .= "1, ";
+		$isql .= "1, ";
+		$isql .= "" . $h_quant . ", ";
+		$isql .= "" . 0 . ", ";
+		$isql .= "'".$cont["id_apontamento_horas"]."', ";
+		$isql .= "'I', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+		$isql .= "'', ";
+		$isql .= "'".$recno."') ";
 		//Carrega os registros
-		$registros = mssql_query($incsql,$db->conexao_ms) or die("Não foi possível a inserção dos dados".$incsql.mssql_get_last_message());
+		$registros = mssql_query($isql,$db->conexao_ms) or die("Não foi possível a inserção dos dados".$isql.mssql_get_last_message());
 	
 		$inc++;
 		
-		$inclusao .= $incsql . "TOTAL Hr: ".$h_quant. " Total regs: ".$num_regs."<br>";
+		$inclusao .= $isql . "TOTAL Hr: ".$h_quant. " Total regs: ".$num_regs."<br>";
 		
 	}	
 
@@ -135,7 +135,7 @@ while($cont = mssql_fetch_array($cont_ms))
 	
 	$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 	
-	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("N�o foi poss�vel a selec�o dos dados".$sql);
+	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 	$regs = mssql_fetch_array($regis);
 	
@@ -154,7 +154,7 @@ while($cont = mssql_fetch_array($cont_ms))
 	$sql .= "'".$cont["AE8_TIPO"]."', "; 																	//TIPO RECURSO - TRABALHO		
 	$sql .= "'".$cont["AE8_UMAX"]."', ";																	//UNIDADE MAX.		100%
 	$sql .= "'".$cont["AE8_CALEND"]."', ";																	//CALENDARIO
-	$sql .= "'".$cont["AE8_TPREAL"]."', ";															//TIPO APURA��O - 4 - NAO CALCULA
+	$sql .= "'".$cont["AE8_TPREAL"]."', ";															//TIPO APURAÇÃO - 4 - NAO CALCULA
 	$sql .= "'".$cont["AE8_EMAIL"]."', ";									//E-MAIL
 	$sql .= "'".$cont["AE8_CUSFIX"]."', ";														//CUSTO FIXO
 	$sql .= "'".$cont["AE8_CUSMEN"]."', ";														//CUSTO MENSAL
@@ -164,8 +164,8 @@ while($cont = mssql_fetch_array($cont_ms))
 	$sql .= "'".$cont["AE8_CODFUN"]."', ";														//CODIGO FUNCIONARIO -- ?
 	$sql .= "'".$cont["AE8_EQUIP"]."', ";							//EQUIPE
 	$sql .= "'".$cont["AE8_FORNEC"]."', ";														//FORNECEDOR
-	$sql .= "'".$cont["AE8_XFUNC"]."', ";						//FUN��O
-	$sql .= "'".$cont["AE8_FUNCAO"]."', ";										//COD FUN��O													
+	$sql .= "'".$cont["AE8_XFUNC"]."', ";						//FUNÇÃO
+	$sql .= "'".$cont["AE8_FUNCAO"]."', ";										//COD FUNÇÃO													
 	$sql .= "'".$cont["AE8_MCONTR"]."', ";													//TIPO CONTRATO
 	$sql .= "'".$cont["RA_MAT"]."', ";														//MATRICULA
 	$sql .= "'".$cont["RA_NATURAL"]."', ";								//ESTADO
@@ -174,18 +174,18 @@ while($cont = mssql_fetch_array($cont_ms))
 	$sql .= "'".$cont["RA_ESTCIVI"]."', ";									//ESTADO CIVIL
 	$sql .= "'".$cont["RA_NASC"]."', "; 				//DATA DE NASCIMENTO
 	$sql .= "'".$cont["RA_CC"]."', ";									//CENTRO DE CUSTO
-	$sql .= "'".$cont["RA_ADMISSA"]."', ";									//ADMISS�O
+	$sql .= "'".$cont["RA_ADMISSA"]."', ";									//ADMISSÃO
 	$sql .= "'".$cont["RA_OPCAO"]."', ";														//valor_fgts DATA
 	$sql .= "'".$cont["RA_HRSMES"]."', ";														//HORAS MES
 	$sql .= "'".$cont["RA_HRSEMAN"]."', ";														//HORAS SEMANA
 	$sql .= "'".$cont["RA_CATFUNC"]."', ";														//CATEGORIA FUNCIONAL
 	$sql .= "'".$cont["RA_TIPOPGT"]."', ";									//TIPO PAGAMENTO
-	$sql .= "'".$cont["RA_TIPOADM"]."', ";														//TIPO ADMISS�O
+	$sql .= "'".$cont["RA_TIPOADM"]."', ";														//TIPO ADMISSÃO
 	$sql .= "'".$cont["RA_VIEMRAI"]."', ";														//VINCULO EMPREGATICIO RAIS
-	$sql .= "'".$cont["RA_GRINRAI"]."', ";									//GRAU DE INSTRU��O
-	$sql .= "'".$cont["RA_NUMCP"]."', ";														//N� CARTEIRA TRABALHO
+	$sql .= "'".$cont["RA_GRINRAI"]."', ";									//GRAU DE INSTRUÇÃO
+	$sql .= "'".$cont["RA_NUMCP"]."', ";														//Nº CARTEIRA TRABALHO
 	$sql .= "'".$cont["RA_SERCP"]."', ";														//SERIE CARTEIRA TRABALHO
-	$sql .= "'".$cont["RA_ADTPOSE"]."', ";																//ADICIONAL TEMPO SERVI�O
+	$sql .= "'".$cont["RA_ADTPOSE"]."', ";																//ADICIONAL TEMPO SERVIÇO
 	$sql .= "'".$cont["RA_TNOTRAB"]."', ";
 	$sql .= "'".$cont["RA_SITE"]."', ";															//SITE
 	$sql .= "'".$cont["FLAG"]."', ";																		//FLAG													
@@ -205,45 +205,45 @@ while($cont = mssql_fetch_array($cont_ms))
 
 $cont_ms = mssql_query($sql1,$db->conexao_ms) or die(mssql_get_last_message().$sql);
 
-echo "N� regs ".mssql_num_rows($cont_ms)."<br>";
+echo "Nº regs ".mssql_num_rows($cont_ms)."<br>";
 
 $I = 1;
 
 while($cont = mssql_fetch_array($cont_ms))
 {
-	//$incsql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
+	//$isql .= "(AFU_PROJET, AFU_VERSAO, AFU_TAREFA, AFU_RECURS, AFU_DATA, AFU_HORAI, AFU_HORAF, AFU_OBS, AFU_CTRRVS, AFU_CUSTO1, AFU_TPREAL, AFU_HQUANT, AFU_ADIC, ID, OPERACAO, D_E_L_E_T_, R_E_C_N_O_) ";
 	
 	$sql = "SELECT TOP 1 R_E_C_N_O_ FROM PA9010 ";	
 	
 	$sql .= "ORDER BY R_E_C_N_O_ DESC ";
 	
-	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("N�o foi poss�vel a selec�o dos dados".$sql);
+	$regis = mssql_query($sql,$db->conexao_ms) or $resposta->addAlert("Não foi possível a seleção dos dados".$sql);
 
 	$regs = mssql_fetch_array($regis);
 	
 	$recno_pa9 = $regs["R_E_C_N_O_"] + 1;
 	
-	$incsql = "INSERT INTO PA9010 ";
-	$incsql .= "(PA9_PROJET, PA9_REVISA, PA9_TAREFA, PA9_RECURS, PA9_DATA, PA9_HORAI, PA9_HORAF, PA9_OBS, PA9_CTRRVS, PA9_TPREAL, PA9_HQUANT, PA9_ID_DVM, PA9_OPERAC, PA9_FLAG, R_E_C_N_O_) ";
-	$incsql .= "VALUES ('" . $cont["AFU_PROJET"] . "', ";
-	$incsql .= "'" . $cont["AFU_VERSAO"] . "', ";
-	$incsql .= "'" . $cont["AFU_TAREFA"] . "', ";
-	$incsql .= "'" . $cont["AFU_RECURS"]."', ";
-	$incsql .= "'" . $cont["AFU_DATA"] . "', ";
-	$incsql .= "'" . $cont["AFU_HORAI"]. "', ";
-	$incsql .= "'" . $cont["AFU_HORAF"] . "', ";
-	$incsql .= "'" . $cont["AFU_OBS"] . "', ";
-	$incsql .= "'" . $cont["AFU_CTRRVS"] . "', ";
-	$incsql .= "'" . $cont["AFU_TPREAL"] . "', ";
-	$incsql .= "'" . $cont["AFU_HQUANT"] . "', ";
-	$incsql .= "'".$cont["ID"]."', ";
-	$incsql .= "'".$cont["OPERACAO"]."', "; //OPERA��O I- INCLUSAO / E = EXCLUSAO / A - ALTERA��O
-	$incsql .= "'".$cont["FLAG"]."', ";
-	$incsql .= "'".$recno_pa9."') ";
+	$isql = "INSERT INTO PA9010 ";
+	$isql .= "(PA9_PROJET, PA9_REVISA, PA9_TAREFA, PA9_RECURS, PA9_DATA, PA9_HORAI, PA9_HORAF, PA9_OBS, PA9_CTRRVS, PA9_TPREAL, PA9_HQUANT, PA9_ID_DVM, PA9_OPERAC, PA9_FLAG, R_E_C_N_O_) ";
+	$isql .= "VALUES ('" . $cont["AFU_PROJET"] . "', ";
+	$isql .= "'" . $cont["AFU_VERSAO"] . "', ";
+	$isql .= "'" . $cont["AFU_TAREFA"] . "', ";
+	$isql .= "'" . $cont["AFU_RECURS"]."', ";
+	$isql .= "'" . $cont["AFU_DATA"] . "', ";
+	$isql .= "'" . $cont["AFU_HORAI"]. "', ";
+	$isql .= "'" . $cont["AFU_HORAF"] . "', ";
+	$isql .= "'" . $cont["AFU_OBS"] . "', ";
+	$isql .= "'" . $cont["AFU_CTRRVS"] . "', ";
+	$isql .= "'" . $cont["AFU_TPREAL"] . "', ";
+	$isql .= "'" . $cont["AFU_HQUANT"] . "', ";
+	$isql .= "'".$cont["ID"]."', ";
+	$isql .= "'".$cont["OPERACAO"]."', "; //OPERAÇÃO I- INCLUSAO / E = EXCLUSAO / A - ALTERAÇÃO
+	$isql .= "'".$cont["FLAG"]."', ";
+	$isql .= "'".$recno_pa9."') ";
 	
-	//$cont_ms1 = mssql_query($incsql,$db->conexao_ms) or die(mssql_get_last_message().$incsql);
+	//$cont_ms1 = mssql_query($isql,$db->conexao_ms) or die(mssql_get_last_message().$isql);
 	
-	echo $cont["ID"] . " ------- ".$I." -> ".$incsql."<br>";
+	echo $cont["ID"] . " ------- ".$I." -> ".$isql."<br>";
 	
 	$I++;
 	

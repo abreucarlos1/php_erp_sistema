@@ -14,37 +14,37 @@ function Header()
     //$this->Image($this->Logotipocliente(),21,16,30);
 	//$this->Image($this->Logotipocliente(),21,22,15,10);
 	$this->Image($this->Logotipocliente(),21,22,15,10);
-	$this->Image("../logotipos/logo_devemada.jpg",36,22,15,10);
+	$this->Image("../logotipos/logotipo.jpg",36,22,15,10);
     //Arial bold 12
     //Titulo(Largura,Altura,Texto,Borda,Quebra de Linha,Alinhamento,Preenchimento
 	//$this->Ln(1);
 	$this->SetFont('Arial','',6);
-	//Informa��es do Centro de Custo
-	$this->Cell(31,5,'',0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(31,5,'',0,0,'L',0); // CÉLULA LOGOTIPO 146
 	$this->SetFont('Arial','B',10);
-	$this->Cell(114,5,$this->Cliente(),1,0,'C',0); // C�LULA CLIENTE
+	$this->Cell(114,5,$this->Cliente(),1,0,'C',0); // CÉLULA CLIENTE
 	$this->SetFont('Arial','',6);
 	$this->Cell(12,5,'DOC:',0,0,'L',0);
-	$this->Cell(12,5,$this->setor() . '-' . $this->codigodoc() . '-' .$this->codigo(),0,1,'R',0); //setor - C�digo Documento - Sequencia
+	$this->Cell(12,5,$this->setor() . '-' . $this->codigodoc() . '-' .$this->codigo(),0,1,'R',0); //setor - Código Documento - Sequencia
 	//$this->Cell(32,25,'',1,0,0);
 	//$this->SetLineWidth(0.3);
 	$this->Line(172,19,195,19);
-	$this->Cell(31,5,'',0,0,'L',0); // C�LULA LOGOTIPO 
-	$this->Cell(114,5,$this->Subsistema() . " / " .$this->Area(),1,0,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(31,5,'',0,0,'L',0); // CÉLULA LOGOTIPO 
+	$this->Cell(114,5,$this->Subsistema() . " / " .$this->Area(),1,0,'C',0); // CÉLULA AREA / SUBSISTEMA
 	$this->Cell(12,5,'EMISSÃO:',0,0,'R',0); //aqui
 	$this->Cell(12,5,$this->Emissao(),0,1,'R',0); //aqui
 	$this->Line(172,24,195,24);
-	$this->Cell(31,5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(31,5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(114,5,"ESPECIFICA��O T�CNICA",1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(114,5,"ESPECIFICAÇÃO TÉCNICA",1,0,'C',0); // CÉLULA COMPONENTE
 	$this->SetFont('Arial','',6);
 	$this->Cell(12,5,'FOLHA:',0,0,'L',0);
 	$this->Cell(12,5,$this->PageNo().' de {nb}',0,1,'R',0);
 	$this->Line(172,29,195,29);
-	$this->Cell(31,5,"",0,0,'L',0); // C�LULA LOGOTIPO
-	$this->Cell(114,5,"",1,1,'C',0); // C�LULA COMPONENTE
-	//$this->Cell(31,5,"",0,0,'L',0); // C�LULA LOGOTIPO
-	//$this->Cell(114,5,$posx . " - " . $posy,1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(31,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
+	$this->Cell(114,5,"",1,1,'C',0); // CÉLULA COMPONENTE
+	//$this->Cell(31,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
+	//$this->Cell(114,5,$posx . " - " . $posy,1,0,'C',0); // CÉLULA COMPONENTE
 	//$this->Ln(8);
 	//$this->SetFont('Arial','B',12);
 	//$this->Cell(170,4,$this->Titulo(),0,1,'R',0);
@@ -80,31 +80,31 @@ function Header()
 	//$this->Ln(1);
 	
 	$this->SetFont('Arial','',6);
-	//Informa��es do Centro de Custo
-	$this->Cell(45,8,'',0,0,'L',0); // C�LULA LOGOTIPO 146
+	//Informações do Centro de Custo
+	$this->Cell(45,8,'',0,0,'L',0); // CÉLULA LOGOTIPO 146
 	$this->SetFont('Arial','B',12);
-	$this->Cell(85,8,$this->Cliente(),1,1,'C',0); // C�LULA CLIENTE
+	$this->Cell(85,8,$this->Cliente(),1,1,'C',0); // CÉLULA CLIENTE
 	
 	$this->Image("../logotipos/logo_horizontal.jpg",150,17,45,8);
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO 
-	$this->Cell(85,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // C�LULA AREA / SUBSISTEMA
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO 
+	$this->Cell(85,5.5,$this->Subsistema() . " / " .$this->Area() ,1,1,'C',0); // CÉLULA AREA / SUBSISTEMA
 
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 	$this->SetFont('Arial','B',10);
-	$this->Cell(85,5.5,"ESPECIFICA��O T�CNICA",1,0,'C',0); // C�LULA COMPONENTE
+	$this->Cell(85,5.5,"ESPECIFICAÇÃO TÉCNICA",1,0,'C',0); // CÉLULA COMPONENTE
 	
 	
 	$X = $this->GetX();
 	$this->Cell(45,5.5,'',1,0,'C',0);
 	$this->SetX($X);
 	$this->SetFont('Arial','',5);
-	$this->Cell(5,5.5,'N�: ',0,0,'L',0);
+	$this->Cell(5,5.5,'Nº: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(40,5.5,$this->Numdvm(),0,1,'C',0);
 
-	$this->Cell(45,5.5,'',0,0,'L',0); // C�LULA LOGOTIPO
+	$this->Cell(45,5.5,'',0,0,'L',0); // CÉLULA LOGOTIPO
 
 	$this->SetFont('Arial','B',10);
 	$this->Cell(85,5.5,$this->Titulo(),1,0,'C',0);
@@ -134,14 +134,14 @@ function Header()
 	$this->Cell(10,5.5,$this->PageNo().' / {nb}',0,1,'R',0);
 	
 	$this->SetFont('Arial','B',10);
-	$this->Cell(45,5.5,$this->unidade(),1,0,'C',0); // C�LULA LOGOTIPO
+	$this->Cell(45,5.5,$this->unidade(),1,0,'C',0); // CÉLULA LOGOTIPO
 	$this->Cell(85,5.5,$this->Titulo2(),1,0,'C',0);
 
 	$X = $this->GetX();
 	$this->Cell(45,5.5,'',1,0,'C',0);
 	$this->SetFont('Arial','',5);
 	$this->SetX($X);
-	$this->Cell(10,5.5,'N� CLIENTE: ',0,0,'L',0);
+	$this->Cell(10,5.5,'Nº CLIENTE: ',0,0,'L',0);
 	$this->SetFont('Arial','B',8);
 	$this->Cell(30,5.5,$this->Numcliente(),0,1,'C',0);	
 	
@@ -187,8 +187,8 @@ $pdf->SetLineWidth(0.2);
 $sql1 = "SELECT * FROM ".DATABASE.".OS, ".DATABASE.".empresas ";
 //$sql1 .= "WHERE OS = '" .$_SESSION["os"] . "' ";
 $sql1 .= "WHERE OS = '" . $_SESSION["os"] . "' ";
-$sql1 .= "AND OS.id_empresa_erp = empresas.id_empresa_erp ";
-$registro1 = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$sql1 .= "AND OS.id_empresa = empresas.id_empresa ";
+$registro1 = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg1 = mysql_fetch_array($registro1);
 
 
@@ -197,7 +197,7 @@ $sql = "SELECT * FROM Projetos.area ";
 $sql .= "WHERE id_area = 37 ";
 //$sql .= "WHERE os = '2594' ";
 //$sql .= "AND area.id_area = subsistema.id_area ";
-$registro = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$registro = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 $reg = mysql_fetch_array($registro);
 
 //Seta o cabeçalho
@@ -208,10 +208,10 @@ $pdf->codigodoc="00"; //"00";
 $pdf->codigo="00"; //Numero OS
 
 $pdf->cliente=$reg1["empresa"]; // Cliente
-$pdf->subsistema = $reg["ds_divisao"]; // DIVIS�O
-$pdf->area = $reg["ds_area"]; // �REA
+$pdf->subsistema = $reg["ds_divisao"]; // DIVISÃO
+$pdf->area = $reg["ds_area"]; // ÁREA
 $pdf->logotipocliente = $reg1["logotipo"]; // logotipo Cliente
-$pdf->numeros_interno = 'DVM-XXX-XXX';
+$pdf->numeros_interno = 'INT-XXX-XXX';
 
 $pdf->numero_cliente = 'YYY-YYY-YYYY';
 
@@ -223,7 +223,7 @@ $pdf->titulo = 'TITULO 1';
 $pdf->titulo2 = 'TITULO 2';
 
 $pdf->emissao=date("d/m/Y");
-//$pdf->versao_documento=$data_ini . " � " . $datafim;
+//$pdf->versao_documento=$data_ini . " á " . $datafim;
 
 $pdf->AliasNbPages();
 $pdf->AddPage('p');
@@ -258,7 +258,7 @@ $sql .= "AND locais.id_disciplina = setores.id_setor ";
 $sql .= "ORDER BY nr_subsistema, nr_malha, sequencia ";
 
 
-$regmalha = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+$regmalha = mysql_query($sql,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 
 $rosto = "";
 $subsistema = "";
@@ -286,11 +286,11 @@ if(mysql_num_rows($regmalha)>0)
 			$pdf->SetLineWidth(0.2);
 			
 			
-			// P�gina de rosto abaixo
+			// Página de rosto abaixo
 			$pdf->SetXY(20,120);
 			
 			$pdf->SetFont('Arial','BU',20);
-			$pdf->Cell(175,10,"ESPECIFICA��O T�CNICA",0,1,'C',0);
+			$pdf->Cell(175,10,"ESPECIFICAÇÃO TÉCNICA",0,1,'C',0);
 			$pdf->Ln(5);
 			$pdf->SetFont('Arial','B',16);
 			$pdf->Cell(175,10, $malhas["ds_divisao"] ,0,1,'C',0);
@@ -301,7 +301,7 @@ if(mysql_num_rows($regmalha)>0)
 			$pdf->Cell(175,10, $malhas["subsistema"] ,0,1,'C',0);
 			$pdf->AddPage('p');
 						
-			// P�gina de rosto acima
+			// Página de rosto acima
 		}
 		
 			
@@ -311,8 +311,8 @@ if(mysql_num_rows($regmalha)>0)
 		$pdf->SetX(20);
 		$pdf->SetY(35);
 		$pdf->SetFont('Arial','',6);
-		$pdf->Cell(50,5,"",0,0,'L',0); // C�LULA LOGOTIPO
-		$pdf->Cell(95,5,"TAG: ".$reg["nr_area"]." ".$processo."".$malhas["dispositivo"]." ".$malhas["nr_malha"]." ".$malhas["funcao"],1,0,'C',0); // C�LULA COMPONENTE
+		$pdf->Cell(50,5,"",0,0,'L',0); // CÉLULA LOGOTIPO
+		$pdf->Cell(95,5,"TAG: ".$reg["nr_area"]." ".$processo."".$malhas["dispositivo"]." ".$malhas["nr_malha"]." ".$malhas["funcao"],1,0,'C',0); // CÉLULA COMPONENTE
 		$pdf->SetX($posax);
 		$pdf->SetY($posay);
 					
@@ -324,7 +324,7 @@ if(mysql_num_rows($regmalha)>0)
 		$sql1 .= "AND especificacao_padrao_detalhes.id_topico = especificacao_padrao_topico.id_topico ";
 		$sql1 .= "AND especificacao_padrao_detalhes.id_variavel = especificacao_padrao_variavel.id_variavel ";
 		$sql1 .= "ORDER BY sequencia ";
-		$regcomp = mysql_query($sql1,$db->conexao) or die("N�o foi poss�vel a sele��o dos dados" . $sql);
+		$regcomp = mysql_query($sql1,$db->conexao) or die("Não foi possível a seleção dos dados" . $sql);
 		
 		if(mysql_num_rows($regcomp)>0)
 		{
@@ -332,7 +332,7 @@ if(mysql_num_rows($regmalha)>0)
 			$pdf->SetXY(20,45);
 			$pdf->Cell(10,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(20,5,"1 - APLICA��O E DESCRI��O GERAL",0,1,'L',0);
+			$pdf->Cell(20,5,"1 - APLICAÇÃO E DESCRIÇÃO GERAL",0,1,'L',0);
 			$pdf->Ln(3);
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
@@ -344,7 +344,7 @@ if(mysql_num_rows($regmalha)>0)
 		
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(30,5,"SERVI�O",0,0,'L',0);
+			$pdf->Cell(30,5,"SERVIÇO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_servico"],0,1,'L',0);
 			
@@ -356,11 +356,11 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(30,5,"�REA DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(30,5,"ÁREA DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["cd_local"]." ".$malhas["ds_equipamento"] ,0,1,'L',0);			
 		
-			if($malhas["setor"]=='EL�TRICA')
+			if($malhas["setor"]=='ELÉTRICA')
 			{
 				$sql = "SELECT * FROM Projetos.locais ";
 				$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -376,7 +376,7 @@ if(mysql_num_rows($regmalha)>0)
 			}
 			else
 			{
-				if($malhas["setor"]=='MEC�NICA')
+				if($malhas["setor"]=='MECÂNICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -409,7 +409,7 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(30,5,"DESCRI��O",0,0,'L',0);
+			$pdf->Cell(30,5,"DESCRIÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_dispositivo"],0,1,'L',0);
 			
@@ -421,14 +421,14 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(30,5,"FUN��O",0,0,'L',0);
+			$pdf->Cell(30,5,"FUNÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_funcao"],0,1,'L',0);
 			*/
 			$pdf->SetXY(20,45);
 			$pdf->Cell(10,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(20,5,"1 - APLICA��O E DESCRI��O GERAL",0,1,'L',0);
+			$pdf->Cell(20,5,"1 - APLICAÇÃO E DESCRIÇÃO GERAL",0,1,'L',0);
 			$pdf->Ln(3);
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
@@ -440,7 +440,7 @@ if(mysql_num_rows($regmalha)>0)
 		
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"SERVI�O",0,0,'L',0);
+			$pdf->Cell(35,5,"SERVIÇO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_servico"],0,1,'L',0);
 			
@@ -452,18 +452,18 @@ if(mysql_num_rows($regmalha)>0)
 			/*
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(30,5,"�REA DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(30,5,"ÁREA DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["cd_local"]." ".$malhas["ds_equipamento"] ,0,1,'L',0);			
 			*/
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"�REA DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(35,5,"ÁREA DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["nr_local"]." ".$reg["ds_area"] ,0,1,'L',0);
 			
-			if($malhas["setor"]=='EL�TRICA')
+			if($malhas["setor"]=='ELÉTRICA')
 			{
 				$sql = "SELECT * FROM Projetos.locais ";
 				$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -479,7 +479,7 @@ if(mysql_num_rows($regmalha)>0)
 			}
 			else
 			{
-				if($malhas["setor"]=='MEC�NICA')
+				if($malhas["setor"]=='MECÂNICA')
 				{
 					$sql = "SELECT * FROM Projetos.locais ";
 					$sql .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
@@ -512,7 +512,7 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"LOCAL DE APLICA��O",0,0,'L',0);
+			$pdf->Cell(35,5,"LOCAL DE APLICAÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$tag ,0,1,'L',0);			
 					
@@ -520,7 +520,7 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"DESCRI��O",0,0,'L',0);
+			$pdf->Cell(35,5,"DESCRIÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_dispositivo"],0,1,'L',0);
 			
@@ -532,7 +532,7 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(25,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','',8);
-			$pdf->Cell(35,5,"FUN��O",0,0,'L',0);
+			$pdf->Cell(35,5,"FUNÇÃO",0,0,'L',0);
 			$pdf->SetFont('Arial','B',8);
 			$pdf->Cell(50,5,$malhas["ds_funcao"],0,1,'L',0);
 
@@ -541,7 +541,7 @@ if(mysql_num_rows($regmalha)>0)
 			
 			$pdf->Cell(10,5,"",0,0,'L',0);
 			$pdf->SetFont('Arial','B',10);
-			$pdf->Cell(20,5,"2 - ESPECIFICA��O T�CNICA" ,0,1,'L',0);
+			$pdf->Cell(20,5,"2 - ESPECIFICAÇÃO TÉCNICA" ,0,1,'L',0);
 			$pdf->Ln(3);				
 			
 			$pdf->SetFont('Arial','',8);

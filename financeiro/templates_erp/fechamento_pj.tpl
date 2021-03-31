@@ -47,7 +47,7 @@
                           <input name="horasextras" tabindex="16" type="radio" value="0"  id="horasextras0" checked>
                           <label class="labels">Não</label>
                     </td>
-					<td width="70%"><label class="labels">Proporcional&nbsp;aos&nbsp;dias&nbsp;(MENS)</label><br />
+					<td width="70%"><label class="labels">Proporcional aos dias (MENS)</label><br />
 						<input name="proporcional" type="radio" value="1" id="proporcional1">
                         <label class="labels">Sim</label><br />
                           <input name="proporcional" type="radio" value="0"  id="proporcional0" checked>
@@ -110,7 +110,7 @@
 			</table></td>
         </tr>
       </table>
-	  <div id="div_grid" style="width:100%;">&nbsp;</div>
+	  <div id="div_grid" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

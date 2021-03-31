@@ -38,7 +38,7 @@
 			<tr>
 				<td colspan="2" width="150px;">
 					<div class='divCadastroCandidato'>
-						<label for="cargo_pretendido" class="labels">Cargo&nbsp;Pretendido</label><br />
+						<label for="cargo_pretendido" class="labels">Cargo Pretendido</label><br />
 						<select class="caixa" name="cargo_pretendido" id="cargo_pretendido" onkeypress="return keySort(this);">
 							<option value="">SELECIONE</option>
 							<smarty>html_options values=$option_cargos_values output=$option_cargos_output selected=$dados_principais['cargo_pretendido']</smarty>
@@ -46,20 +46,20 @@
 					</div>
 					<smarty>if isset($ocultarCabecalhoRodape)</smarty>
 					<div class='divCadastroCandidato'>
-						<label for="salario_pretendido" class='labels'>Pretens�o salarial</label>
+						<label for="salario_pretendido" class='labels'>Pretensão salarial</label>
 						<input type='text' size='30' class='caixa _currency' name='salario_pretendido' id='salario_pretendido' value="<smarty>$dados_principais['salario_pretendido']</smarty>" />
 						<input type='radio' name='rdoTpSalario' id='rdoTpSalario' <smarty>if $dados_principais['tipo_salario'] != 'm'</smarty>checked="checked"<smarty>/if</smarty> value='h' /><label class="labels">Hora</label>
-						<input type='radio' name='rdoTpSalario' id='rdoTpSalario' <smarty>if $dados_principais['tipo_salario'] == 'm'</smarty>checked="checked"<smarty>/if</smarty> value='m' /><label class="labels">M�s</label>
+						<input type='radio' name='rdoTpSalario' id='rdoTpSalario' <smarty>if $dados_principais['tipo_salario'] == 'm'</smarty>checked="checked"<smarty>/if</smarty> value='m' /><label class="labels">Mês</label>
 					</div>
 					<smarty>/if</smarty>
 				</td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>
+			<tr><td> </td></tr>
 			<tr>
 				<td colspan="3" width="100%">
 					<div id="a_tabbar" class="dhtmlxTabBar" style="width:100%; height:450px;">
 						<smarty>*if isset($ocultarCabecalhoRodape)*</smarty>
-						<div id="a7" name="DEVEMADA" selected="1" style="display: none; padding:5px;">
+						<div id="a7" name="EMPRESA" selected="1" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/empresa.tpl"</smarty>
 						</div>
 						<smarty>*/if*</smarty>
@@ -69,7 +69,7 @@
 						<div id="a2" name="DOCUMENTOS" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/documentos.tpl"</smarty>
 						</div>
-						<div id="a3" name="FORMA��O" style="display: none; padding:5px;">
+						<div id="a3" name="FORMAÇÃO" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/formacao.tpl"</smarty>
 						</div>
 						<div id="a9" name="CURSOS" style="display: none; padding:5px;">
@@ -78,10 +78,10 @@
 						<div id="a4" name="EMPREGO ANTERIOR" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/emprego_anterior.tpl"</smarty>
 						</div>
-						<div id="a5" name="INFORMA��ES ADICIONAIS" style="display: none; padding:5px;">
+						<div id="a5" name="INFORMAÇÕES ADICIONAIS" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/informacoes_adicionais.tpl"</smarty>
 						</div>
-						<div id="a6" name="�REA T�CNICA / EPI's" style="display: none; padding:5px;">
+						<div id="a6" name="ÁREA TÉCNICA / EPI's" style="display: none; padding:5px;">
 							<smarty>include file="viewHelper/cadastro_aprovados/area_tecnica_epi.tpl"</smarty>
 						</div>
 						<div id="a8" name="ANEXAR DOCUMENTOS" style="padding:5px;">
@@ -94,7 +94,7 @@
 	</form>
 </div>
 <smarty>else</smarty>
-	<h3>ATEN��O: Acesso inexistente ou desativado!</h3>
+	<h3>ATENÇÃO: Acesso inexistente ou desativado!</h3>
 <smarty>/if</smarty>
 
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

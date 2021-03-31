@@ -156,7 +156,7 @@ function liberarAvaliacoesAvulsas($dados_form)
         $params = array();
         $params['from']	= "recrutamento@dominio.com.br";
         $params['from_name'] = "RECURSOS HUMANOS";
-        $params['subject'] = "AVALIACAO DEVEMADA - Informacoes";
+        $params['subject'] = "AVALIACAO EMPRESA - Informacoes";
         
         $id = $dados_form['selAvaLiberar'];
         
@@ -228,26 +228,30 @@ function liberarAvaliacoesAvulsas($dados_form)
                 if ($dados_form['liberarPara'] == 1)
                 {
                     $erroEmail = false;
-                    if (HOST != 'localhost')
+                    
+                    if (ENVIA_EMAIL)
                     {
                         $mail = new email($params);
                         $mail->montaCorpoEmail($corpo);
                         
                         $erroEmail = !$mail->Send();
                     }
+                    else 
+                    {
+                        $resposta->addScriptCall('modal', $corpo, '300_650', 'Conteúdo email', 1);
+                    }
                     
                     if($erroEmail)
                     {
                         $resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
                     }
-                    else
-                    {
-                        //Após o e-mail ter sido enviado, libera a avaliação
-                        $db->insert($isql, 'MYSQL');
-                        $resposta->addAlert('Avaliação Liberada!');
-                        $resposta->addScript('divPopupInst.destroi();');
-                        $resposta->addScript('xajax_atualizatabela('.$id.');');
-                    }
+
+                    //Após o e-mail ter sido enviado, libera a avaliação
+                    $db->insert($isql, 'MYSQL');
+                    $resposta->addAlert('Avaliação Liberada!');
+                    $resposta->addScript('divPopupInst.destroi();');
+                    $resposta->addScript('xajax_atualizatabela('.$id.');');
+                    
                 }
             }
             else

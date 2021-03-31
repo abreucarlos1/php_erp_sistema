@@ -34,12 +34,12 @@
                     </td>
 				</tr>
 				<tr>
-					<td valign="top"><label for="descricao_integracao" class="labels">DescriÁ„o das necessidades (Trabalhos CrÌticos, NR's, etc) *</label><br />
-                    <textarea class='caixa' id='descricao_integracao' cols="60" name='descricao_integracao' placeholder="DescriÁ„o"></textarea>
+					<td valign="top"><label for="descricao_integracao" class="labels">Descri√ß√£o das necessidades (Trabalhos Cr√≠ticos, NR's, etc) *</label><br />
+                    <textarea class='caixa' id='descricao_integracao' cols="60" name='descricao_integracao' placeholder="Descri√ß√£o"></textarea>
                     </td>
 				</tr>
 				<tr>
-					<td><label for="funcionario" class="labels">Funcion·rio *<sub><i>Utilizar a tecla CTRL para selecionar v·rios funcion·rios</i></sub></label><br />
+					<td><label for="funcionario" class="labels">Funcion√°rio *<sub><i>Utilizar a tecla CTRL para selecionar v√°rios funcion√°rios</i></sub></label><br />
                     <select name="funcionario[]" class="caixa" multiple="multiple" id="funcionario" onchange="xajax_getFuncionariosIntegrados(xajax.getFormValues('frm'));" onkeypress="return keySort(this);">
 							<smarty>html_options values=$option_func_values
 							output=$option_func_output</smarty>
@@ -47,7 +47,7 @@
                     </td>
 				</tr>
 				<tr>
-					<td><label for="data" class="labels">Data IntegraÁ„o *</label><br />
+					<td><label for="data" class="labels">Data Integra√ß√£o *</label><br />
                     <input type='text' name="data" class="caixa" id="data" size="10" maxlength="10" placeholder="Data" onkeypress="return txtBoxFormat(document.frm, 'data', '99/99/9999', event);" />
                     </td>
 				</tr>
@@ -60,8 +60,8 @@
                     </td>
 				</tr>
 				<tr id='trInteracao' style='display:none;'>
-					<td valign="top"><label for="descricao_interacao" class="labels">DescriÁ„o da alteraÁ„o *</label><br />
-                    <textarea class='caixa' id='descricao_interacao' cols="60" name='descricao_interacao' placeholder="DescriÁ„o"></textarea>
+					<td valign="top"><label for="descricao_interacao" class="labels">Descri√ß√£o da altera√ß√£o *</label><br />
+                    <textarea class='caixa' id='descricao_interacao' cols="60" name='descricao_interacao' placeholder="Descri√ß√£o"></textarea>
                     </td>
 
 				</tr>
@@ -69,7 +69,7 @@
 		</td>
         </tr>
       </table>
-	  <div id="div_lista" style="width:100%;">&nbsp;</div>
+	  <div id="div_lista" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

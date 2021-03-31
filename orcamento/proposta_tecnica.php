@@ -38,7 +38,7 @@ if(!verifica_sub_modulo(506))
 function lista_autorizados()
 {
 
-	//$lista_aut = array('6','17','19','49','51','58','978','1102','37');
+	$lista_aut = array('0');
 
 	return $lista_aut;
 }
@@ -50,7 +50,7 @@ function dados_proposta($numero_proposta)
 	$array_dados = NULL;
 	
 	/*
-	$sql = "SELECT REPLACE(AF1_DESCRI, '�', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
+	$sql = "SELECT REPLACE(AF1_DESCRI, '-', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
 	$sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND SA1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF1_CLIENT = A1_COD ";
@@ -141,6 +141,29 @@ function cidades($dados_form,$selecionado=-1)
 	}
 	*/
 	
+	$sql = "SELECT * FROM ".DATABASE.".cidades, estados ";
+	$sql .= "WHERE cidades.reg_del = 0 ";
+	$sql .= "AND estados.reg_del = 0  ";
+	$sql .= "AND estados.id_estado = cidades.id_estado ";
+	$sql .= "AND estados.uf = '".$dados_form["id_estado"]."' ";
+	$sql .= "ORDER BY cidade ";
+	
+	$db->select($sql,'MYSQL',true);
+	
+	foreach ($db->array_select as $regs)
+	{
+		if($regs["id_cidade"]==$selecionado)
+		{
+			$select = 'true';
+		}
+		else
+		{
+			$select = 'false';
+		}
+		
+		$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('".trim($regs["cidade"]) . "', '".trim(intval($regs["id_cidade"]))."',false,".$select.");");
+	}
+
 	return $resposta;
 }
 
@@ -278,6 +301,63 @@ function voltar()
 	return $resposta;
 }
 
+function insere($dados_form)
+{
+	$resposta = new xajaxResponse();
+	
+	$db = new banco_dados;
+	
+	if($dados_form["nr_proposta"]!='' && $dados_form["descri_proposta"]!='')
+	{
+		$sql = "SELECT * FROM ".DATABASE.".propostas ";
+		$sql .= "WHERE propostas.reg_del = 0 ";
+		$sql .= "AND propostas.numero_proposta = '" . $dados_form["nr_proposta"] . "' ";
+		//$sql .= "AND propostas.descricao_proposta = '" . $dados_form["descri_proposta"] . "' ";
+		
+		$db->select($sql, 'MYSQL',true);
+		
+		if ($db->erro != '')
+		{
+			$resposta->addAlert("Não foi possível executar a seleção.".$sql);
+		}
+		
+		if($db->numero_registros > 0)
+		{
+			$resposta->addAlert("Proposta já cadastrado");
+		}
+		else
+		{
+			$isql = "INSERT INTO ".DATABASE.".propostas ";
+			$isql .= "(numero_proposta, descricao_proposta, fase_orcamento, id_exe1) ";
+			$isql .= "VALUES ('" . $dados_form["nr_proposta"] . "', ";
+			$isql .= "'" . maiusculas($dados_form["descri_proposta"]) . "', ";
+			$isql .= "'01', ";
+
+			$isql .= "'" . $dados_form["exec_1"] . "') ";
+
+			$registros = $db->insert($isql,'MYSQL');
+			
+			if ($db->erro != '')
+			{
+				$resposta->addAlert("Não foi possível a inserção dos dados".$isql);
+			}
+
+			$resposta->addScript("xajax_voltar('');");
+
+			$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
+
+			$resposta->addAlert("Proposta cadastrada com sucesso.");
+		}
+
+	}
+	else
+	{
+		$resposta->addAlert("Os campos devem estar preenchidos.");
+	}	
+	
+	return $resposta;
+}
+
 function atualizatabela($dados_form,$busca = false)
 {
 	$resposta = new xajaxResponse();
@@ -377,7 +457,7 @@ function atualizatabela($dados_form,$busca = false)
 			$sql1 = "SELECT * FROM ".DATABASE.".propostas ";
 			$sql1 .= "WHERE propostas.reg_del = 0 ";
 			$sql1 .= "AND propostas.numero_proposta = '".$regs3["AF1_ORCAME"]."' ";
-			$sql1 .= "AND propostas.id_status_proposta = 2 "; //somente em edi��o
+			$sql1 .= "AND propostas.id_status_proposta = 2 "; //somente em edição
 			
 			$db->select($sql1,'MYSQL',true);
 			
@@ -427,15 +507,17 @@ function atualizatabela($dados_form,$busca = false)
 	
 	foreach($db->array_select as $cont)
 	{
-		$aprovacao = '&nbsp;';
-		$exportar = '&nbsp;';
-		$excel_fpv = '&nbsp;';
-		$excel_conf = '&nbsp;';
+		$aprovacao = ' ';
+		$exportar = ' ';
+		$excel_fpv = ' ';
+		$excel_conf = ' ';
 		$titulo = $cont["status_proposta"];
 		$titulo_apr = '';
 		$titulo_exp = '';
 		$titulo_exc = '';
 		$titulo_conf = '';
+		$excluir = '';
+		$titulo_excluir = '';
 		
 		$array_exec = array_filter(array($cont["id_exe1"],$cont["id_exe2"],$cont["id_exe3"],$cont["id_exe4"])); 		
 		
@@ -444,6 +526,10 @@ function atualizatabela($dados_form,$busca = false)
 			case 1:	//PENDENTE
 					
 				$status = '<img src="'.DIR_IMAGENS.'led_vm.png">';
+
+				$excluir = '<img src="'.DIR_IMAGENS.'apagar.png" onclick = if(confirm("Deseja excluir a Proposta?")){xajax_excluir("'.$cont["id_proposta"].'");}>';
+				
+				$titulo_excluir = 'EXCLUIR';
 							
 			break;
 			
@@ -451,7 +537,7 @@ function atualizatabela($dados_form,$busca = false)
 			
 				$status = '<img src="'.DIR_IMAGENS.'led_am.png">';
 				
-				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
+				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
 				$titulo_conf = 'EXPORTAR CONFERÊNCIA';
 			
 			break;
@@ -460,7 +546,7 @@ function atualizatabela($dados_form,$busca = false)
 			
 				$status = '<img src="'.DIR_IMAGENS.'led_vd.png">';
 				
-				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
+				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
 				$titulo_conf = 'EXPORTAR CONFERÊNCIA';
 				
 			break;
@@ -469,19 +555,19 @@ function atualizatabela($dados_form,$busca = false)
 			
 				$status = '<img src="'.DIR_IMAGENS.'led_az.png">';
 			
-				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
+				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
 				$titulo_conf = 'EXPORTAR CONFERÊNCIA';
 				
-				//se autorizados ou nelson
+				//se autorizados
 				if(in_array($_SESSION["id_funcionario"],lista_autorizados()))
 				{
-					$aprovacao = '<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja&nbsp;retornar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;aprovado?")){xajax_aprovar("'.$cont["id_proposta"].'","'.$cont["id_status_proposta"].'");}>';
+					$aprovacao = '<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja retornar o orçamento técnico aprovado?")){xajax_aprovar("'.$cont["id_proposta"].'","'.$cont["id_status_proposta"].'");}>';
 					$titulo_apr = 'RETORNAR';
 					
-					$exportar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>';
+					$exportar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>';
 					$titulo_exp = 'EXPORTAR PROTHEUS';
 					
-					$excel_fpv = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel&nbsp;FPV?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_fpv_excel.php";xajax.$("frm").submit();}>';
+					$excel_fpv = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel FPV?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_fpv_excel.php";xajax.$("frm").submit();}>';
 					$titulo_exc = 'EXPORTAR FPV';
 				}
 			
@@ -491,15 +577,15 @@ function atualizatabela($dados_form,$busca = false)
 			
 				$status = '<img src="'.DIR_IMAGENS.'aprovado.png">';
 				
-				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
+				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
 				$titulo_conf = 'EXPORTAR CONFERÊNCIA';
 
 				if(in_array($_SESSION["id_funcionario"],lista_autorizados()))
 				{
-					$aprovacao = '<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja&nbsp;retornar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;exportado?")){xajax_aprovar("'.$cont["id_proposta"].'",0);}>';
+					$aprovacao = '<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja retornar o orçamento técnico exportado?")){xajax_aprovar("'.$cont["id_proposta"].'",0);}>';
 					$titulo_apr = 'RETORNAR';
 					
-					$excel_fpv = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel&nbsp;FPV?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_fpv_excel.php";xajax.$("frm").submit();}>';
+					$excel_fpv = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel FPV?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_fpv_excel.php";xajax.$("frm").submit();}>';
 					$titulo_exc = 'EXPORTAR FPV';
 				}
 			
@@ -511,11 +597,11 @@ function atualizatabela($dados_form,$busca = false)
 				
 				if(in_array($_SESSION["id_funcionario"],lista_autorizados()))
 				{
-					$aprovacao = '<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;aprovar&nbsp;o&nbsp;orçamento&nbsp;técnico?")){xajax_aprovar("'.$cont["id_proposta"].'","'.$cont["id_status_proposta"].'");}>';
+					$aprovacao = '<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja aprovar o orçamento técnico?")){xajax_aprovar("'.$cont["id_proposta"].'","'.$cont["id_status_proposta"].'");}>';
 					$titulo_apr = 'APROVAR';
 				}
 				
-				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
+				$excel_conf = '<img src="'.DIR_IMAGENS.'file_xls.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Excel?")){xajax.$("id_proposta").value="'.$cont["id_proposta"].'";xajax.$("frm").target="_blank";xajax.$("frm").action="./relatorios/rel_planilha_orcamento_excel.php";xajax.$("frm").submit();}>';
 				$titulo_conf = 'EXPORTAR CONFERÊNCIA';
 				
 			break;
@@ -546,6 +632,10 @@ function atualizatabela($dados_form,$busca = false)
 			$xml->startElement('cell');
 				$xml->writeAttribute('title',$titulo_exc);
 				$xml->text($excel_fpv);
+			$xml->endElement();
+			$xml->startElement('cell');
+				$xml->writeAttribute('title',$titulo_excluir);
+				$xml->text($excluir);
 			$xml->endElement();
 		$xml->endElement();	
 	}
@@ -582,11 +672,15 @@ function editar($id)
 			
 			$cont = $db->array_select[0];
 			
-			$resposta->addAssign("nr_proposta", "innerHTML",$cont["numero_proposta"]);
+			//$resposta->addAssign("nr_proposta", "innerHTML",$cont["numero_proposta"]);
+			$resposta->addAssign("nr_proposta", "value",$cont["numero_proposta"]);
 			
 			$resposta->addAssign("id_proposta", "value",$cont["id_proposta"]);
 			
-			$resposta->addAssign("descricao_proposta", "innerHTML",$cont["descricao_proposta"]);
+			//$resposta->addAssign("descricao_proposta", "innerHTML",$cont["descricao_proposta"]);
+			$resposta->addAssign("descri_proposta", "value",$cont["descricao_proposta"]);
+
+			$resposta->addScript("seleciona_combo('" . $cont["id_exe1"] . "', 'exec_1'); ");
 			
 			$resposta->addAssign("div_escopo_detalhado","innerHTML","");
 			
@@ -723,6 +817,33 @@ function editar($id)
 	}
 	
 	return $resposta;	
+}
+
+function excluir($id)
+{
+	$resposta = new xajaxResponse();
+			
+	$db = new banco_dados();
+	
+	$usql = "UPDATE ".DATABASE.".propostas SET ";
+	$usql .= "reg_del = 1, ";
+	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
+	$usql .= "data_del = '".date('Y-m-d')."' ";
+	$usql .= "WHERE propostas.id_proposta = '".$id."' ";
+	$usql .= "AND reg_del = 0 ";
+	
+	$db->update($usql,'MYSQL');
+	
+	if ($db->erro != '')
+	{
+		$resposta->addAlert("Erro ".$sql);
+	}
+
+	$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
+	
+	$resposta->addAlert("Proposta excluída com sucesso.");
+	
+	return $resposta;
 }
 
 function inc_escopogeral($dados_form)
@@ -954,11 +1075,11 @@ function preencheEscopoGeral($dados_form)
 		
 			if($db->numero_registros==0)
 			{
-				$txt = 'if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;escopo&nbsp;geral?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
+				$txt = 'if(confirm("Deseja excluir o escopo geral?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
 			}
 			else
 			{
-				$txt = 'if(confirm("Existem&nbsp;tarefas&nbsp;associadas&nbsp;a&nbsp;este&nbsp;escopo,&nbsp;tem&nbsp;certeza&nbsp;que&nbsp;irá&nbsp;excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
+				$txt = 'if(confirm("Existem tarefas associadas a este escopo, tem certeza que irá excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
 			}
 		}
 		
@@ -1140,7 +1261,7 @@ function preencheSubcontratados($dados_form)
 			$xml->writeElement('cell',$cont1["subcontratado"]);
 			$xml->writeElement('cell',$cont1["descritivo"]);
 			$xml->writeElement('cell',number_format($cont1["valor_subcontrato"],2,",","."));
-			$xml->writeElement ('cell', '<img style="cursor:pointer;'.$visivel.'" src="'.DIR_IMAGENS.'apagar.png" onclick = if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;subcontratado?")){xajax_del_subcontratado('.$cont1["id_subcontratado"].');};>');
+			$xml->writeElement ('cell', '<img style="cursor:pointer;'.$visivel.'" src="'.DIR_IMAGENS.'apagar.png" onclick = if(confirm("Deseja excluir o subcontratado?")){xajax_del_subcontratado('.$cont1["id_subcontratado"].');};>');
 		$xml->endElement();	
 	}
 	
@@ -1492,9 +1613,9 @@ function mostra_tarefas($dados_form)
 					$xml->writeAttribute('id',$regs["id_atividade"].'_'.$indice);
 					
 					$xml->startElement ('cell');
-						$xml->writeAttribute('title','DUPLICAR&nbsp;TAREFA');
+						$xml->writeAttribute('title','DUPLICAR TAREFA');
 						$xml->writeAttribute('style','background-color:#FFFFFF');
-						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"),"escopo_detalhado")} >');
+						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja duplicar a tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"),"escopo_detalhado")} >');
 					$xml->endElement();
 					
 					$xml->writeElement ('cell','<input type="checkbox" lang="chk_escopodet_'.$regs["id_atividade"].'" class="chk_escopodet_'. $regs["id_atividade"] . '" id="chk_escopodet_'. $regs["id_atividade"] . '['.$indice.']" name="chk_escopodet['. $regs["id_atividade"] . ']['.$indice.']" value="1" '.$select.' '.$checked.' onclick = lib_campos(this,"escopo_detalhado");xajax_status_usuario(xajax.getFormValues("frm",true),0);>');
@@ -1542,7 +1663,7 @@ function mostra_tarefas($dados_form)
 				$xml->startElement ('cell');
 					$xml->writeAttribute('title',$regs["descricao"]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
-					$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_0"),"escopo_detalhado")} >');
+					$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja duplicar a tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_0"),"escopo_detalhado")} >');
 				$xml->endElement();				
 				
 				$xml->writeElement ('cell','<input type="checkbox" lang="chk_escopodet_'.$regs["id_atividade"].'" class="chk_escopodet_'. $regs["id_atividade"] . '" id="chk_escopodet['. $regs["id_atividade"] . '][]" name="chk_escopodet['. $regs["id_atividade"] . '][]" value="1" '.$select.' '.$checked.' onclick = lib_campos(this,"escopo_detalhado");xajax_status_usuario(xajax.getFormValues("frm",true),0);>');
@@ -1747,7 +1868,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 			
 			$db->insert($isql,'MYSQL');
 			
-			//insere as permiss�es aos autorizados
+			//insere as permissões aos autorizados
 			//no modulo propostas
 			if($user!="")
 			{
@@ -1762,7 +1883,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 					die($db->erro);		
 				}
 				
-				//se n�o existir o registro, inclui
+				//se não existir o registro, inclui
 				if($db->numero_registros<=0)
 				{
 				
@@ -1793,7 +1914,7 @@ function autoriza($id_colab,$id_proposta,$id_disciplina,$status)
 			
 			$db->update($usql,'MYSQL');
 			
-			//retira as permiss�es aos autorizados
+			//retira as permissões aos autorizados
 			//no modulo propostas
 			if($user!="")
 			{			
@@ -2173,7 +2294,7 @@ function preenche_resumo($dados_form)
 				
 				$xml->writeAttribute('style',$color);
 							
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 									
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
@@ -2191,12 +2312,12 @@ function preenche_resumo($dados_form)
 												
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_quant_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_quant_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();
 				
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_fmt_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_fmt_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();					
 
 				$xml->startElement ('cell');
@@ -2205,22 +2326,22 @@ function preenche_resumo($dados_form)
 				
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_eng_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_eng_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();
 							
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_proj_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_proj_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();
 				
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_cad_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_cad_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();
 				
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;'.$color);
-					$xml->text('<div id="div_tot_sum_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'">&nbsp;</div>');
+					$xml->text('<div id="div_tot_sum_'.$regs["id_escopo_geral"].'#'.$regs["id_setor"].'"> </div>');
 				$xml->endElement();				
 				
 				//Se aprovado o escopo detalhado
@@ -2232,12 +2353,12 @@ function preenche_resumo($dados_form)
 						$xml->startElement ('cell');
 							$xml->writeAttribute('title','RETORNA STATUS');
 							$xml->writeAttribute('style','background-color:#FFFFFF');
-							$xml->text('<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja&nbsp;permitir&nbsp;a&nbsp;edição&nbsp;desta&nbsp;disciplina?")){xajax_concluir_escopo("'.$regs["id_escopo_geral"].'","'.$regs["id_setor"].'",0);}>');
+							$xml->text('<img src="'.DIR_IMAGENS.'arrow_rotate_clockwise.png" onclick = if(confirm("Deseja permitir a edição desta disciplina?")){xajax_concluir_escopo("'.$regs["id_escopo_geral"].'","'.$regs["id_setor"].'",0);}>');
 						$xml->endElement();						
 					}
 					else
 					{
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');
 					}
 				}
 				else
@@ -2245,30 +2366,30 @@ function preenche_resumo($dados_form)
 					$xml->startElement ('cell');
 						$xml->writeAttribute('title','CONCLUIR');
 						$xml->writeAttribute('style','background-color:#FFFFFF');
-						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;concluir&nbsp;a&nbsp;edição&nbsp;da&nbsp;disciplina?")){xajax_concluir_escopo("'.$regs["id_escopo_geral"].'","'.$regs["id_setor"].'",1);}>');
+						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja concluir a edição da disciplina?")){xajax_concluir_escopo("'.$regs["id_escopo_geral"].'","'.$regs["id_setor"].'",1);}>');
 					$xml->endElement();	
 					
 				}
 				//aqui
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 			
 			$xml->endElement();											
 		}
 
 		$xml->startElement('row');
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
 			$xml->writeElement ('cell',$regs["codigo"]);
 			$xml->writeElement ('cell',$regs["descricao"]." ".$regs["descricao_escopo"]);
 			
 			if(!in_array($regs["id_formato"],array('1','2','3','4','5'))) //se não for formatos
 			{
 				$xml->writeElement ('cell',number_format($quant_item,2,",","."));
-				$xml->writeElement ('cell','&nbsp;');//fmt
+				$xml->writeElement ('cell',' ');//fmt
 			}
 			else
 			{
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 				$xml->writeElement ('cell',number_format($quant_fmt,2,",","."));//fmt	
 			}			
 			
@@ -2277,7 +2398,7 @@ function preenche_resumo($dados_form)
 			$xml->writeElement ('cell',number_format($calc_proj,2,",","."));
 			$xml->writeElement ('cell',number_format($calc_cad,2,",","."));
 			$xml->writeElement ('cell',number_format($calc_tot,2,",","."));
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
 			$xml->writeElement ('cell',$array_subcontratados[$regs["id_subcontratado"]]);
 		$xml->endElement();				
 		
@@ -2322,7 +2443,7 @@ function preenche_resumo($dados_form)
 					
 					$xml->writeAttribute('style',$color);
 								
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 										
 					$xml->startElement ('cell');
 						$xml->writeAttribute('style','font-weight:bold;'.$color);
@@ -2368,28 +2489,28 @@ function preenche_resumo($dados_form)
 						$xml->writeAttribute('style',$color);
 					$xml->endElement();					
 
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 
-					$xml->writeElement ('cell','&nbsp;');
+					$xml->writeElement ('cell',' ');
 				
 				$xml->endElement();	
 					
 				foreach($array_mobilizacao as $regs3)
 				{
 					$xml->startElement('row');
-						$xml->writeElement ('cell','&nbsp;');
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');
+						$xml->writeElement ('cell',' ');
 						$xml->writeElement ('cell',$regs3["codigo"]);
 						$xml->writeElement ('cell',$regs3["descricao"]." ".$regs3["descricao_mobilizacao"]);
-						$xml->writeElement ('cell','&nbsp;');
-						$xml->writeElement ('cell','&nbsp;');//fmt
-						$xml->writeElement ('cell','&nbsp;');
-						$xml->writeElement ('cell','&nbsp;');//fmt	
-						$xml->writeElement ('cell','&nbsp;');
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');
+						$xml->writeElement ('cell',' ');//fmt
+						$xml->writeElement ('cell',' ');
+						$xml->writeElement ('cell',' ');//fmt	
+						$xml->writeElement ('cell',' ');
+						$xml->writeElement ('cell',' ');
 						$xml->writeElement ('cell',number_format($regs3["qtd_necessario"],2,",","."));
-						$xml->writeElement ('cell','&nbsp;');						
-						$xml->writeElement ('cell','&nbsp;');
+						$xml->writeElement ('cell',' ');						
+						$xml->writeElement ('cell',' ');
 					$xml->endElement();
 				}
 			}
@@ -2409,21 +2530,21 @@ function preenche_resumo($dados_form)
 			$xml->text('TOTAL');			
 		$xml->endElement();
 		
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
+		$xml->writeElement ('cell',' ');
 			
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;text-align:center;');
-			$xml->text(number_format($total_geral['quant'],2,",",".").'&nbsp;H');			
+			$xml->text(number_format($total_geral['quant'],2,",",".").' H');			
 		$xml->endElement();
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;text-align:center;');
-			$xml->text(number_format($total_geral['fmt'],2,",",".").'&nbsp;A1');			
+			$xml->text(number_format($total_geral['fmt'],2,",",".").' A1');			
 		$xml->endElement();
 		
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
 		
 		$xml->startElement ('cell');
 			$xml->writeAttribute('style','font-weight:bold;text-align:center;');
@@ -2445,7 +2566,7 @@ function preenche_resumo($dados_form)
 			$xml->text(number_format($total_geral['sum'],2,",","."));			
 		$xml->endElement();
 																
-		$xml->writeElement ('cell','&nbsp;');
+		$xml->writeElement ('cell',' ');
 		
 		$xml->writeElement ('cell',$array_subcontratados[$regs["id_subcontratado"]]);
 		
@@ -2677,7 +2798,7 @@ function concluir_escopo($id_escopo_geral,$id_setor,$status)
 	
 	$params = array();
 	
-	$params['from']	= "tecnologia@dominio.com.br";
+	$params['from']	= "ti@dominio.com.br";
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -2705,7 +2826,7 @@ function concluir_escopo($id_escopo_geral,$id_setor,$status)
 	$setor = $regs0["setor"];
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -2842,17 +2963,24 @@ function concluir_escopo($id_escopo_geral,$id_setor,$status)
 				}
 			}
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
-		{
-			$resposta->addAlert('Erro ao enviar o e-mail.');
+
+		if(ENVIA_EMAIL)
+		{		
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar o e-mail.');
+			}
+			
+			$mail->ClearAllRecipients();
 		}
-		
-		$mail->ClearAllRecipients();
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 1);
+		}
 		
 	}
 	else
@@ -2895,24 +3023,33 @@ function concluir_escopo($id_escopo_geral,$id_setor,$status)
 				$params['emails']['to'][] = array('email' => $array_email[$cod_executante], 'nome' => $array_func[$cod_executante]);
 			}
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar o e-mail.');
-		}
 		
-		$mail->ClearAllRecipients();	
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar o e-mail.');
+			}
+			
+			$mail->ClearAllRecipients();
+		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 2);
+		}
+
 	}
 	
 	$resposta->addScript("xajax.$('sel_escopo_geral').selectedIndex=0;");
 	
 	$resposta->addScript("xajax.$('disciplina').selectedIndex=0;");
 	
-	$resposta->addAssign('div_escopo_detalhado','innerHTML','&nbsp;');
+	$resposta->addAssign('div_escopo_detalhado','innerHTML',' ');
 	
 	$resposta->addAssign("btn_escopodet","disabled","disabled");
 	
@@ -2933,7 +3070,7 @@ function aprovar_valorizacao($dados_form)
 	
 	$params = array();
 	
-	$params['from']	= "tecnologia@dominio.com.br";
+	$params['from']	= "ti@dominio.com.br";
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -2942,7 +3079,7 @@ function aprovar_valorizacao($dados_form)
 	$msg = $conf->msg($resposta);
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -2981,22 +3118,30 @@ function aprovar_valorizacao($dados_form)
 	$texto .= "Foi liberada por ".$array_func[$_SESSION["id_funcionario"]]."<br><br><br>";
 	$texto .= "O acesso pode ser realizado no SISTEMA, menu ORÇAMENTO <br><br>";
 	
-	$mail = new email($params,'valorizacao_proposta');
-	
-	$mail->montaCorpoEmail($texto);
-	
-	if(!$mail->Send())
+	if(ENVIA_EMAIL)
 	{
-		$resposta->addAlert('Erro ao enviar o e-mail.');
+
+		$mail = new email($params,'valorizacao_proposta');
+		
+		$mail->montaCorpoEmail($texto);
+		
+		if(!$mail->Send())
+		{
+			$resposta->addAlert('Erro ao enviar o e-mail.');
+		}
+		
+		$mail->ClearAllRecipients();
 	}
-	
-	$mail->ClearAllRecipients();	
+	else 
+	{
+		$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 3);
+	}	
 	
 	$resposta->addScript("xajax.$('sel_escopo_geral').selectedIndex=0;");
 	
 	$resposta->addScript("xajax.$('disciplina').selectedIndex=0;");
 	
-	$resposta->addAssign('div_escopo_detalhado','innerHTML','&nbsp;');
+	$resposta->addAssign('div_escopo_detalhado','innerHTML',' ');
 	
 	$resposta->addAssign("btn_escopodet","disabled","disabled");
 	
@@ -3017,7 +3162,7 @@ function aprovar($id_proposta,$status)
 	
 	$params = array();
 	
-	$params['from']	= "tecnologia@dominio.com.br";
+	$params['from']	= "ti@dominio.com.br";
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -3038,7 +3183,7 @@ function aprovar($id_proposta,$status)
 	$array_exec = array($regs["id_exe1"],$regs["id_exe2"],$regs["id_exe3"],$regs["id_exe4"]);
 	
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-	$sql .= "WHERE funcionarios.id_funcionario = usuarios.id_funcionario ";
+	$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -3085,16 +3230,24 @@ function aprovar($id_proposta,$status)
 		$texto .= "Foi aprovada por ".$array_func[$_SESSION["id_funcionario"]]."<br><br><br>";
 		$texto .= "O acesso pode ser realizado no SISTEMA, menu ORÇAMENTO <br><br>";
 		
-		$mail = new email($params,'aprovacao_proposta');
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar o e-mail.');
+
+			$mail = new email($params,'aprovacao_proposta');
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar o e-mail.');
+			}
+			
+			$mail->ClearAllRecipients();
 		}
-		
-		$mail->ClearAllRecipients();
+		else 
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 4);
+		}
 		
 		//se tiver subcontratos
 		if(count($array_subcontratados)>0)
@@ -3113,21 +3266,30 @@ function aprovar($id_proposta,$status)
 			
 			foreach($array_subcontratados as $indice=>$array_sub)
 			{
-				 $texto .= "<strong>Subcontratado:&nbsp;</strong>".$array_sub[0]."<br>";
-				 $texto .= "<strong>Descritivo:&nbsp;</strong>".$array_sub[1]."<br>";
-				 $texto .= "<strong>Valor:&nbsp;</strong>".number_format($array_sub[2],2,",",".")."<br><br>";
+				 $texto .= "<strong>Subcontratado: </strong>".$array_sub[0]."<br>";
+				 $texto .= "<strong>Descritivo: </strong>".$array_sub[1]."<br>";
+				 $texto .= "<strong>Valor: </strong>".number_format($array_sub[2],2,",",".")."<br><br>";
 			}
-			
-			$mail = new email($params,'subcontratados_proposta');
-			
-			$mail->montaCorpoEmail($texto);
-			
-			if(!$mail->Send())
+
+			if(ENVIA_EMAIL)
 			{
-				$resposta->addAlert('Erro ao enviar o e-mail.');
-			}
 			
-			$mail->ClearAllRecipients();						
+				$mail = new email($params,'subcontratados_proposta');
+				
+				$mail->montaCorpoEmail($texto);
+				
+				if(!$mail->Send())
+				{
+					$resposta->addAlert('Erro ao enviar o e-mail.');
+				}
+				
+				$mail->ClearAllRecipients();
+			
+			}
+			else 
+			{
+				$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 5);
+			}
 		}				
 	}
 	else
@@ -3178,17 +3340,25 @@ function aprovar($id_proposta,$status)
 				$params['emails']['to'][] = array('email' => $array_email[$cod_executante], 'nome' => $array_func[$cod_executante]);
 			}
 		}
-		
-		$mail = new email($params);
-		
-		$mail->montaCorpoEmail($texto);
-		
-		if(!$mail->Send())
+
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar o e-mail.');
-		}
 		
-		$mail->ClearAllRecipients();						
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($texto);
+			
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar o e-mail.');
+			}
+			
+			$mail->ClearAllRecipients();
+		}
+		else
+		{
+			$resposta->addScriptCall('modal', $texto, '300_650', 'Conteúdo email', 6);
+		}						
 	}
 	
 	$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
@@ -3548,7 +3718,7 @@ function exportar($id_proposta)
 						return $resposta;
 					}
 					
-					//atualiza o campo c�digo da tabela mobilizacao
+					//atualiza o campo código da tabela mobilizacao
 					$usql = "UPDATE ".DATABASE.".escopo_detalhado SET ";
 					$usql .= "codigo = '".sprintf("%06d",$codigo)."' ";
 					$usql .= "WHERE id_escopo_detalhado = '".$regs6["id_escopo_detalhado"]."' ";
@@ -3563,7 +3733,7 @@ function exportar($id_proposta)
 						return $resposta;
 					}
 				
-					//seleciona as composi��es conforme o codigo para obter os recursos
+					//seleciona as composições conforme o codigo para obter os recursos
 					$sql = "SELECT * FROM AE2010 WITH(NOLOCK), AE8010 WITH(NOLOCK) ";
 					$sql .= "WHERE AE2010.D_E_L_E_T_ = '' ";
 					$sql .= "AND AE8010.D_E_L_E_T_ = '' ";
@@ -3771,7 +3941,7 @@ function exportar($id_proposta)
 					return $resposta;
 				}
 				
-				//atualiza o campo c�digo da tabela mobilizacao
+				//atualiza o campo código da tabela mobilizacao
 				$usql = "UPDATE ".DATABASE.".mobilizacao SET ";
 				$usql .= "codigo = '".sprintf("%06d",$codigo)."' ";
 				$usql .= "WHERE id_mobilizacao = '".$regs5["id_mobilizacao"]."' ";
@@ -4244,9 +4414,9 @@ function mostra_mobilizacao($dados_form)
 					$xml->writeAttribute('id',$regs["id_atividade"].'_'.$indice);
 					
 					$xml->startElement ('cell');
-						$xml->writeAttribute('title','DUPLICAR&nbsp;MOBILIZAÇÃO');
+						$xml->writeAttribute('title','DUPLICAR MOBILIZAÇÃO');
 						$xml->writeAttribute('style','background-color:#FFFFFF');
-						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;mobilização?")){adiciona_linha(mygrid6.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"),"mobilizacao")} >');
+						$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja duplicar a mobilização?")){adiciona_linha(mygrid6.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"),"mobilizacao")} >');
 					$xml->endElement();
 					
 					$xml->writeElement ('cell','<input type="checkbox" lang="chk_mobilizacao_'.$regs["id_atividade"].'" class="chk_mobilizacao_'. $regs["id_atividade"] . '" id="chk_mobilizacao_'. $regs["id_atividade"] . '['.$indice.']" name="chk_mobilizacao['. $regs["id_atividade"] . ']['.$indice.']" value="1" '.$select.' '.$checked.' onclick = lib_campos(this,"mobilizacao");>');
@@ -4271,7 +4441,7 @@ function mostra_mobilizacao($dados_form)
 				$xml->startElement ('cell');
 					$xml->writeAttribute('title',$regs["descricao"]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
-					$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;mobilização?")){adiciona_linha(mygrid6.getRowIndex("'.$regs["id_atividade"].'_0"),"mobilizacao")} >');
+					$xml->text('<img src="'.DIR_IMAGENS.'accept.png" onclick = if(confirm("Deseja duplicar a mobilização?")){adiciona_linha(mygrid6.getRowIndex("'.$regs["id_atividade"].'_0"),"mobilizacao")} >');
 				$xml->endElement();				
 				
 				$xml->writeElement ('cell','<input type="checkbox" lang="chk_mobilizacao_'.$regs["id_atividade"].'" class="chk_mobilizacao_'. $regs["id_atividade"] . '" id="chk_mobilizacao['. $regs["id_atividade"] . '][]" name="chk_mobilizacao['. $regs["id_atividade"] . '][]" value="1" '.$select.' '.$checked.' onclick = lib_campos(this,"mobilizacao");>');
@@ -4296,6 +4466,9 @@ function mostra_mobilizacao($dados_form)
 }
 
 $xajax->registerFunction("voltar");
+
+$xajax->registerFunction("insere");
+
 $xajax->registerFunction("atualizatabela");
 $xajax->registerFunction("editar");
 $xajax->registerFunction("inc_escopogeral");
@@ -4564,8 +4737,8 @@ function tab()
 	myTabbar.addTab("a10_", "Proposta", null, null, true);
 	myTabbar.addTab("a15_", "Autorização");
 	myTabbar.addTab("a17_", "Subcontratados");
-	myTabbar.addTab("a20_", "Escopo&nbsp;Geral");
-	myTabbar.addTab("a30_", "Escopo&nbsp;Detalhado");
+	myTabbar.addTab("a20_", "Escopo Geral");
+	myTabbar.addTab("a30_", "Escopo Detalhado");
 	myTabbar.addTab("a35_", "Mobilização");
 	myTabbar.addTab("a40_", "Resumo");
 	
@@ -4758,13 +4931,13 @@ function grid(tabela, autoh, height, xml)
 				}
 				
 				mygrid1.attachEvent("onRowSelect",doOnRowSelected1);	
-				mygrid1.setHeader("&nbsp;,Proposta, Descrição, Executante,A,P,E,FPV",
+				mygrid1.setHeader(" ,Proposta, Descrição, Executante,A,P,E,FPV,D",
 					null,
-					["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
-				mygrid1.setInitWidths("22,80,550,200,25,25,25,35");
-				mygrid1.setColAlign("center,left,left,left,center,center,center,center");
-				mygrid1.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
-				mygrid1.setColSorting("str,str,str,str,str,str,str,str");
+					["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
+				mygrid1.setInitWidths("22,80,*,200,25,25,25,35,35");
+				mygrid1.setColAlign("center,left,left,left,center,center,center,center,center");
+				mygrid1.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
+				mygrid1.setColSorting("str,str,str,str,str,str,str,str,str");
 				
 				mygrid1.setSkin("dhx_skyblue");
 				mygrid1.enableMultiselect(true);
@@ -4780,7 +4953,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid2.enableAutoHeight(autoh,height);
 				mygrid2.enableRowsHover(true,'cor_mouseover');
 						
-				mygrid2.setHeader("&nbsp;,Colaborador",
+				mygrid2.setHeader(" ,Colaborador",
 					null,
 					["text-align:center","text-align:center;vertical-align:middle"]);
 				mygrid2.setInitWidths("22,300");
@@ -4836,7 +5009,7 @@ function grid(tabela, autoh, height, xml)
 				
 				mygrid4.attachEvent("onRowSelect",doOnRowSelected2);	
 					
-				mygrid4.setHeader("Escopo&nbsp;Geral,Local&nbsp;da&nbsp;obra,E",
+				mygrid4.setHeader("Escopo Geral,Local da obra,E",
 					null,
 					["text-align:left","text-align:left","text-align:center"]);
 				mygrid4.setInitWidths("*,*,25");
@@ -4893,7 +5066,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid.enableAutoHeight(autoh,height);
 				mygrid.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid.setHeader("&nbsp;,&nbsp;,Código,Tarefa,Descrição,Formato,Hh,Qtd,Grau<br />Dif.,Qtd&nbsp;Total,#cspan,#cspan,Total,Subcontr.",
+				mygrid.setHeader(" , ,Código,Tarefa,Descrição,Formato,Hh,Qtd,Grau<br />Dif.,Qtd Total,#cspan,#cspan,Total,Subcontr.",
 					null,
 					["text-align:center","text-align:center","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 				mygrid.attachHeader(["#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","#rspan","Engº","Proj.","Cad.","#rspan","#rspan"],
@@ -4917,7 +5090,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid6.enableAutoHeight(autoh,height);
 				mygrid6.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid6.setHeader("&nbsp;,&nbsp;,Código,Despesa,Complemento,Qtd",
+				mygrid6.setHeader(" , ,Código,Despesa,Complemento,Qtd",
 					null,
 					["text-align:center","text-align:center","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 
@@ -4942,7 +5115,7 @@ function grid(tabela, autoh, height, xml)
 		mygrid_resumo.enableAutoHeight(autoh,height);
 		mygrid_resumo.enableRowsHover(true,'cor_mouseover');
 	
-		mygrid_resumo.setHeader("Escopo&nbsp;Geral,Disciplina,Tarefa,Descrição,Qtd,#cspan,Grau<br />Dif.,Especialista,#cspan,#cspan,Total,&nbsp;,Subcontr.",
+		mygrid_resumo.setHeader("Escopo Geral,Disciplina,Tarefa,Descrição,Qtd,#cspan,Grau<br />Dif.,Especialista,#cspan,#cspan,Total, ,Subcontr.",
 			null,
 			["text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle","text-align:center;vertical-align:middle"]);
 		mygrid_resumo.attachHeader(["#rspan","#rspan","#rspan","#rspan","Hh","Fmt","#rspan","Engº","Proj.","Cad.","#rspan","#rspan","#rspan"],
@@ -4965,12 +5138,41 @@ function grid(tabela, autoh, height, xml)
 <?php
 $conf = new configs();
 
+
+$array_exec1_values[] = "0";
+$array_exec1_output[] = "SELECIONE";
+
+
+$sql = "SELECT id_funcionario, funcionario  FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "AND funcionarios.situacao NOT LIKE 'DESLIGADO' ";
+$sql .= "ORDER BY funcionario ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção.".$sql);
+}
+
+foreach($db->array_select as $regs)
+{
+		$array_exec1_values[] = $regs["id_funcionario"];
+		$array_exec1_output[] = $regs["funcionario"];
+}
+
+
 $sql = "SELECT * FROM ".DATABASE.".setores ";
 $sql .= "WHERE abreviacao NOT IN ('ADM','CMS','CON','COM','DES','FIN','GOB','MON','MAT','OUT','GER','TIN') ";
 $sql .= "AND setores.reg_del = 0 ";
 $sql .= "ORDER BY setor";
 
 $db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção.".$sql);
+}
 
 foreach ($db->array_select as $regs)
 {
@@ -4983,6 +5185,11 @@ $sql .= "WHERE status_propostas.reg_del = 0 ";
 $sql .= "ORDER BY ordem ";
 
 $db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção.".$sql);
+}
 
 foreach ($db->array_select as $regs)
 {
@@ -5009,6 +5216,27 @@ foreach ($db->array_select as $regs)
 }
 */
 
+
+$sql = "SELECT * FROM ".DATABASE.".estados ";
+$sql .= "WHERE estados.reg_del = 0 ";
+$sql .= "ORDER BY uf, estado ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção.".$sql);
+}
+
+foreach ($db->array_select as $regs)
+{
+	$array_estado_values[] = trim($regs["uf"]);
+	$array_estado_output[] = trim($regs["estado"]);
+}
+
+$smarty->assign("option_exec1_values",$array_exec1_values);
+$smarty->assign("option_exec1_output",$array_exec1_output);
+
 $smarty->assign("option_estado_values",$array_estado_values);
 $smarty->assign("option_estado_output",$array_estado_output);
 
@@ -5025,6 +5253,8 @@ $smarty->assign("campo",$conf->campos('proposta_tecnica'));
 $smarty->assign("botao",$conf->botoes());
 
 $smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
 
 $smarty->display('proposta_tecnica.tpl');
 

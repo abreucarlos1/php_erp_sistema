@@ -50,7 +50,7 @@ function visualizarRel()
 <?php
 
 $sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresa FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";

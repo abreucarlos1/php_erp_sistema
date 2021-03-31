@@ -15,7 +15,7 @@ $colunas = array();
 
 if (empty($_POST['query']) || empty($_POST['rdo_tipo']))
 {
-    exit('Por favor, volte e preencha os campos necess�rios para realizar a consulta');
+    exit('Por favor, volte e preencha os campos necessários para realizar a consulta');
 }
 
 $html = '';

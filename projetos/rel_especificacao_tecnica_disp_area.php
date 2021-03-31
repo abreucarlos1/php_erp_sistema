@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de Especifica��o T�cnica
+		Formulário de Especificação Técnica
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao tecnica.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016	
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016	
 	
 */
 
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -49,22 +49,22 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 		{
 			?>
 			<script>
-				alert('N�o � poss�vel emitir nesta revis�o.');
+				alert('Não é possível emitir nesta revisão.');
 			</script>
-			<?
+			<?php
 		}
 	else
 		{
-			//Cria senten�a de Inclusão no bd
+			//Cria sentença de Inclusão no bd
 
-			$incsql = "INSERT INTO ".DATABASE.".revisao_cliente ";
-			$incsql .= "(id_os, tipodoc, alteracao, id_executante, id_verificador, id_aprovador, versao_documento, data_emissao, qtd_folhas, numero_cliente, numeros_interno, documento ) ";
-			$incsql .= "VALUES ('" . $_SESSION["id_os"] ."', '". $_POST["relatorio"] . "', '". maiusculas($_POST["alteracao"]) . "',  ";
-			$incsql .= "'". $_POST["executante"] . "', '". $_POST["verificador"] . "', '". $_POST["aprovador"] . "', ";
-			$incsql .= "'". $_POST["versao_documento"] . "', '". date('Y-m-d') . "', '". $_POST["folhas"] . "', '". $_POST["numero_cliente"] . "', '". $_POST["numeros_interno"] . "', ";
-			$incsql .= "'". $_POST["numeros_interno"] .'_'. $_POST["numero_cliente"] .'_'.$_POST["versao_documento"].".pdf". "') ";
+			$isql = "INSERT INTO ".DATABASE.".revisao_cliente ";
+			$isql .= "(id_os, tipodoc, alteracao, id_executante, id_verificador, id_aprovador, versao_documento, data_emissao, qtd_folhas, numero_cliente, numeros_interno, documento ) ";
+			$isql .= "VALUES ('" . $_SESSION["id_os"] ."', '". $_POST["relatorio"] . "', '". maiusculas($_POST["alteracao"]) . "',  ";
+			$isql .= "'". $_POST["executante"] . "', '". $_POST["verificador"] . "', '". $_POST["aprovador"] . "', ";
+			$isql .= "'". $_POST["versao_documento"] . "', '". date('Y-m-d') . "', '". $_POST["folhas"] . "', '". $_POST["numero_cliente"] . "', '". $_POST["numeros_interno"] . "', ";
+			$isql .= "'". $_POST["numeros_interno"] .'_'. $_POST["numero_cliente"] .'_'.$_POST["versao_documento"].".pdf". "') ";
 
-			$registros = $db->insert($incsql,'MYSQL');
+			$registros = $db->insert($isql,'MYSQL');
 		
 			$envio_rel = true;
 
@@ -75,31 +75,31 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 		document.forms['espec_tec'].acao.value='';
 	</script>
 	
-	<?
+	<?php
 
 }	
 
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 
 ?>
 
 <html>
 <head>
-<title>: : . ESPECIFICA��O T�CNICA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"> </script> 
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script language="javascript">
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -112,7 +112,7 @@ function enviar_area(area)
 	{
 		document.forms['espec_tec'].target='_self';
 		document.forms['espec_tec'].action='<?= $PHP_SELF ?>';
-		document.forms['espec_tec'].relatorio.value='especifica��o_tecnica_area';
+		document.forms['espec_tec'].relatorio.value='especificacao_tecnica_area';
 		document.forms['espec_tec'].acao.value='salvar';
 		document.forms['espec_tec'].submit();
 		
@@ -122,7 +122,7 @@ function enviar_area(area)
 		if(area!='')
 		{
 			document.forms['espec_tec'].acao.value='';
-			document.forms['espec_tec'].relatorio.value='especifica��o_tecnica_area';
+			document.forms['espec_tec'].relatorio.value='especificacao_tecnica_area';
 			document.forms['espec_tec'].action='rel_espec_tec_disp_area.php';
 			document.forms['espec_tec'].submit();
 		}
@@ -147,33 +147,33 @@ function enviar_area(area)
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 <tr>
 
 <td>
 <form name="espec_tec" method="post" action="" target="_blank">
-<?
+<?php
 
-// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 // para eventual Atualização
 
 
   ?>
-<!-- MODIFICA��O AQUI -->
+<!-- MODIFICAÇÃO AQUI -->
 
 <div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 <table width="100%" cellpadding="0" cellspacing="0" border=0 class="cabecalho_tabela">
     <tr>
       <td width="26%" class="cabecalho_tabela"><div align="center">TAG</div></td>
-      <td width="30%" class="cabecalho_tabela">SERVI&Ccedil;O</td>
+      <td width="30%" class="cabecalho_tabela">SERVIÇO</td>
       <td width="35%" class="cabecalho_tabela"><div align="center">COMPONENTE</div></td>
       <!-- <td width="8%" class="cabecalho_tabela">V</td> -->
 	  <td width="7%" class="cabecalho_tabela">IMPRIMIR</td>
-      <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+      <td width="2%" class="cabecalho_tabela"> </td>
     </tr>
 </table>
 
@@ -181,7 +181,7 @@ function enviar_area(area)
 
 <div id="tbbody" style="position:relative; width:100%; height:350px; z-index:2; overflow-y:scroll; overflow-x:hidden;">  
 <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela" border=0>
-	<?
+	<?php
 		
 		if($_POST["id_area"]!='')
 		{
@@ -284,7 +284,7 @@ function enviar_area(area)
 			  <td width="34%" class="corpo_tabela"><div align="center"><?= $componentes["ds_dispositivo"] ."  " . $componentes["ds_funcao"] . " " . $componentes["ds_tipo"]    ?></div><div align="center"></div></td>
 			  <td width="6%" class="corpo_tabela"><input type="checkbox" name="<?= $componentes["id_componente"] ?>" value="1"></td>
 			</tr>
-			<?
+			<?php
 		}
 		
 		
@@ -294,11 +294,11 @@ function enviar_area(area)
 <div id="div" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
   <table width="100%" class="corpo_tabela">
     <tr>
-      <td class="label1">&nbsp;</td>
+      <td class="label1"> </td>
       <td colspan="2" class="label1">REGS: <?= $count ?></td>
       </tr>
     <tr>
-      <td width="4" class="label1">&nbsp;</td>
+      <td width="4" class="label1"> </td>
       <td width="66" class="label1">
 	  <input name="acao" type="hidden" class="btn" value="salvar">
 	  <input name="id_area" type="hidden" class="btn" value="<?= $_POST["id_area"] ?>">
@@ -312,10 +312,10 @@ function enviar_area(area)
 	  <input name="executante" type="hidden" class="btn" value="<?= $_POST["executante"] ?>">
 	  <input name="verificador" type="hidden" class="btn" value="<?= $_POST["verificador"] ?>">
 	  <input name="aprovador" type="hidden" class="btn" value="<?= $_POST["aprovador"] ?>">
-	  <input name="button" type="button" class="btn" value="IMPRIMIR" onClick="enviar_area(document.forms[0].id_area.value)"></td>
-      <td width="907" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
-        <input name="marcar" type="button" class="btn" id="botao" onClick="checkbox('espec_tec','check')" value="Marcar Todos">
-        <input name="desmarcar" type="button" class="btn" id="desmarcar"onClick="checkbox('espec_tec','uncheck')" value="Desmarcar Todos"></td>
+	  <input name="button" type="button" class="btn" value="IMPRIMIR" onclick="enviar_area(document.forms[0].id_area.value)"></td>
+      <td width="907" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
+        <input name="marcar" type="button" class="btn" id="botao" onclick="checkbox('espec_tec','check')" value="Marcar Todos">
+        <input name="desmarcar" type="button" class="btn" id="desmarcar"onclick="checkbox('espec_tec','uncheck')" value="Desmarcar Todos"></td>
     </tr>
   </table>
 </div>
@@ -326,18 +326,18 @@ function enviar_area(area)
 </td>
 </tr>
 </table>
-<?
+<?php
 	if($envio_rel)
 	{
 		$envio_rel = false;
 		
-		if($_POST["relatorio"]=='especifica��o_tecnica_subsistema')
+		if($_POST["relatorio"]=='especificacao_tecnica_subsistema')
 		{
 			?>	
 				<script>	
 				enviar_area('<?= $_POST["id_area"] ?>');
 				</script>
-			<?			
+			<?php			
 		}
 
 	}

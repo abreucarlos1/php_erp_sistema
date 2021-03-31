@@ -44,7 +44,7 @@
 						<select name="funcao" class="caixa" id="funcao" onkeypress="return keySort(this);">
 						<smarty>html_options values=$option_funcao_values output=$option_funcao_output</smarty>
 						</select></td>
-					<td width="94%"><label for="conhecimentos" class="labels">Conhecimentos&nbsp;Espec&iacute;ficos</label><br /> 
+					<td width="94%"><label for="conhecimentos" class="labels">Conhecimentos Específicos</label><br /> 
 						<select name="conhecimentos" class="txt_box caixa" id="conhecimentos" onkeypress="return keySort(this);">
 								<option value="" selected="selected" >QUALQUER</option>
 								<option value="AUTOCAD" >AUTOCAD</option>
@@ -57,16 +57,16 @@
 			</table>
           	<table width="100%" border="0">
 				<tr>
-					<td width="29%"><label for="trabalho" class="labels">Trabalhou&nbsp;na&nbsp;Devemada</label><br />
+					<td width="29%"><label for="trabalho" class="labels">Trabalhou na  </label><br />
 						<select name="trabalho" class="caixa" id="trabalho" onkeypress="return keySort(this);">
 							<option value="" selected="selected" >QUALQUER</option>
-							<option value="1" >N&Atilde;O</option>
+							<option value="1" >NÃO</option>
 							<option value="2" >SIM</option>
-							<option value="3" >TRABALHOU&nbsp;(RECOMENDADO)</option>
-							<option value="4" >TRABALHOU&nbsp;(N&Atilde;O RECOMENDADO)</option>
+							<option value="3" >TRABALHOU (RECOMENDADO)</option>
+							<option value="4" >TRABALHOU (NÃO RECOMENDADO)</option>
 						</select>
 					</td>
-					<td width="71%"><label for="data" class="labels">A&nbsp;partir&nbsp;da&nbsp;data</label><br />
+					<td width="71%"><label for="data" class="labels">A partir da data</label><br />
 						<input name="data" type="text" class="caixa" id="data" size="10" maxlength="10" placeholder="Data" onkeypress="transformaData(this, event);" />
 					</td>
 				</tr>
@@ -74,9 +74,9 @@
           </td>
         </tr>
       </table>
-    <div class="labels" id="registros">&nbsp;</div><br />
-    <div id="curriculos" style="width:100%;">&nbsp;</div>
-    <div id="gridPaginacao" style="float: left;">&nbsp;</div>
+    <div class="labels" id="registros"> </div><br />
+    <div id="curriculos" style="width:100%;"> </div>
+    <div id="gridPaginacao" style="float: left;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

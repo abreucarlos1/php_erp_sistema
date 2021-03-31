@@ -24,12 +24,12 @@
 					<td width="28%">
 						<table width="100%" border="0">
 							<tr>
-								<td width="10%"><label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+								<td width="10%"><label for="dataini" class="labels">Data inicial</label><br />
                                 	<input name="dataini" type="text" class="caixa" id="dataini" size="10" placeholder="Data ini." onkeypress="transformaData(this, event);" onkeyup="return autoTab(this,'datafim', 10);" />
                                 </td>
 							</tr>
 							<tr>
-								<td align="left"><label for="datafim" class="labels">Data&nbsp;final</label><br />
+								<td align="left"><label for="datafim" class="labels">Data final</label><br />
                                 <input name="datafim" type="text" class="caixa" id="datafim" size="10" placeholder="Data fin." onkeypress="transformaData(this, event);" onkeyup="return autoTab(this,'exibir', 10);"  />
                                 </td>
 							</tr>
@@ -57,11 +57,11 @@
 				</tr>
 				<tr>
 				  <td colspan="2"><input name="chk_excel" type="checkbox" id="chk_excel" value="1" />
-				    <label class="labels">Gerar&nbsp;em&nbsp;Excel</label></td>
+				    <label class="labels">Gerar em Excel</label></td>
 			  </tr>
 				<tr>
 				  <td colspan="2"><input name="chk_ativ" type="checkbox" id="chk_ativ" value="1" />
-				    <label class="labels">Mostra&nbsp;Atividades</label></td>
+				    <label class="labels">Mostra Atividades</label></td>
 			  </tr>
 			</table></td>
         </tr>

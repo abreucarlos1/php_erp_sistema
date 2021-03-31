@@ -3,13 +3,13 @@
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-    // Usu�rio n�o logado! Redireciona para a p�gina de login
+    // Usuário não logado! Redireciona para a página de login
     header("Location: ../index.php");
     exit;
 }
@@ -55,7 +55,7 @@ else
 $sql1 = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 $sql1 .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 $sql1 .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-$sql1 .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+$sql1 .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 //$sql1 .= "AND Projetos.locais.id_disciplina = '" . $_POST["disciplina"] . "' ";
 //$sql1 .= "AND Projetos.locais.id_disciplina = '" . $_POST["disciplina"] . "' ";
 $sql1 .= "AND locais.id_area = area.id_area ";
@@ -76,16 +76,16 @@ $regsub = $db->select($sql1,'MYSQL');
 
 <table width="1059" border="1">
   <tr>
-  	<td width="175" height="23" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>IDENTIFICA��O</strong></div></td>
-    <td width="122" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>FORMA��O</strong></div></td>
+  	<td width="175" height="23" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>IDENTIFICAÇÃO</strong></div></td>
+    <td width="122" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>FORMAÇÃO</strong></div></td>
 	<td width="110" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>DE</strong></div></td>
 	<td width="110" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>IDENT.</strong></div></td>
 	<td width="123" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>PARA</strong></div></td>
 	<td width="129" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>COMPR</strong></div></td>
 	<td width="89" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>TRECHO</strong></div></td>
-    <td width="110" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>OBSERVA��O</strong></div></td>
+    <td width="110" bordercolor="#D4D0C8" bgcolor="#999999"><div align="center"><strong>OBSERVAÇÃO</strong></div></td>
   </tr>
-  <?
+  <?php
 
 while ($locais = mysqli_fetch_array($regsub))
 {
@@ -112,9 +112,9 @@ while ($locais = mysqli_fetch_array($regsub))
 			<td colspan="8" style="font-size:12px"><font color="#FF0000"><strong><?= $locais["id_disciplina"] ?></strong></font></td>
 		</tr>
 		<tr>
-			<td colspan="8"><strong>&nbsp;</strong></td>
+			<td colspan="8"><strong> </strong></td>
 		</tr>
-		<?
+		<?php
 	
 	}
 		$num = $db->numero_registros;
@@ -187,7 +187,7 @@ while ($locais = mysqli_fetch_array($regsub))
 		$sql3 = "SELECT * FROM ".DATABASE.".setores, Projetos.area, Projetos.locais  ";
 		$sql3 .= "LEFT JOIN Projetos.equipamentos ON (Projetos.locais.id_equipamento = Projetos.equipamentos.id_equipamentos) ";
 		$sql3 .= "WHERE Projetos.locais.id_disciplina = ".DATABASE.".setores.id_setor ";
-		$sql3 .= "AND ".DATABASE.".setores.setor = 'EL�TRICA' ";
+		$sql3 .= "AND ".DATABASE.".setores.setor = 'ELÉTRICA' ";
 		$sql3 .= "AND locais.id_area = area.id_area ";
 		$sql3 .= "AND locais.id_local = '".$cabos["id_destino_local"]."' ";
 		//$sql3 .= "ORDER BY cd_local, nr_sequencia, ds_equipamento ";
@@ -206,26 +206,26 @@ while ($locais = mysqli_fetch_array($regsub))
 
 		  ?>
 			<tr style="font-size:9px">
-				<td>&nbsp;<?= $cabos["identificacao_cabo"] ?></td>
-				<td>&nbsp;<?= $cabos["ds_formacao"] ?></td>
-				<td>&nbsp;<?= $origem ?></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;<?= $destino ?></td>
-				<td>&nbsp;<?= $cabos["nr_comprimento"] ?></td>
-				<td>&nbsp;0</td>
-				<td>&nbsp;<?= $cabos["ds_trecho"] ?></td>
-				<td>&nbsp;<?= $cabos["ds_observacao"] ?></td>
+				<td> <?= $cabos["identificacao_cabo"] ?></td>
+				<td> <?= $cabos["ds_formacao"] ?></td>
+				<td> <?= $origem ?></td>
+				<td> </td>
+				<td> <?= $destino ?></td>
+				<td> <?= $cabos["nr_comprimento"] ?></td>
+				<td> 0</td>
+				<td> <?= $cabos["ds_trecho"] ?></td>
+				<td> <?= $cabos["ds_observacao"] ?></td>
 			</tr>
-		  <?		
+		  <?php		
 		}
-		// Libera a mem�ria
+		// Libera a memória
 
 	if($num>0)
 	{
 
 		?>
-		<tr><TD colspan="9">&nbsp;</TD></tr>
-		<?
+		<tr><TD colspan="9"> </TD></tr>
+		<?php
 	}		
 	
 	

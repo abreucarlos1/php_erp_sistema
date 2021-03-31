@@ -152,7 +152,7 @@ if ($db->erro != '')
 if($db->numero_registros_ms > 0)
 {
 	$array_os_values[] = "-1";
-	$array_os_output[] = "TODAS OS OR�AMENTOS";
+	$array_os_output[] = "TODAS OS ORÇAMENTOS";
 }
 						 
 foreach($db->array_select as $regs)

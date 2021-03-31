@@ -101,7 +101,7 @@ function atualizatabela($filtro)
 				$xml->text($cont_desp["sgi_requisito"]);
 			$xml->endElement();		
 			$xml->startElement('cell');
-				$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.str_replace(' ','&nbsp;',$cont_desp["sgi_requisito"]).'")){xajax_excluir("'.$cont_desp["id_sgi_requisito"].'","'.str_replace(' ','&nbsp;',$cont_desp["sgi_requisito"]).'");}>');
+				$xml->text('<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(apagar("'.str_replace(' ',' ',$cont_desp["sgi_requisito"]).'")){xajax_excluir("'.$cont_desp["id_sgi_requisito"].'","'.str_replace(' ',' ',$cont_desp["sgi_requisito"]).'");}>');
 			$xml->endElement();
 		$xml->endElement();
 

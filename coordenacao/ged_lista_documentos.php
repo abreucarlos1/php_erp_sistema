@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 
 		Formulário de Lista dos documentos do Projeto
@@ -72,7 +72,7 @@ foreach ($db->array_select as $reg)
 }
 
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
-$sql .= "WHERE ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "GROUP BY ordem_servico.os ORDER BY ordem_servico.os ";
 

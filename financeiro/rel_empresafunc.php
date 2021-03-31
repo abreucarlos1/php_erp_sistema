@@ -33,7 +33,7 @@
 	
 	$filtro = '';
 	
-	//CABE�ALHO
+	//CABEÇALHO
 	$conteudo = "<table width=\"100%\" border=\"1\">";
 	
 	$conteudo .= "<tr>";
@@ -41,12 +41,12 @@
 	$conteudo .= "</tr>";
 
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"right\" colspan=\"3\">Emiss�o: " . date("d/m/Y") . "</td>";
+	$conteudo .= "<td align=\"right\" colspan=\"3\">Emissão: " . date("d/m/Y") . "</td>";
 	$conteudo .= "</tr>";
 
-	//CABE�ALHO
+	//CABEÇALHO
 	$conteudo .= "<tr>";
-	$conteudo .= "<td align=\"left\"><b>Respons�vel</b></td>";
+	$conteudo .= "<td align=\"left\"><b>Responsável</b></td>";
 	$conteudo .= "<td align=\"left\"><b>empresa</b></td>";
 	$conteudo .= "<td align=\"left\"><b>CNPJ</b></td>";
 	$conteudo .= "</tr>";

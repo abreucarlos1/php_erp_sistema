@@ -156,8 +156,8 @@ function atualizatabela($dados_form)
 		
 		$regs1 = $db->array_select[0];
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade  ";
-		$sql .= "WHERE empresas.id_empresa_erp = '".$regs["id_cliente"]."' ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades  ";
+		$sql .= "WHERE empresas.id_empresa = '".$regs["id_cliente"]."' ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 
 		$db->select($sql,'MYSQL',true);
@@ -187,11 +187,11 @@ function atualizatabela($dados_form)
 		//permite excluir
 		if(($regs["envio_email"]==0 && $regs["status"]==0) || (in_array($_SESSION["id_funcionario"],permit_colab_sgi())))
 		{
-			$img_del = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick = if(confirm("Deseja&nbsp;apagar&nbsp;este&nbsp;registro?")){xajax_excluir("'.$regs["id_nao_conformidade"].'","'.$regs["cod_nao_conformidade"].'");}>';
+			$img_del = '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick = if(confirm("Deseja apagar este registro?")){xajax_excluir("'.$regs["id_nao_conformidade"].'","'.$regs["cod_nao_conformidade"].'");}>';
 		}
 		else
 		{
-			$img_del = "&nbsp;";
+			$img_del = " ";
 		}		
 		
 		if($regs["os"]!=0)

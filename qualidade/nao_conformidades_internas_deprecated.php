@@ -1,17 +1,17 @@
 <?php 
 /*
-	  Formul�rio de N�o Conformidades
+	  Formulário de Não Conformidades
 	  
 	  Criado por Carlos Abreu  
 	  
 	  local/Nome do arquivo:
 	  ../qualidade/nao_conformidades_internas.php
 	  
-	  data de cria��o: 24/03/2014
+	  data de criação: 24/03/2014
 	  
 	  Versão 0 --> VERSÃO INICIAL
-	  Versão 1 --> Altera�ao no sistema de inserir, envio de e-mail, impress�o (#597) - 30/06/2014 - Carlos Abreu
-	  Deprecated --> N�o apagar do ambiente oficial, Clayton e Hugo Castilho ainda usam
+	  Versão 1 --> Alteraçao no sistema de inserir, envio de e-mail, impressão (#597) - 30/06/2014 - Carlos Abreu
+	  Deprecated --> Não apagar do ambiente oficial, ainda usam
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -21,7 +21,7 @@ require_once(INCLUDE_DIR."phpmailer/class.phpmailer.php");
 
 $_SESSION["id_sub_modulo"] = 325;
 
-//VERIFICA SE O USUARIO POSSUI ACESSO AO M�DULO 
+//VERIFICA SE O USUARIO POSSUI ACESSO AO MÓDULO 
 //previne contra acesso direto	
 if(!verifica_sub_modulo(325))
 {
@@ -161,7 +161,7 @@ function atualizatabela($dados_form)
 			$filtro = "AND nao_conformidades_deprecated.status = 0 ";
 		break;
 		
-		//em an�lise
+		//em análise
 		case 2:
 			$filtro1 = "AND nao_conformidades_deprecated.data_criacao >= '".php_mysql(calcula_data(date('d/m/Y'),'sub','day',15))."' ";
 			$filtro = "AND nao_conformidades_deprecated.status = 1 ";
@@ -260,12 +260,12 @@ function atualizatabela($dados_form)
 			}
 			else
 			{	
-				//em an�lise				
+				//em análise				
 				if($regs["status"]==1 && $regs["data_criacao"]>=php_mysql(calcula_data(date('d/m/Y'),'sub','day',15)))
 				{
 					//led vd
 					$img = "<img style=\"cursor:pointer;\" src=\"../imagens/led_vd.png\">";
-					$title = "EM AN�LISE";
+					$title = "EM ANÁLISE";
 				}
 				else
 				{
@@ -294,8 +294,8 @@ function atualizatabela($dados_form)
 		
 		$regs1 = mysqli_fetch_assoc($cont1);
 		
-		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade  ";
-		$sql .= "WHERE empresas.id_empresa_erp = '".$regs["id_cliente"]."' ";
+		$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades  ";
+		$sql .= "WHERE empresas.id_empresa = '".$regs["id_cliente"]."' ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 		
 		//FAZ O SELECT
@@ -318,20 +318,20 @@ function atualizatabela($dados_form)
 			break; 
 			
 			case 2: 
-				$procedente = "N�O";
+				$procedente = "NÃO";
 			break;
 			
 			default: $procedente = "";	
 		}
 		
 		//permite excluir
-		if(($regs["envio_email"]==0) || ($_SESSION["id_funcionario"]==871) || ($_SESSION["id_funcionario"]==576) || ($_SESSION["id_funcionario"]==1142))
+		if(($regs["envio_email"]==0))
 		{
-			$img_del = "<img style=\"cursor:pointer;\" src=\"../imagens/apagar.png\" onClick=\"javascript:if(apagar('".$regs["cod_nao_conformidade"] . "')){xajax_excluir('".$regs["id_nao_conformidade"]."','".$regs["cod_nao_conformidade"] . "');}\">";
+			$img_del = "<img style=\"cursor:pointer;\" src=\"../imagens/apagar.png\" onclick=\"javascript:if(apagar('".$regs["cod_nao_conformidade"] . "')){xajax_excluir('".$regs["id_nao_conformidade"]."','".$regs["cod_nao_conformidade"] . "');}\">";
 		}
 		else
 		{
-			$img_del = "&nbsp;";
+			$img_del = " ";
 		}
 		
 		
@@ -341,7 +341,7 @@ function atualizatabela($dados_form)
 		}
 		else
 		{
-			$os = "N�O APLIC�VEL";	
+			$os = "NÃO APLICÁVEL";	
 		}
 
 		$conteudo .= "<tr >";
@@ -473,8 +473,8 @@ function editar($id)
 
 	$regs = mysqli_fetch_assoc($registro);
 	
-	//permite a edi��o dos campos aos funcionarios da SGI
-	if($_SESSION["id_funcionario"]==6 || $_SESSION["id_funcionario"]==871 || $_SESSION["id_funcionario"]==978 || $_SESSION["id_funcionario"]==576 || $_SESSION["id_funcionario"]==1142)
+	//permite a edição dos campos aos funcionarios da SGI
+	if(TRUE)
 	{
 		$resposta->addScript("document.getElementById('desc_eficacia').disabled=false;");
 		
@@ -500,7 +500,7 @@ function editar($id)
 	}
 	else
 	{
-		//se tiver sido enviado e-mail, desabilita os bot�es aos usuarios
+		//se tiver sido enviado e-mail, desabilita os botões aos usuarios
 		if($regs["envio_email"])
 		{
 			$resposta->addScript("document.getElementById('btninserir').disabled=true;");
@@ -544,14 +544,14 @@ function editar($id)
 			
 			$link = "<a href=\"#\" style=\"text-decoration:none\" onclick=\"javascript:open_file('".$regs1["anexo"]."','ANEXOS_RNC');\">".$regs1["nome_arquivo"]."</a>";
 			
-			//permite a exclus�o dos anexos
-			if($_SESSION["id_funcionario"]==6 || $_SESSION["id_funcionario"]==978 || $_SESSION["id_funcionario"]==871 || $_SESSION["id_funcionario"]==576 || $_SESSION["id_funcionario"]==1142)
+			//permite a exclusão dos anexos
+			if(true)
 			{
-				$del = "<img style=\"cursor:pointer;\" src=\"../images/buttons_action/apagar.gif\" onClick=\"javascript:if(apagar('".$regs1["nome_arquivo"] . "')){xajax_excluir_arquivo('".$regs1["id_nao_conformidade_anexo"]."','".$regs["nome_arquivo"] . "');}\">";
+				$del = "<img style=\"cursor:pointer;\" src=\"../images/buttons_action/apagar.gif\" onclick=\"javascript:if(apagar('".$regs1["nome_arquivo"] . "')){xajax_excluir_arquivo('".$regs1["id_nao_conformidade_anexo"]."','".$regs["nome_arquivo"] . "');}\">";
 			}
 			else
 			{
-				$del = "&nbsp;";
+				$del = " ";
 
 			}			
 			
@@ -642,7 +642,7 @@ function atualizar($dados_form, $status = 0)
 			$usql = "UPDATE ".DATABASE.".nao_conformidades_deprecated SET ";
 			
 			//permite a salvar os campos aos funcionarios da SGI
-			if($_SESSION["id_funcionario"]==6 || $_SESSION["id_funcionario"]==978 || $_SESSION["id_funcionario"]==871 || $_SESSION["id_funcionario"]==576 || $_SESSION["id_funcionario"]==1142)
+			if(true)
 			{
 
 				$usql .= "desc_evidencia = '" . maiusculas($dados_form["desc_evidencia"]) . "', ";
@@ -707,12 +707,12 @@ function email($id)
 	//{
 		$mail = new PHPMailer();	
 		
-		$mail->From     = "hugo.castilho@dominio.com.br";
+		$mail->From     = "qualidade@dominio.com.br";
 		$mail->FromName = "SGI";
 		$mail->Host     = "smtp.devemada";
 		$mail->Mailer   = "smtp";
 		$mail->ContentType = "text/html";
-		$mail->Subject = "N�O CONFORMIDADES INTERNAS";		
+		$mail->Subject = "NÃO CONFORMIDADES INTERNAS";		
 		
 		$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".setores, ".DATABASE.".nao_conformidades_deprecated ";
 		$sql .= "LEFT JOIN ".DATABASE.".OS ON (nao_conformidades_deprecated.id_os = OS.id_os) ";
@@ -739,7 +739,7 @@ function email($id)
 			break;
 			
 			case 1:
-				$status = "EM AN�LISE";
+				$status = "EM ANÁLISE";
 			break;
 			
 			case 2:
@@ -747,7 +747,7 @@ function email($id)
 			break;
 		}
 		
-		$procedente = $regs["procedente"]?"SIM":"N�O";
+		$procedente = $regs["procedente"]?"SIM":"NÃO";
 		
 		if($regs["os"]!=0)
 		{
@@ -755,7 +755,7 @@ function email($id)
 		}
 		else
 		{
-			$os = "N�O APLIC�VEL";	
+			$os = "NÃO APLICÁVEL";	
 		}
 		
 		$sql = "SELECT * FROM ".DATABASE.".planos_acoes ";
@@ -787,8 +787,8 @@ function email($id)
 		
 		$cont0 = mysqli_fetch_assoc($res0);
 		
-		$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
-		$sql .= "WHERE empresas.id_empresa_erp = '".$regs["id_cliente"]."' ";
+		$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
+		$sql .= "WHERE empresas.id_empresa = '".$regs["id_cliente"]."' ";
 		$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 		
 		//FAZ O SELECT
@@ -816,40 +816,40 @@ function email($id)
 			<body>
 			<table cellspacing=\"0\" cellpadding=\"0\" border=\"1\">
 			  <tr>
-				<td colspan=\"8\" align=\"left\"><strong>Documento:</strong>&nbsp;N�O&nbsp;CONFORMIDADES&nbsp;INTERNAS</td>
+				<td colspan=\"8\" align=\"left\"><strong>Documento:</strong> NÃO CONFORMIDADES INTERNAS</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Formulario:&nbsp;</strong>".$regs["cod_nao_conformidade"]."</td>
+				<td colspan=\"8\"><strong>Formulario: </strong>".$regs["cod_nao_conformidade"]."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"3\"><strong>Revis�o&nbsp;N�:</strong>&nbsp;0</td>
-				<td colspan=\"5\"><strong>data&nbsp;da&nbsp;Emiss�o:</strong>&nbsp;".date('d/m/Y')."</td>
+				<td colspan=\"3\"><strong>Revisão Nº:</strong> 0</td>
+				<td colspan=\"5\"><strong>Data da Emissão:</strong> ".date('d/m/Y')."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"3\"><strong>Originador:</strong>&nbsp;".$regs["funcionario"]."</td>
-				<td colspan=\"3\"><strong>setor:</strong>&nbsp;".$regs["setor"]."</td>
-				<td colspan=\"2\"><strong>data&nbsp;cria��o:</strong>&nbsp;".mysql_php($regs["data_criacao"])."</td>
+				<td colspan=\"3\"><strong>Originador:</strong> ".$regs["funcionario"]."</td>
+				<td colspan=\"3\"><strong>Setor:</strong> ".$regs["setor"]."</td>
+				<td colspan=\"2\"><strong>Data criação:</strong> ".mysql_php($regs["data_criacao"])."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"4\"><strong>OS:</strong>&nbsp;". $os."</td>
-				<td colspan=\"4\"><strong>status:</strong>&nbsp;". $status ."</td>
+				<td colspan=\"4\"><strong>OS:</strong> ". $os."</td>
+				<td colspan=\"4\"><strong>Status:</strong> ". $status ."</td>
 			  </tr>			  
 			  <tr>
-				<td colspan=\"4\"><strong>Disciplina:</strong>&nbsp;". $cont0["setor"]."</td>
-				<td colspan=\"4\"><strong>Cliente:</strong>&nbsp;". $cont1["empresa"]. " - ".$cont1["unidade"] ."</td>
+				<td colspan=\"4\"><strong>Disciplina:</strong> ". $cont0["setor"]."</td>
+				<td colspan=\"4\"><strong>Cliente:</strong> ". $cont1["empresa"]. " - ".$cont1["unidade"] ."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"4\"><strong>Procedente:</strong>&nbsp;". $procedente."</td>
-				<td colspan=\"4\"><strong>Plano&nbsp;de&nbsp;A��o&nbsp;Corretiva:</strong>&nbsp;". $cont3["cod_plano_acao"]. "</td>
+				<td colspan=\"4\"><strong>Procedente:</strong> ". $procedente."</td>
+				<td colspan=\"4\"><strong>Plano de Ação Corretiva:</strong> ". $cont3["cod_plano_acao"]. "</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Descri��o&nbsp;da&nbsp;n�o&nbsp;conformidade:</strong></td>
+				<td colspan=\"8\"><strong>Descrição da não conformidade:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_nao_conformidade"]). "</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>A��o&nbsp;Imediata:</strong></td>
+				<td colspan=\"8\"><strong>Ação Imediata:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_acao_imediata"]). "</td>
@@ -861,7 +861,7 @@ function email($id)
 				<td colspan=\"8\">". nl2br($regs["desc_perdas"]) ."</td>
 			  </tr>
 			  <tr>
-				<td colspan=\"8\"><strong>Efic�cia&nbsp;de&nbsp;A��o&nbsp;Corretiva&nbsp;/&nbsp;Preventiva:</strong></td>
+				<td colspan=\"8\"><strong>Eficácia de Ação Corretiva / Preventiva:</strong></td>
 			  </tr>
 			  <tr>
 				<td colspan=\"8\">". nl2br($regs["desc_eficacia"]) ."</td>
@@ -875,13 +875,11 @@ function email($id)
 		//AMBIENTE OFICIAL
 		if(AMBIENTE==2)
 		{
-			$mail->AddAddress('carlos.abreu@dominio.com.br', 'Carlos Abreu');
-			$mail->AddAddress('hugo.castilho@dominio.com.br', 'Hugo Castilho');
-			$mail->AddAddress('norberto.muchuelo@dominio.com.br', 'Norberto Muchuelo');
+			$mail->AddAddress('nome1@dominio.com.br', 'Nome1');
 		}
 		else
 		{
-			$mail->AddAddress('sistemas@dominio.com.br', 'Sistemas Devemada');	
+			$mail->AddAddress('ti@dominio.com.br', 'Sistemas  ');	
 		}
 		
 		if(!$mail->Send())
@@ -1054,7 +1052,7 @@ function excluir_arquivo($id_anexo)
 	
 	if(!$erro)
 	{
-		$resposta->addAlert("Anexo exclu�do do sistema.");
+		$resposta->addAlert("Anexo excluído do sistema.");
 		
 		$resposta->addScript("xajax_editar(".$regs["id_nao_conformidade"].");");
 	}
@@ -1083,7 +1081,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 ?>
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <!-- Grid -->
@@ -1114,7 +1112,7 @@ function keyhandler(e)
 //-->
 */
 
-//fun��o que adiciona campos no div
+//função que adiciona campos no div
 function add_controles(div_container)
 {	
 	var id_item, texto, controle;
@@ -1196,7 +1194,7 @@ $conf = new configs();
 $db = new banco_dados;
 
 $array_os_values[] = "0";
-$array_os_output[] = "N�O APLIC�VEL";
+$array_os_output[] = "NÃO APLICÁVEL";
 
 $array_cliente_values[] = "0";
 $array_cliente_output[] =  "SELECIONE";
@@ -1213,7 +1211,7 @@ $smarty->assign("campo",$conf->campos('nao_conformidades_internas'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("nome_formulario","N�O CONFORMIDADES INTERNAS");
+$smarty->assign("nome_formulario","NÃO CONFORMIDADES INTERNAS");
 
 $smarty->assign("codigo","NC-".date('YmdHi'));
 
@@ -1283,13 +1281,13 @@ while ($cont0 = mysqli_fetch_assoc($res0))
 }
 
 
-$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE OS.id_empresa_erp = empresas.id_empresa_erp ";
+$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".OS, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE OS.id_empresa = empresas.id_empresa ";
 $sql .= "AND empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND OS.id_os_status = ordem_servico_status.id_os_status ";
 //$sql .= "AND ordem_servico_status.os_status IN ('EM ANDAMENTO','AS BUILT','OS POR ADM','APROVADA') ";
 $sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-$sql .= "GROUP BY empresas.id_empresa_erp ";
+$sql .= "GROUP BY empresas.id_empresa ";
 $sql .= "ORDER BY empresa, unidades.descricao ";
 
 //FAZ O SELECT
@@ -1303,7 +1301,7 @@ if($db->erro!='')
 
 while ($cont1 = mysqli_fetch_assoc($res1))
 {
-	$array_cliente_values[] = $cont1["id_empresa_erp"];
+	$array_cliente_values[] = $cont1["id_empresa"];
 	$array_cliente_output[] =  $cont1["empresa"]. " - ".$cont1["unidade"];
 }
 

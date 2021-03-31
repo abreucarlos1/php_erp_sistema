@@ -39,7 +39,7 @@ function dados_proposta($numero_proposta)
 
 	$array_dados = NULL;
 	
-	$sql = "SELECT REPLACE(AF1_DESCRI, '�', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
+	$sql = "SELECT REPLACE(AF1_DESCRI, '-', '-') AF1_DESCRI_TRATADO, * FROM AF1010 WITH(NOLOCK), SA1010 WITH(NOLOCK) ";
 	$sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND SA1010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AF1_CLIENT = A1_COD ";
@@ -124,7 +124,7 @@ function atualizatabela($dados_form)
 	
 	foreach($db->array_select as $cont)
 	{
-		$importar = '&nbsp;';
+		$importar = ' ';
 		
 		switch ($cont["id_status_projeto"])
 		{
@@ -134,7 +134,7 @@ function atualizatabela($dados_form)
 				
 				$titulo = 'ORÇAMENTO NÃO IMPORTADO';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja&nbsp;importar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Alocação?")){xajax_importar("'.$cont["id_proposta"].'");}>';
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_down.png" onclick = if(confirm("Deseja importar o orçamento técnico para o Alocação?")){xajax_importar("'.$cont["id_proposta"].'");}>';
 				
 							
 			break;
@@ -145,7 +145,7 @@ function atualizatabela($dados_form)
 				
 				$titulo = 'ORÇAMENTO IMPORTADO';
 				
-				$importar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja&nbsp;exportar&nbsp;o&nbsp;orçamento&nbsp;técnico&nbsp;para&nbsp;o&nbsp;Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
+				$importar = '<img src="'.DIR_IMAGENS.'arrow_up.png" onclick = if(confirm("Deseja exportar o orçamento técnico para o Protheus?")){xajax_exportar("'.$cont["id_proposta"].'");}>'; 
 	
 			break;
 			
@@ -155,7 +155,7 @@ function atualizatabela($dados_form)
 				
 				$titulo = 'ORÇAMENTO EXPORTADO';
 				
-				$importar = '&nbsp;'; 
+				$importar = ' '; 
 	
 			break;		
 		}
@@ -163,7 +163,7 @@ function atualizatabela($dados_form)
 		if($cont["fase_orcamento"]=='04' && $cont["id_status_projeto"]==1)
 		{
 			$status = '<img src="'.DIR_IMAGENS.'led_az.png">';
-			$importar = '&nbsp;';
+			$importar = ' ';
 			$titulo = 'ORÇAMENTO EXPORTADO CONCLUÍDO';	
 		}
 		
@@ -466,11 +466,11 @@ function preencheEscopoGeral($dados_form)
 	
 		if($db->numero_registros==0)
 		{
-			$txt = 'if(confirm("Deseja&nbsp;excluir&nbsp;o&nbsp;escopo&nbsp;geral?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
+			$txt = 'if(confirm("Deseja excluir o escopo geral?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
 		}
 		else
 		{
-			$txt = 'if(confirm("Existem&nbsp;tarefas&nbsp;associadas&nbsp;a&nbsp;este&nbsp;escopo,&nbsp;tem&nbsp;certeza&nbsp;que&nbsp;irá&nbsp;excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
+			$txt = 'if(confirm("Existem tarefas associadas a este escopo, tem certeza que irá excluir?")){xajax_del_escopogeral('.$cont1["id_escopo_geral"].');};';
 		}
 		
 		$xml->startElement('row');
@@ -674,9 +674,9 @@ function mostra_tarefas($dados_form)
 					$xml->writeAttribute('id',$regs["id_atividade"].'_'.$indice);
 					
 					$xml->startElement ('cell');
-						$xml->writeAttribute('title','DUPLICAR&nbsp;TAREFA');
+						$xml->writeAttribute('title','DUPLICAR TAREFA');
 						$xml->writeAttribute('style','background-color:#FFFFFF');
-						$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_check.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"))} >');
+						$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_check.' onclick = if(confirm("Deseja duplicar a tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_'.$indice.'"))} >');
 					$xml->endElement();
 					
 					$xml->writeElement ('cell','<input type="checkbox" lang="chk_escopodet_'.$regs["id_atividade"].'" class="chk_escopodet_'. $regs["id_atividade"] . '" id="chk_escopodet_'. $regs["id_atividade"] . '['.$indice.']" name="chk_escopodet['. $regs["id_atividade"] . ']['.$indice.']" value="1" '.$select.' '.$checked.' '.$disabled_check.' onclick = lib_campos(this);>');
@@ -740,7 +740,7 @@ function mostra_tarefas($dados_form)
 				$xml->startElement ('cell');
 					$xml->writeAttribute('title',$regs["descricao"]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
-					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_ckeck.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;a&nbsp;tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_0"))} >');
+					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled_ckeck.' onclick = if(confirm("Deseja duplicar a tarefa?")){adiciona_linha(mygrid.getRowIndex("'.$regs["id_atividade"].'_0"))} >');
 				$xml->endElement();				
 				
 				$xml->writeElement ('cell','<input type="checkbox" lang="chk_escopodet_'.$regs["id_atividade"].'" class="chk_escopodet_'. $regs["id_atividade"] . '" id="chk_escopodet['. $regs["id_atividade"] . '][0]" name="chk_escopodet['. $regs["id_atividade"] . '][0]" value="1" '.$select.' '.$checked.' '.$disabled_check.' onclick = lib_campos(this);>');
@@ -1011,7 +1011,7 @@ function preenche_resumo($dados_form)
 		{
 			$xml->startElement('row');
 				$xml->writeAttribute('id',$regs["id_setor"].'_'.$regs["id_escopo_detalhado"]);
-				$xml->writeElement ('cell','&nbsp;');
+				$xml->writeElement ('cell',' ');
 			
 				$xml->startElement ('cell');
 					$xml->writeAttribute('style','font-weight:bold;');
@@ -1043,8 +1043,8 @@ function preenche_resumo($dados_form)
 		$xml->startElement('row');
 			$xml->writeAttribute('id',$regs["id_escopo_detalhado"]);
 			$xml->writeAttribute('style',$color);
-			$xml->writeElement ('cell','&nbsp;');
-			$xml->writeElement ('cell','&nbsp;');
+			$xml->writeElement ('cell',' ');
+			$xml->writeElement ('cell',' ');
 			$xml->writeElement ('cell',$regs["codigo"]);
 			$xml->writeElement ('cell',$regs["descricao"]." ".$regs["descricao_escopo"]);
 			
@@ -2439,9 +2439,9 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 
 	$escopo_det = $db->array_select[0];
 	
-	$resposta->addAssign('tarefa','innerHTML','<strong>ATIVIDADE:</strong>&nbsp;'.$escopo_det["descricao"]." ".$escopo_det["descricao_escopo"]);
+	$resposta->addAssign('tarefa','innerHTML','<strong>ATIVIDADE:</strong> '.$escopo_det["descricao"]." ".$escopo_det["descricao_escopo"]);
 	
-	$resposta->addAssign("horas","innerHTML",'<strong>HORAS:</strong>&nbsp;'.$escopo_det["horas"]);
+	$resposta->addAssign("horas","innerHTML",'<strong>HORAS:</strong> '.$escopo_det["horas"]);
 	
 	//seleciona para obter o id_proposta		
 	$sql = "SELECT id_proposta FROM ".DATABASE.".escopo_geral ";
@@ -2545,7 +2545,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 				$xml->startElement ('cell');
 					$xml->writeAttribute('title',$array_recs_orc[$reg_rec["id_recurso_orcamento"]]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
-					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled.' onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;o&nbsp;recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$reg_rec["item"].'"))} >');
+					$xml->text('<img src="'.DIR_IMAGENS.'add.png" '.$disabled.' onclick = if(confirm("Deseja duplicar o recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$reg_rec["item"].'"))} >');
 				$xml->endElement();
 				
 				$xml->writeElement ('cell','<input type="checkbox" lang="chk_recurso_'.$escopo_det["id_atividade"].'" class="chk_recurso_'. $escopo_det["id_atividade"] . '" id="chk_recurso['. $escopo_det["id_atividade"] . ']['.$reg_rec["item"].']" name="chk_recurso['. $escopo_det["id_atividade"] . ']['.$reg_rec["item"].']" value="1" '.$checked.' '.$disabled.' onclick = lib_campos_rec(this);> >');
@@ -2622,7 +2622,7 @@ function mostra_recursos($id_tarefa, $id_escopo_geral, $id_escopo_detalhado)
 				$xml->startElement ('cell');
 					$xml->writeAttribute('title',$array_recs_orc[$reg_rec["id_cargo"]]);
 					$xml->writeAttribute('style','background-color:#FFFFFF');
-					$xml->text('<img src="'.DIR_IMAGENS.'add.png" onclick = if(confirm("Deseja&nbsp;duplicar&nbsp;o&nbsp;recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$indice.'"))} >');
+					$xml->text('<img src="'.DIR_IMAGENS.'add.png" onclick = if(confirm("Deseja duplicar o recurso?")){adiciona_linha_recurso(mygrid4.getRowIndex("'.$escopo_det["id_atividade"].'_'.$indice.'"))} >');
 				$xml->endElement();	
 				
 				$xml->writeElement ('cell','<input type="checkbox" lang="chk_recurso_'.$escopo_det["id_atividade"].'" class="chk_recurso_'. $escopo_det["id_atividade"] . '" id="chk_recurso['. $escopo_det["id_atividade"] . ']['.$indice.']" name="chk_recurso['. $escopo_det["id_atividade"] . ']['.$indice.']" value="1" onclick = lib_campos_rec(this);> >');
@@ -2954,8 +2954,8 @@ function tab()
 	myTabbar.attachEvent("onSelect", sel_tab);
 	
 	myTabbar.addTab("a10_", "Proposta", null, null, true);
-	myTabbar.addTab("a20_", "Escopo&nbsp;Geral");
-	myTabbar.addTab("a30_", "Escopo&nbsp;Detalhado");
+	myTabbar.addTab("a20_", "Escopo Geral");
+	myTabbar.addTab("a30_", "Escopo Detalhado");
 	myTabbar.addTab("a40_", "Resumo");
 	
 	myTabbar.tabs("a10_").attachObject("a10");
@@ -3204,11 +3204,11 @@ function adiciona_recursos(id_tarefa, id_escopo_geral, id_escopo_detalhado)
 	conteudo += '<table>';
 	conteudo += '<tr>';
 	conteudo += '<td>';
-	conteudo += '<label class="labels"><div id="tarefa">&nbsp;</div><div id="horas">&nbsp;</div>&nbsp;</label>';
+	conteudo += '<label class="labels"><div id="tarefa"> </div><div id="horas"> </div> </label>';
 	conteudo += '</td>';
 	conteudo += '</tr>';
 	conteudo += '</table>';
-	conteudo += '<div id="div_recursos">&nbsp;</div><br />';
+	conteudo += '<div id="div_recursos"> </div><br />';
 	conteudo += '<input name="btn_recursos" type="button" id="btn_recursos" class="class_botao" value="Incluir" onclick=xajax_inc_recursos(xajax.getFormValues("frm_recursos",true));>';
 	conteudo += '<input name="id_escopo_geral" id="id_escopo_geral" type="hidden" value="'+id_escopo_geral+'">';
 	conteudo += '<input name="id_escopo_detalhado" id="id_escopo_detalhado" type="hidden" value="'+id_escopo_detalhado+'">';
@@ -3245,7 +3245,7 @@ function grid(tabela, autoh, height, xml)
 				}
 				
 				mygrid1.attachEvent("onRowSelect",doOnRowSelected1);	
-				mygrid1.setHeader("&nbsp;,Proposta, Descrição,I/E",
+				mygrid1.setHeader(" ,Proposta, Descrição,I/E",
 					null,
 					["text-align:center","text-align:center","text-align:center","text-align:center"]);
 				mygrid1.setInitWidths("22,80,*,35");
@@ -3279,7 +3279,7 @@ function grid(tabela, autoh, height, xml)
 				
 				mygrid2.attachEvent("onRowSelect",doOnRowSelected2);	
 					
-				mygrid2.setHeader("Escopo&nbsp;Geral,E",
+				mygrid2.setHeader("Escopo Geral,E",
 					null,
 					["text-align:left","text-align:center"]);
 				mygrid2.setInitWidths("*,25");
@@ -3302,7 +3302,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid.enableAutoHeight(autoh,height);
 				mygrid.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid.setHeader("&nbsp;,&nbsp;,Código,Tarefa,Descrição,Formato,Qtd,Horas",
+				mygrid.setHeader(" , ,Código,Tarefa,Descrição,Formato,Qtd,Horas",
 					null,
 					["text-align:center","text-align:center","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left","text-align:left"]);
 				mygrid.setInitWidths("25,25,55,*,*,60,100,100");
@@ -3325,7 +3325,7 @@ function grid(tabela, autoh, height, xml)
 				mygrid4.enableAutoHeight(autoh,height);
 				mygrid4.enableRowsHover(true,'cor_mouseover');
 				
-				mygrid4.setHeader("&nbsp;,&nbsp;,Recurso&nbsp;orc,Recurso,Horas",
+				mygrid4.setHeader(" , ,Recurso orc,Recurso,Horas",
 					null,
 					["text-align:center","text-align:left","text-align:left","text-align:left","text-align:left"]);
 				mygrid4.setInitWidths("25,25,300,400,70");
@@ -3357,7 +3357,7 @@ function grid(tabela, autoh, height, xml)
     		document.getElementById("row_id").value = id;
 		});		
 		
-		mygrid_resumo.setHeader("Escopo&nbsp;Geral,Disciplina,Tarefa,Descrição,Fmt,Qtd,Horas,R");
+		mygrid_resumo.setHeader("Escopo Geral,Disciplina,Tarefa,Descrição,Fmt,Qtd,Horas,R");
 		mygrid_resumo.setInitWidths("85,80,50,*,*,60,60,25");
 		mygrid_resumo.setColAlign("left,left,left,left,left,left,left,center");
 		mygrid_resumo.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro");
@@ -3434,6 +3434,8 @@ $smarty->assign("campo",$conf->campos('projeto_planejamento'));
 $smarty->assign("botao",$conf->botoes());
 
 $smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
 
 $smarty->display('projeto_planejamento.tpl');
 

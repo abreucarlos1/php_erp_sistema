@@ -18,17 +18,17 @@
         	<td colspan="2" valign="top" class="espacamento">
 		  <table border="0" width="100%">
 				<tr>
-					<td width="9%"><label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+					<td width="9%"><label for="dataini" class="labels">Data inicial</label><br />
                     	<input name="dataini" id="dataini" type="text" size="10" class="caixa" onkeypress="return txtBoxFormat(document.frm, 'dataini', '99/99/9999', event);" onkeyup="return autoTab(this, 10, event);">
                     </td>
-					<td width="91%"><label for="datafin" class="labels">Data&nbsp;final</label><br />
+					<td width="91%"><label for="datafin" class="labels">Data final</label><br />
                     	<input name="datafin" id="datafin" type="text" size="10" class="caixa" onKeyPress="return txtBoxFormat(document.frm, 'datafin', '99/99/9999', event);" onKeyUp="return autoTab(this, 10, event);">
                     </td>
 					</tr>
 			</table></td>
         </tr>
       </table>
-	  <div id="arquivos" style="width:100%;">&nbsp;</div>
+	  <div id="arquivos" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

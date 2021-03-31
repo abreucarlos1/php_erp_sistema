@@ -106,16 +106,18 @@ if ($campo != 'arquivo_')
     			        $corpo .= "<P>data: " . date("d/m/Y") . "</P>";
     			        $corpo .= "<P>Colaborador: " . $_SESSION["nome_usuario"] . "</P>";
     			     
-    			        if (HOST != 'localhost')
+    			        if (ENVIA_EMAIL)
     			        {
         			        $params 			= array();
-        			        $params['from']	    = "tecnologia@dominio.com.br";
+        			        $params['from']	    = "ti@dominio.com.br";
         			        $params['from_name']= "ARQUIVO ANEXADO NO SISTEMA BMS";
         			        $params['subject'] 	= "ARQUIVO ANEXADO NO SISTEMA BMS";
         			        
         			        $mail = new email($params, 'bms_pedido_anexado');
-        			        $mail->addAttachment($pastaCompleta);
-        			        $mail->montaCorpoEmail($corpo);
+							
+							$mail->addAttachment($pastaCompleta);
+							
+							$mail->montaCorpoEmail($corpo);
         			        
         			        if(!$mail->Send())
         			        {

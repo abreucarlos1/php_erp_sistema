@@ -91,8 +91,8 @@ function atualizatabela($dados_form)
 			$xml->writeElement('cell', $regs['indice']);
 			$xml->writeElement('cell', number_format($regs1['percentual'],4,",","."));
 			$xml->writeElement('cell', mysql_php($regs1["data_alteracao"]));
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_indice_fpv"].'","'.str_replace(" ","&nbsp;",$regs["indice"]).'");>');
-			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;índice?&nbsp;Todo&nbsp;o&nbsp;histórico&nbsp;será&nbsp;excluído!")){xajax_excluir("'.$regs["id_indice_fpv"].'")};>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'detalhes.png" onclick=historico("'.$regs["id_indice_fpv"].'","'.str_replace(" "," ",$regs["indice"]).'");>');
+			$xml->writeElement('cell', '<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do índice? Todo o histórico será excluído!")){xajax_excluir("'.$regs["id_indice_fpv"].'")};>');
 		$xml->endElement();
 	}
 	
@@ -605,12 +605,12 @@ function hist($id_indice)
 		//verifica se é o id atual E tenha + de 1 registro
 		if($regs["id_indice_fpv_historico"]==$regs["id_indice_atual"] && count($array_regs)==1)
 		{
-			$img = '&nbsp;';	
+			$img = ' ';	
 		}
 		else
 		{
 			
-			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;os&nbsp;dados&nbsp;do&nbsp;índice?")){xajax_excluir_hist("'.$regs["id_indice_fpv_historico"].'")};>';	
+			$img = 	'<img style="cursor:pointer;" src="'.DIR_IMAGENS.'apagar.png" onclick=if(confirm("Deseja excluir os dados do índice?")){xajax_excluir_hist("'.$regs["id_indice_fpv_historico"].'")};>';	
 		}
 		
 		$xml->startElement('row');
@@ -682,7 +682,7 @@ function grid(tabela, autoh, height, xml)
 				}
 			}
 		
-			mygrid.setHeader("Tipo&nbsp;índice, Percentual, Data,H, E");
+			mygrid.setHeader("Tipo índice, Percentual, Data,H, E");
 			mygrid.setInitWidths("300,120,100,30,30");
 			mygrid.setColAlign("left,left,left,left,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro");
@@ -702,7 +702,7 @@ function grid(tabela, autoh, height, xml)
 				}
 			}
 		
-			mygrid.setHeader("Tipo&nbsp;índice, Percentual, Data, E");
+			mygrid.setHeader("Tipo índice, Percentual, Data, E");
 			mygrid.setInitWidths("300,120,100,30");
 			mygrid.setColAlign("left,left,left,left,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");
@@ -737,8 +737,8 @@ function historico(id_indice,descricao)
 	
     conteudo += '<table width="100%" border="0">';
     conteudo += '	<tr>';
-    conteudo += '		<td width="13%"><label for="tipo_indice_hist" class="labels">Tipo&nbsp;índice</label><br />';
-    conteudo += '		<div id="div_indice">&nbsp;</div>';
+    conteudo += '		<td width="13%"><label for="tipo_indice_hist" class="labels">Tipo índice</label><br />';
+    conteudo += '		<div id="div_indice"> </div>';
 	conteudo += '       </td>';
     conteudo += '       <td width="8%"><label for="data_hist" class="labels">Data</label><br />';
     conteudo += '	      <input name="data_hist" type="text" class="caixa" id="data_hist" size="10" maxlength="10" onkeypress="return txtBoxFormat(document.frm_hist, \'data_hist\', \'99/99/9999\', event);" value="" /></td>';
@@ -749,11 +749,11 @@ function historico(id_indice,descricao)
 	
 	conteudo += '</td></tr></table>';
 	
-	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja&nbsp;alterar&nbsp;os&nbsp;dados&nbsp;do&nbsp;índice?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">&nbsp;&nbsp;';
+	conteudo += '<input type="button" class="class_botao" name="btn_alt" id="btn_alt" value="Alterar" onclick=if(confirm("Deseja alterar os dados do índice?")){xajax_atualizar_hist(xajax.getFormValues("frm_hist"))}; disabled="disabled">  ';
 	
 	conteudo += '<input type="button" class="class_botao" name="btn_voltar" id="btn_voltar" value="Voltar" onclick=divPopupInst.destroi();>';
 	
-	conteudo += '<div id="indices_hist" style="width:100%">&nbsp;</div></form>';	
+	conteudo += '<div id="indices_hist" style="width:100%"> </div></form>';	
 	
 	modal(conteudo, 'm', 'HISTÓRICO');	
 

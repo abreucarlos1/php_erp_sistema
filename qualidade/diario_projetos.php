@@ -91,15 +91,15 @@ function atualizatabela($dados_form)
 			$xml->writeAttribute('id', 'item1_'.$regs["id_diario_projeto_item"]);
 			
 			$xml->startElement('cell');
-				$xml->text('<strong>data:</strong>&nbsp;'.mysql_php($regs["data_item"]));
+				$xml->text('<strong>data:</strong> '.mysql_php($regs["data_item"]));
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text('<strong>Autor:</strong>&nbsp;'.$regs["funcionario"]);
+				$xml->text('<strong>Autor:</strong> '.$regs["funcionario"]);
 			$xml->endElement();
 			
 			$xml->startElement('cell');
-				$xml->text('<strong>setor:</strong>&nbsp;'.$regs["setor"]);
+				$xml->text('<strong>setor:</strong> '.$regs["setor"]);
 			$xml->endElement();
 		
 		$xml->endElement();
@@ -108,7 +108,7 @@ function atualizatabela($dados_form)
 			$xml->startElement('cell');
 				$xml->writeAttribute('colspan',3);
 				$xml->writeAttribute('height','2px;');
-				$xml->text('&nbsp;');
+				$xml->text(' ');
 			$xml->endElement();
 		$xml->endElement();
 		
@@ -325,7 +325,7 @@ function grid(tabela, autoh, height, xml)
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');	
 		
-	mygrid.setHeader("Nº&nbsp;item,Descrição,&nbsp;");
+	mygrid.setHeader("Nº item,Descrição, ");
 	mygrid.setInitWidths("100,*,250");
 	mygrid.setColAlign("center,left,left");
 	mygrid.setColTypes("ro,ro,ro");

@@ -10,7 +10,7 @@
 					<td valign="middle"><input name="btninserir" id="btninserir" type="submit" class="class_botao" value="Gerar relatório"/></td>
 				</tr>
 				<tr>
-					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" /></td>
+					<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 				</tr>
 			</table></td>
         </tr>        
@@ -24,12 +24,12 @@
 					<td width="42%">
 						<table width="100%" border="0">
 							<tr>
-								<td width="24%"><label for="dataini" class="labels">Data&nbsp;inicial</label><br />
+								<td width="24%"><label for="dataini" class="labels">Data inicial</label><br />
                                  <input name="dataini" type="text" class="caixa" id="dataini" size="10" placeholder="Data ini." onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" />
                                  </td>
 							</tr>
 							<tr>
-								<td><label for="datafim" class="labels">Data&nbsp;final</label><br />
+								<td><label for="datafim" class="labels">Data final</label><br />
                                 <input name="datafim" type="text" class="caixa" id="datafim" size="10" placeholder="Data fin." onkeypress="transformaData(this, event);" onKeyUp="return autoTab(this,'escolhaos', 10);"  />
                                 </td>
 							</tr>

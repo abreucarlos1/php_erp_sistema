@@ -17,7 +17,7 @@ function eXcell_dhxCalendar(cell) {
 			this.grid.callEvent("onDhxCalendarCreated", [cal]);
 			
 			var sgrid = this.grid;
-			cal.attachEvent("onClick",function(){
+			cal.attachEvent("onclick",function(){
                     		this._last_operation_calendar=true;
                     		window.setTimeout(function(){sgrid.editStop()},1);
                     		return true;
@@ -109,7 +109,7 @@ eXcell_dhxCalendar.prototype.setValue = function(val) {
 	if ((this.cell.val=="NaN")||(this.cell.val=="Invalid Date")) {
 		this.cell._clearCell=true;
 		this.cell.val=new Date();
-		this.setCValue("&nbsp;",0);
+		this.setCValue(" ",0);
 	} else {
 		this.setCValue((val||"").toString(),this.cell.val);
 	}
@@ -127,7 +127,7 @@ function eXcell_dhxCalendarA(cell) {
 			this.grid.callEvent("onDhxCalendarCreated",[cal]);
 			
 			var sgrid=this.grid;
-			cal.attachEvent("onClick",function() {
+			cal.attachEvent("onclick",function() {
 				this._last_operation_calendar=true;
 				window.setTimeout(function() {sgrid.editStop()},1);
 				return true;
@@ -241,7 +241,7 @@ eXcell_dhxCalendarA.prototype.setValue = function(val) {
 	if ((this.cell.val=="NaN")||(this.cell.val=="Invalid Date")) {
 		this.cell.val=new Date();
 		this.cell._clearCell=true;
-		this.setCValue("&nbsp;",0);
+		this.setCValue(" ",0);
 	} else {
 		this.setCValue((val||"").toString(),this.cell.val);
 	}

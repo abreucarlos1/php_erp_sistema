@@ -33,8 +33,8 @@ if (!empty($id_bms_pedido))
 $sql =
 "SELECT * FROM
   ".DATABASE.".bms_pedido p
-	JOIN (SELECT descricao, id_os as osCod, os as osNum, id_empresa_erp as clientecodigo FROM ".DATABASE.".ordem_servico WHERE OS.reg_del = 0) AS os ON osNum = os
-	JOIN (SELECT empresa, id_empresa_erp FROM ".DATABASE.".empresas WHERE reg_del = 0) empresas ON empresas.id_empresa_erp = clientecodigo
+	JOIN (SELECT descricao, id_os as osCod, os as osNum, id_empresa as clientecodigo FROM ".DATABASE.".ordem_servico WHERE OS.reg_del = 0) AS os ON osNum = os
+	JOIN (SELECT empresa, id_empresa FROM ".DATABASE.".empresas WHERE reg_del = 0) empresas ON empresas.id_empresa = clientecodigo
 	JOIN (SELECT id_bms_item, numero_item, descricao as descItem, quantidade, id_unidade, valor, id_bms_pedido, data_item FROM ".DATABASE.".bms_item WHERE bms_item.reg_del = 0) i ON i.id_bms_pedido = p.id_bms_pedido
 	JOIN (SELECT id_bms_item idItemMedido, id_bms_medicao, data_status, valor_planejado, valor_medido, id_bms_controle, progresso_medido, quantidade_planejada, quantidade_medida, quantidade_diferenca, data FROM ".DATABASE.".bms_medicao WHERE bms_medicao.reg_del = 0 AND bms_medicao.data BETWEEN '".$data_medicao."' AND '".$data_fim_medicao."' AND id_bms_controle IN(2,5)) m ON idItemMedido = i.id_bms_item
 	JOIN (SELECT id_formato, formato FROM ".DATABASE.".formatos WHERE formatos.reg_del = 0) formato ON id_formato = id_unidade
@@ -126,14 +126,14 @@ foreach($pedidos as $id_solicitacao_documento => $itensPedido)
     $linha = 10;
     $arrCols = array('A', 'B', 'C', 'D', 'E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T');
     
-    //Cabe�alho
+    //Cabeçalho
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,2,$cabecalho[$id_solicitacao_documento]['empresa']);
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,4,strtoupper($cabecalho[$id_solicitacao_documento]['descricao']));
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,2,str_replace('-', '/', $cabecalho[$id_solicitacao_documento]['data_medicao']));
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,3,mysql_php($cabecalho[$id_solicitacao_documento]['data_pedido']));
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,3,$cabecalho[$id_solicitacao_documento]['ref_cliente']);
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,4,$cabecalho[$id_solicitacao_documento]['valor_pedido']);
-    //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,3,iconv('ISO-8859-1', 'UTF-8',$numBms[0]));//Por enquanto não vamos utilizar o n�mero de bms's gerados
+    //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,3,iconv('ISO-8859-1', 'UTF-8',$numBms[0]));//Por enquanto não vamos utilizar o número de bms's gerados
     
     //solicitacao_documentos
     foreach($itensPedido as $codPedido => $pedido)

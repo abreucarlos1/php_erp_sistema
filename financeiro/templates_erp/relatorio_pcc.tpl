@@ -25,12 +25,12 @@
                     </td>
 					</tr>
 			</table>
-            <label class="labels">Selecione&nbsp;as&nbsp;NFs&nbsp;que&nbsp;não&nbsp;devem&nbsp;aparecer&nbsp;no&nbsp;relatório</label>
-		  <div id="div_escolha">&nbsp;</div>
+            <label class="labels">Selecione as NFs que não devem aparecer no relatório</label>
+		  <div id="div_escolha"> </div>
           </td>
         </tr>
       </table>
-	  <div id="arquivos">&nbsp;</div>
+	  <div id="arquivos"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

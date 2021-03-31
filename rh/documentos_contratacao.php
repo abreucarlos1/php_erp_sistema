@@ -385,7 +385,7 @@ function preencheCombo($id, $nomecombo, $controle='', $selecionado='' )
 		
 		case "CONTATO":
 			$sql = "SELECT * FROM ".DATABASE.".contatos ";
-			$sql .= "WHERE contatos.id_empresa_erp = '" . $id . "' ";
+			$sql .= "WHERE contatos.id_empresa = '" . $id . "' ";
 			$sql .= "AND contatos.reg_del = 0 ";
 			$sql .= "ORDER BY contatos.nome_contato ";
 				
@@ -451,11 +451,11 @@ function listaArquivos($idContrato)
 		$k++;
 		if (empty($reg['pcd_arquivo']))
 		{
-			$conteudo = '&nbsp;';
+			$conteudo = ' ';
 			$conteudo ='<form style="margin:0;" name="frm_'.$k.'" id="frm_'.$k.'" action="upload_docs_contratacao.php" target="upload_target_'.$k.'" method="post" enctype="multipart/form-data" >';						
 			$conteudo .='<iframe id="upload_target_'.$k.'" name="upload_target_'.$k.'" src="#" style="border:0px solid #fff;display:none;"></iframe>';
 			$conteudo .='<span id="txtup_'.$k.'" >';
-			$conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$k.'").submit(); name="myfile_'.$k.'" type="file" size="30" style="width:60%;" />&nbsp;&nbsp;';
+			$conteudo .='<input class="caixa" onchange=document.getElementById("frm_'.$k.'").submit(); name="myfile_'.$k.'" type="file" size="30" style="width:60%;" />  ';
 			$conteudo .='</span>';
 			$conteudo .='<input name="id_contrato" type="hidden" id="id_contrato" value="'.$reg["pcd_id_contrato"].'">';
 			$conteudo .='<input name="pcd_id" type="hidden" id="pcd_id" value="'.$reg["pcd_id"].'">';
@@ -473,7 +473,7 @@ function listaArquivos($idContrato)
 			$xml->writeElement('cell', $titulo);
 			$xml->writeElement('cell', $conteudo);			
 
-			$imgExcluir = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja&nbsp;excluir&nbsp;este&nbsp;item?"))xajax_excluirArquivo("'.$reg['pcd_id'].'","'.$reg['pcd_id_contrato'].'");></span>';
+			$imgExcluir = '<span class="icone icone-excluir cursor" onclick=if(confirm("Deseja excluir este item?"))xajax_excluirArquivo("'.$reg['pcd_id'].'","'.$reg['pcd_id_contrato'].'");></span>';
 
 			$xml->writeElement('cell', $imgExcluir);
 			
@@ -824,7 +824,7 @@ function grid(tabela, autoh, height, xml)
 	switch(tabela)
 	{
 		case 'divListaContratados':
-			mygrid.setHeader("Cod,Nome,Data&nbsp;Início, Data&nbsp;fim, Setor, A, IOS, Seguro, EPI, Termo TI, Contr, Anexo 1");
+			mygrid.setHeader("Cod,Nome,Data Início, Data fim, Setor, A, IOS, Seguro, EPI, Termo TI, Contr, Anexo 1");
 			mygrid.setInitWidths("50,*,90,90,170,45,50,70,40,70,60,70");
 			mygrid.setColAlign("left,left,left,left,left,center,center,center,center,center,center,center");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
@@ -871,7 +871,7 @@ $array_os_raiz_output = NULL;
 $array_cliente_values[] = "0";
 $array_cliente_output[] = "SELECIONE";
 	  
-$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade ";
+$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades ";
 $sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND unidades.reg_del = 0 ";
@@ -887,7 +887,7 @@ if ($db->erro != '')
 
 foreach($db->array_select as $regs)
 {
-	$array_cliente_values[] = $regs["id_empresa_erp"];
+	$array_cliente_values[] = $regs["id_empresa"];
 	$array_cliente_output[] = $regs["empresa"] . " - " . $regs["descricao"] . " - " . $regs["unidade"];
 }
 

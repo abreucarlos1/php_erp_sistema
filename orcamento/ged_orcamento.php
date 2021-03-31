@@ -547,12 +547,12 @@ function preenchePropriedades($id_arquivo_versao)
 	//Forma o conteúdo da janela de Propriedades
 	$janela = '<form method="POST" name="frm_propriedades" id="frm_propriedades">';
 		$janela .= '<div id="conteudo" style="font-size:12px; width:100%; margin:10px;">';
-			$janela .= '<div id="tipo_arquivo" style="padding:5px;">' . $imagem . '&nbsp;<label class="labels"><strong>Tipo&nbsp;de&nbsp;arquivo:&nbsp;</strong></label>' . $extensao . '</div>';
-			$janela .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome&nbsp;do&nbsp;Arquivo:&nbsp;</strong>' . $reg_arquivo["arquivo"] . '</label></div>';
-			$janela .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho:&nbsp;</strong>' . $tamanho . '</label></div>';
-			$janela .= '<div id="autor" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Autor:&nbsp;</strong>' . $autor . '</label></div>';		
-			$janela .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Última&nbsp;atualização:&nbsp;</strong>' . $data_modificacao . '</label></div>';
-			$janela .=  '<div id="div_versoes" style="overflow:auto;">&nbsp;</div>';
+			$janela .= '<div id="tipo_arquivo" style="padding:5px;">' . $imagem . ' <label class="labels"><strong>Tipo de arquivo: </strong></label>' . $extensao . '</div>';
+			$janela .= '<div id="local" style="padding:5px; border-top-style:groove; border-width:2px;"><label class="labels"><strong>Nome do Arquivo: </strong>' . $reg_arquivo["arquivo"] . '</label></div>';
+			$janela .= '<div id="tamanho" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Tamanho: </strong>' . $tamanho . '</label></div>';
+			$janela .= '<div id="autor" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Autor: </strong>' . $autor . '</label></div>';		
+			$janela .= '<div id="data_modificacao" style="padding:5px;" onselectstart="return false" unselectable="on"><label class="labels"><strong>Última atualização: </strong>' . $data_modificacao . '</label></div>';
+			$janela .=  '<div id="div_versoes" style="overflow:auto;"> </div>';
 			$janela .= '<div id="botoes" style="text-align:left; width:90%; margin-top:10px;"><input type="hidden" id="id_arquivo_versao" name="id_arquivo_versao" value="' . $reg_arquivo["id_arquivo_versao"] . '"><input type="button" value="Voltar" onclick = xajax_preencheArquivos(xajax.getFormValues("frm"));></div>';
 		$janela .= '</div>';
 	$janela .= '</form>';
@@ -682,8 +682,8 @@ function excluir($id_arquivo_versao)
 	{
 		$caminho = DOCUMENTOS_ORCAMENTO.trim(tiraacentos($reg2["A1_NOME"]))."/".sprintf("%05d",intval(trim($reg2["AF1_ORCAME"])))."/".tiraacentos($reg_checa["tipo_documento"])."/";
 		
-		//Agora n�o removemos mais o arquivo, e sim movemos o arquivo para a pasta exclu�dos				
-		//Se n�o existir o diret�rio de exclusao, cria
+		//Agora não removemos mais o arquivo, e sim movemos o arquivo para a pasta excluídos				
+		//Se não existir o   de exclusao, cria
 		if(!is_dir($caminho . DIRETORIO_EXCLUIDOS))
 		{
 			mkdir($caminho . DIRETORIO_EXCLUIDOS);
@@ -699,7 +699,7 @@ function excluir($id_arquivo_versao)
 			$nome_arquivo = $caminho."/".$reg_checa["arquivo"];
 		}
 		
-		//remove o arquivo atual para o diretorio de exclu�dos				
+		//remove o arquivo atual para o diretorio de excluídos				
 		$remove_arquivo = rename($nome_arquivo, $caminho.DIRETORIO_EXCLUIDOS."/".$reg_checa["arquivo"].".".$reg_checa["id_arquivo_versao"]);
 	
 		$id_arquivo_versao = $reg_checa["id_arquivo_versao"];
@@ -719,7 +719,7 @@ function excluir($id_arquivo_versao)
 			$resposta->addAlert("Erro ao tentar excluir os dados do banco: \n\n" . $db->erro);
 		}
 		
-		//se n�o for arquivo de vers�es, atualiza para a vers�o anterior
+		//se não for arquivo de versões, atualiza para a versão anterior
 		if(!in_array($reg_checa["id_tipo_documento"],lista_sem_versao()))
 		{
 			//pega a revisao_documento anterior / ultima revisao_documento
@@ -870,7 +870,7 @@ function grid(tabela, autoh, height, xml)
 		case 'div_arquivos': //tabela principal
 				mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked);
 			mygrid.attachEvent("onRightClick",doOnRightClick);
-			mygrid.setHeader("&nbsp;,Tipo&nbsp;Documento,Arquivo,R,V,Data,Autor");
+			mygrid.setHeader(" ,Tipo Documento,Arquivo,R,V,Data,Autor");
 			mygrid.setInitWidths("22,150,120,40,40,80,130");
 			mygrid.setColAlign("center,left,left,center,center,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
@@ -881,7 +881,7 @@ function grid(tabela, autoh, height, xml)
 			//mygrid.attachEvent("onRowSelect",doOnRowSelected);
 			mygrid.attachEvent("onRowDblClicked",doOnRowDblClicked);
 			//mygrid.attachEvent("onRightClick",doOnRightClick);
-			mygrid.setHeader("&nbsp;,Nome&nbsp;Arquivo,R/V,Data,Autor");
+			mygrid.setHeader(" ,Nome Arquivo,R/V,Data,Autor");
 			mygrid.setInitWidths("22,150,40,80,120");
 			mygrid.setColAlign("center,left,center,left,left");
 			mygrid.setColTypes("ro,ro,ro,ro,ro");

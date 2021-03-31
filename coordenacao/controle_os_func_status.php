@@ -42,7 +42,7 @@ function preencheos($status)
 	$sql .= "AND ordem_servicoreg_del = 0 ";
 	$sql .= "AND apontamento_horas.reg_del = 0 ";
 	$sql .= "AND empresas.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_os_status = '".$status."' ";
 	$sql .= $filtro;
 	$sql .= "GROUP BY ordem_servico.id_os ";

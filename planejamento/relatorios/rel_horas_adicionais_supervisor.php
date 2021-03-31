@@ -174,7 +174,7 @@ foreach ($array_horas as $regs)
 			switch ($regs_fun["trabalho"])
 			{
 				case "1": 
-					$trabalho = "DEVEMADA";
+					$trabalho = "EMPRESA";
 				break;
 				
 				case "2": 

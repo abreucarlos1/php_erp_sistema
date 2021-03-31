@@ -39,7 +39,7 @@
         	      <td width="37%"><label class="labels">Pendente</label>
       	            <input type="radio" name="status_nc" id="status_0" value="0" checked="checked" disabled="disabled" />
         	      </td>
-        	      <td width="37%"><label class="labels">Em&nbsp;andamento</label>
+        	      <td width="37%"><label class="labels">Em andamento</label>
                     <input type="radio" name="status_nc" id="status_1" value="1" disabled="disabled" />
         	      </td>
         	      <td width="37%"><label class="labels">Encerrada</label>
@@ -67,7 +67,7 @@
 			</table>
             <table border="0" width="100%">
        	      <tr valign="top">
-        	      <td width="100%"><label class="labels">Tipo&nbsp;de&nbsp;documento*</label><br />
+        	      <td width="100%"><label class="labels">Tipo de documento*</label><br />
        	          <div id="div_doc_ref" style="width:100%; overflow:hidden; border:1px; border-color:#999; border-style:solid;"><smarty>$doc_ref</smarty></div>
                   </td>
    	          </tr>
@@ -79,7 +79,7 @@
       	    </table>
               <table border="0" width="100%">
                 <tr>
-                  <td width="10%"><label for="desc_nc" class="labels">Descrição&nbsp;da&nbsp;ocorrência*</label><br />
+                  <td width="10%"><label for="desc_nc" class="labels">Descrição da ocorrência*</label><br />
                     <textarea name="desc_nc" id="desc_nc" cols="80" rows="5" class="caixa campoOriginador"></textarea></td>
   
                 </tr>
@@ -104,7 +104,7 @@
       	    </table>
         	  <table border="0" width="100%">
         	    <tr>
-        	      <td width="100%"><label for="desc_acao_imediata" class="labels">Ação&nbsp;imediata&nbsp;(o&nbsp;que&nbsp;foi&nbsp;feito&nbsp;no&nbsp;momento&nbsp;para&nbsp;corrigir&nbsp;o&nbsp;erro?)*</label><br />
+        	      <td width="100%"><label for="desc_acao_imediata" class="labels">Ação imediata (o que foi feito no momento para corrigir o erro?)*</label><br />
                   <textarea name="desc_acao_imediata" class="campoOriginador" id="desc_acao_imediata" cols="80" rows="5"></textarea>
                   </td>
        	        </tr>
@@ -121,7 +121,7 @@
         	    <tr align="center">
         	      <td width="40%"><label class="labels">Sim</label>
         	        <input type="radio" name="procedente" id="procedente_0" onclick="document.getElementById('tableAnaliseCausa').style.display='block';" value="1" class="caixa campoSGI"  /></td>
-                  <td width="10%">&nbsp;</td>
+                  <td width="10%"> </td>
         	      <td width="40%"><label class="labels">Não</label>
         	        <input type="radio" name="procedente" id="procedente_1" onclick="document.getElementById('tableAnaliseCausa').style.display='none';" value="2" class="caixa campoSGI" /></td>
        	        </tr>
@@ -129,16 +129,16 @@
             </div>
             <table border="0" width="100%" id="tableAnaliseCausa" style='display:none;'>
        	        <tr>
-        	      <td colspan="3" width="100%"><label for="desc_analise_causa" class="labels">Análise&nbsp;da&nbsp;Causa</label><br />
+        	      <td colspan="3" width="100%"><label for="desc_analise_causa" class="labels">Análise da Causa</label><br />
         	        <textarea name="desc_analise_causa" id="desc_analise_causa" cols="80" rows="5" class="campoOriginador"></textarea></td>
       	      </tr>
             </table>
             <br />
-             <label class="labels"><strong>PLANO&nbsp;DE&nbsp;AÇÕES&nbsp;CORRETIVAS/PREVENTIVAS</strong></label>
+             <label class="labels"><strong>PLANO DE AÇÕES CORRETIVAS/PREVENTIVAS</strong></label>
             <table border="0" width="99%" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td width="100%"><label class="labels">Ações&nbsp;complementares</label>
-                      <div id="div_acao_complementar" style="width:99%;">&nbsp;</div>
+                    <td width="100%"><label class="labels">Ações complementares</label>
+                      <div id="div_acao_complementar" style="width:99%;"> </div>
                       <img id="add_ac" name="add_ac" src="../imagens/add.png" style="cursor:pointer; visibility:hidden;" onclick="add_camp();" />
                       <input type="hidden" name="itens" id="itens" value="1">
                       </td>
@@ -146,7 +146,7 @@
               </table>             
         	  <table border="0" width="100%">
         	    <tr>
-        	      <td width="100%"><label for="desc_evidencia" class="labels">Evidências&nbsp;das&nbsp;ações</label><br />
+        	      <td width="100%"><label for="desc_evidencia" class="labels">Evidências das ações</label><br />
         	        <textarea name="desc_evidencia" id="desc_evidencia" cols="80" rows="5" class="caixa campoSGI"></textarea>
                   </td>
       	      </tr>
@@ -154,7 +154,7 @@
             <table border="0" width="99%">
                   <tr>
                     <td width="100%"><label class="labels">Anexos</label>
-                      <div id="div_arquivos" style="width:98%;">&nbsp;</div>
+                      <div id="div_arquivos" style="width:98%;"> </div>
                       </td>
                 </tr>
               </table> 
@@ -179,7 +179,7 @@
       	      </tr>
       	    </table>
       	    <div  id="tr_verificacao_eficacia" style="display:none;">
-	          	<label class="labels">Verificação&nbsp;da&nbsp;eficácia</label><br />
+	          	<label class="labels">Verificação da eficácia</label><br />
 	            <textarea name="desc_encerramento" id="desc_encerramento" cols="80" rows="5" class="caixa campoSGI campoResponsavel"></textarea>
 	            <br /><br />
 	            <div id="div_proc" style="width:98%; overflow:hidden; border:1px; border-color:#ddd; border-style:solid;">
@@ -187,7 +187,7 @@
 		        	    <tr align="center">
 		        	      <td width="40%"><label class="labels">Sim</label>
 		        	        <input type="radio" name="rd_eficacia" id="rd_eficacia1" value="1" class="caixa campoSGI" onclick="document.getElementById('status_2').checked = true;" /></td>
-		                  <td width="20%">&nbsp;</td>
+		                  <td width="20%"> </td>
 		        	      <td width="40%"><label class="labels">Não</label>
 		        	        <input type="radio" name="rd_eficacia" id="rd_eficacia2" value="2" class="caixa campoSGI" onclick="document.getElementById('status_1').checked = true;" /></td>
 		       	        </tr>
@@ -196,7 +196,7 @@
 		      </div>
         	  <table border="0" width="100%">
         	  	<tr>
-      	      	<td>&nbsp;</td>
+      	      	<td> </td>
       	      </tr>
       	      <tr>
         	      <td width="50%">

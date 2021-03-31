@@ -11,7 +11,7 @@
 					</tr>
        			</table>
 			</td>
-        	<td colspan="2" valign="top"><div id="tela" style="width:100%;">&nbsp;</div></td>
+        	<td colspan="2" valign="top"><div id="tela" style="width:100%;"> </div></td>
         </tr>
       </table>	
 </div>

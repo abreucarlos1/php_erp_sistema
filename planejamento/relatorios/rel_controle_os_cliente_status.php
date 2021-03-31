@@ -82,7 +82,7 @@ $pdf->SetFont('Arial','B',8);
 //MOSTRA CLIENTES
 if ($escolhacliente==-1)
 {
-	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
+	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico ";
 	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (ordem_servico.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
 	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
 	$sql .= "WHERE empresas.id_unidade = unidades.id_unidade ";
@@ -90,23 +90,23 @@ if ($escolhacliente==-1)
 	$sql .= "AND unidades.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND empresas.id_empresa_erp = ordem_servico.id_empresa_erp ";
+	$sql .= "AND empresas.id_empresa = ordem_servico.id_empresa ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "ORDER BY empresas.empresa, ordem_servico_status.os_status, ordem_servico.os ";
 
 }
 else
 {
-	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidade, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico  ";
+	$sql = "SELECT * FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico_status, ".DATABASE.".ordem_servico  ";
 	$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (ordem_servico.id_cod_coord = funcionarios.id_funcionario AND funcionarios.reg_del = 0) ";
 	$sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato AND contatos.reg_del = 0) ";
-	$sql .= "WHERE empresas.id_empresa_erp = '".$_POST["escolhacliente"]."' ";
+	$sql .= "WHERE empresas.id_empresa = '".$_POST["escolhacliente"]."' ";
 	$sql .= "AND empresas.reg_del = 0 ";
 	$sql .= "AND unidades.reg_del = 0 ";
 	$sql .= "AND ordem_servico_status.reg_del = 0 ";
 	$sql .= "AND ordem_servico.reg_del = 0 ";
 	$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-	$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+	$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 	$sql .= "ORDER BY empresas.empresa, os_status, ordem_servico.os  ";
 	

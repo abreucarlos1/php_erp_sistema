@@ -384,7 +384,7 @@ function atualizar($dados_form)
 							else
 							{
 								$tp_real = '5';//MENSAL
-								$tipo_contrato = '7'; //S�cio
+								$tipo_contrato = '7'; //Sócio
 								$cust_fix = '0';
 								$cust_men = str_replace(",",".",str_replace(".","",$dados_form["salario_clt"]));
 							}
@@ -416,24 +416,34 @@ function atualizar($dados_form)
 		}
 		
 		$TI = CIDADE . ", ". date('d')." de ".date('m')." de ".date('Y') ."<br><br><br>";
-		$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO&nbsp;DE&nbsp;SALÁRIO</span><br><br><br>";
+		$TI .= "<span style=\"color: #FF0000; font-weight: bold; text-decoration: underline; font-family: Verdana, Arial;\">ALTERAÇÃO DE SALÁRIO</span><br><br><br>";
 		$TI .= "Favor verificar no Protheus (AE8) a alteração salarial<br>";
 		$TI .= "do funcionário código: ".$dados_form["id_funcionario"]."<br>";
 		$TI .= "Alteração feita por: ".$regs["funcionario"]."<br>";
 		$TI .= "Atenciosamente, Depto. Recursos Humanos.";
 		
-		$params 			= array();
-		$params['from']		= "recrutamento@dominio.com.br";
-		$params['from_name']= "RH - Alteração de Salario";
-		$params['subject'] 	= "ALTERAÇÃO SALARIAL";
-	
-		$mail = new email($params);
-		$mail->montaCorpoEmail($TI);
-	
-		if(!$mail->Send())
+		if(ENVIA_EMAIL)
 		{
-			$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+
+			$params 			= array();
+			$params['from']		= "recrutamento@dominio.com.br";
+			$params['from_name']= "RH - Alteração de Salario";
+			$params['subject'] 	= "ALTERAÇÃO SALARIAL";
+		
+			$mail = new email($params);
+			
+			$mail->montaCorpoEmail($TI);
+		
+			if(!$mail->Send())
+			{
+				$resposta->addAlert('Erro ao enviar e-mail!!! '.$mail->ErrorInfo);
+			}
 		}
+		else 
+		{
+			$resposta->addScriptCall('modal', $TI, '300_650', 'Conteúdo email', 1);
+		}
+
 			
 		$resposta->addScript("xajax_atualizaTabela(xajax.getFormValues('frm_acertofunc'))");
 	//}
@@ -468,7 +478,7 @@ function atualizaTabela($dados_form)
 	$sql .= "LEFT JOIN ".DATABASE.".empresa_funcionarios ON (empresa_funcionarios.id_empfunc = funcionarios.id_empfunc AND empresa_funcionarios.reg_del = 0) ";
 	$sql .= "WHERE funcionarios.situacao = '".$dados_form["exibir"]."' ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND funcionarios.funcionario NOT LIKE 'DVM-%' ";
+	$sql .= "AND funcionarios.funcionario NOT LIKE 'INT-%' ";
 	$sql .= $filtro;
 	$sql .= "ORDER BY funcionarios.funcionario ASC ";
 

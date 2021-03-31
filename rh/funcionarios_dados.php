@@ -92,17 +92,17 @@ function atualizatabela($dados_form)
 	{
 		$xml->startElement('row');				
 			$xml->writeAttribute('id', '1_'.$id);
-			$xml->writeElement('cell', '<strong>Funcionário:&nbsp;</strong>'.$cont_desp["funcionario"]);
-			$xml->writeElement('cell', '<strong>Setor:&nbsp;</strong>'.$cont_desp["setor"]);
-			$xml->writeElement('cell', '<strong>Função:&nbsp;</strong>'.$cont_desp["descricao"]);
+			$xml->writeElement('cell', '<strong>Funcionário: </strong>'.$cont_desp["funcionario"]);
+			$xml->writeElement('cell', '<strong>Setor: </strong>'.$cont_desp["setor"]);
+			$xml->writeElement('cell', '<strong>Função: </strong>'.$cont_desp["descricao"]);
 			$xml->writeElement('cell', '');
 		$xml->endElement();
 		
 		$xml->startElement('row');				
 			$xml->writeAttribute('id', '2_'.$id);
-			$xml->writeElement('cell', '<strong>Data&nbsp;nascimento:&nbsp;</strong>'.mysql_php($cont_desp["data_nascimento"]));
-			$xml->writeElement('cell', '<strong>RG:&nbsp;</strong>'.$cont_desp["identidade_num"]." - ".$cont_desp["identidade_emissor"]);
-			$xml->writeElement('cell', '<strong>CPF:&nbsp;</strong>'.$cont_desp["cpf"]);
+			$xml->writeElement('cell', '<strong>Data nascimento: </strong>'.mysql_php($cont_desp["data_nascimento"]));
+			$xml->writeElement('cell', '<strong>RG: </strong>'.$cont_desp["identidade_num"]." - ".$cont_desp["identidade_emissor"]);
+			$xml->writeElement('cell', '<strong>CPF: </strong>'.$cont_desp["cpf"]);
 			$xml->writeElement('cell', '');
 		$xml->endElement();
 		
@@ -110,23 +110,23 @@ function atualizatabela($dados_form)
 		{
 			$xml->startElement('row');				
 				$xml->writeAttribute('id', '3_'.$id);
-				$xml->writeElement('cell', '<strong>Endereço:&nbsp;</strong>'.$cont_desp["funcionario_endereco"]);
-				$xml->writeElement('cell', '<strong>Bairro:&nbsp;</strong>'.$cont_desp["funcionario_bairro"]);
-				$xml->writeElement('cell', '<strong>Cidade:&nbsp;</strong>'.$cont_desp["funcionario_cidade"]);
-				$xml->writeElement('cell', '<strong>Estado:&nbsp;</strong>'.$cont_desp["funcionario_estado"]);
+				$xml->writeElement('cell', '<strong>Endereço: </strong>'.$cont_desp["funcionario_endereco"]);
+				$xml->writeElement('cell', '<strong>Bairro: </strong>'.$cont_desp["funcionario_bairro"]);
+				$xml->writeElement('cell', '<strong>Cidade: </strong>'.$cont_desp["funcionario_cidade"]);
+				$xml->writeElement('cell', '<strong>Estado: </strong>'.$cont_desp["funcionario_estado"]);
 			$xml->endElement();
 			
 			$xml->startElement('row');				
 				$xml->writeAttribute('id', '4_'.$id);
-				$xml->writeElement('cell', '<strong>Empresa:&nbsp;</strong>'.$cont_desp["empresa_func"]);
-				$xml->writeElement('cell', '<strong>CNPJ:&nbsp;</strong>'.$cont_desp["empresa_cnpj"]);
-				$xml->writeElement('cell', '<strong>IE:&nbsp;</strong>'.$cont_desp["empresa_ie"]);
-				$xml->writeElement('cell', '<strong>IM:&nbsp;</strong>'.$cont_desp["empresa_im"]);
+				$xml->writeElement('cell', '<strong>Empresa: </strong>'.$cont_desp["empresa_func"]);
+				$xml->writeElement('cell', '<strong>CNPJ: </strong>'.$cont_desp["empresa_cnpj"]);
+				$xml->writeElement('cell', '<strong>IE: </strong>'.$cont_desp["empresa_ie"]);
+				$xml->writeElement('cell', '<strong>IM: </strong>'.$cont_desp["empresa_im"]);
 			$xml->endElement();
 			
 			$xml->startElement('row');				
 				$xml->writeAttribute('id', '5_'.$id);
-				$xml->writeElement('cell', '<strong>Tipo&nbsp;Exame</strong>');
+				$xml->writeElement('cell', '<strong>Tipo Exame</strong>');
 				$xml->writeElement('cell', '<strong>Realizado</strong>');
 				$xml->writeElement('cell', '<strong>Vencimento</strong>');
 				$xml->writeElement('cell', '');
@@ -219,7 +219,7 @@ function grid(tabela, autoh, height, xml)
 
 	mygrid.enableAutoHeight(autoh,height);
 	mygrid.enableRowsHover(true,'cor_mouseover');
-	mygrid.setHeader("Funcionário,&nbsp;,&nbsp;,&nbsp;");
+	mygrid.setHeader("Funcionário, , , ");
 	mygrid.setInitWidths("*,*,*,*");
 	mygrid.setColAlign("left,left,left,left");
 	mygrid.setColTypes("ro,ro,ro,ro");

@@ -324,7 +324,7 @@ function grid(tabela, autoh, height, xml)
 	
 	mygrid.enableRowsHover(true,'cor_mouseover');
 
-	mygrid.setHeader("Número Claúsula, Tipo&nbsp;contrato, Claúsula,D",
+	mygrid.setHeader("Número Claúsula, Tipo contrato, Claúsula,D",
 		null,
 		["text-align:left","text-align:left","text-align:left","text-align:center"]);
 	mygrid.setInitWidths("150,*,*,30");

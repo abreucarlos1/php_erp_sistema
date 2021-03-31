@@ -96,7 +96,7 @@ else
 	$filtro .= " AND ordem_servico.id_os = '". $_POST["escolhaos"] . "' ";
 }
 
-//N�o tem acesso ao combo coordenador
+//Não tem acesso ao combo coordenador
 if($_POST["escolhacoord"]=='')
 {
 	$filtro .= " AND (ordem_servico.id_cod_coord = '".$_SESSION["id_funcionario"]."' OR ordem_servico.id_coord_aux = '".$_SESSION["id_funcionario"]."') ";
@@ -146,7 +146,7 @@ $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.id_os_status NOT IN (3,8,9,12) ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= $filtro1;
 $sql .= $filtro;
 $sql .= "GROUP BY ordem_servico.id_os ORDER BY ordem_servico.os ";
@@ -182,12 +182,12 @@ foreach($array_os as $cont_os_coord)
 	$pdf->SetLineWidth(0.3);
 	
 	/*
-	//PEGA A ULTIMA REVIS�O DA FASE 01 (OR�AMENTO)
+	//PEGA A ULTIMA REVISÃO DA FASE 01 (ORÇAMENTO)
 	$sql = "SELECT MAX(AFE_REVISA) AS ULT_REVISA FROM AFE010 WITH(NOLOCK) ";
 	$sql .= "WHERE AFE010.D_E_L_E_T_ = '' ";
 	$sql .= "AND AFE010.AFE_PROJET = '".sprintf("%010d",$cont_os_coord["os"])."' ";
 	
-	//ALTERA��O DE ACORDO COM SOLICITA��O MARCOS
+	//ALTERAÇÃO DE ACORDO COM SOLICITAÇÃO MARCOS
 	//CHAMADO #1837
 	//22/04/2013
 	$sql .= "AND AFE010.AFE_FASE = '02' ";

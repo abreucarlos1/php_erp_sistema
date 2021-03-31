@@ -61,18 +61,18 @@
                     </div>
                     
                     <div id="a1">
-                       <div id="necessidades">&nbsp;</div>
-                       <div id="itens_nec">&nbsp;</div>
+                       <div id="necessidades"> </div>
+                       <div id="itens_nec"> </div>
                     </div>
                     
                     <div id="a2">
-                       <div id="funcionarios">&nbsp;</div>
+                       <div id="funcionarios"> </div>
                     </div>
                     
                     <div id="a3">
-                       <div id="dv_acerto_despesas">&nbsp;</div>
-                       <div id="div_acerto">&nbsp;</div>
-                       <div id="div_button">&nbsp;</div>
+                       <div id="dv_acerto_despesas"> </div>
+                       <div id="div_acerto"> </div>
+                       <div id="div_button"> </div>
                     </div>                    
                 </div>
           </td>

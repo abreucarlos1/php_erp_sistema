@@ -13,7 +13,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onClick="history.back();" />
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" />
 							</td>
 						</tr>
 						<tr>
@@ -50,14 +50,14 @@
                             </td>
 							<td><label class="labels">Visivel</label><br />
 								<input type="radio" id="bqp_atual" name="bqp_atual" value="1" checked="checked" class="caixa"><label class="labels">Sim</label>
-								<input type="radio" id="bqp_atual" name="bqp_atual" value="0" class="caixa"><label class="labels">Não</label>
+								<input type="radio" id="bqp_atual" name="bqp_atual" value="0" class="caixa"><label class="labels">NÃ£o</label>
 							</td>
                         	<td><label for="bqp_setor_aso" class="labels">Setor Avaliador</label><br />
 								<select id="bqp_setor_aso" name="bqp_setor_aso" class="caixa" onkeypress="return keySort(this);">
 									<smarty>html_options values=$option_setor_values output=$option_setor_output</smarty>
 								</select>
                             </td>
-                            <td>&nbsp;</td>
+                            <td> </td>
 						</tr>
 					</table>
 				</td>
@@ -66,13 +66,13 @@
 		
 		<div align="left" id="a_tabbar" mode="top" class="dhtmlxTabBar" imgpath="../includes/dhtmlx_403/dhtmlxTabbar/codebase/imgs/" margin="3" style="height: 490px; width: 100%; margin-top: 20px; margin-right: 3px;" tabstyle="modern" skinColors="#F1F4F5,#F1F4F5">
 			<div id="perguntas" name="Perguntas">
-				<div id="div_perguntas" style="margin-top: 10px;">&nbsp;</div>		
+				<div id="div_perguntas" style="margin-top: 10px;"> </div>		
 			</div>
 			<div id="criterios" width="100px" name="Criterios">
 				<input type="hidden" name="bqc_id" id="bqc_id" />
 				<table>
 				<tr>
-					<td valign="top"><label for="bqc_valor" class="labels">Critérios</label><br />
+					<td valign="top"><label for="bqc_valor" class="labels">CritÃ©rios</label><br />
 						<select id="bqc_valor" name="bqc_valor" class="caixa" onkeypress="return keySort(this);">
 							<option value="">Selecione...</option>
 							<option value="1">Abaixo das expectativas</option>
@@ -91,18 +91,18 @@
 				</tr>
 				<tr>
 					<td valign="top">
-						<label for="bqc_descricao" class="labels">Descritivo&nbsp;do&nbsp;critério</label><br />
+						<label for="bqc_descricao" class="labels">Descritivo do critÃ©rio</label><br />
                         <textarea rows="3" cols="50"  id="bqc_descricao" name="bqc_descricao" placeholder="Descritivo"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" name="btnGravarCriterio" class="class_botao" id="btnGravarCriterio" onclick="xajax_salvar_criterio_pergunta(xajax.getFormValues('frm'));" value="Gravar Critério" />
+						<input type="button" name="btnGravarCriterio" class="class_botao" id="btnGravarCriterio" onclick="xajax_salvar_criterio_pergunta(xajax.getFormValues('frm'));" value="Gravar CritÃ©rio" />
 						<input type="button" name="btnCancelarCriterio" class="class_botao" id="btnCancelarCriterio" onclick="limpar_form_criterios();" value="Cancelar" />
 					</td>
 				</tr>
 				</table>
-				<div id="div_itens_criterios" style="margin-top: 10px;">&nbsp;</div>
+				<div id="div_itens_criterios" style="margin-top: 10px;"> </div>
 			</div>
 		</div>
 		

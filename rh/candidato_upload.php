@@ -72,7 +72,7 @@ foreach($array_name as $index=>$conteudo)
 		
 		if($documento_type=="application/pdf")
 		{
-			//Arquivo v�lido 
+			//Arquivo válido 
 			if($documento_temp != "")
 			{
 				try{

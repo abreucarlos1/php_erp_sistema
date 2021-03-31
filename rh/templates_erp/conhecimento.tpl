@@ -30,12 +30,12 @@
 					<tr>
 						<td><label for="busca" class="labels">Busca</label><br />
 								<input name="busca" type="text" class="caixa" id="busca" onkeyup="iniciaBusca.verifica(this);" size="50" placeholder="Busca" /></td>
-						<td width="43%" class="td_sp">&nbsp;</td>
+						<td width="43%" class="td_sp"> </td>
 					</tr>
 				</table></td>
 			</tr>
 		  </table>
-		  <div id="conhecimentos" style="width:100%;">&nbsp;</div>
+		  <div id="conhecimentos" style="width:100%;"> </div>
 	</form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

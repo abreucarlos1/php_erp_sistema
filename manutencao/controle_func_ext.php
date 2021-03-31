@@ -127,7 +127,7 @@ foreach($db->array_select as $reg)
 
 $smarty->assign("check_equipe",$check);
 
-$combo_atuacao = "<label class=\"labels\">Nível&nbsp;Atuação</label><BR>";
+$combo_atuacao = "<label class=\"labels\">Nível Atuação</label><BR>";
 $combo_atuacao .= "<select name=\"atuacao\" class=\"caixa\" id=\"atuacao\" onchange=\"xajax_func_equipe(xajax.getFormValues('frm'));\"  >";
 $combo_atuacao .= "<option value=\"\">TODOS</option>";
 $combo_atuacao .=  "<option value=\"A\">ADMINISTRAÇÃO</option>";

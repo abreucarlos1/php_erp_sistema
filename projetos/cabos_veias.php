@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de Endere�os (Sinais)
+		Formulário de Endereços (Sinais)
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/cabos_veias.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 		
 */
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -31,18 +31,18 @@ include ("../includes/tools.inc.php");
 
 $db = new banco_dados;
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
 
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
 	
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar':
 	
 	$i = 0;
@@ -61,16 +61,16 @@ switch ($_POST["acao"])
 	while($i<$_POST["qtd_veias"])
 	{
 	
-		//Cria senten�a de Inclusão no bd
+		//Cria sentença de Inclusão no bd
 		
-		$incsql = "INSERT INTO Projetos.cabos_veias ";
-		$incsql .= "(id_cabo_tipo, veia, seq_veia) VALUES (";
-		$incsql .= "'". $_POST["id_cabo_tipo"] ."', ";
-		$incsql .= "'". $_POST[$i] . "', ";
-		$incsql .= "'".$i. "') ";
+		$isql = "INSERT INTO Projetos.cabos_veias ";
+		$isql .= "(id_cabo_tipo, veia, seq_veia) VALUES (";
+		$isql .= "'". $_POST["id_cabo_tipo"] ."', ";
+		$isql .= "'". $_POST[$i] . "', ";
+		$isql .= "'".$i. "') ";
 
 		//Carrega os registros
-		$registro = $db->insert($incsql,'MYSQL');
+		$registro = $db->insert($isql,'MYSQL');
 
 		$i++;
 	
@@ -80,7 +80,7 @@ switch ($_POST["acao"])
 	<script>
 		location.href = 'cabos_tipos.php';
 	</script>		
-	<?	
+	<?php	
 	break;
 	
 
@@ -92,16 +92,16 @@ switch ($_POST["acao"])
 <title>: : . VEIAS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -122,10 +122,10 @@ function maximiza()
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" class="label1" bgcolor="#BECCD9">&nbsp;</td>
+        <td height="25" align="left" class="label1" bgcolor="#BECCD9"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9"> </td>
       </tr>
 <tr>
 <td>
@@ -136,7 +136,7 @@ function maximiza()
   <table width="100%" bgcolor="#FFFFFF" class="corpo_tabela">
     <tr>
       <td colspan="6" class="kks_nivel1">
-	  <? 
+	  <?php 
 		if($_GET["id_cabo_tipo"])
 		{
 			$idtipocabo = $_GET["id_cabo_tipo"];
@@ -163,40 +163,40 @@ function maximiza()
 			$tipo = 'COLORIDO';
 		}
 		
-		echo "CABO: ". $tipocabo["ds_finalidade"] . " - FORMA��O: " . $tipocabo["ds_formacao"] . " - TIPO: " . $tipo. " - VEIAS: " . $tipocabo["qtd_veias"];
+		echo "CABO: ". $tipocabo["ds_finalidade"] . " - FORMAÇÃO: " . $tipocabo["ds_formacao"] . " - TIPO: " . $tipo. " - VEIAS: " . $tipocabo["qtd_veias"];
 	  
 	  ?>	  </td>
       </tr>
 
 			<tr>
-			  <td width="1%" height="37" class="label1">&nbsp;</td>
+			  <td width="1%" height="37" class="label1"> </td>
 			  <td width="99%" colspan="5" class="label1">
 			  <table width="100%" border="0">
                 <tr class="label1">
-                  <td class="label1">DESCRI&Ccedil;&Atilde;O</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td class="label1">DESCRIÇÃO</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
                 <tr class="label1">
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
                 </tr>
-				<?
+				<?php
 				$i = 0;
 				
 				$sql2 = "SELECT * FROM Projetos.cabos_veias WHERE id_cabo_tipo='" . $idtipocabo . "' ORDER BY seq_veia ";
@@ -212,18 +212,18 @@ function maximiza()
                 <tr>
 				  <td width="9%" class="label1"><input name="<?= $i ?>" id="<?= $i ?>" type="text" class="txt_boxcap" size="20" value="<?= $veias["veia"] ?>">
 			    </td>
-                  <td width="3%">&nbsp;</td>
-                  <td width="3%">&nbsp;</td>
-                  <td width="3%">&nbsp;</td>
-                  <td width="3%">&nbsp;</td>
+                  <td width="3%"> </td>
+                  <td width="3%"> </td>
+                  <td width="3%"> </td>
+                  <td width="3%"> </td>
                               
-                  <td width="3%">&nbsp;</td>
-                  <td width="12%">&nbsp;</td>
-                  <td width="3%">&nbsp;</td>
-                  <td width="64%">&nbsp;</td>
-                  <td width="9%">&nbsp;</td>
+                  <td width="3%"> </td>
+                  <td width="12%"> </td>
+                  <td width="3%"> </td>
+                  <td width="64%"> </td>
+                  <td width="9%"> </td>
                 </tr>
-				<?
+				<?php
 				$i++;
 				}
 				?>
@@ -234,18 +234,18 @@ function maximiza()
 
     
 	<tr>
-      <td>&nbsp;</td>
+      <td> </td>
       <td colspan="6">
 	  	<input name="id_cabo_tipo" id="id_cabo_tipo" type="hidden" value="<?= $tipocabo["id_cabo_tipo"] ?>">
         <input name="qtd_veias" id="qtd_veias" type="hidden" value="<?= $tipocabo["qtd_veias"] ?>">
 		<input name="acao" id="acao" type="hidden" value="salvar">
         <input name="Alterar" type="submit" class="btn" id="Alterar" value="ALTERAR">
         <span class="label1">
-        <input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:history.back();">
+        <input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:history.back();">
         </span></td>
       </tr>
     <tr>
-      <td colspan="7">&nbsp;    </td>
+      <td colspan="7">     </td>
       </tr>
   </table>
   </div>

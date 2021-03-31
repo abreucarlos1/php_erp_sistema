@@ -153,7 +153,7 @@ $sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
 $sql .= "AND ordem_servico_status.reg_del = 0 ";
 $sql .= "AND empresas.reg_del = 0 ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= $filtro;
 $sql .= $filtro5;
 $sql .= "GROUP BY ordem_servico.id_os ORDER BY os.os ";

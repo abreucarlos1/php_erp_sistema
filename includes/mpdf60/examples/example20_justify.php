@@ -61,7 +61,7 @@ $html = '
 <td>Also data</td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 <h4>Testing Justification with Long Words</h4>
 <p><a href="http://www-950.ibm.com/software/globalization/icu/demo/converters?s=ALL&amp;snd=4356&amp;dnd=4356">http://www-950.ibm.com/software/globalization/icu/demo/converters?s=ALL&amp;snd=4356&amp;dnd=4356</a></p>
@@ -69,7 +69,7 @@ $html = '
 <p>Maecenas feugiat pede vel risus. Nulla et lectus eleifend <i>verylongwordthatwontsplit</i> neque sit amet erat</p>
 <p>Maecenas feugiat pede vel risus. Nulla et lectus eleifend et <i>verylongwordthatwontsplit</i> neque sit amet erat</p>
 
-<h5>Non-breaking Space &amp;nbsp;</h5><p>The next example has a non-breaking space between <i>eleifend</i> and the very long word.</p><p>Maecenas feugiat pede vel risus. Nulla et lectus eleifend&nbsp;verylongwordthatwontsplitanywhere neque sit amet erat</p><p>Nbsp will only work in fonts that have a glyph to represent the character i.e. not in the CJK languages nor some Unicode fonts.</p>
+<h5>Non-breaking Space &amp;nbsp;</h5><p>The next example has a non-breaking space between <i>eleifend</i> and the very long word.</p><p>Maecenas feugiat pede vel risus. Nulla et lectus eleifend verylongwordthatwontsplitanywhere neque sit amet erat</p><p>Nbsp will only work in fonts that have a glyph to represent the character i.e. not in the CJK languages nor some Unicode fonts.</p>
 
 
 

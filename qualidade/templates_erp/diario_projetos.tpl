@@ -57,7 +57,7 @@ vertical-align:middle;
 						</div>
             		</div>
                     <div id="a20">     
-                      <div id="itens">&nbsp;</div>
+                      <div id="itens"> </div>
                   </div>
               </div>
               </td>

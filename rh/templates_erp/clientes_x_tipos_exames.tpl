@@ -11,7 +11,7 @@
 							<td valign="middle"><input name="btninserir" id="btninserir" type="button" class="class_botao" value="Salvar" onclick="xajax_insere(xajax.getFormValues('frm'));" /></td>
 						</tr>
 						<tr>
-							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar"	onClick="history.back();" /></td>
+							<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar"	onclick="history.back();" /></td>
 						</tr>
 						<tr>
 							<td><label for="txtFiltro" class="labels">Filtro</label><br />
@@ -47,7 +47,7 @@
 				</td>
 			</tr>
 		</table>
-		<div id="divLista" style="width: 100%;">&nbsp;</div>
+		<div id="divLista" style="width: 100%;"> </div>
 	</form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

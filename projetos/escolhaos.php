@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de MENU DE ACESSO AOS PROJETOS	
+		Formulário de MENU DE ACESSO AOS PROJETOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/escolhaos.php
 		
-		data de cria��o: 12/04/2006
+		data de criação: 12/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 	
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -40,10 +40,10 @@ $db = new banco_dados;
 <title>: : . MENU OS . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
 function enviar(projeto)
@@ -61,7 +61,7 @@ function enviar(projeto)
 
 }
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -100,10 +100,10 @@ a:active {
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
       </tr>
@@ -111,22 +111,22 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td colspan="4" align="center" class="kks_nivel1">ESCOLHA A OS DE TRABALHO</td>
               </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
               <td colspan="2" rowspan="3" class="btn">
                 <select name="os" id="os" class="txt_box" onkeypress="return keySort(this);">
                   <option value="0">SELECIONE</option>
@@ -144,42 +144,42 @@ a:active {
 						while ($regs = mysqli_fetch_array($reg))
 							{
 								?>
-								<option value="<?= $regs["id_os"] ?>"<? if($regs["id_os"]==$_POST["os"] || $regs["id_os"]==$_SESSION["id_os"]){echo 'selected';} ?>>
+								<option value="<?= $regs["id_os"] ?>"<?php if($regs["id_os"]==$_POST["os"] || $regs["id_os"]==$_SESSION["id_os"]){echo 'selected';} ?>>
 								<?= sprintf("%05d",$regs["os"]). " - " .$regs["descricao"] ?>
 								</option>
-								<?
+								<?php
 							}
 				  ?>
                 </select>
 				<input name="projeto" type="hidden" value="">
-                <input name="seleciona" type="button" class="btn" id="seleciona" value="Selecionar" onClick="enviar(document.getElementById('os').value);"></td>
-              <td class="btn">&nbsp;</td>
+                <input name="seleciona" type="button" class="btn" id="seleciona" value="Selecionar" onclick="enviar(document.getElementById('os').value);"></td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td class="btn">&nbsp;</td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td colspan="4" class="btn"><a href="manual.pdf" target="_blank">MANUAL DE OPERA&Ccedil;&Otilde;ES</a></td>
+              <td colspan="4" class="btn"><a href="manual.pdf" target="_blank">MANUAL DE OPERAÇÕES</a></td>
             </tr>
             <tr>
-              <td colspan="4" class="btn"><input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:location.href='../inicio.php';"></td>
+              <td colspan="4" class="btn"><input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:location.href='../inicio.php';"></td>
               </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>

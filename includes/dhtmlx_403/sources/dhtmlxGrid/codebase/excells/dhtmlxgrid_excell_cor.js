@@ -152,7 +152,7 @@ eXcell_cor.prototype.setValue = function(val){
                         if (val!==null)
                         	this.setCValue( viVal,val);
                         else
-                            this.setCValue("&nbsp;",val);
+                            this.setCValue(" ",val);
 
 						this.cell.__prev=this.cell.__now;
 						this.cell.__now={key:val,value:viVal};

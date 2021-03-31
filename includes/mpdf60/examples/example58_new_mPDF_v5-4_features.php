@@ -139,9 +139,9 @@ table.zebra tfoot tr { background-color: #BBFFFF; }
 <p>Bookmarks can be styled by adding code as below to your script. You can define a colour (array of RGB) and/or a font-style (B, I, or BI) for each level (starting at 0). Results may depend on the PDF Reader you are using.</p>
 <p class="code">
 $this->bookmarkStyles = array(<br />
- &nbsp; &nbsp; &nbsp; 0 => array(\'color\'=> array(0,64,128), \'style\'=>\'B\'),<br />
- &nbsp; &nbsp; &nbsp; 1 => array(\'color\'=> array(128,0,0), \'style\'=>\'\'),<br />
- &nbsp; &nbsp; &nbsp; 2 => array(\'color\'=> array(0,128,0), \'style\'=>\'I\'),<br />
+       0 => array(\'color\'=> array(0,64,128), \'style\'=>\'B\'),<br />
+       1 => array(\'color\'=> array(128,0,0), \'style\'=>\'\'),<br />
+       2 => array(\'color\'=> array(0,128,0), \'style\'=>\'I\'),<br />
 );
 </p>
 </div>
@@ -154,8 +154,8 @@ $this->bookmarkStyles = array(<br />
 </svg>
 <p class="code">
 &lt;svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 200 200" width="200" height="200"&gt; <br />
-&nbsp;  &lt;circle cx="100" cy="50" r="40" stroke="black" stroke-width="1" fill="red" /&gt;<br />
-&nbsp;  &lt;circle cx="130" cy="50" r="40" stroke="black" stroke-width="1" fill="blue" /&gt;<br />
+   &lt;circle cx="100" cy="50" r="40" stroke="black" stroke-width="1" fill="red" /&gt;<br />
+   &lt;circle cx="130" cy="50" r="40" stroke="black" stroke-width="1" fill="blue" /&gt;<br />
 &lt;/svg&gt;
 </p>
 
@@ -392,15 +392,15 @@ $this->fonttrans = array(<br />
 <p> Support for overlapping rowspans in tables has been improved (although probably not foolproof!)</p>
 <table style="border-collapse: separate; border-spacing: 3.5mm;">
 <tr>
-<td style="width: 30mm; height: 30mm; background-color: rgb(213,226,253)">&nbsp;</td>
-<td style="width: 30mm; height: 30mm; background-color: rgb(75,155,215)">&nbsp;</td>
-<td rowspan="2" style="width: 30mm; height: 63.5mm; background-color: rgb(183,225,253)">&nbsp;</td>
+<td style="width: 30mm; height: 30mm; background-color: rgb(213,226,253)"> </td>
+<td style="width: 30mm; height: 30mm; background-color: rgb(75,155,215)"> </td>
+<td rowspan="2" style="width: 30mm; height: 63.5mm; background-color: rgb(183,225,253)"> </td>
 </tr>
 <tr>
-<td colspan="2" rowspan="2" style="width: 63.5mm; height: 63.5mm; background-color: rgb(183,225,253)">&nbsp;</td>
+<td colspan="2" rowspan="2" style="width: 63.5mm; height: 63.5mm; background-color: rgb(183,225,253)"> </td>
 </tr>
 <tr>
-<td style="width: 30mm; height: 30mm; background-color: rgb(75,155,215)">&nbsp;</td>
+<td style="width: 30mm; height: 30mm; background-color: rgb(75,155,215)"> </td>
 </tr>
 </table>
 
@@ -440,8 +440,8 @@ Setting the CSS property "overflow: visible" on a table now has the effect of ca
 The maximum width for a column (or group of columns set by colspan) is the page width. It is recommended to specify absolute values of width on each column (not percentages).
 </div>
 <br />
-<input type="button" name="javascriptButton" value="Show 2 pages" onClick="TwoPages()" />
-<input type="button" name="javascriptButton2" value="Show 1 page" onClick="OnePage()" />
+<input type="button" name="javascriptButton" value="Show 2 pages" onclick="TwoPages()" />
+<input type="button" name="javascriptButton2" value="Show 1 page" onclick="OnePage()" />
 
 
 <br /><br />

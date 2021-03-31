@@ -113,7 +113,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>bpmTopic<b>C</b> Class (centered) Odd and Even rows</p>
 <table class="bpmTopicC"><thead>
@@ -171,7 +171,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>bpmTopnTail Class </p>
 <table class="bpmTopnTail"><thead></thead><tbody>
@@ -228,7 +228,7 @@ This is data out of div
 <td>Also data</td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 <p>bpmTopnTail<b>C</b> Class (centered) Odd and Even rows</p>
 <table class="bpmTopnTailC"><thead>
 <tr class="headerrow"><th>Col/Row Header</th>
@@ -285,7 +285,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <p>TopnTail Class</p>
 <table class="bpmTopnTail"><thead>
@@ -333,7 +333,7 @@ This is data out of div
 </tr>
 </tbody></table>
 
-<p>&nbsp;</p>
+<p> </p>
 
 <h4>Lists in a Table</h4>
 <table class="bpmTopnTail"><thead>
@@ -397,7 +397,7 @@ Unordered list:
 </td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 
 <h4>Automatic Column Width</h4>
@@ -534,7 +534,7 @@ Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel a
 <tr><th>Another Row header</th><td>Also data</td><td>Also data</td></tr>
 <tr><th>Another Row header</th><td>Also data</td><td>Also data</td></tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 <h3>Autosizing Tables</h3>
 <p>Periodic Table of elements. Tables are set by default to reduce font size if complete words will not fit inside each cell, to a maximum of 1/1.4 * the set font-size. This value can be changed by setting $mpdf->shrink_tables_to_fit=1.8 or using html attribute &lt;table autosize="1.8"&gt;.</p>
@@ -827,7 +827,7 @@ Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel a
 <td></td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 <pagebreak />
 <h3>Rotated text in Table Cells</h3>
@@ -986,7 +986,7 @@ Phasellus feugiat, lectus ac aliquam molestie, leo lacus tincidunt turpis, vel a
 <td></td>
 </tr>
 </tbody></table>
-<p>&nbsp;</p>
+<p> </p>
 
 ';
 

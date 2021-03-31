@@ -1540,7 +1540,7 @@ dhtmlXCombo.prototype.modes.option = {
 		item._conf = {value: data.value, css: ""};
 		
 		item.className = "dhxcombo_option";
-		item.innerHTML = "<div class='"+this.option_css+"'>&nbsp;</div>";
+		item.innerHTML = "<div class='"+this.option_css+"'> </div>";
 		
 		if (data.css != null) {
 			item.lastChild.style.cssText = data.css;
@@ -1566,7 +1566,7 @@ dhtmlXCombo.prototype.modes.option = {
 	setText: function(item, text) {
 		item._conf.text = text;
 		var t = (typeof(text) == "object" ? window.dhx4.template(item._tpl.option, item._conf.text, true) : window.dhx4.trim(item._conf.text||""));
-		item.lastChild.innerHTML = (t.length==0?"&nbsp;":t);
+		item.lastChild.innerHTML = (t.length==0?" ":t);
 	},
 	
 	getText: function(item, asStringInput, asStringOption) {
@@ -1614,7 +1614,7 @@ dhtmlXCombo.prototype.modes.checkbox = {
 		
 		item.className = "dhxcombo_option";
 		item.innerHTML = "<div class='"+String(this.image_css).replace("#state#",(item._conf.checked?"1":"0"))+"'></div>"+
-				"<div class='"+this.option_css+"'>&nbsp;</div>";
+				"<div class='"+this.option_css+"'> </div>";
 		
 		item.firstChild._optChbxId = item._optId; // mark checkbox
 		
@@ -1709,7 +1709,7 @@ dhtmlXCombo.prototype.modes.image = {
 		
 		item.className = "dhxcombo_option";
 		item.innerHTML = "<div class='"+this.image_css+"'></div>"+
-				"<div class='"+this.option_css+"'>&nbsp;</div>";
+				"<div class='"+this.option_css+"'> </div>";
 		
 		if (data.css != null) {
 			item.lastChild.style.cssText += data.css;

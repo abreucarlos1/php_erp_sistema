@@ -213,7 +213,7 @@ function despesas($dados_form)
 			{
 				if($db->numero_registros_ms==0)
 				{
-					$resposta->addAlert('N�o h� despesas cadastradas no or�amento.');
+					$resposta->addAlert('Não há despesas cadastradas no orçamento.');
 					
 					$resposta->addScript('document.getElementById("btninserir").disabled=true;');
 				}
@@ -277,7 +277,7 @@ function despesas($dados_form)
 								$style = 'color:#0F0';	
 							}
 							
-							//se for edi��o, preenche os campos com valores
+							//se for edição, preenche os campos com valores
 							if(!empty($dados_form["id_requisicao_despesa"]))
 							{
 								$out_desp = $array_out_desp[trim($regs["AF2_COMPOS"])];
@@ -327,9 +327,9 @@ function despesas($dados_form)
 							}
 							else
 							{
-								$horai = '&nbsp;';
+								$horai = ' ';
 								
-								$horaf = '&nbsp;';
+								$horaf = ' ';
 							}						
 
 							
@@ -536,7 +536,7 @@ function insere($dados_form)
 							}
 						}
 						
-						//obtem as despesas cadastradas no or�amento
+						//obtem as despesas cadastradas no orçamento
 						/*
 						$sql = "SELECT AF2010.AF2_COMPOS, AF2010.AF2_DESCRI, AF2010.AF2_QUANT FROM AF1010 WITH(NOLOCK), AF2010 WITH(NOLOCK) ";
 						$sql .= "WHERE AF1010.D_E_L_E_T_ = '' ";
@@ -580,7 +580,7 @@ function insere($dados_form)
 								$regs_client = $db->array_select[0];
 							}					
 									
-							//coordenador/responsavel pela requisi��o
+							//coordenador/responsavel pela requisição
 							$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 							$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
 							$sql .= "AND usuarios.reg_del = 0 ";
@@ -607,43 +607,43 @@ function insere($dados_form)
 							$texto .='	  <td colspan="5"><strong>Requisição de Despesa </strong></td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Requisi��o&nbsp;n�:&nbsp;'.sprintf("%05d",$id_requisicao).'</td>';
+							$texto .='	<td colspan="5">Requisição nº: '.sprintf("%05d",$id_requisicao).'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">data solicitação:&nbsp;'. $dados_form["data"] .' </td>';
+							$texto .='	<td colspan="5">data solicitação: '. $dados_form["data"] .' </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Solicitante:&nbsp;'. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
+							$texto .='	<td colspan="5">Solicitante: '. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Responsável&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
+							$texto .='	<td colspan="5">Responsável pelas despesas/veiculo: '. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">OS:&nbsp;'. sprintf("%010d",$os[1]) .'&nbsp;-&nbsp;'.trim($regs_client["A1_NOME"]).'&nbsp;-&nbsp;'.trim($regs_client["A1_MUN"]).'</td>';
+							$texto .='	<td colspan="5">OS: '. sprintf("%010d",$os[1]) .' - '.trim($regs_client["A1_NOME"]).' - '.trim($regs_client["A1_MUN"]).'</td>';
 							$texto .=' </tr>';
 							
 							//se OS 900, informa a contabilidade
 							if($os[0]==3803)
 							{
-								$params['emails']['to'][] = array('email' => "marcio.barros@dominio.com.br", 'nome' => "Marcio Barros");
+								$params['emails']['to'][] = array('email' => "contabilidade@dominio.com.br", 'nome' => "Contabilidade");
 								
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5"><strong><font color="#FF0000">A contabilidade, favor lan�ar estas despesas na OS a seguir:</font></strong></td>';
+								$texto .='	<td colspan="5"><strong><font color="#FF0000">A contabilidade, favor lançar estas despesas na OS a seguir:</font></strong></td>';
 								$texto .=' </tr>';
 								
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5"><strong><font color="#FF0000">OS DESTINO:&nbsp;'. $dados_form["os_destino"] .'</font></strong></td>';
+								$texto .='	<td colspan="5"><strong><font color="#FF0000">OS DESTINO: '. $dados_form["os_destino"] .'</font></strong></td>';
 								$texto .=' </tr>';
 							}							
 			
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Atividade/Observa��o:&nbsp;'. maiusculas($dados_form["atividade"]) .'</td>';
+							$texto .='	<td colspan="5">Atividade/Observação: '. maiusculas($dados_form["atividade"]) .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">Per&iacute;odo:&nbsp;'. $dados_form["periodo_ini"] . ' a '. $dados_form["periodo_fim"] . '</td>';
+							$texto .='	<td colspan="5">Período: '. $dados_form["periodo_ini"] . ' a '. $dados_form["periodo_fim"] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td colspan="5">&nbsp;</td>';
+							$texto .='	<td colspan="5"> </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td colspan="5" align="center"><strong>Necessidades</strong></td>';
@@ -669,8 +669,8 @@ function insere($dados_form)
 								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>QUANTIDADE</STRONG></TD>';
 								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>VALOR (R$)</STRONG></TD>';
 								
-								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA&nbsp;INI</STRONG></TD>';
-								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA&nbsp;FIM</STRONG></TD>';
+								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA INI</STRONG></TD>';
+								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA FIM</STRONG></TD>';
 								
 								$necessidades .= '</tr>';
 								
@@ -712,32 +712,32 @@ function insere($dados_form)
 									$necessidades .= '</tr>';
 								}				
 								
-								$cobrar_cliente = $dados_form["cobrar_cliente"]?"SIM":"N�O";
+								$cobrar_cliente = $dados_form["cobrar_cliente"]?"SIM":"NÃO";
 								
 								$texto .= $necessidades;
 								
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5">&nbsp;</td>';
+								$texto .='	<td colspan="5"> </td>';
 								$texto .=' </tr>';
 								
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5">Total&nbsp;despesas:R$&nbsp;'.number_format($total_despesa,2,',','').'</td>';
+								$texto .='	<td colspan="5">Total despesas:R$ '.number_format($total_despesa,2,',','').'</td>';
 								$texto .=' </tr>';
 								
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5">&nbsp;</td>';
+								$texto .='	<td colspan="5"> </td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5">Despesas&nbsp;cobradas&nbsp;do&nbsp;cliente:&nbsp;'. $cobrar_cliente .'</td>';
+								$texto .='	<td colspan="5">Despesas cobradas do cliente: '. $cobrar_cliente .'</td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td colspan="5">&nbsp;</td>';
+								$texto .='	<td colspan="5"> </td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
 								$texto .='	<td colspan="5" align="center"><strong>Funcionários</strong></td>';
 								$texto .=' </tr>';
 								
-								//filtra os funcionarios da requisi��o
+								//filtra os funcionarios da requisição
 								$sql = "SELECT * FROM ".DATABASE.".requisicao_despesas_funcionarios, ".DATABASE.".funcionarios ";
 								$sql .= "WHERE requisicao_despesas_funcionarios.id_requisicao_despesa = '" . $id_requisicao . "' ";
 								$sql .= "AND requisicao_despesas_funcionarios.reg_del = 0 ";
@@ -763,16 +763,16 @@ function insere($dados_form)
 									$texto .='</table>';									
 									
 									$params['from']		= $array_funcionarios[1][$dados_form["responsavel"]];
-									$params['from_name']= "REQUISI��O DESPESAS - REQUISI��O";
-									$params['subject'] 	= "REQUISI��O DESPESAS - REQUISI��O";
+									$params['from_name']= "REQUISIÇÃO DESPESAS - REQUISIÇÃO";
+									$params['subject'] 	= "REQUISIÇÃO DESPESAS - REQUISIÇÃO";
 									
-									$params['emails']['to'][] = array('email' => "paulo.sergio@dominio.com.br", 'nome' => "Paulo S�rgio");
-									//$params['emails']['to'][] = array('email' => "thiago.silva@dominio.com.br", 'nome' => "Thiago Silva");
+									$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome1");
+									//$params['emails']['to'][] = array('email' => "nome2@dominio.com.br", 'nome' => "Nome2");
 									
 									//se cobrar cliente
 									if($dados_form["cobrar_cliente"])
 									{
-										$params['emails']['to'][] = array('email' => "patricia.moreno@dominio.com.br", 'nome' => "Patricia Moreno");
+										$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome1");
 									}
 									
 									if($array_funcionarios[1][$_SESSION["id_funcionario"]]) //solicitante
@@ -794,7 +794,7 @@ function insere($dados_form)
 									}
 									else
 									{
-										$resposta->addAlert("Requisi��o cadastrada com sucesso.");
+										$resposta->addAlert("Requisição cadastrada com sucesso.");
 									}
 
 									$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
@@ -904,11 +904,11 @@ function atualizatabela($dados_form)
 				
 				if($cont_despesas["status"]==0)
 				{
-					$delreg = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão&nbsp;da&nbsp;requisição&nbsp;selecionada?")){xajax_excluir("' . $cont_despesas["id_requisicao_despesa"] . '");}>';
+					$delreg = '<img src="'.DIR_IMAGENS.'apagar.png" style="cursor:pointer;" onclick=if(confirm("Confirma a exclusão da requisição selecionada?")){xajax_excluir("' . $cont_despesas["id_requisicao_despesa"] . '");}>';
 				}
 				else
 				{
-					$delreg = '&nbsp;';
+					$delreg = ' ';
 				}
 				
 				$xml->startElement('row');
@@ -918,7 +918,7 @@ function atualizatabela($dados_form)
 					$xml->writeElement ('cell',mysql_php($cont_despesas["data_requisicao"]));
 					$xml->writeElement ('cell',$cont_despesas["atividade"]);
 					$xml->writeElement ('cell',$cont_despesas["funcionario"]);
-					$xml->writeElement ('cell',substr(mysql_php($cont_despesas["periodo_inicial"]),0,10) . '&nbsp;á&nbsp;' . substr(mysql_php($cont_despesas["periodo_final"]),0,10));
+					$xml->writeElement ('cell',substr(mysql_php($cont_despesas["periodo_inicial"]),0,10) . ' á ' . substr(mysql_php($cont_despesas["periodo_final"]),0,10));
 					$xml->writeElement ('cell',number_format($regs_vlr["valor"],2));
 					$xml->writeElement ('cell',$cobrar_cliente);
 					$xml->writeElement ('cell',$status);
@@ -1011,7 +1011,7 @@ function excluir($id, $what)
 					{
 						//coordenador/responsavel pela requisição
 						$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
-						$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
+						$sql .= "WHERE funcionarios.id_usuario = usuarios.id_usuario ";
 						$sql .= "AND usuarios.reg_del = 0 ";
 						$sql .= "AND funcionarios.reg_del = 0 ";
 						$sql .= "AND funcionarios.situacao = 'ATIVO' ";
@@ -1055,18 +1055,25 @@ function excluir($id, $what)
 							$params['emails']['to'][] = array('email' => $array_funcionarios[1][$cont["responsavel_despesas"]], 'nome' => $array_funcionarios[0][$cont["responsavel_despesas"]]);
 						}
 					
-						$mail = new email($params);
-						$mail->montaCorpoEmail($text);
-						
-						if(!$mail->Send())
+						if(ENVIA_EMAIL)
 						{
-							$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+
+							$mail = new email($params);
+							
+							$mail->montaCorpoEmail($text);
+							
+							if(!$mail->Send())
+							{
+								$resposta->addAlert("Erro ao enviar e-mail!!! ".$mail->ErrorInfo);
+							}
 						}
-						else
+						else 
 						{
-							$resposta -> addAlert("Excluído com sucesso.");
+							$resposta->addScriptCall('modal', $text, '300_650', 'Conteúdo email', 1);
 						}
-						
+
+						$resposta -> addAlert("Excluído com sucesso.");
+
 						$resposta -> addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");														
 					}
 				}
@@ -1122,7 +1129,7 @@ function editar($id_requisicao_despesa)
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND empresas.reg_del = 0 ";
 		$sql .= "AND requisicao_despesas.id_os = ordem_servico.id_os ";
-		$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";		
+		$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";		
 
 		$db->select($sql,'MYSQL',true);
 		
@@ -1138,7 +1145,7 @@ function editar($id_requisicao_despesa)
 			{
 				$resposta->addAssign("id_requisicao_despesa", "value", $id_requisicao_despesa);
 				
-				$resposta->addAssign("num_sol","innerHTML","<strong>Nº&nbsp;:</strong><br>".sprintf("%04d",$id_requisicao_despesa));
+				$resposta->addAssign("num_sol","innerHTML","<strong>Nº :</strong><br>".sprintf("%04d",$id_requisicao_despesa));
 				
 				$resposta->addAssign("nome_func","innerHTML",$array_func[$cont["id_funcionario"]]);
 				
@@ -1499,7 +1506,7 @@ function atualizar($dados_form)
 								$regs_client = $db->array_select[0];
 							}					
 									
-							//coordenador/responsavel pela requisi��o
+							//coordenador/responsavel pela requisição
 							$sql = "SELECT funcionarios.id_funcionario, funcionarios.funcionario, usuarios.email FROM ".DATABASE.".funcionarios, ".DATABASE.".usuarios ";
 							$sql .= "WHERE usuarios.id_funcionario = funcionarios.id_funcionario ";
 							$sql .= "AND usuarios.reg_del = 0 ";
@@ -1526,29 +1533,29 @@ function atualizar($dados_form)
 							$texto .='	  <td><strong>Requisição de Despesa </strong></td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>Requisi��o&nbsp;n�:&nbsp;'.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
+							$texto .='	<td>Requisição nº: '.sprintf("%05d",$dados_form["id_requisicao_despesa"]).'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>data solicitação:&nbsp;'. $dados_form["data"] .' </td>';
+							$texto .='	<td>data solicitação: '. $dados_form["data"] .' </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>Solicitante:&nbsp;'. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
+							$texto .='	<td>Solicitante: '. $array_funcionarios[0][$_SESSION["id_funcionario"]] .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>Responsável&nbsp;pelas&nbsp;despesas/veiculo:&nbsp;'. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
+							$texto .='	<td>Responsável pelas despesas/veiculo: '. $array_funcionarios[0][$dados_form["responsavel"]] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>OS:&nbsp;'. sprintf("%010d",$os[1]) .'&nbsp;-&nbsp;'.trim($regs_client["A1_NOME"]).'&nbsp;-&nbsp;'.trim($regs_client["A1_MUN"]).'</td>';
+							$texto .='	<td>OS: '. sprintf("%010d",$os[1]) .' - '.trim($regs_client["A1_NOME"]).' - '.trim($regs_client["A1_MUN"]).'</td>';
 							$texto .=' </tr>';
 			
 							$texto .=' <tr>';
-							$texto .='	<td>Atividade/Observa��o:&nbsp;'. maiusculas($dados_form["atividade"]) .'</td>';
+							$texto .='	<td>Atividade/Observação: '. maiusculas($dados_form["atividade"]) .'</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>Per&iacute;odo:&nbsp;'. $dados_form["periodo_ini"] . ' a '. $dados_form["periodo_fim"] . '</td>';
+							$texto .='	<td>Período: '. $dados_form["periodo_ini"] . ' a '. $dados_form["periodo_fim"] . '</td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
-							$texto .='	<td>&nbsp;</td>';
+							$texto .='	<td> </td>';
 							$texto .=' </tr>';
 							$texto .=' <tr>';
 							$texto .='	<td align="center"><strong>Necessidades</strong></td>';
@@ -1574,8 +1581,8 @@ function atualizar($dados_form)
 								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>QUANTIDADE</STRONG></TD>';
 								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>VALOR (R$)</STRONG></TD>';
 								
-								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA&nbsp;INI</STRONG></TD>';
-								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA&nbsp;FIM</STRONG></TD>';
+								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA INI</STRONG></TD>';
+								$necessidades .= '<td style="text-align:center;border:solid; border-color:#000; border-width:1px;"><strong>HORA FIM</STRONG></TD>';
 								
 								$necessidades .= '</tr>';
 								
@@ -1610,32 +1617,32 @@ function atualizar($dados_form)
 									$necessidades .= '</tr>';
 								}				
 								
-								$cobrar_cliente = $dados_form["cobrar_cliente"]?"SIM":"N�O";
+								$cobrar_cliente = $dados_form["cobrar_cliente"]?"SIM":"NÃO";
 								
 								$texto .= $necessidades;
 								
 								$texto .=' <tr>';
-								$texto .='	<td>&nbsp;</td>';
+								$texto .='	<td> </td>';
 								$texto .=' </tr>';
 								
 								$texto .=' <tr>';
-								$texto .='	<td>Total&nbsp;despesas:R$&nbsp;'.number_format($total_despesa,2,',','').'</td>';
+								$texto .='	<td>Total despesas:R$ '.number_format($total_despesa,2,',','').'</td>';
 								$texto .=' </tr>';
 								
 								$texto .=' <tr>';
-								$texto .='	<td>&nbsp;</td>';
+								$texto .='	<td> </td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td>Despesas&nbsp;cobradas&nbsp;do&nbsp;cliente:&nbsp;'. $cobrar_cliente .'</td>';
+								$texto .='	<td>Despesas cobradas do cliente: '. $cobrar_cliente .'</td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
-								$texto .='	<td>&nbsp;</td>';
+								$texto .='	<td> </td>';
 								$texto .=' </tr>';
 								$texto .=' <tr>';
 								$texto .='	<td align="center"><strong>Funcionários</strong></td>';
 								$texto .=' </tr>';
 								
-								//filtra os funcionarios da requisi��o
+								//filtra os funcionarios da requisição
 								$sql = "SELECT * FROM ".DATABASE.".requisicao_despesas_funcionarios, ".DATABASE.".funcionarios ";
 								$sql .= "WHERE requisicao_despesas_funcionarios.id_requisicao_despesa = '" . $dados_form["id_requisicao_despesa"] . "' ";
 								$sql .= "AND requisicao_despesas_funcionarios.reg_del = 0 ";
@@ -1662,16 +1669,16 @@ function atualizar($dados_form)
 									
 									$params 			= array();
 									$params['from']		= $array_funcionarios[1][$dados_form["responsavel"]];
-									$params['from_name']= "REQUISI��O DESPESAS - REQUISI��O - ALTERA��O";
-									$params['subject'] 	= "REQUISI��O DESPESAS - REQUISI��O - ALTERA��O";
+									$params['from_name']= "REQUISIÇÃO DESPESAS - REQUISIÇÃO - ALTERAÇÃO";
+									$params['subject'] 	= "REQUISIÇÃO DESPESAS - REQUISIÇÃO - ALTERAÇÃO";
 									
-									$params['emails']['to'][] = array('email' => "paulo.sergio@dominio.com.br", 'nome' => "Paulo S�rgio");
-									//$params['emails']['to'][] = array('email' => "thiago.silva@dominio.com.br", 'nome' => "Thiago Silva");
+									$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome 1");
+									//$params['emails']['to'][] = array('email' => "nome2@dominio.com.br", 'nome' => "Nome 2");
 									
 									//se cobrar cliente
 									if($dados_form["cobrar_cliente"])
 									{
-										$params['emails']['to'][] = array('email' => "patricia.moreno@dominio.com.br", 'nome' => "Patricia Moreno");
+										$params['emails']['to'][] = array('email' => "nome3@dominio.com.br", 'nome' => "Nome 3");
 									}
 									
 									if($array_funcionarios[1][$_SESSION["id_funcionario"]]) //solicitante
@@ -1693,7 +1700,7 @@ function atualizar($dados_form)
 									}
 									else
 									{
-										$resposta->addAlert("Requisi��o cadastrada com sucesso.");
+										$resposta->addAlert("Requisição cadastrada com sucesso.");
 									}
 
 									$resposta->addScript("xajax_atualizatabela(xajax.getFormValues('frm'));");
@@ -1798,7 +1805,7 @@ function grid(tabela, autoh, height, xml)
 			
 			mygrid.attachEvent("onRowSelect",doOnRowSelected1);	
 			
-			mygrid.setHeader("Nº, Projeto, Data&nbsp;solic., Atividade/Obs., Responsável, Período, valor, Cobrar&nbsp;cliente, Status, D",
+			mygrid.setHeader("Nº, Projeto, Data solic., Atividade/Obs., Responsável, Período, valor, Cobrar cliente, Status, D",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("60,80,80,*,*,*,*,80,80,25");
@@ -1809,7 +1816,7 @@ function grid(tabela, autoh, height, xml)
 		
 		case 'div_necessidades':	
 
-			mygrid.setHeader("Item, Qtd.&nbsp;Orç., Qtd&nbsp;Proj., Valor&nbsp;Orç., Qtd.&nbsp;Solic., Hora&nbsp;ini., Hora&nbsp;fim",
+			mygrid.setHeader("Item, Qtd. Orç., Qtd Proj., Valor Orç., Qtd. Solic., Hora ini., Hora fim",
 				null,
 				["text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
 			mygrid.setInitWidths("*,*,*,*,*,*,*");

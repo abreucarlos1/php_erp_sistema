@@ -134,7 +134,7 @@ function atualizatabela($filtro, $id_setor_aso)
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['E']['COR'].'">'.$array_permissao['E']['TEXTO'].'</label>');
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['A']['COR'].'">'.$array_permissao['A']['TEXTO'].'</label>');
 			$xml->writeElement('cell', '<label style="color:'.$array_permissao['P']['COR'].'">'.$array_permissao['P']['TEXTO'].'</label>');
-			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Confirma&nbsp;a&nbsp;exclusão?")){xajax_excluir("'.$cont_desp["id_sms"].'");}>');
+			$xml->writeElement('cell', '<span class="icone icone-excluir cursor" onclick=if(confirm("Confirma a exclusão?")){xajax_excluir("'.$cont_desp["id_sms"].'");}>');
 		$xml->endElement();		
 	}
 
@@ -523,7 +523,7 @@ function verificaPermitidos($modulo)
 			$xml->writeElement('cell', $array_permissao['E']);
 			$xml->writeElement('cell', $array_permissao['A']);
 			$xml->writeElement('cell', $array_permissao['P']);
-			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
+			$xml->writeElement('cell', "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma a exclusão?\')){xajax_excluir(\'".$reg["id_permissao"]."\',\'lista_permitidos\');}>");
 		$xml->endElement();
 	});
 	

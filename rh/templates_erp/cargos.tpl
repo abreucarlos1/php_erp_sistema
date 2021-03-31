@@ -18,7 +18,7 @@
         <tr>
           <td colspan="2" valign="top">
 			<div id="a_tabbar" style="width:100%; height:350px; overflow:auto;">
-			  <div id="a10" name="Fun��o/Cargo" style="margin-left:3px">
+			  <div id="a10" name="Função/Cargo" style="margin-left:3px">
 			  <table border="0" width="95%">
 					<tr>
 						<td width="29%"><label for="funcao" class="labels">Função</label><br />
@@ -38,13 +38,13 @@
                       </select>
                   </td>
                   <td width="92%"><label for="formacao" class="labels">Formação</label><br />
-                    <input name="formacao" type="text" class="caixa" id="formacao" size="70" placeholder="Forma��o" ></td>
+                    <input name="formacao" type="text" class="caixa" id="formacao" size="70" placeholder="Formação" ></td>
                 </tr>
               </table>
 				<table border="0" width="95%">
 					<tr valign="top">
-						<td width="12%"><label for="experiencia" class="labels">Tempo&nbsp;na&nbsp;atividade</label><br />
-							<input name="experiencia" type="text" class="caixa" id="experiencia" size="20" placeholder="Experi�ncia" >						</td>
+						<td width="12%"><label for="experiencia" class="labels">Tempo na atividade</label><br />
+							<input name="experiencia" type="text" class="caixa" id="experiencia" size="20" placeholder="Experiência" >						</td>
 						<td width="7%"><label for="cbo" class="labels">CBO2002</label><br />
 							<input name="cbo" type="text" class="caixa" id="cbo" maxlength="8" size="8" placeholder="CBO">
 						</td>
@@ -60,18 +60,18 @@
 				</table>
 		  		<table border="0" width="95%">
 		  			<tr>
-						<td width="30%"><label for="missao" class="labels">Missão&nbsp;do&nbsp;cargo </label><br />
-								<textarea class="caixa" name="missao" cols="80" rows="2" id="missao" placeholder="Miss�o"></textarea>
+						<td width="30%"><label for="missao" class="labels">Missão do cargo </label><br />
+								<textarea class="caixa" name="missao" cols="80" rows="2" id="missao" placeholder="Missão"></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%"><label for="atividades" class="labels">Principais&nbsp;Atvidades </label><br />
+						<td width="30%"><label for="atividades" class="labels">Principais Atvidades </label><br />
 								<textarea class="caixa" name="atividades" cols="80" rows="5" id="atividades" placeholder="Atividades"></textarea>
 						</td>
 					</tr>
 				</table>
 			  </div>
-			  <div id="a20" name="Conhecimentos&nbsp;e&nbsp;Habilidades" style="margin-left:3px">
+			  <div id="a20" name="Conhecimentos e Habilidades" style="margin-left:3px">
 				<table border="0" width="24%" cellpadding="0" cellspacing="0"> 
 				  <tr>
 					<td width="25%" rowspan="2"><label for="conhecimentos" class="labels">Conhecimentos</label><br />
@@ -79,8 +79,8 @@
 						<smarty>html_options values=$option_conhecimentos_values output=$option_conhecimentos_output</smarty>
 						</select></td>
 					<td width="17%" align="center" valign="middle" rowspan="2"><select class="caixa" name="status_conhecimento" id="status_conhecimento" onkeypress="return keySort(this);">
-							<option value="desejaveis">DESEJ&Aacute;VEL</option>
-							<option value="obrigatorios">OBRIGAT&Oacute;RIO</option>
+							<option value="desejaveis">DESEJÁVEL</option>
+							<option value="obrigatorios">OBRIGATÓRIO</option>
 						</select>
 						<input name="c" type="button" id="c" class="class_botao" value="&gt;&gt;" onclick="move_itens('status_conhecimento','conhecimentos');"/></td>
 					<td width="58%"><label for="obrigatorios" class="labels">Obrigat&oacute;rios</label><br />
@@ -94,7 +94,7 @@
 				  </tr>
 				</table>
 			  </div>
-			  <div id="a30" name="Atitudes&nbsp;e&nbsp;Valores&nbsp;DVM" style="margin-left:3px; display:none;">
+			  <div id="a30" name="Atitudes e Valores INT" style="margin-left:3px; display:none;">
 				  <table border="0" width="25%">
 					  <tr>
 						<td width="25%" rowspan="2"><label for="habil" class="labels">Habilidades/Valores</label>
@@ -113,7 +113,7 @@
                             </td>
 					  </tr>
 					  <tr>
-						<td><label for="valores" class="labels">Valores DVM</label><br />
+						<td><label for="valores" class="labels">Valores INT</label><br />
 							<select class="caixa" name="valores[]" size="5" style="width:30em;" id="valores" multiple="multiple" ondblclick="moveSelectedOptions(this,habil)">
 							</select>
                         </td>
@@ -123,12 +123,12 @@
 			  <div id="a40" name="Competencias" style="margin-left:3px">
 			  	<table border="0">
 			  		<tr>
-			  			<td><label for="competencias_tecnicas" class="labels">Compet&ecirc;ncias t&eacute;cnicas ou de processos</label><br />
+			  			<td><label for="competencias_tecnicas" class="labels">Competências técnicas ou de processos</label><br />
 							<textarea class="caixa" name="competencias_tecnicas" cols="80" rows="5" id="competencias_tecnicas"></textarea>
 						</td>
 			  		</tr>
 			  		<tr>
-			  			<td><label for="competencias_individuais" class="labels">Compet&ecirc;ncias individuais</label><br />
+			  			<td><label for="competencias_individuais" class="labels">Competências individuais</label><br />
 							<textarea class="caixa" name="competencias_individuais" cols="80" rows="5" id="competencias_individuais"></textarea>
 						</td>
 			  		</tr>
@@ -145,7 +145,7 @@
 		  </td>
         </tr>
       </table>
-	  <div id="cargos" style="width:100%;">&nbsp;</div>
+	  <div id="cargos" style="width:100%;"> </div>
 </form>
 </div>
 <smarty>include file="`$smarty.const.TEMPLATES_DIR`footer_root.tpl"</smarty>

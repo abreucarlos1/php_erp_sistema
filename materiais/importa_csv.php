@@ -1,6 +1,6 @@
 <?php
 /*
-	Formul�rio de importacao CSV
+	Formulário de importacao CSV
 	
 	Criado por Carlos Abreu / Otávio Pamplona
 	
@@ -47,7 +47,7 @@ function importa($dados_form)
 		
 		if($db->numero_registros > 0)
 		{
-			$resposta -> addAlert("A revis�o ".$dados_form["versao_documento"]." deste documento j� esta carregada");		
+			$resposta -> addAlert("A revisão ".$dados_form["versao_documento"]." deste documento já esta carregada");		
 		}	
 		else
 		{
@@ -57,7 +57,7 @@ function importa($dados_form)
 			
 			$ext = $tmp_arq[count($tmp_arq)-1];
 			
-			//formato do c�digo:
+			//formato do código:
 			// matcode -->codigo do banco devemada
 			// spref --> codigo petrobras
 			// quantidade --> itens
@@ -97,7 +97,7 @@ function importa($dados_form)
 					
 					$matcod = explode("-",$valor);
 					
-					//Busca os Kits no banco de especifica��es
+					//Busca os Kits no banco de especificações
 					$sql = "SELECT *, SUM(quantidade*'".$str_qtd[$valor]."') AS total FROM  materiais_1.`especificacao de materiais`, materiais_1.`composicao_kit` ";
 					$sql .= "WHERE `especificacao de materiais`.cd_descricao_ref = '".$matcod[0]."' ";
 					$sql .= "AND `especificacao de materiais`.cd_descricao = '".$matcod[1]."' ";
@@ -147,7 +147,7 @@ function importa($dados_form)
 			}
 			else
 			{
-				$resposta -> addAlert("Arquivo com extens�o errada. Somente arquivos *.csv ou *.txt");
+				$resposta -> addAlert("Arquivo com extensão errada. Somente arquivos *.csv ou *.txt");
 			}
 		}
 	
@@ -163,7 +163,7 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'));
 
 ?>
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>

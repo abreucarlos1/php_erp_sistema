@@ -31,23 +31,23 @@ while ($reg = mysql_fetch_array($regs))
 	
 	<body>
 	<p class=\"style1\">	Caro(a) ". $reg["DAD_NOME"]. " ,</p>
-	<p class=\"style1\">		A ".NOME_EMPRESA." buscando melhorias em seu sistema, fez altera��es no cadastro de curr�culos do nosso site, facilitando este cadastro e sua Atualização.</p>
-	<p class=\"style1\">		Pedimos a gentileza de atualizar seu cadastro junto ao nosso site, no endereço</span> abaixo , já que voc&ecirc; possui um cadastro pr&eacute;vio: </p>
+	<p class=\"style1\">		A ".NOME_EMPRESA." buscando melhorias em seu sistema, fez alterações no cadastro de currículos do nosso site, facilitando este cadastro e sua Atualização.</p>
+	<p class=\"style1\">		Pedimos a gentileza de atualizar seu cadastro junto ao nosso site, no endereço</span> abaixo , já que voce possui um cadastro prévio: </p>
 	<p class=\"style1\"> <a title=\"".NOME_EMPRESA."\" href=\"http://www.empresa.com.br\" target=\"_blank\">http://www.empresa.com.br</a>, no link TRABALHE CONOSCO.</p>
-	<p class=\"style1\">		No site voc&ecirc; poderá anexar seu curr&iacute;culo em formato eletr&ocirc;nico (ex. curriculo.doc) no campo indicado.</p>
-	<p class=\"style1\">Vale salientar que seus dados são mantidos sob sigilo total, sendo somente acess&iacute;veis ao nosso setor de recrutamento,</p>
+	<p class=\"style1\">		No site voce poderá anexar seu currículo em formato eletrônico (ex. curriculo.doc) no campo indicado.</p>
+	<p class=\"style1\">Vale salientar que seus dados são mantidos sob sigilo total, sendo somente acessíveis ao nosso setor de recrutamento,</p>
 	<p class=\"style1\">a ".NOME_EMPRESA." garante que seus dados  não serão utilizados para práticas de<em> spam</em>.</p>
 	<p class=\"style1\">Os seus dados de acesso são:</p>
-	<p class=\"style1\">Login: ". $reg["EMAIL"] . "</p>
+	<p class=\"style1\">login: ". $reg["EMAIL"] . "</p>
 	<p class=\"style1\">Senha: ". $senha . "</p>
-	<p class=\"style1\">&nbsp;</p>
+	<p class=\"style1\"> </p>
 	<p class=\"style1\">E-mail enviado em ". date('d/m/Y') . " as ".date('H:i')."</p>
-	<p class=\"style1\">&nbsp;</p>
-	<p class=\"style1\">Pedimos tamb&eacute;m, para que o nosso site seja divulgado &agrave; outras pessoas, já que estamos selecionando profissionais a partir deste cadastro. </p>
-	<p class=\"style1\">&nbsp;</p>
+	<p class=\"style1\"> </p>
+	<p class=\"style1\">Pedimos também, para que o nosso site seja divulgado à outras pessoas, já que estamos selecionando profissionais a partir deste cadastro. </p>
+	<p class=\"style1\"> </p>
 	<p class=\"style1\">A ".NOME_EMPRESA." agradece antecipadamente.</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
+	<p> </p>
+	<p> </p>
 	<p><br />  
 	  <br />
 	</p>
@@ -58,7 +58,7 @@ while ($reg = mysql_fetch_array($regs))
 	
 	echo $reg["DAD_NOME"]." - ".minusculas($reg["EMAIL"])." - ".$senha."<br>";
 	
-	//MAIL_NVLP('Atualização de curr�culo','recrutamento@dominio.com.br',$reg["DAD_NOME"],minusculas($reg["EMAIL"]),'Atualização de Curr�culo',$mensagem);
+	//MAIL_NVLP('Atualização de currículo','recrutamento@dominio.com.br',$reg["DAD_NOME"],minusculas($reg["EMAIL"]),'Atualização de Currículo',$mensagem);
 	
 }
 

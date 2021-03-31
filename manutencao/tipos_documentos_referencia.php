@@ -93,7 +93,7 @@ function atualizatabela($filtro)
 			$xml->writeElement('cell', $cont_desp["tipo_documento"]);
 			$xml->writeElement('cell', $cont_desp["abreviacao"]);
 		
-			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma&nbsp;a&nbsp;exclusão&nbsp;do&nbsp;tipo&nbsp;selecionado?\')){xajax_excluir(\'".$cont_desp["id_tipos_documentos_referencia"]."\');}>";
+			$img = "<img src=\'".DIR_IMAGENS."apagar.png\' style=\'cursor:pointer;\' onclick=if(confirm(\'Confirma a exclusão do tipo selecionado?\')){xajax_excluir(\'".$cont_desp["id_tipos_documentos_referencia"]."\');}>";
 			$xml->writeElement('cell', $img);
 		$xml->endElement();
 	}
@@ -273,7 +273,7 @@ function grid(tabela, autoh, height, xml)
 		}
 	}
 
-	mygrid.setHeader("Disciplina, Tipo&nbsp;Referência, Documento, Abreviação, D");
+	mygrid.setHeader("Disciplina, Tipo Referência, Documento, Abreviação, D");
 	mygrid.setInitWidths("*,*,*,100,50");
 	mygrid.setColAlign("left,left,left,left,center");
 	mygrid.setColTypes("ro,ro,ro,ro,ro");

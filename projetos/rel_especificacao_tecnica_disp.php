@@ -1,14 +1,14 @@
-<?
+<?php
 /*
 
-		Formul�rio de Especifica��o T�cnica
+		Formulário de Especificação Técnica
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/especificacao tecnica.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
 		
@@ -18,11 +18,11 @@
 		
 */
 
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -36,53 +36,53 @@ $db = new banco_dados;
 $db->db = 'ti';
 $db->conexao_db();
 
-//Se a variavel ac�o enviada pelo javascript for deletar, executa a a��o
+//Se a variavel acão enviada pelo javascript for deletar, executa a ação
 if ($_GET["acao"]=="deletar")
 {
 	
-	//Executa o comando DELETE onde o id � enviado via javascript
+	//Executa o comando DELETE onde o id é enviado via javascript
 	mysql_query ("DELETE FROM Projetos.especificacao_tecnica WHERE id_especificacao_tecnica = '".$_GET["id_componente"]."' ",$db->conexao);
 	mysql_query ("DELETE FROM Projetos.especificacao_tecnica_detalhes WHERE id_especificacao_tecnica = '".$_GET["id_componente"]."' ",$db->conexao);
 	
 	?>
 	<script>
 		// Mostra mensagem de alerta e re-envia a pagina para a Atualização da tela
-		alert('Expecifica��o exclu�da com sucesso.');
+		alert('Expecificação excluída com sucesso.');
 	</script>
-	<?
+	<?php
 }
 
 
-// Caso a variavel a��o, enviada pelo formulario, seja...
+// Caso a variavel ação, enviada pelo formulario, seja...
 switch ($_POST["acao"])
 {
-	// Caso a��o seja salvar...
+	// Caso ação seja salvar...
 	case 'salvar_espec':
 	
-	// Seleciona os m�dulos cadastrados
+	// Seleciona os módulos cadastrados
 	$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes WHERE id_especificacao_padrao='" . $_POST["id_especificacao_padrao"] . "' ";
-	$regis = mysql_query($sql,$db->conexao) or die("N�o foi poss�vel fazer a sele��o1.");
+	$regis = mysql_query($sql,$db->conexao) or die("Não foi possível fazer a seleção1.");
 	$regcont = mysql_num_rows($regis);
 	mysql_query ("DELETE FROM especificacao_tecnica_detalhes WHERE id_especificacao_tecnica = '".$_POST["id_especificacao_tecnica"]."' ");
 	
 	while ($cont_regs = mysql_fetch_array($regis))
 		{
-			$incsql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
-			$incsql = $incsql . "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
-			$incsql = $incsql . "VALUES ('". $_POST["id_especificacao_tecnica"]. "', ";
-			$incsql = $incsql . " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
-			$incsql = $incsql . " '". $_POST[$cont_regs["id_especificacao_detalhe"]] ."') ";
+			$isql = "INSERT INTO Projetos.especificacao_tecnica_detalhes ";
+			$isql = $isql . "(id_especificacao_tecnica, id_especificacao_detalhe, conteudo) ";
+			$isql = $isql . "VALUES ('". $_POST["id_especificacao_tecnica"]. "', ";
+			$isql = $isql . " '" . $cont_regs["id_especificacao_detalhe"] . "', ";
+			$isql = $isql . " '". $_POST[$cont_regs["id_especificacao_detalhe"]] ."') ";
 			//Carrega os registros
-			$registro = mysql_query($incsql,$db->conexao) or die("N�o foi poss�vel a inser��o dos dados2");			
+			$registro = mysql_query($isql,$db->conexao) or die("Não foi possível a inserção dos dados2");			
 			
 
 		
 		}
 	?>
 	<script>
-		alert('Especifica��o alterada com sucesso.');
+		alert('Especificação alterada com sucesso.');
 	</script>
-	<?
+	<?php
 
 	break;	
 
@@ -91,20 +91,20 @@ switch ($_POST["acao"])
 
 <html>
 <head>
-<title>: : . ESPECIFICA��O T�CNICA . : :</title>
+<title>: : . ESPECIFICAÇÃO TÉCNICA . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"> </script> 
 
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script language="javascript">
 
 function maximiza() 
 {
-	//Fun��o para redimensionar a janela.
+	//Função para redimensionar a janela.
 	window.resizeTo(screen.width,screen.height);
 	window.moveTo(0,0);
 }
@@ -137,36 +137,36 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
     <td align="center">	
 	<table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
-        <td bgcolor="#BECCD9" align="left"><? //cabecalho("../") ?></td>
+        <td bgcolor="#BECCD9" align="left"><?php //cabecalho("../") ?></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //formulario() ?></td>
+        <td height="25" align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //formulario() ?></td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;<? //menu() ?></td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> <?php //menu() ?></td>
       </tr>
 <tr>
 
 <td>
 <form name="espec_tec" method="post" action="rel_espec_tec_disp.php" target="_blank">
-<?
+<?php
 
-// Se a variavel a��o, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
+// Se a variavel ação, enviada pelo javascript for editar, carrega os dados nos campos correspondentes
 // para eventual Atualização
 
 
   ?>
-<!-- MODIFICA��O AQUI -->
+<!-- MODIFICAÇÃO AQUI -->
 
 <div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
 <table width="100%" cellpadding="0" cellspacing="0" border=0 class="cabecalho_tabela">
     <tr>
       <td width="26%" class="cabecalho_tabela"><div align="center">TAG</div></td>
-      <td width="30%" class="cabecalho_tabela">SERVI&Ccedil;O</td>
+      <td width="30%" class="cabecalho_tabela">SERVIÇO</td>
       <td width="35%" class="cabecalho_tabela"><div align="center">COMPONENTE</div></td>
       <!-- <td width="8%" class="cabecalho_tabela">V</td> -->
 	  <td width="7%" class="cabecalho_tabela">IMPRIMIR</td>
-      <td width="2%" class="cabecalho_tabela">&nbsp;</td>
+      <td width="2%" class="cabecalho_tabela"> </td>
     </tr>
 </table>
 
@@ -174,7 +174,7 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 
 <div id="tbbody" style="position:relative; width:100%; height:350px; z-index:2; overflow-y:scroll; overflow-x:hidden;">  
 <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela" border=0>
-	<?
+	<?php
 		
 		if($_POST["id_area"]!='')
 		{
@@ -277,7 +277,7 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 			  <td width="34%" class="corpo_tabela"><div align="center"><?= $componentes["ds_dispositivo"] ."  " . $componentes["ds_funcao"] . " " . $componentes["ds_tipo"]    ?></div><div align="center"></div></td>
 			  <td width="6%" class="corpo_tabela"><input type="checkbox" name="<?= $componentes["id_componente"] ?>" value="1"></td>
 			</tr>
-			<?
+			<?php
 		}
 		
 		
@@ -287,12 +287,12 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 <div id="div" style="position:relative; width:100%; height:100%; z-index:2; border-color:#999999; border-style:solid; border-width:1px;">
   <table width="100%" class="corpo_tabela">
     <tr>
-      <td class="label1">&nbsp;</td>
+      <td class="label1"> </td>
       <td colspan="3" class="label1">REGS: <?= $count ?></td>
       </tr>
     <tr>
-      <td width="4" class="label1">&nbsp;</td>
-      <td width="2" class="label1">&nbsp;</td>
+      <td width="4" class="label1"> </td>
+      <td width="2" class="label1"> </td>
       <td width="66" class="label1">
 	  <input name="id_area" type="hidden" class="btn" value="<?= $_POST["id_area"] ?>">
 	  <input name="id_subsistema" type="hidden" class="btn" value="<?= $_POST["id_subsistema"] ?>">
@@ -305,7 +305,7 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 	  <input name="verificador" type="hidden" class="btn" value="<?= $_POST["verificador"] ?>">
 	  <input name="aprovador" type="hidden" class="btn" value="<?= $_POST["aprovador"] ?>">
 	  <input name="button" type="submit" class="btn" value="IMPRIMIR"></td>
-      <td width="885" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onClick="javascript:location.href='relatorio_especificacao_tecnica.php';"></td>
+      <td width="885" class="label1"><input name="button" type="button" class="btn" value="VOLTAR" onclick="javascript:location.href='relatorio_especificacao_tecnica.php';"></td>
     </tr>
   </table>
 </div>
@@ -320,7 +320,7 @@ function editar(id_especificacao_padrao, id_especificacao_tecnica)
 </center>
 </body>
 </html>
-<?
+<?php
 	$db->fecha_db();
 ?>	
 

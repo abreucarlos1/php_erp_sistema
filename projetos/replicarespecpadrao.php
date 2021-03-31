@@ -1,24 +1,24 @@
-<?
+<?php
 /*
 
-		Formul�rio de Replica��o Especificacao Padr�o	
+		Formulário de Replicação Especificacao Padrão	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/replicarespecpadrao.php
 		
-		data de cria��o: 24/04/2006
+		data de criação: 24/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -34,11 +34,11 @@ $db = new banco_dados;
 
 if($_POST["incluir"]=="incluir")
 {
-	// Inclui o arquivo com a conex�o do Banco de Dados
+	// Inclui o arquivo com a conexão do Banco de Dados
 	
 	$sequencia = 1;
 	
-	// Seleciona os m�dulos cadastrados
+	// Seleciona os módulos cadastrados
 	$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes ";
 	$sql .= "ORDER BY sequencia ASC";
 	
@@ -48,7 +48,7 @@ if($_POST["incluir"]=="incluir")
 		{
 			//$cod_projeto = $cont["id_projeto"];
 			
-			// Concatena a opera��o com o modulo
+			// Concatena a operação com o modulo
 			$A = $cont["id_especificacao_detalhe"];
 
 			
@@ -56,7 +56,7 @@ if($_POST["incluir"]=="incluir")
 			
 			if($_POST[$A]=='1')
 			{
-				// Seleciona as permiss�es do funcionario e qual modulo ele possue
+				// Seleciona as permissões do funcionario e qual modulo ele possue
 				$sql2 = "SELECT * FROM Projetos.especificacao_padrao_detalhes WHERE id_especificacao_padrao='". $_POST["id_especificacao_padrao"] ."' AND id_topico='" . $cont["id_topico"] . "' AND id_variavel='" . $cont["id_variavel"] . "' ";
 				
 				$regacesso = $db->select($sql2,'MYSQL');
@@ -82,15 +82,15 @@ if($_POST["incluir"]=="incluir")
 				}
 				else
 				{
-					$incsql = "INSERT INTO Projetos.especificacao_padrao_detalhes ";
-					$incsql .= "(id_especificacao_padrao, id_variavel, id_topico, sequencia, conteudo) ";
-					$incsql .= "VALUES ('". $_POST["id_especificacao_padrao"] ."', ";
-					$incsql .= "'" . $cont["id_variavel"] . "', ";
-					$incsql .= "'" . $cont["id_topico"] . "', ";
-					$incsql .= "'" . $sequencia . "', ";
-					$incsql .= "'" . $cont["conteudo"] . "') ";
+					$isql = "INSERT INTO Projetos.especificacao_padrao_detalhes ";
+					$isql .= "(id_especificacao_padrao, id_variavel, id_topico, sequencia, conteudo) ";
+					$isql .= "VALUES ('". $_POST["id_especificacao_padrao"] ."', ";
+					$isql .= "'" . $cont["id_variavel"] . "', ";
+					$isql .= "'" . $cont["id_topico"] . "', ";
+					$isql .= "'" . $sequencia . "', ";
+					$isql .= "'" . $cont["conteudo"] . "') ";
 					//Carrega os registros
-					$registros = $db->insert($incsql,'MYSQL');
+					$registros = $db->insert($isql,'MYSQL');
 	
 				}
 				
@@ -102,24 +102,24 @@ if($_POST["incluir"]=="incluir")
 	
 	?>
 		<script>
-			alert('Replica��o feita com sucesso.')
+			alert('Replicação feita com sucesso.')
 			window.close();
 		</script>
-	<?	
+	<?php	
 }
 
 ?>
 
 <html>
-<head><!-- Javascript para valida��o de dados -->
+<head><!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
-<title>: : . REPLICAR ESPECIFICA&Ccedil;&Atilde;O PADR&Atilde;O . : :</title>
+<title>: : . REPLICAR ESPECIFICAÇÃO PADRÃO . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() 
 {
 	window.resizeTo(screen.availWidth,screen.availHeight);
@@ -142,10 +142,10 @@ function maximiza()
         <td bgcolor="#BECCD9"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#BECCD9">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#BECCD9"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9"> </td>
       </tr>
       <tr>
         <td>
@@ -153,19 +153,19 @@ function maximiza()
 		<div id="tbheader" style="position:relative; width:100%; height:10px; z-index:2; border-color:#999999; border-style:solid; border-width:1px;" >
 			<table width="100%" class="cabecalho_tabela" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td width="20%" class="cabecalho_tabela">SEQU&Ecirc;NCIA</td>
-				  <td width="20%" class="cabecalho_tabela">T&Oacute;PICO</td>
-				  <td width="27%" class="cabecalho_tabela">VARI&Aacute;VEL</td>
-				  <td width="43%" class="cabecalho_tabela">CONTE&Uacute;DO</td>
+				  <td width="20%" class="cabecalho_tabela">SEQUÊNCIA</td>
+				  <td width="20%" class="cabecalho_tabela">TÓPICO</td>
+				  <td width="27%" class="cabecalho_tabela">VARIÁVEL</td>
+				  <td width="43%" class="cabecalho_tabela">CONTEÚDO</td>
 				  <td width="10%"  class="cabecalho_tabela">REPLICAR</td>
 				</tr>
 			</table>
 		</div>
 			<div id="tbbody" style="position:relative; width:100%; height:330px; z-index:2; overflow-y:scroll; overflow-x:hidden;  border-color:#999999; border-style:solid; border-width:1px;" >
 			  <table width="100%" cellpadding="0" cellspacing="0" class="corpo_tabela">
-				<?
+				<?php
 					
-					// Seleciona os m�dulos cadastrados
+					// Seleciona os módulos cadastrados
 					$sql = "SELECT * FROM Projetos.especificacao_padrao_detalhes, Projetos.especificacao_padrao_topico, Projetos.especificacao_padrao_variavel WHERE id_especificacao_padrao='" . $_GET["id_especificacao_padrao"] . "' ";
 					$sql .= " AND especificacao_padrao_detalhes.id_topico=especificacao_padrao_topico.id_topico ";
 					$sql .= " AND especificacao_padrao_detalhes.id_variavel=especificacao_padrao_variavel.id_variavel ORDER BY sequencia ";
@@ -194,17 +194,17 @@ function maximiza()
 						  <td width="20%" class="corpo_tabela"><div align="center">
 						    <?= $espec_padrao["sequencia"] ?>
 					      </div></td>
-						 <!-- Mostra o status de cada atributo para um determinado funcionario / m�dulo -->
+						 <!-- Mostra o status de cada atributo para um determinado funcionario / módulo -->
 							
 						  <td width="20%" class="corpo_tabela"><div align="center"><?= $espec_padrao["ds_topico"] ?></div></td>
 						  <td width="27%" class="corpo_tabela" align="center"><?= $espec_padrao["ds_variavel"] ?></td>
-						  <td width="43%" class="corpo_tabela" align="center"><? if($espec_padrao["conteudo"]!=""){echo $espec_padrao["conteudo"];}else{echo '&nbsp;';} ?></td>
+						  <td width="43%" class="corpo_tabela" align="center"><?php if($espec_padrao["conteudo"]!=""){echo $espec_padrao["conteudo"];}else{echo ' ';} ?></td>
 						  <td width="10%" class="corpo_tabela"><div align="center">
 							<input name="<?= $espec_padrao["id_especificacao_detalhe"] ?>" type="checkbox" id="chk" value="1">
 							</div></td>
 						</tr>
 						
-						<?
+						<?php
 					}
 				?>
 			  </table>
@@ -213,8 +213,8 @@ function maximiza()
 				<table width="100%" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<input name="marcar" type="button" class="btn" id="marcar" onClick="checkbox('replicacao','check')" value="Marcar Todos">
-			  			<input name="desmarcar" type="button" class="btn" id="desmarcar"onClick="checkbox('replicacao','uncheck')" value="Desmarcar Todos">		
+						<input name="marcar" type="button" class="btn" id="marcar" onclick="checkbox('replicacao','check')" value="Marcar Todos">
+			  			<input name="desmarcar" type="button" class="btn" id="desmarcar"onclick="checkbox('replicacao','uncheck')" value="Desmarcar Todos">		
 					</td>
 				</tr>
 				</table>
@@ -223,13 +223,13 @@ function maximiza()
 				
 				<table width="100%" class="corpo_tabela">
 					<tr>
-					  <td class="label1">COPIAR eSPECIFICA&Ccedil;&Atilde;O PADR&Atilde;O </td>
+					  <td class="label1">COPIAR ESPECIFICAÇÃO PADRÃO </td>
 				    </tr>
 					<tr>
 					  <td>
 						<select name="id_especificacao_padrao" class="txt_box"  id="id_especificacao_padrao" onkeypress="return keySort(this);">
 						  <option value="">SELECIONE</option>
-						  <?
+						  <?php
 							$sql = "SELECT * FROM Projetos.especificacao_padrao, Projetos.dispositivos, Projetos.funcao, Projetos.tipo WHERE id_especificacao_padrao NOT LIKE '" . $_GET["id_especificacao_padrao"] . "' ";
 							$sql .= "AND especificacao_padrao.id_dispositivo = dispositivos.id_dispositivo ";
 							$sql .= "AND especificacao_padrao.id_funcao = funcao.id_funcao ";
@@ -238,13 +238,13 @@ function maximiza()
 							
 							$registro = $db->select($sql,'MYSQL');
 							
-							// Preenche o combobox com os usu�rios
+							// Preenche o combobox com os usuários
 							while ($cont = mysqli_fetch_array($registro))
 								{
 
 								?>
 								  <option value="<?= $cont["id_especificacao_padrao"] ?>"><?= $cont["ds_funcao"] . " - " . $cont["ds_dispositivo"] . " - " . $cont["ds_tipo"] ?></option>
-								  <?
+								  <?php
 								}
 							?>
 						</select>
@@ -255,7 +255,7 @@ function maximiza()
 					  <input name="incluir" id="incluir" type="hidden" value="incluir">
                         <input name="REP" type="submit" class="btn" id="REP" value="Replicar">
                         <span class="label1">
-                        <input name="button" type="button" class="btn" value="Voltar" onClick="javascript:location.href='especificacao_padrao.php';">
+                        <input name="button" type="button" class="btn" value="Voltar" onclick="javascript:location.href='especificacao_padrao.php';">
                         </span>					
                         </td>
 				    </tr>

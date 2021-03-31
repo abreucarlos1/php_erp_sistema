@@ -9,7 +9,7 @@
         	<img align="middle" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>logo_erp.png" width="302" height="70">
         </div>
         
-        <div class="nome_formulario"><smarty>$campo[1]</smarty>&nbsp;-&nbsp;<smarty>$versao</smarty></div>
+        <div class="nome_formulario"><smarty>$campo[1]</smarty> - <smarty>$versao</smarty></div>
         
         <div class="nav_bar" align="right" <smarty>if isset($ocultarCabecalhoRodape)</smarty><smarty>$ocultarCabecalhoRodape</smarty><smarty>/if</smarty>>
         	<img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png"><label class="link_1"><smarty>$smarty.session.login</smarty></label><img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png"><a href="../inicio.php" class="link_1">Inicio</a><img class="mini_seta" src="<smarty>$smarty.const.DIR_IMAGENS</smarty>mini_seta.png"><a href="../logout.php" class="link_1">Sair</a>            

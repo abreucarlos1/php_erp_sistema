@@ -75,15 +75,16 @@ $sql .= "WHERE ordem_servico.id_os = '" . $id_os . "' ";
 $sql .= "AND empresas.reg_del = 0 ";
 $sql .= "AND funcionarios.reg_del = 0 ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 
 $db->select($sql,'MYSQL', true);
 
 $reg_os = $db->array_select[0];
 
-$sql = "SELECT * FROM ".DATABASE.".usuarios ";
-$sql .= "WHERE usuarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_funcionario = '" . $reg_os["id_funcionario"] . "' ";
+$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 $sql .= "AND usuarios.reg_del = 0 ";
 
 $db->select($sql,'MYSQL', true);

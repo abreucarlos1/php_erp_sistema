@@ -40,10 +40,10 @@ $db = new banco_dados();
 
 $id_os = $_POST["id_os"];
 
-$sql = "SELECT *,empresas.id_empresa_erp FROM ".DATABASE.".empresas, ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico ";
+$sql = "SELECT *,empresas.id_empresa FROM ".DATABASE.".empresas, ".DATABASE.".funcionarios, ".DATABASE.".ordem_servico ";
 $sql .= "LEFT JOIN ".DATABASE.".contatos ON (ordem_servico.id_cod_resp = contatos.id_contato) ";
 $sql .= "WHERE ordem_servico.id_os = '" . $id_os . "' ";
-$sql .= "AND ordem_servico.id_empresa_erp = empresas.id_empresa_erp ";
+$sql .= "AND ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.id_cod_coord = funcionarios.id_funcionario ";
 
 $db->select($sql,'MYSQL',true);
@@ -51,9 +51,9 @@ $db->select($sql,'MYSQL',true);
 $reg_os = $db->array_select[0];
 
 
-if(is_file("../modelos_excel/modelo_LP_".$reg_os["id_empresa_erp"].".xls"))
+if(is_file("../modelos_excel/modelo_LP_".$reg_os["id_empresa"].".xls"))
 {
-	$objPHPExcel = PHPExcel_IOFactory::load("../modelos_excel/modelo_LP_".$reg_os["id_empresa_erp"].".xls");
+	$objPHPExcel = PHPExcel_IOFactory::load("../modelos_excel/modelo_LP_".$reg_os["id_empresa"].".xls");
 }
 else
 {

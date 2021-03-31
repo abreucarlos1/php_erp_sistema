@@ -260,7 +260,7 @@ function stopUpload(success,id,filename,tamanho,erro,msg)
 
 function delUpload(id)
 {
-      document.getElementById('txtup_'+id).innerHTML = '<input class="caixa" name="myfile_'+id+'" type="file" size="30" />&nbsp;&nbsp;<input type="submit" name="submitBtn" id="submitBtn" value="Upload" />';
+      document.getElementById('txtup_'+id).innerHTML = '<input class="caixa" name="myfile_'+id+'" type="file" size="30" />  <input type="submit" name="submitBtn" id="submitBtn" value="Upload" />';
 	  document.getElementById('upload_'+id).innerHTML = "";
 	  document.getElementById('delete_'+id).style.visibility = 'hidden';
 	  document.getElementById('tam_'+id).innerHTML = "";
@@ -300,7 +300,7 @@ function stopUpload_comentarios(id_ged_versao,success,erro)
 }
 
 
-//Cria div popup de envio de arquivos ao Arquivo T�cnico
+//Cria div popup de envio de arquivos ao Arquivo Técnico
 function popupEnvia(id_os)
 {
 	//Instancia as classes
@@ -331,15 +331,15 @@ function popupVersoes_comentarios(id_ged_versao)
 	
 	conteudo = '';
 	
-	conteudo = '<div id="div_titulo" class="labels">&nbsp;</div>';
-	conteudo += '<div>&nbsp;</div>';
+	conteudo = '<div id="div_titulo" class="labels"> </div>';
+	conteudo += '<div> </div>';
 	conteudo += '<div id="div_tab" style="width:100%; height:350px;">';
 	//conteudo += '</div>';
 		conteudo += '<div id="a1">';
 			conteudo += '<form name="frm_prop" id="frm_prop" action="" method="post">';
-			conteudo += '<div id="div_propriedades" name="div_propriedades">&nbsp;</div>';
+			conteudo += '<div id="div_propriedades" name="div_propriedades"> </div>';
 			conteudo += '<table border="0" width="100%">';			
-			conteudo += '<tr><td colspan="2">&nbsp;</td></tr>';
+			conteudo += '<tr><td colspan="2"> </td></tr>';
 			conteudo += '<tr><td><input type="button" value="Alterar Propriedades" onclick="xajax_atualizaPropriedades(xajax.getFormValues(\'frm_prop\'));"></td>';
 			conteudo += '</tr></table>';
 			conteudo += '<input type="hidden" name="id_ged_versao" id="id_ged_versao" value="'+id_ged_versao+'">';
@@ -348,7 +348,7 @@ function popupVersoes_comentarios(id_ged_versao)
 		conteudo += '<div id="a2">';
 			conteudo += '<form name="frm_ver" id="frm_ver" action="" method="post">';
 			conteudo += '<label class="labels">Versões:</label>';
-			conteudo += '<div id="conteudo_versoes">&nbsp;</div>';
+			conteudo += '<div id="conteudo_versoes"> </div>';
 		conteudo += '</form></div>';
 			
 		conteudo += '<div id="a3">';
@@ -358,21 +358,21 @@ function popupVersoes_comentarios(id_ged_versao)
 			conteudo += '<form name="frm_teste" id="frm_teste" action="upload_comentarios.php?id_ged_versao='+id_ged_versao+'" target="upload_target" method="post" enctype="multipart/form-data" onsubmit="startUpload_comentarios();">';
 			conteudo += '<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;display:none;"></iframe>';
 			conteudo += '<div id="div_comentario" name="div_comentario" style="width:100%; height:180px; padding:10px; display:none; border: solid #CCCCCC 1px;overflow:auto;">';
-			conteudo += '<div id="div_comentarios_existentes">&nbsp;</div>';
+			conteudo += '<div id="div_comentarios_existentes"> </div>';
 
-			conteudo += '<input type="file" name="input_1" id="input_1"><img name="img_1" id="img_1" src="../imagens/add.png" style="cursor:pointer; margin-left:2px;" alt="Adicionar outro coment�rio" onclick="adiciona_input_file(\'div_comentario\');"><br>';
-			conteudo += '</div><input type="submit" name="upload_1" style="display:none;" value="Upload"><br><p style="visibility:hidden;" id="inf_upload">&nbsp;</p></form></td></tr>';
+			conteudo += '<input type="file" name="input_1" id="input_1"><img name="img_1" id="img_1" src="../imagens/add.png" style="cursor:pointer; margin-left:2px;" alt="Adicionar outro comentário" onclick="adiciona_input_file(\'div_comentario\');"><br>';
+			conteudo += '</div><input type="submit" name="upload_1" style="display:none;" value="Upload"><br><p style="visibility:hidden;" id="inf_upload"> </p></form></td></tr>';
 			conteudo += '</tr></table>';
 		conteudo += '</div>';
 		
 		conteudo += '<div id="a4">';
 			conteudo += '<table border="0" width="100%">';			
 			conteudo += '<tr><td colspan="2">';
-			conteudo += '<div id="div_desbloqueios">&nbsp;</div>';
+			conteudo += '<div id="div_desbloqueios"> </div>';
 			conteudo += '<br></td></tr></table>';
 		conteudo += '</div>';	
 	conteudo += '</div>';
-	conteudo += '<div id="div_voltar">&nbsp;</div>';
+	conteudo += '<div id="div_voltar"> </div>';
 	divPopupInst.div_conteudo.innerHTML = conteudo;
 	
 	var myTabbar;
@@ -409,7 +409,7 @@ function popupTitulos(id_ged_versao)
 	
 	divPopupInst.inserir();
 	
-	conteudo = '<div id="div_tit">&nbsp;</div>';
+	conteudo = '<div id="div_tit"> </div>';
 		
 	divPopupInst.div_conteudo.innerHTML = conteudo;	
 	
@@ -431,7 +431,7 @@ function popupSolDesBloq(id_ged_versao)
 	
 	divPopupInst.inserir();
 	
-	conteudo = '<div id="div_desbloq">&nbsp;</div>';
+	conteudo = '<div id="div_desbloq"> </div>';
 	
 	divPopupInst.div_conteudo.innerHTML = conteudo;	
 	
@@ -453,10 +453,10 @@ function popupGRDs()
 	divPopupInst.inserir();
 	
 	conteudo = '<form action="" method="post" name="frm_grds" id="frm_grds">';
-	conteudo += '<div id="div_titulo" class="labels">&nbsp;</div>';
+	conteudo += '<div id="div_titulo" class="labels"> </div>';
 	conteudo += '<div id="div_ordem" style="width:100%; text-align:right"><label class="labels">Ordenar por: </span><select name="ordem" id="ordem" class="caixa"><option value="" selected>NUMINT (padrão)</option><option value="1">NUMCLI</option></select></div>';
-	conteudo += '<div>&nbsp;</div>';	
-	conteudo += '<div id="conteudo_grds" style="height:150px; overflow:auto; border-style:solid; border-color:#999999;border-width:1px;">&nbsp;</div>';
+	conteudo += '<div> </div>';	
+	conteudo += '<div id="conteudo_grds" style="height:150px; overflow:auto; border-style:solid; border-color:#999999;border-width:1px;"> </div>';
 	conteudo += '<input type="hidden" name="id_ged_pacote" id="id_ged_pacote" value="">';
 	conteudo += '<p><input type="button" value="Voltar" onclick="divPopupInst.destroi();"></p>';
 	
@@ -480,7 +480,7 @@ function popupBuscaAvancada(id_os,id_disciplina)
 	conteudo += '<input type="hidden" name="id_os_ant" id="id_os_ant" value="'+id_os+'">';
 	conteudo += '<input type="hidden" name="id_disciplina_ant" id="id_disciplina_ant" value="'+id_disciplina+'">';
 	
-	conteudo += '<div id="div_titulo" class="labels">&nbsp;</div>';
+	conteudo += '<div id="div_titulo" class="labels"> </div>';
 	conteudo += '<div id="div_tipo_busca" style="float:left;padding:2px;">';
 	conteudo += '<div class="labels">Tipo de Busca</div><select name="tipo_busca" id="tipo_busca" class="caixa" onchange = xajax_preencheBuscaAvancada(this.options[this.selectedIndex].value);><option value="">SELECIONE</option><option value="1">PROJETO</option><option value="2">REFERÊNCIA</option></select>';
 	conteudo += '</div>';
@@ -501,9 +501,9 @@ function popupBuscaAvancada(id_os,id_disciplina)
 	conteudo += '<div id="div_titulo1" style="clear:left; float:left;">';
 	conteudo += '<div class="labels">Busca</div><input type="text" name="busca_texto" class="caixa" size="70">';
 	conteudo += '</div>';	
-	conteudo += '<div>&nbsp;</div>';	
+	conteudo += '<div> </div>';	
 	conteudo += '</div>';	
-	conteudo += '<div id="div_busca_resultados" style="width:1150px; height:400px; clear:left;">&nbsp;</div>';	
+	conteudo += '<div id="div_busca_resultados" style="width:1150px; height:400px; clear:left;"> </div>';	
 	conteudo += '<p><input type="button" value="Buscar" onclick = xajax_buscaArquivosAvancada(xajax.getFormValues("frm_buscaavancada"));><input name="btn_relatorios" id="btn_rel" type="button" value="Relat&oacute;rios" onclick = popupRel(); disabled="disabled" /><input type="button" value="Voltar" onclick = xajax.$("id_os").options[xajax.$("id_os").selectedIndex].value=document.getElementById("id_os_ant").value;xajax.$("disciplina").options[xajax.$("disciplina").selectedIndex].value=document.getElementById("id_disciplina_ant").value;divPopupInst.destroi();></p>';
 	
 	conteudo += '</form>';	
@@ -738,19 +738,19 @@ function popupRel()
 	conteudo = '';
 	conteudo += '<table width="100%" border="0" cellspacing="0" cellpadding="0">';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" ><input name="btn_listadocs_dvm" id="btn_listadocs_dvm" class="class_botao" type="button" value="Lista&nbsp;Docs.&nbsp;Interno" onclick = xajax.$("ordem_lista_documentos").value="numdvm";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
+	conteudo += '<td valign="middle" ><input name="btn_listadocs_dvm" id="btn_listadocs_dvm" class="class_botao" type="button" value="Lista Docs. Interno" onclick = xajax.$("ordem_lista_documentos").value="numdvm";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" ><input name="btn_listadocs_emit" id="btn_listadocs_emit" class="class_botao" type="button" value="Lista&nbsp;Docs.&nbsp;Emitidos" onclick = xajax.$("ordem_lista_documentos").value="emitidos";xajax.$("chk_emitidos").value="1";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
+	conteudo += '<td valign="middle" ><input name="btn_listadocs_emit" id="btn_listadocs_emit" class="class_botao" type="button" value="Lista Docs. Emitidos" onclick = xajax.$("ordem_lista_documentos").value="emitidos";xajax.$("chk_emitidos").value="1";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" ><input name="btn_listadocs_cli" id="btn_listadocs_cli" class="class_botao" type="button"  value="Lista&nbsp;Docs.&nbsp;Cliente" onclick = xajax.$("ordem_lista_documentos").value="numcliente";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
+	conteudo += '<td valign="middle" ><input name="btn_listadocs_cli" id="btn_listadocs_cli" class="class_botao" type="button"  value="Lista Docs. Cliente" onclick = xajax.$("ordem_lista_documentos").value="numcliente";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit(); /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" ><input name="btn_listadocs_xl" id="btn_listadocs_xl" class="class_botao" type="button" value="Lista&nbsp;Docs.&Excel" onclick = xajax.$("chk_excel").value="1";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit();xajax.$("chk_excel").value=""; /></td>';
+	conteudo += '<td valign="middle" ><input name="btn_listadocs_xl" id="btn_listadocs_xl" class="class_botao" type="button" value="Lista Docs.&Excel" onclick = xajax.$("chk_excel").value="1";xajax.$("frm").target="_blank";xajax.$("frm").action="ged_lista_documentos.php";xajax.$("frm").submit();xajax.$("chk_excel").value=""; /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" ><input name="btn_listadocsref" id="btn_listadocsref" class="class_botao" type="button" value="Lista&Docs.&nbsp;Ref." onclick = xajax.$("frm").target="_blank";xajax.$("frm").action="../relatorios/ged_lista_documentos_ref.php";xajax.$("frm").submit(); /></td>';
+	conteudo += '<td valign="middle" ><input name="btn_listadocsref" id="btn_listadocsref" class="class_botao" type="button" value="Lista Docs. Ref." onclick = xajax.$("frm").target="_blank";xajax.$("frm").action="../relatorios/ged_lista_documentos_ref.php";xajax.$("frm").submit(); /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
 	conteudo += '<td valign="middle" ><input name="btn_grd" id="btn_grd" type="button" class="class_botao" value="GRD" onclick = xajax.$("frm").target="_blank";xajax.$("frm").action="relatorios/rel_ged_grd.php";xajax.$("frm").submit(); /></td>';
@@ -759,7 +759,7 @@ function popupRel()
 	conteudo += '<td valign="middle" ><input name="btn_voltar" id="btn_voltar" type="button" class="class_botao" value="Voltar" onclick = divPopupInst.destroi(); /></td>';
 	conteudo += '</tr>';
 	conteudo += '<tr>';
-	conteudo += '<td valign="middle" >&nbsp;</td>';
+	conteudo += '<td valign="middle" > </td>';
 	conteudo += '</tr>';
 
 	divPopupInst.div_conteudo.innerHTML = conteudo;
@@ -774,7 +774,7 @@ function popupComentarios(id_ged_versao)
 
 	divPopupInst.inserir(500,420);
 	
-	conteudo = '<div id="div_cabecalho_comentarios">&nbsp;</div>';
+	conteudo = '<div id="div_cabecalho_comentarios"> </div>';
 
 	divPopupInst.div_conteudo.innerHTML = conteudo;
 		

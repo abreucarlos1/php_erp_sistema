@@ -1,25 +1,25 @@
-<?
+<?php
 /*
 
-		Formul�rio de MENU DE PROJETOS	
+		Formulário de MENU DE PROJETOS	
 		
 		Criado por Carlos Abreu / Otávio Pamplona
 		
 		local/Nome do arquivo:
 		../projetos/menuprojetos.php
 		
-		data de cria��o: 05/04/2006
+		data de criação: 05/04/2006
 		
 		Versão 0 --> VERSÃO INICIAL
-		Versão 1 --> Retomada do uso - Simioli / alterado por Carlos Abreu - 10/03/2016
+		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
 
 */	
 	
-//Obt�m os dados do usu�rio
+//Obtém os dados do usuário
 session_start();
 if(!isset($_SESSION["id_usuario"]) || !isset($_SESSION["nome_usuario"]))
 {
-	// Usu�rio n�o logado! Redireciona para a p�gina de login
+	// Usuário não logado! Redireciona para a página de login
 	header("Location: ../index.php");
 	exit;
 }
@@ -54,13 +54,13 @@ $_SESSION["OSdesc"] = $descos["descricao"];
 <title>: : . MENU PROCESSO . : :</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<!-- Javascript para valida��o de dados -->
+<!-- Javascript para validação de dados -->
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
-<!-- Javascript para envio dos dados atrav�s do m�todo GET -->
+<!-- Javascript para envio dos dados através do método GET -->
 <script>
 
-//Fun��o para redimensionar a janela.
+//Função para redimensionar a janela.
 function maximiza() {
 
 window.resizeTo(screen.width,screen.height);
@@ -98,10 +98,10 @@ a:active {
         <td bgcolor="#BECCD9" align="left"></td>
       </tr>
       <tr>
-        <td height="25" align="left" bgcolor="#000099" class="menu_superior">&nbsp;</td>
+        <td height="25" align="left" bgcolor="#000099" class="menu_superior"> </td>
       </tr>
       <tr>
-        <td align="left" bgcolor="#BECCD9" class="menu_superior">&nbsp;</td>
+        <td align="left" bgcolor="#BECCD9" class="menu_superior"> </td>
       </tr>
 	  <tr>
       </tr>
@@ -109,11 +109,11 @@ a:active {
         <td>
 		  <table width="100%" height="100%" border="0">
             <tr>
-              <td width="7%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="27%">&nbsp;</td>
-              <td width="32%">&nbsp;</td>
-              <td width="7%">&nbsp;</td>
+              <td width="7%"> </td>
+              <td width="27%"> </td>
+              <td width="27%"> </td>
+              <td width="32%"> </td>
+              <td width="7%"> </td>
             </tr>
             <tr>
               <td colspan="5"><div align="left" class="kks_nivel1">
@@ -121,40 +121,40 @@ a:active {
               </div></td>
               </tr>
             <tr>
-              <td align="center" class="btn">&nbsp;</td>
-              <td align="center" class="btn"><?
+              <td align="center" class="btn"> </td>
+              <td align="center" class="btn"><?php
 
 							echo "<a href=\"fluidos.php\" class=\"btnlink\">FLU&Iacute;DOS</a>";
 
 				?></td>
-              <td class="btn"><?
+              <td class="btn"><?php
 
-							echo "<a href=\"classepressao.php\" class=\"btnlink\">CLASSE DE PRESS&Atilde;O</a>";
+							echo "<a href=\"classepressao.php\" class=\"btnlink\">CLASSE DE PRESSÃO</a>";
 
 				?></td>
-              <td class="btn"><? 
+              <td class="btn"><?php 
 
 					echo "<a href=\"locais_linhas.php\" class=\"btnlink\">LINHAS</a>";
 
 				
 			?></td>
-              <td class="btn">&nbsp;</td>
+              <td class="btn"> </td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
             <tr>
               <td><span class="btn">
-                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onClick="javascript:history.back();">
+                <input name="Equipamentos2" type="button" class="btn" id="Equipamentos2" value="VOLTAR" onclick="javascript:history.back();">
               </span></td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
           </table>
 		</td>
