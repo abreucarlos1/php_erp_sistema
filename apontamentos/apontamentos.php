@@ -1328,7 +1328,7 @@ function insere($dados_form)
 	
 	$params = array();
 	
-	$params['from']	= "ti@dominio.com.br";
+	$params['from']	= "ti@".DOMINIO;
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -1863,11 +1863,11 @@ function insere($dados_form)
 					//$osInt = intval($proposta[0]);
 					
 					$params 			= array();
-					$params['from']		= "empresa@dominio.com.br";
+					$params['from']		= "empresa@".DOMINIO;
 					$params['from_name']= "Apontamento de horas OS ".$proposta[0];
 					$params['subject'] 	= "Apontamento de horas OS ".$proposta[0];
 					
-					$params['emails']['to'][] = array('email' => "planejamento@dominio.com.br", 'nome' => "Planejamento");
+					$params['emails']['to'][] = array('email' => "planejamento@".DOMINIO, 'nome' => "Planejamento");
 					
 					$corpoEmail = '<b>Apontamento realizado na OS '.$proposta[0].'</b><br />';
 					$corpoEmail .= '<b>Funcionário</b>: '.$regs1["funcionario"].'<br />';
@@ -4004,7 +4004,7 @@ $smarty->display('apontamentos.tpl');
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script type="application/javascript">
 
 var mycombo;
 

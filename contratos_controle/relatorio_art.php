@@ -80,12 +80,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_preencheos(-1);");
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -137,3 +131,4 @@ $smarty->display('relatorio_art.tpl');
 
 ?>
 
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

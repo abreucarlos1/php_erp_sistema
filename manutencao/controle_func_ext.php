@@ -96,12 +96,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $check = "<br>";
 
 $sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
@@ -165,4 +159,7 @@ $smarty->assign("nome_formulario","APONTAMENTO DE HORAS - MANUTENÇÃO");
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_func_ext.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

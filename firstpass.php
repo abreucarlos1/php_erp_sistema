@@ -135,21 +135,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script language="javascript">
-
-function limpa_div(div)
-{
-	div = document.getElementById(div);
-	div.innerHTML = '';
-}
-
-</script>
-
-<?php
-
 $conf = new configs();
 
 $smarty->assign("revisao_documento","V4");
@@ -162,7 +147,9 @@ $smarty->assign("login",$_SESSION["login"]);
 
 $smarty->assign("id_usuario",$_SESSION["id_usuario"]);
 
-$smarty->assign("classe","classes/".$conf->classe('login').".css");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('firstpass.tpl');
+
 ?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

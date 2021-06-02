@@ -535,8 +535,8 @@ function atualizar($dados_form)
 				$params['from_name'] = "REQUISIÇÃO DESPESAS: ".sprintf("%05d",$dados_form["id_requisicao_despesa"])." - ACERTO";
 				$params['subject'] = "REQUISIÇÃO DESPESAS: ".sprintf("%05d",$dados_form["id_requisicao_despesa"])." - ACERTO";
 				
-				$params['emails']['to'][] = array('email' => "financeiro@dominio.com.br", 'nome' => "Financeiro");
-				$params['emails']['to'][] = array('email' => "planejamento@dominio.com.br", 'nome' => "Grupo Planejamento");
+				$params['emails']['to'][] = array('email' => "financeiro@".DOMINIO, 'nome' => "Financeiro");
+				$params['emails']['to'][] = array('email' => "planejamento@".DOMINIO, 'nome' => "Grupo Planejamento");
 				
 				if($array_funcionarios[1][$cont["id_funcionario"]])//solicitante
 				{
@@ -589,13 +589,25 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();xajax_atualizatabela(xajax.getFormValues('frm'))");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V8");
+
+$smarty->assign("campo",$conf->campos('despesas_semanais'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('despesas_funcionario.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function tab()
 {
@@ -671,19 +683,3 @@ function imprimir(id_requisicao_despesa)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V8");
-
-$smarty->assign("campo",$conf->campos('despesas_semanais'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('despesas_funcionario.tpl');
-
-?>

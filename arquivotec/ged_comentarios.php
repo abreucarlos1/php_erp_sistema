@@ -655,6 +655,85 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$conf = new configs();
+
+//$idsAcessoEspecial = array(6, 49, 689, 709, 909, 910, 978, 981, 871, 1142);
+
+//ALTERAÇÃO FEITA POR CARLOS ABREU
+//09/02/2009
+if(!in_array($_SESSION["id_funcionario"], $idsAcessoEspecial))
+{
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios, ".DATABASE.".solicitacao_documentos "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
+	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
+	$sql .= "AND solicitacao_documentos.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.id_funcionario = " . $_SESSION["id_funcionario"] . " ";
+	$sql .= "AND ordem_servico_status.id_os_status NOT IN (3,9,12) ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.id_os = solicitacao_documentos.id_os ";
+}
+else
+{
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND ordem_servico.id_os = numeros_interno.id_os ";
+	$sql .= "AND numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";
+	$sql .= "AND numeros_interno.reg_del = 0 ";
+	$sql .= "AND ged_arquivos.reg_del = 0 ";
+
+}
+
+/*
+if($_SESSION["id_funcionario"]!=6)
+{
+	$sql .= "AND os.os > 1700 ";
+}
+*/
+
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY ordem_servico.os ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	die("Não foi possível realizar a seleção: ". $db->erro); 
+}
+
+foreach($db->array_select as $regs)
+{
+	$os = sprintf("%05d",$regs["os"]);
+	
+	$array_os_values[] = $regs["id_os"];
+	$array_os_output[] = $os . " - " . substr($regs["descricao"],0,40);	
+}
+
+/*
+if($_SESSION["id_funcionario"]==892)
+{
+	$array_os_values[] = 1062;
+	$array_os_output[] = "03311 - TESTE";		
+}
+*/
+
+$smarty->assign("revisao_documento","V3");
+
+$smarty->assign("campo",$conf->campos('ged_comentarios'));
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("nome_formulario","COMENTÁRIOS");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('ged_comentarios.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -664,7 +743,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {
@@ -751,84 +830,3 @@ function open_doc(dir)
 }
 
 </script>
-
-<?php
-$conf = new configs();
-
-//$idsAcessoEspecial = array(6, 49, 689, 709, 909, 910, 978, 981, 871, 1142);
-
-//ALTERAÇÃO FEITA POR CARLOS ABREU
-//09/02/2009
-if(!in_array($_SESSION["id_funcionario"], $idsAcessoEspecial))
-{
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios, ".DATABASE.".solicitacao_documentos "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
-	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
-	$sql .= "AND solicitacao_documentos.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.id_funcionario = " . $_SESSION["id_funcionario"] . " ";
-	$sql .= "AND ordem_servico_status.id_os_status NOT IN (3,9,12) ";
-	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.id_os = solicitacao_documentos.id_os ";
-}
-else
-{
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos ";
-	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_os = numeros_interno.id_os ";
-	$sql .= "AND numeros_interno.id_numero_interno = ged_arquivos.id_numero_interno ";
-	$sql .= "AND numeros_interno.reg_del = 0 ";
-	$sql .= "AND ged_arquivos.reg_del = 0 ";
-
-}
-
-/*
-if($_SESSION["id_funcionario"]!=6)
-{
-	$sql .= "AND os.os > 1700 ";
-}
-*/
-
-$sql .= "GROUP BY ordem_servico.id_os ";
-$sql .= "ORDER BY ordem_servico.os ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	die("Não foi possível realizar a seleção: ". $db->erro); 
-}
-
-foreach($db->array_select as $regs)
-{
-	$os = sprintf("%05d",$regs["os"]);
-	
-	$array_os_values[] = $regs["id_os"];
-	$array_os_output[] = $os . " - " . substr($regs["descricao"],0,40);	
-}
-
-/*
-if($_SESSION["id_funcionario"]==892)
-{
-	$array_os_values[] = 1062;
-	$array_os_output[] = "03311 - TESTE";		
-}
-*/
-
-$smarty->assign("revisao_documento","V3");
-
-$smarty->assign("campo",$conf->campos('ged_comentarios'));
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("nome_formulario","COMENTÁRIOS");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('ged_comentarios.tpl');
-?>

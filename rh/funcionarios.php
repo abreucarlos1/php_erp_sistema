@@ -1308,7 +1308,7 @@ function insere($dados_form)
 									if(ENVIA_EMAIL)
 									{
 										$params 			= array();
-										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from']		= "recrutamento@".DOMINIO;
 										$params['from_name']= "RECURSOS HUMANOS";
 										$params['subject'] 	= "ADMISSÃO FUNCIONÁRIO";
 
@@ -1364,7 +1364,7 @@ function insere($dados_form)
 								if(ENVIA_EMAIL)
 								{
 									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from']		= "recrutamento@".DOMINIO;
 									$params['from_name']= "RECURSOS HUMANOS";
 									$params['subject'] 	= "CADASTRO DE NOVO USUÁRIO";
 
@@ -1398,7 +1398,7 @@ function insere($dados_form)
 								if(ENVIA_EMAIL)
 								{
 									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from']		= "recrutamento@".DOMINIO;
 									$params['from_name']= "RECURSOS HUMANOS";
 									$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR";
 
@@ -1431,7 +1431,7 @@ function insere($dados_form)
 								if(ENVIA_EMAIL)
 								{
 									$params 			= array();
-									$params['from']		= "recrutamento@dominio.com.br";
+									$params['from']		= "recrutamento@".DOMINIO;
 									$params['from_name']= "RECURSOS HUMANOS";
 									$params['subject'] 	= "CADASTRO DE NOVO COLABORADOR - PACOTE";
 
@@ -1852,7 +1852,7 @@ function atualizar($dados_form)
 					if(ENVIA_EMAIL)
 					{
 						$params 			= array();
-						$params['from']		= "ti@dominio.com.br";
+						$params['from']		= "ti@".DOMINIO;
 						$params['from_name']= "RH - Alteração de E-mail";
 						$params['subject'] 	= "ALTERAÇÃO DE E-MAIL DE COLABORADOR";
 						$params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte');
@@ -1885,7 +1885,7 @@ function atualizar($dados_form)
 					if(ENVIA_EMAIL)
 					{
 						$params 			= array();
-						$params['from']		= "ti@dominio.com.br";
+						$params['from']		= "ti@".DOMINIO;
 						$params['from_name']= "RH - Reativacao de colaborador";
 						$params['subject'] 	= "ALTERAÇÃO DE SITUAÇÃO DE COLABORADOR";
 						$params['emails']['to'][] = array('email' => 'ti@dominio.com.br', 'nome' => 'Suporte');
@@ -2074,7 +2074,7 @@ function atualizar($dados_form)
 						{
 
 							$params 			= array();
-							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from']		= "recrutamento@".DOMINIO;
 							$params['from_name']= "RECURSOS HUMANOS";
 							$params['subject'] 	= "DESLIGAMENTO FUNCIONARIO - CLT";
 
@@ -2112,7 +2112,7 @@ function atualizar($dados_form)
 					{
 
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "USUÁRIO PRESTES A SER DESLIGADO";
 
@@ -2164,7 +2164,7 @@ function atualizar($dados_form)
 					{
 
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "COLABORADOR EM FECHAMENTO / AVISO PREVIO(CLT)";
 
@@ -2372,7 +2372,7 @@ function atualizar($dados_form)
 						if(ENVIA_EMAIL)
 						{
 							$params 			= array();
-							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from']		= "recrutamento@".DOMINIO;
 							$params['from_name']= "RECURSOS HUMANOS";
 							$params['subject'] 	= "DESLIGAMENTO DE USUARIO";
 
@@ -2395,7 +2395,7 @@ function atualizar($dados_form)
 						if(ENVIA_EMAIL)
 						{
 							$params 			= array();
-							$params['from']		= "recrutamento@dominio.com.br";
+							$params['from']		= "recrutamento@".DOMINIO;
 							$params['from_name']= "RECURSOS HUMANOS";
 							$params['subject'] 	= "DESLIGAMENTO DE COLABORADOR";
 
@@ -2640,7 +2640,7 @@ function atualizar($dados_form)
 				{
 				
 					$params 			= array();
-					$params['from']		= "recrutamento@dominio.com.br";
+					$params['from']		= "recrutamento@".DOMINIO;
 					$params['from_name']= "RECURSOS HUMANOS";
 					$params['subject'] 	= "ALTERACAO DE USUARIO";
 
@@ -3201,7 +3201,7 @@ function preenche($valor)
 
 	$txt = explode(" ",$valor);
 
-	$resposta->addAssign("email","value",minusculas(tiraacentos($txt[0].'.'.$txt[count($txt)-1]))."@dominio.com.br");
+	$resposta->addAssign("email","value",minusculas(tiraacentos($txt[0].'.'.$txt[count($txt)-1]))."@".DOMINIO);
 
 	$resposta->addAssign("login","value",minusculas(tiraacentos($txt[0].'.'.$txt[count($txt)-1])));
 
@@ -4113,7 +4113,7 @@ function envia_microsiga($id)
 			if(ENVIA_EMAIL)
 			{
 				$params 			= array();
-				$params['from']		= "recrutamento@dominio.com.br";
+				$params['from']		= "recrutamento@".DOMINIO;
 				$params['from_name']= "RECURSOS HUMANOS";
 				$params['subject'] 	= "ADMISSÃO FUNCIONARIO";
 
@@ -4891,7 +4891,7 @@ $smarty->display('funcionarios.tpl');
 <script src="<?php echo INCLUDE_JS ?>jquery/jquery.min.js"></script>
 <script src="<?php echo INCLUDE_JS ?>jquery/jquery-ui-1.11.1/jquery-ui.min.js"></script>
 
-<script language="javascript">
+<script>
     function popup_marcar_nr(cod_funcionario, cpf)
     {
         var html = 	'<form id="frm_nr" name="frm_nr">'+

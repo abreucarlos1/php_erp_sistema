@@ -820,7 +820,7 @@ $smarty->assign("body_onload","xajax_cidades(xajax.getFormValues('frm'));xajax_a
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {

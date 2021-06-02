@@ -244,13 +244,61 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+if(isset($_GET["id_funcionario"]) && isset($_GET["data_ini"]) && isset($_GET["data_fim"]))
+{
+	$cod_funcionario = $_GET["id_funcionario"];
+	$data_ini = mysql_php($_GET["data_ini"]);
+	$data_fin = mysql_php($_GET["data_fim"]);
+	$tipo_valor = $_GET["tipo"];
+}
+else
+{
+	$cod_funcionario = $_POST["id_funcionario"];
+	$data_ini = $_POST["dataini"];
+	$data_fin = $_POST["data_fim"];
+	$tipo_valor = $_POST["tipo"];
+}
+
+$sql = "SELECT funcionario FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_funcionario = '".$cod_funcionario."' ";
+$sql .= "AND funcionarios.reg_del = 0 ";
+
+$db->select($sql, 'MYSQL', true);
+
+if ($db->erro != '')
+{
+	$resposta->addAlert("Não foi possível a seleção dos dados.".$sql);
+}
+
+$reg = $db->array_select[0];
+
+$smarty->assign('colaborador',$reg["funcionario"]);
+$smarty->assign('id_funcionario',$cod_funcionario);
+$smarty->assign('tipo',$tipo_valor);
+$smarty->assign('data_ini',$data_ini);
+$smarty->assign('data_fim',$data_fin);
+
+$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
+
+$smarty->assign('revisao_documento', 'V4');
+
+$smarty->assign('campo', $conf->campos('fechamentofolha_outros'));
+
+$smarty->assign("botao", $conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('fechamentofolha_outros.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 
 window.onbeforeunload = function () 
@@ -320,55 +368,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-if(isset($_GET["id_funcionario"]) && isset($_GET["data_ini"]) && isset($_GET["data_fim"]))
-{
-	$cod_funcionario = $_GET["id_funcionario"];
-	$data_ini = mysql_php($_GET["data_ini"]);
-	$data_fin = mysql_php($_GET["data_fim"]);
-	$tipo_valor = $_GET["tipo"];
-}
-else
-{
-	$cod_funcionario = $_POST["id_funcionario"];
-	$data_ini = $_POST["dataini"];
-	$data_fin = $_POST["data_fim"];
-	$tipo_valor = $_POST["tipo"];
-}
-
-$sql = "SELECT funcionario FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.id_funcionario = '".$cod_funcionario."' ";
-$sql .= "AND funcionarios.reg_del = 0 ";
-
-$db->select($sql, 'MYSQL', true);
-
-if ($db->erro != '')
-{
-	$resposta->addAlert("Não foi possível a seleção dos dados.".$sql);
-}
-
-$reg = $db->array_select[0];
-
-$smarty->assign('colaborador',$reg["funcionario"]);
-$smarty->assign('id_funcionario',$cod_funcionario);
-$smarty->assign('tipo',$tipo_valor);
-$smarty->assign('data_ini',$data_ini);
-$smarty->assign('data_fim',$data_fin);
-
-$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
-
-$smarty->assign('revisao_documento', 'V4');
-
-$smarty->assign('campo', $conf->campos('fechamentofolha_outros'));
-
-$smarty->assign("botao", $conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('fechamentofolha_outros.tpl');
-
-?>

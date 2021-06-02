@@ -2,16 +2,13 @@
 /*
 		Formulário de sub_modulos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
-		../ti/sub_modulos.php
+		../administracao/sub_modulos.php
 	
-		Versão 0 --> VERSÃO INICIAL : 28/10/2008
-		Versão 1 --> Atualização Lay-out : 06/04/2009
-		Versão 2 --> Atualização classe banco de dados - 27/01/2015 - Carlos Abreu
-		Versão 3 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 4 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -514,13 +511,88 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("campo",$conf->campos('sub_modulos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$msg = $conf->msg();
+
+$array_modulo_values = NULL;
+$array_modulo_output = NULL;
+
+$array_sub_modulo_values = NULL;
+$array_sub_modulo_output = NULL;
+
+
+$array_modulo_values[] = "0";
+$array_modulo_output[] = "SELECIONE";
+
+$array_sub_modulo_values[] = "0";
+$array_sub_modulo_output[] = "SELECIONE";
+
+$db = new banco_dados;
+
+$sql = "SELECT id_modulo, modulo FROM ".DATABASE.".modulos ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY modulo ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach ($db->array_select as $regs)
+{
+	$array_modulo_values[] = $regs["id_modulo"];
+	$array_modulo_output[] = $regs["modulo"];
+}
+
+$sql = "SELECT id_sub_modulo, id_sub_modulo_pai, sub_modulo FROM ".DATABASE.".sub_modulos ";
+$sql .= "WHERE reg_del = 0 ";
+$sql .= "ORDER BY id_sub_modulo_pai";
+
+$db->select($sql,'MYSQL',true);
+
+$array_sub = $db->array_select; 
+
+foreach ($array_sub as $regs)
+{
+	$sql = "SELECT sub_modulo FROM ".DATABASE.".sub_modulos ";
+	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
+	$sql .= "AND reg_del = 0 ";
+	$sql .= "ORDER BY sub_modulo ";
+	
+	$db->select($sql,'MYSQL',true);
+	
+	$regs1 = $db->array_select[0];
+	
+	$array_sub_modulo_values[] = $regs["id_sub_modulo"];
+	$array_sub_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];
+}
+
+$smarty->assign("option_modulo_values",$array_modulo_values);
+$smarty->assign("option_modulo_output",$array_modulo_output);
+
+$smarty->assign("option_sub_modulo_values",$array_sub_modulo_values);
+$smarty->assign("option_sub_modulo_output",$array_sub_modulo_output);
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->display('sub_modulos.tpl');
+
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -580,77 +652,3 @@ function mostraCamposAcessoPadrao(padrao)
 	}
 }
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("campo",$conf->campos('sub_modulos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$msg = $conf->msg();
-
-$array_modulo_values = NULL;
-$array_modulo_output = NULL;
-
-$array_sub_modulo_values = NULL;
-$array_sub_modulo_output = NULL;
-
-
-$array_modulo_values[] = "0";
-$array_modulo_output[] = "SELECIONE";
-
-$array_sub_modulo_values[] = "0";
-$array_sub_modulo_output[] = "SELECIONE";
-
-$db = new banco_dados;
-
-$sql = "SELECT * FROM ".DATABASE.".modulos ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY modulo ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach ($db->array_select as $regs)
-{
-	$array_modulo_values[] = $regs["id_modulo"];
-	$array_modulo_output[] = $regs["modulo"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-$sql .= "WHERE reg_del = 0 ";
-$sql .= "ORDER BY id_sub_modulo_pai";
-
-$db->select($sql,'MYSQL',true);
-
-$array_sub = $db->array_select; 
-
-foreach ($array_sub as $regs)
-{
-	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
-	$sql .= "AND reg_del = 0 ";
-	$sql .= "ORDER BY sub_modulo ";
-	
-	$db->select($sql,'MYSQL',true);
-	
-	$regs1 = $db->array_select[0];
-	
-	$array_sub_modulo_values[] = $regs["id_sub_modulo"];
-	$array_sub_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];
-}
-
-$smarty->assign("option_modulo_values",$array_modulo_values);
-$smarty->assign("option_modulo_output",$array_modulo_output);
-
-$smarty->assign("option_sub_modulo_values",$array_sub_modulo_values);
-$smarty->assign("option_sub_modulo_output",$array_sub_modulo_output);
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('sub_modulos.tpl');
-
-?>

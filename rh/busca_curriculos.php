@@ -680,7 +680,7 @@ WHERE
 	else
 	{
 		$params = array();					
-		$params['from']	= "empresa@dominio.com.br";
+		$params['from']	= "empresa@".DOMINIO;
 		$params['from_name'] = "";
 		$params['subject'] 	= "Atualização de Currículo";
 		
@@ -735,7 +735,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
-<script language="javascript">
+<script>
 
 function escolherMarcacao(id)
 {

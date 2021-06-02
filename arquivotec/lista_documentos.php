@@ -29,14 +29,6 @@ if(!verifica_sub_modulo(294) && !verifica_sub_modulo(32))
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
@@ -117,4 +109,9 @@ $smarty->assign("nome_formulario","LISTA DOS DOCUMENTOS DO PROJETO");
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('lista_documentos.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

@@ -25,12 +25,6 @@ if(!verifica_sub_modulo(581))
 
 $conf = new configs();
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $array = array("JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO");
 
 for($i=1;$i<=12;$i++)
@@ -153,4 +147,7 @@ $smarty->assign('botao', $conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('relatorio_hh_medicao.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

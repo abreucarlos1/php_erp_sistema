@@ -81,7 +81,7 @@ $db->select($sql, 'MYSQL', function($reg, $i) use(&$arquivosCompl){
 });
 
 /*BUSCA OS CODIGOS E UNIDADE DO PRODUTO*/
-$sql = "SELECT * FROM materiais_old.produto WHERE produto.cod_barras IN ('".implode("','", $codBarras)."') AND produto.reg_del = 0 AND produto.atual = 1;";
+$sql = "SELECT * FROM ".DATABASE.".produto WHERE produto.cod_barras IN ('".implode("','", $codBarras)."') AND produto.reg_del = 0 AND produto.atual = 1;";
 
 $idGedArquivos = array();
 $listaCodBarras = array();
@@ -114,15 +114,15 @@ foreach($arquivos as $descArq => $produto)
 	"SELECT
 		DISTINCT cod_barras, id_produto, id_familia
 	FROM
-		materiais_old.espec_lista
+		".DATABASE.".espec_lista
 	    JOIN(
-			SELECT p.cod_barras, p.id_produto, c.id_familia FROM materiais_old.produto p
-			LEFT JOIN materiais_old.componentes c ON c.cod_barras = p.cod_barras
+			SELECT p.cod_barras, p.id_produto, c.id_familia FROM ".DATABASE.".produto p
+			LEFT JOIN ".DATABASE.".componentes c ON c.cod_barras = p.cod_barras
 			WHERE p.reg_del = 0 AND c.reg_del = 0 AND p.cod_barras IN('".implode("','", $produtosLista)."') AND atual = 1
 	    ) produto
 	    ON cod_barras = el_cod_barras
 	    JOIN(
-			SELECT ec_os, ec_id FROM materiais_old.espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = ".$arquivosCompl[$descArq]['id_os']."
+			SELECT ec_os, ec_id FROM ".DATABASE.".espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = ".$arquivosCompl[$descArq]['id_os']."
 	    ) ec
 	    ON el_ec_id = ec_id
 		WHERE espec_lista.reg_del = 0 
@@ -146,13 +146,13 @@ foreach($arquivos as $descArq => $produto)
 			}
 			
 			//Verificando se o arquivo já possui cabecalho criado, para não criar lixo no banco de dados
-			$sql = "SELECT * FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_ged_arquivo = '".$arquivosCompl[$descArq]['id_ged_arquivo']."'";
+			$sql = "SELECT * FROM ".DATABASE.".lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_ged_arquivo = '".$arquivosCompl[$descArq]['id_ged_arquivo']."'";
 			$db->select($sql, 'MYSQL', true);
 			
 			if ($db->numero_registros == 0)
 			{
 				//Inserindo o cabecalho e pegando o código gerado
-				$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
+				$isql = "INSERT INTO ".DATABASE.".lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
 				$db->insert($isql, 'MYSQL');
 				$idCabecalho = $db->insert_id;
 				$complCabecalho = 'criado';
@@ -188,8 +188,8 @@ foreach($arquivos as $descArq => $produto)
 					
 					//Verificando se o item selecionado já está na lista do arquivo
 					$sql = "SELECT m.id_lista_materiais, m.id_lista_materiais_versoes, MAX(revisao_documento) revisao_documento
-							FROM materiais_old.lista_materiais m
-							JOIN materiais_old.lista_materiais_versoes v ON v.id_lista_materiais = m.id_lista_materiais AND v.reg_del = 0
+							FROM ".DATABASE.".lista_materiais m
+							JOIN ".DATABASE.".lista_materiais_versoes v ON v.id_lista_materiais = m.id_lista_materiais AND v.reg_del = 0
 							WHERE m.reg_del = 0 AND m.cod_barras = '".$idProduto."' AND m.id_lista_materiais_cabecalho = ".$idCabecalho."
 							GROUP BY m.id_lista_materiais, m.id_lista_materiais_versoes";
 					
@@ -198,7 +198,7 @@ foreach($arquivos as $descArq => $produto)
 					if ($db->numero_registros == 0)
 					{
 						//Inserindo a lista de materiais gerada
-						$isql = "INSERT INTO materiais_old.lista_materiais 
+						$isql = "INSERT INTO ".DATABASE.".lista_materiais 
 								(id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_disciplina) VALUES ";
 											
 						$isql 			.= "(".$idArquivo.", '".$idProduto."', ".$idOs.", ".$idFunc.", '".$data."', ".$idCabecalho.", ".$idDisciplina.")";
@@ -221,7 +221,7 @@ foreach($arquivos as $descArq => $produto)
 						
 						//Excluindo a versão já existente mantendo o histórico
 						//O restante do fluxo continua normalmente com a inserção da nova versão e a Atualização da lista de materiais atualmente selecionada
-						$usql = "UPDATE materiais_old.lista_materiais_versoes SET reg_del = 0, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_lista_materiais_versoes = ".$idLv;
+						$usql = "UPDATE ".DATABASE.".lista_materiais_versoes SET reg_del = 0, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_lista_materiais_versoes = ".$idLv;
 						$db->update($usql, 'MYSQL');
 					}
 					
@@ -231,7 +231,7 @@ foreach($arquivos as $descArq => $produto)
 						
 						//INSERINDO A VERSÃO DO ITEM DA LISTA
 						$isql = "INSERT INTO
-									materiais_old.lista_materiais_versoes
+									".DATABASE.".lista_materiais_versoes
 									(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, cod_barras)
 								VALUES
 									(".$idLm.", ".$idFunc.", '".$data."', ".$revisao_documento.", '".$unidade."', ".$qtd.", 0, ".$idCabecalho.", '".$idProduto."')";
@@ -243,7 +243,7 @@ foreach($arquivos as $descArq => $produto)
 						{
 							$log .= '<h5>Versão '.$revisao_documento.' da Lista Nº '.$idLv.' criada<h5>';
 								
-							$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = ".$idLv." WHERE id_lista_materiais = ".$idLm." AND reg_del = 0 ";
+							$usql = "UPDATE ".DATABASE.".lista_materiais SET id_lista_materiais_versoes = ".$idLv." WHERE id_lista_materiais = ".$idLm." AND reg_del = 0 ";
 							$db->update($usql, 'MYSQL');
 						}
 						else

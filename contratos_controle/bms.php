@@ -3410,7 +3410,7 @@ function cancelar_saldo_remanescente($dados_form)
     
     //MANDAR EMAIL COM O MOTIVO DO CANCELAMENTO E PEDINDO PARA ALTERAR NO ORÇAMENTO NO PROTHEUS.
     $params 			= array();
-    $params['from']		= "comercial@dominio.com.br";
+    $params['from']		= "comercial@".DOMINIO;
     $params['from_name']= "BMS - CANCELAMENTO DE SALDO";
     $params['subject'] 	= "Cancelamento de saldo remanescente - ";
     
@@ -3588,13 +3588,124 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();xajax_atualizatabela();xajax_preenche_combo_status();xajax_preenche_combo_item_medicoes()");
+
+$conf = new configs();
+
+$msg = $conf->msg();
+
+$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
+$sql .= "WHERE formatos.reg_del = 0 ";
+
+$array_unidade_values = NULL;
+$array_unidade_output = NULL;
+
+$array_unidade_values[] = "";
+$array_unidade_output[] = "SELECIONE";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $reg)
+{
+  	$array_unidade_values[] = $reg['id_formato'];
+  	$array_unidade_output[] = $reg['formato'];
+}
+
+/*
+$array_cond_values = array();
+$array_cond_output = array();
+
+$array_cond_values[] = '';
+$array_cond_output[] = 'SELECIONE';
+
+$sql = "SELECT DISTINCT E4_DESCRI, E4_COND, E4_CODIGO FROM SE4010 ";
+$sql .= "WHERE D_E_L_E_T_ = '' ";
+
+$db->select($sql,'MSSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $reg)
+{
+	$array_cond_values[] = $reg['E4_CODIGO'];
+	$array_cond_output[] = $reg['E4_DESCRI'];	
+}
+*/
+
+$array_status_values[] = '';
+$array_status_output[] = 'SELECIONE';
+
+$sql = "SELECT id_bms_controle, bms_controle FROM ".DATABASE.".bms_controles ";
+$sql .= "WHERE id_bms_controle IN(1,2,4,5,3) ";
+$sql .= "AND reg_del = 0 ";
+$sql .= "ORDER BY id_bms_controle ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach($db->array_select as $reg)
+{
+	$array_status_values[] = $reg['id_bms_controle'];
+	$array_status_output[] = $reg['bms_controle'];	
+}
+
+$sql = "SELECT id_os_status, os_status FROM ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE fase_protheus <> '00' ";
+$sql .= "AND reg_del = 0 ";
+$sql .= "AND id_os_status IN(1,2,7,14,15,16) ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção.".$sql);
+}
+
+$array_status_os_values[] = '';
+$array_status_os_output[] = 'SELECIONE';
+
+foreach($db->array_select as $regs)
+{
+	$array_status_os_values[] = $regs["id_os_status"];
+	$array_status_os_output[] = $regs["os_status"];
+}
+
+$smarty->assign("option_status_os_values",$array_status_os_values);
+$smarty->assign("option_status_os_output",$array_status_os_output);
+
+$smarty->assign("option_status_values",$array_status_values);
+$smarty->assign("option_status_output",$array_status_output);
+
+$smarty->assign("option_unidade_values",$array_unidade_values);
+$smarty->assign("option_unidade_output",$array_unidade_output);
+
+$smarty->assign("option_cond_values",$array_cond_values);
+$smarty->assign("option_cond_output",$array_cond_output);
+
+$smarty->assign("campo",$conf->campos('bms',$_COOKIE["idioma"]));
+$smarty->assign("botao",$conf->botoes($_COOKIE["idioma"]));
+
+$smarty->assign("revisao_documento","V7");
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('bms.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function showModalTexto(texto)
 {
 	//Retirando os # que coloquei devido a grid que nao aceita espacos
@@ -4134,115 +4245,3 @@ function showModalNF(idMedicao, idItem)
 	modal(html, '140_300', 'DIGITE O NÚMERO DA NF');
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$msg = $conf->msg();
-
-$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
-$sql .= "WHERE formatos.reg_del = 0 ";
-
-$array_unidade_values = NULL;
-$array_unidade_output = NULL;
-
-$array_unidade_values[] = "";
-$array_unidade_output[] = "SELECIONE";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $reg)
-{
-  	$array_unidade_values[] = $reg['id_formato'];
-  	$array_unidade_output[] = $reg['formato'];
-}
-
-/*
-$array_cond_values = array();
-$array_cond_output = array();
-
-$array_cond_values[] = '';
-$array_cond_output[] = 'SELECIONE';
-
-$sql = "SELECT DISTINCT E4_DESCRI, E4_COND, E4_CODIGO FROM SE4010 ";
-$sql .= "WHERE D_E_L_E_T_ = '' ";
-
-$db->select($sql,'MSSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $reg)
-{
-	$array_cond_values[] = $reg['E4_CODIGO'];
-	$array_cond_output[] = $reg['E4_DESCRI'];	
-}
-*/
-
-$array_status_values[] = '';
-$array_status_output[] = 'SELECIONE';
-
-$sql = "SELECT id_bms_controle, bms_controle FROM ".DATABASE.".bms_controles ";
-$sql .= "WHERE id_bms_controle IN(1,2,4,5,3) ";
-$sql .= "AND reg_del = 0 ";
-$sql .= "ORDER BY id_bms_controle ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach($db->array_select as $reg)
-{
-	$array_status_values[] = $reg['id_bms_controle'];
-	$array_status_output[] = $reg['bms_controle'];	
-}
-
-$sql = "SELECT id_os_status, os_status FROM ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE fase_protheus <> '00' ";
-$sql .= "AND reg_del = 0 ";
-$sql .= "AND id_os_status IN(1,2,7,14,15,16) ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	exit("Não foi possível realizar a seleção.".$sql);
-}
-
-$array_status_os_values[] = '';
-$array_status_os_output[] = 'SELECIONE';
-
-foreach($db->array_select as $regs)
-{
-	$array_status_os_values[] = $regs["id_os_status"];
-	$array_status_os_output[] = $regs["os_status"];
-}
-
-$smarty->assign("option_status_os_values",$array_status_os_values);
-$smarty->assign("option_status_os_output",$array_status_os_output);
-
-$smarty->assign("option_status_values",$array_status_values);
-$smarty->assign("option_status_output",$array_status_output);
-
-$smarty->assign("option_unidade_values",$array_unidade_values);
-$smarty->assign("option_unidade_output",$array_unidade_output);
-
-$smarty->assign("option_cond_values",$array_cond_values);
-$smarty->assign("option_cond_output",$array_cond_output);
-
-$smarty->assign("campo",$conf->campos('bms',$_COOKIE["idioma"]));
-$smarty->assign("botao",$conf->botoes($_COOKIE["idioma"]));
-
-$smarty->assign("revisao_documento","V7");
-
-$smarty->assign("larguraTotal",1);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('bms.tpl');
-?>

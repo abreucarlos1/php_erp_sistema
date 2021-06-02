@@ -171,6 +171,20 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$smarty->assign("body_onload","xajax_monta_pastas('".DOCUMENTOS_SGI."8_PERIGOS_E_RISCOS_OCUPACIONAIS')");
+
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V1");
+
+$smarty->assign("campo",$conf->campos('menu_perigos_riscos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("menu_perigos_riscos.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -206,22 +220,3 @@ function show_tree(xml)
 	myTree.loadXMLString(xml);
 }
 </script>
-
-<?php
-
-
-$smarty->assign("body_onload","xajax_monta_pastas('".DOCUMENTOS_SGI."8_PERIGOS_E_RISCOS_OCUPACIONAIS')");
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V1");
-
-$smarty->assign("campo",$conf->campos('menu_perigos_riscos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("menu_perigos_riscos.tpl");
-
-?>

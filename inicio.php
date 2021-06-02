@@ -439,7 +439,7 @@ $smarty->display("inicio.tpl");
 <script src="<?php echo INCLUDE_JS ?>utils.js"></script>
 
 <!-- METODO ANTIGO / COMPATIBILIDADE -->
-<script language="javascript">
+<script type="application/javascript">
 
 function abrejanela(nome,caminho,largura,altura)
 {

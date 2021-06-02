@@ -63,16 +63,16 @@ function getSubGrupos($dados_form, $idSel = '')
 	$sql = "SELECT
 			  DISTINCT codigo_grupo, sub_grupo, id_sub_grupo
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN
 			  (
-		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM materiais_old.grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
+		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM ".DATABASE.".grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
 		      ) grupoXSub
 		    ON subGrupo = id_sub_grupo 
 			JOIN(
-		        SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-		    ) grupo
-		    ON grupo.id_grupo = codGrupo 
+		        SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+		    ) grupo_mat
+		    ON grupo_mat.id_grupo = codGrupo 
 			WHERE codigo_grupo = '".$dados_form['codigo_grupo']."'
 			AND sub_grupo.reg_del = 0 
 			ORDER BY sub_grupo ";
@@ -124,19 +124,19 @@ function getAtributos($dados_form, $codigoInteligente = '', $desabilita = false,
 	$sql = "SELECT
 			  DISTINCT *
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN(
 			    SELECT
 			      id_atributo, atributo, subGrupo, codGrupo, ordem, codigo_grupo, compoe_codigo
 			    FROM
-			      materiais_old.atributos
+			      ".DATABASE.".atributos
 			      JOIN(
-			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			      ) atrXSub
 			      ON codAtributo = id_atributo
 			      JOIN(
-					SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 
-				  ) grupo
+					SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0 
+				  ) grupo_mat
 				  ON codigo_grupo = codGrupo
 			    WHERE atributos.reg_del = 0
 			  ) atributos
@@ -219,9 +219,9 @@ function buscarReferencias($idAtributo, $idSel = '', $idSubGrupo, $idGrupo)
 	$sql = "SELECT
 			  valor, label
 			FROM
-			  materiais_old.atributos_x_sub_grupo a
+			  ".DATABASE.".atributos_x_sub_grupo a
 			  JOIN(
-			    SELECT id_atr_sub codValAtr, valor, label FROM materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0
+			    SELECT id_atr_sub codValAtr, valor, label FROM ".DATABASE.".matriz_materiais WHERE matriz_materiais.reg_del = 0
 			  ) atr_valores
 			  ON codValAtr = a.id_atr_sub
 			WHERE
@@ -265,13 +265,13 @@ function inserir($dados_form)
 	$desccodigo = AntiInjection::clean($dados_form['descricaocodigoValue']);
 	$descLonga = AntiInjection::clean($dados_form['descricaoLongaFamilia']);
 	
-	$sql = "SELECT id_familia FROM materiais_old.familia WHERE familia.codigo_inteligente = '".$dados_form['codigoInteligenteValue']."' AND familia.reg_del = 0";
+	$sql = "SELECT id_familia FROM ".DATABASE.".familia WHERE familia.codigo_inteligente = '".$dados_form['codigoInteligenteValue']."' AND familia.reg_del = 0";
 	
 	$db->select($sql, 'MYSQL', true);
 	
 	if ($db->numero_registros == 0)
 	{
-		$isql  = "INSERT INTO materiais_old.familia (codigo_inteligente, descricao, descricao_longa, atual) VALUES ";
+		$isql  = "INSERT INTO ".DATABASE.".familia (codigo_inteligente, descricao, descricao_longa, atual) VALUES ";
 		$isql .= "('".$dados_form['codigoInteligenteValue']."', '".$desccodigo."', '".$descLonga."', 1)";
 		
 		$db->insert($isql, 'MYSQL');
@@ -283,7 +283,7 @@ function inserir($dados_form)
 		$idFamilia = $db->array_select[0]['id_familia'];
 	}
 	
-	$sql = "SELECT MAX(id_componente) ultimo FROM materiais_old.componentes WHERE componentes.reg_del = 0";
+	$sql = "SELECT MAX(id_componente) ultimo FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0";
 	
 	$db->select($sql, 'MYSQL', true);
 	$ultimo = $db->array_select[0]['ultimo'];
@@ -326,7 +326,7 @@ function inserir($dados_form)
 	$sql = "SELECT 
 				*
 			FROM 
-				materiais_old.atributos
+				".DATABASE.".atributos
 			WHERE atributos.reg_del = 0 
 			AND id_atributo IN(".implode(',', $campos).")";
 	
@@ -358,7 +358,7 @@ function inserir($dados_form)
 		
 		$codigoInteligente = $dados_form['codigoInteligenteValue'].'.'.$complcodigoInteligente;
 		
-		$sql = "SELECT codigo_inteligente FROM materiais_old.componentes WHERE componentes.reg_del = 0 AND componentes.codigo_inteligente = '".$codigoInteligente."'";
+		$sql = "SELECT codigo_inteligente FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0 AND componentes.codigo_inteligente = '".$codigoInteligente."'";
 		
 		$db->select($sql, 'MYSQL');
 		
@@ -392,13 +392,13 @@ function inserir($dados_form)
 	}
 	else
 	{
-		$isqlCompone  = 'INSERT INTO materiais_old.componentes (id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras, id_familia) VALUES '.$isqlCompone;
+		$isqlCompone  = 'INSERT INTO ".DATABASE.".componentes (id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras, id_familia) VALUES '.$isqlCompone;
 		
 		$db->insert($isqlCompone, 'MYSQL');
 		
 		if ($db->erro == '')
 		{
-			$isqlProduto  = "INSERT INTO materiais_old.produto (cod_barras, unidade1, peso1, atual, desc_long_por) VALUES ".$isqlProduto;
+			$isqlProduto  = "INSERT INTO ".DATABASE.".produto (cod_barras, unidade1, peso1, atual, desc_long_por) VALUES ".$isqlProduto;
 			$db->insert($isqlProduto, 'MYSQL');
 			
 			if ($db->erro != '')
@@ -453,27 +453,27 @@ function atualiza_tabela_principal($dados_form, $page = 0)
 	SELECT
 	  DISTINCT *
 	  FROM
-	    materiais_old.componentes
+	    ".DATABASE.".componentes
 	     JOIN(
-	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 {$clausulaGrupo}
-	    ) grupo
+	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0 {$clausulaGrupo}
+	    ) grupo_mat
 	    ON codigo_grupo = componentes.id_grupo
 	    JOIN(
-	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 {$clausulaSubGrupo}
+	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 {$clausulaSubGrupo}
 	    ) sub_grupo
 	    ON codSubGrupo = componentes.id_sub_grupo
 	    LEFT JOIN(
-	      SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+	      SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 	    ) familia
 	    ON idFamilia = componentes.id_familia
 	    LEFT JOIN(
-	    	SELECT id_componente pai, group_concat(concat(qtd_itens,'--',id_componente_filho,'--',componente_descricao,'--',unidade)) filhos FROM materiais_old.sub_componente
+	    	SELECT id_componente pai, group_concat(concat(qtd_itens,'--',id_componente_filho,'--',componente_descricao,'--',unidade)) filhos FROM ".DATABASE.".sub_componente
 	        JOIN (
-	          SELECT REPLACE(descricao, ',', ' ') as componente_descricao, cod_barras id_filho FROM materiais_old.componentes WHERE componentes.reg_del = 0
+	          SELECT REPLACE(descricao, ',', ' ') as componente_descricao, cod_barras id_filho FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 	        ) componente_descricao
 	        ON id_filho = id_componente_filho AND sub_componente.reg_del = 0
 	        LEFT JOIN(
-	        	SELECT id_unidade, unidade FROM materiais_old.unidade WHERE unidade.reg_del = 0 
+	        	SELECT id_unidade, unidade FROM ".DATABASE.".unidade WHERE unidade.reg_del = 0 
 	        ) unidade
 	        ON unidade.id_unidade = sub_componente.id_unidade
 	      GROUP BY id_componente
@@ -515,16 +515,16 @@ function atualiza_tabela_principal($dados_form, $page = 0)
 	
 	$conteudo = $xml->outputMemory(false);
 	
-	$sql = "SELECT MAX(id_componente)+1 codigoComponente FROM materiais_old.componentes WHERE componentes.reg_del = 0";
+	$sql = "SELECT MAX(id_componente)+1 codigoComponente FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0";
 	$db->select($sql, 'MYSQL', true);
 	$resposta->addScript('proximo = "'.(string)sprintf('%07d', $db->array_select[0]['codigoComponente']).'";');
 	
 	$sql = "SELECT
 				DISTINCT id_atributo, subGrupo, descricao, compoe_codigo
 			FROM
-				materiais_old.atributos
+				".DATABASE.".atributos
 				JOIN(
-			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			      ) atrXSub
 			      ON codAtributo = id_atributo
 			WHERE
@@ -564,13 +564,13 @@ function editar($codigoBarras)
 	$sql = "SELECT
 				*
 			FROM
-				materiais_old.componentes
+				".DATABASE.".componentes
 				LEFT JOIN(
-					SELECT id_componente_filho, id_componente codBarras, qtd_itens FROM materiais_old.sub_componente WHERE sub_componente.reg_del = 0 
+					SELECT id_componente_filho, id_componente codBarras, qtd_itens FROM ".DATABASE.".sub_componente WHERE sub_componente.reg_del = 0 
 				) sub_comp
 				ON codBarras = cod_barras
 				LEFT JOIN(
-					SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+					SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 				)familia
 				ON idFamilia = id_familia
 			WHERE
@@ -630,7 +630,7 @@ function agregar_codigos($codBarras)
 	$smarty->assign('cod_barras', $codBarras);
 	$html = $smarty->fetch('./viewHelper/lista_codigos.tpl');
 	
-	$sql = "SELECT id_componente_filho, id_componente FROM materiais_old.sub_componente WHERE sub_componente.reg_del = 0 AND '{$codBarras}' IN(id_componente, id_componente_filho)";
+	$sql = "SELECT id_componente_filho, id_componente FROM ".DATABASE.".sub_componente WHERE sub_componente.reg_del = 0 AND '{$codBarras}' IN(id_componente, id_componente_filho)";
 	
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$registros)
@@ -647,7 +647,7 @@ function agregar_codigos($codBarras)
 	
 	
 	//Buscando as unidades cadastradas
-	$sql = "SELECT id_unidade, unidade FROM materiais_old.unidade WHERE unidade.reg_del = 0 ORDER BY unidade.codigo_unidade ";
+	$sql = "SELECT id_unidade, unidade FROM ".DATABASE.".unidade WHERE unidade.reg_del = 0 ORDER BY unidade.codigo_unidade ";
 	$db->select($sql, 'MYSQL', true);
 	$resposta->addScript("arrUnidades = ".json_encode($db->array_select));
 	
@@ -672,7 +672,7 @@ function atualizatabela($filtro, $registros)
 		$sql_filtro = " AND (componentes.codigo_inteligente LIKE '".$sql_texto."' ";
 		$sql_filtro .= " OR componentes.cod_barras LIKE '".$sql_texto."' ";
 		$sql_filtro .= " OR componentes.descricao LIKE '".$sql_texto."' ";
-		$sql_filtro .= " OR grupo.grupo LIKE '".$sql_texto."' ";
+		$sql_filtro .= " OR grupo_mat.grupo LIKE '".$sql_texto."' ";
 		$sql_filtro .= " OR sub_grupo LIKE '".$sql_texto."') ";
 	}
 	
@@ -680,23 +680,23 @@ function atualizatabela($filtro, $registros)
 	SELECT
 	  *
 	  FROM
-	    materiais_old.componentes
+	    ".DATABASE.".componentes
 	     JOIN(
-	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-	    ) grupo
+	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+	    ) grupo_mat
 	    ON codigo_grupo = componentes.id_grupo
 	    JOIN(
-	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0
+	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0
 	    ) sub_grupo
 	    ON codSubGrupo = componentes.id_sub_grupo
 	    LEFT JOIN(
-	      SELECT id_componente pai, group_concat(concat(qtd_itens,'--',id_componente_filho,'--',componente_descricao,'--',unidade)) filhos FROM materiais_old.sub_componente
+	      SELECT id_componente pai, group_concat(concat(qtd_itens,'--',id_componente_filho,'--',componente_descricao,'--',unidade)) filhos FROM ".DATABASE.".sub_componente
 	        JOIN (
-	          SELECT REPLACE(descricao, ',', ' ') as componente_descricao, cod_barras id_filho FROM materiais_old.componentes WHERE componentes.reg_del = 0
+	          SELECT REPLACE(descricao, ',', ' ') as componente_descricao, cod_barras id_filho FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 	        ) componente_descricao
 	        ON id_filho = id_componente_filho
 	        LEFT JOIN(
-	        	SELECT id_unidade, unidade FROM materiais_old.unidade WHERE unidade.reg_del = 0
+	        	SELECT id_unidade, unidade FROM ".DATABASE.".unidade WHERE unidade.reg_del = 0
 	        ) unidade
 	        ON unidade.id_unidade = sub_componente.id_unidade
 	        GROUP BY id_componente
@@ -756,14 +756,14 @@ function salvar_agregados($dados_form)
 		
 		if (isset($dados_form['chkDuplicarNovo']))
 		{
-			$sql = "SELECT *, (SELECT max(id_componente) FROM materiais_old.componentes WHERE componentes.reg_del = 0) ultimo FROM materiais_old.componentes WHERE componentes.reg_del = 0 AND componentes.cod_barras = '{$dados_form['cod_barras']}';";
+			$sql = "SELECT *, (SELECT max(id_componente) FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0) ultimo FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0 AND componentes.cod_barras = '{$dados_form['cod_barras']}';";
 			$db->select($sql, 'MYSQL', true);
 			
 			$codBarras = explode('.', $db->array_select[0]['cod_barras']);
 			$codBarras[2] = sprintf('%07d', ($db->array_select[0]['ultimo']+1));
 			$codBarras = implode('.', $codBarras);
 						
-			$isql  = "INSERT INTO materiais_old.componentes (id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras) VALUES ";
+			$isql  = "INSERT INTO ".DATABASE.".componentes (id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras) VALUES ";
 			$isql .= "( '{$db->array_select[0]['id_grupo']}',
 						'{$db->array_select[0]['id_sub_grupo']}',
 						'{$db->array_select[0]['codigo_inteligente']}',
@@ -777,7 +777,7 @@ function salvar_agregados($dados_form)
 		
 		if ($podeInserir)
 		{
-			$isql = "INSERT INTO materiais_old.sub_componente (id_componente, id_componente_filho, qtd_itens, id_unidade) VALUES ";
+			$isql = "INSERT INTO ".DATABASE.".sub_componente (id_componente, id_componente_filho, qtd_itens, id_unidade) VALUES ";
 			foreach($dados_form['codigos'] as $k => $v)
 			{
 				$virgula = $k > 0 ? ',' : '';
@@ -839,7 +839,7 @@ function corrigirDescricao($dados_form)
 	
 	if (!empty($descricaoNova))
 	{
-		$usql = "UPDATE materiais_old.componentes SET descricao = '{$descricaoNova}' WHERE cod_barras = '".$dados_form['codigoBarras']."' AND reg_del = 0 ";
+		$usql = "UPDATE ".DATABASE.".componentes SET descricao = '{$descricaoNova}' WHERE cod_barras = '".$dados_form['codigoBarras']."' AND reg_del = 0 ";
 		$db->update($usql);
 	}
 	return $resposta;
@@ -851,7 +851,7 @@ function excluir($idComponente)
 	$db = new banco_dados();
 	
 	$usql = "UPDATE
-				materiais_old.componentes
+				".DATABASE.".componentes
 			SET reg_del = '1', 
 				reg_who = '".$_SESSION['id_funcionario']."',
 				data_del = '".date('Y-m-d')."'
@@ -883,7 +883,7 @@ function importarComponentes($codigo_inteligente)
 	$descricao 	= '';
 	
 	//Nome do subgrupo
-	$sql = "SELECT sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 AND id_sub_grupo = {$subGrupo}";
+	$sql = "SELECT sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 AND id_sub_grupo = {$subGrupo}";
 	$db->select($sql, 'MYSQL', function($reg, $i) use(&$descricao){
 		$descricao .= $reg['sub_grupo'].', ';
 	});
@@ -892,9 +892,9 @@ function importarComponentes($codigo_inteligente)
 	$sql = "SELECT
 			  atr.id_atributo, atr.atributo, atr.descricao, atrSub.id_atr_sub
 			FROM
-			  materiais_old.atributos_x_sub_grupo atrSub
+			  ".DATABASE.".atributos_x_sub_grupo atrSub
 			  JOIN(
-			    SELECT atributo, id_atributo, descricao FROM materiais_old.atributos WHERE atributos.reg_del = 0
+			    SELECT atributo, id_atributo, descricao FROM ".DATABASE.".atributos WHERE atributos.reg_del = 0
 			  ) atr
 			  ON atr.id_atributo = atrSub.id_atributo
 			WHERE
@@ -914,12 +914,12 @@ function importarComponentes($codigo_inteligente)
 	$sqlMatriz = "SELECT
 				  *
 				FROM
-				  materiais_old.atributos_x_sub_grupo
+				  ".DATABASE.".atributos_x_sub_grupo
 				  JOIN(
 				    SELECT
 				    	id_atr_sub as idAtr, valor, label
 				    FROM
-				    	materiais_old.matriz_materiais
+				    	".DATABASE.".matriz_materiais
 				    WHERE 
 					   matriz_materiais.reg_del = 0 
 						AND {$sqlComplemento}
@@ -944,13 +944,13 @@ function editarDescricao($idComponente)
 	$db = new banco_dados();
 	
 	$sql =
-"SELECT
-  	id_componente, descricao
-FROM
-  	materiais_old.componentes
-WHERE
- 	componentes.reg_del = 0
- 	AND componentes.id_componente = {$idComponente}";
+	"SELECT
+		id_componente, descricao
+	FROM
+		".DATABASE.".componentes
+	WHERE
+		componentes.reg_del = 0
+		AND componentes.id_componente = {$idComponente}";
 	
 	$db->select($sql, 'MYSQL', true);
 	
@@ -978,7 +978,7 @@ function salvarNovaDescricao($dados_form)
 		
 	if (!empty($descricaoAlterada) && $descricaoAlterada != $descricaoOriginal)
 	{
-		$usql = "UPDATE materiais_old.componentes SET descricao = '{$descricaoAlterada}' WHERE reg_del = 0 AND id_componente = {$dados_form['idComponente']}";
+		$usql = "UPDATE ".DATABASE.".componentes SET descricao = '{$descricaoAlterada}' WHERE reg_del = 0 AND id_componente = {$dados_form['idComponente']}";
 		$db->update($usql, 'MYSQL');
 		
 		if ($db->erro != '')
@@ -1013,7 +1013,7 @@ function salvar_familia($dados_form)
 		if (!empty($dados_form['idFamilia']))
 		{
 			//Exclui a familia anterior
-			$usql = "UPDATE materiais_old.familia SET reg_del = 1, reg_who='".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_familia = ".$dados_form['idFamilia'];
+			$usql = "UPDATE ".DATABASE.".familia SET reg_del = 1, reg_who='".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_familia = ".$dados_form['idFamilia'];
 			$db->update($usql, 'MYSQL');
 			
 			if ($db->erro != '')
@@ -1023,14 +1023,14 @@ function salvar_familia($dados_form)
 			else
 			{
 				//Adiciona a nova familia alterada
-				$isql = "INSERT INTO materiais_old.familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
+				$isql = "INSERT INTO ".DATABASE.".familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
 				$db->insert($isql, 'MYSQL');
 				$novoId = $db->insert_id;
 				
 				if ($novoId > 0)
 				{
 					//Altera os agregados da familia excluida para a nova familia
-					$usql = "UPDATE materiais_old.componentes SET id_familia = ".$novoId." WHERE reg_del = 0 AND id_familia = ".$dados_form['idFamilia'];
+					$usql = "UPDATE ".DATABASE.".componentes SET id_familia = ".$novoId." WHERE reg_del = 0 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
 					if ($db->erro != '')
@@ -1041,7 +1041,7 @@ function salvar_familia($dados_form)
 				else
 				{
 					//Em caso de erro ou não inserção do novo id, voltar o registro anterior
-					$usql = "UPDATE materiais_old.familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
+					$usql = "UPDATE ".DATABASE.".familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
 					if ($db->erro != '')
@@ -1057,7 +1057,7 @@ function salvar_familia($dados_form)
 		}
 		else
 		{
-			$sql = "SELECT id_familia FROM materiais_old.familia WHERE reg_del = 0 AND descricao = '".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."'";
+			$sql = "SELECT id_familia FROM ".DATABASE.".familia WHERE reg_del = 0 AND descricao = '".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."'";
 			$db->select($sql, 'MYSQL', true);
 		
 			if ($db->numero_registros > 0)
@@ -1067,7 +1067,7 @@ function salvar_familia($dados_form)
 			}
 			else
 			{
-				$isql = "INSERT INTO materiais_old.familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
+				$isql = "INSERT INTO ".DATABASE.".familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
 				$db->insert($isql, 'MYSQL');
 				
 				if ($db->erro != '')
@@ -1140,6 +1140,41 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 //$smarty->assign("body_onload","xajax_showModalFamilias();");
+
+//Esta parte só é executada de fora do programa principal ex; materiais/produtos.php
+if (isset($_GET['ajax']))
+{
+	$smarty->assign('ocultarCabecalhoRodape', 'style="display:none;"');
+}
+
+$option_grupos_values = array();
+$option_grupos_output = array();
+
+$option_grupos_values[] = '';
+$option_grupos_output[] = 'SELECIONE...';
+
+$sql = "SELECT * FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0 ORDER BY grupo";
+ 
+$db->select($sql, 'MYSQL',
+	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)
+	{
+		$option_grupos_values[] = $reg['codigo_grupo'];
+		$option_grupos_output[] = $reg['grupo'];
+	}
+);
+
+$smarty->assign("option_grupos_values", $option_grupos_values);
+$smarty->assign("option_grupos_output", $option_grupos_output);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->assign("revisao_documento","V2");
+$smarty->assign("campo",$conf->campos('codigo_inteligente'));
+$smarty->assign("botao",$conf->botoes());
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("codigo_inteligente.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -1484,38 +1519,3 @@ function limpar_unidades_pesos()
 	document.getElementById('divUnidadesPesos').innerHTML = '';
 }
 </script>
-
-<?php
-//Esta parte só é executada de fora do programa principal ex; materiais/produtos.php
-if (isset($_GET['ajax']))
-{
-	$smarty->assign('ocultarCabecalhoRodape', 'style="display:none;"');
-}
-
-$option_grupos_values = array();
-$option_grupos_output = array();
-
-$option_grupos_values[] = '';
-$option_grupos_output[] = 'SELECIONE...';
-
-$sql = "SELECT * FROM materiais_old.grupo WHERE grupo.reg_del = 0 ORDER BY grupo";
- 
-$db->select($sql, 'MYSQL',
-	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)
-	{
-		$option_grupos_values[] = $reg['codigo_grupo'];
-		$option_grupos_output[] = $reg['grupo'];
-	}
-);
-
-$smarty->assign("option_grupos_values", $option_grupos_values);
-$smarty->assign("option_grupos_output", $option_grupos_output);
-
-$smarty->assign("larguraTotal",1);
-
-$smarty->assign("revisao_documento","V2");
-$smarty->assign("campo",$conf->campos('codigo_inteligente'));
-$smarty->assign("botao",$conf->botoes());
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("codigo_inteligente.tpl");

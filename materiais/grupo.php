@@ -39,7 +39,7 @@ function atualizatabela()
     $xml->setIndent(false);
     $xml->startElement('rows');
 	
-	$sql = "SELECT * FROM materiais_old.grupo ";
+	$sql = "SELECT * FROM ".DATABASE.".grupo ";
 	$sql .= "WHERE grupo.reg_del = 0 ";
 	$sql .= "ORDER BY grupo.codigo_grupo ";
 
@@ -74,12 +74,12 @@ function insere($dados_form)
 	{
 		if (empty($dados_form["codigo"]))
 		{
-			$sql = "SELECT codigo_grupo ultimo FROM materiais_old.grupo WHERE reg_del = 0 ORDER BY codigo_grupo DESC LIMIT 0, 1";
+			$sql = "SELECT codigo_grupo ultimo FROM ".DATABASE.".grupo WHERE reg_del = 0 ORDER BY codigo_grupo DESC LIMIT 0, 1";
 			$db->select($sql, 'MYSQL', true);
 			$dados_form['codigo'] = sprintf('%02d', intval($db->array_select[0]['ultimo']) + 1);
 		}
 		
-		$isql = "INSERT INTO materiais_old.grupo ";
+		$isql = "INSERT INTO ".DATABASE.".grupo ";
 		$isql .= "(codigo_grupo,grupo) VALUES ( ";
 		$isql .= "'" . $dados_form["codigo"] . "', ";
 		$isql .= "'" . maiusculas($dados_form["grupo"]) . "') ";
@@ -103,7 +103,7 @@ function editar($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM materiais_old.grupo ";
+	$sql = "SELECT * FROM ".DATABASE.".grupo ";
 	$sql .= "WHERE grupo.id_grupo = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -130,7 +130,7 @@ function atualizar($dados_form)
 	if($dados_form["grupo"]!='')
 	{
 
-		$isql = "UPDATE materiais_old.grupo SET ";
+		$isql = "UPDATE ".DATABASE.".grupo SET ";
 		$isql .= "codigo_grupo = '" . $dados_form["codigo"] . "', ";
 		$isql .= "grupo = '" . maiusculas($dados_form["grupo"]) . "' ";
 		$isql .= "WHERE id_grupo = '".$dados_form["id_grupo"]."' ";
@@ -159,12 +159,12 @@ function excluir($id)
 	$db = new banco_dados;
 	
 	/*
-	$sql = "DELETE FROM materiais_old.grupo ";
+	$sql = "DELETE FROM ".DATABASE.".grupo ";
 	$sql .= "WHERE grupo.id_grupo = '".$id."' ";
 	
 	$db->delete($sql,'MYSQL');
 	*/
-	$usql = "UPDATE materiais_old.grupo SET ";
+	$usql = "UPDATE ".DATABASE.".grupo SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -198,7 +198,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);
@@ -226,7 +226,7 @@ function grid(tabela, autoh, height, xml)
 <?php
 $conf = new configs();
 
-$sql = "SELECT * FROM materiais_old.grupo ";
+$sql = "SELECT * FROM ".DATABASE.".grupo ";
 $sql .= "WHERE reg_del = 0 ";
 $sql .= "ORDER BY grupo.codigo_grupo";
 

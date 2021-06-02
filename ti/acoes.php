@@ -5,13 +5,10 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/acoes.php
+		../administracao/acoes.php
 	
-		Versão 0 --> VERSÃO INICIAL : 23/03/2009
-		Versão 1 --> Atualização Lay-out, DB: 09/10/2012 - Carlos Abreu
-		Versão 2 --> Troca da grid para o novo modelos: 19/06/2015 - Eduardo
-		Versão 3 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 4 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu		
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+	
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -320,13 +317,29 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("campo",$conf->campos('acoes'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->display('acoes.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -361,17 +374,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign("campo",$conf->campos('acoes'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('acoes.tpl');
-?>

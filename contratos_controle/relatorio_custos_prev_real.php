@@ -140,11 +140,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_preenchecoord(-1);xajax_preencheos(xajax.getFormValues('frm'));");
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $conf = new configs();
 
 $db = new banco_dados;
@@ -188,4 +183,7 @@ $smarty->assign("option_fases_output",$array_fases_output);
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('relatorio_custos_prev_real.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

@@ -534,7 +534,7 @@ if($_POST["funcao"]=='desbloqueio')
 			}
 			
 			//arquivo tecnico
-			$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+			$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 			
 			$str_mensagem = "<p>O(s) seguinte(s) documento(s) teve solicitação de desbloqueio: </p>";
 			
@@ -770,7 +770,7 @@ if($_POST["funcao"]=='comentario')
 if($_POST["funcao"]=='comunicacao_interna')
 {
 	$params 			= array();
-	$params['from']		= "arquivotecnico@dominio.com.br";
+	$params['from']		= "arquivotecnico@".DOMINIO;
 	$params['from_name']= "GED";
 	
 	$params['subject'] 	= "COMUNICAÇÃO INTERNA";

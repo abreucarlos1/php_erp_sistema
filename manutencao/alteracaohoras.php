@@ -1444,68 +1444,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-function grid()
-{
-	
-	var mygrid = new dhtmlXGridFromTable('tbl1');
-	mygrid.enableAutoHeight(true,550);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-	mygrid.setSkin("modern");
-	
-}
-
-function OS_dropdown(label, combo_ref)
-{
-
-combo = document.getElementsByName(combo_ref)[0];
-
-
-var iTop = 0;
-var iLeft = 0;
-
-tamanho_left = combo.offsetWidth - label.offsetWidth;
-
-//Pega o Top/Left do label
-iTop = label.offsetTop;
-iLeft = label.offsetLeft;
-
-novo_top = iTop + 16 + 'px';
-novo_left = '50px';
-
-//if(combo.offsetWidth>
-novo_width = label.offsetLeft + label.offsetWidth;
-
-
-combo.style.top = novo_top;
-combo.style.left = novo_left;
-combo.style.width = novo_width;
-
-if(combo.style.visibility=='hidden')
-{
-	combo.style.visibility='visible';
-	combo.style.display = 'inline';
-}
-else
-{
-	combo.style.visibility='hidden';
-	combo.style.display = 'none';
-}
-
-}
-
-</script>
-
-<?php
-
 $array_os_values = NULL;
 $array_os_output = NULL;
 
@@ -1664,8 +1602,65 @@ $smarty->assign("option_per_id",$index);
 
 $smarty->assign("nome_formulario","ALTERAÇÃO DE APONTAMENTO DE HORAS");
 
-$smarty->assign("classe","setor_adm");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('alteracaohoras.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script>
+
+function grid()
+{
+	
+	var mygrid = new dhtmlXGridFromTable('tbl1');
+	mygrid.enableAutoHeight(true,550);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+	mygrid.setSkin("modern");
+	
+}
+
+function OS_dropdown(label, combo_ref)
+{
+
+combo = document.getElementsByName(combo_ref)[0];
+
+
+var iTop = 0;
+var iLeft = 0;
+
+tamanho_left = combo.offsetWidth - label.offsetWidth;
+
+//Pega o Top/Left do label
+iTop = label.offsetTop;
+iLeft = label.offsetLeft;
+
+novo_top = iTop + 16 + 'px';
+novo_left = '50px';
+
+//if(combo.offsetWidth>
+novo_width = label.offsetLeft + label.offsetWidth;
+
+
+combo.style.top = novo_top;
+combo.style.left = novo_left;
+combo.style.width = novo_width;
+
+if(combo.style.visibility=='hidden')
+{
+	combo.style.visibility='visible';
+	combo.style.display = 'inline';
+}
+else
+{
+	combo.style.visibility='hidden';
+	combo.style.display = 'none';
+}
+
+}
+
+</script>

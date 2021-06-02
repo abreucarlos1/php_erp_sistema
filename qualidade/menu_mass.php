@@ -173,6 +173,20 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$smarty->assign("body_onload","xajax_monta_menu(357);xajax_monta_pastas('".DOCUMENTOS_SGI."7_ASPETOS_E_IMPACTOS_AMBIENTAIS')");
+
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V2");
+
+$smarty->assign("campo",$conf->campos('menuaipr'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("menu_aipr.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -208,22 +222,3 @@ function show_tree(xml)
 	myTree.loadXMLString(xml);
 }
 </script>
-
-<?php
-
-
-$smarty->assign("body_onload","xajax_monta_menu(357);xajax_monta_pastas('".DOCUMENTOS_SGI."7_ASPETOS_E_IMPACTOS_AMBIENTAIS')");
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V2");
-
-$smarty->assign("campo",$conf->campos('menuaipr'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("menu_aipr.tpl");
-
-?>

@@ -248,7 +248,7 @@ if (isset($_GET['acao']) && $_GET['acao'] == 'salvar' && !empty($_POST))
 					{
 						//email
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "CONCLUSÃO DE CADASTRO DE CANDIDATO APROVADO";
 
@@ -787,7 +787,7 @@ function salvarEmpresa($POST, $idCandidato, $cdvmId = '')
 
 <link href="../includes/jquery/jquery-ui-1.11.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
-<script language="javascript">
+<script>
 $(document).on('ready', function(){
 	$('.link_1').parent().remove();
 	

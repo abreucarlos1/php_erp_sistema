@@ -102,12 +102,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $sql = "SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios ";
@@ -209,3 +203,5 @@ $smarty->assign("classe",CSS_FILE);
 $smarty->display('fechamentofolha_horaextra.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

@@ -184,6 +184,18 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_pastas('".DOCUMENTOS_CONTROLE."plano_custo/');");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V1");
+
+$smarty->assign("campo",$conf->campos('planocustos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("planocustos.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -226,19 +238,3 @@ function treegrid(xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V1");
-
-$smarty->assign("campo",$conf->campos('planocustos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("planocustos.tpl");
-
-?>

@@ -200,13 +200,45 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
+
+$conf = new configs();
+
+$sql = "SELECT funcionario FROM ".DATABASE.".fechamento_folha, ".DATABASE.".funcionarios ";
+$sql .= "WHERE fechamento_folha.id_fechamento = '".$_GET["id_fechamento"]."' ";
+$sql .= "AND fechamento_folha.reg_del = 0 ";
+$sql .= "AND funcionarios.reg_del = 0 ";
+$sql .= "AND fechamento_folha.id_funcionario = funcionarios.id_funcionario ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit($db->erro);
+}
+
+$cont = $db->array_select[0];
+
+$smarty->assign("funcionario",$cont["funcionario"]);
+
+$smarty->assign("id_fechamento",$_GET["id_fechamento"]);
+
+$smarty->assign("revisao_documento","V4");
+
+$smarty->assign('campo', $conf->campos('conferencia_documentos'));
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
+
+$smarty->display('confere_documentos.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {
@@ -228,37 +260,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-
-	$conf = new configs();
-
-	$sql = "SELECT funcionario FROM ".DATABASE.".fechamento_folha, ".DATABASE.".funcionarios ";
-	$sql .= "WHERE fechamento_folha.id_fechamento = '".$_GET["id_fechamento"]."' ";
-	$sql .= "AND fechamento_folha.reg_del = 0 ";
-	$sql .= "AND funcionarios.reg_del = 0 ";
-	$sql .= "AND fechamento_folha.id_funcionario = funcionarios.id_funcionario ";
-
-	$db->select($sql,'MYSQL',true);
-
-	if ($db->erro != '')
-	{
-		exit($db->erro);
-	}
-
-	$cont = $db->array_select[0];
-
-	$smarty->assign("funcionario",$cont["funcionario"]);
-
-	$smarty->assign("id_fechamento",$_GET["id_fechamento"]);
-
-	$smarty->assign("revisao_documento","V4");
-
-	$smarty->assign('campo', $conf->campos('conferencia_documentos'));
-
-	$smarty->assign("classe",CSS_FILE);
-
-	$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
-
-	$smarty->display('confere_documentos.tpl');
-?>

@@ -95,7 +95,7 @@ if ($_POST["acao"]=="salvar" && $_POST["emissao"]=='1')
 
 
 <!-- Javascript para envio dos dados através do método GET -->
-<script language="javascript">
+<script>
 
 function maximiza() 
 {

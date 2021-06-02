@@ -37,17 +37,17 @@ if (isset($_GET['gerarPlanilha']) && $_GET['gerarPlanilha'] == 1)
 "SELECT
   a.id_atributo, grupo, sub_grupo, atributo, a.id_sub_grupo, a.id_grupo, a.id_atr_sub, descricao
 FROM
-  materiais_old.atributos_x_sub_grupo a
+  ".DATABASE.".atributos_x_sub_grupo a
   JOIN (
-    SELECT id_atributo, atributo, descricao FROM materiais_old.atributos WHERE atributos.reg_del = 0
+    SELECT id_atributo, atributo, descricao FROM ".DATABASE.".atributos WHERE atributos.reg_del = 0
   ) atributos
   ON atributos.id_atributo = a.id_atributo
   JOIN(
-    SELECT id_grupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 {$whereGrupo}
+    SELECT id_grupo, grupo, codigo_grupo FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 {$whereGrupo}
   ) grupo
   ON grupo.codigo_grupo = a.id_grupo
   JOIN(
-    SELECT id_sub_grupo, sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 {$whereSubGrupo}
+    SELECT id_sub_grupo, sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 {$whereSubGrupo}
   ) subGrupo
   ON subGrupo.id_sub_grupo = a.id_sub_grupo WHERE a.reg_del = 0
 ORDER BY ordem, a.id_grupo, a.id_sub_grupo ";
@@ -92,21 +92,21 @@ ORDER BY ordem, a.id_grupo, a.id_sub_grupo ";
 "SELECT
   grupo, sub_grupo, atributos.descricao, valor, label, a.id_sub_grupo, a.id_grupo
 FROM
-	materiais_old.atributos_x_sub_grupo a
+	".DATABASE.".atributos_x_sub_grupo a
     JOIN(
-    	SELECT * FROM materiais_old.grupo WHERE grupo.reg_del = 0 {$whereGrupo}
+    	SELECT * FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 {$whereGrupo}
 	) grupo
     ON grupo.codigo_grupo = a.id_grupo
     JOIN(
-    	SELECT * FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 {$whereSubGrupo}
+    	SELECT * FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 {$whereSubGrupo}
 	) subgrupo
     ON subgrupo.id_sub_grupo = a.id_sub_grupo
     JOIN(
-    	SELECT * FROM materiais_old.atributos WHERE atributos.reg_del = 0 
+    	SELECT * FROM ".DATABASE.".atributos WHERE atributos.reg_del = 0 
 	) atributos
     ON atributos.id_atributo = a.id_atributo
 	JOIN(
-		SELECT id_atr_sub codValAtr, valor, label FROM materiais_old.matriz_materiais WHERE reg_del = 0
+		SELECT id_atr_sub codValAtr, valor, label FROM ".DATABASE.".matriz_materiais WHERE reg_del = 0
 	) atr_valores
 	ON codValAtr = a.id_atr_sub
 WHERE
@@ -179,7 +179,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 		$sql = "SELECT
 				  MAX(id_componente)+1 codigoComponente
 				FROM
-				  materiais_old.componentes
+				  ".DATABASE.".componentes
 				WHERE
 				  reg_del = 0";
 		
@@ -225,7 +225,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			$or			= '';
 			
 			//Nome do subgrupo
-			$sql = "SELECT sub_grupo FROM materiais_old.sub_grupo WHERE reg_del = 0 AND id_sub_grupo = {$subGrupo}";
+			$sql = "SELECT sub_grupo FROM ".DATABASE.".sub_grupo WHERE reg_del = 0 AND id_sub_grupo = {$subGrupo}";
 			$db->select($sql, 'MYSQL', function($reg, $i) use(&$descricao){
 				$descricao .= $reg['sub_grupo'].', ';
 			});
@@ -246,7 +246,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 			}
 
 			//Verificando se o código inteligente já existe na tabela
-			$sql = "SELECT * FROM materiais_old.componentes WHERE codigo_inteligente = '{$codigoInteligente}' AND reg_del = 0";
+			$sql = "SELECT * FROM ".DATABASE.".componentes WHERE codigo_inteligente = '{$codigoInteligente}' AND reg_del = 0";
 			$db->select($sql, 'MYSQL');
 			
 			if ($db->numero_registros > 0)
@@ -260,12 +260,12 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				"SELECT
 					idAtr, valor, label, compoe_codigo
 				FROM
-					materiais_old.atributos_x_sub_grupo
+					".DATABASE.".atributos_x_sub_grupo
 					JOIN(
 						SELECT
 							id_atr_sub as idAtr, valor, label
 						FROM
-							materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0
+							".DATABASE.".matriz_materiais WHERE matriz_materiais.reg_del = 0
 					) matriz
 					ON matriz.idAtr = id_atr_sub
 				AND id_grupo = '{$grupo}' AND id_sub_grupo = '{$subGrupo}' AND reg_del = 0
@@ -284,7 +284,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				{
 					//Insiro o componente criado
 					$isql = "INSERT INTO
-								materiais_old.componentes(
+								".DATABASE.".componentes(
 							 		id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras
 							 	)
 							 	VALUES(
@@ -365,14 +365,14 @@ function getSubGrupos($dados_form, $idSel = '')
 	$sql = "SELECT
 			  DISTINCT codigo_grupo, sub_grupo, id_sub_grupo
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN
 			  (
-		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM materiais_old.grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
+		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM ".DATABASE.".grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
 		      ) grupoXSub
 		    ON subGrupo = id_sub_grupo 
 			JOIN(
-		        SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 
+		        SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 
 		    ) grupo
 		    ON grupo.id_grupo = codGrupo
 			WHERE codigo_grupo = '".$dados_form['codigo_grupo']."'
@@ -420,7 +420,7 @@ $option_grupos_output = array();
 $option_grupos_values[] = '';
 $option_grupos_output[] = 'SELECIONE...';
 
-$sql = "SELECT * FROM materiais_old.grupo WHERE grupo.reg_del = 0 ORDER BY grupo";
+$sql = "SELECT * FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 ORDER BY grupo";
  
 $db->select($sql, 'MYSQL',
 	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)

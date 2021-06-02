@@ -2576,7 +2576,7 @@ font-family:Arial, Helvetica, sans-serif;
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
 
-<script language="javascript">
+<script>
 
 var myTree;
 
@@ -2852,7 +2852,7 @@ $campo[1] = "GERENCIADOR DE DOCUMENTOS";
 
 $smarty->assign("campo",$campo);
 
-$smarty->assign("classe","../classes/".$conf->classe('administrativo').".css");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('ged_clientes.tpl');
 ?>

@@ -70,7 +70,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 <script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
 
-<script language="javascript">
+<script>
 function alternaAction()
 {
 	cmb_formato = document.getElementById('formato');

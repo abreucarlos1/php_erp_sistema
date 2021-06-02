@@ -141,7 +141,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'))
 
 ?>
 
-<script language="javascript">
+<script>
 
 function esqueceusenha()
 {	
@@ -170,7 +170,7 @@ $smarty->assign("pagina",$_GET["pagina"]);
 
 $smarty->assign("usercliente",$usercliente);
 
-$smarty->assign("classe","../classes/".$conf->classe('login').".css");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display("index.tpl");
 

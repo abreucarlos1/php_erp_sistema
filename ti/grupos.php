@@ -5,13 +5,10 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/grupos.php
+		../administracao/grupos.php
 	
-		Versão 0 --> VERSÃO INICIAL : 28/10/2008
-		Versão 1 --> Atualização de Lay out : 06/04/2009
-		Versao 2 --> Mudanças nos includes, smarty: 10/09/2012
-		Versão 3 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 4 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -323,13 +320,29 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("campo",$conf->campos('grupos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->display('grupos.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 
 function grid(tabela, autoh, height, xml)
@@ -366,21 +379,4 @@ function grid(tabela, autoh, height, xml)
 
 }
 
-
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("campo",$conf->campos('grupos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('grupos.tpl');
-
-?>
-

@@ -367,7 +367,7 @@ $smarty->assign("body_onload","showLoader();xajax_atualizatabela('',xajax.getFor
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {

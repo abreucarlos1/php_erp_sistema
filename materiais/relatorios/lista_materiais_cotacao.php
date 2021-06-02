@@ -56,7 +56,7 @@ if (isset($_GET['id_cabecalho']) && !empty($_GET['id_cabecalho']))
 	$clausulaIdCabecalho = 'AND id_cabecalho = '.$_GET['id_cabecalho'];
 }
 
-$clausulaIdGedArquivo = isset($_GET['id_ged_arquivo']) ? "AND id_lista_materiais_cabecalho IN(SELECT DISTINCT id_lista_materiais FROM materiais_old.lista_materiais WHERE reg_del = 0 AND id_ged_arquivo = {$_GET['id_ged_arquivo']})" : '';
+$clausulaIdGedArquivo = isset($_GET['id_ged_arquivo']) ? "AND id_lista_materiais_cabecalho IN(SELECT DISTINCT id_lista_materiais FROM ".DATABASE.".lista_materiais WHERE reg_del = 0 AND id_ged_arquivo = {$_GET['id_ged_arquivo']})" : '';
 
 $clausulaIdOs = '';
 if (isset($_GET['id_os']) && !empty($_GET['id_os']))
@@ -83,12 +83,12 @@ SELECT
   qtd, lm.id_produto codProduto, lm.cod_barras componentecodigo, p.desc_long_por, p.unidade1 unidade, c.descricao, f.descricao descFamilia, f.descricao_longa descLongaFamilia,
   OS.descricao desc_os, os.os, empresa, logotipo, c.id_familia idFamilia, setor, lc.versao_documento revCabecalho, lm.versao_documento
 	FROM
-	   materiais_old.lista_materiais lm
-	   JOIN materiais_old.lista_materiais_versoes lv ON lv.id_lista_materiais = lm.id_lista_materiais AND lv.id_lista_materiais_versoes = lm.id_lista_materiais_versoes ".$atualSelecionados." AND lm.reg_del = 0 ".$clausulaIdArquivos."
-	   JOIN materiais_old.lista_materiais_cabecalho lc ON lc.id_lista_materiais_cabecalho = lm.id_lista_materiais_cabecalho AND lc.reg_del = 0 AND lc.versao_documento = lm.versao_documento
-	   JOIN materiais_old.produto p ON p.cod_barras = lm.cod_barras AND p.atual = 1 AND p.reg_del = 0
-	   JOIN materiais_old.componentes c ON c.cod_barras = lm.cod_barras AND c.reg_del = 0
-	   JOIN materiais_old.familia f ON f.id_familia = c.id_familia AND f.reg_del = 0
+	   ".DATABASE.".lista_materiais lm
+	   JOIN ".DATABASE.".lista_materiais_versoes lv ON lv.id_lista_materiais = lm.id_lista_materiais AND lv.id_lista_materiais_versoes = lm.id_lista_materiais_versoes ".$atualSelecionados." AND lm.reg_del = 0 ".$clausulaIdArquivos."
+	   JOIN ".DATABASE.".lista_materiais_cabecalho lc ON lc.id_lista_materiais_cabecalho = lm.id_lista_materiais_cabecalho AND lc.reg_del = 0 AND lc.versao_documento = lm.versao_documento
+	   JOIN ".DATABASE.".produto p ON p.cod_barras = lm.cod_barras AND p.atual = 1 AND p.reg_del = 0
+	   JOIN ".DATABASE.".componentes c ON c.cod_barras = lm.cod_barras AND c.reg_del = 0
+	   JOIN ".DATABASE.".familia f ON f.id_familia = c.id_familia AND f.reg_del = 0
 	   JOIN ".DATABASE.".OS ON OS.id_os = lm.id_os AND OS.reg_del = 0  
 	   JOIN ".DATABASE.".empresas e ON e.id_empresa = OS.id_empresa AND e.reg_del = 0
 	   JOIN ".DATABASE.".setores s ON s.id_setor = lm.id_disciplina AND s.reg_del = 0

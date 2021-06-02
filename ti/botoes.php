@@ -5,12 +5,10 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/botoes.php
+		../administracao/botoes.php
 	
-		Versão 0 --> VERSÃO INICIAL : 07/04/2009
-		Versão 1 --> Atualização DB - 03/09/2012
-		Versão 2 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -351,13 +349,58 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$array_idioma_values = NULL;
+$array_idioma_output = NULL;
+
+$array_idioma_values[] = "";
+$array_idioma_output[] = "SELECIONE";
+
+$smarty->assign("campo",$conf->campos('botoes',$_COOKIE["idioma"]));
+
+$smarty->assign("botao",$conf->botoes($_COOKIE["idioma"]));
+
+$msg = $conf->msg($_COOKIE["idioma"]);
+
+$db = new banco_dados;
+
+$sql = "SELECT id_idioma, idioma FROM ".DATABASE.".idiomas ";
+$sql .= "WHERE reg_del = 0 ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($msg[6].$db->erro);
+}
+
+foreach ($db->array_select as $regs)
+{
+	$array_idioma_values[] = $regs["id_idioma"];
+	$array_idioma_output[] = $regs["idioma"];
+}
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("option_idioma_values",$array_idioma_values);
+$smarty->assign("option_idioma_output",$array_idioma_output);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->display('botoes.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -398,49 +441,4 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$array_idioma_values = NULL;
-$array_idioma_output = NULL;
-
-$array_idioma_values[] = "";
-$array_idioma_output[] = "SELECIONE";
-
-$smarty->assign("campo",$conf->campos('botoes',$_COOKIE["idioma"]));
-
-$smarty->assign("botao",$conf->botoes($_COOKIE["idioma"]));
-
-$msg = $conf->msg($_COOKIE["idioma"]);
-
-$db = new banco_dados;
-
-$sql = "SELECT * FROM ".DATABASE.".idiomas ";
-$sql .= "WHERE reg_del = 0 ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($msg[6].$db->erro);
-}
-
-foreach ($db->array_select as $regs)
-{
-	$array_idioma_values[] = $regs["id_idioma"];
-	$array_idioma_output[] = $regs["idioma"];
-}
-
-$smarty->assign("revisao_documento","V3");
-
-$smarty->assign("option_idioma_values",$array_idioma_values);
-$smarty->assign("option_idioma_output",$array_idioma_output);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('botoes.tpl');
-
-?>
 

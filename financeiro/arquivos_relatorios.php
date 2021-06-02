@@ -130,13 +130,24 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela();");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V2");
+
+$smarty->assign("campo",$conf->campos('arquivos_relatorios'));
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('arquivos_relatorios.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function excluir(filename)
 {
@@ -168,17 +179,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V2");
-
-$smarty->assign("campo",$conf->campos('arquivos_relatorios'));
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('arquivos_relatorios.tpl');
-
-?>

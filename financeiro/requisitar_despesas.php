@@ -625,7 +625,7 @@ function insere($dados_form)
 							//se OS 900, informa a contabilidade
 							if($os[0]==3803)
 							{
-								$params['emails']['to'][] = array('email' => "contabilidade@dominio.com.br", 'nome' => "Contabilidade");
+								$params['emails']['to'][] = array('email' => "contabilidade@".DOMINIO, 'nome' => "Contabilidade");
 								
 								$texto .=' <tr>';
 								$texto .='	<td colspan="5"><strong><font color="#FF0000">A contabilidade, favor lançar estas despesas na OS a seguir:</font></strong></td>';
@@ -766,13 +766,13 @@ function insere($dados_form)
 									$params['from_name']= "REQUISIÇÃO DESPESAS - REQUISIÇÃO";
 									$params['subject'] 	= "REQUISIÇÃO DESPESAS - REQUISIÇÃO";
 									
-									$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome1");
-									//$params['emails']['to'][] = array('email' => "nome2@dominio.com.br", 'nome' => "Nome2");
+									$params['emails']['to'][] = array('email' => "nome1@".DOMINIO, 'nome' => "Nome1");
+									//$params['emails']['to'][] = array('email' => "nome2@".DOMINIO, 'nome' => "Nome2");
 									
 									//se cobrar cliente
 									if($dados_form["cobrar_cliente"])
 									{
-										$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome1");
+										$params['emails']['to'][] = array('email' => "nome1@".DOMINIO, 'nome' => "Nome1");
 									}
 									
 									if($array_funcionarios[1][$_SESSION["id_funcionario"]]) //solicitante
@@ -1038,7 +1038,7 @@ function excluir($id, $what)
 						$params['from_name']= "REQUISIÇÃO DESPESAS - CANCELAMENTO";
 						$params['subject'] 	= "REQUISIÇÃO DESPESAS: ".sprintf("%05d",$id)." - CANCELAMENTO";
 						
-						$params['emails']['to'][] = array('email' => "financeiro@dominio.com.br", 'nome' => "Financeiro");
+						$params['emails']['to'][] = array('email' => "financeiro@".DOMINIO, 'nome' => "Financeiro");
 						
 						if($cont["cobrar_cliente"])
 						{
@@ -1672,13 +1672,13 @@ function atualizar($dados_form)
 									$params['from_name']= "REQUISIÇÃO DESPESAS - REQUISIÇÃO - ALTERAÇÃO";
 									$params['subject'] 	= "REQUISIÇÃO DESPESAS - REQUISIÇÃO - ALTERAÇÃO";
 									
-									$params['emails']['to'][] = array('email' => "nome1@dominio.com.br", 'nome' => "Nome 1");
-									//$params['emails']['to'][] = array('email' => "nome2@dominio.com.br", 'nome' => "Nome 2");
+									$params['emails']['to'][] = array('email' => "nome1@".DOMINIO, 'nome' => "Nome 1");
+									//$params['emails']['to'][] = array('email' => "nome2@".DOMINIO, 'nome' => "Nome 2");
 									
 									//se cobrar cliente
 									if($dados_form["cobrar_cliente"])
 									{
-										$params['emails']['to'][] = array('email' => "nome3@dominio.com.br", 'nome' => "Nome 3");
+										$params['emails']['to'][] = array('email' => "nome3@".DOMINIO, 'nome' => "Nome 3");
 									}
 									
 									if($array_funcionarios[1][$_SESSION["id_funcionario"]]) //solicitante
@@ -1753,13 +1753,121 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$db = new banco_dados;
+
+$conf = new configs();
+
+$array_funcionario_values = NULL;
+$array_funcionario_output = NULL;
+
+$array_funcionario_values[] = "0";
+$array_funcionario_output[] = "SELECIONE";
+
+$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
+$sql .= "AND funcionarios.reg_del = 0 ";
+$sql .= "ORDER BY funcionario ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_funcionario_values[] = $cont["id_funcionario"];
+	$array_funcionario_output[] = $cont["funcionario"];
+}
+
+$array_os_values[] = "";
+$array_os_output[] = "SELECIONE O PROJETO";
+
+/*
+$sql = "SELECT AF8_PROJET, AF8_REVISA, AF8_DESCRI  FROM AF8010 WITH(NOLOCK), AF9010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
+$sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
+$sql .= "AND AFA010.D_E_L_E_T_ = '' ";
+$sql .= "AND AF9010.D_E_L_E_T_ = '' ";
+$sql .= "AND AF9010.AF9_COMPOS <> '' ";
+$sql .= "AND AF9010.AF9_PROJET = AFA010.AFA_PROJET ";
+$sql .= "AND AF9010.AF9_REVISA = AFA010.AFA_REVISA ";
+$sql .= "AND AF9010.AF9_TAREFA = AFA010.AFA_TAREFA ";
+
+if(!in_array($_SESSION["id_funcionario"],array(6,226,12)))
+{
+	$sql .= "AND AFA010.AFA_RECURS = 'FUN_".sprintf("%011d",$_SESSION["id_funcionario"])."' ";
+}
+
+$sql .= "AND AF9010.AF9_PROJET = AF8010.AF8_PROJET  ";
+$sql .= "AND AF9010.AF9_REVISA = AF8010.AF8_REVISA  ";
+$sql .= "AND AF8010.AF8_FASE IN ('03','09','07') "; //andamento e adm e sem crono OR AF8010.AF8_FASE = '09'
+
+$sql .= "AND AF8_PROJET NOT IN ('0000000801','0000000998','0000000803','0000001501','0000001301') ";
+
+$sql .= "GROUP BY AF8010.AF8_PROJET, AF8010.AF8_REVISA, AF8010.AF8_DESCRI  ";
+$sql .= "ORDER BY AF8010.AF8_PROJET, AF8010.AF8_REVISA DESC  ";
+
+$db->select($sql,'MSSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{	
+	$os = intval($regs["AF8_PROJET"]); //retira os zeros a esquerda
+	
+	$sql = "SELECT * FROM  ".DATABASE.".OS ";
+	$sql .= "WHERE os.os = '". (string)$os."' ";
+	$sql .= "AND OS.reg_del = 0 ";
+
+	$db->select($sql,'MYSQL',true);
+
+	if($db->erro!='')
+	{
+		die($db->erro);
+	}
+	
+	$regs1 = $db->array_select[0];
+
+	$array_os_values[] = $regs1["id_os"]."#".trim($regs["AF8_PROJET"]);
+	$array_os_output[] = trim($regs["AF8_PROJET"])." - ".trim($regs["AF8_DESCRI"]);
+}
+*/
+
+$smarty->assign("revisao_documento","V9");
+
+$smarty->assign("campo",$conf->campos('requisitar_despesas'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);									
+			
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("option_resp_values",$array_funcionario_values);
+$smarty->assign("option_resp_output",$array_funcionario_output);
+
+$smarty->assign("option_funcionario_values",$array_funcionario_values);
+$smarty->assign("option_funcionario_output",$array_funcionario_output);
+
+$smarty->assign("classe",CSS_FILE);
+			
+$smarty->assign("nome_formulario","REQUISITAR DESPESAS");
+
+$smarty->display('requisitar_despesas.tpl');
+
+
 ?>
 	
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function valida(e_event,cmp)
 {
@@ -1986,115 +2094,3 @@ function remove_controls(div_control,qtd)
 }
 
 </script>
-
-<?php
-
-$db = new banco_dados;
-
-$conf = new configs();
-
-$array_funcionario_values = NULL;
-$array_funcionario_output = NULL;
-
-$array_funcionario_values[] = "0";
-$array_funcionario_output[] = "SELECIONE";
-
-$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
-$sql .= "AND funcionarios.reg_del = 0 ";
-$sql .= "ORDER BY funcionario ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_funcionario_values[] = $cont["id_funcionario"];
-	$array_funcionario_output[] = $cont["funcionario"];
-}
-
-$array_os_values[] = "";
-$array_os_output[] = "SELECIONE O PROJETO";
-
-/*
-$sql = "SELECT AF8_PROJET, AF8_REVISA, AF8_DESCRI  FROM AF8010 WITH(NOLOCK), AF9010 WITH(NOLOCK), AFA010 WITH(NOLOCK) ";
-$sql .= "WHERE AF8010.D_E_L_E_T_ = '' ";
-$sql .= "AND AFA010.D_E_L_E_T_ = '' ";
-$sql .= "AND AF9010.D_E_L_E_T_ = '' ";
-$sql .= "AND AF9010.AF9_COMPOS <> '' ";
-$sql .= "AND AF9010.AF9_PROJET = AFA010.AFA_PROJET ";
-$sql .= "AND AF9010.AF9_REVISA = AFA010.AFA_REVISA ";
-$sql .= "AND AF9010.AF9_TAREFA = AFA010.AFA_TAREFA ";
-
-if(!in_array($_SESSION["id_funcionario"],array(6,226,12)))
-{
-	$sql .= "AND AFA010.AFA_RECURS = 'FUN_".sprintf("%011d",$_SESSION["id_funcionario"])."' ";
-}
-
-$sql .= "AND AF9010.AF9_PROJET = AF8010.AF8_PROJET  ";
-$sql .= "AND AF9010.AF9_REVISA = AF8010.AF8_REVISA  ";
-$sql .= "AND AF8010.AF8_FASE IN ('03','09','07') "; //andamento e adm e sem crono OR AF8010.AF8_FASE = '09'
-
-$sql .= "AND AF8_PROJET NOT IN ('0000000801','0000000998','0000000803','0000001501','0000001301') ";
-
-$sql .= "GROUP BY AF8010.AF8_PROJET, AF8010.AF8_REVISA, AF8010.AF8_DESCRI  ";
-$sql .= "ORDER BY AF8010.AF8_PROJET, AF8010.AF8_REVISA DESC  ";
-
-$db->select($sql,'MSSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{	
-	$os = intval($regs["AF8_PROJET"]); //retira os zeros a esquerda
-	
-	$sql = "SELECT * FROM  ".DATABASE.".OS ";
-	$sql .= "WHERE os.os = '". (string)$os."' ";
-	$sql .= "AND OS.reg_del = 0 ";
-
-	$db->select($sql,'MYSQL',true);
-
-	if($db->erro!='')
-	{
-		die($db->erro);
-	}
-	
-	$regs1 = $db->array_select[0];
-
-	$array_os_values[] = $regs1["id_os"]."#".trim($regs["AF8_PROJET"]);
-	$array_os_output[] = trim($regs["AF8_PROJET"])." - ".trim($regs["AF8_DESCRI"]);
-}
-*/
-
-$smarty->assign("revisao_documento","V9");
-
-$smarty->assign("campo",$conf->campos('requisitar_despesas'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);									
-			
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("option_resp_values",$array_funcionario_values);
-$smarty->assign("option_resp_output",$array_funcionario_output);
-
-$smarty->assign("option_funcionario_values",$array_funcionario_values);
-$smarty->assign("option_funcionario_output",$array_funcionario_output);
-
-$smarty->assign("classe",CSS_FILE);
-			
-$smarty->assign("nome_formulario","REQUISITAR DESPESAS");
-
-$smarty->display('requisitar_despesas.tpl');
-
-?>
-

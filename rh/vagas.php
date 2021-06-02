@@ -241,7 +241,7 @@ function insere($dados_form)
 			if(ENVIA_EMAIL)
 			{
 
-				$mail->From     = "recrutamento@dominio.com.br";
+				$mail->From     = "recrutamento@".DOMINIO;
 				$mail->FromName = "EMPRESA - Notificação de oportunidade";
 				$mail->Host     = "smtp.dominio";
 				$mail->Mailer   = "smtp";
@@ -275,9 +275,9 @@ function insere($dados_form)
 		if(ENVIA_EMAIL)
 		{
 
-			$mail->From     = "recrutamento@dominio.com.br";
+			$mail->From     = "recrutamento@".DOMINIO;
 			$mail->FromName = "EMPRESA - Notificação de oportunidade";
-			$mail->Host     = "smtp.dominio.com.br";
+			$mail->Host     = "smtp.".DOMINIO;
 			$mail->Mailer   = "smtp";
 			$mail->ContentType = "text/html";
 			
@@ -285,7 +285,7 @@ function insere($dados_form)
 			
 			$mail->Body = $texto;
 			
-			$mail->AddAddress("recrutamento@dominio.com.br");
+			$mail->AddAddress("recrutamento@".DOMINIO);
 
 			if(!$mail->Send())
 			{

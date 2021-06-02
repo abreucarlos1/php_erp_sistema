@@ -701,7 +701,7 @@ function enviar($dados_form)
 					$params['from_name']= $pedido["funcionario"];
 					$params['subject'] 	= sprintf("%05d",$array_dados['os'])." - " . $array_dados['descricao'] . " - SOLICITAÇÃO DE DOCUMENTOS";
 					
-					$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+					$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 					$params['emails']['to'][] = array('email' => $pedido["email"], 'nome' => $pedido["funcionario"]);
 
 					if(ENVIA_EMAIL)
@@ -1442,6 +1442,105 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();");
+
+$array_os_values = NULL;
+$array_os_output = NULL;
+
+//$arrUsuariosLiberados = array(6, 17, 49, 689, 709, 909, 910, 978, 981, 871, 1213, 1061,1142);
+
+//Modificação feita por carlos abreu em 11/05/2010
+if(!in_array($_SESSION["id_funcionario"], $arrUsuariosLiberados))
+{
+	$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
+	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND (ordem_servico_status.id_os_status IN (1,14,16) OR ordem_servico.os LIKE '3311')";
+}
+else
+{
+	$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	//$sql .= "AND ordem_servico.os < 50000 ";	
+}
+
+/*
+if($_SESSION["id_funcionario"]!=6 || $_SESSION["id_funcionario"]!=978)
+{
+	$sql .= "AND ordem_servico.os > 1700 ";
+}
+*/
+
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY ordem_servico.os ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach ($db->array_select as $cont)
+{
+	$array_os[$cont["id_os"]] = sprintf("%05d",$cont["os"]) . " - " . $cont["descricao"];
+}
+
+$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
+$sql .= "WHERE formatos.reg_del = 0 ";
+$sql .= "ORDER BY formato ";
+
+$db->select($sql, 'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach ($db->array_select as $cont_fmt)
+{
+	$array_formatos_values[] = $cont_fmt["id_formato"];
+	$array_formatos_output[] = $cont_fmt["formato"];
+}
+
+//Re-ordena as OS's
+asort($array_os);
+
+$array_os_values[] = "";
+$array_os_output[] = "SELECIONE";
+
+//Percorre o array de OS's
+foreach($array_os as $chave=>$valor)
+{
+	$array_os_values[] = $chave;
+	$array_os_output[] = $valor;
+}
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("option_formatos_values",$array_formatos_values);
+$smarty->assign("option_formatos_output",$array_formatos_output);
+
+$smarty->assign("revisao_documento","V14");
+
+$smarty->assign("campo",$conf->campos('solicitacao_documentos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);
+
+$smarty->assign("nome_formulario","SOLICITAÇÃO DE DOCUMENTOS");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('solicitacao_documentos.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -1450,7 +1549,7 @@ $smarty->assign("body_onload","tab();");
 
 <script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
 
-<script language="javascript">
+<script>
 
 function habilita(status)
 {
@@ -1567,104 +1666,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$array_os_values = NULL;
-$array_os_output = NULL;
-
-//$arrUsuariosLiberados = array(6, 17, 49, 689, 709, 909, 910, 978, 981, 871, 1213, 1061,1142);
-
-//Modificação feita por carlos abreu em 11/05/2010
-if(!in_array($_SESSION["id_funcionario"], $arrUsuariosLiberados))
-{
-	$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios "; //, ".DATABASE.".numeros_interno - retirado devido a impressão do escopo
-	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
-	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND (ordem_servico_status.id_os_status IN (1,14,16) OR ordem_servico.os LIKE '3311')";
-}
-else
-{
-	$sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	//$sql .= "AND ordem_servico.os < 50000 ";	
-}
-
-/*
-if($_SESSION["id_funcionario"]!=6 || $_SESSION["id_funcionario"]!=978)
-{
-	$sql .= "AND ordem_servico.os > 1700 ";
-}
-*/
-
-$sql .= "GROUP BY ordem_servico.id_os ";
-$sql .= "ORDER BY ordem_servico.os ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach ($db->array_select as $cont)
-{
-	$array_os[$cont["id_os"]] = sprintf("%05d",$cont["os"]) . " - " . $cont["descricao"];
-}
-
-$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
-$sql .= "WHERE formatos.reg_del = 0 ";
-$sql .= "ORDER BY formato ";
-
-$db->select($sql, 'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach ($db->array_select as $cont_fmt)
-{
-	$array_formatos_values[] = $cont_fmt["id_formato"];
-	$array_formatos_output[] = $cont_fmt["formato"];
-}
-
-//Re-ordena as OS's
-asort($array_os);
-
-$array_os_values[] = "";
-$array_os_output[] = "SELECIONE";
-
-//Percorre o array de OS's
-foreach($array_os as $chave=>$valor)
-{
-	$array_os_values[] = $chave;
-	$array_os_output[] = $valor;
-}
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("option_formatos_values",$array_formatos_values);
-$smarty->assign("option_formatos_output",$array_formatos_output);
-
-$smarty->assign("revisao_documento","V14");
-
-$smarty->assign("campo",$conf->campos('solicitacao_documentos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);
-
-$smarty->assign("nome_formulario","SOLICITAÇÃO DE DOCUMENTOS");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('solicitacao_documentos.tpl');
-?>

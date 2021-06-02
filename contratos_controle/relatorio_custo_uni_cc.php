@@ -22,12 +22,6 @@ if(!verifica_sub_modulo(317))
 	nao_permitido();
 }
 
-
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $conf = new configs();
 
 $db = new banco_dados;
@@ -91,3 +85,4 @@ $smarty->display('relatorio_custo_uni_cc.tpl');
 
 ?>
 
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

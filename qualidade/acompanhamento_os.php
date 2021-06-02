@@ -485,7 +485,7 @@ function atualizar($dados_form, $tab='')
 	
 		$reg_os = $db->array_select[0];
 		
-		$params['from']	= "empresa@dominio.com.br";
+		$params['from']	= "empresa@".DOMINIO;
 		
 		$params['from_name'] = "Sistema ERP";
 		
@@ -812,13 +812,100 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();");
 
+$conf = new configs();
+
+$array_coorddvm_values = NULL;
+$array_coorddvm_output = NULL;
+
+$array_status_values = NULL;
+$array_status_output = NULL;
+
+$array_disciplina_values = NULL;
+$array_disciplina_output = NULL;
+
+$array_status_values[] = "";
+$array_status_output[] = "SELECIONE";
+
+$array_status_values[] = "0";
+$array_status_output[] = "TODOS";
+
+$array_coorddvm_values[] = "";
+$array_coorddvm_output[] = "SELECIONE";
+
+$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_funcionario IN (SELECT id_cod_coord FROM ".DATABASE.".ordem_servico WHERE id_cod_coord <> 0 GROUP BY id_cod_coord) ";
+$sql .= "OR funcionarios.id_funcionario IN (SELECT id_coord_aux FROM ".DATABASE.".ordem_servico WHERE  id_coord_aux <> 0 GROUP BY id_coord_aux) ";
+$sql .= "GROUP BY funcionarios.id_funcionario ";
+$sql .= "ORDER BY funcionarios.funcionario ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach($db->array_select as $regs)
+{
+	$array_coorddvm_values[] = $regs["id_funcionario"];
+	$array_coorddvm_output[] = $regs["funcionario"];
+}
+
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico_status.id_os_status NOT IN (4,8,9,11,12,13) ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach ($db->array_select as $regs)
+{
+	$array_status_values[] = $regs["id_os_status"];
+	$array_status_output[] = addslashes($regs["os_status"]);
+}
+
+$array_disciplina_values[] = "";
+$array_disciplina_output[] = "SELECIONE";
+
+$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
+$sql .= "GROUP BY setores.id_setor ";
+$sql .= "ORDER BY setor ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach ($db->array_select as $regs)
+{
+	$array_disciplina_values[] = $regs["id_setor"];
+	$array_disciplina_output[] = $regs["setor"];
+}
+
+$smarty->assign("option_status_values",$array_status_values);
+
+$smarty->assign("option_status_output",$array_status_output);
+
+$smarty->assign("option_coorddvm_values",$array_coorddvm_values);
+
+$smarty->assign("option_coorddvm_output",$array_coorddvm_output);
+
+$smarty->assign("option_disciplina_values",$array_disciplina_values);
+
+$smarty->assign("option_disciplina_output",$array_disciplina_output);
+
+$smarty->assign("nome_validacao",$_SESSION["nome_usuario"]);
+
+$smarty->assign("data_validacao",date('d/m/Y'));
+
+$smarty->assign("revisao_documento","V7");
+
+$smarty->assign("campo",$conf->campos('acompanhamento_os'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("acompanhamento_os.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function tab()
 {
@@ -1013,94 +1100,3 @@ function anexos(prefixo)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$array_coorddvm_values = NULL;
-$array_coorddvm_output = NULL;
-
-$array_status_values = NULL;
-$array_status_output = NULL;
-
-$array_disciplina_values = NULL;
-$array_disciplina_output = NULL;
-
-$array_status_values[] = "";
-$array_status_output[] = "SELECIONE";
-
-$array_status_values[] = "0";
-$array_status_output[] = "TODOS";
-
-$array_coorddvm_values[] = "";
-$array_coorddvm_output[] = "SELECIONE";
-
-$sql = "SELECT * FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.id_funcionario IN (SELECT id_cod_coord FROM ".DATABASE.".ordem_servico WHERE id_cod_coord <> 0 GROUP BY id_cod_coord) ";
-$sql .= "OR funcionarios.id_funcionario IN (SELECT id_coord_aux FROM ".DATABASE.".ordem_servico WHERE  id_coord_aux <> 0 GROUP BY id_coord_aux) ";
-$sql .= "GROUP BY funcionarios.id_funcionario ";
-$sql .= "ORDER BY funcionarios.funcionario ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach($db->array_select as $regs)
-{
-	$array_coorddvm_values[] = $regs["id_funcionario"];
-	$array_coorddvm_output[] = $regs["funcionario"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico_status.id_os_status NOT IN (4,8,9,11,12,13) ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach ($db->array_select as $regs)
-{
-	$array_status_values[] = $regs["id_os_status"];
-	$array_status_output[] = addslashes($regs["os_status"]);
-}
-
-$array_disciplina_values[] = "";
-$array_disciplina_output[] = "SELECIONE";
-
-$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
-$sql .= "GROUP BY setores.id_setor ";
-$sql .= "ORDER BY setor ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach ($db->array_select as $regs)
-{
-	$array_disciplina_values[] = $regs["id_setor"];
-	$array_disciplina_output[] = $regs["setor"];
-}
-
-$smarty->assign("option_status_values",$array_status_values);
-
-$smarty->assign("option_status_output",$array_status_output);
-
-$smarty->assign("option_coorddvm_values",$array_coorddvm_values);
-
-$smarty->assign("option_coorddvm_output",$array_coorddvm_output);
-
-$smarty->assign("option_disciplina_values",$array_disciplina_values);
-
-$smarty->assign("option_disciplina_output",$array_disciplina_output);
-
-$smarty->assign("nome_validacao",$_SESSION["nome_usuario"]);
-
-$smarty->assign("data_validacao",date('d/m/Y'));
-
-$smarty->assign("revisao_documento","V7");
-
-$smarty->assign("campo",$conf->campos('acompanhamento_os'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("acompanhamento_os.tpl");
-
-?>

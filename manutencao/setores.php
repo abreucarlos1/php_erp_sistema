@@ -379,12 +379,24 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("nome_formulario","SETORES");
+
+$smarty->assign("revisao_documento","V4");
+
+$smarty->assign('campo', $conf->campos('setores'));
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('setores.tpl');
+
 ?>
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 
 function grid(tabela, autoh, height, xml)
@@ -419,17 +431,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("nome_formulario","SETORES");
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign('campo', $conf->campos('setores'));
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('setores.tpl');
-?>

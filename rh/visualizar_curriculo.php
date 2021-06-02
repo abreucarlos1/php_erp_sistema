@@ -82,7 +82,7 @@ foreach($db->array_select as $telefone)
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 </script>
 

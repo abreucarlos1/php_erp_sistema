@@ -44,14 +44,14 @@ function getAtributos($dados_form)
 	$sql = "SELECT
 			  *
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN(
 			    SELECT
 			      id_atributo, atributo, subGrupo, codGrupo
 			    FROM
-			      materiais_old.atributos
+			      ".DATABASE.".atributos
 			      JOIN(
-			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			      ) atrXSub
 			      ON codAtributo = id_atributo
 			    WHERE atributos.reg_del = 0
@@ -87,7 +87,7 @@ function atualizatabela($filtro, $combo='')
 		$sql_filtro = " AND sub_grupo.sub_grupo LIKE '".$sql_texto."' ";
 	}
 	
-	$sql = "SELECT * FROM materiais_old.sub_grupo ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_grupo ";
 	$sql .= "WHERE reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY sub_grupo.codigo_sub_grupo ";
@@ -129,14 +129,14 @@ function insere($dados_form)
 	{
 		if (empty($dados_form["codigo"]))
 		{
-			$sql = "SELECT * FROM materiais_old.sub_grupo WHERE reg_del = 0 ORDER BY codigo_sub_grupo DESC LIMIT 0, 1";
+			$sql = "SELECT * FROM ".DATABASE.".sub_grupo WHERE reg_del = 0 ORDER BY codigo_sub_grupo DESC LIMIT 0, 1";
 			$db->select($sql, 'MYSQL', true);
 			$dados_form['codigo'] = sprintf('%02d', intval($db->array_select[0]['ultimo']) + 1);
 		}
 		
 		
 		
-		$isql = "INSERT INTO materiais_old.sub_grupo ";
+		$isql = "INSERT INTO ".DATABASE.".sub_grupo ";
 		$isql .= "(codigo_sub_grupo, sub_grupo) VALUES ( ";
 		$isql .= "'" . $dados_form["codigo"] . "', ";
 		$isql .= "'" . maiusculas($dados_form["sub_grupo"]) . "') ";
@@ -167,7 +167,7 @@ function editar($id)
 
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM materiais_old.sub_grupo ";
+	$sql = "SELECT * FROM ".DATABASE.".sub_grupo ";
 	$sql .= "WHERE sub_grupo.codigo_sub_grupo = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -199,7 +199,7 @@ function atualizar($dados_form)
 	if($dados_form["sub_grupo"]!='')
 	{
 
-		$usql = "UPDATE materiais_old.sub_grupo SET ";
+		$usql = "UPDATE ".DATABASE.".sub_grupo SET ";
 		$usql .= "codigo_sub_grupo = '" . $dados_form["codigo"] . "', ";
 		$usql .= "sub_grupo = '" . maiusculas($dados_form["sub_grupo"]) . "' ";
 		$usql .= "WHERE id_sub_grupo = '".$dados_form["id_sub_grupo"]."' ";
@@ -229,13 +229,13 @@ function excluir($id)
 	$db = new banco_dados;
 	
 	/*
-	$sql = "DELETE FROM materiais_old.sub_grupo ";
+	$sql = "DELETE FROM ".DATABASE.".sub_grupo ";
 	$sql .= "WHERE sub_grupo.id_sub_grupo = '".$id."' ";
 	
 	$db->delete($sql,'MYSQL');
 	*/
 	
-	$usql = "UPDATE materiais_old.sub_grupo SET ";
+	$usql = "UPDATE ".DATABASE.".sub_grupo SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -269,7 +269,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {
 	function editar(id, row)

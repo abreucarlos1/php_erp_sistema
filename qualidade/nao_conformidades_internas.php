@@ -1225,7 +1225,7 @@ function email($id)
 	$msg = $conf->msg($resposta);
 
 	$params 			= array();
-	$params['from']		= "qualidade@dominio.com.br";
+	$params['from']		= "qualidade@".DOMINIO;
 	$params['from_name']= "SGI";
 	$params['subject'] 	= "NAO CONFORMIDADES INTERNAS";	
 	
@@ -1608,13 +1608,285 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+$db = new banco_dados;
+
+$array_os_values[] = "0";
+$array_os_output[] = "NAO APLICAVEL";
+
+$array_cliente_values[] = "0";
+$array_cliente_output[] =  "SELECIONE";
+
+$array_disciplina_values[] = "0";
+$array_disciplina_output[] =  "SELECIONE";
+
+$array_pac_values[] = "0";
+$array_pac_output[] = "SELECIONE";
+
+$array_func_values[] = "";
+$array_func_output[] = "SELECIONE";
+
+$smarty->assign("revisao_documento","V8");
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("campo",$conf->campos('nao_conformidades_internas'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_formulario","NÃO CONFORMIDADES INTERNAS");
+
+$smarty->assign("codigo","NC-".date('YmdHi'));
+
+$smarty->assign("originador",$_SESSION["nome_usuario"]);
+
+$smarty->assign("id_originador",$_SESSION["id_funcionario"]);
+
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
+$sql .= "GROUP BY ordem_servico.os ";
+$sql .= "ORDER BY ordem_servico.os ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $cont2)
+{
+	$array_os_values[] = $cont2["id_os"];
+	$array_os_output[] =  sprintf("%010d",$cont2["os"]);
+}
+
+$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
+$sql .= "AND funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$cont = $db->array_select[0];
+
+$smarty->assign("setor",$cont["setor"]);
+
+$smarty->assign("id_setor",$cont["id_setor"]);
+
+$sql = "SELECT * FROM ".DATABASE.".setores ";
+$sql .= "ORDER BY setor ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $cont0)
+{
+	$array_disciplina_values[] = $cont0["id_setor"];
+	$array_disciplina_output[] =  $cont0["setor"];
+}
+
+$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
+$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
+$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
+$sql .= "GROUP BY empresas.id_empresa ";
+$sql .= "ORDER BY empresa, unidades.descricao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $cont1)
+{
+	$array_cliente_values[] = $cont1["id_empresa"];
+	$array_cliente_output[] =  $cont1["empresa"]. " - ".$cont1["unidade"];
+}
+
+$sql = "SELECT * FROM ".DATABASE.".tipos_documentos_planos_acao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$doc_ref = "<table width=\"100%\" border=\"0\">";
+
+$i = 1;
+
+foreach ($db->array_select as $cont1)
+{
+	$width = '';
+		
+	if($i%2)
+	{
+		$doc_ref .= "<tr align=\"center\"><td width=\"18%\"> </td>";
+		$width = 'width=370px;';
+	}
+
+	if($cont1["id_tipo_documento"]==5)
+	{
+		$doc_ref .= "<td align=\"left\" ".$width." ><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_tipo_documento"]."\" onclick=\"trocarSufixo('".$cont1['sufixo_codigo']."');document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_documento"]."</label>";
+		$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" /></td>";
+	}
+	else
+	{
+		$doc_ref .= "<td align=\"left\" ".$width."><input type=\"radio\" name=\"rd_doc_ref\"  id=\"rd_doc_ref\" value=\"".$cont1["id_tipo_documento"]."\" onclick=\"trocarSufixo('".$cont1['sufixo_codigo']."');\" /><label class=\"labels\">".$cont1["tipo_documento"]."</label></td>";
+	}		
+
+	if(!$i%2)
+	{
+		$doc_ref .= "</tr>";	
+	}
+	
+	$i++;
+}
+
+$doc_ref .= "</table>";
+
+//Adicionei em 09/08/2016
+//Carlos Eduardo
+$sql = "SELECT * FROM ".DATABASE.".tipo_origem ";
+$sql .= "ORDER BY id_tipo_origem ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$tp_orig = "<table id=\"table_tp_origem\" width=\"100%\" border=\"0\">";
+
+$i = 1;
+
+$array_tipo = $db->array_select;
+
+foreach ($array_tipo as $cont1)
+{
+	$width = '';
+		
+	if($i%2)
+	{
+		$tp_orig .= "<tr align=\"center\"><td width=\"18%\"> </td>";
+		$width = 'width=370px;';
+	}
+
+	switch($cont1["id_tipo_origem"])
+	{
+		case 2:
+			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_acidente').style.display='block';document.getElementById('outros_acidente').style.backgroundColor='white';document.getElementById('outros_acidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= "  <input name=\"outros_acidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_acidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+		break;
+		case 3:
+			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros').style.display='block';document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= "  <input name=\"outros\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+		break;
+		case 4:
+			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_incidente').style.display='block';document.getElementById('outros_incidente').style.backgroundColor='white';document.getElementById('outros_incidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= "  <input name=\"outros_incidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_incidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+		break;
+		case 1:
+			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_cliente').style.display='block';document.getElementById('outros_cliente').style.backgroundColor='white';document.getElementById('outros_cliente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= "  <input name=\"outros_cliente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_cliente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+		break;
+		case 7:
+			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_fornec').style.display='block';document.getElementById('outros_fornec').style.backgroundColor='white';document.getElementById('outros_fornec').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= "  <input name=\"outros_fornec\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
+		break;
+		case 6:
+			
+			$sql = "SELECT id_setor, setor FROM ".DATABASE.".setores";
+
+			$db->select($sql,'MYSQL', true);
+			
+			$select = "<select id='sel_setores' name='sel_setores' class='caixa' style='display:none';><option value=''>Selecione</option>";
+			
+			foreach($db->array_select as $k => $v)
+			{
+				$select .= '<option value="'.$v['id_setor'].'">'.$v['setor'].'</option>';
+			}
+			
+			$select .= "</select>";
+
+			$tp_orig .= "<td align=\"left\" ".$width." ><input type=\"radio\" class=\"campoOriginador\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"limpaTextNaoSelecionado();document.getElementById('sel_setores').style.display='block';\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
+			$tp_orig .= $select."</td>";
+		break;
+		default:
+			$tp_orig .= "<td align=\"left\" ".$width."><input type=\"radio\" class=\"campoOriginador\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"limpaTextNaoSelecionado();document.getElementById('nao_conf').disabled=true;\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label></td>";
+		break;
+	}
+
+	if(!$i%2)
+	{
+		$tp_orig .= "</tr>";	
+	}
+	
+	$i++;
+}
+
+$tp_orig .= "</table>";
+
+$sql = "SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios ";
+$sql .= "WHERE situacao = 'ATIVO' ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach ($db->array_select as $cont2)
+{
+	$array_func_values[] = $cont2["id_funcionario"];
+	$array_func_output[] =  $cont2['funcionario'];
+}
+
+$smarty->assign("doc_ref",$doc_ref);
+$smarty->assign("tp_orig",$tp_orig);
+
+$smarty->assign("id",$_GET["id"]);
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("option_disciplina_values",$array_disciplina_values);
+$smarty->assign("option_disciplina_output",$array_disciplina_output);
+
+$smarty->assign("option_cliente_values",$array_cliente_values);
+$smarty->assign("option_cliente_output",$array_cliente_output);
+
+$smarty->assign("option_func_values",$array_func_values);
+$smarty->assign("option_func_output",$array_func_output);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('nao_conformidades_internas.tpl');
+
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 //Função que troca o sufixo do código NC, OC, AP, etc. de acordo com os dados cadastrados no BD
 function trocarSufixo(sufixo)
 {
@@ -1904,278 +2176,3 @@ function limpaTextNaoSelecionado()
 	}
 }
 </script>
-
-<?php
-
-$conf = new configs();
-
-$db = new banco_dados;
-
-$array_os_values[] = "0";
-$array_os_output[] = "NAO APLICAVEL";
-
-$array_cliente_values[] = "0";
-$array_cliente_output[] =  "SELECIONE";
-
-$array_disciplina_values[] = "0";
-$array_disciplina_output[] =  "SELECIONE";
-
-$array_pac_values[] = "0";
-$array_pac_output[] = "SELECIONE";
-
-$array_func_values[] = "";
-$array_func_output[] = "SELECIONE";
-
-$smarty->assign("revisao_documento","V8");
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->assign("campo",$conf->campos('nao_conformidades_internas'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_formulario","NÃO CONFORMIDADES INTERNAS");
-
-$smarty->assign("codigo","NC-".date('YmdHi'));
-
-$smarty->assign("originador",$_SESSION["nome_usuario"]);
-
-$smarty->assign("id_originador",$_SESSION["id_funcionario"]);
-
-$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-$sql .= "GROUP BY ordem_servico.os ";
-$sql .= "ORDER BY ordem_servico.os ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $cont2)
-{
-	$array_os_values[] = $cont2["id_os"];
-	$array_os_output[] =  sprintf("%010d",$cont2["os"]);
-}
-
-$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
-$sql .= "AND funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$cont = $db->array_select[0];
-
-$smarty->assign("setor",$cont["setor"]);
-
-$smarty->assign("id_setor",$cont["id_setor"]);
-
-$sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "ORDER BY setor ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $cont0)
-{
-	$array_disciplina_values[] = $cont0["id_setor"];
-	$array_disciplina_output[] =  $cont0["setor"];
-}
-
-$sql = "SELECT *, unidades.descricao AS unidade FROM ".DATABASE.".empresas, ".DATABASE.".unidades, ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
-$sql .= "AND empresas.id_unidade = unidades.id_unidade ";
-$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-$sql .= "GROUP BY empresas.id_empresa ";
-$sql .= "ORDER BY empresa, unidades.descricao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $cont1)
-{
-	$array_cliente_values[] = $cont1["id_empresa"];
-	$array_cliente_output[] =  $cont1["empresa"]. " - ".$cont1["unidade"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".tipos_documentos_planos_acao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$doc_ref = "<table width=\"100%\" border=\"0\">";
-
-$i = 1;
-
-foreach ($db->array_select as $cont1)
-{
-	$width = '';
-		
-	if($i%2)
-	{
-		$doc_ref .= "<tr align=\"center\"><td width=\"18%\"> </td>";
-		$width = 'width=370px;';
-	}
-
-	if($cont1["id_tipo_documento"]==5)
-	{
-		$doc_ref .= "<td align=\"left\" ".$width." ><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_tipo_documento"]."\" onclick=\"trocarSufixo('".$cont1['sufixo_codigo']."');document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_documento"]."</label>";
-		$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" /></td>";
-	}
-	else
-	{
-		$doc_ref .= "<td align=\"left\" ".$width."><input type=\"radio\" name=\"rd_doc_ref\"  id=\"rd_doc_ref\" value=\"".$cont1["id_tipo_documento"]."\" onclick=\"trocarSufixo('".$cont1['sufixo_codigo']."');\" /><label class=\"labels\">".$cont1["tipo_documento"]."</label></td>";
-	}		
-
-	if(!$i%2)
-	{
-		$doc_ref .= "</tr>";	
-	}
-	
-	$i++;
-}
-
-$doc_ref .= "</table>";
-
-//Adicionei em 09/08/2016
-//Carlos Eduardo
-$sql = "SELECT * FROM ".DATABASE.".tipo_origem ";
-$sql .= "ORDER BY id_tipo_origem ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$tp_orig = "<table id=\"table_tp_origem\" width=\"100%\" border=\"0\">";
-
-$i = 1;
-
-$array_tipo = $db->array_select;
-
-foreach ($array_tipo as $cont1)
-{
-	$width = '';
-		
-	if($i%2)
-	{
-		$tp_orig .= "<tr align=\"center\"><td width=\"18%\"> </td>";
-		$width = 'width=370px;';
-	}
-
-	switch($cont1["id_tipo_origem"])
-	{
-		case 2:
-			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_acidente').style.display='block';document.getElementById('outros_acidente').style.backgroundColor='white';document.getElementById('outros_acidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "  <input name=\"outros_acidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_acidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
-		break;
-		case 3:
-			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros').style.display='block';document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "  <input name=\"outros\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
-		break;
-		case 4:
-			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_incidente').style.display='block';document.getElementById('outros_incidente').style.backgroundColor='white';document.getElementById('outros_incidente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "  <input name=\"outros_incidente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_incidente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
-		break;
-		case 1:
-			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_cliente').style.display='block';document.getElementById('outros_cliente').style.backgroundColor='white';document.getElementById('outros_cliente').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "  <input name=\"outros_cliente\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_cliente\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
-		break;
-		case 7:
-			$tp_orig .= "<td align=\"left\" ".$width." ><input onblur=\"limpaTextNaoSelecionado();\" class=\"campoOriginador\" type=\"radio\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"document.getElementById('outros_fornec').style.display='block';document.getElementById('outros_fornec').style.backgroundColor='white';document.getElementById('outros_fornec').focus();\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= "  <input name=\"outros_fornec\" type=\"text\" class=\"caixa campoOriginador\" id=\"outros_fornec\" size=\"50\" value=\"\" style=\"background-color:grey;display:none;\" /></td>";
-		break;
-		case 6:
-			
-			$sql = "SELECT id_setor, setor FROM ".DATABASE.".setores";
-
-			$db->select($sql,'MYSQL', true);
-			
-			$select = "<select id='sel_setores' name='sel_setores' class='caixa' style='display:none';><option value=''>Selecione</option>";
-			
-			foreach($db->array_select as $k => $v)
-			{
-				$select .= '<option value="'.$v['id_setor'].'">'.$v['setor'].'</option>';
-			}
-			
-			$select .= "</select>";
-
-			$tp_orig .= "<td align=\"left\" ".$width." ><input type=\"radio\" class=\"campoOriginador\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"limpaTextNaoSelecionado();document.getElementById('sel_setores').style.display='block';\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label>";
-			$tp_orig .= $select."</td>";
-		break;
-		default:
-			$tp_orig .= "<td align=\"left\" ".$width."><input type=\"radio\" class=\"campoOriginador\" name=\"rd_tp_origem\" id=\"rd_tp_origem\" value=\"".$cont1["id_tipo_origem"]."\" onclick=\"limpaTextNaoSelecionado();document.getElementById('nao_conf').disabled=true;\" /><label class=\"labels\">".$cont1["tipo_origem"]."</label></td>";
-		break;
-	}
-
-	if(!$i%2)
-	{
-		$tp_orig .= "</tr>";	
-	}
-	
-	$i++;
-}
-
-$tp_orig .= "</table>";
-
-$sql = "SELECT id_funcionario, funcionario FROM ".DATABASE.".funcionarios ";
-$sql .= "WHERE situacao = 'ATIVO' ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach ($db->array_select as $cont2)
-{
-	$array_func_values[] = $cont2["id_funcionario"];
-	$array_func_output[] =  $cont2['funcionario'];
-}
-
-$smarty->assign("doc_ref",$doc_ref);
-$smarty->assign("tp_orig",$tp_orig);
-
-$smarty->assign("id",$_GET["id"]);
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("option_disciplina_values",$array_disciplina_values);
-$smarty->assign("option_disciplina_output",$array_disciplina_output);
-
-$smarty->assign("option_cliente_values",$array_cliente_values);
-$smarty->assign("option_cliente_output",$array_cliente_output);
-
-$smarty->assign("option_func_values",$array_func_values);
-$smarty->assign("option_func_output",$array_func_output);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('nao_conformidades_internas.tpl');
-
-?>

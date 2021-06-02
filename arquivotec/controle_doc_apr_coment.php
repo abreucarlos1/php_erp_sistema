@@ -78,10 +78,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-<?php
-
 $array_coordenador_values = NULL;
 $array_coordenador_output = NULL;
 
@@ -197,4 +193,6 @@ $smarty->assign("campo",$conf->campos('documentos_aprovados'));
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_doc_apr_coment.tpl');
+
 ?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

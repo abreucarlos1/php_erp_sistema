@@ -73,11 +73,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_preenchecoord(xajax.getFormValues('frm'));");
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $conf = new configs();
 
 $db = new banco_dados;
@@ -93,3 +88,5 @@ $smarty->assign("classe",CSS_FILE);
 $smarty->display('relatorio_medicao.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

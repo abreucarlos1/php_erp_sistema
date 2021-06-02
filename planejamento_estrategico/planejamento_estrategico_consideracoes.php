@@ -50,7 +50,7 @@ if($_GET["liberado"]!="ok")
 	<input type="hidden" name="liberado" value="ok">
 	<input type="hidden" name="id_funcionario" value="<?= $id_funcionario ?>">
 
-	<script language="javascript">
+	<script>
 	
 	
 	version = parseFloat(navigator.appVersion.split("MSIE")[1]);

@@ -132,7 +132,7 @@ function maximiza()
 
 
 
-<script language="javascript">
+<script>
 
 
 function sortSelect(obj){

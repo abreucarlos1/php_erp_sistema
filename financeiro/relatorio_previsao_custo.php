@@ -22,13 +22,6 @@ if(!verifica_sub_modulo(327))
 	nao_permitido();
 }
 
-
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -57,3 +50,4 @@ $smarty->display('relatorio_previsao_custo.tpl');
 
 ?>
 
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

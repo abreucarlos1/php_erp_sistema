@@ -43,7 +43,7 @@ font-size:11px;
 
 </style> 
 
-<script src="../includes/utils.js"></script>
+<script src="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/utils.js"></script>
 
 </head>
 

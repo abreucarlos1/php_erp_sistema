@@ -726,11 +726,11 @@ function atualizar($dados_form)
 					$texto .= '</table>';
 					
 					$params 			= array();
-					$params['from']		= "financeiro@dominio.com.br";
+					$params['from']		= "financeiro@".DOMINIO;
 					$params['from_name']= "REQUISIÇÃO DESPESAS - ADIANTAMENTO";
 					$params['subject'] 	= "REQUISIÇÃO DESPESAS - ADIANTAMENTO";
 					
-					$params['emails']['to'][] = array('email' => "financeiro@dominio.com.br", 'nome' => "Financeiro");
+					$params['emails']['to'][] = array('email' => "financeiro@".DOMINIO, 'nome' => "Financeiro");
 					
 					if($array_funcionarios[1][$cont["id_funcionario"]])//solicitante
 					{
@@ -933,11 +933,11 @@ function acerto_funcionario($id, $tipo)
 				$texto .='</table>';
 				
 				$params 			= array();
-				$params['from']		= "financeiro@dominio.com.br";
+				$params['from']		= "financeiro@".DOMINIO;
 				$params['from_name']= "REQUISIÇÃO DESPESAS - ".$status;
 				$params['subject'] 	= "REQUISIÇÃO DESPESAS - ".$status;
 				
-				$params['emails']['to'][] = array('email' => "financeiro@dominio.com.br", 'nome' => "FINANCEIRO");
+				$params['emails']['to'][] = array('email' => "financeiro@".DOMINIO, 'nome' => "FINANCEIRO");
 				
 				if($array_funcionarios[1][$cont["id_funcionario"]])//solicitante
 				{
@@ -1029,7 +1029,7 @@ function excluir($id, $what)
 		$params['from']		= $array_funcionarios[1][$cont["responsavel_despesas"]];
 		$params['from_name']= "REQUISIÇÃO DESPESAS - CANCELAMENTO";
 		$params['subject'] 	= "REQUISIÇÃO DESPESAS: CANCELAMENTO";
-		$params['emails']['to'][] = array('email' => "financeiro@dominio.com.br", 'nome' => "FINANCEIRO");
+		$params['emails']['to'][] = array('email' => "financeiro@".DOMINIO, 'nome' => "FINANCEIRO");
 		$texto = 'As requisções a seguir foram canceladas.<br />';		
 		
 	    foreach($db->array_select as $cont)
@@ -1137,7 +1137,7 @@ $smarty->assign("body_onload","tab();xajax_atualizatabela(xajax.getFormValues('f
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function excluir_itens_selecionados()
 {
 	if (confirm('Deseja excluir os itens selecionados?'))

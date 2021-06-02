@@ -244,6 +244,56 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();");
+
+
+$array_os_values = NULL;
+$array_os_output = NULL;
+
+$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY ordem_servico.os ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_os[$cont["id_os"]] = sprintf("%05d",$cont["os"]) . " - " . $cont["descricao"];
+}
+
+//Re-ordena as OS's
+asort($array_os);
+
+$array_os_values[] = "";
+$array_os_output[] = "SELECIONE";
+
+//Percorre o array de OS's
+foreach($array_os as $chave=>$valor)
+{
+	$array_os_values[] = $chave;
+	$array_os_output[] = $valor;
+}
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("revisao_documento","V1");
+
+$smarty->assign("campo",$conf->campos('diario_projetos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('diario_projetos.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -252,7 +302,7 @@ $smarty->assign("body_onload","tab();");
 
 <script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
 
-<script language="javascript">
+<script>
 
 function valida(id)
 {
@@ -339,55 +389,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$array_os_values = NULL;
-$array_os_output = NULL;
-
-$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-$sql .= "GROUP BY ordem_servico.id_os ";
-$sql .= "ORDER BY ordem_servico.os ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_os[$cont["id_os"]] = sprintf("%05d",$cont["os"]) . " - " . $cont["descricao"];
-}
-
-//Re-ordena as OS's
-asort($array_os);
-
-$array_os_values[] = "";
-$array_os_output[] = "SELECIONE";
-
-//Percorre o array de OS's
-foreach($array_os as $chave=>$valor)
-{
-	$array_os_values[] = $chave;
-	$array_os_output[] = $valor;
-}
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("revisao_documento","V1");
-
-$smarty->assign("campo",$conf->campos('diario_projetos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_funcionario",$_SESSION["nome_usuario"]);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('diario_projetos.tpl');
-
-?>

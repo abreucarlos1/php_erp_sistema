@@ -723,13 +723,56 @@ $xajax->registerFunction("confirmar_transferencia");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
+
+$conf = new configs();
+
+$sql = "SELECT 
+		DISTINCT a.id_funcionario, b.funcionario
+	FROM 
+		".DATABASE.".apontamento_horas a
+		JOIN ".DATABASE.".funcionarios b ON b.id_funcionario = a.id_funcionario AND b.reg_del = 0 
+	WHERE 
+		a.reg_del = 0 ";
+	
+
+$array_funcs_values = array("");
+$array_funcs_output = array("SELECIONE");
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+foreach($db->array_select as $reg)
+{
+  	$array_funcs_values[] = $reg['id_funcionario'];
+  	$array_funcs_output[] = $reg['funcionario'];
+}
+
+$smarty->assign("option_funcs_values",$array_funcs_values);
+$smarty->assign("option_funcs_output",$array_funcs_output);
+
+$smarty->assign("campo",$conf->campos('transferencia_apontamento_horas'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("revisao_documento","V2");
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('transferencia_apontamento_horas.tpl');
+
 ?>
 
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS; ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function desbloquearBotaoInserir()
 {
 	var idHoras = document.getElementById('idHoras').value;
@@ -774,48 +817,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$sql = "SELECT 
-		DISTINCT a.id_funcionario, b.funcionario
-	FROM 
-		".DATABASE.".apontamento_horas a
-		JOIN ".DATABASE.".funcionarios b ON b.id_funcionario = a.id_funcionario AND b.reg_del = 0 
-	WHERE 
-		a.reg_del = 0 ";
-	
-
-$array_funcs_values = array("");
-$array_funcs_output = array("SELECIONE");
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-foreach($db->array_select as $reg)
-{
-  	$array_funcs_values[] = $reg['id_funcionario'];
-  	$array_funcs_output[] = $reg['funcionario'];
-}
-
-$smarty->assign("option_funcs_values",$array_funcs_values);
-$smarty->assign("option_funcs_output",$array_funcs_output);
-
-$smarty->assign("campo",$conf->campos('transferencia_apontamento_horas'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("revisao_documento","V2");
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('transferencia_apontamento_horas.tpl');
-
-?>

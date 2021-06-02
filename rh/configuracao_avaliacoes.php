@@ -372,7 +372,7 @@ function liberarAvaliacao($id, $alvo = 0)
     	  AND id_local = 3";
         
         $params = array();
-        $params['from']	= "recrutamento@dominio.com.br";
+        $params['from']	= "recrutamento@".DOMINIO;
         $params['from_name'] = "RECURSOS HUMANOS";
         $params['subject'] = "AVALIACAO DE DESEMPENHO - Informacoes";
         
@@ -470,7 +470,7 @@ $smarty->assign("body_onload","xajax_atualizatabela();");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	

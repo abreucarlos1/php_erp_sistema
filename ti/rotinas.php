@@ -319,7 +319,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 //captura a tecla enter
 document.onkeypress = keyhandler;

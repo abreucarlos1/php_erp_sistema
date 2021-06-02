@@ -17,16 +17,16 @@
 						<td><input type="button" class="class_botao" name="btnalterar" id="btnalterar" value="Alterar" onclick="xajax_alterar_usuario(xajax.getFormValues('frm_acesso_especial'));" /></td>
 					</tr>
         			<tr>
-        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
+        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 					</tr>
        			</table>
 				</td>
         	<td colspan="2" valign="top" class="espacamento">
 			  	<table border="0" width="100%">
 					<tr>
-						<td width="21%"><label for="login" class="labels">Selecione um Usu·rio</label><br />
+						<td width="21%"><label for="login" class="labels">Selecione um Usu√°rio</label><br />
 							<select id='login' name='login' class="caixa" onkeypress="return keySort(this);" onchange="xajax_carrega_senha(this.value);">
-								<option>Escolha um usu·rio...</option>
+								<option>Escolha um usu√°rio...</option>
 								<smarty>html_options values=$option_usu_values output=$option_usu_output</smarty>
 							</select>
 						</td>

@@ -174,6 +174,21 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$smarty->assign("body_onload","xajax_monta_menu(621);xajax_monta_pastas('".DOCUMENTOS_SGI."020_RISCOS_E_OPORTUNIDADES')");
+
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("campo",$conf->campos('menuriscoseoportunidades'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+//Pode-se usar o mesmo menu, pois é tudo igual
+$smarty->display("menuqualidade.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -209,23 +224,3 @@ function show_tree(xml)
 	myTree.loadXMLString(xml);
 }
 </script>
-
-<?php
-
-
-$smarty->assign("body_onload","xajax_monta_menu(621);xajax_monta_pastas('".DOCUMENTOS_SGI."020_RISCOS_E_OPORTUNIDADES')");
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V0");
-
-$smarty->assign("campo",$conf->campos('menuriscoseoportunidades'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-//Pode-se usar o mesmo menu, pois é tudo igual
-$smarty->display("menuqualidade.tpl");
-
-?>

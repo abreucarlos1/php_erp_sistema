@@ -321,13 +321,25 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("campo",$conf->campos('categorias_orcamento'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('categorias_orcamento.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -368,20 +380,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V0");
-
-$smarty->assign("campo",$conf->campos('categorias_orcamento'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('categorias_orcamento.tpl');
-
-?>
-

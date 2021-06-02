@@ -47,7 +47,7 @@
  *      Versão 26 --> inclusão da fase 09 - 12/07/2017 - Chamado #1925 - Carlos Abreu
  *      Versão 27 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
  *      Versão 28 --> Alteração para impedir que uma revisao_documento do arquivo seja movido a um pacote existente se ele foi emitido em outro pacote - 13/03/2018 - Carlos Abreu
- *      Versão 29 --> Inclusao da opocao de selecionar varios arquivos, isto apenas para o arquivo tecnico - 22/03/2018 - Carlos Eduardo 
+ *      Versão 29 --> Inclusao da opcao de selecionar varios arquivos, isto apenas para o arquivo tecnico - 22/03/2018 - Carlos Eduardo 
  *      */
   
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -2546,7 +2546,7 @@ function enviar($dados_form)
         $params['from']		= 'arquivotecnico@dominio.com.br';
         $params['from_name']= $pedido["funcionario"];
         
-        $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+        $params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
         $params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);
         
         $corpoEmail = '';
@@ -5473,7 +5473,7 @@ function desbloq_massa($dados_form)
             $params['subject'] 	= $reg_arquivo["descricao"]." - Documento desbloqueado no GED com comentarios: ";
             
             //GRUPO ARQUIVO TECNICO
-            $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+            $params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
             
             if($array_usremail[$reg_arquivo["id_editor"]]!='')
             {
@@ -5786,7 +5786,7 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
                 $params['subject'] = $reg_arquivo["descricao"]." - Documento desbloqueado no GED com comentarios: ";
                 
                 //GRUPO ARQUIVO TECNICO
-                $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+                $params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
                 
                 if($array_usremail[$reg_arquivo["id_editor"]]!='')
                 {
@@ -6767,6 +6767,70 @@ if($_GET["id_ged_solicitacao"])
 }
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
+
+$conf = new configs();
+
+//$idsAcessoEspecial = array(6, 17, 49, 689, 709, 909, 910, 978, 981, 871, 1213, 1061, 1142);
+
+//ALTERAÇÃO FEITA POR CARLOS ABREU
+//09/02/2009 
+if(!in_array($_SESSION["id_funcionario"], $idsAcessoEspecial))
+{
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios, ".DATABASE.".solicitacao_documentos ";
+	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
+	$sql .= "AND solicitacao_documentos.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
+	$sql .= "AND ordem_servico_status.id_os_status NOT IN (3,9,12) ";
+	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.id_os = solicitacao_documentos.id_os ";
+}
+else
+{
+	
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".numeros_interno ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND numeros_interno.reg_del = 0 ";
+	$sql .= "AND ordem_servico.id_os = numeros_interno.id_os ";		
+}
+
+$sql .= "GROUP BY ordem_servico.id_os ";
+$sql .= "ORDER BY OS ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	die("Não foi possível realizar a seleção: ". $db->erro); 
+}
+
+foreach($db->array_select as $regs)
+{
+	$os = sprintf("%05d",$regs["os"]);
+	
+	$array_os_values[] = $regs["id_os"];
+	$array_os_output[] = $os . " - " . substr($regs["descricao"],0,40);	
+}
+
+
+$smarty->assign("revisao_documento","V29");
+
+$smarty->assign("campo",$conf->campos('ged'));
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+
+$smarty->assign("nome_formulario","GERENCIAMENTO ELETRÔNICO DE DOCUMENTOS");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('ged.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -6775,7 +6839,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 //desabilita right click
 document.oncontextmenu = function(){return false};
 
@@ -7229,68 +7293,3 @@ function checkAll(simNao)
     	xajax_sel_desbloq_massa(xajax.getFormValues('frm'));
 }
 </script>
-
-<?php
-$conf = new configs();
-
-//$idsAcessoEspecial = array(6, 17, 49, 689, 709, 909, 910, 978, 981, 871, 1213, 1061, 1142);
-
-//ALTERAÇÃO FEITA POR CARLOS ABREU
-//09/02/2009 
-if(!in_array($_SESSION["id_funcionario"], $idsAcessoEspecial))
-{
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios, ".DATABASE.".solicitacao_documentos ";
-	$sql .= "WHERE ordem_servico.id_os = os_x_funcionarios.id_os ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
-	$sql .= "AND solicitacao_documentos.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
-	$sql .= "AND ordem_servico_status.id_os_status NOT IN (3,9,12) ";
-	$sql .= "AND ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.id_os = solicitacao_documentos.id_os ";
-}
-else
-{
-	
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".numeros_interno ";
-	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND numeros_interno.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_os = numeros_interno.id_os ";		
-}
-
-$sql .= "GROUP BY ordem_servico.id_os ";
-$sql .= "ORDER BY OS ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	die("Não foi possível realizar a seleção: ". $db->erro); 
-}
-
-foreach($db->array_select as $regs)
-{
-	$os = sprintf("%05d",$regs["os"]);
-	
-	$array_os_values[] = $regs["id_os"];
-	$array_os_output[] = $os . " - " . substr($regs["descricao"],0,40);	
-}
-
-
-$smarty->assign("revisao_documento","V29");
-
-$smarty->assign("campo",$conf->campos('ged'));
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-
-$smarty->assign("nome_formulario","GERENCIAMENTO ELETRÔNICO DE DOCUMENTOS");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('ged.tpl');
-?>

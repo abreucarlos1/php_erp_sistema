@@ -174,7 +174,7 @@ function insere($dados_form)
 									{
 
 										$params 			= array();
-										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from']		= "recrutamento@".DOMINIO;
 										$params['from_name']= NOME_EMPRESA;
 										$params['subject'] 	= "Atualização de currículo";
 										
@@ -268,7 +268,7 @@ function insere($dados_form)
 									{
 
 										$params 			= array();
-										$params['from']		= "recrutamento@dominio.com.br";
+										$params['from']		= "recrutamento@".DOMINIO;
 										$params['from_name']= NOME_EMPRESA;
 										$params['subject'] 	= 'Cadastro/Atualização de currículo';
 										

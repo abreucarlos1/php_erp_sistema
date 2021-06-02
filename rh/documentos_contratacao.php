@@ -690,7 +690,7 @@ $smarty->assign("body_onload","showLoader();xajax_atualizatabela('','1');selecio
 
 <script src="<?php echo INCLUDE_JS ?>/jquery/jquery.min.js"></script>
 
-<script language="javascript">
+<script>
 function showModalAditamento()
 {
 	var html = 	'<form id="frmAditamento" name="frmAditamento">'+

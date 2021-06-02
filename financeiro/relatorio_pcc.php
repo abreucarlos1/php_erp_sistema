@@ -181,6 +181,44 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela();");
 
+$conf = new configs();
+
+$array_periodo_values[] = '';
+
+$array_periodo_output[] = 'SELECIONE O PERÍODO';
+
+$sql = "SELECT periodo FROM ".DATABASE.".fechamento_folha ";
+$sql .= "WHERE fechamento_folha.reg_del = 0 ";
+$sql .= "GROUP BY fechamento_folha.periodo ";
+$sql .= "ORDER BY fechamento_folha.periodo DESC ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach($db->array_select as $cont_periodo)
+{
+	
+	$array_periodo = explode(",",$cont_periodo["periodo"]);
+	$per_dataini = substr($array_periodo[0],-2,2) . "/" . substr($array_periodo[0],0,4);
+	$per_datafin = substr($array_periodo[1],-2,2) . "/" . substr($array_periodo[1],0,4);
+	
+	$array_periodo_values[] = $cont_periodo["periodo"];
+	$array_periodo_output[] = $per_dataini . " - " . $per_datafin;
+		
+}
+
+$smarty->assign("option_periodo_values",$array_periodo_values);
+
+$smarty->assign("option_periodo_output",$array_periodo_output);
+
+$smarty->assign("revisao_documento","V5");
+
+$smarty->assign("campo",$conf->campos('relatorio_pcc'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('relatorio_pcc.tpl');
 
 ?>
 
@@ -188,7 +226,7 @@ $smarty->assign("body_onload","xajax_atualizatabela();");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function setachk()
 {	
@@ -267,47 +305,3 @@ function gerar_arquivo()
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$array_periodo_values[] = '';
-
-$array_periodo_output[] = 'SELECIONE O PERÍODO';
-
-$sql = "SELECT periodo FROM ".DATABASE.".fechamento_folha ";
-$sql .= "WHERE fechamento_folha.reg_del = 0 ";
-$sql .= "GROUP BY fechamento_folha.periodo ";
-$sql .= "ORDER BY fechamento_folha.periodo DESC ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach($db->array_select as $cont_periodo)
-{
-	
-	$array_periodo = explode(",",$cont_periodo["periodo"]);
-	$per_dataini = substr($array_periodo[0],-2,2) . "/" . substr($array_periodo[0],0,4);
-	$per_datafin = substr($array_periodo[1],-2,2) . "/" . substr($array_periodo[1],0,4);
-	
-	$array_periodo_values[] = $cont_periodo["periodo"];
-	$array_periodo_output[] = $per_dataini . " - " . $per_datafin;
-		
-}
-
-$smarty->assign("option_periodo_values",$array_periodo_values);
-
-$smarty->assign("option_periodo_output",$array_periodo_output);
-
-$smarty->assign("revisao_documento","V5");
-
-$smarty->assign("campo",$conf->campos('relatorio_pcc'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('relatorio_pcc.tpl');
-
-?>
-

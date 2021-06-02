@@ -823,7 +823,7 @@ function modal(html, tamanho, titulo, idNew, dir_imagens, call_back)
 	
 	//conteudo = '<p class="nome_formulario">'+titulo+'<span class="icone icone-fechar cursor" style="position:absolute;left:'+divPopupInst.largura+'" onclick=divPopupInst.destroi('+idNew+');></span></p><div id="divConteudoModal">'+html+'</div>';
 	
-	conteudo = '<p class="nome_formulario">'+titulo+'<img src="../imagens/cal_close.png" onclick=divPopupInst.destroi('+idNew+'); style="cursor:pointer;" /></p>';
+	conteudo = '<p class="nome_formulario">'+titulo+'<img src="'+dir_imagens+'cal_close.png" onclick=divPopupInst.destroi('+idNew+'); style="cursor:pointer;" /></p>';
 	conteudo += '<div id="divConteudoModal">'+html+'</div>';
 	
 	divPopupInst.div_conteudo.innerHTML = conteudo;

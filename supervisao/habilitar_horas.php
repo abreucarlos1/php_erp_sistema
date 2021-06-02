@@ -1154,7 +1154,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 <script src="<?php echo INCLUDE_JS ?>utils.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {

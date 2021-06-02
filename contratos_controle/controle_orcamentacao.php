@@ -218,10 +218,37 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
+
+$sql = "SELECT DISTINCT YEAR(data_pedido) ANO FROM ".DATABASE.".bms_pedido WHERE reg_del = 0 AND YEAR(data_pedido) > 2016 ORDER BY YEAR(data_pedido) DESC";
+$db->select($sql,'MYSQL', true);
+						 
+foreach($db->array_select as $regs)
+{
+	$array_ano_values[] = $regs["ANO"];
+	$array_ano_output[] =  $regs["ANO"];
+}
+
+$smarty->assign("option_ano_values",$array_ano_values);
+$smarty->assign("option_ano_output",$array_ano_output);
+
+$smarty->assign('campo', $conf->campos('planilha_orcamentacao'));
+
+$smarty->assign('revisao_documento', 'V0');
+
+$smarty->assign('larguraTotal', '1');
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('controle_orcamentacao.tpl');
+
 ?>
+
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-<script language="javascript">
+
+<script>
+
 function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);
@@ -255,27 +282,3 @@ function grid(tabela, autoh, height, xml)
 	mygrid.loadXMLString(xml);
 }
 </script>
-
-<?php
-$sql = "SELECT DISTINCT YEAR(data_pedido) ANO FROM ".DATABASE.".bms_pedido WHERE reg_del = 0 AND YEAR(data_pedido) > 2016 ORDER BY YEAR(data_pedido) DESC";
-$db->select($sql,'MYSQL', true);
-						 
-foreach($db->array_select as $regs)
-{
-	$array_ano_values[] = $regs["ANO"];
-	$array_ano_output[] =  $regs["ANO"];
-}
-
-$smarty->assign("option_ano_values",$array_ano_values);
-$smarty->assign("option_ano_output",$array_ano_output);
-
-$smarty->assign('campo', $conf->campos('planilha_orcamentacao'));
-
-$smarty->assign('revisao_documento', 'V0');
-
-$smarty->assign('larguraTotal', '1');
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('controle_orcamentacao.tpl');
-?>

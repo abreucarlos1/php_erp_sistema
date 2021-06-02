@@ -8,24 +8,24 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_tela'));" value="<smarty>$botao[1]</smarty>" /></td>
+        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_tela'));" value="Inserir" /></td>
 					</tr>
         			<tr>
-        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
+        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 					</tr>
        			</table>
 			</td>
         	<td colspan="2" valign="top" class="espacamento">
 		  <table border="0" width="100%">
 				<tr>
-					<td width="21%"><label for="tela" class="labels"><smarty>$campo[2]</smarty></label><br />
+					<td width="21%"><label for="tela" class="labels">Tela</label><br />
 						<input name="tela" type="text" class="caixa" id="tela" size="50" placeholder="Tela" />
 						<input name="id_tela" type="hidden" id="tela" value="" />						</td>
 					</tr>
 			</table>
   			<table border="0" width="100%">			  
 			  <tr>
-				<td><label for="busca" class="labels"><smarty>$campo[3]</smarty></label><br />
+				<td><label for="busca" class="labels">Pesquisar</label><br />
 					<input name="busca" type="text" class="caixa" id="busca" placeholder="Busca" onKeyUp="iniciaBusca.verifica(this);" size="50"></td>
 				</tr>
 			</table>		  </td>

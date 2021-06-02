@@ -105,20 +105,6 @@ $xajax->registerFunction("chamapagina");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-?>
-	<script language="javascript">
-
-		function abrejanela(nome,caminho,largura,altura)
-		{
-			params = "width="+largura+",height="+altura+",resizable=0,titlebar=0,status=0,scrollbars=1,toolbar=0,location=0,directories=0,menubar=0,top="+(screen.height/2-altura/2)+", left="+(screen.width/2-largura/2)+" ";
-			windows = window.open( caminho, nome , params);
-			if(window.focus)
-			{
-				setTimeout("windows.focus()",100);
-			}
-		}
-	</script>
-<?php
 
 $conf = new configs();
 
@@ -131,4 +117,19 @@ $smarty->assign("campo",$conf->campos('menupj'));
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('menupj.tpl');
+
 ?>
+
+<script>
+
+function abrejanela(nome,caminho,largura,altura)
+{
+	params = "width="+largura+",height="+altura+",resizable=0,titlebar=0,status=0,scrollbars=1,toolbar=0,location=0,directories=0,menubar=0,top="+(screen.height/2-altura/2)+", left="+(screen.width/2-largura/2)+" ";
+	windows = window.open( caminho, nome , params);
+	if(window.focus)
+	{
+		setTimeout("windows.focus()",100);
+	}
+}
+		
+</script>

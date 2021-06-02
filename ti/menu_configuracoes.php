@@ -38,6 +38,10 @@ $smarty->assign("botao",$conf->botoes());
 
 $smarty->assign("classe",CSS_FILE);
 
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
 $template = TEMPLATES_DIR."menu.tpl";
 
 $smarty->display($template);

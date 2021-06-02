@@ -1385,13 +1385,83 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
+
+$conf = new configs();
+
+$array_funcionario_values[] = "";
+$array_funcionario_output[] = "SELECIONE";
+
+$array_periodo_values[] = "";
+$array_periodo_output[] = "ATUAL";
+
+$sql = "SELECT periodo FROM ".DATABASE.".fechamento_folha ";
+$sql .= "WHERE fechamento_folha.reg_del = 0 ";
+$sql .= "GROUP BY fechamento_folha.periodo ";
+$sql .= "ORDER BY fechamento_folha.periodo DESC ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+	
+foreach ($db->array_select as $regs)
+{
+	$array_periodo = explode(",",$regs["periodo"]);
+	$per_dataini = substr($array_periodo[0],-2,2) . "/" . substr($array_periodo[0],0,4);
+	$per_datafin = substr($array_periodo[1],-2,2) . "/" . substr($array_periodo[1],0,4);
+	
+	$array_periodo_values[] = $regs["periodo"];
+	$array_periodo_output[] = $per_dataini . " - " . $per_datafin;
+}
+
+$mes_per = date('m');
+
+if ($mes_per==1)
+{
+	$mes = 12;
+	$ano = date('Y')-1;
+	$data_ini = "26/" . $mes . "/" . $ano;
+	$datafim = "25/01/" . date('Y');
+}
+else
+{ 
+	$mesant = $mes_per - 1;
+	$ano = date('Y'); //retirado "-1" 07/02/2008 Otávio
+	$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
+	$datafim = "25/" . $mes_per . "/" . $ano;
+}
+
+$smarty->assign("revisao_documento","V9");
+
+$smarty->assign("campo",$conf->campos('fechamento_pj'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("lupa",DIR_IMAGENS.'procurar.png');
+
+$smarty->assign("data_inicial",$data_ini);
+
+$smarty->assign("data_final",$datafim);
+
+$smarty->assign("option_funcionario_values",$array_funcionario_values);
+$smarty->assign("option_funcionario_output",$array_funcionario_output);
+
+$smarty->assign("option_periodo_values",$array_periodo_values);
+$smarty->assign("option_periodo_output",$array_periodo_output);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('fechamento_pj.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 <!--
 //captura a tecla enter
@@ -1501,75 +1571,3 @@ function telaEmail(id_fechamento)
 	editor = new dhtmlXEditor("editor");
 }
 </script>
-
-<?php
-
-$conf = new configs();
-
-$array_funcionario_values[] = "";
-$array_funcionario_output[] = "SELECIONE";
-
-$array_periodo_values[] = "";
-$array_periodo_output[] = "ATUAL";
-
-$sql = "SELECT periodo FROM ".DATABASE.".fechamento_folha ";
-$sql .= "WHERE fechamento_folha.reg_del = 0 ";
-$sql .= "GROUP BY fechamento_folha.periodo ";
-$sql .= "ORDER BY fechamento_folha.periodo DESC ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-	
-foreach ($db->array_select as $regs)
-{
-	$array_periodo = explode(",",$regs["periodo"]);
-	$per_dataini = substr($array_periodo[0],-2,2) . "/" . substr($array_periodo[0],0,4);
-	$per_datafin = substr($array_periodo[1],-2,2) . "/" . substr($array_periodo[1],0,4);
-	
-	$array_periodo_values[] = $regs["periodo"];
-	$array_periodo_output[] = $per_dataini . " - " . $per_datafin;
-}
-
-$mes_per = date('m');
-
-if ($mes_per==1)
-{
-	$mes = 12;
-	$ano = date('Y')-1;
-	$data_ini = "26/" . $mes . "/" . $ano;
-	$datafim = "25/01/" . date('Y');
-}
-else
-{ 
-	$mesant = $mes_per - 1;
-	$ano = date('Y'); //retirado "-1" 07/02/2008 Otávio
-	$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
-	$datafim = "25/" . $mes_per . "/" . $ano;
-}
-
-$smarty->assign("revisao_documento","V9");
-
-$smarty->assign("campo",$conf->campos('fechamento_pj'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("lupa",DIR_IMAGENS.'procurar.png');
-
-$smarty->assign("data_inicial",$data_ini);
-
-$smarty->assign("data_final",$datafim);
-
-$smarty->assign("option_funcionario_values",$array_funcionario_values);
-$smarty->assign("option_funcionario_output",$array_funcionario_output);
-
-$smarty->assign("option_periodo_values",$array_periodo_values);
-$smarty->assign("option_periodo_output",$array_periodo_output);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('fechamento_pj.tpl');
-?>

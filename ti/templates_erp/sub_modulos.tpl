@@ -8,10 +8,10 @@
         		<table width="100%" border="0">
         			<tr>
         				<td valign="middle">
-        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_sub_modulos'));" value="<smarty>$botao[1]</smarty>" /></td>
+        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_sub_modulos'));" value="Inserir" /></td>
 					</tr>
         			<tr>
-        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
+        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 					</tr>
        			</table>
 				<input name="id_sub_modulo" type="hidden" id="id_sub_modulo" value="" />
@@ -19,15 +19,15 @@
         	<td colspan="2" valign="top"  class="espacamento">
 		  	<table border="0" width="100%">
 				<tr>
-					<td width="9%"><label for="modulo" class="labels"><smarty>$campo[2]</smarty></label><br />
+					<td width="9%"><label for="modulo" class="labels">Módulo</label><br />
 						<select name="modulo" class="caixa" id="modulo" onkeypress="return keySort(this);">
 							<smarty>html_options values=$option_modulo_values output=$option_modulo_output</smarty>
 						</select></td>
-					<td><label for="sub_modulo" class="labels"><smarty>$campo[4]</smarty></label><br />
+					<td><label for="sub_modulo" class="labels">Sub-módulo</label><br />
 						<input name="sub_modulo" type="text" class="caixa" id="sub_modulo" size="50" placeholder="Sub-módulo" /></td>
 				</tr>
 				<tr>	
-					<td colspan="2"><label for="sub_modulo_pai" class="labels"><smarty>$campo[10]</smarty></label><br />
+					<td colspan="2"><label for="sub_modulo_pai" class="labels">Sub-módulo pai</label><br />
                       	<select name="sub_modulo_pai" class="caixa" id="sub_modulo_pai" onkeypress="return keySort(this);">
                         	<smarty>html_options values=$option_sub_modulo_values output=$option_sub_modulo_output</smarty>
                       	</select>
@@ -36,20 +36,20 @@
 			</table>
 		  <table border="0" width="100%">
 				<tr>
-				  <td width="38%"><label for="caminho" class="labels"><smarty>$campo[5]</smarty></label><br />
+				  <td width="38%"><label for="caminho" class="labels">Caminho</label><br />
                     <input name="caminho" type="text" class="caixa" id="caminho" size="50" placeholder="Caminho" /></td>
-					<td width="29%"><label for="target" class="labels"><smarty>$campo[7]</smarty></label><br />
+					<td width="29%"><label for="target" class="labels">Alvo</label><br />
 							<select name="target" class="caixa" id="target" onkeypress="return keySort(this);" onchange="javascript:if(this.value==2){altura.disabled=false;largura.disabled=false;altura.focus();}else{altura.disabled=true;largura.disabled=true;}">
 							<option value="0">MESMA JANELA</option>
 							<option value="1">OUTRA JANELA</option>
 							<option value="2">OUTRA JANELA / TAMANHO DEF.</option>
                             <option value="3">ENDEREÇO EXTERNO</option>
 						</select></td>
-					<td width="9%"><label for="altura" class="labels"><smarty>$campo[8]</smarty></label><br />
+					<td width="9%"><label for="altura" class="labels">Altura</label><br />
 							<input name="altura" type="text" class="caixa" id="altura" size="5" disabled onkeypress="num_only();"/></td>
-					<td width="9%"><label for="largura" class="labels"><smarty>$campo[9]</smarty></label><br />
+					<td width="9%"><label for="largura" class="labels">Largura</label><br />
 							<input name="largura" type="text" class="caixa" id="largura" size="5" disabled onkeypress="num_only();" /></td>
-					<td width="15%"><label for="visivel" class="labels"><smarty>$campo[11]</smarty></label><br />
+					<td width="15%"><label for="visivel" class="labels">Visível</label><br />
                       <select name="visivel" class="caixa" id="visivel" onkeypress="return keySort(this);" onchange="javascript:if(this.value==2){altura.disabled=false;largura.disabled=false;altura.focus();}else{altura.disabled=true;largura.disabled=true;}">
                         <option value="0">NÃO</option>
                         <option value="1" selected="selected">SIM</option>
@@ -97,7 +97,7 @@
 			</table>
   			<table border="0" width="100%">			  
 			  <tr>
-				<td><label for="busca" class="labels"><smarty>$campo[3]</smarty></label><br />
+				<td><label for="busca" class="labels">Pesquisar</label><br />
 					<input name="busca" type="text" class="caixa" id="busca" onKeyUp="iniciaBusca.verifica(this);" placeholder="Busca" size="50"></td>
 				</tr>
 			</table>

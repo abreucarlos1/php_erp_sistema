@@ -40,18 +40,20 @@ define('AMBIENTE_EMAIL', !in_array(HOST, array('localhost','localhost:8888','tes
 
 define('ENVIA_EMAIL',FALSE);
 
-define('HOST_MAIL',"smtp.dominio.com.br");
+define('DOMINIO','dominio.com.br');
+
+define('HOST_MAIL',"smtp.".DOMINIO);
 
 define('FROM_NAME', "Sistema ERP");
 
-define('FROM_MAIL', "mail@dominio.com.br");
+define('FROM_MAIL', "mail@".DOMINIO);
 
-define('SUPORTE_MAIL', "ti@dominio.com.br");
+define('SUPORTE_MAIL', "ti@".DOMINIO);
 
-define('SISTEMAS_MAIL', "ti@dominio.com.br");
+define('SISTEMAS_MAIL', "ti@".DOMINIO);
 
 //Apenas enquanto estivermos desenvolvendo, poderemos usar estes
-define('TI', "ti@dominio.com.br");
+define('TI', "ti@".DOMINIO);
 
 //DEFINE ROOT WEB
 define('ROOT_WEB','http://'.HOST.'/'.$uri[1]);
@@ -175,6 +177,10 @@ require_once(INCLUDE_DIR."conectdb.inc.php"); //OK
 @ini_set(max_execution_time, 300);
 
 require_once(INCLUDE_DIR."database.inc.php");
+
+require_once(INCLUDE_DIR."database2.inc.php");
+
+//require_once(INCLUDE_DIR."database3.inc.php");
 
 @ini_set(max_execution_time, 120);
 

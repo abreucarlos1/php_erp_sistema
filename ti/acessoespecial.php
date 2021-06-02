@@ -2,15 +2,13 @@
 /*
 		Acesso Especial	
 		
-		Criado por Carlos Eduardo Máximo
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../ti/acessoespecial.php
 	
-		Versão 0 --> VERSÃO INICIAL : 02/09/2014
-		Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 2 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-		Versão 3 --> Layout responsivo - 05/02/2018 - Carlos Eduardo	
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -25,7 +23,6 @@ if(!verifica_sub_modulo(493))
 {
 	nao_permitido();
 }
-
 
 function autenticacao($dados_form)
 {
@@ -203,40 +200,11 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script>
-function revelar()
-{
-	document.getElementById('btnrevelar').value = 'Ocultar';
-	
-	document.getElementById('btnrevelar').onclick = function () {ocultar();};
-	
-	document.getElementById('senha').style.display = 'none';
-	document.getElementById('senhaHidden').style.display = '';
-}
-
-function ocultar()
-{
-
-	document.getElementById('btnrevelar').value = 'Revelar';
-	
-	document.getElementById('btnrevelar').onclick = function(){revelar();};
-	
-	document.getElementById('senha').style.display = '';
-	document.getElementById('senhaHidden').style.display = 'none';
-}
-</script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados();
 		
-$sql = "SELECT * FROM ".DATABASE.".usuarios
+$sql = "SELECT login, funcionario, id_funcionario, funcionario  FROM ".DATABASE.".usuarios
 		JOIN (
 			SELECT id_funcionario codFunc, funcionario
 			FROM 
@@ -267,11 +235,44 @@ $smarty->assign("campo",$conf->campos('acessoespecial'));
 
 $smarty->assign("botao",$conf->botoes());
 
-$smarty->assign("revisao_documento","V3");
+$smarty->assign("revisao_documento","V0");
 
 $smarty->assign('larguraTotal', 1);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
 
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('acessoespecial.tpl');
+
+?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script>
+function revelar()
+{
+	document.getElementById('btnrevelar').value = 'Ocultar';
+	
+	document.getElementById('btnrevelar').onclick = function () {ocultar();};
+	
+	document.getElementById('senha').style.display = 'none';
+	document.getElementById('senhaHidden').style.display = '';
+}
+
+function ocultar()
+{
+
+	document.getElementById('btnrevelar').value = 'Revelar';
+	
+	document.getElementById('btnrevelar').onclick = function(){revelar();};
+	
+	document.getElementById('senha').style.display = '';
+	document.getElementById('senhaHidden').style.display = 'none';
+}
+</script>
+
+<?php
+
+
 ?>

@@ -594,13 +594,70 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualiza_tabs(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+$db = new banco_dados;
+
+$array_setor_values = NULL;
+$array_setor_output = NULL;
+
+$array_formato_values = NULL;
+$array_formato_output = NULL;
+
+$sql = "SELECT * FROM ".DATABASE.".setores ";
+$sql .= "WHERE setores.reg_del = 0 ";
+$sql .= "ORDER BY abreviacao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);	
+}	
+
+foreach ($db->array_select as $regs)
+{
+	$array_setor_values[] = $regs["id_setor"].'#'.$regs["abreviacao"];
+	$array_setor_output[] = $regs["abreviacao"] ." - ".$regs["setor"];
+}
+
+$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
+$sql .= "WHERE formatos.reg_del = 0 ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}	
+
+foreach ($db->array_select as $regs)
+{
+	$array_formato_values[] = $regs["id_formato"];
+	$array_formato_output[] = $regs["formato"];
+}
+
+$smarty->assign("option_setor_values",$array_setor_values);
+$smarty->assign("option_setor_output",$array_setor_output);
+
+$smarty->assign("option_formato_values",$array_formato_values);
+$smarty->assign("option_formato_output",$array_formato_output);
+
+$smarty->assign("nome_formulario","ATIVIDADES");
+
+$smarty->assign("revisao_documento","V5");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('atividades.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 var myTabbar;
 
@@ -715,64 +772,3 @@ function orcamento(codatividade,setor)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$db = new banco_dados;
-
-$array_setor_values = NULL;
-$array_setor_output = NULL;
-
-$array_formato_values = NULL;
-$array_formato_output = NULL;
-
-$sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "WHERE setores.reg_del = 0 ";
-$sql .= "ORDER BY abreviacao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);	
-}	
-
-foreach ($db->array_select as $regs)
-{
-	$array_setor_values[] = $regs["id_setor"].'#'.$regs["abreviacao"];
-	$array_setor_output[] = $regs["abreviacao"] ." - ".$regs["setor"];
-}
-
-$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
-$sql .= "WHERE formatos.reg_del = 0 ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}	
-
-foreach ($db->array_select as $regs)
-{
-	$array_formato_values[] = $regs["id_formato"];
-	$array_formato_output[] = $regs["formato"];
-}
-
-$smarty->assign("option_setor_values",$array_setor_values);
-$smarty->assign("option_setor_output",$array_setor_output);
-
-$smarty->assign("option_formato_values",$array_formato_values);
-$smarty->assign("option_formato_output",$array_formato_output);
-
-$smarty->assign("nome_formulario","ATIVIDADES");
-
-$smarty->assign("revisao_documento","V5");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('atividades.tpl');
-
-?>

@@ -199,7 +199,7 @@ function envia_email($id_fechamento)
 		{
 
 			$params 			= array();
-			$params['from']		= "empresa@dominio.com.br";
+			$params['from']		= "empresa@".DOMINIO;
 			$params['from_name']= "Sistema ERP - OBRIGAÇÕES ACESSÓRIAS";
 			$params['subject'] 	= "OBRIGAÇÕES ACESSÓRIAS";
 			
@@ -743,7 +743,6 @@ function abreHE_tbl(id_funcionario, data_ini, data_fim)
 	wnd_horasextras_tbl = window.open('fechamentofolha_horaextra.php?id_funcionario='+id_funcionario+'&data_ini='+data_ini+'&data_fim='+data_fim+'&modo=tabela','wnd_horasextras', params);
 }
 
-
 function atualiza_periodo(combo)
 {
 
@@ -752,7 +751,6 @@ function atualiza_periodo(combo)
 	location.href='<?php $_SERVER["PHP_SELF"] ?>?periodo='+periodo+'&id_funcionario='+id_funcionario+'';
 	
 }
-
 
 function abrejanela(nome,caminho,largura,altura)
 {
@@ -764,12 +762,11 @@ function abrejanela(nome,caminho,largura,altura)
   }  
 }
 
-
 function gera_impostos()
 {
 
-document.forms["nfsfunc"].acao.value='impostos';
-document.forms["nfsfunc"].submit();
+	document.forms["nfsfunc"].acao.value='impostos';
+	document.forms["nfsfunc"].submit();
 
 }
 
@@ -789,7 +786,6 @@ function editar(id_fechamento)
 function ordenar(campo,ordem, periodo)
 {
 	location.href = '<?= $_SERVER["PHP_SELF"] ?>?campo='+campo+'&ordem='+ordem+'&periodo='+periodo+'';
-
 }
 
 function fn_manual(chkbox)
@@ -1302,7 +1298,7 @@ function fn_manual(chkbox)
 </table>
 </form>
 
-<script language="javascript">
+<script>
 {
 
 	//Desce o scroll até o último item

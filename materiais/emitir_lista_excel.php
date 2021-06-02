@@ -44,9 +44,9 @@ if (!empty($idLista))
 	"SELECT
 	      DISTINCT COALESCE(id_ged_arquivo, 0) as idGedArquivo, id_os, Descricao_os, id_lista_materiais_cabecalho, id_empresa, empresa, mlc_arquivo, mlc_id, OS
 	    FROM
-	      materiais_old.lista_materiais
+	      ".DATABASE.".lista_materiais
 	JOIN (
-	    SELECT id_os as idOs, id_empresa, descricao AS Descricao_os, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0
+	    SELECT id_os as idOs, id_empresa, descricao AS Descricao_os, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0
 	  ) OS
 	  ON idOs = id_os
 	  JOIN(
@@ -60,12 +60,12 @@ if (!empty($idLista))
 	    SELECT
 	      mla_mlc_id, mla_cliente, mla_loja, mlc_arquivo, mlc_id
 	    FROM
-	      materiais_old.modelo_lista_aplicados
+	      ".DATABASE.".modelo_lista_aplicados
 	      JOIN(
 	        SELECT
 	          mlc_id, mlc_arquivo
 	        FROM
-	          materiais_old.modelo_lista_cabecalho
+	          ".DATABASE.".modelo_lista_cabecalho
 	        WHERE
 	          modelo_lista_cabecalho.reg_del = 0
 	      ) cabecalho
@@ -102,9 +102,9 @@ if (!empty($idLista))
 		$sql = 
 	"SELECT DISTINCT id_ged_arquivo as idGedArquivo, id_os, id_lista_materiais_cabecalho, mlc_arquivo, mlc_id, OS
 	    FROM
-	      materiais_old.lista_materiais
+	      ".DATABASE.".lista_materiais
 	JOIN (
-	    SELECT id_os as idOs, id_empresa, OS FROM ".DATABASE.".OS WHERE OS.reg_del = 0 
+	    SELECT id_os as idOs, id_empresa, os FROM ".DATABASE.".ordem_servico WHERE ordem_servico.reg_del = 0 
 	  ) OS
 	  ON idOs = id_os
 	  JOIN(
@@ -118,7 +118,7 @@ if (!empty($idLista))
 	  	SELECT
 			mlc_id, mlc_arquivo
 		  FROM
-		  	materiais_old.modelo_lista_cabecalho
+		  	".DATABASE.".modelo_lista_cabecalho
 		  WHERE
 	  		modelo_lista_cabecalho.reg_del = 0
 	  		AND mlc_id = 1
@@ -139,8 +139,8 @@ if (!empty($idLista))
 }
 else
 {
-	$idModeloLista = 1;//Lista padrão da devemada.
-	$nomeArquivo = 'PADRAO_DVM.xlsx';
+	$idModeloLista = 1;//Lista padrão.
+	$nomeArquivo = 'PADRAO.xlsx';
 	$listasSelecionadas = $_GET['listasSelecionadas'];
 	
 	$idListaCab = explode(',', $listasSelecionadas);
@@ -181,7 +181,7 @@ $sql =
 "SELECT
 	mle_campo, mle_celula, mle_formula
 FROM
-	materiais_old.modelo_lista_excel
+	".DATABASE.".modelo_lista_excel
 WHERE
 	modelo_lista_excel.reg_del = 0 
 	AND mle_mlc_id = {$idModeloLista}";
@@ -241,12 +241,12 @@ $sql = "SELECT
 	MAX(id_lista_materiais_versoes) maiorVersao, marcar_excluido, status, /*SUM(qtd_comprada) qtd_comprada, */
 	MAX(data_versao) data_versao, MAX(versao_documento) ultimaRevisao, id_ged_arquivo, descArquivoGed, numero_cliente, round(peso1*SUM(qtd), 3) peso1, max(peso1) pesoUnitario
 FROM
-  materiais_old.lista_materiais
+  ".DATABASE.".lista_materiais
   JOIN(
    SELECT
 		id_lista_materiais_cabecalho id_cabecalho, status, versao_documento revLC
    FROM
-		materiais_old.lista_materiais_cabecalho
+		".DATABASE.".lista_materiais_cabecalho
    WHERE
 		lista_materiais_cabecalho.reg_del = 0
 )cabecalho
@@ -257,9 +257,9 @@ JOIN(
 		id_lista_materiais cod_lista_materiais, qtd, unidade, margem, revisao_documento, data_versao,
 		id_lista_materiais_versoes as idVersao
 	FROM
-		materiais_old.lista_materiais_versoes
+		".DATABASE.".lista_materiais_versoes
 		JOIN(
-			SELECT id_lista_materiais id_lm FROM materiais_old.lista_materiais WHERE (lista_materiais.reg_del = 0 OR lista_materiais.marcar_excluido = 1) AND id_lista_materiais_cabecalho IN(".$idLista.")
+			SELECT id_lista_materiais id_lm FROM ".DATABASE.".lista_materiais WHERE (lista_materiais.reg_del = 0 OR lista_materiais.marcar_excluido = 1) AND id_lista_materiais_cabecalho IN(".$idLista.")
 		) lm
 		ON id_lm = id_lista_materiais
 	WHERE
@@ -270,15 +270,15 @@ ON idVersao = id_lista_materiais_versoes
 JOIN(
 	SELECT
 		atual, id_produto codProduto, cod_barras componentecodigo, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2
-	FROM materiais_old.produto WHERE produto.reg_del = 0
+	FROM ".DATABASE.".produto WHERE produto.reg_del = 0
 ) produto
 ON componentecodigo = cod_barras
 JOIN(
 	SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, descFamilia
 	FROM 
-		materiais_old.componentes
+		".DATABASE.".componentes
 		LEFT JOIN (
-			SELECT id_familia idFamilia, descricao_longa descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+			SELECT id_familia idFamilia, descricao_longa descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 		) familia
 		ON idFamilia = id_familia
 	WHERE 

@@ -109,7 +109,7 @@ if ($campo != 'arquivo_')
     			        if (ENVIA_EMAIL)
     			        {
         			        $params 			= array();
-        			        $params['from']	    = "ti@dominio.com.br";
+        			        $params['from']	    = "ti@".DOMINIO;
         			        $params['from_name']= "ARQUIVO ANEXADO NO SISTEMA BMS";
         			        $params['subject'] 	= "ARQUIVO ANEXADO NO SISTEMA BMS";
         			        

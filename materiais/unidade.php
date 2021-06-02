@@ -38,7 +38,7 @@ function atualizatabela($ajax,$complemento = 0)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM materiais_old.unidade WHERE reg_del = 0 ORDER BY unidade.codigo_unidade ";
+	$sql = "SELECT * FROM ".DATABASE.".unidade WHERE reg_del = 0 ORDER BY unidade.codigo_unidade ";
 
 	$xml = new XMLWriter();
 	$xml->openMemory();
@@ -89,12 +89,12 @@ function insere($dados_form)
 	{
 		if (empty($dados_form["codigo"]))
 		{
-			$sql = "SELECT codigo_unidade ultimo FROM materiais_old.unidade WHERE reg_del = 0 ORDER BY codigo_unidade DESC LIMIT 0, 1";
+			$sql = "SELECT codigo_unidade ultimo FROM ".DATABASE.".unidade WHERE reg_del = 0 ORDER BY codigo_unidade DESC LIMIT 0, 1";
 			$db->select($sql, 'MYSQL', true);
 			$dados_form['codigo'] = sprintf('%02d', intval($db->array_select[0]['ultimo']) + 1);
 		}
 		
-		$isql = "INSERT INTO materiais_old.unidade ";
+		$isql = "INSERT INTO ".DATABASE.".unidade ";
 		$isql .= "(codigo_unidade, unidade, desc_portugues, desc_ingles, desc_espanhol) VALUES ( ";
 		$isql .= "'" . $dados_form["codigo"] . "', ";
 		$isql .= "'" . $dados_form["unidade"] . "', ";
@@ -128,7 +128,7 @@ function editar($id)
 
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM materiais_old.unidade ";
+	$sql = "SELECT * FROM ".DATABASE.".unidade ";
 	$sql .= "WHERE unidade.codigo_unidade = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -156,7 +156,7 @@ function atualizar($dados_form)
 	
 	if(!empty($dados_form["unidade"]))
 	{
-		$usql = "UPDATE materiais_old.unidade SET ";
+		$usql = "UPDATE ".DATABASE.".unidade SET ";
 		$usql .= "codigo_unidade = '" . $dados_form["codigo"] . "', ";
 		$usql .= "unidade = '" . $dados_form["unidade"] . "', ";
 		$usql .= "desc_portugues = '" . $dados_form["descPort"] . "', ";
@@ -186,13 +186,13 @@ function excluir($id, $what = '')
 
 	$db = new banco_dados;
 	/*
-	$sql = "DELETE FROM materiais_old.unidade ";
+	$sql = "DELETE FROM ".DATABASE.".unidade ";
 	$sql .= "WHERE unidade.id_unidade = '".$id."' ";
 	
 	$db->delete($sql,'MYSQL');
 	*/
 	
-	$usql = "UPDATE materiais_old.unidade SET ";
+	$usql = "UPDATE ".DATABASE.".unidade SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -226,7 +226,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(document.getElementById('cam
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);

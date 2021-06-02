@@ -58,7 +58,7 @@ if($_POST["acao"]=="atualizar_periodo")
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 
-<script language="javascript">
+<script>
 function postaperiodo()
 {
 	if(confirm('Deseja atualizar o período do funcionário?'))

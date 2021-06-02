@@ -80,7 +80,7 @@ function enviar($dados_form)
 
 				$params = array();
 				
-				$params['from']	= "empresa@dominio.com.br";
+				$params['from']	= "empresa@".DOMINIO;
 				
 				$params['from_name'] = "Recuperação senha - EMPRESA X";
 				
@@ -129,12 +129,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-
-?>
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $smarty->assign("revisao_documento","V3");
@@ -147,4 +141,7 @@ $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('lostpass.tpl');
 
+
 ?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+

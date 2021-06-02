@@ -257,7 +257,7 @@ function atualizar($dados_form)
 		
 		//email
 		$params 			= array();
-		$params['from']		= "recrutamento@dominio.com.br";
+		$params['from']		= "recrutamento@".DOMINIO;
 		$params['from_name']= "RECURSOS HUMANOS";
 		$params['subject'] 	= "ALTERAÇÃO NO CHAMADO ".$dados_form['id_chamado'];
 
@@ -463,7 +463,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 	function grid(tabela, autoh, height, xml)
 	{

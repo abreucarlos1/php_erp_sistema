@@ -266,13 +266,26 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
+
+$conf = new configs();
+
+$smarty->assign('revisao_documento', 'V3');
+
+$smarty->assign('campo', $conf->campos('unidades'));
+
+$smarty->assign("botao", $conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('unidades.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {
@@ -298,18 +311,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign('revisao_documento', 'V3');
-
-$smarty->assign('campo', $conf->campos('unidades'));
-
-$smarty->assign("botao", $conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('unidades.tpl');
-?>

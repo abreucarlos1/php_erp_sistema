@@ -409,101 +409,6 @@ $xajax->registerFunction("atualizatabela");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-function startUpload_referencias()
-{
-	  document.getElementById('inf_upload').innerHTML = '<img width="100px" src="../imagens/loader.gif">';	
-      
-	  document.getElementById('inf_upload').style.display = 'block';
-	  
-	  setTimeout('',3000);
-	    
-      return true;
-}
-
-function stopUpload_referencias(success,erro,id_documento_referencia)
-{
-      var result = '';
-	  
-	  if (success == 1)
-	  {
-		 result = '<span class="labels">Concluído! '+erro+'</span>';
-	  }
-	  else 
-	  {
-		 result = '<span class="labels">Erro! '+erro+'</span>';
-	  }      
-	  
-	  document.getElementById('inf_upload').innerHTML = result;
-
-	  xajax_atualizatabela(xajax.getFormValues('frm'));
-
-	  xajax_voltar();
-    
-      return true;   
-}
-
-//Função javascript para criação da estrutura da grid
-function grid(tabela, autoh, height, xml)
-{
-	mygrid = new dhtmlXGridObject(tabela);
-
-	/*mygrid.setImagePath("../includes/dhtmlx_403/codebase/imgs/");	*/
-	mygrid.enableAutoHeight(autoh,height);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	switch (tabela)
-	{
-		case 'div_docs_referencia':
-			function doOnRowSelected(row,col)
-			{
-				if (col<=7)
-				{					 
-					xajax_editar(row);
-				}				
-			
-				return true;
-			}
-			
-			mygrid.attachEvent("onRowSelect",doOnRowSelected);
-			mygrid.setHeader("N° Interno, N° Doc, OS, Disciplina, Tipo Documento, Título, data, Rev., A, E");
-			mygrid.setInitWidths("138,138,40,90,150,200,70,40,40,40");
-			mygrid.setColAlign("left,left,center,left,left,left,center,center,center,center");
-			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-			mygrid.setColSorting("str,str,str,str,str,str,str,str,str,str");
-		break;
-
-		case 'div_revisoes':
-			mygrid.setHeader("Revisão/Versão, data, Autor, Editor, A");
-			mygrid.setInitWidths("100,80,120,185,50");
-			mygrid.setColAlign("left,center,left,left,center");
-			mygrid.setColTypes("ro,ro,ro,ro,ro");
-			mygrid.setColSorting("str,str,str,str,str");
-		break;
-	}
-	
-	mygrid.setSkin("dhx_skyblue");
-    mygrid.enableMultiselect(true);
-    mygrid.enableCollSpan(true);	
-	mygrid.init();
-	mygrid.loadXMLString(xml);
-}
-
-function open_doc(dir)
-{
-	window.open("documento_v2.php?documento="+dir,"_blank");
-}
-
-</script>
-
-<?php
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
 $sql .= "WHERE id_setor NOT IN ('6','2','17','28','29','3','21','24','19') ";
@@ -618,5 +523,100 @@ $smarty->assign("campo",$conf->campos('comunicacao_interna'));
 
 $smarty->assign("classe",CSS_FILE);
 
+$smarty->caching = true;
+
 $smarty->display('comunicacao_interna.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script>
+
+function startUpload_referencias()
+{
+	  document.getElementById('inf_upload').innerHTML = '<img width="100px" src="../imagens/loader.gif">';	
+      
+	  document.getElementById('inf_upload').style.display = 'block';
+	  
+	  setTimeout('',3000);
+	    
+      return true;
+}
+
+function stopUpload_referencias(success,erro,id_documento_referencia)
+{
+      var result = '';
+	  
+	  if (success == 1)
+	  {
+		 result = '<span class="labels">Concluído! '+erro+'</span>';
+	  }
+	  else 
+	  {
+		 result = '<span class="labels">Erro! '+erro+'</span>';
+	  }      
+	  
+	  document.getElementById('inf_upload').innerHTML = result;
+
+	  xajax_atualizatabela(xajax.getFormValues('frm'));
+
+	  xajax_voltar();
+    
+      return true;   
+}
+
+//Função javascript para criação da estrutura da grid
+function grid(tabela, autoh, height, xml)
+{
+	mygrid = new dhtmlXGridObject(tabela);
+
+	/*mygrid.setImagePath("../includes/dhtmlx_403/codebase/imgs/");	*/
+	mygrid.enableAutoHeight(autoh,height);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	switch (tabela)
+	{
+		case 'div_docs_referencia':
+			function doOnRowSelected(row,col)
+			{
+				if (col<=7)
+				{					 
+					xajax_editar(row);
+				}				
+			
+				return true;
+			}
+			
+			mygrid.attachEvent("onRowSelect",doOnRowSelected);
+			mygrid.setHeader("N° Interno, N° Doc, OS, Disciplina, Tipo Documento, Título, data, Rev., A, E");
+			mygrid.setInitWidths("138,138,40,90,150,200,70,40,40,40");
+			mygrid.setColAlign("left,left,center,left,left,left,center,center,center,center");
+			mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
+			mygrid.setColSorting("str,str,str,str,str,str,str,str,str,str");
+		break;
+
+		case 'div_revisoes':
+			mygrid.setHeader("Revisão/Versão, data, Autor, Editor, A");
+			mygrid.setInitWidths("100,80,120,185,50");
+			mygrid.setColAlign("left,center,left,left,center");
+			mygrid.setColTypes("ro,ro,ro,ro,ro");
+			mygrid.setColSorting("str,str,str,str,str");
+		break;
+	}
+	
+	mygrid.setSkin("dhx_skyblue");
+    mygrid.enableMultiselect(true);
+    mygrid.enableCollSpan(true);	
+	mygrid.init();
+	mygrid.loadXMLString(xml);
+}
+
+function open_doc(dir)
+{
+	window.open("documento_v2.php?documento="+dir,"_blank");
+}
+
+</script>

@@ -10,10 +10,10 @@
         		<table width="100%" cellpadding="0" cellspacing="0">
         			<tr>
         				<td valign="middle">
-        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_permissao'));" value="<smarty>$botao[1]</smarty>" /></td>
+        					<input name="btninserir" type="button" class="class_botao" id="btninserir" onclick="xajax_insere(xajax.getFormValues('frm_permissao'));" value="Inserir" /></td>
 					</tr>
         			<tr>
-        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="<smarty>$botao[2]</smarty>" onclick="history.back();" /></td>
+        				<td valign="middle"><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
 					</tr>
        			</table>
 			</td>
@@ -27,7 +27,7 @@
 						</select>
 						<input name="id_permissao" type="hidden" id="id_permissao" value="" />
 					</td>
-					<td width="12%" class="td_sp" valign="top" style="height: 20px"><label class="labels"><smarty>$campo[4]</smarty></label>
+					<td width="12%" class="td_sp" valign="top" style="height: 20px"><label class="labels">Sub-módulo</label>
 						<select name="sub_modulo" class="caixa" id="sub_modulo" onkeypress="return keySort(this);"
 								onchange="xajax_preenchecombo(this.options[this.options.selectedIndex].value);">
 							<smarty>html_options values=$option_modulo_values output=$option_modulo_output</smarty>
@@ -72,7 +72,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="td_sp" colspan="4"><label class="labels"><smarty>$campo[3]</smarty></label>
+					<td class="td_sp" colspan="4"><label class="labels">Pesquisar</label>
 						<input name="busca" type="text" class="caixa" id="busca" onKeyUp="if($('#usuario').val().length == 1 && this.value.length > 5){xajax_atualizatabela(this.value,document.getElementById('usuario').options[document.getElementById('usuario').options.selectedIndex].value);}" size="50">
 					</td>
                 </tr>

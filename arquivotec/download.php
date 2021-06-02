@@ -17,8 +17,8 @@
 	
    $filename = basename($arquivo);	  	
 	  
-	  switch($mimetype)
-	  { // verifica a extensão do arquivo para pegar o tipo
+	switch($mimetype)
+	{ // verifica a extensão do arquivo para pegar o tipo
 		 case "pdf": $tipo="application/pdf"; break;
 		 case "dwg": $tipo="application/dwg"; break;
 		 case "exe": $tipo="application/octet-stream"; break;
@@ -37,18 +37,18 @@
 		 case "php": $tipo="";// deixar vazio por segurança
 		 case "htm": $tipo="";// deixar vazio por segurança
 		 case "html": $tipo="";// deixar vazio por segurança
-	  }
+	}
   
 	  
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.$filename);
-		header('Content-Length: ' . filesize($arquivo));
-		
-		flush();
-		
-		readfile($arquivo);
-		
-		unlink($arquivo);	
+	header('Content-Description: File Transfer');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename='.$filename);
+	header('Content-Length: ' . filesize($arquivo));
+	
+	flush();
+	
+	readfile($arquivo);
+	
+	unlink($arquivo);	
 	
 ?>

@@ -769,55 +769,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_preencheos(xajax.getFormValues('frm'));");
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-function grid(tabela, autoh, height, xml)
-{
-	mygrid = new dhtmlXGridObject(tabela);
-
-	mygrid.enableAutoHeight(autoh,height);
-
-	mygrid.enableRowsHover(true,'cor_mouseover');
-	
-	function doOnRowSelected(row,col)
-	{
-		if(col<=7 && row!='id_0')
-		{
-			var id = row.split('_');
-								
-			xajax_editar(id[1]);
-
-			return true;
-		}
-	}
-	
-	mygrid.attachEvent("onRowSelect",doOnRowSelected);	
-
-	mygrid.setHeader("Projeto,Disc.,Período,Percentual,Valor,% acumulado, Valor acumulado, Diferença/Saldo,D",
-		null,
-		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
-	mygrid.setInitWidths("100,*,100,75,100,150,150,150,25");
-	mygrid.setColAlign("center,left,left,left,center,center,center,center,center");
-	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
-	mygrid.setColSorting("str,str,str,str,str,str,str,str,str");
-	
-	mygrid.setSkin("dhx_skyblue");
-	mygrid.enableMultiselect(true);
-	mygrid.enableCollSpan(true);		
-	mygrid.init();
-	mygrid.loadXMLString(xml);
-}
-
-</script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -888,4 +839,50 @@ $smarty->assign("ano",date('Y'));
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('formulario_medicao.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script>
+
+function grid(tabela, autoh, height, xml)
+{
+	mygrid = new dhtmlXGridObject(tabela);
+
+	mygrid.enableAutoHeight(autoh,height);
+
+	mygrid.enableRowsHover(true,'cor_mouseover');
+	
+	function doOnRowSelected(row,col)
+	{
+		if(col<=7 && row!='id_0')
+		{
+			var id = row.split('_');
+								
+			xajax_editar(id[1]);
+
+			return true;
+		}
+	}
+	
+	mygrid.attachEvent("onRowSelect",doOnRowSelected);	
+
+	mygrid.setHeader("Projeto,Disc.,Período,Percentual,Valor,% acumulado, Valor acumulado, Diferença/Saldo,D",
+		null,
+		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center","text-align:center"]);
+	mygrid.setInitWidths("100,*,100,75,100,150,150,150,25");
+	mygrid.setColAlign("center,left,left,left,center,center,center,center,center");
+	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro");
+	mygrid.setColSorting("str,str,str,str,str,str,str,str,str");
+	
+	mygrid.setSkin("dhx_skyblue");
+	mygrid.enableMultiselect(true);
+	mygrid.enableCollSpan(true);		
+	mygrid.init();
+	mygrid.loadXMLString(xml);
+}
+
+</script>

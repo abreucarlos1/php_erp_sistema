@@ -154,7 +154,7 @@ function liberarAvaliacoesAvulsas($dados_form)
     else
     {
         $params = array();
-        $params['from']	= "recrutamento@dominio.com.br";
+        $params['from']	= "recrutamento@".DOMINIO;
         $params['from_name'] = "RECURSOS HUMANOS";
         $params['subject'] = "AVALIACAO EMPRESA - Informacoes";
         

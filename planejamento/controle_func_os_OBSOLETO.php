@@ -102,7 +102,7 @@ $smarty->assign("option_os_output",$array_os_output);
 
 $smarty->assign("nome_formulario","OS POR FUNCIONÁRIOS");
 
-$smarty->assign("classe","setor_adm");
+$smarty->assign("classe",CSS_FILE);
 
 $db->fecha_db();
 

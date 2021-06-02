@@ -89,7 +89,7 @@ function vencimento_senha()
 
 						$params = array();
 						
-						$params['from']	= "ti@dominio.com.br";
+						$params['from']	= "ti@".DOMINIO;
 						
 						$params['from_name'] = "Sistema ERP";
 						
@@ -127,7 +127,7 @@ function vencimento_senha()
 		{
 
 			$params = array();
-			$params['from']	= "ti@dominio.com.br";
+			$params['from']	= "ti@".DOMINIO;
 			$params['from_name'] = "Sistema ERP";
 			$params['subject'] = "SENHA ERP EXPIRADA, ACESSO AO SISTEMA BLOQUEADO";
 			
@@ -167,7 +167,7 @@ function vencimento_senha()
 		{
 
 			$params = array();
-			$params['from']	= "ti@dominio.com.br";
+			$params['from']	= "ti@".DOMINIO;
 			$params['from_name'] = "Sistema ERP";
 			$params['subject'] = "SENHA ERP EXPIRANDO, ÚLTIMO AVISO";
 			
@@ -199,7 +199,7 @@ function rotinas_manutencao()
 
 	$params = array();
 	
-	$params['from']	= "ti@dominio.com.br";
+	$params['from']	= "ti@".DOMINIO;
 	
 	$params['from_name'] = "ROTINAS DE MANUTENÇÕES";
 	
@@ -317,7 +317,7 @@ function vencimento_exame()
 
 			$params = array();
 			
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			
 			$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
 			
@@ -395,7 +395,7 @@ function vencimento_integracao()
 
 			$params = array();
 			
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			
 			$params['from_name'] = "Recursos Humanos - Sistema de PCMSO";
 			
@@ -471,7 +471,7 @@ function vencimento_treinamento()
 			if(ENVIA_EMAIL)
 			{
 			
-				$params['from']	= "empresa@dominio.com.br";
+				$params['from']	= "empresa@".DOMINIO;
 				
 				$params['from_name'] = "Recursos Humanos - Treinamentos";
 				
@@ -574,7 +574,7 @@ function vencimento_controles_sgi()
 
 				$params = array();
 				
-				$params['from']	= "empresa@dominio.com.br";
+				$params['from']	= "empresa@".DOMINIO;
 				
 				$params['from_name'] = "Recursos Humanos - Sistema de Treinamentos";
 				
@@ -646,7 +646,7 @@ function vencimento_habilitacao()
 
 			$params = array();
 			
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			
 			$params['from_name'] = "Recursos Humanos - Sistema de Habilitações";
 			
@@ -752,7 +752,7 @@ function vencimento_avaliacao_eficacia()
 		{
 
 			$params = array();
-			$params['from'] = "empresa@dominio.com.br";
+			$params['from'] = "empresa@".DOMINIO;
 			$params['from_name'] = "Recursos Humanos";
 			$params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
 			$params['emails']['to'][] = array('email' => $regs["email"], 'nome' => $regs["gestor"]);
@@ -771,7 +771,7 @@ function vencimento_avaliacao_eficacia()
 	{
 
 		$params = array();
-		$params['from'] = "empresa@dominio.com.br";
+		$params['from'] = "empresa@".DOMINIO;
 		$params['from_name'] = "Recursos Humanos";
 		$params['subject'] = 'TREINAMENTOS COM PENDENCIA DE AVALIACAO DE EFICACIA;';
 			
@@ -849,7 +849,7 @@ function verifica_pacotes()
 		
 		$params = array();
 		
-		$params['from']	= "arqivotecnico@dominio.com.br";
+		$params['from']	= "arqivotecnico@".DOMINIO;
 		
 		$params['from_name'] = "GED";
 		
@@ -980,7 +980,7 @@ function verifica_devolucao()
 		$params = array();
 		
 		//Forma o e-mail
-		$params['from'] = "arquivotecnico@dominio.com.br";
+		$params['from'] = "arquivotecnico@".DOMINIO;
 		
 		$params['from_name'] = "GED";
 		
@@ -1149,7 +1149,7 @@ function verifica_retorno()
 			//Forma o e-mail
 			$params = array();
 			
-			$params['from']	= "arquivotecnico@dominio.com.br";
+			$params['from']	= "arquivotecnico@".DOMINIO;
 			
 			$params['from_name'] = "GED";
 			
@@ -1267,7 +1267,7 @@ function verifica_docs_fin()
 			
 				$params = array();
 		
-				$params['from']		= "sistema@dominio.com.br";
+				$params['from']		= "sistema@".DOMINIO;
 				
 				$params['from_name']= "SISTEMA DE COMPROVANTES DE IMPOSTOS";
 				
@@ -1328,7 +1328,7 @@ function verifica_funcionario_44_89_dias()
 		$corpoEmail .= "Nome: <strong>".$reg["funcionario"]."</strong><br>";
 		$corpoEmail .= "data inicio: <strong>".mysql_php($reg['data_inicio'])."</strong><br>";					
 		
-		$params['from']	= "empresa@dominio.com.br";
+		$params['from']	= "empresa@".DOMINIO;
 		
 		$params['from_name'] = "Recursos Humanos - Avaliação Experiência";
 		
@@ -1395,7 +1395,7 @@ function avaliacao_treinamento_30_dias()
 		if(ENVIA_EMAIL)
 		{
 
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			
 			$params['from_name'] = "Recursos Humanos - Treinamentos";
 			
@@ -1453,7 +1453,7 @@ function avaliacao_estagiario_179_dias()
 		
 		if(ENVIA_EMAIL)
 		{
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			$params['from_name'] = "Recursos Humanos - Avaliação Estágio";
 			$params['subject'] = "AVALIAÇÃO DO<sup>a</sup> ESTAGIÁRIO<sup>a</sup> ".$reg['funcionario'];
 			
@@ -1513,7 +1513,7 @@ function fim_contrato_proximo()
 		if(ENVIA_EMAIL)
 		{
 
-			$params['from']	= "empresa@dominio.com.br";
+			$params['from']	= "empresa@".DOMINIO;
 			
 			$params['from_name'] = "Recursos Humanos";
 			
@@ -1615,7 +1615,7 @@ function oss_finalizadas()
         $corpoEmail .= "<p>".sprintf('%05d', $os)." (".$reg['status'].")</p>";
     }
     
-    $params['from']	= "ti@dominio.com.br";
+    $params['from']	= "ti@".DOMINIO;
     $params['from_name'] = "BMS - OS's finalizadas";
     $params['subject'] = "Lista de OS's finalizadas";
     
@@ -1980,7 +1980,7 @@ function pedidos_sem_anexo()
     
     $body .= '</table>';
     
-    $params['from']	= "ti@dominio.com.br";
+    $params['from']	= "ti@".DOMINIO;
     $params['from_name'] = "BMS - solicitacao_documentos sem anexo";
     $params['subject'] = "BMS - Lista de pedidos sem anexo";
     

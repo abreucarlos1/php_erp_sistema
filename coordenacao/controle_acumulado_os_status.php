@@ -57,12 +57,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -139,8 +133,10 @@ $smarty->assign("revisao_documento","V2");
 
 $smarty->assign("nome_formulario","ACOMPANHAMENTO DE OS");
 
-$smarty->assign("classe","../classes/".$conf->classe('administrativo').'.css');
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_acumulado_os_status.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

@@ -70,11 +70,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $filtro = '';
 
 $coordenador = false;
@@ -157,4 +152,7 @@ $smarty->assign('revisao_documento', 'V5');
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_negociando_protheus.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

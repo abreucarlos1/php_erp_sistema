@@ -79,7 +79,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 		if ($retorno[0])
 			$updateArquivo = ",mlc_arquivo = '{$nome_final}'";
 		
-		$usql = "UPDATE materiais_old.modelo_lista_cabecalho SET
+		$usql = "UPDATE ".DATABASE.".modelo_lista_cabecalho SET
 					mlc_descricao = '{$descLista}'
 					$updateArquivo
 				 WHERE reg_del = 0 AND mlc_id = {$idLista}";
@@ -93,7 +93,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 		}
 		else
 		{
-			$usql = "UPDATE materiais_old.modelo_lista_aplicados SET
+			$usql = "UPDATE ".DATABASE.".modelo_lista_aplicados SET
 						reg_del = 1, 
 						reg_who = {$_SESSION['id_funcionario']},
 						data_del = '".date('Y-m-d')."'
@@ -106,7 +106,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 			if (count($_POST['id_cliente']) > 0)
 			{
 				$isql = "INSERT INTO
-							materiais_old.modelo_lista_aplicados (mla_mlc_id, mla_cliente, mla_loja)
+							".DATABASE.".modelo_lista_aplicados (mla_mlc_id, mla_cliente, mla_loja)
 						 VALUES ";
 				
 				//INSERÇÃO DOS CLIENTES VINCULADOS A ESTA LISTA
@@ -141,7 +141,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 		{
 			//INSERÇÃO DO CABECALHO
 			$isql = "INSERT INTO
-						materiais_old.modelo_lista_cabecalho (mlc_descricao, mlc_arquivo)
+						".DATABASE.".modelo_lista_cabecalho (mlc_descricao, mlc_arquivo)
 					 VALUE ('{$descLista}','{$nome_final}')";
 			
 			$db->insert($isql, 'MYSQL');
@@ -156,7 +156,7 @@ if (isset($_GET['salvar']) && !empty($_GET['salvar']))
 				$idLista = $db->insert_id;
 				
 				$isql = "INSERT INTO
-							materiais_old.modelo_lista_aplicados (mla_mlc_id, mla_cliente, mla_loja)
+							".DATABASE.".modelo_lista_aplicados (mla_mlc_id, mla_cliente, mla_loja)
 						 VALUES ";
 				
 				if (!is_array($_POST['id_cliente']))
@@ -204,7 +204,7 @@ function atualizatabela()
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.modelo_lista_cabecalho WHERE modelo_lista_cabecalho.reg_del = 0 ORDER BY mlc_id DESC";
+	$sql = "SELECT * FROM ".DATABASE.".modelo_lista_cabecalho WHERE modelo_lista_cabecalho.reg_del = 0 ORDER BY mlc_id DESC";
 	
 	$xml = new XMLWriter();
 	$xml->openMemory();
@@ -238,7 +238,7 @@ function excluir($idLista)
 	$data		= date('Y-m-d');
 	$idUsuario	= $_SESSION['id_funcionario'];
 	
-	$sql = "SELECT mlc_arquivo FROM materiais_old.modelo_lista_cabecalho WHERE modelo_lista_cabecalho.mlc_id = {$idLista} AND modelo_lista_cabecalho.reg_del = 0";
+	$sql = "SELECT mlc_arquivo FROM ".DATABASE.".modelo_lista_cabecalho WHERE modelo_lista_cabecalho.mlc_id = {$idLista} AND modelo_lista_cabecalho.reg_del = 0";
 	$lista = $db->select($sql, 'MYSQL', function($reg, $i){
 		return $reg;
 	});
@@ -246,7 +246,7 @@ function excluir($idLista)
 	if ($db->numero_registros > 0 && file_exists(DIRETORIO_PROJETO.'/materiais/modelos_excel/'.$lista[0]['mlc_arquivo']))
 	{
 		$uSql = "UPDATE
-					materiais_old.modelo_lista_cabecalho
+					".DATABASE.".modelo_lista_cabecalho
 				SET
 					reg_del = 1, 
 					reg_who = '{$idUsuario}',
@@ -259,7 +259,7 @@ function excluir($idLista)
 		if (empty($db->erro))
 		{
 			$uSql = "UPDATE
-						materiais_old.modelo_lista_aplicados
+						".DATABASE.".modelo_lista_aplicados
 					SET
 						reg_del = 1, 
 						reg_who = '{$idUsuario}',
@@ -272,7 +272,7 @@ function excluir($idLista)
 			if (empty($db->erro))
 			{
 				$uSql = "UPDATE
-							materiais_old.modelo_lista_excel
+							".DATABASE.".modelo_lista_excel
 						SET
 							reg_del = 1, 
 							reg_who = '{$idUsuario}',
@@ -323,7 +323,7 @@ function parametrosExcel($idLista)
 	
 	$options = '';
 	
-	$sqlParametros = "SELECT * FROM materiais_old.modelo_lista_parametros WHERE modelo_lista_parametros.reg_del = 0";
+	$sqlParametros = "SELECT * FROM ".DATABASE.".modelo_lista_parametros WHERE modelo_lista_parametros.reg_del = 0";
 	
 	$html = "<div style=\'height:250px;overflow:auto;\'>".
 				"<form id=\'frmParametros\' name=\'frmParametros\'>".
@@ -333,12 +333,12 @@ function parametrosExcel($idLista)
 	$sql = "SELECT
 				*
 			FROM
-				materiais_old.modelo_lista_cabecalho
+				".DATABASE.".modelo_lista_cabecalho
 				JOIN(
 					SELECT
 						*
 					FROM
-						materiais_old.modelo_lista_excel
+						".DATABASE.".modelo_lista_excel
 					WHERE
 						modelo_lista_excel.reg_del = 0 
 						AND modelo_lista_excel.mle_mlc_id = {$idLista}
@@ -357,7 +357,7 @@ function parametrosExcel($idLista)
 		$resposta->addAssign('desc_lista', 'value', $parametrosCadastrados[0]['mlc_descricao']);
 		$resposta->addAssign('id_lista', 'value', $parametrosCadastrados[0]['mlc_id']);
 		
-		$sqlClientes = "SELECT mla_mlc_id, mla_cliente, mla_loja FROM materiais_old.modelo_lista_aplicados WHERE modelo_lista_aplicados.mla_mlc_id = {$idLista} AND modelo_lista_aplicados.reg_del = 0";		
+		$sqlClientes = "SELECT mla_mlc_id, mla_cliente, mla_loja FROM ".DATABASE.".modelo_lista_aplicados WHERE modelo_lista_aplicados.mla_mlc_id = {$idLista} AND modelo_lista_aplicados.reg_del = 0";		
 		$db->select($sqlClientes, 'MYSQL', function($reg, $i) use(&$resposta){
 			$resposta->addScript("seleciona_combo('{$reg['mla_cliente']}/{$reg['mla_loja']}', 'id_cliente');");
 		});
@@ -435,7 +435,7 @@ function salvarParametros($dados_form)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$usql = "UPDATE materiais_old.modelo_lista_excel SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE mle_mlc_id = {$dados_form['id_lista']}";
+	$usql = "UPDATE ".DATABASE.".modelo_lista_excel SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE mle_mlc_id = {$dados_form['id_lista']}";
 	$db->update($usql, 'MYSQL');
 	
 	if ($db->erro != '')
@@ -444,7 +444,7 @@ function salvarParametros($dados_form)
 		return $resposta;
 	}
 	
-	$isql = "INSERT INTO materiais_old.modelo_lista_excel (mle_mlc_id, mle_campo, mle_celula, mle_formula) VALUES ";
+	$isql = "INSERT INTO ".DATABASE.".modelo_lista_excel (mle_mlc_id, mle_campo, mle_celula, mle_formula) VALUES ";
 	$virg = '';
 	$erro = array();
 	foreach($dados_form['selCampo'] as $k => $campo)
@@ -511,7 +511,7 @@ $smarty->assign("body_onload","xajax_atualizatabela();");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function excluirLinha(el)
 {
 	var pai = $(el).parent();

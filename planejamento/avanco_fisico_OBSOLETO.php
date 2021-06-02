@@ -151,7 +151,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
 
-<script language="javascript">
+<script>
 
 xajax.loadingFunction = function() {xajax.$('aguarde').style.display = 'block';}
 xajax.doneLoadingFunction = function() {xajax.$('aguarde').style.display='none';}
@@ -175,7 +175,7 @@ function grid()
 
 $smarty->assign("nome_formulario","AVANÇO FÍSICO");
 
-$smarty->assign("classe","setor_adm");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display("avanco_fisico.tpl");
 

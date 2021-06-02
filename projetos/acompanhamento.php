@@ -450,7 +450,7 @@ $xajax->processRequests();
 
 <body>
 
-<script language="javascript">
+<script>
 
 function OS_dropdown(label, combo_ref)
 {

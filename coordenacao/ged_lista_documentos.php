@@ -121,7 +121,7 @@ $smarty->assign("option_finalidade_output",$array_finalidade_output);
 
 $smarty->assign("nome_formulario","LISTA DOS DOCUMENTOS DO PROJETO");
 
-$smarty->assign("classe","setor_proj");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('ged_lista_documentos.tpl');
 

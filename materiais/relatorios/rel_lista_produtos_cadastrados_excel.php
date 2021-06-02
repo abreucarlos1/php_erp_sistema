@@ -55,9 +55,9 @@ $sql =
 "SELECT
   id_produto, cod_barras componentecodigo, codigo_inteligente, descricao, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2
 FROM
-  materiais_old.produto
+  ".DATABASE.".produto
   JOIN(
-    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM materiais_old.componentes WHERE componentes.reg_del = 0
+    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
   ) componentes
   ON codBarrasComponente = cod_barras
 WHERE

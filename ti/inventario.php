@@ -88,11 +88,11 @@ function realizarBaixa($idInventario, $obsDevolucao = '')
     			 * Enviando o email
     			 */
     			$params 			= array();
-    			$params['from']		= "ti@dominio.com.br";
+    			$params['from']		= "ti@".DOMINIO;
     			$params['from_name']= "Tecnologia e Sistemas";
     			$params['subject'] 	= "Baixa do equipamento ".$reg_usuario["patrimonio"]." - ".$reg_usuario["equipamento"];
     	
-    			$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Sistemas");
+    			$params['emails']['to'][] = array('email' => "ti@".DOMINIO, 'nome' => "Sistemas");
     			
     			if ($reg_usuario['situacao'] == 'ATIVO')
     				$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);
@@ -502,11 +502,11 @@ function insere($dados_form)
 						 * Enviando o email
 						 */
 						$params 			= array();
-						$params['from']		= "ti@dominio.com.br";
+						$params['from']		= "ti@".DOMINIO;
 						$params['from_name']= "Tecnologia e Sistemas";
 						$params['subject'] 	= 'Empréstimo do equipamento '.$reg_usuario["patrimonio"].' - '.$reg_usuario["equipamento"];
 						
-						$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Sistemas");
+						$params['emails']['to'][] = array('email' => "ti@".DOMINIO, 'nome' => "Sistemas");
 						$params['emails']['to'][] = array('email' => $reg_usuario["email"], 'nome' => $reg_usuario["email"]);		
 						
 						$corpo = 

@@ -75,11 +75,7 @@ $xajax->registerFunction("preencheos");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-?>
 
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $conf = new configs();
 
 $db = new banco_dados;
@@ -101,4 +97,7 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('relatorio_a1_equivalente_periodo.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

@@ -44,16 +44,16 @@ function getSubGrupos($dados_form, $idSel = '')
 	$sql = "SELECT
 			  DISTINCT codigo_grupo, sub_grupo, id_sub_grupo
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN
 			  (
-		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM materiais_old.grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
+		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM ".DATABASE.".grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
 		      ) grupoXSub
 		    ON subGrupo = id_sub_grupo 
 			JOIN(
-		        SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-		    ) grupo
-		    ON grupo.id_grupo = codGrupo
+		        SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+		    ) grupo_mat
+		    ON grupo_mat.id_grupo = codGrupo
 		    WHERE codigo_grupo = '".$dados_form['codigo_grupo']."'
 			AND sub_grupo.reg_del = 0 
 			ORDER BY sub_grupo";
@@ -104,19 +104,19 @@ function getAtributos($dados_form, $codigoInteligente = '')
 	$sql = "SELECT
 			  *
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN(
 			    SELECT
 			      id_atributo, atributo, subGrupo, codGrupo, ordem, codigo_grupo, compoe_codigo
 			    FROM
-			      materiais_old.atributos
+			      ".DATABASE.".atributos
 			      JOIN(
-			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			      ) atrXSub
 			      ON codAtributo = id_atributo
 			      JOIN(
-					SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-				  ) grupo
+					SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+				  ) grupo_mat
 				  ON codigo_grupo = codGrupo
 			    WHERE atributos.reg_del = 0
 			  ) atributos
@@ -163,8 +163,8 @@ function getAtributos($dados_form, $codigoInteligente = '')
 	$sql = "SELECT
 			  DISTINCT id_atributo, atributo
 			FROM
-			  materiais_old.atributos
-		    WHERE id_atributo NOT IN(SELECT id_atributo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del =0 AND id_sub_grupo = {$dados_form['id_sub_grupo']})
+			  ".DATABASE.".atributos
+		    WHERE id_atributo NOT IN(SELECT id_atributo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del =0 AND id_sub_grupo = {$dados_form['id_sub_grupo']})
 			AND atributos.reg_del = 0
 			ORDER BY sub_grupo";
 		
@@ -187,7 +187,7 @@ function inserir($dados_form)
 	$grupo = explode('_', $dados_form['codigo_grupo']);
 	
 	$isql = "INSERT INTO
-				materiais_old.atributos_x_sub_grupo (id_grupo, id_sub_grupo, id_atributo, ordem)
+				".DATABASE.".atributos_x_sub_grupo (id_grupo, id_sub_grupo, id_atributo, ordem)
 			VALUES 
 				({$grupo[0]}, {$dados_form['id_sub_grupo']}, {$dados_form['id_atributo']}, {$dados_form['ordem']})";
 	
@@ -213,7 +213,7 @@ function alterar($dados_form)
 	$db = new banco_dados();
 	
 	$usql = "UPDATE
-				materiais_old.atributos_x_sub_grupo 
+				".DATABASE.".atributos_x_sub_grupo 
 			SET 
 				ordem = ".$dados_form['ordem'].",
 				compoe_codigo = ".$dados_form['rdoCompoecodigo']." 
@@ -247,7 +247,7 @@ function inserir_valores_atributo($dados_form)
 	//Edição do item
 	if (!empty($dados_form['idMatriz']))
 	{
-		$usql = "UPDATE materiais_old.matriz_materiais
+		$usql = "UPDATE ".DATABASE.".matriz_materiais
 				 SET valor = '{$dados_form['valorItem']}',
 				 	 label = '{$dados_form['descricaoItem']}'
 				 WHERE 
@@ -257,7 +257,7 @@ function inserir_valores_atributo($dados_form)
 	else//Inserção do item
 	{
 		//Se já existir, alertar o usuário
-		$sql = "SELECT COUNT(id_atr_sub) TOTAL FROM materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0 AND id_atr_sub = {$dados_form['idAtrSub']}";
+		$sql = "SELECT COUNT(id_atr_sub) TOTAL FROM ".DATABASE.".matriz_materiais WHERE matriz_materiais.reg_del = 0 AND id_atr_sub = {$dados_form['idAtrSub']}";
 		$db->select($sql, 'MYSQL');
 		
 		$valor = $db->numero_registros;
@@ -266,12 +266,12 @@ function inserir_valores_atributo($dados_form)
 		$itens = explode("\n",$dados_form['descricaoItem']);
 		
 		$isql = "INSERT INTO
-					materiais_old.matriz_materiais (id_atr_sub, valor, label)
+					".DATABASE.".matriz_materiais (id_atr_sub, valor, label)
 				 VALUES ";
 					
 		if (count($itens) > 1)
 		{
-			$sql = "SELECT COUNT(id_atr_sub) TOTAL FROM materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0 AND id_atr_sub = {$dados_form['idAtrSub']}";
+			$sql = "SELECT COUNT(id_atr_sub) TOTAL FROM ".DATABASE.".matriz_materiais WHERE matriz_materiais.reg_del = 0 AND id_atr_sub = {$dados_form['idAtrSub']}";
 			$db->select($sql, 'MYSQL');
 			
 			$valor = $db->numero_registros;
@@ -324,17 +324,17 @@ function atualizatabela($dados_form)
 	SELECT
 	  *
 	  FROM
-	    materiais_old.atributos_x_sub_grupo a
+	    ".DATABASE.".atributos_x_sub_grupo a
 	     JOIN(
-	      SELECT id_grupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 AND codigo_grupo = ".$codigo_grupo[0]." 
-	    ) grupo
-	    ON grupo.codigo_grupo = a.id_grupo
+	      SELECT id_grupo, grupo, codigo_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0 AND codigo_grupo = ".$codigo_grupo[0]." 
+	    ) grupo_mat
+	    ON grupo_mat.codigo_grupo = a.id_grupo
 	    JOIN(
-	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 AND id_sub_grupo = ".$dados_form['id_sub_grupo']."
+	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 AND id_sub_grupo = ".$dados_form['id_sub_grupo']."
 	    ) sub_grupo
 	    ON codSubGrupo = a.id_sub_grupo
 	    JOIN(
-          SELECT id_atributo codAtributo, atributo FROM materiais_old.atributos WHERE atributos.reg_del = 0
+          SELECT id_atributo codAtributo, atributo FROM ".DATABASE.".atributos WHERE atributos.reg_del = 0
       	) attr
       	ON codAtributo = id_atributo AND a.reg_del = 0
       	ORDER BY ordem ";
@@ -377,9 +377,9 @@ function atualizatabela($dados_form)
 	$sql = "SELECT
 			  DISTINCT id_atributo, atributo
 			FROM
-			  materiais_old.atributos
+			  ".DATABASE.".atributos
 			  WHERE atributos.reg_del = 0
-		    #WHERE id_atributo NOT IN(SELECT DISTINCT id_atributo FROM materiais_old.atributos_x_sub_grupo WHERE id_sub_grupo = {$dados_form['id_sub_grupo']} AND id_grupo = {$codigo_grupo[0]})
+		    #WHERE id_atributo NOT IN(SELECT DISTINCT id_atributo FROM ".DATABASE.".atributos_x_sub_grupo WHERE id_sub_grupo = {$dados_form['id_sub_grupo']} AND id_grupo = {$codigo_grupo[0]})
 			ORDER BY atributo ";
 		
 	$resposta->addScript("combo_destino.options[combo_destino.length] = new Option('SELECIONE', '');");
@@ -399,7 +399,7 @@ function editar($idAtrSub)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0 AND id_atr_sub = ".$idAtrSub;
+	$sql = "SELECT * FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0 AND id_atr_sub = ".$idAtrSub;
 	
 	$db->select($sql, 'MYSQL', true);
 	
@@ -431,11 +431,11 @@ function excluir($id)
 	$db = new banco_dados();
 	
 	/*
-	$dsql = "DELETE FROM materiais_old.atributos_x_sub_grupo WHERE id_atr_sub = ".$id;
+	$dsql = "DELETE FROM ".DATABASE.".atributos_x_sub_grupo WHERE id_atr_sub = ".$id;
 	
 	$db->delete($dsql, 'MYSQL');
 	*/
-	$usql = "UPDATE materiais_old.atributos_x_sub_grupo SET ";
+	$usql = "UPDATE ".DATABASE.".atributos_x_sub_grupo SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -460,12 +460,12 @@ function excluir_valor($id, $idAtrSub)
 	$db = new banco_dados();
 	
 	/*
-	$dsql = "DELETE FROM materiais_old.matriz_materiais WHERE id_matriz = ".$id;
+	$dsql = "DELETE FROM ".DATABASE.".matriz_materiais WHERE id_matriz = ".$id;
 	
 	$db->delete($dsql, 'MYSQL');
 	*/
 	
-	$usql = "UPDATE materiais_old.matriz_materiais SET ";
+	$usql = "UPDATE ".DATABASE.".matriz_materiais SET ";
 	$usql .= "reg_del = 1, ";
 	$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 	$usql .= "data_del = '".date('Y-m-d')."' ";
@@ -507,9 +507,9 @@ function atualizatabela_valores($idAtrSub)
 	
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.matriz_materiais a
+	$sql = "SELECT * FROM ".DATABASE.".matriz_materiais a
 			JOIN (
-			  SELECT * FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			  SELECT * FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			) atr_sub
 			ON atr_sub.id_atr_sub = a.id_atr_sub AND a.reg_del = 0
 			WHERE atr_sub.id_atr_sub = {$idAtrSub}";
@@ -546,7 +546,7 @@ function editar_valor($idMatriz)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.matriz_materiais WHERE matriz_materiais.reg_del = 0 AND matriz_materiais.id_matriz = '".$idMatriz."'";	
+	$sql = "SELECT * FROM ".DATABASE.".matriz_materiais WHERE matriz_materiais.reg_del = 0 AND matriz_materiais.id_matriz = '".$idMatriz."'";	
 	$db->select($sql, 'MYSQL', true);
 
 	$resposta->addAssign('idMatrizMaterial', 'value', $idMatriz);
@@ -580,13 +580,45 @@ if (isset($_GET['grupo']) && isset($_GET['subgrupo']))
 {
 	$smarty->assign("body_onload","xajax_getSubGrupos(xajax.getFormValues('frm'), ".$_GET['subgrupo'].");");
 }
+
+$option_grupos_values = array();
+$option_grupos_output = array();
+
+$option_grupos_values[] = '';
+$option_grupos_output[] = 'SELECIONE...';
+
+$sql = "SELECT * FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0 ORDER BY grupo";
+ 
+$db->select($sql, 'MYSQL',
+	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)
+	{
+		$option_grupos_values[] = $reg['codigo_grupo'].'_'.$reg['id_grupo'];
+		$option_grupos_output[] = $reg['grupo'];
+	}
+);
+
+$smarty->assign("option_grupos_values", $option_grupos_values);
+$smarty->assign("option_grupos_output", $option_grupos_output);
+
+$smarty->assign("option_grupos_values", $option_grupos_values);
+$smarty->assign("option_grupos_output", $option_grupos_output);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("revisao_documento","V1");
+$smarty->assign("campo",$conf->campos('subgrupo_atributos'));
+$smarty->assign("botao",$conf->botoes());
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("atributos_subgrupo.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);
@@ -660,36 +692,3 @@ function limparCadastro()
 	document.getElementById('descricaocodigoValue').value = '';
 }
 </script>
-
-<?php
-$option_grupos_values = array();
-$option_grupos_output = array();
-
-$option_grupos_values[] = '';
-$option_grupos_output[] = 'SELECIONE...';
-
-$sql = "SELECT * FROM materiais_old.grupo WHERE grupo.reg_del = 0 ORDER BY grupo";
- 
-$db->select($sql, 'MYSQL',
-	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)
-	{
-		$option_grupos_values[] = $reg['codigo_grupo'].'_'.$reg['id_grupo'];
-		$option_grupos_output[] = $reg['grupo'];
-	}
-);
-
-$smarty->assign("option_grupos_values", $option_grupos_values);
-$smarty->assign("option_grupos_output", $option_grupos_output);
-
-$smarty->assign("option_grupos_values", $option_grupos_values);
-$smarty->assign("option_grupos_output", $option_grupos_output);
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->assign("revisao_documento","V1");
-$smarty->assign("campo",$conf->campos('subgrupo_atributos'));
-$smarty->assign("botao",$conf->botoes());
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("atributos_subgrupo.tpl");
-?>

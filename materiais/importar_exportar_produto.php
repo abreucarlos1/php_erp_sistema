@@ -37,9 +37,9 @@ if (isset($_GET['gerarPlanilha']) && $_GET['gerarPlanilha'] == 1)
 "SELECT
   componentes.cod_barras, componentes.descricao
 FROM
-  materiais_old.componentes
+  ".DATABASE.".componentes
   LEFT JOIN(
-    SELECT * FROM materiais_old.produto WHERE produto.reg_del = 0
+    SELECT * FROM ".DATABASE.".produto WHERE produto.reg_del = 0
   ) produto
   ON produto.cod_barras = componentes.cod_barras
 WHERE componentes.reg_del = 0 AND produto.id_produto IS NULL
@@ -111,13 +111,13 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 		}
 		else
 		{
-			$usql = "UPDATE materiais_old.produto SET atual = 0, reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."' ";
+			$usql = "UPDATE ".DATABASE.".produto SET atual = 0, reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."' ";
 			$usql.= "WHERE cod_barras = '{$codBarras}' AND reg_del = 0 ";
 			$db->update($usql, 'MYSQL');
 			
 			if ($db->erro == '')
 			{
-				$isql = "INSERT INTO materiais_old.produto (cod_barras, desc_long_por, unidade1, peso1, atual) VALUES ";
+				$isql = "INSERT INTO ".DATABASE.".produto (cod_barras, desc_long_por, unidade1, peso1, atual) VALUES ";
 				$isql.= "('{$codBarras}', '{$descLonga}', '{$unidade}', '{$peso}', 1)";
 				
 				$db->insert($isql, 'MYSQL');
@@ -177,7 +177,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 		}
 		else
 		{
-			$usql = "UPDATE materiais_old.componentes SET descricao = '".$descCurta."' WHERE cod_barras = '".$codBarras."' AND reg_del = 0";
+			$usql = "UPDATE ".DATABASE.".componentes SET descricao = '".$descCurta."' WHERE cod_barras = '".$codBarras."' AND reg_del = 0";
 			$db->update($usql, 'MYSQL');
 		
 			if ($db->erro != '')
@@ -218,14 +218,14 @@ function getSubGrupos($dados_form, $idSel = '')
 	$sql = "SELECT
 			  DISTINCT codigo_grupo, sub_grupo, id_sub_grupo
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN
 			  (
-		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM materiais_old.grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
+		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM ".DATABASE.".grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0
 		      ) grupoXSub
 		    ON subGrupo = id_sub_grupo 
 			JOIN(
-		        SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 
+		        SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 
 		    ) grupo
 		    ON grupo.id_grupo = codGrupo
 			WHERE codigo_grupo = '".$dados_form['codigo_grupo']."' AND sub_grupo.reg_del = 0 
@@ -280,7 +280,7 @@ $option_grupos_output = array();
 $option_grupos_values[] = '';
 $option_grupos_output[] = 'SELECIONE...';
 
-$sql = "SELECT * FROM materiais_old.grupo WHERE reg_del = 0 ORDER BY grupo";
+$sql = "SELECT * FROM ".DATABASE.".grupo WHERE reg_del = 0 ORDER BY grupo";
  
 $db->select($sql, 'MYSQL',
 	function($reg, $i) use(&$option_grupos_values, &$option_grupos_output)

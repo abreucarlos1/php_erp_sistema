@@ -64,14 +64,14 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 		{
 			$precoFornec = $objPHPExcel->getActiveSheet()->getCell($col.$linha)->getValue();
 			
-			$sql = "SELECT id_fornecedor FROM materiais_old.fornecedor WHERE fornecedor.reg_del = 0 AND fornecedor.nome_fantasia = '".$fornec."'";
+			$sql = "SELECT id_fornecedor FROM ".DATABASE.".fornecedor WHERE fornecedor.reg_del = 0 AND fornecedor.nome_fantasia = '".$fornec."'";
 			$db->select($sql, 'MYSQL', true);
 			$dadosFornecedor = $db->array_select[0];
 			
 			if ($db->numero_registros > 0)
 			{
 				//Atualizando o registro atual deste item neste fornecedor, se houve
-				$usql = "UPDATE materiais_old.fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND cod_barras = '".$codBarras."' AND id_fornecedor = ".$dadosFornecedor['id_fornecedor'];
+				$usql = "UPDATE ".DATABASE.".fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND cod_barras = '".$codBarras."' AND id_fornecedor = ".$dadosFornecedor['id_fornecedor'];
 				$db->update($usql, 'MYSQL');
 				
 				if ($db->erro != '')
@@ -80,7 +80,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1)
 				}
 				else
 				{
-					$isql = "INSERT INTO materiais_old.fornecedor_x_componentes (cod_barras, id_fornecedor, preco, data, atual, unidade1) VALUES ";
+					$isql = "INSERT INTO ".DATABASE.".fornecedor_x_componentes (cod_barras, id_fornecedor, preco, data, atual, unidade1) VALUES ";
 					$isql .= "('".$codBarras."', ".$dadosFornecedor['id_fornecedor'].", '".$precoFornec."', '".date('Y-m-d')."', 1, '".$unid."')";
 					
 					$db->insert($isql, 'MYSQL');
@@ -128,7 +128,7 @@ function atualizatabela_fornecedores()
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.fornecedor WHERE fornecedor.reg_del = 0 ";
+	$sql = "SELECT * FROM ".DATABASE.".fornecedor WHERE fornecedor.reg_del = 0 ";
 	$sql .= "ORDER BY razao_social ";
 
 	$xml = new XMLWriter();
@@ -178,7 +178,7 @@ function insere($dados_form)
 	
 	if(empty($dados_form["id_fornecedor"]))
 	{
-		$isql = "INSERT INTO materiais_old.fornecedor ";
+		$isql = "INSERT INTO ".DATABASE.".fornecedor ";
 		$isql .= "(razao_social,nome_fantasia,logradouro,numero,bairro,cidade,uf,complemento) VALUES ( ";
 		$isql .= "'".maiusculas(AntiInjection::clean($dados_form["razao_social"]))."', ";
 		$isql .= "'".maiusculas(AntiInjection::clean($dados_form["nome_fantasia"]))."', ";
@@ -193,7 +193,7 @@ function insere($dados_form)
 	}
 	else
 	{
-		$usql  = "UPDATE materiais_old.fornecedor ";
+		$usql  = "UPDATE ".DATABASE.".fornecedor ";
 		$usql .= "SET 
 					razao_social = '".maiusculas(AntiInjection::clean($dados_form["razao_social"]))."',
 					nome_fantasia = '".maiusculas(AntiInjection::clean($dados_form["nome_fantasia"]))."',
@@ -228,7 +228,7 @@ function editar($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM materiais_old.fornecedor ";
+	$sql = "SELECT * FROM ".DATABASE.".fornecedor ";
 	$sql .= "WHERE id_fornecedor = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -260,7 +260,7 @@ function excluir($id)
 
 	$db = new banco_dados;
 	
-	$usql = "UPDATE materiais_old.fornecedor ";
+	$usql = "UPDATE ".DATABASE.".fornecedor ";
 	$usql .= "SET reg_del = 1, reg_who = {$_SESSION['id_funcionario']}, data_del = '".date('Y-m-d')."' WHERE id_fornecedor = '".$id."' ";
 	
 	$db->update($usql,'MYSQL');
@@ -314,7 +314,7 @@ function listaProdutosFornecidos($idFornecedor,$nomeFornecedor)
 	$smarty->assign('cod_barras', $codBarras);
 	$html = $smarty->fetch('./viewHelper/lista_codigos_fornecidos.tpl');
 	
-	$sql = "SELECT id_componente_filho, id_componente FROM materiais_old.sub_componente WHERE sub_componente.reg_del = 0 AND '{$codBarras}' IN(id_componente, id_componente_filho)";
+	$sql = "SELECT id_componente_filho, id_componente FROM ".DATABASE.".sub_componente WHERE sub_componente.reg_del = 0 AND '{$codBarras}' IN(id_componente, id_componente_filho)";
 	
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$registros)
@@ -365,19 +365,19 @@ function atualizatabela($filtro, $registros, $idFornecedor)
 	SELECT
 	  *
 	  FROM
-	    materiais_old.componentes
+	    ".DATABASE.".componentes
 	    JOIN (
-	    	SELECT id_familia, descricao as descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0) familia ON familia.id_familia = componentes.id_familia
+	    	SELECT id_familia, descricao as descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0) familia ON familia.id_familia = componentes.id_familia
 	    JOIN(
-	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 
+	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 
 	    ) grupo
 	    ON codigo_grupo = componentes.id_grupo
 	    JOIN(
-	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0 
+	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0 
 	    ) sub_grupo
 	    ON codSubGrupo = componentes.id_sub_grupo
 	    ".$join."JOIN(
-	    	SELECT cod_barras codBarras, id_fornecedor, preco, preco2, unidade1, unidade2, data FROM materiais_old.fornecedor_x_componentes WHERE fornecedor_x_componentes.reg_del = 0 AND fornecedor_x_componentes.atual = 1 AND fornecedor_x_componentes.id_fornecedor = {$idFornecedor}
+	    	SELECT cod_barras codBarras, id_fornecedor, preco, preco2, unidade1, unidade2, data FROM ".DATABASE.".fornecedor_x_componentes WHERE fornecedor_x_componentes.reg_del = 0 AND fornecedor_x_componentes.atual = 1 AND fornecedor_x_componentes.id_fornecedor = {$idFornecedor}
 	    ) fornecedor_x_componentes
 	    ON codBarras = cod_barras
 	WHERE componentes.reg_del = 0 {$sql_filtro}";
@@ -441,7 +441,7 @@ function salvar_produtos($dados_form)
 	$idFornecedor 	= AntiInjection::clean($dados_form['cod_fornecedor']);
 	
 	//Atualizando os selecionados anteriores como antigo = 1
-	$usql = "UPDATE materiais_old.fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND cod_barras IN('".implode("','", array_keys($dados_form['preco']))."') AND id_fornecedor = {$idFornecedor}";
+	$usql = "UPDATE ".DATABASE.".fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND cod_barras IN('".implode("','", array_keys($dados_form['preco']))."') AND id_fornecedor = {$idFornecedor}";
 	$db->update($usql, 'MYSQL');
 	
 	if ($db->erro != '')
@@ -450,7 +450,7 @@ function salvar_produtos($dados_form)
 		return false;
 	}
 	
-	$isql = "INSERT INTO materiais_old.fornecedor_x_componentes (cod_barras, preco, unidade1, preco2, unidade2, data, id_fornecedor) VALUES ";
+	$isql = "INSERT INTO ".DATABASE.".fornecedor_x_componentes (cod_barras, preco, unidade1, preco2, unidade2, data, id_fornecedor) VALUES ";
 	$i = 0;
 	foreach($dados_form['preco'] as $codBarras => $preco)
 	{
@@ -500,7 +500,7 @@ function atualizatabela_unidade($idCampo)
 	$xml->setIndent(false);
 	$xml->startElement('rows');
 	
-	$sql = "SELECT unidade FROM materiais_old.unidade WHERE unidade.reg_del = 0 ";
+	$sql = "SELECT unidade FROM ".DATABASE.".unidade WHERE unidade.reg_del = 0 ";
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$xml,$idCampo)
 		{
@@ -544,7 +544,7 @@ $smarty->assign("body_onload","xajax_atualizatabela_fornecedores('');");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function abrirArquivoImportacao()
 {
 	var html = 	"<form id='frmImportar' name='frmImportar' method='post' action='./fornecedor.php?importar=1' enctype='multipart/form-data'>"+

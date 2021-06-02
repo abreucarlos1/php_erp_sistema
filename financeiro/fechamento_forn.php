@@ -34,59 +34,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script language="javascript">
-
-function mostra_dadosfat(div)
-{
-
-	if(!document.getElementById('div_dadosfat'))
-	{	
-		var obj_dadosfat = document.createElement('div');
-		
-		//Define as propriedades do <DIV> do objeto obj_dadosfat
-		obj_dadosfat.id = 'div_dadosfat';
-		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR> <BR>';
-		obj_dadosfat.style.background = "#EEEEEE";
-		obj_dadosfat.style.position = "absolute";
-		obj_dadosfat.style.left = '-50px';
-		obj_dadosfat.style.top = '16px';
-	
-		obj_dadosfat.style.borderRightWidth = '1px';
-		obj_dadosfat.style.borderRightStyle = 'solid';
-		obj_dadosfat.style.borderRightColor = '#999999';
-	
-		obj_dadosfat.style.borderBottomWidth = '1px';
-		obj_dadosfat.style.borderBottomStyle = 'solid';
-		obj_dadosfat.style.borderBottomColor = '#999999';
-	
-		obj_dadosfat.style.borderLeftWidth = '1px';
-		obj_dadosfat.style.borderLeftStyle = 'solid';
-		obj_dadosfat.style.borderLeftColor = '#FFFFFF';
-		
-		obj_dadosfat.style.borderTopWidth = '1px';
-		obj_dadosfat.style.borderTopStyle = 'solid';
-		obj_dadosfat.style.borderTopColor = '#FFFFFF';	
-	
-		obj_dadosfat.style.width = '230px';
-	
-		div.appendChild(obj_dadosfat);		
-		
-		div.style.borderStyle='inset';	
-	
-	}
-	else
-	{
-		div.removeChild(document.getElementById('div_dadosfat'));
-		div.style.borderStyle='outset';
-	}
-
-}
-
-</script>
-<?php
-
 $db = new banco_dados;
 
 $filtro = "";
@@ -551,7 +498,7 @@ if($db->numero_registros>0)
 else
 {
 	?>
-    <script language="javascript">
+    <script>
 	alert('Não há registros neste período.');
 	</script>
     <?php	
@@ -562,3 +509,53 @@ $smarty->assign("classe",CSS_FILE);
 $smarty->display('fechamento_forn.tpl');
 
 ?>
+
+<script>
+
+function mostra_dadosfat(div)
+{
+
+	if(!document.getElementById('div_dadosfat'))
+	{	
+		var obj_dadosfat = document.createElement('div');
+		
+		//Define as propriedades do <DIV> do objeto obj_dadosfat
+		obj_dadosfat.id = 'div_dadosfat';
+		obj_dadosfat.innerHTML = '<BR><p>EMPRESA<BR><BR><BR> <BR>';
+		obj_dadosfat.style.background = "#EEEEEE";
+		obj_dadosfat.style.position = "absolute";
+		obj_dadosfat.style.left = '-50px';
+		obj_dadosfat.style.top = '16px';
+	
+		obj_dadosfat.style.borderRightWidth = '1px';
+		obj_dadosfat.style.borderRightStyle = 'solid';
+		obj_dadosfat.style.borderRightColor = '#999999';
+	
+		obj_dadosfat.style.borderBottomWidth = '1px';
+		obj_dadosfat.style.borderBottomStyle = 'solid';
+		obj_dadosfat.style.borderBottomColor = '#999999';
+	
+		obj_dadosfat.style.borderLeftWidth = '1px';
+		obj_dadosfat.style.borderLeftStyle = 'solid';
+		obj_dadosfat.style.borderLeftColor = '#FFFFFF';
+		
+		obj_dadosfat.style.borderTopWidth = '1px';
+		obj_dadosfat.style.borderTopStyle = 'solid';
+		obj_dadosfat.style.borderTopColor = '#FFFFFF';	
+	
+		obj_dadosfat.style.width = '230px';
+	
+		div.appendChild(obj_dadosfat);		
+		
+		div.style.borderStyle='inset';	
+	
+	}
+	else
+	{
+		div.removeChild(document.getElementById('div_dadosfat'));
+		div.style.borderStyle='outset';
+	}
+
+}
+
+</script>

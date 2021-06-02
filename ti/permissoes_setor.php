@@ -2,9 +2,12 @@
 /*
 		Formulário de permissões	
 		
-		Criado por Carlos Eduardo Máximo
+		Criado por Carlos Abreu
+
+		local/Nome do arquivo:
+		../administracao/permissoes_setor.php
 			
-		Versão 0 --> VERSÃO INICIAL : 07/04/2017
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -549,13 +552,145 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$conf = new configs();
+
+$msg = $conf->msg();
+
+$array_modulo_values = NULL;
+$array_modulo_output = NULL;
+
+$array_acoes_values = NULL;
+$array_acoes_output = NULL;
+
+$array_usuario_values = NULL;
+$array_usuario_output = NULL;
+
+$array_modulo_values[] = "";
+$array_modulo_output[] = "SELECIONE";
+
+$array_acoes_values[] = "";
+$array_acoes_output[] = "SELECIONE";
+
+$array_usuario_values = array();
+$array_usuario_output = array();
+
+$array_setores_aso_values = array();
+$array_setores_aso_output = array();
+
+$db = new banco_dados;
+
+//SUB MODULOS PRINCIPAIS
+$sql = "SELECT id_sub_modulo, sub_modulo  FROM ".DATABASE.".sub_modulos ";
+$sql .= "WHERE sub_modulos.id_sub_modulo_pai = '0' ";
+$sql .= "ORDER BY sub_modulo ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach ($db->array_select as $regs)
+{
+	$array_modulo_values[] = $regs["id_sub_modulo"];
+	$array_modulo_output[] = $regs["sub_modulo"];
+}
+
+
+//SUB MODULOS secundários
+$sql = "SELECT id_sub_modulo, id_sub_modulo_pai, sub_modulo   FROM ".DATABASE.".sub_modulos ";
+$sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  '0' ";
+$sql .= "AND sub_modulos.id_sub_modulo IN ";
+$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0) ";
+$sql .= "ORDER BY sub_modulo ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+$array_sub = $db->array_select;
+
+foreach ($array_sub as $regs)
+{
+	$sql = "SELECT sub_modulo FROM ".DATABASE.".sub_modulos ";
+	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
+	
+	$db->select($sql,'MYSQL',true);
+	
+	if($db->erro!='')
+	{
+		$resposta->addAlert($db->erro);
+	}
+	
+	$regs1 = $db->array_select[0];
+
+	$array_modulo_values[] = $regs["id_sub_modulo"];
+	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
+}
+
+$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ORDER BY id_acao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_acoes_values[] = $regs["id_acao"];
+	$array_acoes_output[] = $regs["acao"];	
+}
+
+$sql = "SELECT id_setor_aso, setor_aso FROM ".DATABASE.".setor_aso";
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_setores_aso_values[] = $regs["id_setor_aso"];
+	$array_setores_aso_output[] = $regs["setor_aso"];	
+}
+
+$smarty->assign("option_modulo_values",$array_modulo_values);
+$smarty->assign("option_modulo_output",$array_modulo_output);
+
+$smarty->assign("option_acao_values",$array_acoes_values);
+$smarty->assign("option_acao_output",$array_acoes_output);
+
+$smarty->assign("option_setores_aso_values",$array_setores_aso_values);
+$smarty->assign("option_setores_aso_output",$array_setores_aso_output);
+
+$smarty->assign("campo",$conf->campos('permissao'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->display('permissoes_setor.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function modalListaPermitidos()
 {
@@ -629,130 +764,3 @@ function grid(tabela, autoh, height, xml)
 	}
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$msg = $conf->msg();
-
-$array_modulo_values = NULL;
-$array_modulo_output = NULL;
-
-$array_acoes_values = NULL;
-$array_acoes_output = NULL;
-
-$array_usuario_values = NULL;
-$array_usuario_output = NULL;
-
-$array_modulo_values[] = "";
-$array_modulo_output[] = "SELECIONE";
-
-$array_acoes_values[] = "";
-$array_acoes_output[] = "SELECIONE";
-
-$array_usuario_values = array();
-$array_usuario_output = array();
-
-$array_setores_aso_values = array();
-$array_setores_aso_output = array();
-
-$db = new banco_dados;
-
-//SUB MODULOS PRINCIPAIS
-$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-$sql .= "WHERE sub_modulos.id_sub_modulo_pai = '0' ";
-$sql .= "ORDER BY sub_modulo ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach ($db->array_select as $regs)
-{
-	$array_modulo_values[] = $regs["id_sub_modulo"];
-	$array_modulo_output[] = $regs["sub_modulo"];
-}
-
-
-//SUB MODULOS secundários
-$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-$sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  '0' ";
-$sql .= "AND sub_modulos.id_sub_modulo IN ";
-$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0) ";
-$sql .= "ORDER BY sub_modulo ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-$array_sub = $db->array_select;
-
-foreach ($array_sub as $regs)
-{
-	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
-	
-	$db->select($sql,'MYSQL',true);
-	
-	if($db->erro!='')
-	{
-		$resposta->addAlert($db->erro);
-	}
-	
-	$regs1 = $db->array_select[0];
-
-	$array_modulo_values[] = $regs["id_sub_modulo"];
-	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
-}
-
-$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ORDER BY id_acao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_acoes_values[] = $regs["id_acao"];
-	$array_acoes_output[] = $regs["acao"];	
-}
-
-$sql = "SELECT * FROM ".DATABASE.".setor_aso";
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_setores_aso_values[] = $regs["id_setor_aso"];
-	$array_setores_aso_output[] = $regs["setor_aso"];	
-}
-
-$smarty->assign("option_modulo_values",$array_modulo_values);
-$smarty->assign("option_modulo_output",$array_modulo_output);
-
-$smarty->assign("option_acao_values",$array_acoes_values);
-$smarty->assign("option_acao_output",$array_acoes_output);
-
-$smarty->assign("option_setores_aso_values",$array_setores_aso_values);
-$smarty->assign("option_setores_aso_output",$array_setores_aso_output);
-
-$smarty->assign("campo",$conf->campos('permissao'));
-$smarty->assign("botao",$conf->botoes());
-$smarty->assign("revisao_documento","V1");
-$smarty->assign("classe","../classes/".$conf->classe('administrativo').".css");
-$smarty->display('permissoes_setor.tpl');
-
-?>

@@ -145,7 +145,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'))
 <script type="text/javascript" src="../includes/validacao.js"></script>
 
 <!-- METODO ANTIGO / COMPATIBILIDADE -->
-<script language="javascript">
+<script>
 
 function abrejanela(nome,caminho,largura,altura)
 {
@@ -176,7 +176,7 @@ $smarty->assign("campo",$conf->campos('inicio_area_cliente'));
 
 $smarty->assign("body_onload","xajax_tela();");
 
-$smarty->assign("classe","../classes/".$conf->classe('inicio').".css");
+$smarty->assign("classe",CSS_FILE);
 
 $sql = "SELECT * FROM ".DATABASE.".contatos, ".DATABASE.".empresas ";
 $sql .= "WHERE contatos.id_contato = '" . $_SESSION["id_contato"] . "' ";

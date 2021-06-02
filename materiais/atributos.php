@@ -54,16 +54,16 @@ function getSubGrupos($dados_form, $idSel = '')
 	$sql = "SELECT
 			  DISTINCT codigo_grupo, sub_grupo, id_sub_grupo
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN
 			  (
-		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM materiais_old.grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0 
+		        SELECT id_sub_grupo subGrupo, id_grupo codGrupo FROM ".DATABASE.".grupo_x_sub_grupo WHERE grupo_x_sub_grupo.reg_del = 0 
 		      ) grupoXSub
 		    ON subGrupo = id_sub_grupo 
 			JOIN(
-		        SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-		    ) grupo
-		    ON grupo.id_grupo = codGrupo
+		        SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+		    ) grupo_mat
+		    ON grupo_mat.id_grupo = codGrupo
 			ORDER BY sub_grupo";
 		
 	$db->select($sql, 'MYSQL',
@@ -110,19 +110,19 @@ function getAtributos($dados_form, $codigoInteligente = '')
 	$sql = "SELECT
 			  *
 			FROM
-			  materiais_old.sub_grupo
+			  ".DATABASE.".sub_grupo
 			  JOIN(
 			    SELECT
 			      id_atributo, atributo, subGrupo, codGrupo, ordem, codigo_grupo, compoe_codigo
 			    FROM
-			      materiais_old.atributos
+			      ".DATABASE.".atributos
 			      JOIN(
-			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM materiais_old.atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
+			        SELECT id_sub_grupo subGrupo, id_atributo codAtributo, id_grupo codGrupo, ordem, compoe_codigo FROM ".DATABASE.".atributos_x_sub_grupo WHERE atributos_x_sub_grupo.reg_del = 0
 			      ) atrXSub
 			      ON codAtributo = id_atributo
 			      JOIN(
-					SELECT codigo_grupo, id_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0
-				  ) grupo
+					SELECT codigo_grupo, id_grupo FROM ".DATABASE.".grupo_mat WHERE grupo_mat.reg_del = 0
+				  ) grupo_mat
 				  ON codigo_grupo = codGrupo
 			    WHERE atributos.reg_del = 0
 			  ) atributos
@@ -179,7 +179,7 @@ function inserir($dados_form)
 	if (!empty($dados_form['idAtributo']))
 	{
 		$usql = "UPDATE
-					materiais_old.atributos 
+					".DATABASE.".atributos 
 				SET 
 					atributo = '{$dados_form['nomeAtributo']}',
 					composicao_codigo = '{$dados_form['rdoCompoecodigo']}',
@@ -192,7 +192,7 @@ function inserir($dados_form)
 	else
 	{
 		$isql = "INSERT INTO
-					materiais_old.atributos (atributo, composicao_codigo, descricao)
+					".DATABASE.".atributos (atributo, composicao_codigo, descricao)
 				VALUES 
 					('{$dados_form['nomeAtributo']}', '{$dados_form['rdoCompoecodigo']}', '{$dados_form['descResumidaAtributo']}')";
 		
@@ -230,7 +230,7 @@ function atualizatabela($dados_form)
 	SELECT
 		*
 	FROM
-		materiais_old.atributos
+		".DATABASE.".atributos
 	WHERE
 		atributos.reg_del = 0
 	ORDER BY atributos.atributo";
@@ -265,7 +265,7 @@ function editar($idAtributo)
 	
 	$resposta->addAssign('idAtributo', 'value', $idAtributo);
 	
-	$sql = "SELECT * FROM materiais_old.atributos WHERE atributos.reg_del = 0 AND atributos.id_atributo = {$idAtributo}";	
+	$sql = "SELECT * FROM ".DATABASE.".atributos WHERE atributos.reg_del = 0 AND atributos.id_atributo = {$idAtributo}";	
 	$db->select($sql, 'MYSQL', true);
 
 	$dados = $db->array_select[0];
@@ -283,7 +283,7 @@ function excluir($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$usql = "UPDATE materiais_old.atributos SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_atributo = ".$id;
+	$usql = "UPDATE ".DATABASE.".atributos SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_atributo = ".$id;
 	
 	$db->update($usql, 'MYSQL');
 	if ($db->erro != '')
@@ -307,6 +307,16 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
+
+$smarty->assign("revisao_documento","V1");
+$smarty->assign("campo",$conf->campos('materiais_atributos'));
+$smarty->assign("botao",$conf->botoes());
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->display("atributos.tpl");
+
 ?>
 
 <!-- Javascript para validação de dados -->
@@ -314,7 +324,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {
 	mygrid = new dhtmlXGridObject(tabela);
@@ -339,14 +349,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-$smarty->assign("revisao_documento","V1");
-$smarty->assign("campo",$conf->campos('materiais_atributos'));
-$smarty->assign("botao",$conf->botoes());
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->display("atributos.tpl");
-?>

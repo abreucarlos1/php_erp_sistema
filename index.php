@@ -2,17 +2,11 @@
 /*
 		Formulário de Autenticação	
 		
-		Criado por Carlos Abreu 
+		Criado por Carlos Abreu - 20/05/2021
 		
 		local/Nome do arquivo:
 		index.php
-		
-		Versão 0 --> VERSÃO INICIAL - 08/02/2007
-		Versão 1 --> Troca de lay-out / smarty / classes - 23/03/2009
-		Versão 2 --> Troca de lay-out / classe banco - 24/07/2012
-		Versão 3 --> Troca de imagens e diretorio - 07/07/2016 - Carlos Abreu
-		Versão 4 --> Atualização lay-out, melhorias - 16/03/2017 - Carlos Abreu
-		Versão 5 --> Inclusão dos campos reg_del nas consultas - 13/11/2017 - Carlos Abreu 		
+	
 */
 
 $user = "";
@@ -34,7 +28,7 @@ require_once("config.inc.php"); //OK
 
 require_once(INCLUDE_DIR."include_form.inc.php"); //OK
 
-require_once(INCLUDE_DIR."encryption.inc.php"); //OK
+//require_once(INCLUDE_DIR."encryption.inc.php"); //OK
 
 function autenticacao($dados_form)
 {
@@ -49,14 +43,18 @@ function autenticacao($dados_form)
 
 	$conf = new configs();
 	
-	$enc = new Crypter(CHAVE);
+	//$enc = new Crypter(CHAVE);
 		
 	$msg = $conf->msg($resposta);
 	
 	$db = new banco_dados;
 	
 	//senha do administrador
-	$pass_adm = $enc->encrypt('admin');
+	//$pass_adm = $enc->encrypt('admin');
+
+	$pass_adm = gerar_hash('admin', 'admin'); //senha/nome
+
+	$pass_administrador = gerar_hash('admin', 'administrador');
 
 	// Recupera o login
 	$login = isset($dados_form["login"]) ? addslashes(trim($dados_form["login"])) : FALSE;
@@ -67,7 +65,7 @@ function autenticacao($dados_form)
 	// Usuário não forneceu a senha ou o login
 	if(!$login || !$senha)
 	{
-		$resposta->addAssign("mensagem","innerHTML",$msg[10]);
+		$resposta->addAssign("mensagem","innerHTML","Os campos não podem estar vazios.");
 	}
 	else
 	{
@@ -75,12 +73,22 @@ function autenticacao($dados_form)
 		if(($login == 'administrador' || $login == 'admin'))
 		{
 			// Agora verifica a senha
+			/*
 			if(strcmp($senha, $enc->decrypt($pass_adm)))
 			{
 				$resposta->addAssign("mensagem","innerHTML",$msg[12]);
 						
 				return $resposta;
-			}			
+			}
+			*/
+			
+			if(!(valida_pw($senha,$login,$pass_adm) || valida_pw($senha,$login,$pass_administrador)))
+			{
+
+				$resposta->addAssign("mensagem","innerHTML",'Senha incorreta.');
+						
+				return $resposta;
+			}
 
 			$_SESSION["admin"] = TRUE;
 			
@@ -110,15 +118,8 @@ function autenticacao($dados_form)
 			* Caso o número de linhas retornadas seja 1 o login é válido,
 			* caso 0, inválido.
 			*/
-			/*
-			$sql = "SELECT * FROM ".DATABASE.".usuarios, ".DATABASE.".funcionarios ";
-			$sql .= "WHERE usuarios.login = '" . $login . "' ";
-			$sql .= "AND usuarios.reg_del = 0 ";
-			$sql .= "AND funcionarios.reg_del = 0 ";
-			$sql .= "AND usuarios.Codfuncionario = funcionarios.id_funcionario ";
-			*/
 
-			$sql = "SELECT * FROM ".DATABASE.".usuarios ";
+			$sql = "SELECT *, usuarios.id_usuario as id_usuario FROM ".DATABASE.".usuarios ";
 			$sql .= "LEFT JOIN ".DATABASE.".funcionarios ON (usuarios.id_usuario = funcionarios.id_usuario AND funcionarios.reg_del = 0 ) ";
 			$sql .= "WHERE usuarios.login = '" . $login . "' ";
 			$sql .= "AND usuarios.reg_del = 0 ";
@@ -138,9 +139,9 @@ function autenticacao($dados_form)
 			
 			$dias_restantes = (DIAS_LIMITE) - dif_datas($data_referencia,$data_troca);
 	
-			if(!in_array(str_replace(" ","",$dados["situacao"]),array('ATIVO')))
+			if($dados["condicao"] == 0) //1-ativo / 0-inativo
 			{
-				$resposta->addAssign("mensagem","innerHTML", $msg[11]);
+				$resposta->addAssign("mensagem","innerHTML", 'Usuário Inativo');
 			}
 			else
 			{
@@ -149,7 +150,8 @@ function autenticacao($dados_form)
 				{	
 					// Obtém os dados do usuário, para poder verificar a senha e passar os demais dados para a sessão									
 					// Agora verifica a senha
-					if(!strcmp($senha, $enc->decrypt($dados["senha"])))
+					//if(!strcmp($senha, $enc->decrypt($dados["senha"])))
+					if(valida_pw($senha,$login,$dados["senha"]))
 					{
 						if($dados['perfil']==1)
 						{
@@ -169,7 +171,7 @@ function autenticacao($dados_form)
 						
 						$_SESSION["id_setor_aso"] = $dados["id_setor_aso"];
 						
-						$_SESSION["nome_usuario"] = stripslashes($dados["funcionario"]);
+						$_SESSION["nome_usuario"] = stripslashes($dados["nome"]);
 						
 						if($dias_restantes <= 0)
 						{
@@ -203,7 +205,7 @@ function autenticacao($dados_form)
 					// Senha inválida
 					else
 					{
-						$resposta->addAssign("mensagem","innerHTML",$msg[12]);
+						$resposta->addAssign("mensagem","innerHTML","Senha inválida.");
 						
 						return $resposta;
 					}
@@ -211,7 +213,7 @@ function autenticacao($dados_form)
 				// login inválido
 				else
 				{
-					$resposta->addAssign("mensagem","innerHTML",$msg[13]);
+					$resposta->addAssign("mensagem","innerHTML","Login inválido");
 				}
 			}			
 		}
@@ -220,6 +222,7 @@ function autenticacao($dados_form)
 	return $resposta;
 }
 
+//altera senha de acesso
 function enviar($dados_form)
 {
 	$resposta = new xajaxResponse();
@@ -232,7 +235,7 @@ function enviar($dados_form)
 	{	
 		$db = new banco_dados;
 	
-		$enc = new Crypter(CHAVE);
+		//$enc = new Crypter(CHAVE);
 		
 		//$cpf = str_replace(array('.','-'),'',$dados_form["nome"]);
 		
@@ -259,7 +262,9 @@ function enviar($dados_form)
 		// Se o número de registros for maior que zero, então existe o registro...
 		if ($db->numero_registros>0)
 		{			
-			$senha = $enc->encrypt(trim($dados_form["senha"]));
+			//$senha = $enc->encrypt(trim($dados_form["senha"]));
+
+			$senha = gera_hash(trim($dados_form["senha"]), minusculas(trim($dados_form["nome"])));
 								
 			$usql = "UPDATE ".DATABASE.".usuarios SET ";
 			$usql .="senha = '". $senha . "', ";
@@ -277,7 +282,7 @@ function enviar($dados_form)
 
 			$mensagem = "Seus dados para acesso são:<br><br>\n\n";
 			$mensagem .= "login: " . $reg["login"] . "<br>\n";
-			$mensagem .= "Senha: " . $senha . "<br><br>\n\n";
+			$mensagem .= "Senha: " . trim($dados_form["senha"]) . "<br><br>\n\n";
 			$mensagem .= "Tecnologia da Informação <br><br>\n\n";
 			$mensagem .= "Caso tenha recebido este e-mail sem sua solicitação, favor desconsiderá-lo. <br><br>\n\n";
 			$mensagem .= "O envio desta confirmação foi registrado em nosso banco de dados em ". date("d/m/Y") . " as " . date("H:i") . " <br><br><br>\n\n\n";
@@ -287,7 +292,7 @@ function enviar($dados_form)
 			{
 				$params = array();
 			
-				$params['from']	= "empresa@dominio.com.br";
+				$params['from']	= "empresa@".DOMINIO;
 				
 				$params['from_name'] = "RECUPERAÇÃO DE SENHA - EMPRESA X";
 				
@@ -360,11 +365,12 @@ function atualiza($dados_form)
 	
 	if($dados_form["senha"]=="")
 	{
-		$resposta->addAlert($msg[18]);
+		$resposta->addAlert("A senha não poderá ser vazia.");
 	}
 	else
 	{
-		$sql = "SELECT * FROM ".EMPRESA.".usuarios ";
+
+		$sql = "SELECT * FROM ".DATABASE.".usuarios ";
 		$sql .="WHERE id_usuario = '".$dados_form["id_usuario"]."' ";
 		$sql .= "AND reg_del = 0 ";
 
@@ -377,11 +383,11 @@ function atualiza($dados_form)
 		
 		if($db->numero_registros>0)
 		{
-			$enc = new Crypter(CHAVE);
+			//$enc = new Crypter(CHAVE);
 			
 			$regs = $db->array_select[0];
 						
-			$confsenha = $enc->decrypt($regs["senha"]);
+			//$confsenha = $enc->decrypt($regs["senha"]);
 			
 			if(trim($dados_form["senha"])=="12345")
 			{
@@ -389,7 +395,8 @@ function atualiza($dados_form)
 			}
 			else
 			{			
-				if($confsenha == trim($dados_form["senha"]))		
+				//if($confsenha == trim($dados_form["senha"]))
+				if(valida_pw(trim($dados_form["senha"]),trim($regs["login"]),$regs["senha"]))		
 				{
 					$resposta->addAlert("As senhas devem ser diferentes.");
 				}
@@ -406,7 +413,8 @@ function atualiza($dados_form)
 					}
 					else
 					{					
-						$senha = $enc->encrypt(trim($dados_form["senha"]));
+						//$senha = $enc->encrypt(trim($dados_form["senha"]));
+						$senha = gerar_hash(trim($dados_form["senha"]),trim($regs["login"]));
 								
 						$usql = "UPDATE ".DATABASE.".usuarios SET ";
 						$usql .= "senha = '". $senha . "', ";
@@ -429,7 +437,7 @@ function atualiza($dados_form)
 		}
 		else
 		{
-			$resposta->addAlert($msg[19]);
+			$resposta->addAlert("Usuário não existe.");
 		}
 		
 		$resposta->addScript('window.close();');		
@@ -449,7 +457,9 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $conf = new configs();
 
-$smarty->assign("revisao_documento","V5");
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("revisao_documento","V0");
 
 $smarty->assign("campo",$conf->campos('login'));
 
@@ -469,7 +479,7 @@ $smarty->display("index.tpl");
 
 <script src="<?php echo INCLUDE_JS ?>utils.js"></script>
 
-<script>
+<script type="application/javascript">
 
 function limpa_div(div)
 {
@@ -488,10 +498,11 @@ function esqueceusenha()
 	conteudo += '<input name="email" id="email" type="text" placeholder="E-mail" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
 	conteudo += '<label for="senha" class="labels">Nova senha</label><br />';
 	conteudo += '<input name="senha" id="senha" type="password" placeholder="Senha" class="caixa" style="text-transform:none;" value="" size="50"/><br />';
-	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_enviar(xajax.getFormValues("frm_pass")); value="Enviar" />';
+	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_enviar(xajax.getFormValues("frm_pass")); value="Enviar" />&nbsp';
+	conteudo += '<input name="button" type="button" class="class_botao" onclick=divPopupInst.destroi(1); style="cursor:pointer;" value="Fechar" />';
 	conteudo += '</form>';
 	
-	modal(conteudo, 'p', 'ESQUECI MINHA SENHA',1);
+	modal(conteudo, 'p', 'ESQUECI MINHA SENHA',1,diretorio_imagens);
 	
 	return true;
 }
@@ -499,7 +510,7 @@ function esqueceusenha()
 function troca_senha(login,id_usuario)
 {
 	diretorio_imagens = '<?php echo DIR_IMAGENS ?>';
-	
+
 	conteudo = '<form name="frm_pass" id="frm_pass" method="POST">';
 	conteudo += '<label for="login" class="labels">login</label><br />';
     conteudo += '<input name="login" id="login" type="text" class="caixa" readonly="readonly" value="'+login+'" size="50"/><br /> ';
@@ -509,10 +520,11 @@ function troca_senha(login,id_usuario)
 	conteudo += '<label for="confsenha" class="labels">Confirme a senha</label><br />';
     conteudo += '<input name="confsenha" type="password" placeholder="Confime a senha" class="caixa" style="text-transform:none;" id="confsenha" size="30" onblur=xajax_validar_senha(xajax.getFormValues("frm_pass")); /><br />';
 	conteudo += '<div class="alerta_erro" id="mensagem"> </div><br />';
-	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_atualiza(xajax.getFormValues("frm_pass")); value="Alterar" />';
+	conteudo += '<input name="button" type="button" class="class_botao" onclick=xajax_atualiza(xajax.getFormValues("frm_pass")); value="Alterar" />&nbsp';
+	conteudo += '<input name="button" type="button" class="class_botao" onclick=divPopupInst.destroi(1); style="cursor:pointer;" value="Fechar" />';
 	conteudo += '</form>';
 
-	modal(conteudo, 'p', 'TROCAR SENHA',1);
+	modal(conteudo, 'p', 'TROCAR SENHA',1,diretorio_imagens);
 	
 	return true;	
 }

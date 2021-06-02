@@ -211,6 +211,20 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
+
+$smarty->assign('revisao_documento', 'V4');
+
+$smarty->assign('campo', $conf->campos('listafechamentos'));
+
+$smarty->assign("botao", $conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('listafechamentos.tpl');
+
 ?>
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
@@ -239,21 +253,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
-
-$smarty->assign('revisao_documento', 'V4');
-
-$smarty->assign('campo', $conf->campos('listafechamentos'));
-
-$smarty->assign("botao", $conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('listafechamentos.tpl');
-
-?>

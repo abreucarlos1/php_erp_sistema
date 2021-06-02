@@ -44,7 +44,7 @@ function alterar($dados_form)
 		return $resposta;
 	}
 	
-	$usql = "UPDATE materiais_old.espec_cabecalho SET
+	$usql = "UPDATE ".DATABASE.".espec_cabecalho SET
 				ec_cliente = {$cliente},
 				ec_descricao = '{$descricao}',
 				ec_os = '{$os}'
@@ -85,7 +85,7 @@ function insere($dados_form)
 	$sql = "SELECT
 				*
 			FROM
-				materiais_old.espec_cabecalho 
+				".DATABASE.".espec_cabecalho 
 			WHERE
 				espec_cabecalho.reg_del = 0 
 				AND espec_cabecalho.ec_cliente = '{$cliente}'
@@ -99,7 +99,7 @@ function insere($dados_form)
 	}
 	else
 	{
-		$isql = "INSERT INTO materiais_old.espec_cabecalho (ec_cliente, ec_descricao, ec_os) ";
+		$isql = "INSERT INTO ".DATABASE.".espec_cabecalho (ec_cliente, ec_descricao, ec_os) ";
 		$isql .= "VALUES ({$cliente}, '{$descricao}', '{$os}')";
 		
 		$db->insert($isql, 'MYSQL');
@@ -128,7 +128,7 @@ function editar($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados;
 		
-	$sql = "SELECT * FROM materiais_old.espec_cabecalho ";
+	$sql = "SELECT * FROM ".DATABASE.".espec_cabecalho ";
 	$sql .= "WHERE ec_id = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 	
@@ -154,7 +154,7 @@ function excluir($id)
 
 	$db = new banco_dados;
 	
-	$usql = "UPDATE materiais_old.espec_cabecalho ";
+	$usql = "UPDATE ".DATABASE.".espec_cabecalho ";
 	$usql .= "SET reg_del = 1, reg_who = {$_SESSION['id_funcionario']}, data_del = '".date('Y-m-d')."' WHERE ec_id = '".$id."' ";
 	
 	$db->update($usql,'MYSQL');
@@ -181,7 +181,7 @@ function excluirSelecionados($dados_form)
 	$dados_form['chk'] = array_keys($dados_form['chk']);
 	$ids = implode("','", $dados_form['chk']);
 	
-	$usql = "UPDATE materiais_old.espec_lista ";
+	$usql = "UPDATE ".DATABASE.".espec_lista ";
 	$usql .= "SET reg_del = 1, reg_who = {$_SESSION['id_funcionario']}, data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND el_cod_barras IN('".$ids."') AND el_ec_id = ".$dados_form['id_espec_cabecalho'];
 	
 	$db->update($usql,'MYSQL');
@@ -233,7 +233,7 @@ function atualizatabela($dados_form)
 	SELECT
 	  *
 	  FROM
-	    materiais_old.espec_cabecalho
+	    ".DATABASE.".espec_cabecalho
 	    JOIN(
 	    	SELECT id_empresa, id_unidade, abreviacao, empresa FROM ".DATABASE.".empresas WHERE empresas.reg_del = 0 AND status = 'CLIENTE'
 	    ) cliente
@@ -289,7 +289,7 @@ function getListaProdutos($filtro, $idEspec = '')
 	
 	if (!empty($idEspec))
 	{
-		$sql_filtro .= "AND cod_barras NOT IN(SELECT DISTINCT el_cod_barras FROM materiais_old.espec_lista WHERE espec_lista.reg_del = 0 AND espec_lista.el_ec_id = {$idEspec})";
+		$sql_filtro .= "AND cod_barras NOT IN(SELECT DISTINCT el_cod_barras FROM ".DATABASE.".espec_lista WHERE espec_lista.reg_del = 0 AND espec_lista.el_ec_id = {$idEspec})";
 	}
 	
 	$sql = 
@@ -297,13 +297,13 @@ function getListaProdutos($filtro, $idEspec = '')
 	  id_produto, cod_barras componentecodigo, codigo_inteligente, descricao, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, 
 	  unidade1, unidade2, peso1, peso2, descFamilia
 	FROM
-	  materiais_old.produto
+	  ".DATABASE.".produto
 	  JOIN(
-	    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, id_familia FROM materiais_old.componentes WHERE componentes.reg_del = 0
+	    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, id_familia FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 	  ) componentes
 	  ON codBarrasComponente = cod_barras
 	  LEFT JOIN (
-	  	SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+	  	SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 	  ) familia ON idFamilia = id_familia
 	WHERE
 	  produto.reg_del = 0
@@ -385,14 +385,14 @@ function salvarLista($dados_form)
 	$idEspec	= $dados_form['codEspecCabecalho'];
 	$data		= date('Y-m-d');
 
-	//$usql = "UPDATE materiais_old.espec_lista SET reg_del = 1, reg_who = {$idFunc}, data_del = '{$data}' WHERE el_ec_id = {$idEspec}";
+	//$usql = "UPDATE ".DATABASE.".espec_lista SET reg_del = 1, reg_who = {$idFunc}, data_del = '{$data}' WHERE el_ec_id = {$idEspec}";
 	//$db->update($usql, 'MYSQL');
 	
 	//if (empty($db->erro))
 	//{
 		$virgula = '';
 		//INSERINDO O ITEM DA LISTA
-		$isql = "INSERT INTO materiais_old.espec_lista (el_ec_id, el_id_produto, el_cod_barras) VALUES ";
+		$isql = "INSERT INTO ".DATABASE.".espec_lista (el_ec_id, el_id_produto, el_cod_barras) VALUES ";
 		$qtd = 0;
 		foreach($dados_form['chk'] as $idProduto => $valor)
 		{
@@ -437,12 +437,12 @@ function getProdutosLista($idEspecCabecalho, $idDestino = 'div_lista_materiais')
 	$sql = "SELECT
 			  *
 			FROM
-			   materiais_old.espec_cabecalho
+			   ".DATABASE.".espec_cabecalho
 			   JOIN(
 	           	   SELECT
 	           	   		el_id, el_ec_id, el_id_produto, el_cod_barras, el_el_id
 	           	   	FROM
-	           	   		materiais_old.espec_lista
+	           	   		".DATABASE.".espec_lista
 	           	   	WHERE
 	           	   		espec_lista.reg_del = 0 
 	           	   		AND espec_lista.el_ec_id = {$idEspecCabecalho}
@@ -454,13 +454,13 @@ function getProdutosLista($idEspecCabecalho, $idDestino = 'div_lista_materiais')
 			    	desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, 
 			    	unidade2, peso1, peso2, descricao, descFamilia
 		        FROM
-		        materiais_old.produto
+		        ".DATABASE.".produto
 		        JOIN(
 					SELECT 
 						id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, descFamilia
-					FROM materiais_old.componentes
+					FROM ".DATABASE.".componentes
 					LEFT JOIN (
-						SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+						SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 					) familia ON idFamilia = id_familia
 					WHERE componentes.reg_del = 0
 				) componentes
@@ -509,7 +509,7 @@ function copiarEspec($idEspecCabecalho)
 FROM
 	".DATABASE.".empresas
 	LEFT JOIN(
-		SELECT ec_cliente, ec_os FROM materiais_old.espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_id = ".$idEspecCabecalho."
+		SELECT ec_cliente, ec_os FROM ".DATABASE.".espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_id = ".$idEspecCabecalho."
 	) spec
 	ON ec_cliente = id_empresa
 	,
@@ -563,7 +563,7 @@ function getOsCliente($codCliente, $idEspecCabecalho = 0, $idDestino = 'selOsCli
 	$sql = 
 "SELECT
 	id_os, OS, descricao,
-	(SELECT ec_os FROM materiais_old.espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = id_os AND espec_cabecalho.ec_id = ".$idEspecCabecalho.") ec_os
+	(SELECT ec_os FROM ".DATABASE.".espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = id_os AND espec_cabecalho.ec_id = ".$idEspecCabecalho.") ec_os
 FROM
 	".DATABASE.".OS
 WHERE
@@ -608,7 +608,7 @@ function salvarCopia($dados_form)
 	$cliente = $dados_form['selClienteEspec'];
 	
 	//Busca do cabecalho
-	$sql = "SELECT * FROM materiais_old.espec_cabecalho WHERE reg_del = 0 AND ec_id = ".$espec." ";
+	$sql = "SELECT * FROM ".DATABASE.".espec_cabecalho WHERE reg_del = 0 AND ec_id = ".$espec." ";
 	$db->select($sql, 'MYSQL', true);
 	
 	foreach($dados_form['selOsCliente'] as $os)
@@ -619,7 +619,7 @@ function salvarCopia($dados_form)
 			
 		$nomeEspec = maiusculas($dados_form['txt'][$os]);
 		
-		$isql = "INSERT INTO materiais_old.espec_cabecalho (ec_cliente, ec_descricao, ec_os) VALUES ";
+		$isql = "INSERT INTO ".DATABASE.".espec_cabecalho (ec_cliente, ec_descricao, ec_os) VALUES ";
 		$isql .= "(".$cliente.", '".$nomeEspec."', ".$os.") ";
 		
 		$db->insert($isql, 'MYSQL');
@@ -630,8 +630,8 @@ function salvarCopia($dados_form)
 		
 		$novoCabecalho = $db->insert_id;
 		
-		$isql = "INSERT INTO materiais_old.espec_lista (el_ec_id, el_id_produto, el_cod_barras) ";
-		$isql .= "SELECT ".$novoCabecalho.", el_id_produto, el_cod_barras FROM materiais_old.espec_lista WHERE el_ec_id = ".$espec;
+		$isql = "INSERT INTO ".DATABASE.".espec_lista (el_ec_id, el_id_produto, el_cod_barras) ";
+		$isql .= "SELECT ".$novoCabecalho.", el_id_produto, el_cod_barras FROM ".DATABASE.".espec_lista WHERE el_ec_id = ".$espec;
 		$db->insert($isql, 'MYSQL');
 		
 		if ($db->erro != '')
@@ -678,7 +678,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
 <script src="../includes/jquery/jquery.min.js"></script>
-<script language="javascript">
+<script>
 function carregarFamiliaSelecionada(id)
 {
 	document.getElementById('txtFiltro2').value = document.getElementById('txt_'+id).value;

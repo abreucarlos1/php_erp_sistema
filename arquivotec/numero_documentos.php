@@ -569,7 +569,7 @@ function excluir($id_numero_interno)
             $reg_sol = $db->array_select[0];
             
             $params 			= array();
-            $params['from']		= "arquivotecnico@dominio.com.br";
+            $params['from']		= "arquivotecnico@".DOMINIO;
             $params['from_name']="Sistema ERP";
             
             $params['subject'] = sprintf("%05d",$reg_sol["os"]) . " - NÚMERO INTERNO EXCLUÍDO DO SISTEMA";
@@ -757,56 +757,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-
-function grid(tabela, autoh, height, xml)
-{	
-	mygrid = new dhtmlXGridObject(tabela);
-	
-	function doOnRowSelected(id,ind) 
-	{
-		if(ind<=5)
-		{
-			xajax_editar(id);
-			
-			return true;
-		}
-		
-		return false;
-	}
-	
-	mygrid.enableAutoHeight(autoh,height);
-	
-	mygrid.attachEvent("onRowSelect", doOnRowSelected);
-	
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	mygrid.setHeader("Nº Interno,Nº Cliente,Documento,Disciplina,Solicitante,Dt.Solic.,D",
-		null,
-		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center"]);
-	mygrid.setInitWidths("120,150,*,100,100,100,25");
-	mygrid.setColAlign("center,left,left,left,left,left,center");
-	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
-	mygrid.setColSorting("str,str,str,str,str,str,str");
-	
-	mygrid.setSkin("dhx_skyblue");
-	mygrid.enableMultiselect(true);
-	mygrid.enableCollSpan(true);		
-	mygrid.init();
-	mygrid.loadXMLString(xml);
-
-}
-
-</script>
-
-<?php
-
 $db = new banco_dados;
 
 $conf = new configs();
@@ -895,4 +845,51 @@ $smarty->assign("nome_formulario","NÚMERO DOCUMENTOS");
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('numeros_interno.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script>
+
+function grid(tabela, autoh, height, xml)
+{	
+	mygrid = new dhtmlXGridObject(tabela);
+	
+	function doOnRowSelected(id,ind) 
+	{
+		if(ind<=5)
+		{
+			xajax_editar(id);
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	mygrid.enableAutoHeight(autoh,height);
+	
+	mygrid.attachEvent("onRowSelect", doOnRowSelected);
+	
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	mygrid.setHeader("Nº Interno,Nº Cliente,Documento,Disciplina,Solicitante,Dt.Solic.,D",
+		null,
+		["text-align:left","text-align:left","text-align:left","text-align:center","text-align:center","text-align:center","text-align:center"]);
+	mygrid.setInitWidths("120,150,*,100,100,100,25");
+	mygrid.setColAlign("center,left,left,left,left,left,center");
+	mygrid.setColTypes("ro,ro,ro,ro,ro,ro,ro");
+	mygrid.setColSorting("str,str,str,str,str,str,str");
+	
+	mygrid.setSkin("dhx_skyblue");
+	mygrid.enableMultiselect(true);
+	mygrid.enableCollSpan(true);		
+	mygrid.init();
+	mygrid.loadXMLString(xml);
+
+}
+
+</script>

@@ -2,13 +2,13 @@
 /*
 	Formulário de cópia de perfis de usuários
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos Abreu
 	
-	local/Nome do arquivo: ../ti/perfis.php
+	local/Nome do arquivo: 
+	../administracao/perfis.php
 	
-	Versão 0 --> VERSÃO INICIAL : 20/03/2014
-	Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-	Versão 2 --> Layout responsivo + refatoração do módulo - 05/02/2018 - Carlos Eduardo
+	Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -124,46 +124,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script language="javascript">
-function trocarOrigemDestino()
-{
-	origem = document.getElementById('selUsuariosOrigem').value;
-	destino = document.getElementById('selUsuariosDestino').value;
-
-	document.getElementById('selUsuariosOrigem').value = destino;
-	document.getElementById('selUsuariosDestino').value = origem;
-
-	xajax_atualizatabela_permissoes(destino, 1);
-	xajax_atualizatabela_permissoes(origem, 2);
-}
-
-function grid(tabela, autoh, height, xml)
-{
-	mygrid = new dhtmlXGridObject(tabela);
-
-	mygrid.enableAutoHeight(autoh,height);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	mygrid.setHeader(" ,ID,MODULO");
-	mygrid.setInitWidths("50,50,*");
-	mygrid.setColAlign("left,left,left");
-	mygrid.setColTypes("ro,ro,ro");
-	mygrid.setColSorting("str,str,str");
-
-	mygrid.setSkin("dhx_skyblue");
-    mygrid.enableMultiselect(true);
-    mygrid.enableCollSpan(true);	
-	mygrid.init();
-	
-	mygrid.loadXMLString(xml);
-}
-</script>
-
-<?php
 $conf = new configs();
 
 $array_func_values[] = "0";
@@ -201,6 +161,8 @@ $smarty->assign("revisao_documento","V2");
 
 $smarty->assign('larguraTotal', 1);
 
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
 $smarty->assign("campo",$conf->campos('controle_emails'));
 
 $smarty->assign("botao",$conf->botoes());
@@ -208,4 +170,46 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('perfis.tpl');
+
+?>
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script>
+function trocarOrigemDestino()
+{
+	origem = document.getElementById('selUsuariosOrigem').value;
+	destino = document.getElementById('selUsuariosDestino').value;
+
+	document.getElementById('selUsuariosOrigem').value = destino;
+	document.getElementById('selUsuariosDestino').value = origem;
+
+	xajax_atualizatabela_permissoes(destino, 1);
+	xajax_atualizatabela_permissoes(origem, 2);
+}
+
+function grid(tabela, autoh, height, xml)
+{
+	mygrid = new dhtmlXGridObject(tabela);
+
+	mygrid.enableAutoHeight(autoh,height);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	mygrid.setHeader(" ,ID,MODULO");
+	mygrid.setInitWidths("50,50,*");
+	mygrid.setColAlign("left,left,left");
+	mygrid.setColTypes("ro,ro,ro");
+	mygrid.setColSorting("str,str,str");
+
+	mygrid.setSkin("dhx_skyblue");
+    mygrid.enableMultiselect(true);
+    mygrid.enableCollSpan(true);	
+	mygrid.init();
+	
+	mygrid.loadXMLString(xml);
+}
+</script>
+
+<?php
+
 ?>

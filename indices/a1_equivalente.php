@@ -59,12 +59,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -117,4 +111,7 @@ $smarty->assign('revisao_documento', 'V4');
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('a1_equivalente.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

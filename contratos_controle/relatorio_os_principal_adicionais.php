@@ -21,12 +21,6 @@ if(!verifica_sub_modulo(603))
 	nao_permitido();
 }
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -83,3 +77,5 @@ $smarty->assign("classe",CSS_FILE);
 $smarty->display('relatorio_os_principal_adicionais.tpl');
 
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

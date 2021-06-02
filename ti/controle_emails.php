@@ -1,14 +1,12 @@
 <?php
 /*
 	Formulário de Controle de Emails
-	Criado por Carlos Eduardo  
+	Criado por Carlos Abreu 
 	
-	local/Nome do arquivo: ../ti/controle_emails.php
+	local/Nome do arquivo: 
+	../administracao/controle_emails.php
 	
-	Versão 0 --> VERSÃO INICIAL - 03/10/2016
-	Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-	Versão 2 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-	Versão 3 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+	Versão 0 --> VERSÃO INICIAL - 20/05/2021
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -189,52 +187,7 @@ $xajax->processRequests();
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualiza_tabela(xajax.getFormValues('frm'));");
-?>
 
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>jquery/jquery.min.js"></script>
-
-<script language="javascript">
-function grid(tabela, autoh, height, xml)
-{
-	mygrid = new dhtmlXGridObject(tabela);
-
-	mygrid.enableAutoHeight(autoh,height);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-
-	mygrid.setHeader("Grupo, Funcionário, E-mail, Envio, E");
-	mygrid.setInitWidths("*,*,*,100,50");
-	mygrid.setColAlign("left,left,left,left,center");
-	mygrid.setColTypes("ed,ed,ed,ed,ro");
-	
-	mygrid.setColSorting("str,str,str,str,str");
-	mygrid.enableEditEvents(true,true,true,true,false);
-
-	//Editor usando a propria grid
-	mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
-		if (stage == 2 && nValue != oValue)
-		{
-			if(confirm('Confirma a alteração!'))
-				xajax_editar(rId, nValue, cInd);
-		}
-	});
-
-	//Filtro direto na grid
-	mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
-	
-	mygrid.setSkin("dhx_skyblue");
-    mygrid.enableMultiselect(true);
-    mygrid.enableCollSpan(true);	
-	mygrid.init();
-	
-	mygrid.loadXMLString(xml);
-}
-</script>
-
-<?php
 $conf = new configs();
 
 $array_func_values[] = "0";
@@ -270,7 +223,9 @@ foreach($db->array_select as $regs)
 $smarty->assign("option_func_values",$array_func_values);
 $smarty->assign("option_func_output",$array_func_output);
 
-$smarty->assign("revisao_documento","V3");
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
 
 $smarty->assign('larguraTotal', 1);
 
@@ -281,4 +236,48 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_emails.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>jquery/jquery.min.js"></script>
+
+<script>
+function grid(tabela, autoh, height, xml)
+{
+	mygrid = new dhtmlXGridObject(tabela);
+
+	mygrid.enableAutoHeight(autoh,height);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+
+	mygrid.setHeader("Grupo, Funcionário, E-mail, Envio, E");
+	mygrid.setInitWidths("*,*,*,100,50");
+	mygrid.setColAlign("left,left,left,left,center");
+	mygrid.setColTypes("ed,ed,ed,ed,ro");
+	
+	mygrid.setColSorting("str,str,str,str,str");
+	mygrid.enableEditEvents(true,true,true,true,false);
+
+	//Editor usando a propria grid
+	mygrid.attachEvent("onEditCell", function(stage,rId,cInd,nValue,oValue){
+		if (stage == 2 && nValue != oValue)
+		{
+			if(confirm('Confirma a alteração!'))
+				xajax_editar(rId, nValue, cInd);
+		}
+	});
+
+	//Filtro direto na grid
+	mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+	
+	mygrid.setSkin("dhx_skyblue");
+    mygrid.enableMultiselect(true);
+    mygrid.enableCollSpan(true);	
+	mygrid.init();
+	
+	mygrid.loadXMLString(xml);
+}
+</script>

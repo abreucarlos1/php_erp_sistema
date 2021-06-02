@@ -87,7 +87,7 @@ class chamados_integracao_model{
 						
 						//email
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "NOVA SOLICITAÇÃO DE INTEGRAÇÃO (".$dadosCliente['empresa'].' '.$dadosCliente['descricao'].' '.$dadosCliente['unidade'].")";
 

@@ -2030,7 +2030,7 @@ function retornaCliente($dados_form)
 			$params['subject'] = "RETORNO DE PACOTE - OS: " . sprintf("%05d",$reg_pacote["os"]) . " - Pacote: " . sprintf("%04d",$reg_pacote["numero_pacote"]).' COM COMENTARIOS';
 			
 			//arquivo técnico
-			$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+			$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 			
 			//autor do pacote
 			if($reg_usuario["email"]!='')
@@ -2094,7 +2094,7 @@ function retornaCliente($dados_form)
 				$params['subject'] = $reg_pacote["descricao"]." - DOCUMENTO DESBLOQUEADO: ";
 				
 				//GRUPO ARQUIVO TECNICO
-				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Grupo Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Grupo Arquivo Técnico");
 				
 				//EDITOR DO ARQUIVO
 				if($array_email[$reg_pacote["id_editor"]]!="")
@@ -2630,7 +2630,7 @@ function atualizaPropriedades($dados_form)
 							
 							$params['subject'] = "Comentário(s) devolvido pelo cliente - OS: ".sprintf("%05d",$reg_complemento["os"]);
 							
-							$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+							$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 							
 							if($array_coord[$reg_complemento["id_cod_coord"]]['email']!='')
 							{
@@ -2838,7 +2838,7 @@ function liberar_versao($id_ged_versao)
 				$params['from_name']= 'Arquivo Tecnico';
 				
 				$params['subject'] = "Arquivo retirado de pacote: " . sprintf("%05d",$reg_pkt["os"]) . "-" . sprintf("%04d",$reg_pkt["numero_pacote"]);
-				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 				
 				if($reg_pkt["email"]!='')
 				{
@@ -3189,7 +3189,7 @@ function desbloquear($id_ged_versao, $status)
 			  
 			    $params['subject'] = $reg_pacote["descricao"]." - DOCUMENTO DESBLOQUEADO COM COMENTARIO: ";
 			  
-			    $params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+			    $params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 			    				
 				//EDITOR DO ARQUIVO
 				if($array_usremail[$reg_pacote["id_editor"]]!="")
@@ -3268,7 +3268,7 @@ function desbloquear($id_ged_versao, $status)
 			    $params['subject'] = "DOCUMENTO COM RECUSA DE DESBLOQUEIO: " . $reg_pacote["descricao"];
 				
 				//GRUPO ARQUIVO TECNICO
-				$params['emails']['to'][] = array('email' => "arquivotecnico@dominio.com.br", 'nome' => "Arquivo Técnico");
+				$params['emails']['to'][] = array('email' => "arquivotecnico@".DOMINIO, 'nome' => "Arquivo Técnico");
 		
 				//DESBLOQUEADOR
 				if($array_usremail[$_SESSION["id_funcionario"]]!='')
@@ -3460,6 +3460,60 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.$('periodos').options[xajax.$('periodos').selectedIndex].value);");
 
+$conf = new configs();
+
+$sql = "SELECT SUBSTRING(ged_pacotes.data,1,7) AS periodo FROM ".DATABASE.".ged_pacotes ";
+$sql .= "WHERE ged_pacotes.reg_del = 0 ";
+$sql .= "GROUP BY SUBSTRING(ged_pacotes.data,1,7) ";
+$sql .= "ORDER BY SUBSTRING(ged_pacotes.data,1,7) ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach($db->array_select as $reg_periodos)
+{
+	unset($array_data_output);
+	
+	$data_output = "";
+
+	$array_data_output = explode("-",$reg_periodos["periodo"]);
+	
+	if($array_data_output[0]=="12")
+	{
+		$str_ano = $array_data_output[0]+1;
+	}
+	else
+	{
+		$str_ano = $array_data_output[0];	
+	}
+
+	$str_mes = $array_data_output[1];	
+
+	$stamp_per_ini = mktime(0,0,0,$str_mes,0,$array_data_output[0]);
+	$stamp_per_fim = mktime(0,0,0,$str_mes+1,0,$str_ano);
+	
+	$array_periodos_values[] = date("m/Y",$stamp_per_ini) . "-" . date("m/Y",$stamp_per_fim);
+	$array_periodos_output[] = date("m/Y",$stamp_per_ini) . " - " . date("m/Y",$stamp_per_fim);	
+
+}
+
+$periodo_atual = date("m/Y",$stamp_per_ini) . "-" . date("m/Y",$stamp_per_fim);
+
+$smarty->assign("revisao_documento","V17");
+
+$smarty->assign("campo",$conf->campos('ged_pacotes'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("option_periodos_values",$array_periodos_values);
+$smarty->assign("option_periodos_output",$array_periodos_output);
+$smarty->assign("periodo_atual",$periodo_atual);
+
+$smarty->assign("nome_formulario","GUIA DE REMESSA DE DOCUMENTOS");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('ged_pacotes.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -3468,7 +3522,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.$('periodos').options[
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 //desabilita right click
 document.oncontextmenu=RightMouseDown;
@@ -3713,61 +3767,3 @@ function open_doc(dir)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$sql = "SELECT SUBSTRING(ged_pacotes.data,1,7) AS periodo FROM ".DATABASE.".ged_pacotes ";
-$sql .= "WHERE ged_pacotes.reg_del = 0 ";
-$sql .= "GROUP BY SUBSTRING(ged_pacotes.data,1,7) ";
-$sql .= "ORDER BY SUBSTRING(ged_pacotes.data,1,7) ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach($db->array_select as $reg_periodos)
-{
-	unset($array_data_output);
-	
-	$data_output = "";
-
-	$array_data_output = explode("-",$reg_periodos["periodo"]);
-	
-	if($array_data_output[0]=="12")
-	{
-		$str_ano = $array_data_output[0]+1;
-	}
-	else
-	{
-		$str_ano = $array_data_output[0];	
-	}
-
-	$str_mes = $array_data_output[1];	
-
-	$stamp_per_ini = mktime(0,0,0,$str_mes,0,$array_data_output[0]);
-	$stamp_per_fim = mktime(0,0,0,$str_mes+1,0,$str_ano);
-	
-	$array_periodos_values[] = date("m/Y",$stamp_per_ini) . "-" . date("m/Y",$stamp_per_fim);
-	$array_periodos_output[] = date("m/Y",$stamp_per_ini) . " - " . date("m/Y",$stamp_per_fim);	
-
-}
-
-$periodo_atual = date("m/Y",$stamp_per_ini) . "-" . date("m/Y",$stamp_per_fim);
-
-$smarty->assign("revisao_documento","V17");
-
-$smarty->assign("campo",$conf->campos('ged_pacotes'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("option_periodos_values",$array_periodos_values);
-$smarty->assign("option_periodos_output",$array_periodos_output);
-$smarty->assign("periodo_atual",$periodo_atual);
-
-$smarty->assign("nome_formulario","GUIA DE REMESSA DE DOCUMENTOS");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('ged_pacotes.tpl');
-
-?>

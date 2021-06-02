@@ -34,7 +34,7 @@ function Footer()
 	$this->SetFont('Arial','B',10);
 	$this->Cell(160,5,"Rua xxxxxxxx, xx - Centro - xxxxxx",0,1,'C',0);
 	$this->Cell(160,5,"cep: xxxxxxx - SP - Fone/fax: (11) xxxxx",0,1,'C',0);
-	$this->Cell(160,5,"http://xxxxxxxxxxxxxx - E-mail: empresa@dominio.com.br".$this->GetY(),0,1,'C',0);	
+	$this->Cell(160,5,"http://xxxxxxxxxxxxxx - E-mail: empresa@".DOMINIO.$this->GetY(),0,1,'C',0);	
 }
 }
 

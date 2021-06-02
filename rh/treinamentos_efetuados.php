@@ -329,7 +329,7 @@ function salvar($dados_form)
 				    $corpo .= "<br />Por favor, acesso pelo SISTEMA na área de <b>Gestão de pessoas</b>/<b>Avaliação de eficácia de treinamentos</b> para ";
 				    $corpo .= "realizar a devida avaliação.";
 				    
-				    $params['from']		= "recrutamento@dominio.com.br";
+				    $params['from']		= "recrutamento@".DOMINIO;
 				    $params['from_name']= "RECURSOS HUMANOS";
 				    $params['subject'] 	= "AVALIAÇÃO DE EFICÁCIA DE TREINAMENTO";
 				    
@@ -373,7 +373,7 @@ function salvar($dados_form)
 						$corpo .= "Solicito que responda o formulário, salve em formato PDF e envie para o RH (recrutamento@dominio.com.br).<br /><br />";
 						$corpo .= "Obs.: na parte inferior, em superior e colaborador, basta a identificação (nome completo).";
 						
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "CONCLUSÃO DE TREINAMENTO";
 						
@@ -737,7 +737,7 @@ $smarty->assign("body_onload","iniciaBusca2.verifica(document.frm.busca);");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
     var iniciaBusca2=
     {
     	buffer: false,

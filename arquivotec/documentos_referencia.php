@@ -1450,7 +1450,7 @@ function concluir($dados_form)
 		//Realizar o envio do e-mail para os envolvidos		
 		$params 			= array();
 		
-		$params['from']		= "arquivotecnico@dominio.com.br";
+		$params['from']		= "arquivotecnico@".DOMINIO;
 		
 		$params['from_name']= "ARQUIVO TECNICO";
 		
@@ -1534,13 +1534,131 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","tab();");
 
+$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".tipos_documentos_referencia ";
+$sql .= "WHERE setores.id_setor = tipos_documentos_referencia.id_disciplina ";
+$sql .= "AND setores.reg_del = 0 ";
+$sql .= "AND tipos_documentos_referencia.reg_del = 0 ";
+$sql .= "GROUP BY setores.id_setor ";
+$sql .= "ORDER BY setores.setor ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção: " . $db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_setor_values[] = $cont["id_setor"];
+	$array_setor_output[] = $cont["setor"];
+}
+
+$sql = "SELECT * FROM ".DATABASE.".tipos_referencia ";
+$sql .= "WHERE tipos_referencia.id_tipo_referencia NOT IN ('3') "; //menos comunicação interna
+$sql .= "AND tipos_referencia.reg_del = 0 ";
+$sql .= "ORDER BY tipo_referencia ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção: " . $db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_tipo_values[] = $cont["id_tipo_referencia"];
+	$array_tipo_output[] = $cont["tipo_referencia"];
+}
+
+$sql = "SELECT * FROM ".DATABASE.".formatos ";
+$sql .= "WHERE formatos.reg_del = 0 ";
+$sql .= "ORDER BY formato ";
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção: " . $db->erro);
+}
+
+foreach($db->array_select as $cont)
+{
+	$array_formato_values[] = $cont["id_formato"];
+	$array_formato_output[] = $cont["formato"];
+}
+
+//$lista_usuarios_irrestritos = array(6,49,909,910,978,871,1046,226,1142,1213);
+
+if(!in_array($_SESSION["id_funcionario"], $lista_usuarios_irrestritos))
+{
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
+	$sql .= "AND ordem_servico.id_os = os_x_funcionarios.id_os ";
+	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
+	$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
+	$sql .= "AND os.os > 3000 ";	
+	$sql .= "GROUP BY ordem_servico.id_os ";
+	$sql .= "ORDER BY ordem_servico.os ";
+}
+else
+{
+	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
+	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
+	$sql .= "AND ordem_servico.reg_del = 0 ";
+	$sql .= "AND ordem_servico_status.reg_del = 0 ";
+	$sql .= "AND os.os > 3000 ";	
+	$sql .= "GROUP BY ordem_servico.id_os ";
+	$sql .= "ORDER BY ordem_servico.os ";	
+}
+
+$db->select($sql,'MYSQL',true);
+
+if ($db->erro != '')
+{
+	exit("Não foi possível realizar a seleção: ". $db->erro); 
+}
+
+foreach($db->array_select as $regs)
+{
+	$os = sprintf("%05d",$regs["os"]);
+	
+	$array_os_values[] = $regs["id_os"];
+	$array_os_output[] = $os." - ". substr($regs["descricao"],0,50);
+}
+
+$smarty->assign("option_setor_values",$array_setor_values);
+$smarty->assign("option_setor_output",$array_setor_output);
+
+$smarty->assign("option_tipo_values",$array_tipo_values);
+$smarty->assign("option_tipo_output",$array_tipo_output);
+
+$smarty->assign("option_formato_values",$array_formato_values);
+$smarty->assign("option_formato_output",$array_formato_output);
+
+$smarty->assign("option_os_values",$array_os_values);
+$smarty->assign("option_os_output",$array_os_output);
+$smarty->assign("option_os_title",$array_os_title);
+
+$smarty->assign("revisao_documento","V9");
+
+$smarty->assign("campo",$conf->campos('ged_documentos_referencia'));
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('documentos_referencia.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function valida_campos()
 {
@@ -1751,124 +1869,3 @@ function open_doc(dir)
 }
 
 </script>
-
-<?php
-
-$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".tipos_documentos_referencia ";
-$sql .= "WHERE setores.id_setor = tipos_documentos_referencia.id_disciplina ";
-$sql .= "AND setores.reg_del = 0 ";
-$sql .= "AND tipos_documentos_referencia.reg_del = 0 ";
-$sql .= "GROUP BY setores.id_setor ";
-$sql .= "ORDER BY setores.setor ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	exit("Não foi possível realizar a seleção: " . $db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_setor_values[] = $cont["id_setor"];
-	$array_setor_output[] = $cont["setor"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".tipos_referencia ";
-$sql .= "WHERE tipos_referencia.id_tipo_referencia NOT IN ('3') "; //menos comunicação interna
-$sql .= "AND tipos_referencia.reg_del = 0 ";
-$sql .= "ORDER BY tipo_referencia ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	exit("Não foi possível realizar a seleção: " . $db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_tipo_values[] = $cont["id_tipo_referencia"];
-	$array_tipo_output[] = $cont["tipo_referencia"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".formatos ";
-$sql .= "WHERE formatos.reg_del = 0 ";
-$sql .= "ORDER BY formato ";
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	exit("Não foi possível realizar a seleção: " . $db->erro);
-}
-
-foreach($db->array_select as $cont)
-{
-	$array_formato_values[] = $cont["id_formato"];
-	$array_formato_output[] = $cont["formato"];
-}
-
-//$lista_usuarios_irrestritos = array(6,49,909,910,978,871,1046,226,1142,1213);
-
-if(!in_array($_SESSION["id_funcionario"], $lista_usuarios_irrestritos))
-{
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".os_x_funcionarios ";
-	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND os_x_funcionarios.reg_del = 0 ";
-	$sql .= "AND ordem_servico.id_os = os_x_funcionarios.id_os ";
-	$sql .= "AND os_x_funcionarios.id_funcionario = '" . $_SESSION["id_funcionario"] . "' ";
-	$sql .= "AND ordem_servico_status.id_os_status IN (1,2,14,16) ";
-	$sql .= "AND os.os > 3000 ";	
-	$sql .= "GROUP BY ordem_servico.id_os ";
-	$sql .= "ORDER BY ordem_servico.os ";
-}
-else
-{
-	$sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status ";
-	$sql .= "WHERE ordem_servico.id_os_status = ordem_servico_status.id_os_status ";
-	$sql .= "AND ordem_servico.reg_del = 0 ";
-	$sql .= "AND ordem_servico_status.reg_del = 0 ";
-	$sql .= "AND os.os > 3000 ";	
-	$sql .= "GROUP BY ordem_servico.id_os ";
-	$sql .= "ORDER BY ordem_servico.os ";	
-}
-
-$db->select($sql,'MYSQL',true);
-
-if ($db->erro != '')
-{
-	exit("Não foi possível realizar a seleção: ". $db->erro); 
-}
-
-foreach($db->array_select as $regs)
-{
-	$os = sprintf("%05d",$regs["os"]);
-	
-	$array_os_values[] = $regs["id_os"];
-	$array_os_output[] = $os." - ". substr($regs["descricao"],0,50);
-}
-
-$smarty->assign("option_setor_values",$array_setor_values);
-$smarty->assign("option_setor_output",$array_setor_output);
-
-$smarty->assign("option_tipo_values",$array_tipo_values);
-$smarty->assign("option_tipo_output",$array_tipo_output);
-
-$smarty->assign("option_formato_values",$array_formato_values);
-$smarty->assign("option_formato_output",$array_formato_output);
-
-$smarty->assign("option_os_values",$array_os_values);
-$smarty->assign("option_os_output",$array_os_output);
-$smarty->assign("option_os_title",$array_os_title);
-
-$smarty->assign("revisao_documento","V9");
-
-$smarty->assign("campo",$conf->campos('ged_documentos_referencia'));
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('documentos_referencia.tpl');
-?>

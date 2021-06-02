@@ -37,12 +37,12 @@ $idEspecCabecalho = $_GET['id_espec'];
 $sql = "SELECT
 			  *
 			FROM
-			   materiais_old.espec_cabecalho
+			   ".DATABASE.".espec_cabecalho
 			   JOIN(
 	           	   SELECT
 	           	   		el_id, el_ec_id, el_id_produto, el_cod_barras, el_el_id
 	           	   	FROM
-	           	   		materiais_old.espec_lista
+	           	   		".DATABASE.".espec_lista
 	           	   	WHERE
 	           	   		espec_lista.reg_del = 0 
 	           	   		AND el_ec_id = {$idEspecCabecalho}
@@ -54,13 +54,13 @@ $sql = "SELECT
 			    	desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, 
 			    	unidade2, peso1, peso2, descricao, descFamilia
 		        FROM
-		        materiais_old.produto
+		        ".DATABASE.".produto
 		        JOIN(
 					SELECT 
 						id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, descFamilia
-					FROM materiais_old.componentes
+					FROM ".DATABASE.".componentes
 					LEFT JOIN (
-						SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+						SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 					) familia ON idFamilia = id_familia
 					WHERE componentes.reg_del = 0
 				) componentes

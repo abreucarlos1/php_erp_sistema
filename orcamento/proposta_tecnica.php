@@ -2798,7 +2798,7 @@ function concluir_escopo($id_escopo_geral,$id_setor,$status)
 	
 	$params = array();
 	
-	$params['from']	= "ti@dominio.com.br";
+	$params['from']	= "ti@".DOMINIO;
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -3070,7 +3070,7 @@ function aprovar_valorizacao($dados_form)
 	
 	$params = array();
 	
-	$params['from']	= "ti@dominio.com.br";
+	$params['from']	= "ti@".DOMINIO;
 	
 	$params['from_name'] = "Sistema ERP";
 	
@@ -3162,7 +3162,7 @@ function aprovar($id_proposta,$status)
 	
 	$params = array();
 	
-	$params['from']	= "ti@dominio.com.br";
+	$params['from']	= "ti@".DOMINIO;
 	
 	$params['from_name'] = "Sistema ERP";
 	

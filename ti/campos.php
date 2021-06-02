@@ -5,18 +5,11 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/campos.php
+		../administracao/campos.php
 	
-		Versão 0 --> VERSÃO INICIAL : 24/03/2009
-		Versão 1 --> Atualização classe de banco de dados - 27/01/2015 - Carlos Abreu
-		Versão 2 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-*/
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
 
-ini_set('max_execution_time', 0); // No time limit
-ini_set('post_max_size', '20M');
-ini_set('upload_max_filesize', '20M');
-ini_set('memory_limit', '1024M');
+*/
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -80,19 +73,19 @@ function atualizatabela($filtro,$index_tela)
 		}
 		
 		$sql_filtro = "AND (campos.texto LIKE '".$sql_texto."' ";
-		$sql_filtro .= "OR tela.nome_tela LIKE '".$sql_texto."') ";
+		$sql_filtro .= "OR telas.nome_tela LIKE '".$sql_texto."') ";
 	}
 	
 	if($index_tela!="")
 	{
-		$filtro_tela = "AND tela.id_tela = ".$index_tela." ";
+		$filtro_tela = "AND telas.id_tela = ".$index_tela." ";
 	}
 	
-	$sql = "SELECT * FROM ".DATABASE.".idiomas, ".DATABASE.".campos, ".DATABASE.".tela ";
-	$sql .= "WHERE campos.id_tela = tela.id_tela ";
+	$sql = "SELECT * FROM ".DATABASE.".idiomas, ".DATABASE.".campos, ".DATABASE.".telas ";
+	$sql .= "WHERE campos.id_tela = telas.id_tela ";
 	$sql .= "AND idiomas.reg_del = 0 ";
 	$sql .= "AND campos.reg_del = 0 ";
-	$sql .= "AND tela.reg_del = 0 ";
+	$sql .= "AND telas.reg_del = 0 ";
 	$sql .= "AND campos.id_idioma = idiomas.id_idioma ";
 	$sql .= $sql_filtro;
 	$sql .= $filtro_tela;
@@ -344,13 +337,72 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$conf = new configs();
+
+$array_tela_values = NULL;
+$array_tela_output = NULL;
+
+$array_tela_values[] = "";
+$array_tela_output[] = "SELECIONE";
+
+$array_idioma_values = NULL;
+$array_idioma_output = NULL;
+
+$array_idioma_values[] = "";
+$array_idioma_output[] = "SELECIONE";
+
+$smarty->assign("campo",$conf->campos('campos'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$msg = $conf->msg();
+
+$db = new banco_dados;
+
+$sql = "SELECT id_tela, nome_tela FROM ".DATABASE.".telas ";
+$sql .= "ORDER BY nome_tela ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach ($db->array_select as $regs)
+{
+	$array_tela_values[] = $regs["id_tela"];
+	$array_tela_output[] = $regs["nome_tela"];
+}
+
+$sql = "SELECT id_idioma, idioma  FROM ".DATABASE.".idiomas ";
+
+$db->select($sql,'MYSQL',true);
+
+foreach ($db->array_select as $regs)
+{
+	$array_idioma_values[] = $regs["id_idioma"];
+	$array_idioma_output[] = $regs["idioma"];
+}
+
+$smarty->assign("option_tela_values",$array_tela_values);
+$smarty->assign("option_tela_output",$array_tela_output);
+
+$smarty->assign("option_idioma_values",$array_idioma_values);
+$smarty->assign("option_idioma_output",$array_idioma_output);
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->display('campos.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -391,62 +443,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-$conf = new configs();
-
-$array_tela_values = NULL;
-$array_tela_output = NULL;
-
-$array_tela_values[] = "";
-$array_tela_output[] = "SELECIONE";
-
-$array_idioma_values = NULL;
-$array_idioma_output = NULL;
-
-$array_idioma_values[] = "";
-$array_idioma_output[] = "SELECIONE";
-
-$smarty->assign("campo",$conf->campos('campos'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$msg = $conf->msg();
-
-$db = new banco_dados;
-
-$sql = "SELECT * FROM ".DATABASE.".tela ";
-$sql .= "ORDER BY nome_tela ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach ($db->array_select as $regs)
-{
-	$array_tela_values[] = $regs["id_tela"];
-	$array_tela_output[] = $regs["nome_tela"];
-}
-
-$sql = "SELECT * FROM ".DATABASE.".idiomas ";
-
-$db->select($sql,'MYSQL',true);
-
-foreach ($db->array_select as $regs)
-{
-	$array_idioma_values[] = $regs["id_idioma"];
-	$array_idioma_output[] = $regs["idioma"];
-}
-
-$smarty->assign("option_tela_values",$array_tela_values);
-$smarty->assign("option_tela_output",$array_tela_output);
-
-$smarty->assign("option_idioma_values",$array_idioma_values);
-$smarty->assign("option_idioma_output",$array_idioma_output);
-
-$smarty->assign("revisao_documento","V3");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('campos.tpl');
-
-?>
-

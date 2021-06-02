@@ -268,22 +268,7 @@ function buscaAtividades($dados_form)
 }
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-?>
 
-<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<script>
-
-function open_doc(dir)
-{
-	window.open("documento_v2.php?documento="+dir,"_blank");
-}
-
-</script>
-
-<?php
 $sql = "SELECT * FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
 $sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
@@ -319,4 +304,18 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('ged_book_arquivos.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>datetimepicker/datetimepicker_css.js"></script>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
+
+<script>
+
+function open_doc(dir)
+{
+	window.open("documento_v2.php?documento="+dir,"_blank");
+}
+
+</script>

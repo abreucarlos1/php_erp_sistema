@@ -19,11 +19,11 @@
 			</td>
 	        <td colspan="2" valign="top" class="espacamento">
 	        	<form name="frmPerfis" id="frmPerfis">
-	        		<label class='labels'>Escolha os usuários Origem e Destino</label></legend>
+	        		<label class='labels'>Escolha os usuÃ¡rios Origem e Destino</label></legend>
 		        	<table>
 		        		<tr>
 		        			<td>
-		        				<label class="labels">Usuário Origem</label>
+		        				<label class="labels">UsuÃ¡rio Origem</label>
 		        			</td>
 		        			<td>
 		        				<select name="selUsuariosOrigem" id="selUsuariosOrigem" class="caixa" onchange="xajax_atualizatabela_permissoes(this.value, 1);">
@@ -34,7 +34,7 @@
 		        		</tr>
 		        		<tr>
 		        			<td>
-		        				<label class="labels">Usuário Destino</label>
+		        				<label class="labels">UsuÃ¡rio Destino</label>
 		        			</td>
 		        			<td>
 		        				<select name="selUsuariosDestino" id="selUsuariosDestino" class="caixa" onchange="xajax_atualizatabela_permissoes(this.value, 2);">
@@ -49,11 +49,11 @@
 		</table>
 		
 		<fieldset style="margin-top: 20px; text-align: left;">
-			<legend><label class='labels'>Verifique os módulos de cada usuário selecionado</label></legend>
+			<legend><label class='labels'>Verifique os mÃ³dulos de cada usuÃ¡rio selecionado</label></legend>
 			<table width="100%">
 				<tr>
-					<td valign="top" width="50%"><labels class='labels'>Módulos Origem</labels></td>
-					<td valign="top" width="50%"><labels class='labels'>Módulos Destino</labels></td>
+					<td valign="top" width="50%"><labels class='labels'>MÃ³dulos Origem</labels></td>
+					<td valign="top" width="50%"><labels class='labels'>MÃ³dulos Destino</labels></td>
 				</tr>
 				<tr>
 					<td valign="top" width="50%"><div id="divListaOrigem" class="labels" style="width:100%; height: 480px;"></div></td>

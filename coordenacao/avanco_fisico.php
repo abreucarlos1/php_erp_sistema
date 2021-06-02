@@ -129,6 +129,14 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+$smarty->assign("nome_formulario","AVANÇO FÍSICO");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("avanco_fisico.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -137,7 +145,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<SCRIpt>
+<script>
 
 function grid()
 {
@@ -150,14 +158,3 @@ function grid()
 }
 
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("nome_formulario","AVANÇO FÍSICO");
-
-$smarty->assign("classe","setor_proj");
-
-$smarty->display("avanco_fisico.tpl");
-
-?>

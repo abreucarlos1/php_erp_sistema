@@ -28,12 +28,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -114,3 +108,4 @@ $smarty->display('escolha_relevancia.tpl');
 
 ?>
 
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

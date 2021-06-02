@@ -107,11 +107,7 @@ $xajax->registerFunction("preencheos");
 $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
-?>
 
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
 $conf = new configs();
 
 $array_coordenador_values = NULL;
@@ -201,4 +197,7 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('controle_acumulado_os_funcao_protheus.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

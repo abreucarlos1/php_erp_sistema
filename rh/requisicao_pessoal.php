@@ -219,11 +219,11 @@ function excluir($id_requisicao, $dados_form)
 			{
 
 				$params 			= array();
-				$params['from']		= "recrutamento@dominio.com.br";
+				$params['from']		= "recrutamento@".DOMINIO;
 				$params['from_name']= "SISTEMA REQUISIÇÃO DE PESSOAL - CANCELAMENTO DE VAGA";
 				$params['subject'] 	= "VAGA CANCELADA";
 				
-				$params['emails']['to'][] = array('email' => "recrutamento@dominio.com.br", 'nome' => "Recursos Humanos");
+				$params['emails']['to'][] = array('email' => "recrutamento@".DOMINIO, 'nome' => "Recursos Humanos");
 
 				$mail = new email($params);
 				$mail->montaCorpoEmail($mensagem_rh);
@@ -421,14 +421,14 @@ function insere($dados_form)
 			$usuario_req = $db->array_select[0];
 			
 			$params = array();
-			$params['emails']['to'][] = array('email' => "recrutamento@dominio.com.br", 'nome' => "RECURSOS HUMANOS");
+			$params['emails']['to'][] = array('email' => "recrutamento@".DOMINIO, 'nome' => "RECURSOS HUMANOS");
 			
 			//Se vaga efetiva
 			if($dados_form["tipo"]=="1")
 			{
 				$params['subject'] 	= "VAGA SOLICITADA - EFETIVA";
 
-				$params['emails']['to'][] = array('email' => "diretoria@dominio.com.br", 'nome' => "DIRETORIA");
+				$params['emails']['to'][] = array('email' => "diretoria@".DOMINIO, 'nome' => "DIRETORIA");
 			}
 			else
 			{
@@ -437,7 +437,7 @@ function insere($dados_form)
 			
 			if ($emailTi)
 			{
-				$params['emails']['to'][] = array('email' => "ti@dominio.com.br", 'nome' => "Suporte TI");
+				$params['emails']['to'][] = array('email' => "ti@".DOMINIO, 'nome' => "Suporte TI");
 			}
 		
 			if(ENVIA_EMAIL)
@@ -595,7 +595,7 @@ $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function grid(tabela, autoh, height, xml)
 {	
 	mygrid = new dhtmlXGridObject(tabela);

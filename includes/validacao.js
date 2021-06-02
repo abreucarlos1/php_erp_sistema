@@ -822,3 +822,9 @@ function verificaDataErro(data, idLimpar)
 	
 	return retorno;
 }
+
+function limpa_div(div)
+{
+	div = document.getElementById(div);
+	div.innerHTML = '';
+}

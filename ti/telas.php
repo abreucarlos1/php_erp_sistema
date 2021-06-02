@@ -5,12 +5,10 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/telas.php
+		../administracao/telas.php
 	
-		Versão 0 --> VERSÃO INICIAL : 24/03/2009
-		Versão 1 --> Atualização Lay-out : 09/10/2012 - Carlos Abreu
-		Versão 2 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -76,8 +74,8 @@ function atualizatabela($filtro)
 		$sql_filtro = "AND tela.nome_tela LIKE '".$sql_texto."' ";
 	}
 	
-	$sql = "SELECT * FROM ".DATABASE.".tela ";
-	$sql .= "WHERE tela.reg_del = 0 ";
+	$sql = "SELECT * FROM ".DATABASE.".telas ";
+	$sql .= "WHERE telas.reg_del = 0 ";
 	$sql .= $sql_filtro;
 	$sql .= "ORDER BY nome_tela ";
 
@@ -136,7 +134,7 @@ function insere($dados_form)
 		if($dados_form["tela"]!="")
 		{
 			
-			$sql = "SELECT * FROM ".DATABASE.".tela ";
+			$sql = "SELECT * FROM ".DATABASE.".telas ";
 			$sql .= "WHERE nome_tela = '".trim($dados_form["tela"])."' ";
 			$sql .= "AND reg_del = 0 ";
 
@@ -149,7 +147,7 @@ function insere($dados_form)
 			
 			if($db->numero_registros<=0)
 			{		
-				$isql = "INSERT INTO ".DATABASE.".tela ";
+				$isql = "INSERT INTO ".DATABASE.".telas ";
 				$isql .= "(nome_tela) ";
 				$isql .= "VALUES ('" . minusculas($dados_form["tela"]) . "') ";
 
@@ -193,8 +191,8 @@ function editar($id)
 
 	$db = new banco_dados;
 	
-	$sql = "SELECT * FROM ".DATABASE.".tela ";
-	$sql .= "WHERE tela.id_tela = '".$id."' ";
+	$sql = "SELECT * FROM ".DATABASE.".telas ";
+	$sql .= "WHERE telas.id_tela = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 
 	$db->select($sql,'MYSQL',true);
@@ -235,7 +233,7 @@ function atualizar($dados_form)
 		if($dados_form["tela"]!='')
 		{
 		
-			$sql = "SELECT * FROM ".DATABASE.".tela ";
+			$sql = "SELECT * FROM ".DATABASE.".telas ";
 			$sql .= "WHERE nome_tela = '".trim($dados_form["tela"])."' ";
 			$sql .= "AND id_tela <> '".$dados_form["id_tela"]."' ";
 			$sql .= "AND reg_del = 0 ";
@@ -249,7 +247,7 @@ function atualizar($dados_form)
 					
 			if($db->numero_registros<=0)
 			{
-				$usql = "UPDATE ".DATABASE.".tela SET ";
+				$usql = "UPDATE ".DATABASE.".telas SET ";
 				$usql .= "nome_tela = '" . minusculas($dados_form["tela"]) . "' ";
 				$usql .= "WHERE id_tela = '".$dados_form["id_tela"]."' ";
 				$usql .= "AND reg_del = 0 ";
@@ -294,11 +292,11 @@ function excluir($id, $what)
 	{
 		$db = new banco_dados;
 		
-		$usql = "UPDATE ".DATABASE.".tela SET ";
+		$usql = "UPDATE ".DATABASE.".telas SET ";
 		$usql .= "reg_del = 1, ";
 		$usql .= "reg_who = '".$_SESSION["id_funcionario"]."', ";
 		$usql .= "data_del = '".date('Y-m-d')."' ";
-		$usql .= "WHERE tela.id_tela = '".$id."' ";
+		$usql .= "WHERE telas.id_tela = '".$id."' ";
 		$usql .= "AND reg_del = 0 ";
 
 		$db->update($usql,'MYSQL');
@@ -329,13 +327,29 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('');");
 
+$conf = new configs();
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("campo",$conf->campos('telas'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('telas.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -373,19 +387,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-$conf = new configs();
-
-$smarty->assign("campo",$conf->campos('telas'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("revisao_documento","V3");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('telas.tpl');
-
-?>
-

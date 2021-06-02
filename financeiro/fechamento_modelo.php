@@ -13,7 +13,135 @@
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 
+	
+$header = "<div style='z-index:2; width: 100%; background: #FFF;margin: 0 auto; overflow: no;'>";
+$footer = "</div>";
+
+
+//DADOS DO FUNCIONÁRIO
+$conteudo_f = "<div class='nom'>";
+$conteudo_f .= "Fulano de Tal";
+$conteudo_f .= "</div>";
+
+//DADOS DA MEDIÇÃO
+//periodo
+$conteudo_d .= "<div class='label1'>Período:</div>";
+$conteudo_d .= "<div class='label2'>";
+$conteudo_d .= "26/01/2020 á 25/02/2020";
+$conteudo_d .= "</div>";
+
+//Função
+$conteudo_d .= "<div class='label1'>Função:</div>";
+$conteudo_d .= "<div class='label2'>";
+$conteudo_d .= "XXXXXXXXXXXX";
+$conteudo_d .= "</div>";
+
+//tipo Contrato
+$conteudo_d .= "<div class='label1'>Contrato:</div>";
+$conteudo_d .= "<div class='label2'>";
+$conteudo_d .= "XX";
+$conteudo_d .= "</div>";
+
+//valor Hora (Contrato SC)
+
+$conteudo_d .= "<div class='label1'>Valor Hora:</div>";
+$conteudo_d .= "<div class='label2'>R$ ";
+$conteudo_d .= "0,00";
+$conteudo_d .= "</div>";
+
+//Horas Normais
+$conteudo_d .= "<div class='label1'>Horas Normais:</div>";
+$conteudo_d .= "<div class='label2'>";
+
+$conteudo_d .= "0:00";
+$conteudo_d .= "</div>";	
+
+
+//Horas Adicionais
+$conteudo_d .= "<div class='label1'>Horas Adicionais:</div>";
+$conteudo_d .= "<div class='label2'>";	
+$conteudo_d .= "0:00";
+$conteudo_d .= "</div>";
+	
+//Medição
+$conteudo_d .= "<div class='label1'>Medição:</div>";
+$conteudo_d .= "<div class='label2'>R$ ";
+$conteudo_d .= "0,00";
+$conteudo_d .= "</div>";	
+
+//DADOS DA NOTA FISCAL
+$conteudo_n .= "<div class='tit' style='margin-top: 1px;'>NOTA FISCAL</div>";
+
+//valor da nota
+$conteudo_n .= "<div class='label5'>valor Nota Fiscal:</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";
+$conteudo_n .= "</div>";
+
+//data emissão  
+$conteudo_n .= "<div class='label5'>Data de Emissão:</div>";
+$conteudo_n .= "<div class='label2'>(Data de emissão: de hoje até 28/02/2020)</div>";
+
+//Botão Dados  
+$conteudo_n .= "<div id='div'  style='position:relative; background-color:#CCC; border-style:outset; border-width:1px; text-align:center; cursor:hand;  margin-top: 1px; margin-bottom: 10px;' onclick='mostra_dadosfat(this);'>DADOS P/ FATURAMENTO</div>";
+
+
+//DADOS DE IMPOSTOS
+$conteudo_n .= "<div class='tit'>IMPOSTOS</div>";
+
+//IR
+$conteudo_n .= "<div class='label5'>IR(1,5%):</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";
+$conteudo_n .= "</div>";
+
+$conteudo_n .= "<div> </div>";
+$conteudo_n .= "<div> </div>";
+
+
+//PIS
+$conteudo_n .= "<div class='label5'>PIS(0,65%):</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";	
+$conteudo_n .= "</div>";
+
+//COFINS
+$conteudo_n .= "<div class='label5'>COFINS(3%):</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";
+$conteudo_n .= "</div>";
+
+//CSLL
+$conteudo_n .= "<div class='label5'>CSLL(1%):</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";
+$conteudo_n .= "</div>";
+
+//TOTAL IMPOSTOS
+$conteudo_n .= "<div class='label5'>TOTAL (PIS/COFINS/CSLL)(4,65%):</div>";
+$conteudo_n .= "<div class='label2'>R$ ";
+$conteudo_n .= "0,00";
+$conteudo_n .= "</div>";
+	
+
+//INF ADICIONAIS
+//Mostra os detalhes de outros descontos.
+$conteudo_n .= "<div class='tit'>OUTROS DESCONTOS</div>";
+$conteudo_n .= "<div class='label5'>Adiantamento</div>"; 
+$conteudo_n .= "<div class='label2'>0,00</div>";		
+
+
+//Mostra os detalhes de acrescimos
+$conteudo_n .= "<div class='tit'>OUTROS ACRÉSCIMOS</div>";	
+$conteudo_n .= "<div class='label5'>Mês anterior</div>";
+$conteudo_n .= "<div class='label2'>0,00</div>";
+
+$conteudo_n .= "<div class='tit'>INFORMAÇÕES ADICIONAIS</div>";	
+$conteudo_n .= "<div class='label2'>Fechamento parcial</div>";
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -149,7 +277,7 @@ div {
 
 </head>
 
-<script language="javascript">
+<script>
 
 function mostra_dadosfat(div)
 {
@@ -200,136 +328,6 @@ function mostra_dadosfat(div)
 }
 
 </script>
-
-
-<?
-	
-$header = "<div style='z-index:2; width: 100%; background: #FFF;margin: 0 auto; overflow: no;'>";
-$footer = "</div>";
-
-
-//DADOS DO FUNCIONÁRIO
-$conteudo_f = "<div class='nom'>";
-$conteudo_f .= "Fulano de Tal";
-$conteudo_f .= "</div>";
-
-//DADOS DA MEDIÇÃO
-//periodo
-$conteudo_d .= "<div class='label1'>Período:</div>";
-$conteudo_d .= "<div class='label2'>";
-$conteudo_d .= "26/01/2020 á 25/02/2020";
-$conteudo_d .= "</div>";
-
-//Função
-$conteudo_d .= "<div class='label1'>Função:</div>";
-$conteudo_d .= "<div class='label2'>";
-$conteudo_d .= "XXXXXXXXXXXX";
-$conteudo_d .= "</div>";
-
-//tipo Contrato
-$conteudo_d .= "<div class='label1'>Contrato:</div>";
-$conteudo_d .= "<div class='label2'>";
-$conteudo_d .= "XX";
-$conteudo_d .= "</div>";
-
-//valor Hora (Contrato SC)
-
-$conteudo_d .= "<div class='label1'>Valor Hora:</div>";
-$conteudo_d .= "<div class='label2'>R$ ";
-$conteudo_d .= "0,00";
-$conteudo_d .= "</div>";
-
-//Horas Normais
-$conteudo_d .= "<div class='label1'>Horas Normais:</div>";
-$conteudo_d .= "<div class='label2'>";
-
-$conteudo_d .= "0:00";
-$conteudo_d .= "</div>";	
-
-
-//Horas Adicionais
-$conteudo_d .= "<div class='label1'>Horas Adicionais:</div>";
-$conteudo_d .= "<div class='label2'>";	
-$conteudo_d .= "0:00";
-$conteudo_d .= "</div>";
-	
-//Medição
-$conteudo_d .= "<div class='label1'>Medição:</div>";
-$conteudo_d .= "<div class='label2'>R$ ";
-$conteudo_d .= "0,00";
-$conteudo_d .= "</div>";	
-
-//DADOS DA NOTA FISCAL
-$conteudo_n .= "<div class='tit' style='margin-top: 1px;'>NOTA FISCAL</div>";
-
-//valor da nota
-$conteudo_n .= "<div class='label5'>valor Nota Fiscal:</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";
-$conteudo_n .= "</div>";
-
-//data emissão  
-$conteudo_n .= "<div class='label5'>Data de Emissão:</div>";
-$conteudo_n .= "<div class='label2'>(Data de emissão: de hoje até 28/02/2020)</div>";
-
-//Botão Dados  
-$conteudo_n .= "<div id='div'  style='position:relative; background-color:#CCC; border-style:outset; border-width:1px; text-align:center; cursor:hand;  margin-top: 1px; margin-bottom: 10px;' onclick='mostra_dadosfat(this);'>DADOS P/ FATURAMENTO</div>";
-
-
-//DADOS DE IMPOSTOS
-$conteudo_n .= "<div class='tit'>IMPOSTOS</div>";
-
-//IR
-$conteudo_n .= "<div class='label5'>IR(1,5%):</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";
-$conteudo_n .= "</div>";
-
-$conteudo_n .= "<div> </div>";
-$conteudo_n .= "<div> </div>";
-
-
-//PIS
-$conteudo_n .= "<div class='label5'>PIS(0,65%):</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";	
-$conteudo_n .= "</div>";
-
-//COFINS
-$conteudo_n .= "<div class='label5'>COFINS(3%):</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";
-$conteudo_n .= "</div>";
-
-//CSLL
-$conteudo_n .= "<div class='label5'>CSLL(1%):</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";
-$conteudo_n .= "</div>";
-
-//TOTAL IMPOSTOS
-$conteudo_n .= "<div class='label5'>TOTAL (PIS/COFINS/CSLL)(4,65%):</div>";
-$conteudo_n .= "<div class='label2'>R$ ";
-$conteudo_n .= "0,00";
-$conteudo_n .= "</div>";
-	
-
-//INF ADICIONAIS
-//Mostra os detalhes de outros descontos.
-$conteudo_n .= "<div class='tit'>OUTROS DESCONTOS</div>";
-$conteudo_n .= "<div class='label5'>Adiantamento</div>"; 
-$conteudo_n .= "<div class='label2'>0,00</div>";		
-
-
-//Mostra os detalhes de acrescimos
-$conteudo_n .= "<div class='tit'>OUTROS ACRÉSCIMOS</div>";	
-$conteudo_n .= "<div class='label5'>Mês anterior</div>";
-$conteudo_n .= "<div class='label2'>0,00</div>";
-
-$conteudo_n .= "<div class='tit'>INFORMAÇÕES ADICIONAIS</div>";	
-$conteudo_n .= "<div class='label2'>Fechamento parcial</div>";
-
-?>
 
 <body>
 

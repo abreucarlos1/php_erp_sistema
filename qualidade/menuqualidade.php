@@ -180,6 +180,20 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$smarty->assign("body_onload","xajax_monta_menu(9);xajax_monta_pastas('".DOCUMENTOS_SGI."PROCEDIMENTOS_SGI')");
+
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V6");
+
+$smarty->assign("campo",$conf->campos('menuqualidade'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display("menuqualidade.tpl");
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
@@ -216,21 +230,3 @@ function show_tree(xml)
 }
 </script>
 
-<?php
-
-
-$smarty->assign("body_onload","xajax_monta_menu(9);xajax_monta_pastas('".DOCUMENTOS_SGI."PROCEDIMENTOS_SGI')");
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V6");
-
-$smarty->assign("campo",$conf->campos('menuqualidade'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display("menuqualidade.tpl");
-
-?>

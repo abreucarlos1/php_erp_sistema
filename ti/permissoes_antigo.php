@@ -85,7 +85,7 @@ if($_POST["incluir"]=="incluir")
 
 <?php $xajax->printJavascript(XAJAX_DIR); // output the xajax javascript. This must be called between the head tags ?>
 
-<script language="javascript">
+<script>
 
 xajax_checaSessao();
 

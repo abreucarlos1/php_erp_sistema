@@ -1017,7 +1017,7 @@ function email($id)
 	{
 		$mail = new PHPMailer();	
 		
-		$mail->From     = "qualidade@dominio.com.br";
+		$mail->From     = "qualidade@".DOMINIO;
 		$mail->FromName = "SGI";
 		$mail->Host     = "smtp.com.br";
 		$mail->Mailer   = "smtp";
@@ -1532,13 +1532,128 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));xajax_acoes_complem();");
 
+$conf = new configs();
+
+$db = new banco_dados;	
+
+$smarty->assign("revisao_documento","V1");
+
+$smarty->assign("campo",$conf->campos('plano_acao_corretiva_preventiva'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_formulario","PLANO DE AÇÃO CORRETIVA / PREVENTIVA");
+
+$smarty->assign("codigo","PA-".date('YmdHi'));
+
+$smarty->assign("originador",$_SESSION["nome_usuario"]);
+
+$smarty->assign("id_originador",$_SESSION["id_funcionario"]);
+
+$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
+$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
+$sql .= "AND funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$cont = $db->array_select[0];
+
+$smarty->assign("setor",$cont["setor"]);
+
+$smarty->assign("id_setor",$cont["id_setor"]);
+
+$sql = "SELECT * FROM ".DATABASE.".nao_conformidades ";
+$sql .= "WHERE nao_conformidade_delete = 0 ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$nc = "<select id=\"nao_conf\" name=\"nao_conf\" class=\"caixa\" disabled=\"disabled\" >";
+
+$nc .= "<option value=\"0\">SELECIONE</option>";
+
+foreach ($db->array_select as $cont0)
+{
+	$nc .= "<option value=\"".$cont0["id_nao_conformidade"]."\">".$cont0["cod_nao_conformidade"]."</option>";
+}
+
+$nc .= "</select>";
+
+$sql = "SELECT * FROM ".DATABASE.".planos_acoes_referencias ";
+
+$db->select($sql,'MYSQL',true);
+
+//se der mensagem de erro, mostra
+if($db->erro!='')
+{
+	die($db->erro);
+}
+
+$doc_ref = "<table width=\"100%\">";
+
+$i = 0;
+
+foreach ($db->array_select as $cont1)
+{	
+	if(!$i%2)
+	{
+		$doc_ref .= "<tr>";	
+	}
+	
+	//nao conformidade interna
+	if($cont1["id_plano_acao_referencia"]==1)
+	{
+		$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('nao_conf').disabled=false;document.getElementById('nao_conf').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
+		$doc_ref .= "  ".$nc;
+	}
+	else
+	{
+		//outros
+		if($cont1["id_plano_acao_referencia"]==5)
+		{
+			$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
+			$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" />";
+		}
+		else
+		{
+			$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('nao_conf').disabled=true;\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
+		}		
+	}
+	
+	$doc_ref .= "</td>";
+
+	if($i%2)
+	{
+		$doc_ref .= "</tr>";	
+	}
+	
+	$i++;
+}
+
+$doc_ref .= "</table>";
+
+$smarty->assign("doc_ref",$doc_ref);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('plano_acao_corretiva_preventiva.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 
 //função que adiciona campos no div
@@ -1664,122 +1779,3 @@ function open_file(documento,path)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$db = new banco_dados;	
-
-$smarty->assign("revisao_documento","V1");
-
-$smarty->assign("campo",$conf->campos('plano_acao_corretiva_preventiva'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_formulario","PLANO DE AÇÃO CORRETIVA / PREVENTIVA");
-
-$smarty->assign("codigo","PA-".date('YmdHi'));
-
-$smarty->assign("originador",$_SESSION["nome_usuario"]);
-
-$smarty->assign("id_originador",$_SESSION["id_funcionario"]);
-
-$sql = "SELECT * FROM ".DATABASE.".setores, ".DATABASE.".funcionarios ";
-$sql .= "WHERE funcionarios.id_setor = setores.id_setor ";
-$sql .= "AND funcionarios.id_funcionario = '".$_SESSION["id_funcionario"]."' ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$cont = $db->array_select[0];
-
-$smarty->assign("setor",$cont["setor"]);
-
-$smarty->assign("id_setor",$cont["id_setor"]);
-
-$sql = "SELECT * FROM ".DATABASE.".nao_conformidades ";
-$sql .= "WHERE nao_conformidade_delete = 0 ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$nc = "<select id=\"nao_conf\" name=\"nao_conf\" class=\"caixa\" disabled=\"disabled\" >";
-
-$nc .= "<option value=\"0\">SELECIONE</option>";
-
-foreach ($db->array_select as $cont0)
-{
-	$nc .= "<option value=\"".$cont0["id_nao_conformidade"]."\">".$cont0["cod_nao_conformidade"]."</option>";
-}
-
-$nc .= "</select>";
-
-$sql = "SELECT * FROM ".DATABASE.".planos_acoes_referencias ";
-
-$db->select($sql,'MYSQL',true);
-
-//se der mensagem de erro, mostra
-if($db->erro!='')
-{
-	die($db->erro);
-}
-
-$doc_ref = "<table width=\"100%\">";
-
-$i = 0;
-
-foreach ($db->array_select as $cont1)
-{	
-	if(!$i%2)
-	{
-		$doc_ref .= "<tr>";	
-	}
-	
-	//nao conformidade interna
-	if($cont1["id_plano_acao_referencia"]==1)
-	{
-		$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('nao_conf').disabled=false;document.getElementById('nao_conf').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
-		$doc_ref .= "  ".$nc;
-	}
-	else
-	{
-		//outros
-		if($cont1["id_plano_acao_referencia"]==5)
-		{
-			$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" id=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('outros').style.backgroundColor='white';document.getElementById('outros').readOnly=false;document.getElementById('outros').focus();\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
-			$doc_ref .= "  <input name=\"outros\" type=\"text\" class=\"caixa\" id=\"outros\" size=\"50\" readonly=\"readonly\" value=\"\" style=\"background-color:grey;\" />";
-		}
-		else
-		{
-			$doc_ref .= "<td><input type=\"radio\" name=\"rd_doc_ref\" value=\"".$cont1["id_plano_acao_referencia"]."\" onclick=\"document.getElementById('nao_conf').disabled=true;\" /><label class=\"labels\">".$cont1["plano_acao_referencia"]."</label>";
-		}		
-	}
-	
-	$doc_ref .= "</td>";
-
-	if($i%2)
-	{
-		$doc_ref .= "</tr>";	
-	}
-	
-	$i++;
-}
-
-$doc_ref .= "</table>";
-
-$smarty->assign("doc_ref",$doc_ref);
-
-$smarty->assign("classe","../classes/".$conf->classe('administrativo').".css");
-
-$smarty->display('plano_acao_corretiva_preventiva.tpl');
-
-?>

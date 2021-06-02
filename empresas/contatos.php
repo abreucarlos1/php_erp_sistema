@@ -604,7 +604,7 @@ $smarty->display('contatos.tpl');
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function tab()
 {

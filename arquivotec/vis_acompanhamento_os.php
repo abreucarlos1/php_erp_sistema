@@ -29,26 +29,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-?>
-
-<script src="<?php echo INCLUDE_JS ?>datetimepicker.js"></script>
-
-<script>
-
-function visualizarRel()
-{
-	//Abre o relatório em uma janela popup
-	sel_os = document.getElementById("id_os");
-	
-	id_os = sel_os.options[sel_os.selectedIndex].value;
-	
-	window.open('relatorios/rel_acompanhamento_os.php?id_os='+id_os);
-}
-
-</script>
-
-<?php
-
 $sql = "SELECT ordem_servico.id_os, ordem_servico.os, ordem_servico.descricao, empresa FROM ".DATABASE.".ordem_servico, ".DATABASE.".ordem_servico_status, ".DATABASE.".empresas ";
 $sql .= "WHERE ordem_servico.id_empresa = empresas.id_empresa ";
 $sql .= "AND ordem_servico.reg_del = 0 ";
@@ -84,4 +64,21 @@ $smarty->assign("botao",$conf->botoes());
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('vis_acompanhamento_os.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>datetimepicker.js"></script>
+
+<script>
+
+function visualizarRel()
+{
+	//Abre o relatório em uma janela popup
+	sel_os = document.getElementById("id_os");
+	
+	id_os = sel_os.options[sel_os.selectedIndex].value;
+	
+	window.open('relatorios/rel_acompanhamento_os.php?id_os='+id_os);
+}
+
+</script>

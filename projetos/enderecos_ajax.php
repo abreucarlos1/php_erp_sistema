@@ -222,7 +222,7 @@ function maximiza()
 </script>
 
 
-<script language="javascript">
+<script>
 
 
 function xmlAlteraCombos_Startup()

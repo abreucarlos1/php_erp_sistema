@@ -5,13 +5,10 @@
 		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
-		../ti/modulos.php
+		../administracao/permissoes.php
 	
-		Versão 0 --> VERSÃO INICIAL : 23/03/2009
-		Versão 1 --> Atualização classe banco de dados - 27/01/2015 - Carlos Abreu
-		Versão 2 --> Melhorias desempenho e funcionalidades - 16/06/2015 - Eduardo
-		Versão 3 --> Atualização layout - Carlos Abreu - 11/04/2017
-		Versão 4 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
+		Versão 0 --> VERSÃO INICIAL : 20/05/2021
+
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	
@@ -585,13 +582,155 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
+$conf = new configs();
+
+$msg = $conf->msg();
+
+$array_modulo_values = NULL;
+$array_modulo_output = NULL;
+
+$array_acoes_values = NULL;
+$array_acoes_output = NULL;
+
+$array_usuario_values = NULL;
+$array_usuario_output = NULL;
+
+$array_modulo_values[] = "";
+$array_modulo_output[] = "SELECIONE";
+
+$array_acoes_values[] = "";
+$array_acoes_output[] = "SELECIONE";
+
+$array_usuario_values = array();
+$array_usuario_output = array();
+
+$db = new banco_dados;
+
+//SUB MODULOS PRINCIPAIS
+$sql = "SELECT id_sub_modulo, sub_modulo FROM ".DATABASE.".sub_modulos ";
+$sql .= "WHERE sub_modulos.id_sub_modulo_pai = 0 ";
+$sql .= "AND sub_modulos.reg_del = 0 ";
+$sql .= "AND sub_modulos.visivel = 1 ";
+$sql .= "ORDER BY sub_modulo ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach ($db->array_select as $regs)
+{
+	$array_modulo_values[] = $regs["id_sub_modulo"];
+	$array_modulo_output[] = $regs["sub_modulo"];
+}
+
+
+//SUB MODULOS secundários
+$sql = "SELECT id_sub_modulo, id_sub_modulo_pai, sub_modulo  FROM ".DATABASE.".sub_modulos ";
+$sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  0 ";
+$sql .= "AND sub_modulos.reg_del = 0 ";
+$sql .= "AND sub_modulos.visivel = 1 ";
+$sql .= "AND sub_modulos.id_sub_modulo IN ";
+$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0 AND sub_modulos.visivel = 1 AND sub_modulos.reg_del = 0) ";
+$sql .= "ORDER BY sub_modulo ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+$array_sub = $db->array_select;
+
+foreach ($array_sub as $regs)
+{
+	$sql = "SELECT sub_modulo FROM ".DATABASE.".sub_modulos ";
+	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
+	$sql .= "AND sub_modulos.reg_del = 0 ";
+	$sql .= "AND sub_modulos.visivel = 1 ";
+	
+	$db->select($sql,'MYSQL',true);
+	
+	if($db->erro!='')
+	{
+		$resposta->addAlert($db->erro);
+	}
+	
+	$regs1 = $db->array_select[0];
+
+	$array_modulo_values[] = $regs["id_sub_modulo"];
+	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
+}
+
+$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ";
+$sql .= "WHERE acoes.reg_del = 0 ";
+$sql .= "ORDER BY id_acao ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_acoes_values[] = $regs["id_acao"];
+	$array_acoes_output[] = $regs["acao"];	
+}
+
+$sql = "SELECT funcionario, id_usuario FROM ".DATABASE.".funcionarios ";
+$sql .= "JOIN ".DATABASE.".usuarios ON usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0 ";
+$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
+$sql .= "AND funcionarios.reg_del = 0 ";
+$sql .= "ORDER BY funcionario ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	$resposta->addAlert($db->erro);
+}
+
+foreach($db->array_select as $regs)
+{
+	$array_usuario_values[] = $regs["id_usuario"];
+	$array_usuario_output[] = $regs["funcionario"];	
+}
+
+$smarty->assign("option_modulo_values",$array_modulo_values);
+$smarty->assign("option_modulo_output",$array_modulo_output);
+
+$smarty->assign("option_acao_values",$array_acoes_values);
+$smarty->assign("option_acao_output",$array_acoes_output);
+
+$smarty->assign("option_usuario_values",$array_usuario_values);
+$smarty->assign("option_usuario_output",$array_usuario_output);
+
+$smarty->assign("campo",$conf->campos('permissao'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("revisao_documento","V0");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("larguraTotal",1);
+
+$smarty->display('permissoes.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function modalListaPermitidos()
 {
@@ -663,144 +802,3 @@ function grid(tabela, autoh, height, xml)
 	}
 }
 </script>
-
-<?php
-$conf = new configs();
-
-$msg = $conf->msg();
-
-$array_modulo_values = NULL;
-$array_modulo_output = NULL;
-
-$array_acoes_values = NULL;
-$array_acoes_output = NULL;
-
-$array_usuario_values = NULL;
-$array_usuario_output = NULL;
-
-$array_modulo_values[] = "";
-$array_modulo_output[] = "SELECIONE";
-
-$array_acoes_values[] = "";
-$array_acoes_output[] = "SELECIONE";
-
-$array_usuario_values = array();
-$array_usuario_output = array();
-
-$db = new banco_dados;
-
-//SUB MODULOS PRINCIPAIS
-$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-$sql .= "WHERE sub_modulos.id_sub_modulo_pai = 0 ";
-$sql .= "AND sub_modulos.reg_del = 0 ";
-$sql .= "AND sub_modulos.visivel = 1 ";
-$sql .= "ORDER BY sub_modulo ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach ($db->array_select as $regs)
-{
-	$array_modulo_values[] = $regs["id_sub_modulo"];
-	$array_modulo_output[] = $regs["sub_modulo"];
-}
-
-
-//SUB MODULOS secundários
-$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-$sql .= "WHERE sub_modulos.id_sub_modulo_pai <>  0 ";
-$sql .= "AND sub_modulos.reg_del = 0 ";
-$sql .= "AND sub_modulos.visivel = 1 ";
-$sql .= "AND sub_modulos.id_sub_modulo IN ";
-$sql .= "(SELECT id_sub_modulo_pai FROM ".DATABASE.".sub_modulos WHERE sub_modulos.id_sub_modulo_pai <> 0 AND sub_modulos.visivel = 1 AND sub_modulos.reg_del = 0) ";
-$sql .= "ORDER BY sub_modulo ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-$array_sub = $db->array_select;
-
-foreach ($array_sub as $regs)
-{
-	$sql = "SELECT * FROM ".DATABASE.".sub_modulos ";
-	$sql .= "WHERE sub_modulos.id_sub_modulo = '".$regs["id_sub_modulo_pai"]."' ";
-	$sql .= "AND sub_modulos.reg_del = 0 ";
-	$sql .= "AND sub_modulos.visivel = 1 ";
-	
-	$db->select($sql,'MYSQL',true);
-	
-	if($db->erro!='')
-	{
-		$resposta->addAlert($db->erro);
-	}
-	
-	$regs1 = $db->array_select[0];
-
-	$array_modulo_values[] = $regs["id_sub_modulo"];
-	$array_modulo_output[] = $regs1["sub_modulo"]." - ".$regs["sub_modulo"];	
-}
-
-$sql = "SELECT id_acao, acao FROM ".DATABASE.".acoes ";
-$sql .= "WHERE acoes.reg_del = 0 ";
-$sql .= "ORDER BY id_acao ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_acoes_values[] = $regs["id_acao"];
-	$array_acoes_output[] = $regs["acao"];	
-}
-
-$sql = "SELECT funcionario, id_usuario FROM ".DATABASE.".funcionarios ";
-$sql .= "JOIN ".DATABASE.".usuarios ON usuarios.id_usuario = funcionarios.id_usuario AND usuarios.reg_del = 0 ";
-$sql .= "WHERE funcionarios.situacao = 'ATIVO' ";
-$sql .= "AND funcionarios.reg_del = 0 ";
-$sql .= "ORDER BY funcionario ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	$resposta->addAlert($db->erro);
-}
-
-foreach($db->array_select as $regs)
-{
-	$array_usuario_values[] = $regs["id_usuario"];
-	$array_usuario_output[] = $regs["funcionario"];	
-}
-
-$smarty->assign("option_modulo_values",$array_modulo_values);
-$smarty->assign("option_modulo_output",$array_modulo_output);
-
-$smarty->assign("option_acao_values",$array_acoes_values);
-$smarty->assign("option_acao_output",$array_acoes_output);
-
-$smarty->assign("option_usuario_values",$array_usuario_values);
-$smarty->assign("option_usuario_output",$array_usuario_output);
-
-$smarty->assign("campo",$conf->campos('permissao'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('permissoes.tpl');
-
-?>

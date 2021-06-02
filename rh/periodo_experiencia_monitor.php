@@ -271,7 +271,7 @@ function avisar_avaliador($dados_form)
 	{
 
 		$params 			= array();
-		$params['from']		= "recrutamento@dominio.com.br";
+		$params['from']		= "recrutamento@".DOMINIO;
 		$params['from_name']= "RECURSOS HUMANOS";
 		$params['subject'] 	= "AVALIAÇÃO DE PERÍODO DE EXPERIÊNCIA: ".$nomeAvaliado;
 		
@@ -355,7 +355,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function showModalRelatorios()
 {
 	var linkA = "window.open('./relatorios/rel_periodo_experiencia_excel.php','_blank');";

@@ -215,7 +215,7 @@
 				
 				<title>::.. empresa X - ERP</title>
 				<link href="'.ROOT_WEB.'/classes/classes.css" rel="stylesheet">
-				<link rel="shortcut icon" href="favicon.ico" >
+				<!-- <link rel="shortcut icon" href="favicon.ico" > -->
 				
 				<script src="'.ROOT_WEB.'/includes/utils.js"></script>
 				</head>

@@ -38,7 +38,7 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, 1, iconv('ISO-8859-1', 'UTF-8',date('d/m/Y')));
 
-$clausulaIdGedArquivo = isset($_GET['id_ged_arquivo']) ? "AND id_lista_materiais_cabecalho IN(SELECT DISTINCT id_lista_materiais FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_ged_arquivo = {$_GET['id_ged_arquivo']})" : '';
+$clausulaIdGedArquivo = isset($_GET['id_ged_arquivo']) ? "AND id_lista_materiais_cabecalho IN(SELECT DISTINCT id_lista_materiais FROM ".DATABASE.".lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_ged_arquivo = {$_GET['id_ged_arquivo']})" : '';
 
 $clausulaIdOs = '';
 if (isset($_GET['id_os']) && !empty($_GET['id_os']))
@@ -58,12 +58,12 @@ $sql = "SELECT
 		  id_ged_arquivo, id_os, id_disciplina, id_cabecalho, id_lista_materiais_versoes, lista_materiais.atual, cod_lista_materiais,
           qtd, codProduto, componentecodigo, desc_long_por, unidade, descricao, desc_os, setor, desc_os, atividade, desc_arquivo
 		FROM
-		   materiais_old.lista_materiais
+		   ".DATABASE.".lista_materiais
 		   JOIN(
 			   SELECT
 					id_lista_materiais_versoes id_versao, id_lista_materiais cod_lista_materiais, qtd, unidade, margem, revisao_documento, data_versao
 				FROM
-					materiais_old.lista_materiais_versoes
+					".DATABASE.".lista_materiais_versoes
 				WHERE
 					lista_materiais_versoes.reg_del = 0 
 					
@@ -76,7 +76,7 @@ $sql = "SELECT
 			   SELECT
 					id_lista_materiais_cabecalho id_cabecalho
 			   FROM
-					materiais_old.lista_materiais_cabecalho
+					".DATABASE.".lista_materiais_cabecalho
 			   WHERE
 					lista_materiais_cabecalho.reg_del = 0
 		   )cabecalho
@@ -84,11 +84,11 @@ $sql = "SELECT
 		   JOIN(
 			   SELECT
 				  atual, id_produto codProduto, cod_barras componentecodigo, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2
-			   FROM materiais_old.produto WHERE produto.reg_del = 0
+			   FROM ".DATABASE.".produto WHERE produto.reg_del = 0
 		   ) produto
 		   ON codProduto = id_produto
 		  JOIN(
-			SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM materiais_old.componentes WHERE componentes.reg_del = 0
+			SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 		  ) componentes
 		  ON codBarrasComponente = componentecodigo
           JOIN(

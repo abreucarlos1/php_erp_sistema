@@ -632,7 +632,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('');");
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
 
-<script language="javascript">
+<script>
 
 xajax.loadingFunction = function() {xajax.$('aguarde').style.display = 'block';}
 xajax.doneLoadingFunction = function() {xajax.$('aguarde').style.display='none';}
@@ -730,7 +730,7 @@ $smarty->assign("option_habilidades_output",$array_habilidades_output);
 
 $smarty->assign("nome_formulario","CARGOS");
 
-$smarty->assign("classe","setor_adm");
+$smarty->assign("classe",CSS_FILE);
 
 $db->fecha_db();
 

@@ -75,7 +75,7 @@ function salvarLista($dados_form)
 	//Caso ainda não exista uma lista criada, cria uma lista e retorna o id inserido com versão = 0
 	if(empty($idLista))
 	{
-		$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
 		$db->insert($isql, 'MYSQL');
 		$idLista = $db->insert_id;
 		$versaoCab = 0;
@@ -87,7 +87,7 @@ function salvarLista($dados_form)
 "SELECT
 	MAX(revisao_documento)+1 proximaVersao
 FROM
-	materiais_old.lista_materiais_versoes
+	".DATABASE.".lista_materiais_versoes
 WHERE
 	lista_materiais_versoes.reg_del = 0 
 	AND lista_materiais_versoes.id_lista_materiais_cabecalho = {$idLista}";
@@ -109,7 +109,7 @@ WHERE
 		//foreach($dados_form["qtd"] as $keyProduto => $qtd)
 		//{
 		//INSERINDO O ITEM DA LISTA
-		$isql = "INSERT INTO materiais_old.lista_materiais (id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_disciplina) VALUES ";
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais (id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_disciplina) VALUES ";
 			
 		$keyProduto	 = $idProduto;
 		$idProduto 	 = explode('_', $idProduto);
@@ -134,7 +134,7 @@ WHERE
 			
 		//INSERINDO A VERSÃO DO ITEM DA LISTA
 		$isql = "INSERT INTO
-						materiais_old.lista_materiais_versoes
+						".DATABASE.".lista_materiais_versoes
 						(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, cod_barras)
 					VALUES
 						({$idItem}, {$idFunc}, '{$data}', {$revisao_documento}, '{$unidade}', {$qtd}, {$per}, {$idLista}, '".$idProduto."')";
@@ -148,7 +148,7 @@ WHERE
 			return $resposta;
 		}
 			
-		$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 			
 		if ($db->erro != '')
@@ -157,7 +157,7 @@ WHERE
 			return $resposta;
 		}
 			
-		$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET revisao_documento = {$versaoCab} WHERE id_lista_materiais_cabecalho = {$idLista} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET revisao_documento = {$versaoCab} WHERE id_lista_materiais_cabecalho = {$idLista} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 			
 		if ($db->erro != '')
@@ -217,7 +217,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 	//Caso ainda não exista uma lista criada, cria uma lista e retorna o id inserido com versão = 0
 	if(empty($idListaOs))
 	{
-		$isql = "INSERT INTO materiais_old.lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais_cabecalho (data_cadastro, data_revisao) VALUES ('".date('Y-m-d H:i:s')."','".date('Y-m-d H:i:s')."');";
 		$db->insert($isql, 'MYSQL');
 		$idListaOs = $db->insert_id;
 		$revisao_documento = 0;
@@ -228,7 +228,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 		$sql = "SELECT
 					MAX(revisao_documento)+1 proximaVersao
 				FROM
-					materiais_old.lista_materiais_versoes
+					".DATABASE.".lista_materiais_versoes
 				WHERE
 					lista_materiais_versoes.reg_del = 0 
 					AND lista_materiais_versoes.id_lista_materiais_cabecalho = {$idListaOs}";
@@ -239,7 +239,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 		//Excluindo todos os itens da lista para a criação de outra nova,
 		//Pois neste caso, estaremos criando uma nova versão
 		$usql = "UPDATE
-					materiais_old.lista_materiais
+					".DATABASE.".lista_materiais
 				SET 
 					atual = 0
 					/*reg_del = 1, 
@@ -251,7 +251,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 		$db->update($usql, 'MYSQL');
 
 		/*$usql = "UPDATE
-		 materiais_old.lista_materiais_versoes
+		 ".DATABASE.".lista_materiais_versoes
 		 SET
 		 reg_del = 1,
 		 reg_who = '".$_SESSION['id_funcionario']."',
@@ -268,7 +268,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 
 		$virgula = '';
 		//INSERINDO O ITEM DA LISTA
-		$isql = "INSERT INTO materiais_old.lista_materiais (cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, /*qtd_comprada, */versao_documento, fechado, atual, id_disciplina) VALUES ";
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais (cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, /*qtd_comprada, */versao_documento, fechado, atual, id_disciplina) VALUES ";
 
 		$keyProduto	 = $idProduto;
 		$idProduto 	 = explode('_', $idProduto);
@@ -294,7 +294,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 
 		//INSERINDO A VERSÃO DO ITEM DA LISTA
 		$isql = "INSERT INTO
-					materiais_old.lista_materiais_versoes
+					".DATABASE.".lista_materiais_versoes
 					(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, fechado, cod_barras)
 				VALUES
 					({$idItem}, {$idFunc}, '{$data}', {$versaoItem}, '{$unidade}', {$qtd}, {$per}, {$idListaOs}, 0, '{$idProduto}')";
@@ -308,7 +308,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 			return $resposta;
 		}
 
-		$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -317,7 +317,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 			return $resposta;
 		}
 
-		$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaOs} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaOs} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -361,7 +361,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 	}
 
 	/*$usql = 'UPDATE
-	 materiais_old.lista_materiais_versoes SET
+	 ".DATABASE.".lista_materiais_versoes SET
 	 revisao_documento = revisao_documento + 1
 	 WHERE id_lista_materiais_cabecalho = '.$idListaOs;
 
@@ -387,9 +387,9 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		$sql = "SELECT
 					id_lista_materiais, qtd
 				FROM
-					materiais_old.lista_materiais
+					".DATABASE.".lista_materiais
 					JOIN(
-						SELECT qtd, id_lista_materiais_versoes idVersao FROM materiais_old.lista_materiais_versoes WHERE lista_materiais_versoes.reg_del = 0 
+						SELECT qtd, id_lista_materiais_versoes idVersao FROM ".DATABASE.".lista_materiais_versoes WHERE lista_materiais_versoes.reg_del = 0 
 					) versoes
 					ON idVersao = id_lista_materiais_versoes
 				WHERE
@@ -420,7 +420,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		//    Resultado: 25-10 Lista 1 + 5 Lista 2
 		//    Total: 15
 		$sql = "SELECT id_lista_materiais_versoes, qtd FROM
-				materiais_old.lista_materiais_versoes
+				".DATABASE.".lista_materiais_versoes
 			WHERE
 				reg_del = 0 
 				AND cod_barras = '".$idProduto."' 
@@ -445,7 +445,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 				$qtd = $dadosListaAtual['qtd'] - $qtd;
 
 				//Remove a opção marcar_excluido para não voltar a aparecer na lista
-				$usql = "UPDATE materiais_old.lista_materiais SET marcar_excluido = 0 WHERE reg_del = 0 AND id_lista_materiais = ".$idListaMat;
+				$usql = "UPDATE ".DATABASE.".lista_materiais SET marcar_excluido = 0 WHERE reg_del = 0 AND id_lista_materiais = ".$idListaMat;
 				$db->update($usql, 'MYSQL');
 			}
 				
@@ -460,7 +460,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 			 * Exclui a lista de materiais anterior
 			 */
 			$usql = "UPDATE
-						materiais_old.lista_materiais SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."'
+						".DATABASE.".lista_materiais SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."'
 					 WHERE 
 					 	id_lista_materiais = ".$dadosListaAtual['id_lista_materiais'];
 				
@@ -477,7 +477,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		 * Inserindo a nova lista de materiais sem alterações, exceto na data
 		 * Após inserir o registro da lista de materiais, guarda o id gerado para inserção da versão
 		 */
-		$isql  = "INSERT INTO materiais_old.lista_materiais (cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, versao_documento, marcar_alterado, id_disciplina) VALUES ";
+		$isql  = "INSERT INTO ".DATABASE.".lista_materiais (cod_barras, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, versao_documento, marcar_alterado, id_disciplina) VALUES ";
 		$isql .= "('".$idProduto."', ".$idOs[0].", ".$idFunc.", '".$data."', ".$idListaOs.", ".$versao_documento.", 1, ".$disciplina.")";
 
 		$db->insert($isql, 'MYSQL');
@@ -492,7 +492,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		/**
 		 * versão com versão + 1, qtd (somada já existente no item da lista da OS), qtd comprada já existente sem adicionais)
 		 */
-		$isql = "INSERT INTO materiais_old.lista_materiais_versoes
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais_versoes
 					(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, cod_barras)
 				VALUES
 					({$idItem}, {$idFunc}, '{$data}', {$versaoItem}, '{$unidade}', {$qtd}, {$per}, {$idListaOs}, '".$idProduto."')";
@@ -510,7 +510,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		/**
 		 * Atualiza a lista de materiais inserida ou atualizada para apontar para a versão inserida
 		 */
-		$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -522,7 +522,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		/**
 		 * Aumenta a versão do cabecalho selecionado
 		 */
-		$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaOs} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaOs} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -580,7 +580,7 @@ function salvarListaEdicao($dados_form)
 
 		//INSERINDO A VERSÃO DO ITEM DA LISTA
 		$isql = "INSERT INTO
-					materiais_old.lista_materiais_versoes
+					".DATABASE.".lista_materiais_versoes
 					(id_lista_materiais, id_funcionario, data_versao, revisao_documento, unidade, qtd, margem, id_lista_materiais_cabecalho, cod_barras)
 				VALUES
 					(".$idItem.", ".$idFunc.", '".$data."', ".$revisao_documento.", '".$unidade."', ".$qtd.", ".$per.", ".$idListaCab.", '".$idProduto."')";
@@ -594,7 +594,7 @@ function salvarListaEdicao($dados_form)
 			return $resposta;
 		}
 
-		$usql = "UPDATE materiais_old.lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais SET id_lista_materiais_versoes = {$idVersao} WHERE id_lista_materiais = {$idItem} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -603,7 +603,7 @@ function salvarListaEdicao($dados_form)
 			return $resposta;
 		}
 
-		$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaCab} AND reg_del = 0";
+		$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET revisao_documento = {$revisao_documento} WHERE id_lista_materiais_cabecalho = {$idListaCab} AND reg_del = 0";
 		$db->update($usql, 'MYSQL');
 
 		if ($db->erro != '')
@@ -632,7 +632,7 @@ function editar($id)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados;
 
-	$sql = "SELECT * FROM materiais_old.fornecedor ";
+	$sql = "SELECT * FROM ".DATABASE.".fornecedor ";
 	$sql .= "WHERE id_fornecedor = '".$id."' ";
 	$sql .= "AND reg_del = 0 ";
 
@@ -664,7 +664,7 @@ function excluir($id)
 
 	$db = new banco_dados;
 
-	$usql = "UPDATE materiais_old.fornecedor ";
+	$usql = "UPDATE ".DATABASE.".fornecedor ";
 	$usql .= "SET reg_del = 1, reg_who = {$_SESSION['id_funcionario']}, data_del = '".date('Y-m-d')."' WHERE id_fornecedor = '".$id."' ";
 
 	$db->update($usql,'MYSQL');
@@ -737,7 +737,7 @@ function getSpecs($dados_form)
 
 	$osDisc = explode('/',$dados_form['id_os']);
 
-	$sql = "SELECT ec_id, ec_descricao FROM materiais_old.espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = '".$osDisc[0]."' ";
+	$sql = "SELECT ec_id, ec_descricao FROM ".DATABASE.".espec_cabecalho WHERE espec_cabecalho.reg_del = 0 AND espec_cabecalho.ec_os = '".$osDisc[0]."' ";
 
 	$db->select($sql,'MYSQL', true);
 
@@ -812,7 +812,7 @@ function atualizatabela($dados_form)
 					SELECT 
 						count(id_produto) qtdItens, id_ged_arquivo idGedArquivo, id_lista_materiais_cabecalho, versao_documento, id_lista_materiais
 					FROM 
-						materiais_old.lista_materiais
+						".DATABASE.".lista_materiais
 					WHERE 
 						lista_materiais.reg_del = 0
 					GROUP BY 
@@ -917,7 +917,7 @@ function atualizatabela($dados_form)
 		$sql = "SELECT
 		DISTINCT id_lista_materiais_cabecalho
 	FROM
-		materiais_old.lista_materiais 
+		".DATABASE.".lista_materiais 
 	WHERE 
 		lista_materiais.reg_del = 0 
 		AND lista_materiais.id_os = {$osDisc[0]}
@@ -992,12 +992,12 @@ function getListaMateriais($dados_form, $codDocumentos)
 				"SELECT
 					DISTINCT id_lista_materiais_cabecalho, status, id_ged_arquivo, revisao_documento
 				FROM
-					materiais_old.lista_materiais
+					".DATABASE.".lista_materiais
 					JOIN(
 						SELECT
 				        	id_lista_materiais_cabecalho as idCabecalho, versao_documento, status, revisao_documento
 						FROM
-					    	materiais_old.lista_materiais_cabecalho
+					    	".DATABASE.".lista_materiais_cabecalho
 					    WHERE lista_materiais_cabecalho.reg_del = 0
 					) cabecalho
 					ON idCabecalho = id_lista_materiais_cabecalho
@@ -1036,12 +1036,12 @@ function getListaMateriais($dados_form, $codDocumentos)
 "SELECT
 	DISTINCT id_lista_materiais_cabecalho, status, id_ged_arquivo, revisao_documento, cabecalho.versao_documento, revisao_real
 FROM
-	materiais_old.lista_materiais
+	".DATABASE.".lista_materiais
 	JOIN(
 		SELECT
         	id_lista_materiais_cabecalho as idCabecalho, versao_documento, status, revisao_documento, revisao_real
 		FROM
-	    	materiais_old.lista_materiais_cabecalho
+	    	".DATABASE.".lista_materiais_cabecalho
 	    WHERE lista_materiais_cabecalho.reg_del = 0
 	) cabecalho
 	ON idCabecalho = id_lista_materiais_cabecalho
@@ -1221,9 +1221,9 @@ WHERE ged_arquivos.reg_del = 0 {$clausulaArquivo} {$clausulaOs} {$clausulaDiscip
 				"SELECT
 					DISTINCT revLm
 				FROM
-					materiais_old.lista_materiais_cabecalho
+					".DATABASE.".lista_materiais_cabecalho
 					JOIN(
-						SELECT id_lista_materiais, id_lista_materiais_cabecalho idCabecalho, versao_documento revLm FROM materiais_old.lista_materiais
+						SELECT id_lista_materiais, id_lista_materiais_cabecalho idCabecalho, versao_documento revLm FROM ".DATABASE.".lista_materiais
 						WHERE 
 							reg_del = 0 AND 
 							fechado = 1
@@ -1321,7 +1321,7 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 	if (!empty($idLista))
 	{
 		$idsExclusao = implode(',', $idsExclusao);
-		$sql_filtro .= "AND id_produto NOT IN(SELECT DISTINCT id_produto FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista}))";
+		$sql_filtro .= "AND id_produto NOT IN(SELECT DISTINCT id_produto FROM ".DATABASE.".lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista}))";
 	}
 
 	if (!empty($idSpec))
@@ -1334,12 +1334,12 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 	  id_produto, cod_barras componentecodigo, codigo_inteligente, descricao, desc_res_ing, desc_res_esp, desc_long_por, 
 	  desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2, descFamilia
 	FROM
-	  materiais_old.produto
+	  ".DATABASE.".produto
 	  JOIN(
 	    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, descFamilia
-	    FROM materiais_old.componentes
+	    FROM ".DATABASE.".componentes
 	    LEFT JOIN (
-			SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+			SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 		) familia
 		ON idFamilia = id_familia
 	    WHERE componentes.reg_del = 0
@@ -1349,12 +1349,12 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 	  produto.reg_del = 0
 	  AND produto.atual = 1
 	  AND produto.cod_barras IN(
-	  	SELECT DISTINCT componentecodigo FROM materiais_old.espec_cabecalho
+	  	SELECT DISTINCT componentecodigo FROM ".DATABASE.".espec_cabecalho
 	   	JOIN(
 		   SELECT
 				el_id, el_ec_id, el_id_produto, el_el_id, el_cod_barras
 			FROM
-				materiais_old.espec_lista
+				".DATABASE.".espec_lista
 			WHERE
 				espec_lista.reg_del = 0
 		   ) lista
@@ -1366,9 +1366,9 @@ function getListaProdutos($filtro, $idLista = '', $idCliente, $idSpec = '')
 				desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1,
 				unidade2, peso1, peso2, descricao
 			FROM
-			materiais_old.produto
+			".DATABASE.".produto
 			JOIN(
-				SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM materiais_old.componentes WHERE componentes.reg_del = 0
+				SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 			) componentes
 			ON codBarrasComponente = cod_barras
 		   ) produto
@@ -1484,12 +1484,12 @@ function getProdutosLista($filtro = '', $idLista, $idDestino = 'div_lista_materi
 "SELECT
 	".$campos."
 FROM
-   materiais_old.lista_materiais
+   ".DATABASE.".lista_materiais
    JOIN(
 	   SELECT
 			id_lista_materiais_cabecalho id_cabecalho, status, versao_documento revLC
 	   FROM
-			materiais_old.lista_materiais_cabecalho
+			".DATABASE.".lista_materiais_cabecalho
 	   WHERE
 			lista_materiais_cabecalho.reg_del = 0
 	)cabecalho
@@ -1500,9 +1500,9 @@ FROM
 			DISTINCT id_lista_materiais cod_lista_materiais, qtd, unidade, margem, revisao_documento, data_versao,
 			id_lista_materiais_versoes as idVersao
 		FROM
-			materiais_old.lista_materiais_versoes
+			".DATABASE.".lista_materiais_versoes
 			JOIN(
-				SELECT id_lista_materiais id_lm, id_lista_materiais_versoes id_lv FROM materiais_old.lista_materiais WHERE (lista_materiais.reg_del = 0 OR lista_materiais.marcar_excluido = 1) AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista}) AND lista_materiais.atual = 1
+				SELECT id_lista_materiais id_lm, id_lista_materiais_versoes id_lv FROM ".DATABASE.".lista_materiais WHERE (lista_materiais.reg_del = 0 OR lista_materiais.marcar_excluido = 1) AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista}) AND lista_materiais.atual = 1
 			) lm
 			ON id_lv = id_lista_materiais_versoes
 		WHERE
@@ -1513,15 +1513,15 @@ FROM
 	JOIN(
 		SELECT
 			atual, id_produto codProduto, cod_barras componentecodigo, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2
-		FROM materiais_old.produto WHERE produto.reg_del = 0
+		FROM ".DATABASE.".produto WHERE produto.reg_del = 0
 	) produto
 	ON componentecodigo = cod_barras
 	JOIN(
 		SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, descFamilia
 		FROM 
-			materiais_old.componentes
+			".DATABASE.".componentes
 			LEFT JOIN (
-				SELECT id_familia idFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+				SELECT id_familia idFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 			) familia
 			ON idFamilia = id_familia
 		WHERE 
@@ -1537,12 +1537,12 @@ FROM
 				SELECT
 					id_produto produtoExistente, MAX(data_versao) dataVersaoExistente
 				FROM
-					materiais_old.lista_materiais
+					".DATABASE.".lista_materiais
 				   JOIN(
 					   SELECT
 							id_lista_materiais_cabecalho id_cabecalho, status, versao_documento revLC
 					   FROM
-							materiais_old.lista_materiais_cabecalho
+							".DATABASE.".lista_materiais_cabecalho
 					   WHERE
 							lista_materiais_cabecalho.reg_del = 0
 							AND id_lista_materiais_cabecalho IN(".$idListaOs.")
@@ -1554,9 +1554,9 @@ FROM
 							id_lista_materiais cod_lista_materiais, qtd, unidade, margem, revisao_documento, data_versao,
 							id_lista_materiais_versoes as idVersao
 						FROM
-							materiais_old.lista_materiais_versoes
+							".DATABASE.".lista_materiais_versoes
 							/*JOIN(
-								SELECT id_lista_materiais id_lm FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista})
+								SELECT id_lista_materiais id_lm FROM ".DATABASE.".lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho IN({$idLista})
 							) lm
 							ON id_lm = id_lista_materiais*/
 						WHERE
@@ -1683,7 +1683,7 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 	$db = new banco_dados();
 
 	//Neste caso não há necessidade de excluir as versões pois, em caso de erro na exclusão
-	$usql = "UPDATE materiais_old.lista_materiais SET marcar_excluido = 1, reg_del = 1, reg_who = ".$_SESSION['id_funcionario'].", data_del = '".date('Y-m-d')."' WHERE id_lista_materiais = {$id_lista_materiais}";
+	$usql = "UPDATE ".DATABASE.".lista_materiais SET marcar_excluido = 1, reg_del = 1, reg_who = ".$_SESSION['id_funcionario'].", data_del = '".date('Y-m-d')."' WHERE id_lista_materiais = {$id_lista_materiais}";
 	$db->update($usql, 'MYSQL');
 
 	if ($db->erro != '')
@@ -1695,13 +1695,13 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 		/**
 		 * Aqui procuramos mais listas no mesmo cabecalho, caso não existam outras listas então excluímos o cabecalho para não ficar lixo no banco de dados
 		 */
-		$sql = "SELECT id_lista_materiais_cabecalho FROM materiais_old.lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho = ".$idLista;
+		$sql = "SELECT id_lista_materiais_cabecalho FROM ".DATABASE.".lista_materiais WHERE lista_materiais.reg_del = 0 AND lista_materiais.id_lista_materiais_cabecalho = ".$idLista;
 		$db->select($sql, 'MYSQL', true);
 
 		$reabrirJanela = false;
 		if ($db->numero_registros == 0)
 		{
-			$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET reg_del = 1, reg_who = ".$_SESSION['id_funcionario'].", data_del = '".date('Y-m-d')."' WHERE id_lista_materiais_cabecalho = ".$idLista;
+			$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET reg_del = 1, reg_who = ".$_SESSION['id_funcionario'].", data_del = '".date('Y-m-d')."' WHERE id_lista_materiais_cabecalho = ".$idLista;
 			$db->update($usql, 'MYSQL');
 				
 			$reabrirJanela = true;
@@ -1711,12 +1711,12 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 		{
 			//Procuramos uma lista da OS que contenha o mesmo item a ser excluído e o marcamos como excluído nesta outra lista
 			//Assim posso mostrar que este item foi atualizado como excluído
-			/*$sql ="SELECT idLista FROM materiais_old.lista_materiais l
+			/*$sql ="SELECT idLista FROM ".DATABASE.".lista_materiais l
 			 JOIN(
 			 SELECT
 			 DISTINCT id_lista_materiais idLista, id_os idOs, id_ged_arquivo idGedArquivo, id_produto idProduto
 			 FROM
-			 materiais_old.lista_materiais
+			 ".DATABASE.".lista_materiais
 			 WHERE
 			 reg_del = 0
 			 AND id_ged_arquivo IS NULL
@@ -1731,7 +1731,7 @@ function excluir_produto_lista($id_lista_materiais, $idLista, $idCliente, $idOsL
 			 if ($db->numero_registros > 0)
 			 {
 				$idListaVinculada = $db->array_select[0]['idLista'];
-				$usql = "UPDATE materiais_old.lista_materiais SET marcar_excluido = 1 WHERE id_lista_materiais = ".$idListaVinculada;
+				$usql = "UPDATE ".DATABASE.".lista_materiais SET marcar_excluido = 1 WHERE id_lista_materiais = ".$idListaVinculada;
 
 				$db->update($usql, 'MYSQL');
 				}*/
@@ -1771,7 +1771,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 	/**
 	 * 1 - Selecionando a revisão e revisão_real da lista selecionada
 	 */
-	$sql = "SELECT versao_documento, revisao_real FROM materiais_old.lista_materiais_cabecalho WHERE lista_materiais_cabecalho.reg_del = 0 AND lista_materiais_cabecalho.id_lista_materiais_cabecalho =".$idLista;
+	$sql = "SELECT versao_documento, revisao_real FROM ".DATABASE.".lista_materiais_cabecalho WHERE lista_materiais_cabecalho.reg_del = 0 AND lista_materiais_cabecalho.id_lista_materiais_cabecalho =".$idLista;
 	$db->select($sql, 'MYSQL', true);
 	$dadosCabecalho = $db->array_select[0];
 
@@ -1786,7 +1786,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 	/**
 	 * Passo o status da lista para emitido => 2, revisao_real + 1 e versao_documento baseado nas condições acima assim não é possível editar esta lista
 	 */
-	$usql = "UPDATE	materiais_old.lista_materiais_cabecalho	SET status = 2,	revisao_real = ".$revisaoReal.", versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = {$idLista}";
+	$usql = "UPDATE	".DATABASE.".lista_materiais_cabecalho	SET status = 2,	revisao_real = ".$revisaoReal.", versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = {$idLista}";
 	$db->update($usql, 'MYSQL');
 
 	/**
@@ -1803,7 +1803,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 		 * Uso para inserir além dos dados básicos, a qtd_comprada e revisão principalmente
 		 */
 		$sql = "SELECT id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_disciplina, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado, /*qtd_comprada, */id_lista_materiais, cod_barras  ";
-		$sql .= "FROM materiais_old.lista_materiais ";
+		$sql .= "FROM ".DATABASE.".lista_materiais ";
 		$sql .= "WHERE lista_materiais.id_lista_materiais_cabecalho = ".$idLista." AND lista_materiais.versao_documento = ".$dadosCabecalho['versao_documento']." AND lista_materiais.reg_del = 0 AND lista_materiais.atual = 1 ";
 
 		$erro = '';
@@ -1824,7 +1824,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 				 * Uso para inserir a nova versão para a futura lista criada logo abaixo
 				 */
 				$sql = "SELECT unidade, qtd, margem, id_funcionario, data_versao, revisao_documento+1 revisao_documento, id_lista_materiais, id_lista_materiais_cabecalho, id_produto, cod_barras ";
-				$sql .= "FROM materiais_old.lista_materiais_versoes ";
+				$sql .= "FROM ".DATABASE.".lista_materiais_versoes ";
 				$sql .= "WHERE lista_materiais_versoes.id_lista_materiais_versoes = ".$reg['id_lista_materiais_versoes']." AND lista_materiais_versoes.reg_del = 0 ";
 
 				$db2->select($sql, 'MYSQL', true);
@@ -1833,7 +1833,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 				/**
 				 * Aqui faço o insert da nova versão com os dados da versão anterior, nova data e versão + 1
 				 */
-				$isql = "INSERT INTO materiais_old.lista_materiais_versoes (unidade, qtd, margem, id_funcionario, data_versao, revisao_documento, id_lista_materiais, id_lista_materiais_cabecalho, fechado, cod_barras) ";
+				$isql = "INSERT INTO ".DATABASE.".lista_materiais_versoes (unidade, qtd, margem, id_funcionario, data_versao, revisao_documento, id_lista_materiais, id_lista_materiais_cabecalho, fechado, cod_barras) ";
 				$isql .= "VALUES ('".$versaoAnterior['unidade']."', '".$versaoAnterior['qtd']."', '".$versaoAnterior['margem']."', '".$versaoAnterior['id_funcionario']."',";
 				$isql .= "'".date('Y-m-d H:i:s')."', '".$versaoAnterior['revisao_documento']."', '".$versaoAnterior['id_lista_materiais']."', '".$versaoAnterior['id_lista_materiais_cabecalho']."', 1,'".$versaoAnterior['cod_barras']."')";
 				$db2->insert($isql, 'MYSQL');
@@ -1852,7 +1852,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 					 * Inserir a nova lista de materiais
 					 * Garantir que a revisão é a mesma do cabecalho na coluna versao_documento e NÃO (revisao_real)
 					 */
-					$isql = "INSERT INTO materiais_old.lista_materiais (id_produto, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado, /*qtd_comprada, */id_ged_arquivo, fechado, id_disciplina, cod_barras) ";
+					$isql = "INSERT INTO ".DATABASE.".lista_materiais (id_produto, id_os, id_funcionario, data_inclusao, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado, /*qtd_comprada, */id_ged_arquivo, fechado, id_disciplina, cod_barras) ";
 					$isql .= "VALUES ('".$reg['id_produto']."', '".$reg['id_os']."', '".$reg['id_funcionario']."', NOW(), '".$reg['id_lista_materiais_cabecalho']."',";
 					$isql .= "'".$idVersaoNova."', '".($versao_documento)."', '".$reg['marcar_excluido']."', '".$reg['marcar_alterado']."', /*'".$reg['qtd_comprada']."', */'".$reg['id_ged_arquivo']."', 1, ".$reg['id_disciplina'].", '".$reg['cod_barras']."') ";
 
@@ -1868,7 +1868,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 						/**
 						 * Altero a revisao_documento apontada com o código da nova lista inserida
 						 */
-						$usql = "UPDATE materiais_old.lista_materiais_versoes SET id_lista_materiais = ".$idLmNova." WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$idVersaoNova;
+						$usql = "UPDATE ".DATABASE.".lista_materiais_versoes SET id_lista_materiais = ".$idLmNova." WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$idVersaoNova;
 						$db2->update($usql, 'MYSQL');
 
 						if ($db2->erro != '')
@@ -1877,7 +1877,7 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 						/**
 						 * Altero a lista selecionada para atual = 0
 						 */
-						$usql = "UPDATE materiais_old.lista_materiais SET atual = 0 WHERE reg_del = 0 AND id_lista_materiais = ".$versaoAnterior['id_lista_materiais'];
+						$usql = "UPDATE ".DATABASE.".lista_materiais SET atual = 0 WHERE reg_del = 0 AND id_lista_materiais = ".$versaoAnterior['id_lista_materiais'];
 						$db2->update($usql, 'MYSQL');
 
 						if ($db2->erro != '')
@@ -1893,10 +1893,10 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 			 * Usado apenas para totalizar a próxima lista
 			 */
 			$db->select($sql, 'MYSQL', function($reg, $i) use(&$db2){
-				$usql = "UPDATE materiais_old.lista_materiais_versoes SET fechado = 1 WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$reg['id_lista_materiais_versoes'];
+				$usql = "UPDATE ".DATABASE.".lista_materiais_versoes SET fechado = 1 WHERE reg_del = 0 AND id_lista_materiais_versoes = ".$reg['id_lista_materiais_versoes'];
 				$db2->update($usql, 'MYSQL');
 
-				$usql = "UPDATE materiais_old.lista_materiais SET fechado = 1 WHERE reg_del = 0 AND id_lista_materiais = ".$reg['id_lista_materiais'];
+				$usql = "UPDATE ".DATABASE.".lista_materiais SET fechado = 1 WHERE reg_del = 0 AND id_lista_materiais = ".$reg['id_lista_materiais'];
 				$db2->update($usql, 'MYSQL');
 			});
 		}
@@ -1910,15 +1910,15 @@ function emitirLista($idLista, $codDocumento = null, $versao_documento = 0)
 		if (!empty($erro))
 		{
 			//Voltando o cabecalho ao que era antes da emissão
-			$usql = "UPDATE materiais_old.lista_materiais_cabecalho	SET status = 1,	versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = ".$idLista;
+			$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho	SET status = 1,	versao_documento = ".($versao_documento)." WHERE reg_del = 0 AND id_lista_materiais_cabecalho = ".$idLista;
 			$db->update($usql, 'MYSQL');
 				
 			//Excluindo todas as versões inseridas
-			$usql = "UPDATE materiais_old.lista_materiais_versoes SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['versoes']).")";
+			$usql = "UPDATE ".DATABASE.".lista_materiais_versoes SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['versoes']).")";
 			$db->update($usql, 'MYSQL');
 				
 			//Excluindo todas as listas inseridas
-			$usql = "UPDATE materiais_old.lista_materiais SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['lm']).")";
+			$usql = "UPDATE ".DATABASE.".lista_materiais SET reg_del = 1, reg_who = '".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE reg_del = 0 AND id_lista_materiais_versoes IN(".implode(',', $arrControle['lm']).")";
 			$db->update($usql, 'MYSQL');
 				
 			$resposta->addAlert('ATENÇÃO: Houve uma falha na emissão da lista. NADA FOI ALTERADO. '.$erro);
@@ -1955,7 +1955,7 @@ function desbloquearLista($idLista,$codDocumento='',$versao_documento=0)
 	"SELECT 
 		MAX(id_lista_materiais) id_lista_materiais, qtd
 	FROM 
-		materiais_old.lista_materiais_versoes
+		".DATABASE.".lista_materiais_versoes
 	WHERE 
 		lista_materiais_versoes.reg_del = 0 
 		AND lista_materiais_versoes.fechado = 1 
@@ -1969,9 +1969,9 @@ function desbloquearLista($idLista,$codDocumento='',$versao_documento=0)
 
 	foreach($ultimaVersaoEmitida as $k => $versaoEmitida)
 	{
-		$isql = "INSERT INTO materiais_old.lista_materiais (id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_disciplina, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado/*, qtd_comprada*/)";
+		$isql = "INSERT INTO ".DATABASE.".lista_materiais (id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_disciplina, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, marcar_alterado/*, qtd_comprada*/)";
 		$isql .= "SELECT id_ged_arquivo, cod_barras, id_os, id_funcionario, data_inclusao, id_disciplina, id_lista_materiais_cabecalho, id_lista_materiais_versoes, versao_documento, marcar_excluido, 0/*, qtd_comprada + ".$versaoEmitida['qtd']."*/  ";
-		$isql .= "FROM materiais_old.lista_materiais ";
+		$isql .= "FROM ".DATABASE.".lista_materiais ";
 		$isql .= "WHERE reg_del = 0 AND id_lista_materiais = ".$versaoEmitida['id_lista_materiais'];
 
 		$db->insert($isql, 'MYSQL');
@@ -1979,7 +1979,7 @@ function desbloquearLista($idLista,$codDocumento='',$versao_documento=0)
 		//A lista anterior alterada para atual = 0
 		$usql =
 		"UPDATE 
-			materiais_old.lista_materiais
+			".DATABASE.".lista_materiais
 			SET atual = 0
 			#,marcar_alterado = 0
 		 WHERE
@@ -1996,7 +1996,7 @@ function desbloquearLista($idLista,$codDocumento='',$versao_documento=0)
 
 	$usql =
 	"UPDATE 
-		materiais_old.lista_materiais_cabecalho
+		".DATABASE.".lista_materiais_cabecalho
 		SET status = 1
 	 WHERE
 	 	reg_del = 0
@@ -2033,7 +2033,7 @@ function listaFamilias()
 	"SELECT
 	  id_familia, descricao
 	FROM 
-		materiais_old.familia
+		".DATABASE.".familia
 	WHERE
 	  familia.reg_del = 0
 	ORDER BY descricao";
@@ -2076,17 +2076,17 @@ function excluirListaMateriais($idListaCabecalho)
 	
 	if (!empty($idListaCabecalho))
 	{
-		$usql = "UPDATE materiais_old.lista_materiais_versoes SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
+		$usql = "UPDATE ".DATABASE.".lista_materiais_versoes SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
 		$db->update($usql);
 		
 		if ($db->erro == '')
 		{
-			$usql = "UPDATE materiais_old.lista_materiais SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
+			$usql = "UPDATE ".DATABASE.".lista_materiais SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
 			$db->update($usql);
 			
 			if ($db->erro == '')
 			{
-				$usql = "UPDATE materiais_old.lista_materiais_cabecalho SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
+				$usql = "UPDATE ".DATABASE.".lista_materiais_cabecalho SET reg_del = 1, data_del = '".date('Y-m-d')."', reg_who = '".$_SESSION['id_funcionario']."' WHERE id_lista_materiais_cabecalho IN(".$idListaCabecalho.")";
 				$db->update($usql);
 
 				if ($db->erro == '')
@@ -2151,7 +2151,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 <script	src="../includes/jquery/jquery.min.js"></script>
 
-<script language="javascript">
+<script>
 function excluirListasSelecionadas()
 {
 	if (confirm('Deseja excluir as listas selecionadas?'))

@@ -15,9 +15,9 @@
 
 <title>::.. Empresa X - ERP  - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
 <link href="<smarty>$classe</smarty>" rel="stylesheet">
-<link rel="shortcut icon" href="favicon.ico" >
+<!-- <link rel="shortcut icon" href="favicon.ico" > -->
 
-<script src="../includes/utils.js"></script>
+<script src="<smarty>$smarty.const.ROOT_WEB</smarty>/includes/utils.js"></script>
 </head>
 
 <!--<body onload="<smarty>$body_onload</smarty>" onresize="<smarty>$body_onload</smarty>">-->

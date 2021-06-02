@@ -103,7 +103,7 @@ switch ($_POST["acao"])
 
 
 <!-- Javascript para envio dos dados através do método GET -->
-<script language="javascript">
+<script>
 
 function maximiza() 
 {

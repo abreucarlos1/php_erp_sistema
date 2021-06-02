@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Malaysian PHPMailer language file: refer to English translation for definitive list
  * @package PHPMailer
@@ -7,7 +8,7 @@
 
 $PHPMAILER_LANG['authenticate']         = 'Ralat SMTP: Tidak dapat pengesahan.';
 $PHPMAILER_LANG['connect_host']         = 'Ralat SMTP: Tidak dapat menghubungi hos pelayan SMTP.';
-$PHPMAILER_LANG['data_not_accepted']    = 'Ralat SMTP: data tidak diterima oleh pelayan.';
+$PHPMAILER_LANG['data_not_accepted']    = 'Ralat SMTP: Data tidak diterima oleh pelayan.';
 $PHPMAILER_LANG['empty_message']        = 'Tiada isi untuk mesej';
 $PHPMAILER_LANG['encoding']             = 'Pengekodan tidak diketahui: ';
 $PHPMAILER_LANG['execute']              = 'Tidak dapat melaksanakan: ';
@@ -23,4 +24,4 @@ $PHPMAILER_LANG['signing']              = 'Ralat pada tanda tangan: ';
 $PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() telah gagal.';
 $PHPMAILER_LANG['smtp_error']           = 'Ralat pada pelayan SMTP: ';
 $PHPMAILER_LANG['variable_set']         = 'Tidak boleh menetapkan atau menetapkan semula pembolehubah: ';
-//$PHPMAILER_LANG['extension_missing']    = 'Extension missing: ';
+$PHPMAILER_LANG['extension_missing']    = 'Sambungan hilang: ';

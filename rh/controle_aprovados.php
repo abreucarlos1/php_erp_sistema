@@ -397,7 +397,7 @@ function enviarEmail($email,$cpf,$nome,$rash)
 	$db->select($sql, 'MYSQL', true);
 	
 	$params 			= array();
-	$params['from']		= "recrutamento@dominio.com.br";
+	$params['from']		= "recrutamento@".DOMINIO;
 	$params['from_name']= "RECURSOS HUMANOS";
 	$params['subject'] 	= "Cadastro de candidato aprovado (".$nome.")";
 
@@ -1016,7 +1016,7 @@ function exportar($idCandidato)
 
 					//email
 					$params 			= array();
-					$params['from']		= "recrutamento@dominio.com.br";
+					$params['from']		= "recrutamento@".DOMINIO;
 					$params['from_name']= "RECURSOS HUMANOS";
 					$params['subject'] 	= "CADASTRO DE NOVO USUARIO";
 
@@ -1049,7 +1049,7 @@ function exportar($idCandidato)
 					{
 							 
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "Integração";
 						
@@ -1079,7 +1079,7 @@ function exportar($idCandidato)
 					if(ENVIA_EMAIL)
 					{
 						$params 			= array();
-						$params['from']		= "recrutamento@dominio.com.br";
+						$params['from']		= "recrutamento@".DOMINIO;
 						$params['from_name']= "RECURSOS HUMANOS";
 						$params['subject'] 	= "Integração";
 						
@@ -1180,7 +1180,7 @@ $smarty->assign("body_onload","showLoader();xajax_atualizatabela('');");
 
 <link href="../includes/jquery/jquery-ui-1.11.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
-<script language="javascript">
+<script>
 $(document).on('ready', function(){
 	$('._currency').maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 	$('._cpf').mask('999.999.999-99');

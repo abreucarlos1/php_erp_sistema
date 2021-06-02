@@ -28,20 +28,20 @@ function preencheTela($dados_form)
 	"SELECT
 	  *
 	  FROM
-	    materiais_old.componentes
+	    ".DATABASE.".componentes
 	     JOIN(
-	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM materiais_old.grupo WHERE grupo.reg_del = 0 
+	      SELECT id_grupo codGrupo, grupo, codigo_grupo FROM ".DATABASE.".grupo WHERE grupo.reg_del = 0 
 	    ) grupo
 	    ON codigo_grupo = componentes.id_grupo
 	    JOIN(
-	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM materiais_old.sub_grupo WHERE sub_grupo.reg_del = 0
+	      SELECT id_sub_grupo codSubGrupo, sub_grupo, codigo_sub_grupo FROM ".DATABASE.".sub_grupo WHERE sub_grupo.reg_del = 0
 	    ) sub_grupo
 	    ON codSubGrupo = componentes.id_sub_grupo
 	    LEFT JOIN(
 	    	SELECT
 	    		id_produto, cod_barras componentecodigo, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2
 	    	FROM 
-	    		materiais_old.produto
+	    		".DATABASE.".produto
 	    	WHERE
 	    		produto.reg_del = 0 AND produto.cod_barras = '".$dados_form['codigoComponente']."' AND produto.atual = 1
 	    ) produto
@@ -158,9 +158,9 @@ function getFornecedores($codBarras)
 {
 	$db = new banco_dados();
 	
-	$sql = "SELECT id_fornecedor, nome_fantasia, cidade, bairro, 40.00 ultimo_preco FROM materiais_old.fornecedor ";
+	$sql = "SELECT id_fornecedor, nome_fantasia, cidade, bairro, 40.00 ultimo_preco FROM ".DATABASE.".fornecedor ";
 	$sql .= "WHERE fornecedor.reg_del = 0 ";
-	$sql .= "AND id_fornecedor NOT IN(SELECT id_fornecedor FROM materiais_old.fornecedor_x_componentes WHERE fornecedor_x_componentes.reg_del = 0 AND fornecedor_x_componentes.cod_barras = '".$codBarras."' AND fornecedor_x_componentes.atual = 1) ";
+	$sql .= "AND id_fornecedor NOT IN(SELECT id_fornecedor FROM ".DATABASE.".fornecedor_x_componentes WHERE fornecedor_x_componentes.reg_del = 0 AND fornecedor_x_componentes.cod_barras = '".$codBarras."' AND fornecedor_x_componentes.atual = 1) ";
 	$sql .= "ORDER BY nome_fantasia";
 
 	$xml = new XMLWriter();
@@ -211,7 +211,7 @@ function cadastrar_preco_fornecedor($dados_form)
 	
 	$db = new banco_dados();
 	
-	$isql = "INSERT INTO materiais_old.fornecedor_x_componentes (cod_barras, preco, unidade1, preco2, unidade2, data, id_fornecedor) VALUES ";
+	$isql = "INSERT INTO ".DATABASE.".fornecedor_x_componentes (cod_barras, preco, unidade1, preco2, unidade2, data, id_fornecedor) VALUES ";
 	$isql .= "('{$codBarras}', '{$preco}', '{$unidade}', '{$preco2}', '{$unidade2}', '".date('Y-m-d')."', {$idFornecedor})";
 	
 	$db->insert($isql, 'MYSQL');
@@ -231,12 +231,12 @@ function atualizaTabelaFornecedor($codBarras)
 	$sql = "SELECT
 				id_fornecedor, nome_fantasia, cidade, bairro, preco, data, id_for_com, unidade1, preco2, unidade2
 			FROM
-				materiais_old.fornecedor
+				".DATABASE.".fornecedor
 				JOIN (
 					SELECT
 						id_for_com, id_fornecedor codFornecedor, preco, max(data) data, unidade1, preco2, unidade2
 					FROM 
-						materiais_old.fornecedor_x_componentes 
+						".DATABASE.".fornecedor_x_componentes 
 					WHERE 
 						fornecedor_x_componentes.reg_del = 0 
 						AND fornecedor_x_componentes.cod_barras = '".$codBarras."'
@@ -294,7 +294,7 @@ function editar_preco_fornecedor($idForCom)
 	$html = "<form id='frm_preco'><input type='hidden' name='id_for_com' id='id_for_com' value='{$idForCom}' />".
 				"<table border='1' width='100%' class='table auto_lista'>";
 	
-	$sql = "SELECT * FROM materiais_old.fornecedor_x_componentes WHERE reg_del = 0 AND id_for_com = {$idForCom}";
+	$sql = "SELECT * FROM ".DATABASE.".fornecedor_x_componentes WHERE reg_del = 0 AND id_for_com = {$idForCom}";
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$html)
 		{
@@ -340,7 +340,7 @@ function atualizar_preco($dados_form)
 		$dados_form['novoPreco'] = str_replace(',', '.', str_replace('.', '', ($dados_form['novoPreco'])));
 		$dados_form['novoPreco2'] = str_replace(',', '.', str_replace('.', '', ($dados_form['novoPreco2'])));
 				
-		$isql = "INSERT INTO materiais_old.fornecedor_x_componentes (cod_barras, preco, preco2, unidade1, unidade2, data, id_fornecedor) ";
+		$isql = "INSERT INTO ".DATABASE.".fornecedor_x_componentes (cod_barras, preco, preco2, unidade1, unidade2, data, id_fornecedor) ";
 		$isql .= "SELECT 
 					cod_barras, 
 					'{$dados_form['novoPreco']}',
@@ -350,7 +350,7 @@ function atualizar_preco($dados_form)
 					'".date('Y-m-d')."',
 					id_fornecedor
 				 FROM
-					materiais_old.fornecedor_x_componentes
+					".DATABASE.".fornecedor_x_componentes
 				 WHERE
 				 	reg_del = 0
 				 	AND id_for_com = {$dados_form['id_for_com']}";
@@ -361,7 +361,7 @@ function atualizar_preco($dados_form)
 			$resposta->addAlert('Houve uma falha ao tentar adicionar fornecedor!');
 		else
 		{
-			$usql = "UPDATE materiais_old.fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND id_for_com = {$dados_form['id_for_com']}";
+			$usql = "UPDATE ".DATABASE.".fornecedor_x_componentes SET atual = 0 WHERE reg_del = 0 AND id_for_com = {$dados_form['id_for_com']}";
 			$db->update($usql);
 			
 			$resposta->addAlert('Fornecedor adicionado corretamente!');
@@ -398,7 +398,7 @@ function atualizatabela_unidade($idCampo)
 	$xml->setIndent(false);
 	$xml->startElement('rows');
 	
-	$sql = "SELECT unidade FROM materiais_old.unidade WHERE unidade.reg_del = 0 ";
+	$sql = "SELECT unidade FROM ".DATABASE.".unidade WHERE unidade.reg_del = 0 ";
 	
 	$db->select($sql, 'MYSQL',
 		function($reg, $i) use(&$xml,$idCampo)
@@ -423,11 +423,11 @@ function excluir($idProduto)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$sql = "SELECT * FROM materiais_old.produto WHERE reg_del = 0 AND id_produto = '{$idProduto}' ";
+	$sql = "SELECT * FROM ".DATABASE.".produto WHERE reg_del = 0 AND id_produto = '{$idProduto}' ";
 	$db->select($sql, 'MYSQL', true);
 	$retorno = $db->array_select[0];
 	
-	$usql = "UPDATE materiais_old.produto SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_produto = '{$idProduto}'";
+	$usql = "UPDATE ".DATABASE.".produto SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_produto = '{$idProduto}'";
 	$db->update($usql, 'MYSQL');
 	
 	$i = 0;
@@ -482,7 +482,7 @@ function excluir_fornecedor($id, $codComponente)
 	$resposta = new xajaxResponse();
 	$db = new banco_dados();
 	
-	$usql = "UPDATE materiais_old.fornecedor_x_componentes SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_for_com = '{$id}'";
+	$usql = "UPDATE ".DATABASE.".fornecedor_x_componentes SET reg_del = 1, reg_who = '{$_SESSION['id_funcionario']}', data_del = '".date('Y-m-d')."' WHERE id_for_com = '{$id}'";
 	$db->update($usql, 'MYSQL');
 	
 	if ($db->erro != '')
@@ -508,7 +508,7 @@ function salvar_familia($dados_form)
 		if (!empty($dados_form['idFamilia']))
 		{
 			//Exclui a familia anterior
-			$usql = "UPDATE materiais_old.familia SET reg_del = 1, reg_who='".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_familia = ".$dados_form['idFamilia'];
+			$usql = "UPDATE ".DATABASE.".familia SET reg_del = 1, reg_who='".$_SESSION['id_funcionario']."', data_del = '".date('Y-m-d')."' WHERE id_familia = ".$dados_form['idFamilia'];
 			$db->update($usql, 'MYSQL');
 			
 			if ($db->erro != '')
@@ -518,14 +518,14 @@ function salvar_familia($dados_form)
 			else
 			{
 				//Adiciona a nova familia alterada
-				$isql = "INSERT INTO materiais_old.familia (descricao, descricao_longa) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."','".AntiInjection::clean(trim($dados_form['txtDescricaoLongaFamilia']))."')";
+				$isql = "INSERT INTO ".DATABASE.".familia (descricao, descricao_longa) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."','".AntiInjection::clean(trim($dados_form['txtDescricaoLongaFamilia']))."')";
 				$db->insert($isql, 'MYSQL');
 				$novoId = $db->insert_id;
 				
 				if ($novoId > 0)
 				{
 					//Altera os agregados da familia excluida para a nova familia
-					$usql = "UPDATE materiais_old.componentes SET id_familia = ".$novoId." WHERE reg_del = 0 AND id_familia = ".$dados_form['idFamilia'];
+					$usql = "UPDATE ".DATABASE.".componentes SET id_familia = ".$novoId." WHERE reg_del = 0 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
 					if ($db->erro != '')
@@ -536,7 +536,7 @@ function salvar_familia($dados_form)
 				else
 				{
 					//Em caso de erro ou não inserção do novo id, voltar o registro anterior
-					$usql = "UPDATE materiais_old.familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
+					$usql = "UPDATE ".DATABASE.".familia SET reg_del = 0 WHERE reg_del = 1 AND id_familia = ".$dados_form['idFamilia'];
 					$db->update($usql, 'MYSQL');
 					
 					if ($db->erro != '')
@@ -552,7 +552,7 @@ function salvar_familia($dados_form)
 		}
 		else
 		{
-			$sql = "SELECT id_familia FROM materiais_old.familia WHERE descricao = '".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."' AND familia.reg_del = 0";
+			$sql = "SELECT id_familia FROM ".DATABASE.".familia WHERE descricao = '".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."' AND familia.reg_del = 0";
 			$db->select($sql, 'MYSQL', true);
 		
 			if ($db->numero_registros > 0)
@@ -562,7 +562,7 @@ function salvar_familia($dados_form)
 			}
 			else
 			{
-				$isql = "INSERT INTO materiais_old.familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
+				$isql = "INSERT INTO ".DATABASE.".familia (descricao) VALUES ('".AntiInjection::clean(trim($dados_form['txtDescricaoFamilia']))."')";
 				$db->insert($isql, 'MYSQL');
 				
 				if ($db->erro != '')
@@ -619,9 +619,9 @@ function lista_familias($filtro)
 	"SELECT
 	  id_familia, descricao, descricao_longa, idFamilia temComponentesAgregados
 	FROM 
-		materiais_old.familia
+		".DATABASE.".familia
 		LEFT JOIN(
-			SELECT DISTINCT id_familia idFamilia FROM materiais_old.componentes WHERE reg_del = 0 AND id_familia IS NOT NULL
+			SELECT DISTINCT id_familia idFamilia FROM ".DATABASE.".componentes WHERE reg_del = 0 AND id_familia IS NOT NULL
 		) componentesAgregados
 		ON idFamilia = id_familia
 	WHERE
@@ -702,13 +702,13 @@ function lista_produtos_cadastrados($filtro)
 	  id_produto, cod_barras componentecodigo, codigo_inteligente, descricao, desc_res_ing, desc_res_esp, desc_long_por,
 	  desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2, descFamilia, id_familia
 	FROM
-	  materiais_old.produto
+	  ".DATABASE.".produto
 	  JOIN(
-	    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, id_familia FROM materiais_old.componentes WHERE componentes.reg_del = 0
+	    SELECT id_grupo, id_sub_grupo, codigo_inteligente, descricao, cod_barras codBarrasComponente, id_familia FROM ".DATABASE.".componentes WHERE componentes.reg_del = 0
 	  ) componentes
 	  ON codBarrasComponente = cod_barras
 	  LEFT JOIN(
-	  	SELECT id_familia codFamilia, descricao descFamilia FROM materiais_old.familia WHERE familia.reg_del = 0
+	  	SELECT id_familia codFamilia, descricao descFamilia FROM ".DATABASE.".familia WHERE familia.reg_del = 0
 	  ) familia
 	  ON id_familia = codFamilia
 	WHERE
@@ -779,7 +779,7 @@ function agregarFamilia($filtro)
 		
 		$componentes = implode("','",$componentes);		
 		
-		$sql = "SELECT id_familia FROM materiais_old.familia WHERE reg_del = 0 AND id_familia = '".$idFamilia."'";
+		$sql = "SELECT id_familia FROM ".DATABASE.".familia WHERE reg_del = 0 AND id_familia = '".$idFamilia."'";
 		$db->select($sql, 'MYSQL', true);
 		
 		if ($db->numero_registros == 0)
@@ -792,7 +792,7 @@ function agregarFamilia($filtro)
 			$idFamilia = $familiaInserida['id_familia'];
 		}
 
-		$usql = "UPDATE materiais_old.componentes
+		$usql = "UPDATE ".DATABASE.".componentes
 					SET 
 					descricao = replace(replace(descricao, '', ''), '".$sql_texto."', ''),
 					id_familia = ".$idFamilia."
@@ -815,7 +815,7 @@ function excluir_familia($idFamilia)
 {
 	$db = new banco_dados();
 	
-	$usql = "UPDATE materiais_old.familia
+	$usql = "UPDATE ".DATABASE.".familia
 					SET 
 					reg_del = 1,
 					reg_who = ".$_SESSION['id_funcionario'].",
@@ -984,7 +984,7 @@ else
 			if (isset($_POST['id_produto']) && $_POST['id_produto'] > 0)
 			{
 				//Alterando o último produto para atual = 0
-				$usql = "UPDATE materiais_old.produto SET 
+				$usql = "UPDATE ".DATABASE.".produto SET 
 							atual = 0
 						WHERE reg_del = 0 
 						AND id_produto = {$_POST['id_produto']}";
@@ -993,7 +993,7 @@ else
 			}
 
 			//Inserindo o produto no banco de dados
-			$isql = "INSERT INTO materiais_old.produto 
+			$isql = "INSERT INTO ".DATABASE.".produto 
 						(cod_barras, desc_res_ing, desc_res_esp, desc_long_por, desc_long_ing, desc_long_esp, unidade1, unidade2, peso1, peso2)
 					VALUES
 						('{$_POST['codigoComponente']}', '{$descRes[0]}', '{$descRes[1]}', '{$descLong[0]}', '{$descLong[1]}', '{$descLong[2]}', '{$_POST['unidade1']}', '{$_POST['unidade2']}', '{$_POST['peso1']}', '{$_POST['peso2']}')";

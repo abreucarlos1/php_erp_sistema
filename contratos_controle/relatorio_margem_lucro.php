@@ -120,13 +120,6 @@ $xajax->processRequests();
 
 $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
-
-?>
-
-<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -173,4 +166,7 @@ $smarty->assign("option_fase_output",$array_fase_output);
 $smarty->assign("classe",CSS_FILE);
 
 $smarty->display('relatorio_margem_lucro.tpl');
+
 ?>
+
+<script src="<?php echo INCLUDE_JS ?>validacao.js"></script>

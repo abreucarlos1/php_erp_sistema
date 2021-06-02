@@ -572,6 +572,39 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela('".$_GET["cod_atividade"]."');xajax_orcamento('".$_GET["cod_atividade"]."','".$_GET["setor"]."');");
 
+$conf = new configs();
+
+$db = new banco_dados;
+
+$smarty->assign("id_atividade",$_GET["cod_atividade"]);
+
+$smarty->assign("id_setor",$_GET["setor"]);
+
+$sql = "SELECT * FROM ".DATABASE.".atividades ";
+$sql .= "WHERE atividades.id_atividade = '" . $_GET["cod_atividade"] . "' ";
+$sql .= "AND atividades.reg_del = 0 ";
+$sql .= "AND atividades.cod = '".$_GET["setor"]."' ";
+
+$db->select($sql,'MYSQL',true);
+
+if($db->erro!='')
+{
+	die($db->erro);	
+}
+
+$cont = $db->array_select[0];
+
+$smarty->assign("atividade",$cont["codigo"]." - ".$cont["descricao"]);
+
+$smarty->assign("revisao_documento","V4");
+
+$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
+
+$smarty->assign("nome_formulario","% MÃO-DE-OBRA");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('atividades_orcamento.tpl');
 
 ?>
 
@@ -579,7 +612,7 @@ $smarty->assign("body_onload","xajax_atualizatabela('".$_GET["cod_atividade"]."'
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {	
@@ -621,41 +654,3 @@ function grid(tabela, autoh, height, xml)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$db = new banco_dados;
-
-$smarty->assign("id_atividade",$_GET["cod_atividade"]);
-
-$smarty->assign("id_setor",$_GET["setor"]);
-
-$sql = "SELECT * FROM ".DATABASE.".atividades ";
-$sql .= "WHERE atividades.id_atividade = '" . $_GET["cod_atividade"] . "' ";
-$sql .= "AND atividades.reg_del = 0 ";
-$sql .= "AND atividades.cod = '".$_GET["setor"]."' ";
-
-$db->select($sql,'MYSQL',true);
-
-if($db->erro!='')
-{
-	die($db->erro);	
-}
-
-$cont = $db->array_select[0];
-
-$smarty->assign("atividade",$cont["codigo"]." - ".$cont["descricao"]);
-
-$smarty->assign("revisao_documento","V4");
-
-$smarty->assign('ocultarCabecalhoRodape','style="display:none;"');
-
-$smarty->assign("nome_formulario","% MÃO-DE-OBRA");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('atividades_orcamento.tpl');
-
-?>

@@ -412,7 +412,7 @@ function insere($dados_form)
             if(ENVIA_EMAIL)
 			{
                 $params 			= array();
-                $params['from']	    = "arquivotecnico@dominio.com.br";
+                $params['from']	    = "arquivotecnico@".DOMINIO;
                 $params['from_name']= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
                 $params['subject'] 	= "OS S PARA APROVAÇÃO ARQUIVO MORTO";
                 
@@ -501,7 +501,7 @@ function aprovar($dados_form)
         if(ENVIA_EMAIL)
         {        
             $params 			= array();
-            $params['from']	    = "arquivotecnico@dominio.com.br";
+            $params['from']	    = "arquivotecnico@".DOMINIO;
             $params['from_name']= "OS S APROVADAS ARQUIVO MORTO";
             $params['subject'] 	= "OS S APROVADAS ARQUIVO MORTO";
             
@@ -554,12 +554,70 @@ if (in_array($_SESSION['id_setor_aso'], array(2,17)))
     $scripts .= "xajax_liberarBloquear(1,'',0);xajax_liberarBloquearDescarte(1,'',0);xajax_atualizatabela_descartes();";
     
 $smarty->assign("body_onload","tab(".$_SESSION['id_setor_aso'].");xajax_atualizatabela_versoes();".$scripts);
+
+
+//Se for Arquivo Técnico ou TI, montar acessos
+$acessoTotal = in_array($_SESSION['id_setor_aso'], array(2,17)) ? true : false;
+
+if ($acessoTotal)
+{
+    $array_func_values[] = "0";
+    $array_func_output[] = "SELECIONE";
+    	  
+    $sql = "SELECT 
+                id_funcionario, funcionario FROM ".DATABASE.".funcionarios
+            WHERE 
+                situacao = 'ATIVO'
+                AND funcionarios.reg_del = 0
+                AND id_cargo IN(36,37,202) /*coordenadores: comissionamento, projeto e mão de obra respectivamente*/
+            ORDER BY
+                funcionario ";
+    
+    $db->select($sql,'MYSQL',true);
+    
+    if ($db->erro != '')
+    {
+    	exit("Não foi possível realizar a seleção.".$sql);
+    }
+    
+    foreach($db->array_select as $regs)
+    {
+    	$array_func_values[] = $regs["id_funcionario"];
+    	$array_func_output[] = $regs["funcionario"];	
+    }
+    
+    $smarty->assign("option_func_values",$array_func_values);
+    $smarty->assign("option_func_output",$array_func_output);
+}
+
+$smarty->assign('pasta_ged', DOCUMENTOS_GED.'ARQUIVO_MORTO/');
+
+$anoReferencia = array();
+$ano = 2013;
+while($ano <= date('Y'))
+{
+    $anoReferencia[] = $ano++;
+}
+$smarty->assign('anoReferencia', $anoReferencia);
+
+$smarty->assign('campo', $conf->campos('arquivo_morto'));
+$smarty->assign('acessoTotal', $acessoTotal);
+
+$smarty->assign('revisao_documento', 'V0');
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('arquivo_morto.tpl');
+
+
 ?>
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script type="application/javascript">
 // function liberarBotoes()
 // {
 //     document.getElementById('btnLiberar').disabled = true;
@@ -663,61 +721,3 @@ function desbloquearBotaoEnviar()
 	document.getElementById('selecionados').value = mygrid.getCheckedRows(0);
 }
 </script>
-
-<?php
-//Se for Arquivo Técnico ou TI, montar acessos
-$acessoTotal = in_array($_SESSION['id_setor_aso'], array(2,17)) ? true : false;
-
-if ($acessoTotal)
-{
-    $array_func_values[] = "0";
-    $array_func_output[] = "SELECIONE";
-    	  
-    $sql = "SELECT 
-                id_funcionario, funcionario FROM ".DATABASE.".funcionarios
-            WHERE 
-                situacao = 'ATIVO'
-                AND funcionarios.reg_del = 0
-                AND id_cargo IN(36,37,202) /*coordenadores: comissionamento, projeto e mão de obra respectivamente*/
-            ORDER BY
-                funcionario ";
-    
-    $db->select($sql,'MYSQL',true);
-    
-    if ($db->erro != '')
-    {
-    	exit("Não foi possível realizar a seleção.".$sql);
-    }
-    
-    foreach($db->array_select as $regs)
-    {
-    	$array_func_values[] = $regs["id_funcionario"];
-    	$array_func_output[] = $regs["funcionario"];	
-    }
-    
-    $smarty->assign("option_func_values",$array_func_values);
-    $smarty->assign("option_func_output",$array_func_output);
-}
-
-$smarty->assign('pasta_ged', DOCUMENTOS_GED.'ARQUIVO_MORTO/');
-
-$anoReferencia = array();
-$ano = 2013;
-while($ano <= date('Y'))
-{
-    $anoReferencia[] = $ano++;
-}
-$smarty->assign('anoReferencia', $anoReferencia);
-
-$smarty->assign('campo', $conf->campos('arquivo_morto'));
-$smarty->assign('acessoTotal', $acessoTotal);
-
-$smarty->assign('revisao_documento', 'V0');
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('arquivo_morto.tpl');
-
-?>

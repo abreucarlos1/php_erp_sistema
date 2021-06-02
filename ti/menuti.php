@@ -1,16 +1,14 @@
 <?php
 /*
-	Formulário de Menu Tecnologia da Informação
+	Formulário de Menu Administração
 	
 	Criado por Carlos Abreu  
 	
 	local/Nome do arquivo: 
-	../ti/menuti.php
+	../administracao/menuti.php
 	
-	Versão 0 --> VERSÃO INICIAL : 27/04/2007
-	Versão 1 --> Atualização Lay-out : 02/04/2009
-	Versão 2 --> Atualização DB / Lay-out: Carlos Abreu - 07/08/2012
-	Versão 3 --> Atualização layout - Carlos Abreu - 21/03/2017		
+	Versão 0 --> VERSÃO INICIAL : 20/05/2021
+	
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -32,13 +30,17 @@ $smarty->assign("body_onload","xajax_monta_menu(15);");
 
 $conf = new configs();
 
-$smarty->assign("revisao_documento","V3");
+$smarty->assign("nome_empresa",NOME_EMPRESA);
+
+$smarty->assign("revisao_documento","V0");
 
 $smarty->assign("campo",$conf->campos('menuti'));
 
 $smarty->assign("botao",$conf->botoes());
 
 $smarty->assign("classe",CSS_FILE);
+
+$smarty->assign("larguraTotal",1);
 
 $template = TEMPLATES_DIR."menu.tpl";
 

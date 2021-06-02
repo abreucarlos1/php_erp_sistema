@@ -426,7 +426,7 @@ function atualizar($dados_form)
 		{
 
 			$params 			= array();
-			$params['from']		= "recrutamento@dominio.com.br";
+			$params['from']		= "recrutamento@".DOMINIO;
 			$params['from_name']= "RH - Alteração de Salario";
 			$params['subject'] 	= "ALTERAÇÃO SALARIAL";
 		
@@ -551,7 +551,7 @@ $smarty->assign("body_onload","xajax_atualizaTabela(xajax.getFormValues('frm_ace
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 
 function grid(tabela, autoh, height, xml)
 {

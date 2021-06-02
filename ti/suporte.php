@@ -707,7 +707,7 @@ function enviarEmail($idChamado)
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script>
 function show_modal_anexos(idChamado)
 {
 	var html = '<div id="div_anexos"></div>';

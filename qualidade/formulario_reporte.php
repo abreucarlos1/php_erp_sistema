@@ -79,7 +79,7 @@ function atualizatabela($dados_form)
 
 	$sql = "SELECT * FROM ".DATABASE.".funcionarios, ".DATABASE.".nao_conformidades ";
 	$sql .= "LEFT JOIN ".DATABASE.".ordem_servico ON (nao_conformidades.id_os = ordem_servico.id_os) ";
-	$sql .= "JOIN (SELECT * FROM ".DATABASE.".tipo_origem) tpo ON tpo.id_tipo_origem = nao_conformidades.id_tipo_origem ";
+	$sql .= "JOIN (SELECT * FROM ".DATABASE.".tipos_origem) tpo ON tpo.id_tipo_origem = nao_conformidades.id_tipo_origem ";
 	$sql .= "WHERE nao_conformidades.nao_conformidade_delete = 0 ";
 	$sql .= "AND nao_conformidades.id_funcionario_criador = funcionarios.id_funcionario ";
 	
@@ -364,13 +364,29 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
+$conf = new configs();
+
+$smarty->assign("revisao_documento","V2");
+
+$smarty->assign('larguraTotal', 1);
+
+$smarty->assign("campo",$conf->campos('formulario_reporte'));
+
+$smarty->assign("botao",$conf->botoes());
+
+$smarty->assign("nome_formulario","FORMULARIO DE REPORTE");
+
+$smarty->assign("classe",CSS_FILE);
+
+$smarty->display('formulario_reporte.tpl');
+
 ?>
 
 <script src="<?php echo INCLUDE_JS ?>validacao.js"></script>
 
 <script src="<?php echo INCLUDE_JS ?>dhtmlx_403/codebase/dhtmlx.js"></script>
 
-<script language="javascript">
+<script type="application/javascript">
 
 function anexos(id_nc)
 {
@@ -439,23 +455,3 @@ function open_file(documento,path)
 }
 
 </script>
-
-<?php
-
-$conf = new configs();
-
-$smarty->assign("revisao_documento","V2");
-
-$smarty->assign('larguraTotal', 1);
-
-$smarty->assign("campo",$conf->campos('formulario_reporte'));
-
-$smarty->assign("botao",$conf->botoes());
-
-$smarty->assign("nome_formulario","FORMULARIO DE REPORTE");
-
-$smarty->assign("classe",CSS_FILE);
-
-$smarty->display('formulario_reporte.tpl');
-
-?>

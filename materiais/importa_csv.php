@@ -171,7 +171,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'))
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
 
-<script language="javascript">
+<script>
 function grid()
 {	
 	var mygrid = new dhtmlXGridFromTable('tbl1');
@@ -185,7 +185,7 @@ function grid()
 <?php
 $smarty->assign("nome_formulario","IMPORTA CSV(PDMS) - V1");
 
-$smarty->assign("classe","setor_proj");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('importa_csv.tpl');
 ?>

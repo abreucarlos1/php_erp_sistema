@@ -23,10 +23,7 @@ body {
 -->
 </style>
 
-
 <body>
-
-
 
 <div id="botao_div" style="position:absolute; top:550px; left:10px;">
 <input type="button" value="Voltar" class="fonte_botao" onclick="history.back();" />

@@ -10,7 +10,7 @@
 
 <title>::.. NOME EMPRESA - <smarty>$campo[1]</smarty> - <smarty>$versao</smarty>  ..::</title>
 <link href="<smarty>$classe</smarty>" rel="stylesheet" type="text/css" />
-<link rel="shortcut icon" href="favicon.ico" >
+<!-- <link rel="shortcut icon" href="favicon.ico" > -->
 </head>
 
 <body onload="<smarty>$body_onload</smarty>" onresize="<smarty>$body_onload</smarty>">

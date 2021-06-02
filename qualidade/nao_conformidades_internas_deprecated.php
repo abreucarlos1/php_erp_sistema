@@ -707,7 +707,7 @@ function email($id)
 	//{
 		$mail = new PHPMailer();	
 		
-		$mail->From     = "qualidade@dominio.com.br";
+		$mail->From     = "qualidade@".DOMINIO;
 		$mail->FromName = "SGI";
 		$mail->Host     = "smtp.devemada";
 		$mail->Mailer   = "smtp";
@@ -1079,116 +1079,6 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript('../includes/xajax'))
 
 $smarty->assign("body_onload","xajax_atualizatabela(xajax.getFormValues('frm'));");
 
-?>
-
-<!-- Javascript para validação de dados -->
-<script type="text/javascript" src="../includes/validacao.js"></script>
-
-<!-- Grid -->
-<script type="text/javascript" src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
-<script type="text/javascript" src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>		
-<script type="text/javascript" src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
-<script type="text/javascript" src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
-
-<script language="javascript">
-/*
-<!--
-//captura a tecla enter
-document.onkeypress = keyhandler;
-
-function keyhandler(e) 
-{
-	if (document.layers)
-		Key = e.which;
-	else
-		Key = window.event.keyCode;
-
-	if (Key != 0)
-		if (Key == 13)
-			//alert('Enter key press');
-			xajax_insere(xajax.getFormValues('frm'));
-}
-
-//-->
-*/
-
-//função que adiciona campos no div
-function add_controles(div_container)
-{	
-	var id_item, texto, controle;
-	
-	id_item = document.getElementById('qtd').value;
-
-	id_item++;
-	
-	input_file = document.createElement('input');
-	input_file.type = 'file';
-	input_file.id = 'input_' + id_item;
-	input_file.name = 'input_' + id_item;
-	
-	document.getElementById(div_container).appendChild(input_file);
-	
-	document.getElementById('qtd').value = id_item;
-}
-
-function anexos(id_nc)
-{
-	document.getElementById('id').value = id_nc;
-
-	document.getElementById('frm').submit();		
-}
-
-function finish(erro)
-{
-	if(erro==null || erro=='')
-	{
-		alert('Registro inserido com sucesso.');	
-	}
-	else
-	{
-		alert(erro);	
-	}
-	
-	xajax_atualizatabela(xajax.getFormValues('frm'));
-	
-	xajax_voltar();	
-}
-
-function grid(table,tamanho)
-{	
-	var mygrid = new dhtmlXGridFromTable(table);
-	
-	mygrid.imgURL = "../includes/dhtmlx_3_6/dhtmlxGrid/codebase/imgs/";
-	
-	mygrid.enableAutoHeight(true,tamanho);
-	//mygrid.enableAutoWidth(true);
-	mygrid.enableRowsHover(true,'cor_mouseover');
-	
-	mygrid.setSkin("dhx_skyblue");
-	
-}
-
-function imprimir()
-{
-	document.getElementById('frm').action = './relatorios/rel_nc_excel.php';
-	document.getElementById('frm').target = '_blank';
-	document.getElementById('frm').submit();	
-}
-
-function imprimir_rnc(id_rnc)
-{
-	window.open('relatorios/rel_rnc.php?id_rnc='+id_rnc, '_blank');
-}
-
-function open_file(documento,path)
-{
-	window.open("../includes/documento.php?documento="+documento+"&caminho="+path,"_blank");	
-}
-
-</script>
-
-<?php
-
 $conf = new configs();
 
 $db = new banco_dados;
@@ -1341,8 +1231,114 @@ $smarty->assign("option_pac_values",$array_pac_values);
 
 $smarty->assign("option_pac_output",$array_pac_output);
 
-$smarty->assign("classe","../classes/".$conf->classe('administrativo').".css");
+$smarty->assign("classe",CSS_FILE);
 
 $smarty->display('nao_conformidades_internas_deprecated.tpl');
 
 ?>
+
+<!-- Javascript para validação de dados -->
+<script  src="../includes/validacao.js"></script>
+
+<!-- Grid -->
+<script  src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
+<script  src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>		
+<script  src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
+<script  src="../includes/dhtmlx_3_6/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
+
+<script>
+/*
+<!--
+//captura a tecla enter
+document.onkeypress = keyhandler;
+
+function keyhandler(e) 
+{
+	if (document.layers)
+		Key = e.which;
+	else
+		Key = window.event.keyCode;
+
+	if (Key != 0)
+		if (Key == 13)
+			//alert('Enter key press');
+			xajax_insere(xajax.getFormValues('frm'));
+}
+
+//-->
+*/
+
+//função que adiciona campos no div
+function add_controles(div_container)
+{	
+	var id_item, texto, controle;
+	
+	id_item = document.getElementById('qtd').value;
+
+	id_item++;
+	
+	input_file = document.createElement('input');
+	input_file.type = 'file';
+	input_file.id = 'input_' + id_item;
+	input_file.name = 'input_' + id_item;
+	
+	document.getElementById(div_container).appendChild(input_file);
+	
+	document.getElementById('qtd').value = id_item;
+}
+
+function anexos(id_nc)
+{
+	document.getElementById('id').value = id_nc;
+
+	document.getElementById('frm').submit();		
+}
+
+function finish(erro)
+{
+	if(erro==null || erro=='')
+	{
+		alert('Registro inserido com sucesso.');	
+	}
+	else
+	{
+		alert(erro);	
+	}
+	
+	xajax_atualizatabela(xajax.getFormValues('frm'));
+	
+	xajax_voltar();	
+}
+
+function grid(table,tamanho)
+{	
+	var mygrid = new dhtmlXGridFromTable(table);
+	
+	mygrid.imgURL = "../includes/dhtmlx_3_6/dhtmlxGrid/codebase/imgs/";
+	
+	mygrid.enableAutoHeight(true,tamanho);
+	//mygrid.enableAutoWidth(true);
+	mygrid.enableRowsHover(true,'cor_mouseover');
+	
+	mygrid.setSkin("dhx_skyblue");
+	
+}
+
+function imprimir()
+{
+	document.getElementById('frm').action = './relatorios/rel_nc_excel.php';
+	document.getElementById('frm').target = '_blank';
+	document.getElementById('frm').submit();	
+}
+
+function imprimir_rnc(id_rnc)
+{
+	window.open('relatorios/rel_rnc.php?id_rnc='+id_rnc, '_blank');
+}
+
+function open_file(documento,path)
+{
+	window.open("../includes/documento.php?documento="+documento+"&caminho="+path,"_blank");	
+}
+
+</script>

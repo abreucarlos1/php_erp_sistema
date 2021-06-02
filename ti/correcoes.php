@@ -279,7 +279,7 @@ $smarty->assign("xajax_javascript",$xajax->printJavascript(XAJAX_DIR));
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
 <script type="text/javascript" src="../includes/dhtmlx/dhtmlxGrid/codebase/ext/dhtmlxgrid_start.js"></script>
 
-<script language="javascript">
+<script>
 	function verificar(el,i)
 	{
 		var comparativo = document.getElementById('comparativo_'+el.id+'_'+i).value;
