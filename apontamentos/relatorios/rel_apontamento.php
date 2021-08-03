@@ -2,7 +2,7 @@
 /*
 		Relatório Controle Horas Mensal	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../relatorios/rel_apontamento.php
