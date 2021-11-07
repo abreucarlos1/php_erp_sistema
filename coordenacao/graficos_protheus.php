@@ -2,7 +2,7 @@
 /*
 		Formulário de Gráfico do Consumo de Horas
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../coordenacao/grafico_protheus.php

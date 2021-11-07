@@ -2,7 +2,7 @@
 /*
 		Ficha do candidato	
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/documentos_contratacao_outros_pdf.php

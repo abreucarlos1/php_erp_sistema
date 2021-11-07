@@ -2,7 +2,7 @@
 /*
 	  GED / Lista de documentos do Projeto	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../relatorios/ged_lista_documentos.php
@@ -13,7 +13,7 @@
 	  Versão 1 --> Estatistica de documentos - 04/09/2012 - Carlos Abreu
 	  Versão 2 --> formatos nas estatisticas  - 20/12/2012 - Por Carlos Abreu
 	  Versão 3 --> Atualização banco de dados - 26/09/2014 - Carlos Abreu
-	  Versão 4 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Eduardo 
+	  Versão 4 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Abreu
 	  Versão 5 --> unificação das tabelas numero_cliente e numeros_interno - 10/05/2017 - Carlos Abreu
 	  Versão 6 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
 */
@@ -200,7 +200,7 @@ foreach($db->array_select as $reg_numdvm)
 	{
 		//Alteração 24/11/2014
 		//Correção da busca pela finalidade no relatório resumido
-		//Carlos Eduardo
+		//Carlos
 		$sql = "SELECT * FROM ( ";		
 			$sql .= "SELECT ged_versoes.id_fin_emissao, ged_pacotes.id_ged_pacote, numeros_interno.id_numero_interno FROM ".DATABASE.".setores, ".DATABASE.".ged_pacotes, ".DATABASE.".grd, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_versoes, ".DATABASE.".numeros_interno ";
 			$sql .= "WHERE numeros_interno.reg_del = 0 ";
@@ -394,7 +394,6 @@ else
 	$sql = "SELECT * FROM ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".ordem_servico, ".DATABASE.".atividades, ".DATABASE.".formatos, ".DATABASE.".setores, ".DATABASE.".numeros_interno ";
 	
 	//Alterado em 29/10/2014
-	//Carlos Máximo
 	$sql .=
 	"LEFT JOIN
 	(
@@ -1587,7 +1586,7 @@ else ///////////////////////////////////////////////////////////////////////////
 				//versao_documento cliente
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1, $linha, $array_numdvm['revisao_cliente'][$setor][$id_numero_interno][$x]);
 				
-				//versao_documento devemada
+				//versao_documento
 				$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3, $linha, $array_numdvm['revisao_interna'][$setor][$id_numero_interno][$x]);
 				
 				//titulo

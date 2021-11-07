@@ -3,7 +3,7 @@
 
 		Formulário de CABOS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abre
 		
 		local/Nome do arquivo:
 		../projetos/cabos.php

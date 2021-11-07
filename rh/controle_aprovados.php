@@ -2,11 +2,11 @@
 /*
 	Formulário de Controle de Aprovados
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos
 		
 	Versão 0 --> VERSÃO INICIAL : 08/04/2016
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-	Versão 3 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+	Versão 3 --> Layout responsivo - 05/02/2018 - Carlos
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

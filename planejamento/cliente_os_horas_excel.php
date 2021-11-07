@@ -3,7 +3,7 @@
 
 		Formulário de Cliente/OS/Horas em Excel
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		

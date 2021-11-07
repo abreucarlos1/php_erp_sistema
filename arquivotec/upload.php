@@ -542,13 +542,11 @@ if($_POST["funcao"]=='desbloqueio')
 			
 			$db->select($sql, 'MYSQL', true);
 			
-			//Carlos Eduardo: 27/02/2018 - Adicionando o coordenador para receber este e-mail
 			if($array_usremail[$db->array_select[0]['id_cod_coord']]!="")
 			{
 			    $params['emails']['to'][] = array('email' => $array_usremail[$db->array_select[0]['id_cod_coord']], 'nome' => $array_usrnome[$db->array_select[0]['id_cod_coord']]);
 			}
 			
-			//Carlos Eduardo: 23/01/2018
 			//$alocados = ProtheusDao::getAlocadosOS($db->array_select[0]['OS'], true);
 			//TODOS OS ALOCADOS
 			//foreach($alocados as $alocado)

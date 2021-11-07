@@ -2,7 +2,7 @@
 /*
 	Formulário de treinamentos efetuados	
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu 
 	
 	local/Nome do arquivo:
 	../rh/treinamentos_efetuados.php
@@ -10,9 +10,9 @@
 	Versão 0 --> VERSÃO INICIAL - 28/01/2008
 	Versao 1 --> Atualização Lay-out : 12/08/2008
 	Versão 2 --> Atualização banco de dados - 23/01/2015 - Carlos Abreu
-	Versão 3 --> Atualização Layout - 10/04/2015 - Eduardo
+	Versão 3 --> Atualização Layout - 10/04/2015 - Carlos
 	Versão 4 --> Atualização layout - Carlos Abreu - 10/04/2017
-	Versão 5 --> Alterações pedidas no chamado 2278 - Eduardo - 07/11/2017
+	Versão 5 --> Alterações pedidas no chamado 2278 - Carlos - 07/11/2017
 	Versão 6 --> Inclusão dos campos reg_del nas consultas - 29/11/2017 - Carlos Abreu
 */
 

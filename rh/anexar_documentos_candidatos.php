@@ -2,7 +2,7 @@
 /*
 	Formulário de Anexar documentos de candidatos aprovados	
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos 
 	
 		local/Nome do arquivo:
 		../rh/anexar_documentos_candidatos.php

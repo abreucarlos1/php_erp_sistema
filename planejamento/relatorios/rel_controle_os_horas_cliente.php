@@ -2,7 +2,7 @@
 /*
 		Relatório de OS x Horas x Cliente
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controle_os_horas_cliente.php

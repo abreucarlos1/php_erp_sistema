@@ -9,7 +9,7 @@
 	
 		Versão 0 --> VERSÃO INICIAL : 20/06/2016 - Carlos Abreu
 		Versão 1 --> atualização layout - Carlos Abreu - 23/03/2017
-		Versão 2 --> Adicionada a os 900 Chamado #1896 - Eduardo - 30/06/2017
+		Versão 2 --> Adicionada a os 900 Chamado #1896 - Carlos - 30/06/2017
 		
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

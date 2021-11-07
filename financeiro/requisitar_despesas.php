@@ -2,7 +2,7 @@
 /*
 	Formulário de Requisitar de Despesas	
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../financeiro/requisitar_despesas.php

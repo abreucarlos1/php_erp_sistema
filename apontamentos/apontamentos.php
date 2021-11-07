@@ -38,15 +38,15 @@
 		Versão 24 --> Inclusão de regra para apontamento da OS #2620 - 30/09/2015 - Carlos Abreu 
 		Versão 25 --> Alteração de caminho de imagens - 08/07/2016 - Carlos Abreu
 		Versão 26 --> Inclusão de filtro por periodo - 18/07/2016 - Carlos Abreu (Solicitação #529)
-		Versão 27 --> Alterações relacionadas a os 900 - 23/11/2016 - Carlos Eduardo (Solicitação #1162 e #1156) 
+		Versão 27 --> Alterações relacionadas a os 900 - 23/11/2016 - Carlos Abreu (Solicitação #1162 e #1156) 
 		Versão 28 --> Alterações Layout - 17/03/2017 - Carlos Abreu
 		Versão 29 --> inclusão da os 991 - Chamado #1640 - Carlos Abreu - 04/04/2017
 		Versão 30 --> Retirada do controle de tarefas orcadas x fora escopo - 26/05/2017 - Carlos Abreu
 		Versão 31 --> Correção do erro do autocomplete - 09/10/2017 - Carlos Abreu
 		Versão 32 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
-		Versão 33 --> Inclusão do campo externo para casos de tarefas externas - 01/03/2018 - Carlos Eduardo
+		Versão 33 --> Inclusão do campo externo para casos de tarefas externas - 01/03/2018 - Carlos Abreu
 		Versão 34 --> Restaurar o bloqueio por recurso nas OS e alterações em tarefas de faltas - #2692 - 05/03/2018 - Carlos Abreu
-		Versão 35 --> Adicionei um controle de horario de inicio e fim - 16/03/2018 - Carlos Eduardo
+		Versão 35 --> Adicionei um controle de horario de inicio e fim - 16/03/2018 - Carlos Abreu
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -2649,7 +2649,6 @@ function tarefas($dados_form, $selecionado = 0) //PROTHEUS
 					{
 						  $tarefa = explode("#",$codigo);
 					
-						  //01/03/2018 - Carlos Eduardo
 						  $arrDesc = explode('-', $descricao);
 						  $compos = trim($arrDesc[1]);
 						  
@@ -3051,7 +3050,6 @@ function tarefas($dados_form, $selecionado = 0) //PROTHEUS
 			{
 				  $tarefa = explode("#",$codigo);
 			
-				  //01/03/2018 - Carlos Eduardo
 				  $arrDesc = explode('-', $descricao);
 				  $compos = trim($arrDesc[1]);
 				  
@@ -3311,7 +3309,6 @@ function periodos($dados_form)
 
 				$db->select($sql,'MYSQL', true);
 
-				//15/03/2018 - Carlos Eduardo
 				$hrInicialExistente = $db->array_select[0]['hora_inicial'];
 				$hrFinalExistente = $db->array_select[0]['hora_final'];
 				

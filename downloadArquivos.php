@@ -1,7 +1,7 @@
 <?php
 /*
 	Processamento de arquivos para download
-	Criado por Carlos Eduardo
+	Criado por Carlos Abreu
 
 	local/Nome do arquivo:
 	../includes/downloadArquivo.php

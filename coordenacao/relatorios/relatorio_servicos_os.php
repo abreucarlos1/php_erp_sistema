@@ -5,7 +5,7 @@
 		local/Nome do arquivo:
 		../coordenacao/relatorios/relatorio_servicos_os.php
 		
-		Versão 0 --> VERSÃO INICIAL - 03/07/2015 - Carlos Eduardo
+		Versão 0 --> VERSÃO INICIAL - 03/07/2015 - Carlos
 		 Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));

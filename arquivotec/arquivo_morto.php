@@ -2,7 +2,7 @@
 /*
 		Formulário de arquivo morto - agmc	
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../arquivotec/arquivo_morto.php

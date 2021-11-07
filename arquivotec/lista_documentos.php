@@ -2,7 +2,7 @@
 /*
 	  Formulário de Lista dos documentos do Projeto
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../arquivotec/lista_documentos.php
@@ -11,7 +11,7 @@
 	  
 	  Versão 0 --> VERSÃO INICIAL
 	  Versão 1 --> mudança layout/pasta - 17/10/2014 - Carlos Abreu		
-	  Versão 2 --> mudança layout TPLs - 17/10/2014 - Carlos Eduardo
+	  Versão 2 --> mudança layout TPLs - 17/10/2014 - Carlos Abreu
 	  Versão 3 --> atualização layout - Carlos Abreu - 22/03/2017
 	  Versão 4 --> Inclusão dos campos reg_del nas consultas - 16/11/2017 - Carlos Abreu
 */	

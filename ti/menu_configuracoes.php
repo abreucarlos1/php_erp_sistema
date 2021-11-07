@@ -2,7 +2,7 @@
 /*
 	Formulário de Menu Configurações
 	
-	Criado por Carlos Máximo
+	Criado por Carlos 
 	
 	local/Nome do arquivo: 
 	../ti/menu_configuracoes.php	

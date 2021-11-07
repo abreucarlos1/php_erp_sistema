@@ -16,7 +16,7 @@
 		Versão 6 --> Alterações das imagens - 12/07/2016 - Carlos Abreu
 		Versão 7 --> atualização layout - Carlos Abreu - 27/03/2017
 		Versão 8 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
-		Versão 9 --> Adicionados filtros pedidos pela   em - 01/12/2017 - Carlos Eduardo
+		Versão 9 --> Adicionados filtros pedidos pela   em - 01/12/2017 - Carlos
 */
 header('X-UA-Compatible: IE=edge');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

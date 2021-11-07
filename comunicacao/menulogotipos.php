@@ -2,7 +2,7 @@
 /*
      Formulário de Menu Comunicação
      
-     Criado por Carlos Eduardo Máximo
+     Criado por Carlos
      
      local/Nome do arquivo: ../comunicacao/menulogotipos.php
      

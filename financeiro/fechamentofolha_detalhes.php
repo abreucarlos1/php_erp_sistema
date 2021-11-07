@@ -2,7 +2,7 @@
 /*
 	  Formulário de Detalhes do Fechamento da Folha	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../financeiro/fechamentofolha_detalhes.php

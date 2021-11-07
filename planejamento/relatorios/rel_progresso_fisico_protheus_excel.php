@@ -2,7 +2,7 @@
 /*
 		Relatório Progresso Fisico
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_progresso_fisico_protheus_excel.php

@@ -2,12 +2,12 @@
 /*
     Formulário de Grupos de questões
     
-    Criado por Carlos Eduardo
+    Criado por Carlos 
     
     Versão 0 --> VERSÃO INICIAL : 20/05/2015
     Versão 1 --> Atualização layout - Carlos Abreu - 07/04/2017
     Versão 2 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-    Versão 3 --> Layout responsivo - 28/11/2017 - Carlos Eduardo
+    Versão 3 --> Layout responsivo - 28/11/2017 - Carlos 
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	

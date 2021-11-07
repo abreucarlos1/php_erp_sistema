@@ -2,7 +2,7 @@
 /*
 		Formulário de Acompanhamento OS
 		
-		Criado por Carlos Abreu / Otávio Pamplona  
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../os/acompanhamento_os.php
@@ -13,7 +13,7 @@
 		Versão 4 --> Inclusão itens / layout - 23/04/2015 - Carlos Abreu
 		Versão 5 --> Atualização conforme chamado #846 - 30/11/2016 - Carlos Abreu
 		Versão 6 --> Atualização layout - Carlos Abreu - 03/04/2017
-		Versão 7 --> refatoração para deixar mais rapido - Carlos Máximo - 03/08/2017
+		Versão 7 --> refatoração para deixar mais rapido - Carlos - 03/08/2017
 */
 
 ini_set('max_execution_time', 0); // No time limit

@@ -3,7 +3,7 @@
 
 		Formulário de Planejamento estrategico resumo	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento_estrategico/planejamento_estrategico_resumo.php

@@ -2,7 +2,7 @@
 /*
 		Relatorio treinamentos periodo
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_treinamentos_periodo_excel.php

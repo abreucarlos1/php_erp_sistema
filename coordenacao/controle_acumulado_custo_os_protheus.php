@@ -2,7 +2,7 @@
 /*
 	Formulário de Controle custo
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:	
 	../coordenacao/controle_acumulado_custo_os_protheus.php

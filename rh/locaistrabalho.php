@@ -2,7 +2,7 @@
 /*
 		Formulário de LOCAIS DE TRABALHO	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/locaistrabalho.php
@@ -11,10 +11,10 @@
 		Versão 1 --> Atualização LAYOUT : 28/03/2006
 		Versão 2 --> Atualização Lay-out : 12/08/2008
 		Versão 3 --> Atualização classe banco de dados - 23/01/2015 - Carlos Abreu
-		Versão 4 --> Atualização Layout - 01/04/2015 - Eduardo
+		Versão 4 --> Atualização Layout - 01/04/2015 - Carlos
 		Versão 5 --> Atualização layout - Carlos Abreu - 07/04/2017
 		Versão 6 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-		Versão 7 --> Layout responsivo - Carlos Eduardo - 05/02/2018
+		Versão 7 --> Layout responsivo - Carlos - 05/02/2018
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

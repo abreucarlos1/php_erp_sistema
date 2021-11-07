@@ -2,7 +2,7 @@
 /*
 		Formulário de tipos aumento 	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/tipos_autmento.php

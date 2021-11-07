@@ -2,7 +2,7 @@
 /*
 		Formulário de Avaliação de Fornecedor
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 	
 		Versão 0 --> VERSÃO INICIAL : 03/06/2015
 		Versão 1 --> Atualização layout - Carlos Abreu - 07/04/2017

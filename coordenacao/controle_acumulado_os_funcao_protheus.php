@@ -2,7 +2,7 @@
 /*
 		Formulário de Controle função protheus
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../coordenacao/controle_acumulado_os_funcao_protheus.php

@@ -2,7 +2,7 @@
 /*
 		Lista de Evidência	
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos 
 		
 		data de criação: 14/12/2016
 		

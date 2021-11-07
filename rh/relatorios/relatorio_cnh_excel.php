@@ -2,7 +2,7 @@
 /*
 		Relatorio CNH
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/relatorio_cnh_excel.php

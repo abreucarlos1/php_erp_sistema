@@ -2,7 +2,7 @@
 /*
 		Formulário de Alteração de Apontamento Horas - externo	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../manutencao/controle_func_ext.php

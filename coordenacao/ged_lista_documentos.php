@@ -3,7 +3,7 @@
 
 		Formulário de Lista dos documentos do Projeto
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/ged_lista_documentos.php

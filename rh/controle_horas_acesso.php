@@ -2,14 +2,14 @@
 /*
 		Formulário de HORAS POR PERÍODO	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/controle_horas_acesso.php
 		
 		Versão 0 --> VERSÃO INICIAL : 02/03/2006		
 		Versão 1 --> Atualização classe banco de dados - 23/01/2015 - Carlos Abreu
-		Versão 2 --> Atualização Layout - 01/04/2015 - Eduardo
+		Versão 2 --> Atualização Layout - 01/04/2015 - Carlos
 		Versão 3 --> Atualização banco - 21/07/2016 - Carlos Abreu
 		Versão 4 --> Atualização layout - Carlos Abreu - 05/04/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu	

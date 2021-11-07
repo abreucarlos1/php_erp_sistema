@@ -2,7 +2,7 @@
 /*
 		Formulário de OS por disciplina por atividade
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/os_disciplina_atividade.php

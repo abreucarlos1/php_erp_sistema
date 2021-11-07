@@ -2,7 +2,7 @@
 /*
 		Formulário de Busca de Currículos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/busca_curriculos.php
@@ -16,7 +16,7 @@
 		Versão 6 --> Permitir alterar a modalidade/função - 30/01/2017 - Carlos Abreu
 		Versão 7 --> atualizacao layout - Carlos Abreu - 04/04/2017
 		Versão 8 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 9 --> Layout responsivo - Carlos Eduardo - 05/02/2018
+		Versão 9 --> Layout responsivo - Carlos - 05/02/2018
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

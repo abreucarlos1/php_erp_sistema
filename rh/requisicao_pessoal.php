@@ -2,7 +2,7 @@
 /*
 		Formulário de Requisição de Pessoal
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/requisicao_pessoal.php
@@ -11,9 +11,9 @@
 		Versão 1 --> Atualização Lay-out : 29/09/2008
 		Versão 2 --> Alteração de funcionalidade / dividido em 2 arquivos : 01/10/2008
 		Versão 3 --> Atualização banco de dados - 23/01/2015 - Carlos Abreu		
-		Versão 4 --> Adição dos campos Aspectos comportamentais e reporte direto - 08/04/2015 - Carlos Máximo
-		Versão 5 --> Passando para o novo layout, comecei do zero - 27/04/2016 - Carlos Máximo
-		Versão 6 --> Adicionados os campos de mobilização - 31/10/2016 - Carlos Máximo
+		Versão 4 --> Adição dos campos Aspectos comportamentais e reporte direto - 08/04/2015 - Carlos
+		Versão 5 --> Passando para o novo layout, comecei do zero - 27/04/2016 - Carlos
+		Versão 6 --> Adicionados os campos de mobilização - 31/10/2016 - Carlos 
 		Versão 7 --> Removida a parte de idiomas, visto que agora está no módulo de cargos/funções
 		Versão 8 --> Atualização layout - Carlos Abreu - 10/04/2017 
 		Versão 9 --> Inclusão dos campos reg_del nas consultas - 29/11/2017 - Carlos Abreu

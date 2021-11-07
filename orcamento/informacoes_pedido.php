@@ -3,14 +3,14 @@
  *
  *		Formulario de Input de informacoes gerais do pedido
  *
- *		Criado por Carlos Eduardo  
+ *		Criado por Carlos 
  *
  *		local/Nome do arquivo:
  *		../orcamento/informacoes_pedido.php
  *
  *		data de criacao: 28/02/2018
  *
- *		Versao 0 --> VERSAO INICIAL - Carlos Eduardo
+ *		Versao 0 --> VERSAO INICIAL - Carlos
  */
 
 /**

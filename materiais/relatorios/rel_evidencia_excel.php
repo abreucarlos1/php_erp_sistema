@@ -2,7 +2,7 @@
 /*
 		Relatório de Evidencia
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos  
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/rel_evidencia_excel.php

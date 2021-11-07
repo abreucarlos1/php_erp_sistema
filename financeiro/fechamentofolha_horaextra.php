@@ -2,7 +2,7 @@
 /*
 	  Formulário de hora extra do Fechamento da Folha	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplon ia
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../financeiro/fechamentofolha_horaextra.php

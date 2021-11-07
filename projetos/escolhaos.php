@@ -3,7 +3,7 @@
 
 		Formulário de MENU DE ACESSO AOS PROJETOS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/escolhaos.php

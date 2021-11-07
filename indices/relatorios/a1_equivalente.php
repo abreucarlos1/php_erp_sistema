@@ -2,7 +2,7 @@
 /*
 		Relatório de A1 equivalente
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../indices/relatorios/a1_equivalente.php

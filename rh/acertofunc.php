@@ -2,7 +2,7 @@
 /*
 		Formulário de Acerto Salarial de Funcionários	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../financeiro/acertofunc.php
@@ -12,7 +12,7 @@
 		Versão 2 --> Atualização rotinas banco de dados, implementação de templates Smarty (03/07/2008)
 		Versão 3 --> Atualização classe banco
 		Versao 4 --> Revisão dos campos Protheus - Carlos Abreu - 04/10/2012
-		Versão 5 --> Atualização Layout - 01/04/2015 - Eduardo
+		Versão 5 --> Atualização Layout - 01/04/2015 - Carlos
 		Versão 6 --> Atualização laout - Carlos Abreu - 04/04/2017
 		Versão 7 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu		
 */

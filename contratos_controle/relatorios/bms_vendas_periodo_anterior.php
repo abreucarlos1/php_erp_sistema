@@ -1,7 +1,7 @@
 <?php
 /*
 	Relatório de vendas no período selecionado
-	Criado por Carlos Eduardo  
+	Criado por Carlos 
 	
 	Obs.: Este arquivo é chamado de contratos_controle/bms.php
 	

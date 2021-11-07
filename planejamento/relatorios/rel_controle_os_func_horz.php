@@ -2,7 +2,7 @@
 /*
 		Relatório de MEDIÇÃO / HH / OS / FUNC horizontal
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controle_os_func_horz.php

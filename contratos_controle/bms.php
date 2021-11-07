@@ -3,16 +3,16 @@
 	Módulo de Boletins de medição
 	
 	Iniciado por Carlos Abreu
-	Finalizado por Carlos Eduardo
+	Finalizado por Carlos 
 	
 	Versão 0 --> VERSÃO INICIAL : 23/03/2009
 	Versão 1 --> VERSÃO 1 : 19/05/2015
 	Versão 2 --> atualização layout - Carlos Abreu - 22/03/2017
-	Versão 3 --> Melhoria na questão de permissões - Carlos Eduardo - 10/10/2017
+	Versão 3 --> Melhoria na questão de permissões - Carlos  - 10/10/2017
 	Versão 4 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
-	Versão 5 --> Inclusão da funcionalidade de informações de pedidos - 27/02/2017 - Carlos Eduardo
-	Versão 6 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos Eduardo
-	Versão 7 --> Inclusão do funcionalidade de cancelamento de saldo remanescente - 19/03/2018 - Carlos Eduardo
+	Versão 5 --> Inclusão da funcionalidade de informações de pedidos - 27/02/2017 - Carlos 
+	Versão 6 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos 
+	Versão 7 --> Inclusão do funcionalidade de cancelamento de saldo remanescente - 19/03/2018 - Carlos 
 */
 header('X-UA-Compatible: IE=edge');
 

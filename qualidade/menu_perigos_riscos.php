@@ -2,7 +2,7 @@
 /*
     Formulário de Menu Qualidade
 	
-	Criado por Carlos Eduardo  
+	Criado por Carlos 
 	
 	local/Nome do arquivo: 
 	../qualidade/menu_brigada 

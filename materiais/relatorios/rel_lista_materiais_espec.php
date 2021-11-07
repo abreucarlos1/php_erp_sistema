@@ -2,7 +2,7 @@
 /*
 		Relatório lista materiais espec
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/rel_lista_materiais_espec.php

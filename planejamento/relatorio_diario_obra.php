@@ -2,7 +2,7 @@
 /*
 		Formulário de Relatorio diario de obra
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorio_diario_obra.php
@@ -10,7 +10,7 @@
 		Versão 0 --> VERSÃO INICIAL - 02/03/2006
 		Versão 1 --> Atualização Lay-out | Smarty : 04/08/2008
 		Versão 2 --> Atualização classe banco de dados - 22/01/2015 - Carlos Abreu
-		Versão 3 --> Atualização Layout : 10/04/2015 - Eduardo
+		Versão 3 --> Atualização Layout : 10/04/2015 - Carlos
 		Versão 4 --> Atualização layout - Carlos Abreu - 03/04/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
 */

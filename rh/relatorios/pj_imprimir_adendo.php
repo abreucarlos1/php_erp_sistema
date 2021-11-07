@@ -2,7 +2,7 @@
 /*
 		Relatorio PJ Adendo	
 		
-		Criado por Carlos Abreu / Carlos Eduardo
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/relatorios/pj_imprimir_adendo.php

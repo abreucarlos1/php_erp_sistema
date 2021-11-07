@@ -13,8 +13,8 @@
 			</td>
         	<td colspan="2" valign="top"><div id="sila" style="width:100%;">
         	  <p class="labels"><a style="text-decoration:none;" href="http:\\www.inteligenciaambiental.com.br" target="_new">http:\\www.inteligenciaambiental.com.br</a></p>
-        	  <p class="labels">login: devemada</p>
-        	  <p class="labels">senha: devemada</p>
+        	  <p class="labels">login: </p>
+        	  <p class="labels">senha: </p>
    	        </div></td>
         </tr>
       </table>	

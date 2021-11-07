@@ -2,7 +2,7 @@
 /*
 		Relatório de rotinas de manutencao
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../ti/relatorios/rel_rotinas_manutencao_excel.php

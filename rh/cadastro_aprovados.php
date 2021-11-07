@@ -2,7 +2,7 @@
 /*
 	Formulário de Cadastro de candidatos aprovados
 
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos
 	
 			local/Nome do arquivo:
 			../rh/cadastro_aprovados.php
@@ -740,7 +740,7 @@ function salvarEmpresa($POST, $idCandidato, $cdvmId = '')
 	if (empty($cdvmId))
 	{
 		$isql =
-		"INSERT INTO ".DATABASE.".candidatos_devemada (
+		"INSERT INTO ".DATABASE.".candidatos (
 			cdvm_candidato_id, cdvm_email, cdvm_login, cdvm_sigla)
 		VALUES (
 		".$idCandidato.",'".$email."','".$login."','".$sigla."' )";
@@ -752,7 +752,7 @@ function salvarEmpresa($POST, $idCandidato, $cdvmId = '')
 		if (!empty($email) && !empty($login))
 		{
 			$usql =
-			"UPDATE ".DATABASE.".candidatos_devemada SET 
+			"UPDATE ".DATABASE.".candidatos SET 
 				cdvm_email = '".$email."',
 				cdvm_login = '".$login."',
 				cdvm_sigla = '".$sigla."'
@@ -1049,7 +1049,7 @@ if (isset($_GET['rsh']))
 			
 			$ext = in_array($reg['mod_contrato'], array('SC', 'SC+MENS')) ? 'ext.' : '';
 			
-			$post['devemada']= array(
+			$post['cad']= array(
 				'email' 		=> !empty($reg['cdvm_email']) ? $reg['cdvm_email'] : $ext.$login.'@dominio.com.br',
 				'login' 		=> !empty($reg['cdvm_login']) ? $reg['cdvm_login'] : $login,
 				'sigla_func'	=> !empty($reg['cdvm_candidato_id']) ? $reg['cdvm_sigla'] : $sigla

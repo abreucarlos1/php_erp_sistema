@@ -1,7 +1,7 @@
 <?php
 /*
 	Lista de materiais - modelos (Listas personalizadas)
-	Criado por Carlos Eduardo  
+	Criado por Carlos
 	Versão 0 --> VERSÃO INICIAL - 20/05/2016
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 01/12/2017 - Carlos Abreu
 */

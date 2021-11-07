@@ -2,7 +2,7 @@
 /*
 		Relatório lista fibria excel
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos 
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/rel_lista_fibria_excel.php

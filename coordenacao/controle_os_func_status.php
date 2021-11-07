@@ -2,7 +2,7 @@
 /*
 		Formulário de MEDIÇÃO / HH / OS / FUNCIONÁRIO
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		
@@ -11,7 +11,7 @@
 		Versão 0 --> VERSÃO INICIAL - 02/03/2006
 		Versão 1 --> Atualização Lay-out | Smarty : 21/07/2008
 		Versão 2 --> Atualização classe banco - 20/01/2015 - Carlos Abreu
-		Versão 3 --> Atualização - 09/04/2015 - Eduardo
+		Versão 3 --> Atualização - 09/04/2015 - Carlos
 		Versão 4 --> atualização layout - Carlos Abreu - 24/03/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu		
 */

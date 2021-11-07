@@ -2,7 +2,7 @@
 /*
 		Relatório de apontamentos x coordenador x os x funcionarios	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_apontamentos_coord_os_func.php

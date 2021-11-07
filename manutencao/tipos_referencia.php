@@ -9,7 +9,7 @@
 		
 		Versão 0 --> VERSÃO INICIAL : 23/03/2012
 		Versão 1 --> atualização da classe banco de dados - 21/01/2015 - Carlos Abreu		
-		Versão 2 --> Atualização de layout - 28/05/2015 - Eduardo
+		Versão 2 --> Atualização de layout - 28/05/2015 - Carlos
 		Versão 3 --> atualização layout - Carlos Abreu - 30/03/2017
 		Versão 4 --> Inclusão dos campos reg_del nas consultas - 22/11/2017 - Carlos Abreu
 */

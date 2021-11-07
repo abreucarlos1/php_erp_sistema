@@ -2,7 +2,7 @@
 /*
 		Formulário de Visualizar Funcionarios	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/visualizar_funcionarios.php

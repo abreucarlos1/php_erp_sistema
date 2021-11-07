@@ -2,7 +2,7 @@
 /*
 		Relatório lista materiais 
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos 
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/rel_lista_materiais_excel.php

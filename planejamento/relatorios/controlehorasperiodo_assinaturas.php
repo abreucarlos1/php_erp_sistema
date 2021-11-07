@@ -2,7 +2,7 @@
 /*
 		Relatório de HORAS POR PERÍODO	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/controlehorasperiodo_assinaturas.php

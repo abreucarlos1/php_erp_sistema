@@ -2,7 +2,7 @@
 /*
 		Relatorio permanencia cliente
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_permanencia_func_cliente_excel.php

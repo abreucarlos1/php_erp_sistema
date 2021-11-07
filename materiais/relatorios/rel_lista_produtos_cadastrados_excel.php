@@ -2,7 +2,7 @@
 /*
 		Relatório lista produtos cadastrados 
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos  
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/rel_lista_produtos_cadastrados_excel.php

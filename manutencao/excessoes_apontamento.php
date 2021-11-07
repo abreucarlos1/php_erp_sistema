@@ -2,14 +2,14 @@
 /*
 		Formulario de Excessões de apontamentos	
 		
-		Criado por Carlos Eduardo Máximo
+		Criado por Carlos 
 		
 		local/Nome do arquivo:
 		../ti/excessoes_apontamento.php
 	
 		Versão 0 --> VERSÃO INICIAL : 20/10/2015
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 22/11/2017 - Carlos Abreu
-		Versão 2 --> Layout responsivo - 22/11/2017 - Carlos Eduardo
+		Versão 2 --> Layout responsivo - 22/11/2017 - Carlos
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

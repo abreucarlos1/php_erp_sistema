@@ -2,7 +2,7 @@
 /*
 		Relatório de atividades para orçamento	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_atividadesporcent.php

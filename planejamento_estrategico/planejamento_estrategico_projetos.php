@@ -3,7 +3,7 @@
 
 		Formulário de Planejamento Estrategico Projetos
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento_estrategico/planejamento_estrategico_projetos.php

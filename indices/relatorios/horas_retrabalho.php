@@ -2,7 +2,7 @@
 /*
 		Relatório de Horas de retrabalho
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../indices/relatorios/horas_retrabalho.php
@@ -98,7 +98,7 @@ switch($_POST["intervalo"])
 		{ 
 			$mesant = $_POST["mes"] - 1;
 			//alteração aqui!!! 03/01/2008
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
+			$ano=date('Y'); //retirado "-1" 07/02/2008 
 			$dataini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}

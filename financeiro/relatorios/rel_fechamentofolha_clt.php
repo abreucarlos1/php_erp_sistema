@@ -2,7 +2,7 @@
 /*
 	  Relatório Fechamento Folha - CLT	
 	  
-	  Criado por Carlos Abreu / OtÁvio Pamplona
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../financeiro/relatorios/rel_fechamentofolha_clt.php

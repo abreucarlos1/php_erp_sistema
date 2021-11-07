@@ -2,7 +2,7 @@
 /*
 		Relatório NF x empresas
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_nf_empresas_os_controle.php

@@ -2,15 +2,15 @@
 /*
 	Formulário de Inventário
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos 
 	
 	local/Nome do arquivo: ../ti/cadastroequipamentos.php
 	
 	Versão 0 --> VERSÃO INICIAL : 19/09/2014
 	Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
-	Versão 2 --> Refatoração do módulo - Eduardo - 12/06/2017
+	Versão 2 --> Refatoração do módulo - Carlos - 12/06/2017
 	Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-	Versão 4 --> Layout responsivo - 06/02/2018 - Carlos Eduardo
+	Versão 4 --> Layout responsivo - 06/02/2018 - Carlos
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	

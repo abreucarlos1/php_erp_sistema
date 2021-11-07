@@ -46,7 +46,7 @@ function autenticacao($dados_form)
 	
 	$conf = new configs();
 	
-	$enc = new Crypter('DEVEMADAENGENHARIA');
+	$enc = new Crypter('ENGENHARIA');
 		
 	$msg = $conf->msg($resposta);
 	

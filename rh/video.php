@@ -2,7 +2,7 @@
 /*
 	Formulário de Menu Liderança
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos
 	
 	local/Nome do arquivo: ../rh/video.php
 	

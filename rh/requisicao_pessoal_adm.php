@@ -2,7 +2,7 @@
 /*
 	Formulário de Requisição de Pessoal - ADM
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu 
 	
 	local/Nome do arquivo:
 	../rh/adm_requisicao_pessoal.php

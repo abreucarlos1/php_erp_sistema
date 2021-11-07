@@ -2,7 +2,7 @@
 /*
 		Relatório Apontamentos por periodo
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_funcionarios_os_excel.php

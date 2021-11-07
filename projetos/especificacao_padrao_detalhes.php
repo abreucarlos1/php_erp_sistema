@@ -3,7 +3,7 @@
 
 		Formulário de Especificacao Padrao / detalhes	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../projetos/altespec_padrao.php

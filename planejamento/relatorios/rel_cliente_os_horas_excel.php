@@ -2,7 +2,7 @@
 /*
 		Relatório de Cliente x OS x Horas	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_cliente_os_horas_excel.php

@@ -2,7 +2,7 @@
 /*
 	Relatório de documentos de Referência
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../relatorios/rel_lista_documentos_ref.php
@@ -10,7 +10,7 @@
 	Versão 0 --> Criação - 08/01/2009
 	Versão 1 --> alteração banco de dados - 26/09/2014 - Carlos Abreu		
 	Versão 2 --> alteração banco de dados - 26/09/2014 - Carlos Abreu
-	Versão 3 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Eduardo
+	Versão 3 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Abreu
 	Versão 4 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));

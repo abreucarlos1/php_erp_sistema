@@ -2,7 +2,7 @@
 /*
 	Módulo de Manuais de Sistemas para o Arquivo técnico
 	
-	Criado por Carlos Eduardo
+	Criado por Carlos 
 	
 	local/Nome do arquivo:
 	../manuais_sistemas/menuarquivotecnicomanuais.php

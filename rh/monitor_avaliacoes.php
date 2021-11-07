@@ -2,13 +2,13 @@
 /*
      Formulário de Avaliação de Fornecedor
      
-     Criado por Carlos Eduardo
+     Criado por Carlos
      
      Versão 0 --> VERSÃO INICIAL : 20/05/2015
      Versão 1 --> Atualização layout - Carlos Abreu - 07/04/2017
      Versão 2 --> Alteração para contemplar a nova avaliação de conteúdo técnico - 07/11/2017
      Versão 3 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-     Versão 4 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+     Versão 4 --> Layout responsivo - 05/02/2018 - Carlos 
  */
 header('X-UA-Compatible: IE=edge');
 
@@ -160,7 +160,7 @@ function liberarAvaliacoesAvulsas($dados_form)
         
         $id = $dados_form['selAvaLiberar'];
         
-        //Se for colaborador devemada, continua exatamente igual
+        //Se for colaborador, continua exatamente igual
         if ($dados_form['liberarPara'] == 1)
         {
             $sql = "SELECT
@@ -224,7 +224,7 @@ function liberarAvaliacoesAvulsas($dados_form)
                 $model = new avaliacoes(new Smarty());
                 $corpo = $model->montarApresentacao($id, true);
                 
-                //Apenas colaboradores da devemada deverao receber um e-mail
+                //Apenas colaboradores da deverao receber um e-mail
                 if ($dados_form['liberarPara'] == 1)
                 {
                     $erroEmail = false;

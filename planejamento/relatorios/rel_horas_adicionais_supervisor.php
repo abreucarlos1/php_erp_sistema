@@ -2,7 +2,7 @@
 /*
 		Relatório Horas Adicionais x supervisor
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_horas_adicionais_supervisor.php
@@ -85,7 +85,7 @@ switch($_POST["intervalo"])
 		else
 		{ 
 			$mesant = $_POST["mes"] - 1;
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
+			$ano=date('Y'); //retirado "-1" 07/02/2008
 			$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}

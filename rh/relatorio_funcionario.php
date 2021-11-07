@@ -2,13 +2,13 @@
 /*
 		Formulário de HORAS POR PERÍODO	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/relatorio_funcionario.php
 		
 		Versão 0 --> VERSÃO INICIAL : 02/03/2006
-		Versão 1 --> Atualização Layout - 01/04/2015 - Eduardo
+		Versão 1 --> Atualização Layout - 01/04/2015 - Carlos
 		Versão 2 --> Atualização layout - Carlos Abreu - 07/04/2017		
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

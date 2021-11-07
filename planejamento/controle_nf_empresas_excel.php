@@ -2,7 +2,7 @@
 /*
 		Formulário de Controle NF empresas	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/controle_nf_empresas_excel.php

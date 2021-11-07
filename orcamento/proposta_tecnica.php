@@ -2,7 +2,7 @@
 /*
 	Formulário de Propostas/Orçamento	
 	
-	Criado por Carlos Abreu / Carlos Máximo
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../orcamento/proposta_tecnica.php

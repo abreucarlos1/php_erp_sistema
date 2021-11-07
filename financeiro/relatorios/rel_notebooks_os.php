@@ -2,7 +2,7 @@
 /*
     Relatório Notebooks por OS	
     
-    Criado por Carlos Eduardo  
+    Criado por Carlos 
     
     local/Nome do arquivo:
     ../financeiro/relatorios/rel_notebooks_os.php

@@ -2,7 +2,7 @@
 /*
 		Relatório de funcionario x OS x apontamentos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_controle_funcxosxconthoras.php

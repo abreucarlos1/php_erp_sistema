@@ -1,7 +1,7 @@
 <?php
 /*
 	Formulário de Visualização de Curriculo
-	Criado por Carlos Eduardo
+	Criado por Carlos 
 
 	local/Nome do arquivo:
 	../rh/download_curriculo.php

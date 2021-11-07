@@ -2,7 +2,7 @@
 /*
     Formulário de Sub-Grupos de materiais
     
-    Criado por Carlos Abreu / Otávio Pamplona
+    Criado por Carlos Abreu
     
     local/Nome do arquivo:
     
@@ -10,7 +10,7 @@
     
     Versão 0 --> VERSÃO INICIAL - 15/12/2008
     Versao 1 --> Atualização da classe banco de dados - 21/01/2015 - Carlos Abreu
-    Versão 2 --> Atualização do layout - 27/10/2017 - Carlos Máximo
+    Versão 2 --> Atualização do layout - 27/10/2017 - Carlos
 	Versão 3 --> Inclusão dos campos reg_del nas consultas - 01/12/2017 - Carlos Abreu		
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

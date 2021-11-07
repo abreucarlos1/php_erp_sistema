@@ -2,7 +2,7 @@
 /*
 		Formulário de OS X Hora Adicional	
 		
-		Criado por Carlos Abreu / Otávio Pamplon ia
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../financeiro/os_x_horaadicional.php
@@ -11,7 +11,7 @@
 		Versão 1 --> Atualização Lay-Out - 09/11/2007
 		Versão 2 --> Implementação templates Smarty - 03/07/2008
 		Versão 3 --> atualização da classe banco - 21/01/2015 - Carlos Abreu
-		Versão 4 --> Atualização layout 2015 - 11/11/2015 - Carlos Eduardo Máximo
+		Versão 4 --> Atualização layout 2015 - 11/11/2015 - Carlos
 		Versão 5 --> Atualização imagens - 21/07/2016 - Carlos Abreu
 		Versão 6 --> atualização layout - Carlos Abreu - 28/03/2017
 		Versão 7 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		

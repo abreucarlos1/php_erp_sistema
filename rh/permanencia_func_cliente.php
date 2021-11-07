@@ -2,15 +2,15 @@
 /*
 		Formulário de PERMANENCIA FUNC CLIENTE	
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/permanencia_func_cliente.php
 	
-		Versão 0 --> VERSÃO INICIAL : 29/08/2017 - Carlos Eduardo
-		Versão 1 --> 19/10/2017 - Adicionei os campos OS e Horas - Carlos Eduardo
+		Versão 0 --> VERSÃO INICIAL : 29/08/2017 - Carlos
+		Versão 1 --> 19/10/2017 - Adicionei os campos OS e Horas - Carlos
 		Versão 2 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-		Versão 3 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+		Versão 3 --> Layout responsivo - 05/02/2018 - Carlos
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

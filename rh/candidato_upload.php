@@ -1,7 +1,7 @@
 <?php
 /*
 	Formulário de Upload de documentos de candidatos
- 	Criado por Carlos Eduardo Máximo
+ 	Criado por Carlos
  
 		local/Nome do arquivo:
 		../rh/candidato_upload.php

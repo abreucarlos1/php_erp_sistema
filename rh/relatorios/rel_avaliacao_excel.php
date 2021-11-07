@@ -2,7 +2,7 @@
 /*
 		Relatorio Avaliação
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_avaliacao_excel.php

@@ -1,6 +1,6 @@
 <?php
 /*
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		data de criação: 05/06/2006
 		

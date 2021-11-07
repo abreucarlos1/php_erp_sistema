@@ -3,7 +3,7 @@
 
 		Formulário de FINALIDADES DE CABOS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/cabos_finalidades.php

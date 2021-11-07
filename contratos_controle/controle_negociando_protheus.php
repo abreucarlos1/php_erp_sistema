@@ -10,7 +10,7 @@
 		Versão 0 --> VERSÃO INICIAL - 25/07/2013
 		Versão 1 --> Mudança dos bancos de projetos para orcamento - 12/11/2013 - Carlos Abreu
 		Versão 2 --> Atualização classe banco - 20/01/2015 - Carlos Abreu
-		Versão 3 --> Atualização - 09/04/2015 - Eduardo
+		Versão 3 --> Atualização - 09/04/2015 - Carlos
 		Versão 4 --> Atualização layout - Carlos Abreu - 23/03/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
 */

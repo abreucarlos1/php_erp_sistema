@@ -2,7 +2,7 @@
 /*
 	  Relatório Não Conformidade	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu 
 	  
 	  local/Nome do arquivo:
 	  ../relatorios/rel_rnc.php

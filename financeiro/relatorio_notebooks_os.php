@@ -2,13 +2,13 @@
 /*
 		Formulário de Relatorio Notebooks por os	
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos 
 		
 		local/Nome do arquivo:
 		../financeiro/relatorio_notebooks_os.php
 	
 		Versão 0 --> VERSÃO INICIAL : 20/03/2018
-		Versão 1 --> Criação da função atualizatabela - 26/03/2018 - Carlos Eduardo
+		Versão 1 --> Criação da função atualizatabela - 26/03/2018 - Carlos
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	

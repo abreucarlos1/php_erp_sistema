@@ -2,13 +2,13 @@
 /*
     Formulário de configuração de avaliação
     
-    Criado por Carlos Eduardo
+    Criado por Carlos
     
     Versão 0 --> VERSÃO INICIAL : 20/05/2015
     Versão 1 --> Atualização layout - Carlos Abreu - 05/04/2017
     Versão 2 --> Alteração para contemplar a nova avaliação de conteúdo técnico - 07/11/2017
     Versão 3 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-    Versão 4 --> Layout - 06/02/2018 - Carlos Eduardo
+    Versão 4 --> Layout - 06/02/2018 - Carlos 
  */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 

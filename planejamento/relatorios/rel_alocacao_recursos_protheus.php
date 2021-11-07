@@ -2,7 +2,7 @@
 /*
 		Relatório de ALOCAÇÃO DE RECURSOS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../planejamento/relatorios/rel_alocacao_recursos_protheus.php

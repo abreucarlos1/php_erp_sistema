@@ -2,7 +2,7 @@
 /*
 		Relatório de Cotação de materiais
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos 
 		
 		local/Nome do arquivo:		
 		../materiais/relatorios/lista_materiais_cotacao.php

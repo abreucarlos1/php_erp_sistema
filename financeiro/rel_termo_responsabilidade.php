@@ -2,7 +2,7 @@
 /*
 		Relatório TERMO DE RESPONSABILIDADE
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../financeiro/rel_termo_responsabilidade.php

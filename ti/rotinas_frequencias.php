@@ -10,7 +10,7 @@
 		Versão 1 --> Atualização layout - Carlos Abreu - 11/04/2017
 		Versão 2 --> Inclusão dos campos reg_del nas consultas - Carlos Abreu - 13/11/2017
 		Versão 3 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-		Versão 4 --> Layout responsivo - 06/02/2018 - Carlos Eduardo
+		Versão 4 --> Layout responsivo - 06/02/2018 - Carlos 
 */
 	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

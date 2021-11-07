@@ -1428,7 +1428,7 @@ if ($mes_per==1)
 else
 { 
 	$mesant = $mes_per - 1;
-	$ano = date('Y'); //retirado "-1" 07/02/2008 Otávio
+	$ano = date('Y'); //retirado "-1" 07/02/2008 
 	$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 	$datafim = "25/" . $mes_per . "/" . $ano;
 }

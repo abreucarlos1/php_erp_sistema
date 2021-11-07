@@ -2,7 +2,7 @@
 /*
 	Formulário de importacao CSV
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	
@@ -58,7 +58,7 @@ function importa($dados_form)
 			$ext = $tmp_arq[count($tmp_arq)-1];
 			
 			//formato do código:
-			// matcode -->codigo do banco devemada
+			// matcode -->codigo do banco
 			// spref --> codigo petrobras
 			// quantidade --> itens
 			

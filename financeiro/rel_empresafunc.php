@@ -2,7 +2,7 @@
 /*
 		Relatório empresa funcionarios	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../financeiro/rel_empresafunc.php

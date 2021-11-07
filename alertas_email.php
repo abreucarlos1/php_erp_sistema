@@ -12,9 +12,9 @@ ALTERAÇÕES:
 	22/06/2016 - ALTEREI TODAS AS ROTINAS PARA ENVIAR EMAIL COM A NOVA CLASSE EMAILS E BUSCAR DESTINATÁRIOS DO BANCO DE DADOS
 	10/05/2017 - Unificação das tabelas numero_cliente e numeros_interno - Carlos Abreu
 	13/11/2017 - Inclusão dos campos reg_del nas consultas - Carlos Abreu
-	11/01/2018 - Inclusão da função de encerramento dos chamados - Carlos Eduardo
+	11/01/2018 - Inclusão da função de encerramento dos chamados - Carlos Abreu
 	24/01/2018 - Inclusão da aprovação automatica de solicitação alteração escopo - Carlos Abreu
-	26/02/2018 - Inclusão da função de aviso pedidos sem anexo - Carlos Eduardo
+	26/02/2018 - Inclusão da função de aviso pedidos sem anexo - Carlos Abreu
 */
 
 function vencimento_senha()
@@ -358,7 +358,7 @@ function vencimento_integracao()
 	$db = new banco_dados;	
 	
 	//Alteração: 04/01/2017
-	//Eduardo: Agora o aviso de integração ocorrerá com 30 dias ou 15 dias
+	//Agora o aviso de integração ocorrerá com 30 dias ou 15 dias
 	$sql = "SELECT descricao, data_vencimento, id_rh_integracao, funcionario FROM ".DATABASE.".funcionarios, ".DATABASE.".local, ".DATABASE.".rh_integracao ";
 	$sql .= "WHERE funcionarios.id_funcionario = rh_integracao.id_funcionario ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
@@ -1034,8 +1034,6 @@ function verifica_retorno()
 	 *  Envia um alerta ao solicitante de um pacote, após 5 dias na espera de retorno
 	 *  a partir da data de estimada de retorno, sendo reenviada conforme o campo flag_numero_avisos de numeros_interno
 	 **/
-
-	//$enc = new Crypter('DEVEMADAENGENHARIA');
 
 	$db = new banco_dados();
 	

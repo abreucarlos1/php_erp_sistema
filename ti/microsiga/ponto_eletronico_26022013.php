@@ -3,7 +3,7 @@
 
 		Formulário de Ponto Eletronico 	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/ponto_eletronico.php

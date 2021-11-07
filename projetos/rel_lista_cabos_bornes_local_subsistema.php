@@ -1,6 +1,6 @@
 <?php
 /*
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016
@@ -101,7 +101,7 @@ function Header()
 	$this->SetDrawColor(0,0,0);
 
 	/*
-	COMENTADO POR OTÁVIO - LINHAS ANTERIORES Á ALTERAÇÃO DA MARGEM - 20/07/2006
+	
 	$this->Line(20,15,280,15); // LINHA SUPERIOR
 	$this->Line(20,45,280,45); // LINHA INFERIOR
 	$this->Line(20,15,20,45); // LINHA ESQUERDA

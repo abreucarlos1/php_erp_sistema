@@ -2,7 +2,7 @@
 /*
 	Formulário de ASO	
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../rh/pcmso.php
@@ -11,7 +11,7 @@
 	Versão 1 --> Atualização Lay-out : 13/08/2008
 	Versão 2 --> Atualização rotinas : 30/11/2011
 	Versão 3 --> Atualização classe banco de dados - 23/01/2015 - Carlos Abreu
-	Versão 4 --> Atualização Layout - 14/04/2015 - Eduardo
+	Versão 4 --> Atualização Layout - 14/04/2015 - Carlos
 	Versão 5 --> Atualização layout - Carlos Abreu - 07/04/2017
 	Versão 6 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
 */

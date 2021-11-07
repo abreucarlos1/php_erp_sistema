@@ -2,7 +2,7 @@
 /*
 		Formulário do Relatório de Previstos/Executados
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../coordenacao/relatorio_prevexec.php

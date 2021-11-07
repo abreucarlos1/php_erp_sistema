@@ -2,7 +2,7 @@
 /*
 		Formulário de Relatório funcionario
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../supervisao/relatorios_funcionario.php

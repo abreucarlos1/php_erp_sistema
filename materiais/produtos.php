@@ -2,7 +2,7 @@
 /*
 	Formulário de Grupos de materiais
 	
-	Criado por Carlos Eduardo  
+	Criado por Carlos  
 	
 	local/Nome do arquivo:
 	

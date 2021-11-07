@@ -2,7 +2,7 @@
 /*
 		Formulário de MEDIÇÃO / HH / OS / STATUS
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/os_diciplina_hh.php

@@ -5,7 +5,7 @@
 			Permite solicitar novas implementações de projetos
 			Isto eliminaria a necessidade de Termo de Abertura de Projetos (TAP)
 		
-		Criado por Carlos Eduardo Máximo  
+		Criado por Carlos  
 		
 		local/Nome do arquivo:
 		../ti/gestao_mudancas.php

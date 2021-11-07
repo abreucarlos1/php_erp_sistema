@@ -9,7 +9,7 @@
 		
 		Versão 0 --> VERSÃO INICIAL - 04/05/2006
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 2 --> Inclusão dos campos tipo de contrato e Tarifa - 01/02/2018 - Eduardo
+		Versão 2 --> Inclusão dos campos tipo de contrato e Tarifa - 01/02/2018 - Carlos
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 

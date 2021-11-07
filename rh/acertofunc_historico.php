@@ -2,7 +2,7 @@
 /*
 		Formulário de Histórico Salarial de Funcionários	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../financeiro/acertofunc_historico.php

@@ -2,7 +2,7 @@
 /*
 		Formulário de GRD
 		
-		Criado por Carlos Abreu / Otávio Pamplona  
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../arquivotec/ged_pacotes.php		
@@ -2038,14 +2038,12 @@ function retornaCliente($dados_form)
 				$params['emails']['to'][] = array('email' => $array_email[$reg_pacote["pct_id_autor"]], 'nome' => $array_func[$reg_pacote["pct_id_autor"]]);
 			}
 			
-			//Carlos Eduardo: 27/02/2018
 			if($array_usremail[$reg_pacote['id_cod_coord']]!='')
 			{
 			    //COORDENADOR DO PROJETO
 			    $params['emails']['to'][] = array('email' => $array_usremail[$reg_pacote['id_cod_coord']], 'nome' => $array_usrlogin[$reg_pacote['id_cod_coord']]);
 			}
 			
-			//Carlos Eduardo: 23/01/2018
 			$alocados = ProtheusDao::getAlocadosOS($reg_pacote['OS'], true, $reg_pacote['id_setor']);
 			//TODOS OS ALOCADOS
 			foreach($alocados as $alocado)
@@ -2111,14 +2109,12 @@ function retornaCliente($dados_form)
 					}
 				}
 				
-				//Carlos Eduardo: 27/02/2018
 				if($array_usremail[$reg_pacote['id_cod_coord']]!='')
 				{
 				    //COORDENADOR DO PROJETO
 				    $params['emails']['to'][] = array('email' => $array_usremail[$reg_pacote['id_cod_coord']], 'nome' => $array_usrlogin[$reg_pacote['id_cod_coord']]);
 				}
 				
-				//Carlos Eduardo: 23/01/2018
 				$alocados = ProtheusDao::getAlocadosOS($reg_pacote['OS'], true, $reg_pacote['id_setor']);
 				//TODOS OS ALOCADOS
 				foreach($alocados as $alocado)
@@ -2137,7 +2133,6 @@ function retornaCliente($dados_form)
 				$str_mensagem .= "<p>Editor: " . $array_func[$reg_pacote["id_editor"]] . "</p>";
 				$str_mensagem .= "<p>Desbloqueio por: " . $array_func[$_SESSION["id_funcionario"]] . " em " . date("d/m/Y - H:i:s") . "</p>";
 				
-				//Carlos Eduardo: 23/01/2018
 				$str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$array_resultado["solicitante"]] . "</p>";
 				$str_mensagem .= "<p>Motivo do desbloqueio: " . $reg_pacote["comentario"] . "</p>";
 				
@@ -2642,14 +2637,12 @@ function atualizaPropriedades($dados_form)
 								$params['emails']['to'][] = array('email' => $array_coord[$reg_complemento["id_coord_aux"]]['email'], 'nome' => $array_coord[$reg_complemento["id_coord_aux"]]['nome']);
 							}
 							
-							//Carlos Eduardo: 27/02/2018
 							if($array_usremail[$reg_complemento['id_cod_coord']]!='')
 							{
 							    //COORDENADOR DO PROJETO
 							    $params['emails']['to'][] = array('email' => $array_usremail[$reg_complemento['id_cod_coord']], 'nome' => $array_usrlogin[$reg_complemento['id_cod_coord']]);
 							}
 							
-							//Carlos Eduardo: 23/01/2018
 							$alocados = ProtheusDao::getAlocadosOS($reg_complemento["os"], true, $reg_complemento["id_setor"]);
 							//TODOS OS ALOCADOS
 							foreach($alocados as $alocado)
@@ -3135,7 +3128,6 @@ function desbloquear($id_ged_versao, $status)
 		
 		$sql = "SELECT *, motivo_desbloqueio comentario FROM ".DATABASE.".numeros_interno, ".DATABASE.".setores, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".ged_versoes ";
 		
-		//Carlos Eduardo: 23/01/2018
 		$sql .= "LEFT JOIN ".DATABASE.".ged_desbloqueios ON ged_desbloqueios.id_ged_versao = ged_versoes.id_ged_versao AND ged_desbloqueios.reg_del = 0, ";
 		
 		$sql .="".DATABASE.".ged_arquivos, ".DATABASE.".ordem_servico ";
@@ -3209,14 +3201,12 @@ function desbloquear($id_ged_versao, $status)
 					$params['emails']['to'][] = array('email' => $array_usremail[$array_resultado["solicitante"]], 'nome' => $array_usrlogin[$array_resultado["solicitante"]]);
 				}
 				
-				//Carlos Eduardo: 27/02/2018
 				if($array_usremail[$reg_pacote['id_cod_coord']]!='')
 				{
 				    //COORDENADOR DO PROJETO
 				    $params['emails']['to'][] = array('email' => $array_usremail[$reg_pacote['id_cod_coord']], 'nome' => $array_usrlogin[$reg_pacote['id_cod_coord']]);
 				}
 				
-				//Carlos Eduardo: 23/01/2018
 				$alocados = ProtheusDao::getAlocadosOS($reg_pacote['OS'], true, $reg_pacote['id_setor']);
 				//TODOS OS ALOCADOS
 				foreach($alocados as $alocado)
@@ -3235,7 +3225,6 @@ function desbloquear($id_ged_versao, $status)
 				$str_mensagem .= "<p>Editor: " . $array_usrlogin[$reg_pacote["id_editor"]] . "</p>";
 				$str_mensagem .= "<p>Desbloqueado por: " . $array_usrlogin[$_SESSION["id_funcionario"]] . " em " . date("d/m/Y - H:i:s") . "</p>";
 
-				//Carlos Eduardo: 23/01/2018
 				$str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$array_resultado["solicitante"]] . "</p>";
 				$str_mensagem .= "<p>Motivo do desbloqueio: " . $motivoDesbloqueio . "</p>";
 				

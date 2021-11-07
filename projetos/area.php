@@ -3,7 +3,7 @@
 
 		Formulário de ÁREA	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/area.php

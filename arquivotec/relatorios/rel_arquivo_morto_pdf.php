@@ -2,12 +2,12 @@
 /*
     Ficha do candidato
      
-    Criado por Carlos Eduardo
+    Criado por Carlos
      
     local/Nome do arquivo:
         ./relatorios/rel_arquivo_morto_pdf.php
      
-    Versão 0 --> VERSÃO INICIAL - 22/02/2018 - Carlos Eduardo
+    Versão 0 --> VERSÃO INICIAL - 22/02/2018 - Carlos
  */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 

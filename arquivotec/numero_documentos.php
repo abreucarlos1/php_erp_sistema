@@ -2,7 +2,7 @@
 /*
         Formulário de Número Interno
         
-        Criado por Carlos Abreu / Otávio Pamplona  
+        Criado por Carlos Abreu  
         
         local/Nome do arquivo:
         ../arquivotec/numeros_interno.php
@@ -340,7 +340,7 @@ function editar($id_numero_interno)
         
         $resposta->addAssign("cod_cliente","value",$regs["cod_cliente"]);
         
-        $resposta->addAssign("rotulo_projeto","innerHTML", PREFIXO_DOC_GED . sprintf("%05d",$regs["os"]) .'-'.$regs["sigla"].'-'.$regs["sequencia"]); // . " - " . $regs["documento"] (removido 07/07/2008 - Otávio)
+        $resposta->addAssign("rotulo_projeto","innerHTML", PREFIXO_DOC_GED . sprintf("%05d",$regs["os"]) .'-'.$regs["sigla"].'-'.$regs["sequencia"]); // . " - " . $regs["documento"] 
         
         $resposta->addAssign("numero_folhas", "value",$regs["numero_folhas"]);
         
@@ -419,7 +419,7 @@ function atualizar($dados_form)
                     $arquivo_ged = true;
                 }
                 
-                //Alterado em 06/03/2008 - Otávio - Solicitado por Fernando
+                //Alterado em 06/03/2008
                 //Pega o id_numcliente
                 $sql = "SELECT id_numero_interno, id_os, id_disciplina FROM ".DATABASE.".numeros_interno ";
                 $sql .= "WHERE numeros_interno.reg_del = 0 ";

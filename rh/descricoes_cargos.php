@@ -2,7 +2,7 @@
 /*
 	Formulário de Anexar documentos de candidatos aprovados	
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos
 		
 	Versão 0 --> VERSÃO INICIAL : 06/05/2016
 	Versão 1 --> atualizacao layout - Carlos Abreu - 05/04/2017

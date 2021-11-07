@@ -2,14 +2,14 @@
 /*
     Formulário de Mensagens Informativas
     
-    Criado por Carlos Eduardo  
+    Criado por Carlos 
     
     local/Nome do arquivo:
     ../ti/mensagens_informativas.php
     
     Versão 0 --> VERSÃO INICIAL : 20/11/2017
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-	Versão 2 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+	Versão 2 --> Layout responsivo - 05/02/2018 - Carlos 
 */	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	

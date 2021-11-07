@@ -2,7 +2,7 @@
 /*
 		Formulário de Solicitação de Documentos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../arquivotec/solicitacao_documentos.php
@@ -14,7 +14,7 @@
 		Versão 4 --> Atualização Lay-out | Smarty : 25/07/2008
 		Versão 5 --> Adição da exclusão lógica do Ged, além de melhorias nas consultas
 		Versão 6 --> Atualização da interface, titulos, inclusão de tabs - 30/03/2015 - Carlos Abreu
-		Versão 7 --> Adicionado o campo servico_id na tabela solicitacao_documentos_detalhes - 30/06/2015 - Carlos Eduardo
+		Versão 7 --> Adicionado o campo servico_id na tabela solicitacao_documentos_detalhes - 30/06/2015 - Carlos Abreu
 		Versão 8 --> Inclusão campo numero_cliente, verificação dos números antes inclusão - 05/08/2015 - Carlos Abreu
 		Versão 9 --> Utilização da classe email para maior controle de emails
 		Versão 10--> Melhorias no Layout - 29/04/2016 - Carlos Abreu

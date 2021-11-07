@@ -2,7 +2,7 @@
 /*
 	  Formulário de Informações de Funcionários	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu 
 	  
 	  local/Nome do arquivo:
 	  ../rh/funcionarios_dados.php

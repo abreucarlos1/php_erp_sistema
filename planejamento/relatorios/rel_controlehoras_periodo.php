@@ -2,7 +2,7 @@
 /*
 		Relatório de Apontamentos x periodo
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:		
 		../planejamento/relatorios/rel_controlehoras_periodo.php
@@ -96,7 +96,7 @@ switch($_POST["intervalo"])
 		{ 
 			$mesant = $_POST["mes"] - 1;
 			//alteração aqui!!! 03/01/2008
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
+			$ano=date('Y'); //retirado "-1" 07/02/2008 
 			$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}
@@ -178,7 +178,7 @@ foreach ($db->array_select as $regs)
 	  $tam = $pdf->GetStringWidth($regs["descricao"] . " " . $complemento);
 	  
 	  $celula = ceil($tam/75); //65 caracteres em uma linha / 120 tamanho do campo
-	  // Era 83 - Alterado para 75 por Otávio em 03/07/2007. MOTIVO: correção de letras embaralhadas.
+	  // Era 83 - Alterado para 75 em 03/07/2007. MOTIVO: correção de letras embaralhadas.
 	  
 	  if (!$celula)
 	  {

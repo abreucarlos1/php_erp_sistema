@@ -2,7 +2,7 @@
 /*
 		Relatório Acompanhamento OS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		/relatorios/rel_acompanhamento_os.php

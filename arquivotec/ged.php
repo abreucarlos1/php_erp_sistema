@@ -3,7 +3,7 @@
  *
  *		Formulário de Gerenciamento Eletrônico de Documentos
  *
- *		Criado por Carlos Abreu / Otávio Pamplona  
+ *		Criado por Carlos Abreu
  *
  *		local/Nome do arquivo:
  *		../arquivotec/ged.php
@@ -34,20 +34,20 @@
  *      Versao 13 --> Inclusão do menu Solicitar Desbloqueio - 10/02/2014 - Arquivo - Carlos Abreu
  *      Versão 14 --> Inclusão de verificação de duplicidade em número clientes  - Carlos Abreu - 26/06/2014
  *      Versao 15 --> Inclusão de lista de documentos emitidos no menu suspenso -  #743 - Carlos Abreu - 14/07/2014
- *      Versao 16 --> Adicionada a exclusão lógica - Carlos Eduardo - 01/10/2014
+ *      Versao 16 --> Adicionada a exclusão lógica - Carlos Abreu - 01/10/2014
  *      Versão 17 --> Alterado/incluido as revisões dvm, cliente e versoes - 08/10/2014 - Carlos Abreu
- *      Versao 18 --> Adicionado o campo servico_id na tabela solicitacao_documentos_detalhes - Carlos Eduardo - 30/06/2015
+ *      Versao 18 --> Adicionado o campo servico_id na tabela solicitacao_documentos_detalhes - Carlos Abreu - 30/06/2015
  *      Versão 19 --> Adicionado pastas GRD e ACOMPANHAMENTO no filtro de preenchepastas - Carlos Abreu - 28/09/2015
  *      Versão 20 --> Alterado a biblioteca zip, utilizando a nativa do PHP - 26/10/2015 - Carlos Abreu
  *      Versão 21 --> Alterado a forma de desbloqueios - 14/04/2016 - Carlos Abreu
  *      Versão 22 --> Incluido desbloqueio em massa, imagens, grid - 24/08/2016 - Carlos Abreu
- *      Versão 23 --> Incluida a nova classe de e-mails - 11/11/2016 - Carlos Eduardo
+ *      Versão 23 --> Incluida a nova classe de e-mails - 11/11/2016 - Carlos Abreu
  *      Versão 24 --> Atualização layout - Carlos Abreu - 22/03/2017
  *      Versão 25 --> unificação das tabelas numero_cliente e numeros_interno - 10/05/2017 - Carlos Abreu
  *      Versão 26 --> inclusão da fase 09 - 12/07/2017 - Chamado #1925 - Carlos Abreu
  *      Versão 27 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
  *      Versão 28 --> Alteração para impedir que uma revisao_documento do arquivo seja movido a um pacote existente se ele foi emitido em outro pacote - 13/03/2018 - Carlos Abreu
- *      Versão 29 --> Inclusao da opcao de selecionar varios arquivos, isto apenas para o arquivo tecnico - 22/03/2018 - Carlos Eduardo 
+ *      Versão 29 --> Inclusao da opcao de selecionar varios arquivos, isto apenas para o arquivo tecnico - 22/03/2018 - Carlos Abreu 
  *      */
   
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
@@ -5493,14 +5493,12 @@ function desbloq_massa($dados_form)
                 $params['emails']['to'][] = array('email' => $array_usremail[$reg_arquivo["id_funcionario_solicitante"]], 'nome' => $array_usrlogin[$reg_arquivo["id_funcionario_solicitante"]]);
             }
             
-            //Carlos Eduardo: 27/02/2018
             if($array_usremail[$reg_arquivo['id_cod_coord']]!='')
             {
                 //COORDENADOR DO PROJETO
                 $params['emails']['to'][] = array('email' => $array_usremail[$reg_arquivo['id_cod_coord']], 'nome' => $array_usrlogin[$reg_arquivo['id_cod_coord']]);
             }
             
-            //Carlos Eduardo: 23/01/2018
             //$alocados = ProtheusDao::getAlocadosOS($reg_arquivo['OS'], true, $reg_arquivo['id_setor']);
             
             //TODOS OS ALOCADOS
@@ -5519,7 +5517,6 @@ function desbloq_massa($dados_form)
             $str_mensagem .= "<p>Editor: " . $array_usrlogin[$reg_arquivo["id_editor"]] . "</p>";
             $str_mensagem .= "<p>Desbloqueado por: " . $array_usrlogin[$_SESSION["id_funcionario"]] . " em " . date("d/m/Y - H:i:s") . "</p>";
             
-            //Carlos Eduardo: 23/01/2018
             $str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$regs["id_funcionario_solicitante"]] . "</p>";
             $str_mensagem .= "<p>Motivo do desbloqueio: " . $regs["motivo_desbloqueio"] . "</p>";
             
@@ -5611,7 +5608,6 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
         
         $sql = "SELECT * FROM ".DATABASE.".numeros_interno, ".DATABASE.".setores, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".ged_versoes ";
         
-        //Carlos Eduardo: 23/01/2018
         $sql .= "LEFT JOIN ".DATABASE.".ged_comentarios ON ged_comentarios.id_ged_versao = ged_versoes.id_ged_versao AND ged_comentarios.reg_del = 0, ";
         
         $sql .="".DATABASE.".ged_arquivos, ".DATABASE.".ordem_servico ";
@@ -5806,14 +5802,12 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
                     $params['emails']['to'][] = array('email' => $array_usremail[$reg_arquivo["id_funcionario_solicitante"]], 'nome' => $array_usrlogin[$reg_arquivo["id_funcionario_solicitante"]]);
                 }
                 
-                //Carlos Eduardo: 27/02/2018
                 if($array_usremail[$reg_arquivo['id_cod_coord']]!='')
                 {
                     //COORDENADOR DO PROJETO
                     $params['emails']['to'][] = array('email' => $array_usremail[$reg_arquivo['id_cod_coord']], 'nome' => $array_usrlogin[$reg_arquivo['id_cod_coord']]);
                 }
                 
-                //Carlos Eduardo: 23/01/2018
                 /*
                 $alocados = ProtheusDao::getAlocadosOS($reg_arquivo['OS'], true, $reg_arquivo['id_setor']);
                 //TODOS OS ALOCADOS
@@ -5831,7 +5825,6 @@ function desbloquear($id_ged_versao, $retornarAlerta = true)
                 $str_mensagem .= "<p>Editor: " . $array_usrlogin[$reg_arquivo["id_editor"]] . "</p>";
                 $str_mensagem .= "<p>Desbloqueado por: " . $array_usrlogin[$_SESSION["id_funcionario"]] . " em " . date("d/m/Y - H:i:s") . "</p>";
                 
-                //Carlos Eduardo: 23/01/2018
                 $str_mensagem .= "<p>Solicitante desbloqueio: " . $array_usrlogin[$regs["id_funcionario_solicitante"]] . "</p>";
                 $str_mensagem .= "<p>Motivo do desbloqueio: " . $motivoDesbloqueio . "</p>";
                 

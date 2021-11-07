@@ -2,7 +2,7 @@
 /*
 		Formulário de Avaliação de Fornecedor
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 	
 	  local/Nome do arquivo:
 	  ../rh/avaliacao_fornecedor.php
@@ -11,7 +11,7 @@
 		Versão 1 --> alteracao layout - Carlos Abreu - 04/04/2017
 		Versão 2 --> Alteração para contemplar a nova avaliação de conteúdo técnico - 07/11/2017
 		Versão 3 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 4 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+		Versão 4 --> Layout responsivo - 05/02/2018 - Carlos
 */
 //header('X-UA-Compatible: IE=edge');
 

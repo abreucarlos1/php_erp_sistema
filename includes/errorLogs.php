@@ -49,7 +49,6 @@ class errorLogs
 			$corpoEmail .= "<div style='border:solid 1px black;'>".trim($_erro)."</div><br />";
 			
 			$params = array();
-			$params['emails']['to'][] = array('email' => 'ti@domain.com.br', 'nome' => 'Carlos Máximo');
 			$params['emails']['to'][] = array('email' => 'ti@domain.com.br', 'nome' => 'Carlos Abreu');
 			
 			$params['subject'] = 'Log de Erros - '.$header.' '.$dataHora;

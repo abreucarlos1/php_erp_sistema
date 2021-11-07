@@ -2,7 +2,7 @@
 /*
     Formulário de codigo inteligente de materiais
 	  
-    Criado por Carlos Eduardo Máximo
+    Criado por Carlos
     
     local/Nome do arquivo:
     

@@ -2,7 +2,7 @@
 /*
 		Formulário de CONTROLE DE APONTAMENTO DE HORAS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/diastrabalhados.php

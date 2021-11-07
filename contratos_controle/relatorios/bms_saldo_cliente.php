@@ -1,14 +1,14 @@
 <?php
 /*
 	Relatório de saldo de clientes
-	Criado por Carlos Eduardo  
+	Criado por Carlos 
 	
 	Obs.: Este arquivo é chamado de contratos_controle/bms.php
 	
 	Versão 0 --> VERSÃO INICIAL : 23/06/2015
-	Versão 1 --> Correções gerais: 17/08/2017 - Carlos Eduardo
+	Versão 1 --> Correções gerais: 17/08/2017 - Carlos
 	Versão 2 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
-	Versão 3 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos Eduardo
+	Versão 3 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos 
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 

@@ -2,7 +2,7 @@
 /*
 		Relatorio periodo Experiencia
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_periodo_experiencia_excel.php

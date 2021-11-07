@@ -2,7 +2,7 @@
 /*
 		Formulário de Notas Fiscais Funcionarios	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../financeiro/nfsfunc.php

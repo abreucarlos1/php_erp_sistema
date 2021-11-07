@@ -2,7 +2,7 @@
 /*
 		Relatorio Distribuição EPI
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_distribuicao_epi.php

@@ -2,7 +2,7 @@
 /*
 		Formulário de MENU DE PLANEJAMENTO	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/funcionarios_os_excel.php

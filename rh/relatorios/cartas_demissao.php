@@ -2,7 +2,7 @@
 /*
 		Relatório Cartas Homologação, dispensa e Preposicao	
 		
-		Criado por Carlos Abreu / Otávio Pamplona  
+		Criado por Carlos Abreu   
 		
 		local/Nome do arquivo:
 		../rh/relatorios/cartas_demissao.php

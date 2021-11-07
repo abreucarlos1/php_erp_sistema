@@ -2,7 +2,7 @@
 /*
 		Formulário de Integração	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/integracao.php
@@ -11,7 +11,7 @@
 		Versao 1 --> Atualização Lay-out : 12/08/2008
 		Versão 2 --> Atualização Lay-out - 08/09/2014 - Carlos Abreu
 		Versão 3 --> Atualização layout - Carlos Abreu - 07/04/2017
-		Versão 4 --> Criação de um Relatório de integraçães validas - Carlos Eduardo - 10/08/2017
+		Versão 4 --> Criação de um Relatório de integraçães validas - Carlos - 10/08/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu		
 */
 

@@ -2,7 +2,7 @@
 /*
 	Relatório GED / GRD	
 	
-	Criado por Carlos Abreu / Otávio Pamplona
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../arquivotec/relatorios/rel_ged_grd.php

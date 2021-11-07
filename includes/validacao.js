@@ -1,7 +1,7 @@
 //Funções de validação de formulários.
 //criação: 19/09/2005
 //Ultima atualização: 23/08/2012
-//Criado por Carlos Abreu / Otávio Pamplona
+//Criado por Carlos Abreu 
 
 
 /**

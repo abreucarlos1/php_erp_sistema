@@ -750,10 +750,7 @@ function insere($dados_form)
 					else
 					{
 						$id_funcionario = $db->insert_id;
-						/*
-						 * Adicionado em 30/01/2015
-						 * Carlos Máximo
-						 */
+
 						$dados_form['id_funcionario'] = $id_funcionario;						
 						
 						$erros = gravarNecessidadesColaborador($dados_form);
@@ -1452,11 +1449,7 @@ function insere($dados_form)
 								}
 							}
 
-							/**
-							 * 28/01/2015
-							 * Carlos Máximo
-							 * TAP - Alteração do cadastro de funcionários
-							 */
+
 							//Adicionado o contrato do colaborador
 							
 							$erro = gravarExigenciasCliente($dados_form);
@@ -1468,15 +1461,7 @@ function insere($dados_form)
 								return $resposta;
 							}
 							
-							/**
-							 * Final das alteracoes 28/01/2015
-							 */
-								
-							/**
-							 * 27/02/2015
-							 * Carlos Máximo
-							 * TAP - Alteração do cadastro de funcionários
-							 */	
+
 							//Adicionado o contrato do colaborador
 							
 							$erro = gravarAjudaCusto($dados_form);
@@ -1602,10 +1587,7 @@ function atualizar($dados_form)
 
 		if($dados_form["funcionario"]!="" && $dados_form["login"]!="" && $dados_form["email"]!="" && $dados_form["setor"]!="" && $dados_form["nivel_atuacao"]!="" && $dados_form["local_trabalho"]!="" && $dados_form["situacao"]!="" && $dados_form["funcao_dvm"]!="" && $dados_form["cargo_dvm"]!="")
 		{
-			/*
-			 * Adicionado em 30/01/2015
-			 * Carlos Máximo
-			 */
+
 			$erros = gravarNecessidadesColaborador($dados_form);
 
 			if ($erros != '')
@@ -1911,10 +1893,7 @@ function atualizar($dados_form)
 					}
 				}
 				
-				/**
-				 * 28/01/2015
-				 * Carlos Máximo
-				 */
+
 				//Adicionado o contrato do colaborador
 				$erro = gravarExigenciasCliente($dados_form);
 				
@@ -1926,10 +1905,6 @@ function atualizar($dados_form)
 				 * Final das alteracoes 28/01/2015
 				 */
 				
-				/**
-				 * 27/02/2015
-				 * Carlos Máximo
-				 */	
 				//Adicionado o contrato do colaborador
 				$erro = gravarAjudaCusto($dados_form);
 				
@@ -2494,7 +2469,7 @@ function atualizar($dados_form)
 					}
 				}
 
-				//redmine #60 - Adicionado em 26/09/2008 - Otávio
+				//redmine #60 - Adicionado em 26/09/2008
 				//Seleciona os dados do salario
 				$sql = "SELECT * FROM ".DATABASE.".salarios ";
 				$sql .= "WHERE salarios.id_funcionario = '" . $dados_form["id_funcionario"] . "' ";

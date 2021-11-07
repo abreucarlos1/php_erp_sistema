@@ -3,7 +3,7 @@
 
 		Formulário de fluidos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/fluidos.php

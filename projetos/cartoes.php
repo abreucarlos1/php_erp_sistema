@@ -3,7 +3,7 @@
 
 		Formulário de Cartões
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/cartoes.php

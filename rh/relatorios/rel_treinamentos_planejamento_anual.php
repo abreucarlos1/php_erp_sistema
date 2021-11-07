@@ -2,7 +2,7 @@
 /*
 		Relatorio treinamentos planejamento
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/rel_treinamentos_planejamento_anual.php

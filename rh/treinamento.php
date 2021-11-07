@@ -2,7 +2,7 @@
 /*
 		Formulário de treinamento 	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/treinamento.php
@@ -11,7 +11,7 @@
 		Versão 1 --> Atualização Lay-out - 11/08/2008
 		Versão 2 --> Atualização banco de dados - 23/01/2015 - Carlos Abreu
 		Versão 3 --> Atualização layout - Carlos Abreu - 10/04/2017
-		Versão 4 --> novo campo (avaliar_eficacia) - Eduardo - 31/10/2017
+		Versão 4 --> novo campo (avaliar_eficacia) - Carlos - 31/10/2017
 		Versão 5 --> Inclusão dos campos reg_del nas consultas - 29/11/2017 - Carlos Abreu
 */	
 

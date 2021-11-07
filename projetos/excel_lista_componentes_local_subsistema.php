@@ -1,6 +1,6 @@
 <?php
 /*
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Retomada do uso -   / alterado por Carlos Abreu - 10/03/2016

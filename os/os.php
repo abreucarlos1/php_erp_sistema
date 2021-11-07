@@ -2,7 +2,7 @@
 /*
 		Formulário de OS	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../os/os.php
@@ -461,7 +461,7 @@ $sql = "SELECT id_os_status, os_status FROM ".DATABASE.".ordem_servico_status ";
 
 /*
  * 13/05/2015
- * Eduardo: Esta e todas as outras funções anônimas do documento foram implementadas nesta data 
+ * Esta e todas as outras funções anônimas do documento foram implementadas nesta data 
  * Na função $db->select abaixo, utilizo o terceiro parâmetro como sendo uma função anônima
  * As funções anônimas passadas em $db->select sempre receberão 2 parametros(pode-se usar qualquer nome que quiser, neste caso escolhi $regs e $i, pois o loop
  * original usava $regs):

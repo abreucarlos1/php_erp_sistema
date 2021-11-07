@@ -2,7 +2,7 @@
 /*
 	Relatório de serviços por os
 	
-	Criado por Carlos Eduardo Máximo
+	Criado por Carlos
 	
 	local/Nome do arquivo: 
 	../coordenacao/relatorio_servicos_os.php

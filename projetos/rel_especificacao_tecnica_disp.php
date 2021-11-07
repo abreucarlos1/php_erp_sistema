@@ -3,7 +3,7 @@
 
 		Formulário de Especificação Técnica
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../projetos/especificacao tecnica.php

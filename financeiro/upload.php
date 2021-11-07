@@ -2,7 +2,7 @@
 /*
 		Formulario de upload de documentos	
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos 
 		
 		local/Nome do arquivo:
 		../financeiro/upload.php

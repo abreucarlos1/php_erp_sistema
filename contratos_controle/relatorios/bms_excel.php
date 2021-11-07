@@ -1,7 +1,7 @@
 <?php
 /*
         Boletim de medição em excel
-        Criado por Carlos Eduardo  
+        Criado por Carlos
         Versão 0 --> VERSÃO INICIAL : 10/06/2015
         Versão 1 --> Alterações nas colunas e calculos - 04/10/2017
         Versão 2 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu

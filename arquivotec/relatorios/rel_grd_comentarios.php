@@ -2,7 +2,7 @@
 /*
 		GRD / Comentários não atendidos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../arquivotec/rel_grd_comentarios.php

@@ -2,7 +2,7 @@
 /*
 		Ficha do candidato	
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/relatorios/descricao_cargo_pdf.php

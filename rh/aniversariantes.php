@@ -2,17 +2,17 @@
 /*
 		Formulário de Aniversariantes	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/aniversariantes.php
 		
 		Versão 0 --> VERSÃO INICIAL : 02/03/2006
 		Versão 1 --> Atualização Lay-out : 12/08/2008
-		Versão 2 --> Atualização Layout : 02/04/2015 - Eduardo
+		Versão 2 --> Atualização Layout : 02/04/2015 - Carlos
 		Versão 3 --> atualizacao layout - Carlos Abreu - 04/04/2017
 		Versão 4 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 5 --> Inclusão de Relatório em excel - 02/01/2018 - Eduardo
+		Versão 5 --> Inclusão de Relatório em excel - 02/01/2018 - Carlos
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));
 	

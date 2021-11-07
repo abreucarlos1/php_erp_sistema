@@ -3,7 +3,7 @@
 /*
 	Relatório Emitir Lista
 	
-	Criado por Carlos Eduardo  
+	Criado por Carlos  
 	
 	local/Nome do arquivo:		
 	../materiais/emitir_lista_excel.php

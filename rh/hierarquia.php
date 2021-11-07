@@ -2,7 +2,7 @@
 /*
 		Formulário de Hierarquia
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 	
 		Versão 0 --> VERSÃO INICIAL : 20/05/2015
 		Versão 1 --> Atualização layout - Carlos Abreu - 07/04/2017

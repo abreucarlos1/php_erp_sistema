@@ -2,7 +2,7 @@
 /*
 		Formulário de Fechamento da Folha 	
 		
-		Criado por Carlos Abreu / Otávio Pamplona  
+		Criado por Carlos Abreu  
 		
 		local/Nome do arquivo:
 		../financeiro/fechamentofolha.php
@@ -430,7 +430,7 @@ if ($_POST["acao"]=="salvar")
 
 		$tarifa_sal = $cont1["salario_clt"];
 	
-		//Modificado 29/02/2008 - Otávio
+		//Modificado 29/02/2008 
 		if($cont1[" tipo_contrato"]=='SC' || $cont1[" tipo_contrato"]=='SC+CLT')
 		{			
 			//Horas Extras NÃO
@@ -462,7 +462,7 @@ if ($_POST["acao"]=="salvar")
 							$array_ad_data_fer1 = explode(";",$cont2["ad_data_fer1"]);
 													
 							// Se a data do feriado coincidir com a data do banco de extra
-							//if($cont2["ad_data_fer1"]==$cont["data"]) //Otávio 30/05/2008
+							//if($cont2["ad_data_fer1"]==$cont["data"])  30/05/2008
 							//Se a data do banco de extra estiver entre as datas de feriado
 							if(in_array($cont["data"],$array_ad_data_fer1))
 							{
@@ -479,7 +479,7 @@ if ($_POST["acao"]=="salvar")
 							$array_ad_data_fer1 = explode(";",$cont2["ad_data_fer1"]);
 													
 							// Se a data do feriado coincidir com a data do banco de extra
-							//if($cont2["ad_data_fer1"]==$cont["data"]) //Otávio 30/05/2008
+							//if($cont2["ad_data_fer1"]==$cont["data"]) 30/05/2008
 							//Se a data do banco de extra estiver entre as datas de feriado
 							if(in_array($cont["data"],$array_ad_data_fer1))
 							{
@@ -501,7 +501,7 @@ if ($_POST["acao"]=="salvar")
 							$array_ad_data_fer1 = explode(";",$cont2["ad_data_fer1"]);
 													
 							// Se a data do feriado coincidir com a data do banco de extra
-							//if($cont2["ad_data_fer1"]==$cont["data"]) //Otávio 30/05/2008
+							//if($cont2["ad_data_fer1"]==$cont["data"])  30/05/2008
 							//Se a data do banco de extra estiver entre as datas de feriado
 							if(in_array($cont["data"],$array_ad_data_fer1))
 							{

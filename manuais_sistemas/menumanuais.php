@@ -2,7 +2,7 @@
 /*
 	Módulo de Manuais de Sistemas
 	
-	Criado por Carlos Eduardo
+	Criado por Carlos 
 	
 	local/Nome do arquivo:
 	../manuais_sistemas/menumanuais.php

@@ -3,7 +3,7 @@
 
 		Formulário de Especificacao Padrão	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../projetos/especificacao_padrao.php
@@ -236,7 +236,6 @@ switch ($_POST["acao"])
 		$regs = mysql_fetch_array($registro);
 		$id = $regs["id_especificacao_padrao"];
 		
-		//COMENTÁRIO - Otávio - Talvez se copiar tudo isso aqui lá para baixo deve resolver o problema com o $id:
 		
 		$sql = "SELECT * FROM especificacao_padrao_detalhes WHERE id_topico='" . $_POST["id_topico"] . "' AND ";
 		$sql .= " id_variavel='" . $_POST["id_variavel"] . "' AND id_especificacao_padrao='$id' ";
@@ -244,9 +243,7 @@ switch ($_POST["acao"])
 		$count = mysql_num_rows($registro);
 		//$id = $regs["id_espec_padrao"];
 
-		//COMENTÁRIO - Otávio - Mas ele executará 2 vezes o mesmo SQL...
-		
-		
+			
 		// Se o número de registros for maior que zero, então existe o mesmo registro...
 
 		if ($count>0)
@@ -268,7 +265,6 @@ switch ($_POST["acao"])
 			$isql = "INSERT INTO especificacao_padrao_detalhes ";
 			$isql .= "(id_especificacao_padrao, id_topico, id_variavel, conteudo) ";
 
-			//COMENTÁRIO - Otávio - Aqui o $id não está vindo. Está inserindo sempre como 0.
 			$isql = $isql . "VALUES ('$id', ";
 			$isql = $isql . "'". $_POST["id_topico"]. "', ";
 			$isql = $isql . "'". $_POST["id_variavel"]. "', ";

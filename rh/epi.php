@@ -1,7 +1,7 @@
 <?php
 /*
 	Formulário de EPI's
-	Criado por Carlos Eduardo  
+	Criado por Carlos
 	local/Nome do arquivo: ../rh/epi.php
 	Versão 0 --> VERSÃO INICIAL - 15/05/2017
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu	

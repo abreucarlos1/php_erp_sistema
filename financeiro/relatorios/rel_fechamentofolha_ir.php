@@ -2,7 +2,7 @@
 /*
 	  Relatório Fechamento Folha - IR	
 	  
-	  Criado por Carlos Abreu / Otávio Pamplona
+	  Criado por Carlos Abreu
 	  
 	  local/Nome do arquivo:
 	  ../financeiro/relatorios/rel_fechamentofolha_ir.php

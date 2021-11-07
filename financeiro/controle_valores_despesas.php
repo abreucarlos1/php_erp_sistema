@@ -2,14 +2,14 @@
 /*
 		Formulário de Controle Valores Despesas	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../financeiro/controle_valores_despesas.php
 	
 		Versão 0 --> VERSÃO INICIAL - 02/03/2006
 		Versão 1 --> atualização de classe banco - 20/01/2015 - Carlos Abreu
-		Versão 2 --> atualização layout - 11/11/2015 - Carlos Eduardo Máximo
+		Versão 2 --> atualização layout - 11/11/2015 - Carlos
 		Versão 3 --> atualização layout - Carlos Abreu - 27/03/2017
 		Versão 4 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu		
 */	

@@ -2,7 +2,7 @@
 /*
 	Formulário de Planejamento Projeto	
 	
-	Criado por Carlos Abreu / Carlos Máximo
+	Criado por Carlos Abreu
 	
 	local/Nome do arquivo:
 	../planejamento/projeto_planejamento.php

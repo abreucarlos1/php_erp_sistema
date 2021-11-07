@@ -150,7 +150,7 @@ foreach ($array_func as $cont_salarios)
 	$sql .= "WHERE salarios.id_funcionario = '" . $cont_salarios["id_funcionario"] . "' ";
 	$sql .= "AND salarios.reg_del = 0 ";
 	$sql .= "AND DATE_FORMAT(data , '%Y%m%d' ) <= '".str_replace("-","",$datafim)."' ";
-	$sql .= "ORDER BY id_salario DESC, data DESC LIMIT 1 "; //alterada ordenação: Otávio 27/02/2009
+	$sql .= "ORDER BY id_salario DESC, data DESC LIMIT 1 "; //alterada ordenação: 27/02/2009
 	
 	$db->select($sql,'MYSQL',true);
 	

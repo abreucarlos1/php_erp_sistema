@@ -2,7 +2,7 @@
 /*
 		Formulário de CLIENTE POR OS POR DISCIPLINA	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../planejamento/clientes_os_disciplina.php

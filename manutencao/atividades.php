@@ -2,7 +2,7 @@
 /*
 		Formulário de ATIVIDADES	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../manutencao/atividades.php

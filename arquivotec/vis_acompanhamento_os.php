@@ -2,7 +2,7 @@
 /*
 		Formulário de Lista dos documentos do Projeto
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../arquivotec/vis_acompanhamento_os.php

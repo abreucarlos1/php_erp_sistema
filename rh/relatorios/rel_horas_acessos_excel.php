@@ -9,7 +9,7 @@
 		
 		Versão 0 --> VERSÃO INICIAL - 04/05/2006
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 2 --> Inclusão do campo de trabalho em casa, interno e externo (cliente) - 27/02/2018 - Carlos Eduardo
+		Versão 2 --> Inclusão do campo de trabalho em casa, interno e externo (cliente) - 27/02/2018 - Carlos
 */
 
 ini_set('max_execution_time', 0); // No time limit
@@ -65,7 +65,7 @@ switch($_POST["intervalo"])
 		{ 
 			$mesant = $_POST["mes"] - 1;
 			//alteração aqui!!! 03/01/2008
-			$ano=date('Y'); //retirado "-1" 07/02/2008 Otávio
+			$ano=date('Y'); //retirado "-1" 07/02/2008
 			$data_ini = "26/" . sprintf("%02d",$mesant) . "/" . $ano;
 			$datafim = "25/" . $_POST["mes"] . "/" . $ano;
 		}

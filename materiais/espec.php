@@ -2,7 +2,7 @@
 /*
 	Formulário de Especificações de clientes
 	
-	Criado por Carlos Eduardo  
+	Criado por Carlos 
 	
 	local/Nome do arquivo:
 	

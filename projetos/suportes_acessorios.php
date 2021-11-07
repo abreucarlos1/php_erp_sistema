@@ -3,7 +3,7 @@
 
 		Formulário de TIPOS DE SUPORTES	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../projetos/suportes_acessorios.php

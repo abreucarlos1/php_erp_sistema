@@ -2,7 +2,7 @@
 /*
     Formulário de Avaliação de Fornecedor
     
-    Criado por Carlos Eduardo
+    Criado por Carlos 
     
     local/Nome do arquivo:
     ../rh/autoavaliacao.php
@@ -12,7 +12,7 @@
     Versão 2 --> Atualizei a biblioteca mpdf para 6.0
     Versão 3 --> Alteração para contemplar a nova avaliação de conteúdo técnico - 07/11/2017
     Versão 4 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-    Versão 5 --> Layout responsivo - 06/02/2018 - Carlos Eduardo 
+    Versão 5 --> Layout responsivo - 06/02/2018 - Carlos 
  */
 header('X-UA-Compatible: IE=edge');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

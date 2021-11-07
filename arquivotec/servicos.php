@@ -2,7 +2,7 @@
 /*
     Formulário de Serviços
     
-    Criado por Carlos Eduardo Máximo
+    Criado por Carlos
     
     local/Nome do arquivo:
     ../arquivotec/servicos.php
@@ -10,7 +10,7 @@
     Versão 0 --> VERSÃO INICIAL : 29/06/2015
     Versão 1 --> atualização layout - Carlos Abreu - 22/03/2017
     Versão 2 --> Inclusão dos campos reg_del nas consultas - 16/11/2017 - Carlos Abreu
-    Versão 3 --> Layout responsivo - 06/02/2018 - Carlos Eduardo
+    Versão 3 --> Layout responsivo - 06/02/2018 - Carlos
  */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

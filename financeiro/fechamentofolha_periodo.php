@@ -2,7 +2,7 @@
 /*
 		Formulário de Detalhes do Fechamento da Folha periodo	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../financeiro/fechamentofolha_periodo.php

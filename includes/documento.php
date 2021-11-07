@@ -77,51 +77,7 @@
 			$pasta = DOCUMENTOS_MARKETING.$_GET["caminho"]."/";
 	   break;
 	   
-	   case 'LOGO_DEVEMADA/AI':
-	   		$_GET['caminho'] = str_replace('/AI', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_DEVEMADA/AI/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_DEVEMADA/DWG':
-	   		$_GET['caminho'] = str_replace('/DWG', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_DEVEMADA/DWG/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_DEVEMADA/JPG':
-	   		$_GET['caminho'] = str_replace('/JPG', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_DEVEMADA/JPG/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_DEVEMADA/CDR':
-	   		$_GET['caminho'] = str_replace('/CDR', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_DEVEMADA/CDR/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_DEVEMADA/PNG':
-	   		$_GET['caminho'] = str_replace('/PNG', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_DEVEMADA/PNG/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_PLANETA_DEVEMADA/AI':
-	   		$_GET['caminho'] = str_replace('/AI', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_PLANETA_DEVEMADA/AI/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_PLANETA_DEVEMADA/JPG':
-	   		$_GET['caminho'] = str_replace('/JPG', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_PLANETA_DEVEMADA/JPG/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_PLANETA_DEVEMADA/CDR':
-	   		$_GET['caminho'] = str_replace('/CDR', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_PLANETA_DEVEMADA/CDR/'.$_GET["caminho"]."/";
-	   break;
-	   
-	   case 'LOGO_PLANETA_DEVEMADA/PNG':
-	   		$_GET['caminho'] = str_replace('/PNG', '');
-			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/LOGOTIPOS/LOGO_PLANETA_DEVEMADA/PNG/'.$_GET["caminho"]."/";
-	   break;
-	   
+	   	   
 	   case 'NEWSLETTER':
 			$pasta = DOCUMENTOS_MARKETING.'COMUNICACAO/'.$_GET["caminho"]."/";
 	   break;
@@ -171,7 +127,7 @@
    if(isset($arquivo) && file_exists($arquivo))
    {	
 	  switch(strtolower(substr(strrchr(basename($arquivo),"."),1)))
-	  { // verifica a extensão do arquivo para pegar o tipo
+	  { // verifica a extensï¿½o do arquivo para pegar o tipo
 		 case "pdf": $tipo="application/pdf"; break;
 		 case "PDF": $tipo="application/pdf"; break;
 		 case "exe": $tipo="application/octet-stream"; break;
@@ -187,9 +143,9 @@
 		 case "png": $tipo="image/png"; break;
 		 case "jpg": $tipo="image/jpg"; break;
 		 case "mp3": $tipo="audio/mpeg"; break;
-		 case "php": $tipo="";// deixar vazio por seurança
-		 case "htm": $tipo="";// deixar vazio por seurança
-		 case "html": $tipo="";// deixar vazio por seurança
+		 case "php": $tipo="";// deixar vazio por seuranï¿½a
+		 case "htm": $tipo="";// deixar vazio por seuranï¿½a
+		 case "html": $tipo="";// deixar vazio por seuranï¿½a
 	  }
 	  
 	  //header("Content-Type: ".$tipo); // informa o tipo do arquivo ao navegador
@@ -206,13 +162,13 @@
 		  header("Content-Disposition: attachment; filename=".basename($arquivo));
 	 }
 	  
-	 // header("Content-Disposition: attachment; filename=".basename($arquivo)); // informa ao navegador que é tipo anexo e faz abrir a janela de download, tambem informa o nome do arquivo
-	  readfile($arquivo); // lê o arquivo
-	  exit; // aborta pós-ações
+	 // header("Content-Disposition: attachment; filename=".basename($arquivo)); // informa ao navegador que ï¿½ tipo anexo e faz abrir a janela de download, tambem informa o nome do arquivo
+	  readfile($arquivo); // lï¿½ o arquivo
+	  exit; // aborta pï¿½s-aï¿½ï¿½es
    }
    else
    {
-		die("Arquivo não encontrado. ".$arquivo);
+		die("Arquivo nï¿½o encontrado. ".$arquivo);
    }
 	
 ?>

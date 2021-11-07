@@ -2,7 +2,7 @@
 /*
 		Formulário de Exames
 		
-		Criado por Carlos Eduardo Máximo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/clientes_x_tipos_exames.php

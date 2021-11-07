@@ -14,9 +14,9 @@
 	  Versao 2 --> Alteracao do formulario - #2243 - Carlos Abreu - 24/07/2015
 	  Versao 3 --> Alteracao do formulario - permissoes - Carlos Abreu - 11/09/2015
 	  Versao 4 --> Alteracao do formulario - permissoes/grid anexos - Carlos Abreu - 25/09/2015
-	  Versao 5 --> Revisao das permissoes conforme solicitacao Hugo Castilho - 29/09/2015 - Carlos Abreu
-	  Versao 6 --> Alteracoes pedidas por Clayton - 27/09/2016 - Carlos Máximo
-	  Versao 7 --> Alteracoes pedidas por Clayton - 12/01/2017 - Carlos Máximo
+	  Versao 5 --> Revisao das permissoes conforme solicitacao - 29/09/2015 - Carlos Abreu
+	  Versao 6 --> Alteracoes pedidas por Clayton - 27/09/2016 - Carlos
+	  Versao 7 --> Alteracoes pedidas por Clayton - 12/01/2017 - Carlos 
 	  Versao 7 --> atualizacao layout - Carlos Abreu - 03/04/2017
 	  Versão 8 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
 */
@@ -1760,7 +1760,6 @@ foreach ($db->array_select as $cont1)
 $doc_ref .= "</table>";
 
 //Adicionei em 09/08/2016
-//Carlos Eduardo
 $sql = "SELECT * FROM ".DATABASE.".tipo_origem ";
 $sql .= "ORDER BY id_tipo_origem ";
 
@@ -1950,7 +1949,7 @@ function add_controles(div_container)
 
 /**
  * Alterei esta funcao criando mygrid1 pois a funcao add_camp estava se perdendo ao adicionar uma nova linha.
- * 08/09/2016 - Eduardo
+ * 08/09/2016 
  */
 function grid(tabela, autoh, height, xml)
 {

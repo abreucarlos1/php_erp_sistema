@@ -12,11 +12,11 @@
 					  Mudanças nas formas de armazenamento das pastas;
 					  Abrange CI, ATAS, Planejamento e Propostas
 		Versão 2 --> Atualização  upload  - 01/09/2013 - Carlos Abreu			  
-		Versão 3 --> Alteração de layout  - 24/11/2014 - Carlos Eduardo
+		Versão 3 --> Alteração de layout  - 24/11/2014 - Carlos Abreu
 		Versão 4 --> Inclusão de campo texto - 13/01/2015 - Carlos Abreu
-		Versão 5 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Eduardo
+		Versão 5 --> Inclusão de campo Serviço - 30/06/2015 - Carlos Abreu
 		Versão 6 --> Alteração na forma de inclusão de referencias - 03/05/2016 - Carlos Abreu
-		Versão 7 --> E-mail para todos os envolvidos na OS na inclusão de referencias - 29/08/2016 - Carlos Eduardo
+		Versão 7 --> E-mail para todos os envolvidos na OS na inclusão de referencias - 29/08/2016 - Carlos Abreu
 		Versão 8 --> Atualização layout - Carlos Abreu - 22/03/2017
 		Versão 9 --> Inclusão dos campos reg_del nas consultas - 14/11/2017 - Carlos Abreu
 */	

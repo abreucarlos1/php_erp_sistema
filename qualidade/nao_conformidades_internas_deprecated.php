@@ -709,7 +709,7 @@ function email($id)
 		
 		$mail->From     = "qualidade@".DOMINIO;
 		$mail->FromName = "SGI";
-		$mail->Host     = "smtp.devemada";
+		$mail->Host     = "smtp";
 		$mail->Mailer   = "smtp";
 		$mail->ContentType = "text/html";
 		$mail->Subject = "NÃO CONFORMIDADES INTERNAS";		

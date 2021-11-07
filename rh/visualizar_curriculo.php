@@ -2,7 +2,7 @@
 /*
 		Formulário de Visualização de Curriculo
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/visualizar_curriculo.php

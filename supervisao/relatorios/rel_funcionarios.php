@@ -2,7 +2,7 @@
 /*
 		Relatório funcionarios
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:		
 		../supervisao/relatorios/rel_funcionarios.php

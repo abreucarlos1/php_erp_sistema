@@ -2,14 +2,14 @@
 /*
 		Formulário de avaliação de eficacia de treinamentos
 		
-		Criado por Carlos Eduardo Maximo  
+		Criado por Carlos 
 		
 	  local/Nome do arquivo:
 	  ../rh/avaliacao_eficacia.php
 				
 		Versão 0 --> VERSÃO INICIAL : 30/10/2017
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 2 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+		Versão 2 --> Layout responsivo - 05/02/2018 - Carlos 
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

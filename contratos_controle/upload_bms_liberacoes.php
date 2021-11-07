@@ -2,7 +2,7 @@
 /*
 		Formulário de Upload liberações de medição
 		
-		Criado por Carlos Eduardo  
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../contratos_controle/upload_bms_liberacoes.php

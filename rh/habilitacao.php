@@ -2,7 +2,7 @@
 /*
 		Formulário de habilitação	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../rh/habilitacao.php
@@ -10,9 +10,9 @@
 		Versão 0 --> VERSÃO INICIAL - 28/01/2008
 		Versao 1 --> Atualização Lay-out : 12/08/2008
 		Versão 2 --> Atualização classe banco de dados - 23/01/2015 - Carlos Abreu
-		Versão 3 --> Atualização - 09/04/2015 - Eduardo
+		Versão 3 --> Atualização - 09/04/2015 - Carlos
 		Versão 4 --> Atualização imagens - 12/07/2016 - Carlos Abreu
-		Versão 5 --> Criação do Relatório de CNH - 16/08/2016 - Eduardo
+		Versão 5 --> Criação do Relatório de CNH - 16/08/2016 - Carlos
 		Versão 6 --> Atualização layout - Carlos Abreu - 07/04/2017
 		Versão 7 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
 */

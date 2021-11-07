@@ -2,7 +2,7 @@
 /*
 		Formulário de chamados de integração	
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos 
 		
 		local/Nome do arquivo:
 		../rh/chamados_integracao.php
@@ -10,9 +10,9 @@
 		Versão 0 --> VERSÃO INICIAL - 18/07/2016
 		Versão 1 --> Atualização layout - Carlos Abreu - 04/04/2017
 		Versão 2 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-		Versão 3 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
-		Versão 4 --> Retirada de obrigatoriedades - 15/03/2018 - Carlos Eduardo
-		Versão 5 --> Adicionei a opção para salvar uma integração para vários funcionarios ao mesmo tempo - 05/04/2018 - Carlos Eduardo
+		Versão 3 --> Layout responsivo - 05/02/2018 - Carlos
+		Versão 4 --> Retirada de obrigatoriedades - 15/03/2018 - Carlos
+		Versão 5 --> Adicionei a opção para salvar uma integração para vários funcionarios ao mesmo tempo - 05/04/2018 - Carlos 
 */	
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

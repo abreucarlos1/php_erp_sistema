@@ -2,14 +2,14 @@
 /*
     Formulario de Transferencia de apontamento de horas	
     
-    Criado por Carlos Eduardo  
+    Criado por Carlos
     
     local/Nome do arquivo:
     ../financeiro/transferencia_apontamento_horas.php
     
     Versão 0 --> VERSÃO INICIAL : 27/06/2017
     Versão 1 --> Inclusão dos campos reg_del nas consultas - 20/11/2017 - Carlos Abreu
-    Versão 3 --> Layout responsivo - 28/11/2017 - Carlos Eduardo
+    Versão 3 --> Layout responsivo - 28/11/2017 - Carlos
 */
 	
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

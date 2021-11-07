@@ -2,14 +2,14 @@
 /*
 	Formulário de Inventário
 	
-	Criado por Carlos Máximo
+	Criado por Carlos 
 	
 	local/Nome do arquivo:
 	../ti/inventario.php
 
 	Versão 0 --> VERSÃO ATUALIZADA : 09/06/2017
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 23/11/2017 - Carlos Abreu
-	Versão 2 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+	Versão 2 --> Layout responsivo - 05/02/2018 - Carlos 
 */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

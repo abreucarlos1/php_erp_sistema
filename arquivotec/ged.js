@@ -1,5 +1,5 @@
 /*		Include de rotinas do sistema GED
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		Local/Nome do arquivo:
 		../arquivotec/ged.js
 		Última alteração: 14/04/2016

@@ -1,13 +1,13 @@
 <?php
 /*
 	Relatório de os's planejadas no período selecionado
-	Criado por Carlos Eduardo  
+	Criado por Carlos  
 	
 	Obs.: Este arquivo é chamado de contratos_controle/bms.php
 	
 	Versão 0 --> VERSÃO INICIAL : 11/10/2017
 	Versão 1 --> Inclusão dos campos reg_del nas consultas - 17/11/2017 - Carlos Abreu
-	Versão 2 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos Eduardo
+	Versão 2 --> Inclusão do campo reembolso de despesa - 08/03/2018 - Carlos 
 */
 require_once(implode(DIRECTORY_SEPARATOR,array('..','..','config.inc.php')));
 	

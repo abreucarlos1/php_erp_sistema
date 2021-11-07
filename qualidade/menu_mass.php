@@ -9,7 +9,7 @@
     
     Versão 0 --> VERSÃO INICIAL : 06/08/2014 - Carlos Abreu
     Versão 1 --> Atualização layout - Carlos Abreu - 03/04/2017
-    Versão 2 --> mudada para estrutura de pastas - Carlos Eduardo - 22/09/2017
+    Versão 2 --> mudada para estrutura de pastas - Carlos - 22/09/2017
  */
 
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

@@ -3,7 +3,7 @@
 
 		Formulário de Avanço Físico	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu
 		
 		local/Nome do arquivo:
 		../coordenacao/avanco_fisico.php

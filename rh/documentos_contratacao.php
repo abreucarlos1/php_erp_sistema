@@ -2,14 +2,14 @@
 /*
 		Formulário de documentos de contratação
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 		
 		local/Nome do arquivo:
 		../rh/documentos_contratacao.php
 		
 		Versão 0 --> VERSÃO INICIAL
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 28/11/2017 - Carlos Abreu
-		Versão 2 --> Layout responsivo - Carlos Eduardo - 05/02/2018
+		Versão 2 --> Layout responsivo - Carlos - 05/02/2018
 */
 header('X-UA-Compatible: IE=edge');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

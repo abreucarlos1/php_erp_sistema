@@ -1,10 +1,10 @@
 <?php
 /*
 	Módulo de criação de Relatórios rápidos baseados em sql
-	Criado por Carlos Eduardo  
+	Criado por Carlos 
 	
 	Versão 0 --> VERSÃO INICIAL - 25/10/2017
-	Versão 1 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+	Versão 1 --> Layout responsivo - 05/02/2018 - Carlos 
 */
 
 //header('X-UA-Compatible: IE=edge');

@@ -2,14 +2,14 @@
 /*
 		Formulário de Avaliação de Candidatos
 		
-		Criado por Carlos Eduardo
+		Criado por Carlos
 
 	  local/Nome do arquivo:
 	  ../rh/avaliacao_candidato.php
 	
 		Versão 0 --> VERSÃO INICIAL : 01/11/2017
 		Versão 1 --> Inclusão dos campos reg_del nas consultas - 27/11/2017 - Carlos Abreu
-		Versão 2 --> Layout responsivo - 05/02/2018 - Carlos Eduardo
+		Versão 2 --> Layout responsivo - 05/02/2018 - Carlos
 */
 //header('X-UA-Compatible: IE=edge');
 require_once(implode(DIRECTORY_SEPARATOR,array('..','config.inc.php')));

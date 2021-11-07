@@ -2,7 +2,7 @@
 /*
 		Formulário de Cadastro de Currículos	
 		
-		Criado por Carlos Abreu / Otávio Pamplona
+		Criado por Carlos Abreu 
 		
 		local/Nome do arquivo:
 		../rh/cadastra_curriculo.php
