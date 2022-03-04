@@ -740,7 +740,7 @@ function mostraPacote($id_ged_pacote)
 						//Seleciona os dados referentes ao pacote
 						//Campos foram selecionados individualmente devido a ganho significativo na performance (query muito pesada)
 						
-						$sql = "SELECT setores.sigla, ged_versoes.descricao, ged_versoes.versao_, ged_versoes.revisao_interna, ";
+						$sql = "SELECT setores.sigla, ged_versoes.descricao, ged_versoes.versao_documento, ged_versoes.revisao_documento, ";
 						$sql .= "ged_versoes.id_codigo_emissao, ged_versoes.id_fin_emissao, ged_versoes.id_ged_pacote, ";
 						$sql .= "numeros_interno.id_formato, ged_arquivos.id_ged_arquivo, ged_versoes.status_devolucao, ordem_servico.id_os, os.os, numeros_interno.sequencia, ";
 						$sql .= "numeros_interno.numero_cliente, solicitacao_documentos_detalhes.id_numero_interno, ged_versoes.numero_folhas as folhas, "; 
@@ -953,10 +953,10 @@ function mostraPacote($id_ged_pacote)
 											$xml->text($descricao_numdvm);
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text('<input type="hidden" id="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '"><input type="text" class="caixa" name="txt_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value}else{this.value=xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
+											$xml->text('<input type="hidden" id="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_documento"] . '"><input type="text" class="caixa" name="txt_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . $reg_arquivos["revisao_documento"] . '" style="width:100%;" onblur=if(xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value}else{this.value=xajax.$("hid_rev_dvm_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
 										$xml->endElement();
 										$xml->startElement ('cell');
-											$xml->text($reg_arquivos["versao_"]);
+											$xml->text($reg_arquivos["versao_documento"]);
 										$xml->endElement();
 										$xml->startElement ('cell');
 											$xml->text('<input type="hidden" id="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" name="hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '"><input type="text" class="caixa" name="txt_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '" value="' . addslashes($reg_arquivos["numero_cliente"]) . '" style="width:100%;" onblur=if(xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value!==this.value){if(confirm("Deseja atualizar o Nº Cliente "+xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value+" para "+this.value+"?")){xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;xajax_atualiza_campos("numero_cliente",this.value,'.$reg_arquivos["id_ged_versao_atual"].');xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value=this.value;}else{this.value=xajax.$("hid_numcliente_' . $reg_arquivos["id_ged_arquivo"] . '").value;}}>');
@@ -1612,10 +1612,10 @@ function propriedades_versoes($dados_form)
 					$xml->text(basename(addslashes($reg_versoes["arquivo"])));
 				$xml->endElement();
 				$xml->startElement ('cell');
-					$xml->text('<input type="hidden" id="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" name="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '"><input type="text" class="caixa" name="text_rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_interna"] . '" style="width:100%;" onblur=if(xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value+" para "+this.value+"?")){xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
+					$xml->text('<input type="hidden" id="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" name="rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_documento"] . '"><input type="text" class="caixa" name="text_rev_dvm_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_documento"] . '" style="width:100%;" onblur=if(xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Interna "+xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value+" para "+this.value+"?")){xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_interna",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_dvm_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
 				$xml->endElement();
 				$xml->startElement ('cell');
-					$xml->text($reg_versoes["versao_"]);
+					$xml->text($reg_versoes["versao_documento"]);
 				$xml->endElement();
 				$xml->startElement ('cell');
 					$xml->text('<input type="hidden" id="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" name="rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '"><input type="text" class="caixa" name="text_rev_cliente_' . $reg_versoes["id_ged_versao"] . '" value="' . $reg_versoes["revisao_cliente"] . '" style="width:100%;" onblur=if(xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value!==this.value){if(confirm("Deseja atualizar a Revisão Cliente "+xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value+" para "+this.value+"?")){xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value=this.value;xajax_atualiza_campos("revisao_cliente",this.value,'.$reg_versoes["id_ged_versao"].');}else{this.value=xajax.$("rev_cliente_' . $reg_versoes["id_ged_versao"] . '").value;}}>');
@@ -2282,7 +2282,7 @@ function atualiza_campos($campo, $valor, $id_ged_versao)
 			case 'revisao_interna':
 
 				$usql = "UPDATE ".DATABASE.".ged_versoes SET ";
-				$usql .= "ged_versoes.revisao_interna = '" . trim($valor) . "' ";
+				$usql .= "ged_versoes.revisao_documento = '" . trim($valor) . "' ";
 				$usql .= "WHERE ged_versoes.id_ged_versao = '".$id_ged_versao."' ";
 				$usql .= "AND ged_versoes.reg_del = 0 ";
 		

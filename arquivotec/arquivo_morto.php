@@ -426,7 +426,7 @@ function insere($dados_form)
                 if ($mail->send())
                 {
                     $resposta->addAlert('email enviado corretamente');
-                    $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.');');
+                    $resposta->addScript('xajax_atualizatabela_os('.$idFuncionario.');');
                 }
             }
             else 
@@ -526,7 +526,7 @@ function aprovar($dados_form)
         
         $resposta->addAlert('Alterações realizadas corretamente');
         
-        $resposta->addScript('showLoader();xajax_atualizatabela_os('.$idFuncionario.','.$coord.');');
+        $resposta->addScript('xajax_atualizatabela_os('.$idFuncionario.','.$coord.');');
         
         $resposta->addScript("document.getElementById('btnenviar').disabled=true;");
         

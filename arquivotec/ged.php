@@ -1163,7 +1163,7 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
         if($tipo_dir[0]=="" || $dir_atual=="DIS")
         {
             //Arquivos de Projeto
-            $sql = "SELECT os.os, ordem_servico.id_os, setores.sigla, numeros_interno.sequencia, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_arquivos.status, ged_arquivos.situacao, ged_arquivos.id_autor, ged_arquivos.id_editor, ged_versoes.id_ged_pacote, ged_versoes.versao_, ged_versoes.revisao_interna, ged_versoes.revisao_cliente, ged_versoes.id_fin_emissao, ged_versoes.status_devolucao, ged_arquivos.descricao, numeros_interno.numero_cliente, numeros_interno.id_disciplina
+            $sql = "SELECT os.os, ordem_servico.id_os, setores.sigla, numeros_interno.sequencia, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_arquivos.status, ged_arquivos.situacao, ged_arquivos.id_autor, ged_arquivos.id_editor, ged_versoes.id_ged_pacote, ged_versoes.versao_documento, ged_versoes.revisao_documento, ged_versoes.revisao_cliente, ged_versoes.id_fin_emissao, ged_versoes.status_devolucao, ged_arquivos.descricao, numeros_interno.numero_cliente, numeros_interno.id_disciplina
 			FROM ".DATABASE.".ordem_servico, ".DATABASE.".setores, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_versoes ";
             $sql .= "WHERE ged_arquivos.id_ged_versao = ged_versoes.id_ged_versao ";
             $sql .= "AND ordem_servico.reg_del = 0 ";
@@ -1212,8 +1212,8 @@ function preencheArquivos($dados_form, $dir = '', $tipo = '')
                 $arquivo_pacote[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_ged_pacote"];
                 $arquivo_ged_versao[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_ged_versao"];
                 $arquivo_revisao_cliente[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["revisao_cliente"];
-                $arquivo_revisao_dvm[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["revisao_interna"];
-                $arquivo_versao[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["versao_"];
+                $arquivo_revisao_dvm[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["revisao_documento"];
+                $arquivo_versao[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["versao_documento"];
                 $arquivo_fin_emissao[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["id_fin_emissao"];
                 $arquivo_status_dev[$reg_arquivos["id_ged_arquivo"]] = $reg_arquivos["status_devolucao"];
             }

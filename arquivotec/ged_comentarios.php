@@ -167,7 +167,7 @@ function atualizatabela($dados_form)
     //Arquivos de Projeto
     $sql =
     "SELECT
-		os.os, ordem_servico.id_os, setores.sigla, numeros_interno.sequencia, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_arquivos.status, ged_arquivos.situacao, ged_arquivos.id_autor, ged_arquivos.id_editor, ged_versoes.id_ged_pacote, ged_versoes.versao_, ged_versoes.revisao_interna, ged_versoes.revisao_cliente, ged_versoes.id_fin_emissao, ged_versoes.status_devolucao, ged_arquivos.descricao, numeros_interno.numero_cliente, numeros_interno.id_disciplina
+		os.os, ordem_servico.id_os, setores.sigla, numeros_interno.sequencia, ged_arquivos.id_ged_arquivo, ged_versoes.id_ged_versao, ged_versoes.arquivo, ged_versoes.base, ged_versoes.os, ged_versoes.disciplina, ged_versoes.atividade, ged_versoes.strarquivo, ged_versoes.sequencial, ged_versoes.nome_arquivo, ged_arquivos.status, ged_arquivos.situacao, ged_arquivos.id_autor, ged_arquivos.id_editor, ged_versoes.id_ged_pacote, ged_versoes.versao_documento, ged_versoes.revisao_documento, ged_versoes.revisao_cliente, ged_versoes.id_fin_emissao, ged_versoes.status_devolucao, ged_arquivos.descricao, numeros_interno.numero_cliente, numeros_interno.id_disciplina
 	FROM
 		".DATABASE.".ordem_servico, ".DATABASE.".setores, ".DATABASE.".solicitacao_documentos_detalhes, ".DATABASE.".numeros_interno, ".DATABASE.".ged_arquivos, ".DATABASE.".ged_versoes ";
     $sql .= "WHERE ged_arquivos.id_ged_versao = ged_versoes.id_ged_versao ";
@@ -269,7 +269,7 @@ function atualizatabela($dados_form)
             $xml->text($imagem.' '.$descricao_numdvm);
             $xml->endElement();
             $xml->startElement ('cell');
-            $xml->text($reg_arquivos["revisao_interna"].".". $reg_arquivos["versao_"]);
+            $xml->text($reg_arquivos["revisao_documento"].".". $reg_arquivos["versao_documento"]);
             $xml->endElement();
             $xml->startElement ('cell');
             $xml->text($reg_arquivos["numero_cliente"]);
@@ -468,7 +468,7 @@ function preencheComentarios($id_ged_versao)
     
     $conteudo_cabecalho .= '</tr><tr>';
     $conteudo_cabecalho .= '<td><div class="labels">'. PREFIXO_DOC_GED . sprintf("%05d",$reg_cabecalho_coment["os"]) . '-' . $reg_cabecalho_coment["sigla"] . '-' . $reg_cabecalho_coment["sequencia"] . '</div></td>';
-    $conteudo_cabecalho .= '<td><div class="labels">' . $reg_cabecalho_coment["revisao_interna"] . '.' .$reg_cabecalho_coment["versao_"]. '</div></td>';
+    $conteudo_cabecalho .= '<td><div class="labels">' . $reg_cabecalho_coment["revisao_documento"] . '.' .$reg_cabecalho_coment["versao_documento"]. '</div></td>';
     $conteudo_cabecalho .= '<td><div class="labels">' . $reg_cabecalho_coment["numero_cliente"] . '</div></td>';
     $conteudo_cabecalho .= '<td><div class="labels">' . $reg_cabecalho_coment["revisao_cliente"] . '</div></td>';
     $conteudo_cabecalho .= '<td><div class="labels">' . $grd . '</div></td>';
@@ -569,7 +569,7 @@ function preenche_versoes($id_ged_versao)
         $array_comentarios[] = $reg_coment["id_ged_versao"];
     }
     
-    $sql = "SELECT * FROM ".DATABASE.".ged_versoes ";
+    $sql = "SELECT id_ged_versao, nome_arquivo, revisao_documento, versao_documento, revisao_cliente FROM ".DATABASE.".ged_versoes ";
     $sql .= "WHERE ged_versoes.id_ged_arquivo = '" . $reg_arquivo["id_ged_arquivo"] . "' ";
     $sql .= "AND ged_versoes.reg_del = 0 ";
     $sql .= "ORDER BY ged_versoes.versao_documento DESC, ged_versoes.revisao_documento DESC ";
@@ -594,7 +594,7 @@ function preenche_versoes($id_ged_versao)
         $xml->text($reg_versoes["nome_arquivo"]);
         $xml->endElement();
         $xml->startElement ('cell');
-        $xml->text($reg_versoes["revisao_interna"].'.'.$reg_versoes["versao_"]);
+        $xml->text($reg_versoes["revisao_documento"].'.'.$reg_versoes["versao_documento"]);
         $xml->endElement();
         $xml->startElement ('cell');
         $xml->text($reg_versoes["revisao_cliente"]);
