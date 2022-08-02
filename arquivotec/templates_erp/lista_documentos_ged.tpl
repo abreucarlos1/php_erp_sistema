@@ -6,7 +6,7 @@
 	          <td width="116" rowspan="3" valign="top" class="espacamento">
 			  <table width="100%" cellpadding="0" cellspacing="0">
 					<tr>
-					  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Relat&oacute;rio" onclick="if(document.getElementById('id_os').options[document.getElementById('id_os').selectedIndex].value!==''){document.forms[0].submit();}else{alert('É necessário selecionar uma OS / Projeto!');}" /></td>
+					  <td valign="middle"><input name="btngerar" id="btngerar" type="button" class="class_botao" value="Gerar Relat&oacute;rio" onclick="if(document.getElementById('id_os').options[document.getElementById('id_os').selectedIndex].value!==''){document.getElementById('frm_ged_lista_documentos').submit();}else{alert('É necessário selecionar uma OS / Projeto!');}" /></td>
 				  </tr>
 					<tr>
 						<td valign="middle" ><input name="btnvoltar" id="btnvoltar" type="button" class="class_botao" value="Voltar" onclick="history.back();" /></td>
@@ -69,11 +69,11 @@
 	              <td class="td_sp"><input name="chk_estatistica" type="checkbox" id="chk_estatistica" value="1" title="Suprime as estatisticas dos documentos" />
 	              <span class="labels">Mostrar estatísticas</span></td>
 	              <td class="td_sp"><div id="div_periodo" style="display:none;">
-	              <input type="text" name="dataini" id="dataini" class="caixa" size="12" onKeyPress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim', 10);" /> <span class="labels">até</span> 
+	              <input type="text" name="dataini" id="dataini" class="caixa" size="12" onKeyPress="transformaData(this, event);" onKeyUp="autoTab(this,'datafim', 10);" /> <span class="labels">até</span> 
 	              <input type="text" name="datafim" id="datafim" class="caixa" size="12" maxlength="10" onKeyPress="transformaData(this, event);" />
 	              </div></td>
 	              <td class="td_sp"><div id="div_periodo_dev" style="display:none;">
-	              <input type="text" name="dataini_dev" id="dataini_dev" class="caixa" size="12" onKeyPress="transformaData(this, event);" onKeyUp="return autoTab(this,'datafim_dev', 10);" /> <span class="labels">até</span> 
+	              <input type="text" name="dataini_dev" id="dataini_dev" class="caixa" size="12" onKeyPress="transformaData(this, event);" onKeyUp="autoTab(this,'datafim_dev', 10);" /> <span class="labels">até</span> 
 	              <input type="text" name="datafim_dev" id="datafim_dev" class="caixa" size="12" maxlength="10" onKeyPress="transformaData(this, event);" />
 	              </div></td>
 	            </tr>
