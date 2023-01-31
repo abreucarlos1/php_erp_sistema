@@ -1,0 +1,52 @@
+PARA GERAR O ARQUIVO DE LICENSA (system.lic/key.chv)
+
+executar o arquivo geralic.php, ESTE ENCRIPTA UTILIZANDO A CLASSE CRYPTER
+
+a chave de geração será o cnpj/cpf
+
+INFORMAÇÕES QUE COMPORÃO O ARQUIVO
+
+1-CNPJ/CPF
+2-DATA GERAÇÃO DO ARQUIVO LICENSA
+3-SISTEMA DEMONSTRACAO - (0) (PRODUÇÃO) / (1) (DEMONSTRAÇÃO) - ASSIM A DATA DE EXPIRAÇÃO VALE POR 15 DIAS DA GERAÇÃO DO ARQUIVO
+4-DATA CONTRATAÇÃO
+5-NUMERO USUARIOS PERMITIDOS (9999 - ILIMITADO)
+6-DATA DE EXPIRAÇAO, CONFORME CONTRATO/SISTEMA DEMONSTRAÇÃO
+
+O ARQUIVO GERADO CONTERÁ UMA STRING COM ESTAS INFORMAÇÕES CONCATENADAS A PARTIR DE UM ARRAY E SEPARADO POR VIRGULA
+
+O ARQUIVO GERADO IRÁ GERAR UMA CHAVE MD5, QUE SERÁ GRAVADA NO ARQUIVO key.chv utilizando o sistema abaixo
+
+Store the MD5 hash of "system.lic" in a file:
+	<?php
+	$md5file = md5_file("system.lic");
+	file_put_contents("key.chv",$md5file);
+	?>
+
+Test if "test.txt" has been changed (that is if the MD5 hash has been changed):
+
+	<?php
+	$md5file = file_get_contents("key.chv");
+	if (md5_file("system.lic") == $md5file)
+	  {
+		echo "The file is ok.";
+	  }
+	else
+	  {
+		echo "The file has been changed.";
+	  }
+	?>
+	
+	
+A LEITURA DO ARQUIVO system.lic SE DARÁ A PARTIR DA HASH GERADA ACIMA
+
+SE VALIDO, EXTRAI O VALOR DO INDICE 0 (CNPJ) 
+
+SALVA EM VARIAVEL DE SESSÃO ($_SESSION) 
+
+COMPARA COM A CONSTANTE CNPJ 
+
+SE IGUAL, EXTRAI AS INFORMACOES NECESSÁRIAS e permite a utilização do sistema
+
+
+
