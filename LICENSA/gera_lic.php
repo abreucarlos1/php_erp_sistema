@@ -195,8 +195,6 @@ function preenche_num(valor)
 	{
 		case '0':
 
-			alert(valor);
-
 			document.getElementById('numero_usuarios').value="9999";
 
 			document.getElementById('data_expiracao').value="<?php echo(date('Y-m-d')) ?>";
