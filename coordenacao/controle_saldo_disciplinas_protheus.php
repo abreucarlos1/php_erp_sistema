@@ -184,7 +184,7 @@ foreach ($db->array_select as $regs)
 }
 
 $sql = "SELECT * FROM ".DATABASE.".setores ";
-$sql .= "WHERE setores.abreviacao NOT IN ('FIN','SGQ','OUT','CMS','SUP','MON','GOB','MAT') ";
+$sql .= "WHERE setores.abreviacao NOT IN ('FIN','OUT','CMS','SUP','MON','GOB','MAT') ";
 $sql .= "AND setores.reg_del = 0 ";
 $sql .= "ORDER BY setor ";
 
