@@ -1,19 +1,20 @@
 <?php
 
 	//require_once(INCLUDE_DIR.implode(DIRECTORY_SEPARATOR,array('phpmailer','PHPMailerAutoload.php')));
-	use PHPMailer\PHPMailer\PHPMailer;
-	use PHPMailer\PHPMailer\Exception;
+	//use PHPMailer\PHPMailer\PHPMailer;
+	//use PHPMailer\PHPMailer\Exception;
 
 	//require 'path/to/PHPMailer/src/Exception.php';
 	//require 'path/to/PHPMailer/src/PHPMailer.php';
 	//require 'path/to/PHPMailer/src/SMTP.php';
 
-	require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."Exception.php");
-	require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."PHPMailer.php");
-	require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."SMTP.php");
+	//require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."Exception.php");
+	//require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."PHPMailer.php");
+	//require_once(INCLUDE_DIR."PHPMailer/src".DIRECTORY_SEPARATOR."SMTP.php");
 	
 	require_once(INCLUDE_DIR."antiInjection.php");
 
+	
 	class email extends PHPMailer
 	{
 		public $erros = array();

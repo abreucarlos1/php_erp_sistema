@@ -18,10 +18,14 @@ class banco_dados
 		{
 			case 1: //Ambiente de testes
 				//web
-				$this->host = "127.0.0.1";
-				$this->pass = "root";
-				$this->user = "root";
-				$this->db = "mysql";
+				//$this->host = "127.0.0.1";
+				//$this->pass = "root";
+				//$this->user = "root";
+				//$this->db = "mysql";
+				$this->host = DBHOST;
+				$this->pass = DBPASS;
+				$this->user = DBUSER;
+				$this->db = DB;
 				
 				//MS
 				//$this->ms_host = "localhost:1433";
@@ -32,10 +36,14 @@ class banco_dados
 			
 			case 2: //Ambiente de Produção
 				//web
-				$this->host = "127.0.0.1";
-				$this->pass = "root";
-				$this->user = "root";
-				$this->db = "mysql";
+				//$this->host = "127.0.0.1";
+				//$this->pass = "root";
+				//$this->user = "root";
+				//$this->db = "mysql";
+				$this->host = DBHOST;
+				$this->pass = DBPASS;
+				$this->user = DBUSER;
+				$this->db = DB;
 				
 				//MS
 				//$this->ms_host = "localhost:1433";

@@ -10,6 +10,14 @@
 
 define('DATABASE',"sistema_erp");
 
+define('DBHOST',"127.0.0.1");
+
+define('DBUSER',"root");
+
+define('DBPASS',"");
+
+define('DB',"mysql");
+
 define('DIAS_LIMITE',90); //dias de limite para senhas
 
 define('TAMANHO_SENHA',7); //tamanho padrão de senhas
@@ -184,7 +192,7 @@ require_once(INCLUDE_DIR."database2.inc.php");
 
 @ini_set(max_execution_time, 120);
 
-require_once(INCLUDE_DIR."include_email.inc.php"); 
+//require_once(INCLUDE_DIR."include_email.inc.php"); 
 
 //require_once(INCLUDE_DIR.'errorLogs.php');
 
