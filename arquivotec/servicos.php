@@ -166,7 +166,7 @@ class servicos
         "INSERT INTO ".DATABASE.".servicos
 			(servico_descricao, servico, os)
 		VALUES
-			('".trim(utf8_decode($_post['txt_servico_descricao']))."', '".trim(utf8_decode($_post['txt_servico']))."', '".$_post['txt_os']."')";
+			('".trim(utf8_decode_string($_post['txt_servico_descricao']))."', '".trim(utf8_decode_string($_post['txt_servico']))."', '".$_post['txt_os']."')";
         
         $this->db->insert($isql, 'MYSQL');
         

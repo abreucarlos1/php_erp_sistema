@@ -207,15 +207,15 @@ switch ($acao){
 		$pdf->ln(5);
 		
 		$pdf->SetFont('Arial','b',9);
-		$pdf->Cell(0, 10, utf8_decode('DESCRIÇÃO DAS NECESSIDADES'),0, 1, 'C', 0,'');
+		$pdf->Cell(0, 10, utf8_decode_string('DESCRIÇÃO DAS NECESSIDADES'),0, 1, 'C', 0,'');
 		$pdf->SetFont('Arial','',9);
 		$pdf->MultiCell(0, 5, strtoupper(tiraacentos($gmud[1][0]['descricao_gmud'])),1, 'l', 0);
 
 		$pdf->ln(5);
 		
 		$pdf->SetFont('Arial','b',9);
-		$pdf->Cell(0, 10, utf8_decode('FASES DO PROJETO'),0, 1, 'C', 0,'');
-		$pdf->Cell(149, 5, utf8_decode('Fase do Projeto'),0, 0, 'l', 0,'');
+		$pdf->Cell(0, 10, utf8_decode_string('FASES DO PROJETO'),0, 1, 'C', 0,'');
+		$pdf->Cell(149, 5, utf8_decode_string('Fase do Projeto'),0, 0, 'l', 0,'');
 		$pdf->Cell(30, 5, 'QTD. HORAS',0, 1, 'l', 0,'');
 		
 		$pdf->SetFont('Arial','',9);
@@ -238,8 +238,8 @@ switch ($acao){
 		$pdf->Cell(30, 5, $tarefas[2],0, 0, 'l', 0,'');
 		$pdf->ln();
 		
-		$pdf->Cell(0, 10, utf8_decode('RISCOS PARA O PROJETO'),0, 1, 'C', 0,'');
-		$pdf->Cell(149, 5, strtoupper(utf8_decode('RISCO')),0, 0, 'l', 0,'');
+		$pdf->Cell(0, 10, utf8_decode_string('RISCOS PARA O PROJETO'),0, 1, 'C', 0,'');
+		$pdf->Cell(149, 5, strtoupper(utf8_decode_string('RISCO')),0, 0, 'l', 0,'');
 		$pdf->Cell(30, 5, 'GRAU',0, 1, 'l', 0,'');
 		
 		$pdf->SetFont('Arial','',9);

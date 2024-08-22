@@ -1163,7 +1163,7 @@ class xajax
 		{
 			$sFuncToUse = NULL;
 			
-			$sFuncToUse = "utf8_decode";
+			$sFuncToUse = "utf8_decode_string";
 			/*
 			if (function_exists('iconv'))
 			{
@@ -1175,7 +1175,7 @@ class xajax
 			}
 			else if ($this->sEncoding == "ISO-8859-1")
 			{
-				$sFuncToUse = "utf8_decode";
+				$sFuncToUse = "utf8_decode_string";
 			}
 			else
 			{
@@ -1197,7 +1197,7 @@ class xajax
 					}
 					else
 					{
-						$sValue = utf8_decode($sValue);
+						$sValue = utf8_decode_string($sValue);
 					}
 				}
 			}

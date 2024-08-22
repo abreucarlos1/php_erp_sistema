@@ -4822,7 +4822,7 @@ function applyGPOSpdf($txt, $aix, $x, $y, $OTLdata, $textvar=0 ) {
 		else {
 			$tx = code2utf($c);
 			if ($this->usingCoreFont) { 
-				$tx = utf8_decode($tx);
+				$tx = utf8_decode_string($tx);
 			}
 			else {
 				$tx = $this->UTF8ToUTF16BE($tx, false);

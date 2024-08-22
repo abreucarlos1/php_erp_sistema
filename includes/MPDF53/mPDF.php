@@ -3738,7 +3738,7 @@ function _smallCaps($txt, $mode, $aix, $dx, $k, $baseline, $va, $space) {
 			$txt .= code2utf($b[1][$i]); 
 		}
 		if ($this->usingCoreFont) { 
-			$txt = utf8_decode($txt);
+			$txt = utf8_decode_string($txt);
 		}
 		if ($mode == 'SIPSMP') {
 			$txt = $this->UTF8toSubset($txt);

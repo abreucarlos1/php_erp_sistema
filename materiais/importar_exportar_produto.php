@@ -100,7 +100,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 	while($continuar)
 	{
 		$codBarras 	= trim($objPHPExcel->getActiveSheet()->getCell("A{$linha}")->getValue());
-		$descLonga 	= utf8_decode(trim($objPHPExcel->getActiveSheet()->getCell("C{$linha}")->getValue()));
+		$descLonga 	= utf8_decode_string(trim($objPHPExcel->getActiveSheet()->getCell("C{$linha}")->getValue()));
 		$unidade 	= trim($objPHPExcel->getActiveSheet()->getCell("D{$linha}")->getValue());
 		$peso	 	= trim($objPHPExcel->getActiveSheet()->getCell("E{$linha}")->getValue());
 		
@@ -168,7 +168,7 @@ if (isset($_GET['importar']) && $_GET['importar'] == 1 && isset($_GET['tipo']) &
 	while($continuar)
 	{
 		$codBarras 	= trim($objPHPExcel->getActiveSheet()->getCell("A{$linha}")->getValue());
-		$descCurta 	= utf8_decode(trim($objPHPExcel->getActiveSheet()->getCell("B{$linha}")->getValue()));
+		$descCurta 	= utf8_decode_string(trim($objPHPExcel->getActiveSheet()->getCell("B{$linha}")->getValue()));
 		
 		$continuar = !empty($objPHPExcel->getActiveSheet()->getCell("B{$linha}")->getValue()) ? true : false;
 		if (!$continuar)

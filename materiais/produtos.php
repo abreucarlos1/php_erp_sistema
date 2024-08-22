@@ -672,7 +672,7 @@ function lista_produtos_cadastrados($filtro)
 	if(!empty($filtro))
 	{
 		//$sql_texto = str_replace('  ', ' ', AntiInjection::clean($filtro));
-		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode($filtro)));
+		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode_string($filtro)));
 		//$sql_texto = str_replace(array('','"'), '', $sql_texto);
 		
 		$arrSqlTexto = explode(',', $sql_texto);
@@ -766,7 +766,7 @@ function agregarFamilia($filtro)
 		if (substr($filtro[0]['value'], -1) != ',')
 			$filtro[0]['value'] .= ',';
 			
-		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode($filtro[0]['value'])));
+		$sql_texto = str_replace('  ', ' ', AntiInjection::clean(utf8_decode_string($filtro[0]['value'])));
 		//$sql_texto = str_replace('', '', $sql_texto);
 		
 		for($i=1;$i<count($filtro);$i++)

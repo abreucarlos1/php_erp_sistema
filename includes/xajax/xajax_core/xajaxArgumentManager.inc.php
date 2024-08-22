@@ -290,14 +290,14 @@ class xajaxArgumentManager
 			$mArg = mb_convert_encoding($mArg, $this->sCharacterEncoding, "UTF-8");
 	}
 	
-	function argumentDecodeUTF8_utf8_decode(&$mArg)
+	function argumentDecodeUTF8_utf8_decode_string(&$mArg)
 	{
 		if (is_array($mArg))
 		{
 			foreach (array_keys($mArg) as $sKey)
 			{
 				$sNewKey = $sKey;
-				$this->argumentDecodeUTF8_utf8_decode($sNewKey);
+				$this->argumentDecodeUTF8_utf8_decode_string($sNewKey);
 				
 				if ($sNewKey != $sKey)
 				{
@@ -306,11 +306,11 @@ class xajaxArgumentManager
 					$sKey = $sNewKey;
 				}
 				
-				$this->argumentDecodeUTF8_utf8_decode($mArg[$sKey]);
+				$this->argumentDecodeUTF8_utf8_decode_string($mArg[$sKey]);
 			}
 		}
 		else if (is_string($mArg))
-			$mArg = utf8_decode($mArg);
+			$mArg = utf8_decode_string($mArg);
 	}
 	
 	/*
@@ -445,7 +445,7 @@ class xajaxArgumentManager
 			else if (function_exists('mb_convert_encoding'))
 				$sFunction = "mb_convert_encoding";
 			else if ($this->sCharacterEncoding == "ISO-8859-1")
-				$sFunction = "utf8_decode";
+				$sFunction = "utf8_decode_string";
 			else {
 				$objLanguageManager =& xajaxLanguageManager::getInstance();
 				trigger_error(
