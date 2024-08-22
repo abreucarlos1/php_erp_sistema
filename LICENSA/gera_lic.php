@@ -9,6 +9,7 @@
 		../LICENSA/gera_lic.php
 		
 		Versão 0 --> VERSÃO INICIAL - 19/01/2023 - Carlos Abreu
+		Versão 1 --> Inclusão de tipos e quantidades licenças - 30/05/2023 - Carlos Abreu
 */
 
 @ini_set('display_errors', 0);
@@ -34,77 +35,105 @@ $date->modify('+15 day');
 if ($_POST["acao"]=="salvar")
 {
 	$enc = new Crypter($_POST['cnpj']);
-
-	//gera a hash das informacoes
-	$cnpj = $enc->encrypt($_POST['cnpj']);
-	$data_geracao = $enc->encrypt($_POST['data_geracao']);
-	$tipo_sistema = $enc->encrypt($_POST['tipo_sistema']);
-	$data_contratacao = $enc->encrypt($_POST['data_contratacao']);
-	$numero_usuarios = $enc->encrypt($_POST['numero_usuarios']);
-	$data_expiracao = $enc->encrypt($_POST['data_expiracao']);
-	$relatorios = $enc->encrypt($_POST['relatorios']);
-
-	$array_licensa[0] = $cnpj;
-	$array_licensa[1] = $data_geracao;
-	$array_licensa[2] = $tipo_sistema;
-	$array_licensa[3] = $data_contratacao;
-	$array_licensa[4] = $numero_usuarios;
-	$array_licensa[5] = $data_expiracao;
-	$array_licensa[6] = $relatorios;
-
-	$hash_licensa = implode(',',$array_licensa);
-
-	$cnpj_txt = str_replace('.','',str_replace('-','',str_replace('/','',$_POST['cnpj'])));
-
-	//gera o arquivo
-	file_put_contents('system_'.$cnpj_txt.'.lic',$hash_licensa);
-
-	//gera o arquivo de chave
-	$hash_arquivo = md5_file('system_'.$cnpj_txt.'.lic');
-
-	file_put_contents('key_'.$cnpj_txt.'.chv',$hash_arquivo);	
-
-	//testa o arquivo
-	$md5file = file_get_contents('key_'.$cnpj_txt.'.chv');
 	
-	if (md5_file('system_'.$cnpj_txt.'.lic') == $md5file)
-	{
-		echo "The file is ok.<br>";
-	}
-	else
-	{
-		echo "The file has been changed.<br>";
-	}
-
-	$conteudo_arquivo = file_get_contents('system_'.$cnpj_txt.'.lic');
-
-	$array_decrypt = explode(',',$conteudo_arquivo);
-
-	$_SESSION['CNPJ'] = $array_decrypt[0];
-
-	if(md5(CNPJ)==md5($enc->decrypt($_SESSION['CNPJ'])))
-	{
-		echo "Valido.<br>";
-	}
-	else
-	{
-		echo "invalido.<br>";
-	}
+	//verifica se a soma dos tipo não ultrapassa o total
 	
-	?>
-	<script>
-		alert('EXECUTADO.');
+	if(($_POST['padrao']+$_POST['adm']+$_POST['master'])==$_POST['numero_usuarios'])
+	{
+		//gera a hash das informacoes
+		$cnpj = $enc->encrypt($_POST['cnpj']);
+		$data_geracao = $enc->encrypt($_POST['data_geracao']);
+		$tipo_sistema = $enc->encrypt($_POST['tipo_sistema']);
+		$data_contratacao = $enc->encrypt($_POST['data_contratacao']);
+		$numero_usuarios = $enc->encrypt($_POST['numero_usuarios']);
+		$data_expiracao = $enc->encrypt($_POST['data_expiracao']);
+		$relatorios = $enc->encrypt($_POST['relatorios']);
 		
-		if ( window.history.replaceState ) 
+		/*
+			indice - tipo (0-PADRAO/1-ADM/2-MASTER)
+			chave - quantidade
+		*/
+
+		$array_licensa[0] = $cnpj;
+		$array_licensa[1] = $data_geracao;
+		$array_licensa[2] = $tipo_sistema;
+		$array_licensa[3] = $data_contratacao;
+		$array_licensa[4] = $numero_usuarios;
+		$array_licensa[5] = $data_expiracao;
+		$array_licensa[6] = $relatorios;
+		$array_licensa[7] = $enc->encrypt($_POST['padrao']);
+		$array_licensa[8] = $enc->encrypt($_POST['master']);
+		$array_licensa[9] = $enc->encrypt($_POST['adm']);
+
+		$hash_licensa = implode(',',$array_licensa);
+
+		$cnpj_txt = str_replace('.','',str_replace('-','',str_replace('/','',$_POST['cnpj'])));
+
+		//gera o arquivo
+		file_put_contents('system_'.$cnpj_txt.'.lic',$hash_licensa);
+
+		//gera o arquivo de chave
+		$hash_arquivo = md5_file('system_'.$cnpj_txt.'.lic');
+
+		file_put_contents('key_'.$cnpj_txt.'.chv',$hash_arquivo);	
+
+		//testa o arquivo
+		$md5file = file_get_contents('key_'.$cnpj_txt.'.chv');
+		
+		if (md5_file('system_'.$cnpj_txt.'.lic') == $md5file)
 		{
-  			window.history.replaceState( null, null, window.location.href );
+			echo "The file is ok.<br>";
+		}
+		else
+		{
+			echo "The file has been changed.<br>";
 		}
 
-		document.getElementById('acao').value="";
+		$conteudo_arquivo = file_get_contents('system_'.$cnpj_txt.'.lic');
 
-	</script>
-	<?php
+		$array_decrypt = explode(',',$conteudo_arquivo);
 
+		$_SESSION['CNPJ'] = $array_decrypt[0];
+
+		if(md5(CNPJ)==md5($enc->decrypt($_SESSION['CNPJ'])))
+		{
+			echo "Valido.<br>";
+		}
+		else
+		{
+			echo "invalido.<br>";
+		}
+		
+		?>
+		<script>
+			alert('EXECUTADO.');
+			
+			if ( window.history.replaceState ) 
+			{
+				window.history.replaceState( null, null, window.location.href );
+			}
+
+			document.getElementById('acao').value="";
+
+		</script>
+		<?php	
+	}
+	else
+	{
+		?>
+		<script>
+			alert('QUANTIDADES INCONSISTENTES!');
+			
+			if ( window.history.replaceState ) 
+			{
+				window.history.replaceState( null, null, window.location.href );
+			}
+
+			document.getElementById('acao').value="";
+
+		</script>
+		<?php
+	}
 }
 
 ?>
@@ -167,26 +196,43 @@ if ($_POST["acao"]=="salvar")
 					  	<input name="data_expiracao" type="date" id="data_expiracao" value="<?php echo $date->format('Y-m-d') ?>">
 					</td>
                 </tr>
+
+			  </table>
+			  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>TIPO USUÁRIO</td>
+                    <td>QUANTIDADE</td>
+                    <td>TIPO USUÁRIO</td>
+                    <td>QUANTIDADE</td>
+                    <td>TIPO USUÁRIO</td>
+                    <td>QUANTIDADE</td>
+                </tr>
+                <tr>
+                    <td>PADRAO</td>
+                    <td><input name="padrao" type="text" id="padrao" value="4" placeholder="Nº Usuários Padrão"></td>
+                    <td>MASTER</td>
+                    <td><input name="master" type="text" id="master" value="0" placeholder="Nº Usuários Master"></td>
+                    <td>ADMINISTRADOR</td>
+                    <td><input name="adm" type="text" id="adm" value="1" placeholder="Nº Usuários Adm"></td>
+                </tr>
                 <tr>
                   <td>
 				  	<input name="acao" type="hidden" id="acao" value="">
                     <input name="Inserir" type="button" class="btn" id="Inserir" value="Gerar" onclick="salvar();">
                   </td>
                 </tr>
-			  </table>
+			</table>
 		</div>			
 </form>
 
 <script>
 function salvar()
 {
-
 	document.getElementById('acao').value="salvar";
 
 	document.getElementById('licensa').target="_self";
 
-	document.getElementById('licensa').submit();
-	
+	document.getElementById('licensa').submit();	
 }
 
 function preenche_num(valor)

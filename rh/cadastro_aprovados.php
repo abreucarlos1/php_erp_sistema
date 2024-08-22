@@ -25,7 +25,7 @@ if (isset($_GET['cadastrarNovaInstituicao']) && $_GET['cadastrarNovaInstituicao'
 {
 	if (!empty($_POST['nome']))
 	{
-		$_POST['nome'] = strtoupper(AntiInjection::clean(utf8_decode($_POST['nome'])));
+		$_POST['nome'] = strtoupper(AntiInjection::clean(utf8_decode_string($_POST['nome'])));
 		
 		$isql = "INSERT INTO ".DATABASE.".rh_instituicao_ensino (instituicao_ensino) VALUES( ";
 		$isql .= "'".$_POST['nome']."')";

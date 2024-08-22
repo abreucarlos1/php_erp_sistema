@@ -58,7 +58,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE TEMPLATES DO SISTEMA
-    $sql = "CREATE TABLE templates (
+    $sql = "CREATE TABLE IF NOT EXISTS templates (
       id_template int(1) unsigned NOT NULL AUTO_INCREMENT,
       nome_template varchar(20) NOT NULL,
       css varchar(30) NOT NULL,
@@ -94,7 +94,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE INTERFACES DO SISTEMA
-    $sql = "CREATE TABLE telas (
+    $sql = "CREATE TABLE IF NOT EXISTS telas (
       id_tela int(3) unsigned NOT NULL AUTO_INCREMENT,
       nome_tela varchar(100) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -170,7 +170,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE BOTÕES DO SISTEMA
-    $sql = "CREATE TABLE botoes (
+    $sql = "CREATE TABLE IF NOT EXISTS botoes (
         id_botao int(2) unsigned NOT NULL AUTO_INCREMENT,
         texto varchar(50) NOT NULL COMMENT 'Nome do campo/texto',
         id_idioma int(1) unsigned NOT NULL DEFAULT '1' COMMENT '1 - portugues / 2 - ingles / 3 - espanhol',
@@ -212,7 +212,7 @@
     //$db->exec_query($sql, 'MYSQL');
   
     //CRIA A TABELA DE CAMPOS DO SISTEMA
-    $sql = "CREATE TABLE campos (
+    $sql = "CREATE TABLE IF NOT EXISTS campos (
      id_campo int(2) unsigned NOT NULL AUTO_INCREMENT,
      id_tela int(3) unsigned NOT NULL,
      id_idioma int(1) unsigned NOT NULL DEFAULT '1',
@@ -373,7 +373,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE IDIOMAS DO SISTEMA
-    $sql = "CREATE TABLE idiomas (
+    $sql = "CREATE TABLE IF NOT EXISTS idiomas (
      id_idioma int(1) unsigned NOT NULL AUTO_INCREMENT,
      idioma varchar(20) NOT NULL,
      reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -405,7 +405,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS local;";
 
-    $sql = "CREATE TABLE local (
+    $sql = "CREATE TABLE IF NOT EXISTS local (
       id_local int(4) unsigned NOT NULL AUTO_INCREMENT,
       descricao varchar(100) NOT NULL DEFAULT '',
       mostra_apont tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Mostra no apontamento para geração de relatório inicialmente para os que tem integração no cliente',
@@ -440,7 +440,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE EMAILS PADRÃO DO SISTEMA
-    $sql = "CREATE TABLE lista_emails (
+    $sql = "CREATE TABLE IF NOT EXISTS lista_emails (
       le_id int(4) unsigned NOT NULL AUTO_INCREMENT,
       le_uso varchar(100) DEFAULT NULL COMMENT 'Usar nas telas ex: 1 => Cadastro de usuarios ou deixar vazio se nao precisar',
       le_nome varchar(100) NOT NULL DEFAULT '',
@@ -481,7 +481,7 @@
     //$db->exec_query($sql, 'MYSQL');
 
     //CRIA A TABELA DE MENSAGENS PADRÃO DO SISTEMA
-    $sql = "CREATE TABLE mensagens (
+    $sql = "CREATE TABLE IF NOT EXISTS mensagens (
       id_mensagem int(2) unsigned NOT NULL AUTO_INCREMENT,
       id_idioma int(1) unsigned NOT NULL DEFAULT '1',
       texto varchar(150) NOT NULL COMMENT 'Nome do campo/texto',
@@ -525,7 +525,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE modulos (
+    $sql = "CREATE TABLE IF NOT EXISTS modulos (
       id_modulo int(2) unsigned NOT NULL AUTO_INCREMENT,
       modulo varchar(255) NOT NULL COMMENT 'Nome da tela',
       ordem tinyint(1) unsigned NOT NULL,
@@ -559,7 +559,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE sub_modulos (
+    $sql = "CREATE TABLE IF NOT EXISTS sub_modulos (
       id_sub_modulo int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_sub_modulo_pai int(5) NOT NULL,
       id_modulo int(2) unsigned NOT NULL,
@@ -746,7 +746,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE sub_modulos_x_setor (
+    $sql = "CREATE TABLE IF NOT EXISTS sub_modulos_x_setor (
       id_sms int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_sub_modulo int(5) unsigned NOT NULL,
       id_setor_aso int(4) unsigned NOT NULL,
@@ -783,7 +783,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE genericos (
+    $sql = "CREATE TABLE IF NOT EXISTS genericos (
       id_generico int(5) UNSIGNED NOT NULL,
       tabela varchar(2) DEFAULT NULL,
       chave varchar(10) DEFAULT NULL,
@@ -949,7 +949,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-     $sql = "CREATE TABLE usuarios (
+     $sql = "CREATE TABLE IF NOT EXISTS usuarios (
       id_usuario int(5) unsigned NOT NULL AUTO_INCREMENT,
       nome varchar(150) NOT NULL DEFAULT '',      
       login varchar(100) NOT NULL DEFAULT '',
@@ -979,7 +979,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS funcionarios (
      id_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
      id_usuario int(5) unsigned NOT NULL DEFAULT '0',
      id_setor int(2) unsigned NOT NULL DEFAULT '0',
@@ -1099,7 +1099,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS funcionario_x_ajudacusto;";
 
-    $sql = "CREATE TABLE funcionario_x_ajudacusto (
+    $sql = "CREATE TABLE IF NOT EXISTS funcionario_x_ajudacusto (
       id_ajudacusto int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       id_tipo_adicional int(5) unsigned NOT NULL DEFAULT '0',
@@ -1126,7 +1126,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS funcionario_x_epi;";
 
-    $sql = "CREATE TABLE funcionario_x_epi (
+    $sql = "CREATE TABLE IF NOT EXISTS funcionario_x_epi (
       fxe_id int(5) unsigned NOT NULL AUTO_INCREMENT,
       fxe_id_epi int(5) unsigned NOT NULL,
       fxe_id_funcionario int(5) unsigned NOT NULL,
@@ -1148,7 +1148,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS funcionario_x_local_trabalho;";
 
-    $sql = "CREATE TABLE funcionario_x_local_trabalho (
+    $sql = "CREATE TABLE IF NOT EXISTS funcionario_x_local_trabalho (
       flt_id int(5) unsigned NOT NULL AUTO_INCREMENT,
       flt_numero_contrato varchar(45) NOT NULL,
       flt_CodFuncionario int(5) unsigned NOT NULL,
@@ -1177,7 +1177,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE permissoes (
+    $sql = "CREATE TABLE IF NOT EXISTS permissoes (
       id_permissao int(10) unsigned NOT NULL AUTO_INCREMENT,
       id_usuario int(5) unsigned NOT NULL COMMENT 'Código do usuário no sistema',
       id_sub_modulo int(5) unsigned NOT NULL,
@@ -1200,7 +1200,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE pj_contratos (
+    $sql = "CREATE TABLE IF NOT EXISTS pj_contratos (
      id_contrato int(5) unsigned NOT NULL AUTO_INCREMENT,
      id_tipo_contratacao int(2) unsigned NOT NULL,
      id_funcionario int(5) unsigned NOT NULL COMMENT 'funcionario',
@@ -1242,7 +1242,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS atividades;";
 
-    $sql = "CREATE TABLE atividades (
+    $sql = "CREATE TABLE IF NOT EXISTS atividades (
       id_atividade int(5) unsigned NOT NULL AUTO_INCREMENT,
       codigo varchar(10) NOT NULL DEFAULT '',
       descricao varchar(100) NOT NULL DEFAULT '',
@@ -1303,7 +1303,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS atividades_orcamento;";
 
-    $sql = "CREATE TABLE atividades_orcamento (
+    $sql = "CREATE TABLE IF NOT EXISTS atividades_orcamento (
       atividades_orcamento int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_atividade int(5) unsigned NOT NULL,
       id_funcao int(5) unsigned NOT NULL COMMENT 'Função',
@@ -1348,7 +1348,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS rh_cargos;";
 
-    $sql = "CREATE TABLE rh_cargos (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_cargos (
       id_cargo_grupo int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_categoria int(2) unsigned NOT NULL COMMENT 'Categoria de mão-de-obra (Supervisor, Engenheiro...)',
       grupo varchar(60) NOT NULL,
@@ -1390,7 +1390,7 @@
 
     //$db->exec_query($sql, 'MYSQL');
 
-    $sql = "CREATE TABLE rh_funcoes (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_funcoes (
      id_funcao int(5) unsigned NOT NULL AUTO_INCREMENT,
      id_cargo_grupo int(5) unsigned NOT NULL,
      id_rh_escolaridade int(3) unsigned NOT NULL,
@@ -1563,7 +1563,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS rh_formacao;";
 
-    $sql = "CREATE TABLE rh_formacao (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_formacao (
       id_rh_formacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL,
       id_instituicao int(3) unsigned NOT NULL,
@@ -1585,7 +1585,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS rh_instituicao_ensino;";
 
-    $sql = "CREATE TABLE rh_instituicao_ensino (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_instituicao_ensino (
       id_rh_instituicao_ensino int(3) unsigned NOT NULL AUTO_INCREMENT,
       instituicao_ensino varchar(200) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -1624,7 +1624,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS rh_integracao;";
 
-    $sql = "CREATE TABLE rh_integracao (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_integracao (
       id_rh_integracao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL,
       id_local_trabalho int(4) unsigned NOT NULL DEFAULT '0',
@@ -1650,7 +1650,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS setores;";
 
-    $sql = "CREATE TABLE setores (
+    $sql = "CREATE TABLE IF NOT EXISTS setores (
       id_setor int(2) unsigned NOT NULL AUTO_INCREMENT,
       abreviacao char(3) DEFAULT NULL,
       setor varchar(30) DEFAULT NULL,
@@ -1688,7 +1688,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS atuacoes;";
 
-    $sql = "CREATE TABLE atuacoes (
+    $sql = "CREATE TABLE IF NOT EXISTS atuacoes (
       id_atuacao int(2) unsigned NOT NULL AUTO_INCREMENT,
       cod_atuacao varchar(2) NOT NULL,
       desc_atuacao varchar(40) NOT NULL,
@@ -1721,7 +1721,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS setor_aso;";
 
-    $sql = "CREATE TABLE setor_aso (
+    $sql = "CREATE TABLE IF NOT EXISTS setor_aso (
       id_setor_aso int(2) unsigned NOT NULL AUTO_INCREMENT,
       setor_aso varchar(30) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -1755,7 +1755,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS salarios;";
 
-    $sql = "CREATE TABLE salarios (
+    $sql = "CREATE TABLE IF NOT EXISTS salarios (
       id_salario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       tipo_contrato varchar(15) DEFAULT NULL,
@@ -1783,7 +1783,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS empresa_funcionarios";
 
-    $sql = "CREATE TABLE empresa_funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS empresa_funcionarios (
       id_empfunc int(5) unsigned NOT NULL AUTO_INCREMENT,
       empresa_func varchar(150) NOT NULL DEFAULT '',
       empresa_socio int(5) DEFAULT NULL COMMENT 'id_funcionario',
@@ -1819,7 +1819,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bancos;";
 
-    $sql = "CREATE TABLE bancos (
+    $sql = "CREATE TABLE IF NOT EXISTS bancos (
       id_banco int(3) unsigned NOT NULL AUTO_INCREMENT,
       dv varchar(10) NOT NULL DEFAULT '',
       instituicao varchar(100) NOT NULL DEFAULT '',
@@ -1854,7 +1854,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS infra_estrutura;";
 
-    $sql = "CREATE TABLE infra_estrutura (
+    $sql = "CREATE TABLE IF NOT EXISTS infra_estrutura (
       id_infra_estrutura int(2) unsigned NOT NULL AUTO_INCREMENT,
       infra_estrutura varchar(50) NOT NULL,
       uso tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 - requisicao / 1 - ti / 2 - ambos',
@@ -1887,7 +1887,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipo_adicional;";
 
-    $sql = "CREATE TABLE tipo_adicional (
+    $sql = "CREATE TABLE IF NOT EXISTS tipo_adicional (
       id_tipo_adicional int(2) unsigned NOT NULL AUTO_INCREMENT,
       tipo_adicional varchar(50) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -1919,7 +1919,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS rh_adicional;";
 
-    $sql = "CREATE TABLE rh_adicional (
+    $sql = "CREATE TABLE IF NOT EXISTS rh_adicional (
       id_adicional int(2) unsigned NOT NULL AUTO_INCREMENT,
       id_tipo_adicional int(3) unsigned NOT NULL,
       adicional varchar(50) NOT NULL,
@@ -1952,7 +1952,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ordem_servico;";
 
-    $sql = "CREATE TABLE ordem_servico (
+    $sql = "CREATE TABLE IF NOT EXISTS ordem_servico (
       id_os int(5) unsigned NOT NULL AUTO_INCREMENT,
       ordem_servico_cliente varchar(20) NOT NULL,
       id_cod_coord int(5) unsigned NOT NULL DEFAULT '0',
@@ -1987,7 +1987,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ordem_servico_status;";
 
-    $sql = "CREATE TABLE ordem_servico_status (
+    $sql = "CREATE TABLE IF NOT EXISTS ordem_servico_status (
       id_os_status int(2) unsigned NOT NULL AUTO_INCREMENT,
       id_os_status_ant int(2) unsigned NOT NULL DEFAULT '0',
       os_status_ant varchar(100) NOT NULL,
@@ -2023,7 +2023,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS segmentos;";
 
-    $sql = "CREATE TABLE segmentos (
+    $sql = "CREATE TABLE IF NOT EXISTS segmentos (
       id_segmento int(5) unsigned NOT NULL AUTO_INCREMENT,
       segmento varchar(50) NOT NULL DEFAULT '',
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -2055,7 +2055,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_funcionarios;";
 
-    $sql = "CREATE TABLE os_x_funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_funcionarios (
       id_os_x_funcionarios int(10) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       id_os int(5) unsigned NOT NULL,
@@ -2075,7 +2075,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_adicionais;";
 
-    $sql = "CREATE TABLE os_x_adicionais (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_adicionais (
       id_os_x_adicional int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os_raiz int(5) unsigned NOT NULL,
       id_os_adicional int(5) unsigned NOT NULL,
@@ -2095,7 +2095,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS contatos;";
 
-    $sql = "CREATE TABLE contatos (
+    $sql = "CREATE TABLE IF NOT EXISTS contatos (
       id_contato int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_empresa int(5) unsigned NOT NULL DEFAULT '0',
       nome_contato varchar(50) NOT NULL DEFAULT '',
@@ -2128,7 +2128,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS apontamento_horas;";
 
-    $sql = "CREATE TABLE apontamento_horas (
+    $sql = "CREATE TABLE IF NOT EXISTS apontamento_horas (
       id_apontamento_horas int(10) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       id_atividade int(5) unsigned NOT NULL DEFAULT '0',
@@ -2164,7 +2164,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS horas_adicionais;";
 
-    $sql = "CREATE TABLE horas_adicionais (
+    $sql = "CREATE TABLE IF NOT EXISTS horas_adicionais (
       id_horaadicional int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL,
       id_os int(5) unsigned NOT NULL,
@@ -2196,7 +2196,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS empresas;";
 
-    $sql = "CREATE TABLE empresas (
+    $sql = "CREATE TABLE IF NOT EXISTS empresas (
       id_empresa int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_unidade int(5) unsigned NOT NULL DEFAULT '0',
       id_segmento int(5) unsigned NOT NULL DEFAULT '0',
@@ -2233,7 +2233,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS fechamento_folha;";
 
-    $sql = "CREATE TABLE fechamento_folha (
+    $sql = "CREATE TABLE IF NOT EXISTS fechamento_folha (
       id_fechamento int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       id_salario int(5) unsigned NOT NULL COMMENT 'id_salario do funcionario',
@@ -2281,7 +2281,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS fechamento_folha_detalhes;";
 
-    $sql = "CREATE TABLE fechamento_folha_detalhes (
+    $sql = "CREATE TABLE IF NOT EXISTS fechamento_folha_detalhes (
       id_outros int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_fechamento_OBSOLETO int(5) unsigned NOT NULL DEFAULT '0',
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
@@ -2306,7 +2306,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS fechamento_folha_extra;";
 
-    $sql = "CREATE TABLE fechamento_folha_extra (
+    $sql = "CREATE TABLE IF NOT EXISTS fechamento_folha_extra (
       id_fechamento_horaextra int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL,
       data_ini date NULL,
@@ -2334,7 +2334,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS fechamento_documentos;";
 
-    $sql = "CREATE TABLE fechamento_documentos (
+    $sql = "CREATE TABLE IF NOT EXISTS fechamento_documentos (
       id_fechamento_docs int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_fechamento int(5) unsigned NOT NULL COMMENT 'id Fechamento folha',
       id_fechamento_tipos_tributos int(3) NOT NULL COMMENT 'id tipo de tributo',
@@ -2359,7 +2359,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS fechamento_tipos_tributos;";
 
-    $sql = "CREATE TABLE fechamento_tipos_tributos (
+    $sql = "CREATE TABLE IF NOT EXISTS fechamento_tipos_tributos (
       id_fechamento_tipos_tributos int(3) NOT NULL AUTO_INCREMENT,
       fechamento_tipos_tributos varchar(30) NOT NULL,
       ordem smallint(3) unsigned NOT NULL,
@@ -2394,7 +2394,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS despesas_funcionario;";
 
-    $sql = "CREATE TABLE despesas_funcionario (
+    $sql = "CREATE TABLE IF NOT EXISTS despesas_funcionario (
       id_despesa_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_adiantamento_funcionario int(5) unsigned NOT NULL,
       data_despesa date NULL,
@@ -2424,7 +2424,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS nf_funcionarios;";
 
-    $sql = "CREATE TABLE nf_funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS nf_funcionarios (
       id_nf_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_fechamento int(5) unsigned NOT NULL DEFAULT '0',
       nf_numero varchar(20) DEFAULT NULL,
@@ -2450,7 +2450,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS unidades;";
 
-    $sql = "CREATE TABLE unidades (
+    $sql = "CREATE TABLE IF NOT EXISTS unidades (
       id_unidade int(4) unsigned NOT NULL AUTO_INCREMENT,
       unidade varchar(5) NOT NULL DEFAULT '',
       descricao varchar(50) NOT NULL DEFAULT '',
@@ -2487,7 +2487,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS dependentes_funcionarios;";
 
-    $sql = "CREATE TABLE dependentes_funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS dependentes_funcionarios (
       id_dependente_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL,
       nome_dependente varchar(100) NOT NULL,
@@ -2509,7 +2509,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS excessoes_calendario;";
 
-    $sql = "CREATE TABLE excessoes_calendario (
+    $sql = "CREATE TABLE IF NOT EXISTS excessoes_calendario (
       id_exc_cal int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL DEFAULT '0',
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
@@ -2535,7 +2535,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS solicitacao_hora;";
 
-    $sql = "CREATE TABLE solicitacao_hora (
+    $sql = "CREATE TABLE IF NOT EXISTS solicitacao_hora (
       id_solicitacao_hora int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       id_motivo_solicitacao int(2) unsigned NOT NULL COMMENT 'obsoleto-18/05/2015',
@@ -2573,7 +2573,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS solicitacao_hora_detalhes;";
 
-    $sql = "CREATE TABLE solicitacao_hora_detalhes (
+    $sql = "CREATE TABLE IF NOT EXISTS solicitacao_hora_detalhes (
       id_solicitacao_detalhe int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_solicitacao_hora int(5) unsigned NOT NULL,
       id_funcionario int(5) unsigned NOT NULL,
@@ -2595,7 +2595,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS solicitacao_hora_motivos;";
 
-    $sql = "CREATE TABLE solicitacao_hora_motivos (
+    $sql = "CREATE TABLE IF NOT EXISTS solicitacao_hora_motivos (
       id_solicitacao_motivo int(2) unsigned NOT NULL AUTO_INCREMENT,
       motivo_solicitacao varchar(70) NOT NULL,
       descricao_motivo varchar(300) NOT NULL,
@@ -2629,7 +2629,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS solicitacao_documentos;";
 
-    $sql = "CREATE TABLE solicitacao_documentos (
+    $sql = "CREATE TABLE IF NOT EXISTS solicitacao_documentos (
       id_solicitacao_documento int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL DEFAULT '0',
       id_os int(5) unsigned NOT NULL,
@@ -2652,7 +2652,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS solicitacao_documentos_detalhes;";
 
-    $sql = "CREATE TABLE solicitacao_documentos_detalhes (
+    $sql = "CREATE TABLE IF NOT EXISTS solicitacao_documentos_detalhes (
       id_solicitacao_documentos_detalhe int(6) unsigned NOT NULL AUTO_INCREMENT,
       id_solicitacao_documento int(6) unsigned NOT NULL DEFAULT '0',
       id_disciplina int(3) unsigned NOT NULL DEFAULT '0',
@@ -2689,7 +2689,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS numeros_interno;";
 
-    $sql = "CREATE TABLE numeros_interno (
+    $sql = "CREATE TABLE IF NOT EXISTS numeros_interno (
       id_numero_interno int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       id_disciplina int(2) unsigned NOT NULL,
@@ -2725,7 +2725,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS formatos;";
 
-    $sql = "CREATE TABLE formatos (
+    $sql = "CREATE TABLE IF NOT EXISTS formatos (
       id_formato int(2) unsigned NOT NULL AUTO_INCREMENT,
       formato varchar(2) NOT NULL DEFAULT '',
       fator_equivalente float(6,4) unsigned NOT NULL COMMENT 'A1 equivalente',
@@ -2761,7 +2761,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS arquivo_morto_aprovadas;";
 
-    $sql = "CREATE TABLE arquivo_morto_aprovadas (
+    $sql = "CREATE TABLE IF NOT EXISTS arquivo_morto_aprovadas (
       id int(5) NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) NOT NULL,
       id_os int(5) DEFAULT NULL,
@@ -2783,7 +2783,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS arquivo_morto_descartes;";
 
-    $sql = "CREATE TABLE arquivo_morto_descartes (
+    $sql = "CREATE TABLE IF NOT EXISTS arquivo_morto_descartes (
       id int(5) NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) DEFAULT NULL,
       revisao_documento int(5) DEFAULT NULL,
@@ -2807,7 +2807,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS arquivo_morto_versoes;";
 
-    $sql = "CREATE TABLE arquivo_morto_versoes (
+    $sql = "CREATE TABLE IF NOT EXISTS arquivo_morto_versoes (
       id int(5) NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) DEFAULT NULL,
       revisao_documento int(5) DEFAULT NULL,
@@ -2830,7 +2830,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS codigos_copia;";
 
-    $sql = "CREATE TABLE codigos_copia (
+    $sql = "CREATE TABLE IF NOT EXISTS codigos_copia (
       id_codigo_copia int(2) unsigned NOT NULL AUTO_INCREMENT,
       codigo_copia varchar(2) NOT NULL,
       copia varchar(30) NOT NULL,
@@ -2864,7 +2864,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS codigos_devolucao;";
 
-    $sql = "CREATE TABLE codigos_devolucao (
+    $sql = "CREATE TABLE IF NOT EXISTS codigos_devolucao (
       id_codigo_devolucao int(2) unsigned NOT NULL AUTO_INCREMENT,
       codigo_devolucao varchar(2) NOT NULL,
       descricao_devolucao varchar(50) NOT NULL,
@@ -2897,7 +2897,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS codigos_emissao;";
 
-    $sql = "CREATE TABLE codigos_emissao (
+    $sql = "CREATE TABLE IF NOT EXISTS codigos_emissao (
       id_codigo_emissao int(2) unsigned NOT NULL AUTO_INCREMENT,
       codigo_emissao varchar(2) NOT NULL,
       cod_vcp varchar(1) NOT NULL,
@@ -2932,7 +2932,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS codigos_revisao;";
 
-    $sql = "CREATE TABLE codigos_revisao (
+    $sql = "CREATE TABLE IF NOT EXISTS codigos_revisao (
       id_codigo_revisao int(2) unsigned NOT NULL AUTO_INCREMENT,
       numerico tinyint(2) unsigned NOT NULL,
       alfanumerico varchar(3) NOT NULL,
@@ -2965,7 +2965,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS documentos_referencia;";
 
-    $sql = "CREATE TABLE documentos_referencia (
+    $sql = "CREATE TABLE IF NOT EXISTS documentos_referencia (
       id_documento_referencia int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_documento_referencia_revisoes int(5) unsigned NOT NULL COMMENT 'Grava o id da revisão atual',
       id_tipo_documento_referencia int(5) unsigned NOT NULL,
@@ -2998,7 +2998,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS documentos_referencia_inclusao;";
 
-    $sql = "CREATE TABLE documentos_referencia_inclusao (
+    $sql = "CREATE TABLE IF NOT EXISTS documentos_referencia_inclusao (
       id_documento_ref_inclusao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       id_tipo_documento_referencia int(4) unsigned NOT NULL,
@@ -3036,7 +3036,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS documentos_referencia_revisoes;";
 
-    $sql = "CREATE TABLE documentos_referencia_revisoes (
+    $sql = "CREATE TABLE IF NOT EXISTS documentos_referencia_revisoes (
       id_documentos_referencia_revisoes int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_documento_referencia int(5) unsigned NOT NULL,
       nome_arquivo varchar(200) NOT NULL,
@@ -3065,7 +3065,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_arquivos;";
 
-    $sql = "CREATE TABLE ged_arquivos (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_arquivos (
       id_ged_arquivo int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_ged_versao int(7) unsigned NOT NULL COMMENT 'ID da revisao_documento atual',
       id_numero_interno int(7) unsigned NOT NULL,
@@ -3091,7 +3091,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_comentarios;";
 
-    $sql = "CREATE TABLE ged_comentarios (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_comentarios (
       id_ged_comentario int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_ged_versao int(7) unsigned NOT NULL,
       id_funcionario int(5) unsigned NOT NULL,
@@ -3115,7 +3115,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_desbloqueios;";
 
-    $sql = "CREATE TABLE ged_desbloqueios (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_desbloqueios (
       id_ged_desbloqueio int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_ged_versao int(7) unsigned NOT NULL,
       id_funcionario_solicitante int(5) unsigned NOT NULL,
@@ -3145,7 +3145,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_pacotes;";
 
-    $sql = "CREATE TABLE ged_pacotes (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_pacotes (
       id_ged_pacote int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       id_autor int(5) unsigned NOT NULL,
@@ -3168,7 +3168,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_solicitacoes;";
 
-    $sql = "CREATE TABLE ged_solicitacoes (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_solicitacoes (
       id_ged_solicitacoes int(10) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       id_ged_arquivo int(7) unsigned NOT NULL,
@@ -3191,7 +3191,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS ged_versoes;";
 
-    $sql = "CREATE TABLE ged_versoes (
+    $sql = "CREATE TABLE IF NOT EXISTS ged_versoes (
       id_ged_versao int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_ged_arquivo int(7) unsigned NOT NULL,
       id_ged_pacote int(7) unsigned NOT NULL DEFAULT '0',
@@ -3235,7 +3235,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS grd;";
 
-    $sql = "CREATE TABLE grd (
+    $sql = "CREATE TABLE IF NOT EXISTS grd (
       id_grd int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_ged_pacote int(7) unsigned NOT NULL,
       id_os int(5) unsigned NOT NULL,
@@ -3258,7 +3258,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS grd_versoes;";
 
-    $sql = "CREATE TABLE grd_versoes (
+    $sql = "CREATE TABLE IF NOT EXISTS grd_versoes (
       id_grd_versao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_grd int(5) unsigned NOT NULL,
       id_ged_versao int(7) unsigned NOT NULL,
@@ -3278,7 +3278,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS servicos;";
 
-    $sql = "CREATE TABLE servicos (
+    $sql = "CREATE TABLE IF NOT EXISTS servicos (
       servico_id int(2) unsigned NOT NULL AUTO_INCREMENT COMMENT '1/Codigo',
       id_os int(5) unsigned NOT NULL COMMENT '2/SELECIONE',
       servico varchar(50) NOT NULL,
@@ -3299,7 +3299,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_documentos_referencia;";
 
-    $sql = "CREATE TABLE tipos_documentos_referencia (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_documentos_referencia (
       id_tipos_documentos_referencia int(4) unsigned NOT NULL AUTO_INCREMENT,
       id_disciplina int(2) unsigned NOT NULL,
       id_tipo_referencia int(2) unsigned NOT NULL,
@@ -3334,7 +3334,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_referencia;";
 
-    $sql = "CREATE TABLE tipos_referencia (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_referencia (
       id_tipo_referencia int(2) unsigned NOT NULL AUTO_INCREMENT,
       tipo_referencia varchar(30) NOT NULL,
       grava_disciplina tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Permite a gravaÃ§Ã£o da disciplina na estrutura de pastas',
@@ -3369,7 +3369,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS medicoes;";
 
-    $sql = "CREATE TABLE medicoes (
+    $sql = "CREATE TABLE IF NOT EXISTS medicoes (
       id_medicao int(5) unsigned NOT NULL AUTO_INCREMENT,
       projeto int(10) unsigned zerofill NOT NULL,
       edt varchar(15) NOT NULL,
@@ -3396,7 +3396,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS adiantamento_emprestimo;";
 
-    $sql = "CREATE TABLE adiantamento_emprestimo (
+    $sql = "CREATE TABLE IF NOT EXISTS adiantamento_emprestimo (
       id_adiantamento_emprestimo int(3) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL COMMENT 'Responsavel',
       data_emprestimo date NULL,
@@ -3419,7 +3419,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS parcelas_emprestimo;";
 
-    $sql = "CREATE TABLE parcelas_emprestimo (
+    $sql = "CREATE TABLE IF NOT EXISTS parcelas_emprestimo (
       id_parcela_emprestimo int(2) unsigned NOT NULL AUTO_INCREMENT,
       id_adiantamento_emprestimo int(2) unsigned NOT NULL,
       periodo varchar(20) NOT NULL,
@@ -3442,7 +3442,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS adiantamento_funcionario;";
 
-    $sql = "CREATE TABLE adiantamento_funcionario (
+    $sql = "CREATE TABLE IF NOT EXISTS adiantamento_funcionario (
       id_adiantamento_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_requisicao_despesa int(5) unsigned NOT NULL,
       veiculo_modelo varchar(100) NOT NULL,
@@ -3471,7 +3471,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS requisicao_despesas;";
 
-    $sql = "CREATE TABLE requisicao_despesas (
+    $sql = "CREATE TABLE IF NOT EXISTS requisicao_despesas (
       id_requisicao_despesa int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_funcionario int(5) unsigned NOT NULL COMMENT 'coordenador / responsavel requisicao',
       id_os int(5) unsigned NOT NULL,
@@ -3505,7 +3505,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS requisicao_despesas_funcionarios;";
 
-    $sql = "CREATE TABLE requisicao_despesas_funcionarios (
+    $sql = "CREATE TABLE IF NOT EXISTS requisicao_despesas_funcionarios (
       id_requisicao_despesas_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_requisicao_despesa int(5) unsigned NOT NULL,
       id_funcionario int(5) unsigned NOT NULL,
@@ -3525,7 +3525,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS requisicao_despesas_necessidades;";
 
-    $sql = "CREATE TABLE requisicao_despesas_necessidades (
+    $sql = "CREATE TABLE IF NOT EXISTS requisicao_despesas_necessidades (
       id_requisicao_despesas_necessidade int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_requisicao_despesa int(5) unsigned NOT NULL,
       cod_necessidade varchar(5) NOT NULL,
@@ -3551,7 +3551,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS despesas_funcionario;";
 
-    $sql = "CREATE TABLE despesas_funcionario (
+    $sql = "CREATE TABLE IF NOT EXISTS despesas_funcionario (
       id_despesa_funcionario int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_adiantamento_funcionario int(5) unsigned NOT NULL,
       data_despesa date NULL,
@@ -3581,7 +3581,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_apontamentos;";
 
-    $sql = "CREATE TABLE bms_apontamentos (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_apontamentos (
       id_bms_apontamento int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_medicao int(10) unsigned NOT NULL,
       horas_normais decimal(10,2) DEFAULT NULL,
@@ -3607,7 +3607,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_controles;";
 
-    $sql = "CREATE TABLE bms_controles (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_controles (
       id_bms_controle int(2) unsigned NOT NULL AUTO_INCREMENT,
       bms_controle varchar(20) NOT NULL,
       bms_sigla varchar(3) DEFAULT NULL,
@@ -3640,7 +3640,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_excecoes;";
 
-    $sql = "CREATE TABLE bms_excecoes (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_excecoes (
       id_excecoes int(3) NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned DEFAULT '0',
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -3659,7 +3659,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_item;";
 
-    $sql = "CREATE TABLE bms_item (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_item (
       id_bms_item int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_pedido int(5) unsigned NOT NULL DEFAULT '0',
       id_bms_controle int(2) unsigned NOT NULL DEFAULT '1',
@@ -3691,7 +3691,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_medicao;";
 
-    $sql = "CREATE TABLE bms_medicao (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_medicao (
       id_bms_medicao int(10) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_item int(5) unsigned NOT NULL,
       id_bms_pedido int(5) unsigned NOT NULL,
@@ -3732,7 +3732,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_observacoes;";
 
-    $sql = "CREATE TABLE bms_observacoes (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_observacoes (
       id_bms_observacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_medicao int(10) unsigned NOT NULL,
       data date NULL,
@@ -3753,7 +3753,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_pedido;";
 
-    $sql = "CREATE TABLE bms_pedido (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_pedido (
       id_bms_pedido int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL DEFAULT '0' COMMENT 'ID da OS',
       valor_pedido decimal(10,2) NOT NULL DEFAULT '0.00',
@@ -3789,7 +3789,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_pedidos_finalizados;";
 
-    $sql = "CREATE TABLE bms_pedidos_finalizados (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_pedidos_finalizados (
       id_bms_pedidos_finalizados int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_bms_pedido int(5) unsigned NOT NULL,
       id_os int(5) unsigned NOT NULL,
@@ -3810,7 +3810,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_pedidos_informacoes;";
 
-    $sql = "CREATE TABLE bms_pedidos_informacoes (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_pedidos_informacoes (
       id_bms_pedidos_informacoes int(5) NOT NULL AUTO_INCREMENT,
       id_bms_pedido int(5) DEFAULT NULL,
       id_os int(5) DEFAULT NULL,
@@ -3839,7 +3839,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_periodos_medicao_cliente;";
 
-    $sql = "CREATE TABLE bms_periodos_medicao_cliente (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_periodos_medicao_cliente (
       id_pmc int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_cliente int(5) unsigned DEFAULT NULL,
       dia_inicial int(2) unsigned NOT NULL,
@@ -3868,7 +3868,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS bms_previsao_vendas;";
 
-    $sql = "CREATE TABLE bms_previsao_vendas (
+    $sql = "CREATE TABLE IF NOT EXISTS bms_previsao_vendas (
       id_bms_previsao_vendas int(11) NOT NULL AUTO_INCREMENT,
       val_janeiro decimal(10,2) DEFAULT NULL,
       val_fevereiro decimal(10,2) DEFAULT NULL,
@@ -3904,7 +3904,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS arquivos_proposta;";
 
-    $sql = "CREATE TABLE arquivos_proposta (
+    $sql = "CREATE TABLE IF NOT EXISTS arquivos_proposta (
       id_arquivo_proposta int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       id_tipo_documento int(3) unsigned NOT NULL,
@@ -3925,7 +3925,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS arquivos_proposta_versoes;";
 
-    $sql = "CREATE TABLE arquivos_proposta_versoes (
+    $sql = "CREATE TABLE IF NOT EXISTS arquivos_proposta_versoes (
       id_arquivo_versao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_arquivo_proposta int(5) unsigned NOT NULL,
       base varchar(200) NOT NULL COMMENT 'base onde o arquivo e salvo',
@@ -3950,7 +3950,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS autorizacoes_propostas;";
 
-    $sql = "CREATE TABLE autorizacoes (
+    $sql = "CREATE TABLE IF NOT EXISTS autorizacoes (
       id_autorizacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       id_funcionario int(5) unsigned NOT NULL,
@@ -3971,7 +3971,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS categorias_profissionais;";
 
-    $sql = "CREATE TABLE categorias_profissionais (
+    $sql = "CREATE TABLE IF NOT EXISTS categorias_profissionais (
       id_categoria_profissional int(2) unsigned NOT NULL AUTO_INCREMENT,
       categoria_profissional varchar(50) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -4003,7 +4003,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS controle_acesso;";
 
-    $sql = "CREATE TABLE controle_acesso (
+    $sql = "CREATE TABLE IF NOT EXISTS controle_acesso (
       id_controle_acesso int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_geral int(5) unsigned NOT NULL,
       id_disciplina int(5) unsigned NOT NULL,
@@ -4026,7 +4026,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS escopo_detalhado;";
 
-    $sql = "CREATE TABLE escopo_detalhado (
+    $sql = "CREATE TABLE IF NOT EXISTS escopo_detalhado (
       id_escopo_detalhado int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_geral int(5) unsigned NOT NULL,
       id_tarefa int(5) unsigned NOT NULL,
@@ -4057,7 +4057,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS escopo_detalhado_valorizacao;";
 
-    $sql = "CREATE TABLE escopo_detalhado_valorizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS escopo_detalhado_valorizacao (
       id_escopo_detalhado int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_geral int(5) unsigned NOT NULL,
       id_tarefa int(5) unsigned NOT NULL,
@@ -4089,7 +4089,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS escopo_geral;";
 
-    $sql = "CREATE TABLE escopo_geral (
+    $sql = "CREATE TABLE IF NOT EXISTS escopo_geral (
       id_escopo_geral int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       escopo_geral varchar(255) NOT NULL,
@@ -4113,7 +4113,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS escopo_geral_valorizacao;";
 
-    $sql = "CREATE TABLE escopo_geral_valorizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS escopo_geral_valorizacao (
       id_escopo_geral int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       id_local_obra int(5) unsigned NOT NULL,
@@ -4134,7 +4134,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS recursos;";
 
-    $sql = "CREATE TABLE recursos (
+    $sql = "CREATE TABLE IF NOT EXISTS recursos (
       id_tbl_recursos int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_detalhado int(5) unsigned NOT NULL,
       id_escopo_geral int(5) unsigned NOT NULL COMMENT 'utilizado para inclusão de itens para referenciar id_escopo_detalhado',
@@ -4161,7 +4161,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS indices_fpv;";
 
-    $sql = "CREATE TABLE indices_fpv (
+    $sql = "CREATE TABLE IF NOT EXISTS indices_fpv (
       id_indice_fpv int(3) unsigned NOT NULL AUTO_INCREMENT,
       id_tipo_indice int(2) unsigned NOT NULL DEFAULT '1',
       indice_fpv varchar(100) NOT NULL COMMENT 'OBSOLETO',
@@ -4182,7 +4182,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS indices_fpv_historico;";
 
-    $sql = "CREATE TABLE indices_fpv_historico (
+    $sql = "CREATE TABLE IF NOT EXISTS indices_fpv_historico (
       id_indice_fpv_historico int(4) unsigned NOT NULL AUTO_INCREMENT,
       id_indice_fpv int(3) unsigned NOT NULL,
       percentual decimal(7,4) unsigned NOT NULL,
@@ -4204,7 +4204,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS mobilizacao;";
 
-    $sql = "CREATE TABLE mobilizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS mobilizacao (
       id_mobilizacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_geral int(5) unsigned NOT NULL,
       id_tipo_reembolso int(1) unsigned NOT NULL DEFAULT '1' COMMENT '1 - NOTA FISCAL / 2 - NOTA DE DÉBITO',
@@ -4233,7 +4233,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS mobilizacao_valorizacao;";
 
-    $sql = "CREATE TABLE mobilizacao_valorizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS mobilizacao_valorizacao (
       id_mobilizacao_valorizacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_geral int(5) unsigned NOT NULL,
       id_tipo_reembolso int(1) unsigned NOT NULL DEFAULT '1' COMMENT '1 - NOTA FISCAL / 2 - NOTA DE DÉBITO',
@@ -4264,7 +4264,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS propostas;";
 
-    $sql = "CREATE TABLE propostas (
+    $sql = "CREATE TABLE IF NOT EXISTS propostas (
       id_proposta int(5) unsigned NOT NULL AUTO_INCREMENT,
       numero_proposta int(10) unsigned zerofill NOT NULL,
       descricao_proposta varchar(255) NOT NULL,
@@ -4300,7 +4300,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS propostas_indices;";
 
-    $sql = "CREATE TABLE propostas_indices (
+    $sql = "CREATE TABLE IF NOT EXISTS propostas_indices (
       id_proposta_indice int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       id_indice_fpv_historico int(4) unsigned NOT NULL,
@@ -4320,7 +4320,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS propostas_valorizacao;";
 
-    $sql = "CREATE TABLE propostas_valorizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS propostas_valorizacao (
       id_proposta_valorizacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL,
       data_valorizacao datetime NOT NULL,
@@ -4349,7 +4349,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS recursos_valorizacao;";
 
-    $sql = "CREATE TABLE recursos_valorizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS recursos_valorizacao (
       id_tbl_recursos int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_escopo_detalhado int(5) unsigned NOT NULL,
       id_escopo_geral int(5) unsigned NOT NULL COMMENT 'utilizado para inclusão de itens para referenciar id_escopo_detalhado',
@@ -4376,7 +4376,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS regiao;";
 
-    $sql = "CREATE TABLE regiao (
+    $sql = "CREATE TABLE IF NOT EXISTS regiao (
       id_regiao int(2) unsigned NOT NULL AUTO_INCREMENT,
       regiao varchar(50) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -4408,7 +4408,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS status_propostas;";
 
-    $sql = "CREATE TABLE status_propostas (
+    $sql = "CREATE TABLE IF NOT EXISTS status_propostas (
       id_status_proposta int(1) unsigned NOT NULL AUTO_INCREMENT,
       status_proposta varchar(30) NOT NULL,
       ordem smallint(2) unsigned NOT NULL DEFAULT '0',
@@ -4441,7 +4441,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS subcontratados;";
 
-    $sql = "CREATE TABLE subcontratados (
+    $sql = "CREATE TABLE IF NOT EXISTS subcontratados (
       id_subcontratado int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_proposta int(5) unsigned NOT NULL DEFAULT '0',
       subcontratado varchar(100) NOT NULL,
@@ -4464,7 +4464,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mo;";
 
-    $sql = "CREATE TABLE tabela_valor_mo (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mo (
       id_tabela_valor_mo int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_cargo int(5) unsigned NOT NULL COMMENT 'id da tabela rh_cargos',
       id_regiao int(2) unsigned NOT NULL DEFAULT '1' COMMENT 'Define a região do valor de mão de obra - default SP',
@@ -4486,7 +4486,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mo_cliente;";
 
-    $sql = "CREATE TABLE tabela_valor_mo_cliente (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mo_cliente (
       id_tabela_valor_mo_cliente int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_cargo int(5) unsigned NOT NULL COMMENT 'id da tabela rh_cargos',
       id_cliente int(4) unsigned NOT NULL DEFAULT '1' COMMENT 'Define o cliente da tabela',
@@ -4508,7 +4508,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mo_historico;";
 
-    $sql = "CREATE TABLE tabela_valor_mo_historico (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mo_historico (
       id_tabela_valor_mo_historico int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_tabela_valor_mo int(5) unsigned NOT NULL COMMENT 'id da tabela mo',
       valor decimal(10,2) unsigned NOT NULL,
@@ -4531,7 +4531,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mo_historico_cliente;";
 
-    $sql = "CREATE TABLE tabela_valor_mo_historico_cliente (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mo_historico_cliente (
       id_tabela_valor_mo_historico_cliente int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_tabela_valor_mo_cliente int(5) unsigned NOT NULL COMMENT 'id da tabela mo',
       valor_interno decimal(10,2) unsigned NOT NULL,
@@ -4555,7 +4555,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mobilizacao;";
 
-    $sql = "CREATE TABLE tabela_valor_mobilizacao (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mobilizacao (
       id_tabela_valor_mobilizacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_atividade int(5) unsigned NOT NULL COMMENT 'id da tabela atividades (somente DESxx)',
       estado varchar(2) NOT NULL COMMENT 'TABELA 12 DA SX5 PROTHEUS',
@@ -4578,7 +4578,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mobilizacao_cliente;";
 
-    $sql = "CREATE TABLE tabela_valor_mobilizacao_cliente (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mobilizacao_cliente (
       id_tabela_valor_mobilizacao_cliente int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_atividade int(5) unsigned NOT NULL COMMENT 'id da tabela rh_cargos',
       id_cliente int(4) unsigned NOT NULL DEFAULT '1' COMMENT 'Define o cliente da tabela',
@@ -4600,7 +4600,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mobilizacao_historico;";
 
-    $sql = "CREATE TABLE tabela_valor_mobilizacao_historico (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mobilizacao_historico (
       id_tabela_valor_mobilizacao_historico int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_tabela_valor_mobilizacao int(5) unsigned NOT NULL COMMENT 'id da tabela mo',
       valor decimal(10,2) unsigned NOT NULL,
@@ -4623,7 +4623,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tabela_valor_mobilizacao_historico_cliente;";
 
-    $sql = "CREATE TABLE tabela_valor_mobilizacao_historico_cliente (
+    $sql = "CREATE TABLE IF NOT EXISTS tabela_valor_mobilizacao_historico_cliente (
       id_tabela_valor_mobilizacao_historico_cliente int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_tabela_valor_mobilizacao_cliente int(5) unsigned NOT NULL COMMENT 'id da tabela mo',
       valor_interno decimal(10,2) unsigned NOT NULL,
@@ -4647,7 +4647,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_indices;";
 
-    $sql = "CREATE TABLE tipos_indices (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_indices (
       id_tipo_indice int(2) unsigned NOT NULL AUTO_INCREMENT,
       indice varchar(50) NOT NULL,
       ordem smallint(2) unsigned NOT NULL,
@@ -4681,7 +4681,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_documentos;";
 
-    $sql = "CREATE TABLE tipos_documentos (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_documentos (
       id_tipo_documento int(3) unsigned NOT NULL AUTO_INCREMENT,
       tipo_documento varchar(30) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -4716,7 +4716,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS diario_projeto;";
 
-    $sql = "CREATE TABLE diario_projeto (
+    $sql = "CREATE TABLE IF NOT EXISTS diario_projeto (
       id_diario_projeto int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -4735,7 +4735,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS diario_projeto_itens;";
 
-    $sql = "CREATE TABLE diario_projeto_itens (
+    $sql = "CREATE TABLE IF NOT EXISTS diario_projeto_itens (
       id_diario_projeto_item int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_diario_projeto int(5) unsigned NOT NULL,
       id_funcionario int(5) unsigned NOT NULL,
@@ -4759,7 +4759,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS nao_conformidades;";
 
-    $sql = "CREATE TABLE nao_conformidades (
+    $sql = "CREATE TABLE IF NOT EXISTS nao_conformidades (
       id_nao_conformidade int(5) unsigned NOT NULL AUTO_INCREMENT,
       cod_nao_conformidade varchar(15) NOT NULL,
       id_os int(5) unsigned NOT NULL,
@@ -4810,7 +4810,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS nao_conformidades_anexos;";
 
-    $sql = "CREATE TABLE nao_conformidades_anexos (
+    $sql = "CREATE TABLE IF NOT EXISTS nao_conformidades_anexos (
       id_nao_conformidade_anexo int(7) unsigned NOT NULL AUTO_INCREMENT,
       id_nao_conformidade int(5) unsigned NOT NULL,
       nome_arquivo varchar(100) NOT NULL,
@@ -4831,7 +4831,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_analise_critica_inicial;";
 
-    $sql = "CREATE TABLE os_x_analise_critica_inicial (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_analise_critica_inicial (
       id_os_x_analise_critica_inicial int(5) NOT NULL AUTO_INCREMENT,
       id_os int(5) NOT NULL,
       chk_rec int(1) unsigned NOT NULL COMMENT '0 - Não / 1 - sim',
@@ -4854,7 +4854,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_analise_critica_final;";
 
-    $sql = "CREATE TABLE os_x_analise_critica_final (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_analise_critica_final (
       id_os_x_analise_critica_final int(5) NOT NULL AUTO_INCREMENT,
       id_os int(5) NOT NULL,
       txt_necessidade text NOT NULL,
@@ -4895,7 +4895,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_analise_critica_periodica;";
 
-    $sql = "CREATE TABLE os_x_analise_critica_periodica (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_analise_critica_periodica (
       id_os_x_analise_critica_periodica int(5) unsigned NOT NULL AUTO_INCREMENT,
       item int(3) unsigned zerofill NOT NULL COMMENT 'Item da analise critica',
       id_os int(5) unsigned NOT NULL,
@@ -4927,7 +4927,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_anexos_cat;";
 
-    $sql = "CREATE TABLE os_x_anexos_cat (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_anexos_cat (
       id_os_x_anexos int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       nome_arquivo varchar(150) NOT NULL,
@@ -4948,7 +4948,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_contatos;";
 
-    $sql = "CREATE TABLE os_x_contatos (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_contatos (
       id_os_x_contato int(5) NOT NULL AUTO_INCREMENT,
       id_os int(5) NOT NULL,
       id_contato int(5) NOT NULL COMMENT 'id do Contato da empresa',
@@ -4968,7 +4968,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_entradas_saidas;";
 
-    $sql = "CREATE TABLE os_x_entradas_saidas (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_entradas_saidas (
       id_os_x_entradas_saidas int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       ata_reuniao tinyint(1) unsigned NOT NULL COMMENT '1- sim / 0 - não',
@@ -5005,7 +5005,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS os_x_validacao;";
 
-    $sql = "CREATE TABLE os_x_validacao (
+    $sql = "CREATE TABLE IF NOT EXISTS os_x_validacao (
       id_os_validacao int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_os int(5) unsigned NOT NULL,
       nome_validador varchar(100) NOT NULL,
@@ -5026,7 +5026,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS planos_acoes;";
 
-    $sql = "CREATE TABLE planos_acoes (
+    $sql = "CREATE TABLE IF NOT EXISTS planos_acoes (
       id_plano_acao int(5) unsigned NOT NULL AUTO_INCREMENT,
       cod_plano_acao varchar(15) NOT NULL,
       data_criacao date NULL,
@@ -5063,7 +5063,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS planos_acoes_anexos;";
 
-    $sql = "CREATE TABLE planos_acoes_anexos (
+    $sql = "CREATE TABLE IF NOT EXISTS planos_acoes_anexos (
       id_plano_acao_anexo int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_plano_acao int(5) unsigned NOT NULL,
       nome_arquivo varchar(150) NOT NULL,
@@ -5084,7 +5084,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS planos_acoes_complementos;";
 
-    $sql = "CREATE TABLE planos_acoes_complementos (
+    $sql = "CREATE TABLE IF NOT EXISTS planos_acoes_complementos (
       id_plano_acao_complemento int(5) unsigned NOT NULL AUTO_INCREMENT,
       id_plano_acao int(5) unsigned NOT NULL COMMENT 'OBSOLETO',
       id_nao_conformidade int(5) unsigned NOT NULL COMMENT 'id da não conformidade',
@@ -5109,7 +5109,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS planos_acoes_referencias;";
 
-    $sql = "CREATE TABLE planos_acoes_referencias (
+    $sql = "CREATE TABLE IF NOT EXISTS planos_acoes_referencias (
       id_plano_acao_referencia int(2) unsigned NOT NULL AUTO_INCREMENT,
       plano_acao_referencia varchar(30) NOT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -5141,7 +5141,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_documentos_planos_acao;";
 
-    $sql = "CREATE TABLE tipos_documentos_planos_acao (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_documentos_planos_acao (
       id_tipo_documento int(2) unsigned NOT NULL AUTO_INCREMENT,
       tipo_documento varchar(30) NOT NULL,
       sufixo_codigo varchar(5) NOT NULL,
@@ -5174,7 +5174,7 @@
     //EXCLUI A TABELA CASO EXISTA
     //$sql = "DROP TABLE IF EXISTS tipos_origem;";
 
-    $sql = "CREATE TABLE tipos_origem (
+    $sql = "CREATE TABLE IF NOT EXISTS tipos_origem (
       id_tipo_origem int(2) unsigned NOT NULL AUTO_INCREMENT,
       tipo_origem varchar(30) DEFAULT NULL,
       reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -5208,7 +5208,7 @@
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS rh_adicional;";
 
-  $sql = "CREATE TABLE rh_adicional (
+  $sql = "CREATE TABLE IF NOT EXISTS rh_adicional (
     id_adicional int(2) unsigned NOT NULL AUTO_INCREMENT,
     id_tipo_adicional int(3) unsigned NOT NULL,
     adicional varchar(50) NOT NULL,
@@ -5241,7 +5241,7 @@ if (!in_array('cidades',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS cidades;";
 
-  $sql = "CREATE TABLE cidades (
+  $sql = "CREATE TABLE IF NOT EXISTS cidades (
     id_cidade int(4) NOT NULL AUTO_INCREMENT,
     id_estado int(4) unsigned NOT NULL,
     cidade varchar(50) NOT NULL,
@@ -5360,7 +5360,7 @@ if (!in_array('estados',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS estados;";
 
-  $sql = "CREATE TABLE estados (
+  $sql = "CREATE TABLE IF NOT EXISTS estados (
     id_estado int(4) NOT NULL AUTO_INCREMENT,
     uf varchar(10) NOT NULL,
     estado varchar(20) NOT NULL,
@@ -5393,7 +5393,7 @@ if (!in_array('paises',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS paises;";
 
-  $sql = "CREATE TABLE paises (
+  $sql = "CREATE TABLE IF NOT EXISTS paises (
     id_pais int(3) unsigned NOT NULL AUTO_INCREMENT,
     pais varchar(50) NOT NULL,
     reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -5424,7 +5424,7 @@ if (!in_array('rh_categorias',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS rh_categorias;";
 
-  $sql = "CREATE TABLE rh_categorias (
+  $sql = "CREATE TABLE IF NOT EXISTS rh_categorias (
     id_categoria int(2) unsigned NOT NULL AUTO_INCREMENT,
     categoria varchar(20) NOT NULL,
     ordem smallint(1) unsigned NOT NULL DEFAULT '0',
@@ -5456,7 +5456,7 @@ if (!in_array('acoes',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS acoes;";
 
-  $sql = "CREATE TABLE acoes (
+  $sql = "CREATE TABLE IF NOT EXISTS acoes (
     id_acao int(1) unsigned NOT NULL AUTO_INCREMENT,
     acao varchar(20) NOT NULL,
     reg_del tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -5487,7 +5487,7 @@ if (!in_array('autenticacao',$array_tables))
   //EXCLUI A TABELA CASO EXISTA
   //$sql = "DROP TABLE IF EXISTS autenticacao;";
 
-  $sql = "CREATE TABLE autenticacao (
+  $sql = "CREATE TABLE IF NOT EXISTS autenticacao (
     id_autenticacao int(5) unsigned NOT NULL AUTO_INCREMENT,
     id_usuario int(5) unsigned NOT NULL,
     time_login timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

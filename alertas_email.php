@@ -29,7 +29,7 @@ function vencimento_senha()
 	$sql .= "AND usuarios.data_troca <> '0000-00-00' ";
 	$sql .= "AND usuarios.status <> '2' ";//bloqueado
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -230,7 +230,7 @@ function rotinas_manutencao()
 	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "ORDER BY funcionario, ti_frequencia, ti_rotina ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -294,7 +294,7 @@ function vencimento_exame()
 	$sql .= "AND rh_aso.vencimento = '0' ";
 	$sql .= "AND rh_aso.data_vencimento <= '".php_mysql(calcula_data(date('d/m/y'), "sum", "day", "20"))."' ";
 	
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -372,7 +372,7 @@ function vencimento_integracao()
 					(rh_integracao.vencimento = '1' AND rh_integracao.data_vencimento = '".php_mysql(calcula_data(date('d/m/y'), "sum", "day", "15"))."')
 				) ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -508,7 +508,7 @@ function vencimento_controles_sgi()
 	$sql .= "AND sgi_controle.reg_del = 0 ";
 	$sql .= "ORDER BY data_vencimento ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -554,7 +554,7 @@ function vencimento_controles_sgi()
 		$sql .= "AND sgi_controle.id_sgi_requisito = sgi_requisito.id_sgi_requisito ";
 		$sql .= $filtro;
 
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 
 		if($db->erro!='')
 		{
@@ -619,7 +619,7 @@ function vencimento_habilitacao()
 	$sql .= "AND rh_habilitacao.vencimento = 0 ";
 	$sql .= "AND rh_habilitacao.data_vencimento <= '".php_mysql(calcula_data(date('d/m/y'), "sum", "day", "45"))."' ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -719,7 +719,7 @@ function vencimento_avaliacao_eficacia()
 			);
 		});
 		*/
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -804,7 +804,7 @@ function verifica_pacotes()
 	$sql .= "AND ged_pacotes.id_ged_pacote NOT IN (SELECT id_ged_pacote FROM ".DATABASE.".grd WHERE grd.reg_del = 0) ";
 	$sql .= "AND ordem_servico.id_os_status NOT IN (3,4,8,9,12,17,18,19) ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -827,7 +827,7 @@ function verifica_pacotes()
 	$sql .= "AND usuarios.reg_del = 0 ";
 	$sql .= "AND funcionarios.reg_del = 0 ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -912,7 +912,7 @@ function verifica_devolucao()
 	$sql .= "AND funcionarios.reg_del = 0 ";
 	$sql .= "AND usuarios.reg_del = 0 ";
   
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -950,7 +950,7 @@ function verifica_devolucao()
 	$sql .= "GROUP BY ged_arquivos.id_ged_arquivo ";	
 	$sql .= "ORDER BY ordem_servico.os, ged_pacotes.numero_pacote, ged_versoes.data_devolucao DESC, setores.setor ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -968,7 +968,7 @@ function verifica_devolucao()
 		$sql .= "AND ordem_servico.reg_del = 0 ";
 		$sql .= "AND ged_pacotes.id_os = ordem_servico.id_os ";
 		
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 		
 		if($db->erro!='')
 		{
@@ -1045,7 +1045,7 @@ function verifica_retorno()
 	$sql .= "AND funcionarios.id_usuario = usuarios.id_usuario ";
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
   
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -1077,7 +1077,7 @@ function verifica_retorno()
 	$sql .= "AND codigos_emissao.codigos_emissao IN ('PA','CO') "; //PARA APROVAÇÃO / PARA COMENTÁRIOS
 	$sql .= "ORDER BY ordem_servico.os, numeros_interno.data_retorno_arquivo, setores.setor ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -1105,7 +1105,7 @@ function verifica_retorno()
 		$sql .= "AND numeros_interno.data_retorno_arquivo = '" . php_mysql($data_retorno) . "' ";
 		$sql .= "AND numeros_interno.flag_numero_avisos < 2 ";		
 
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 
 		if($db->erro!='')
 		{
@@ -1135,7 +1135,7 @@ function verifica_retorno()
 			$sql .= "AND ordem_servico.reg_del = 0 ";
 			$sql .= "AND ged_pacotes.id_os = ordem_servico.id_os ";
 
-			$db->select($sql,'MYSQL',true);
+			$db->select($sql);
 
 			if($db->erro!='')
 			{
@@ -1229,7 +1229,7 @@ function verifica_docs_fin()
 	$sql .= "AND funcionarios.situacao = 'ATIVO' ";
 	$sql .= "ORDER BY funcionarios.funcionario ";
 
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 
 	if($db->erro!='')
 	{
@@ -1246,7 +1246,7 @@ function verifica_docs_fin()
 			$sql .= "WHERE fechamento_documentos.id_fechamento = '".$regs["id_fechamento"]."' ";
 			$sql .= "AND fechamento_documentos.reg_del = 0 ";
 
-			$db->select($sql,'MYSQL',true);
+			$db->select($sql);
 
 			if($db->erro!='')
 			{
@@ -1311,7 +1311,7 @@ function verifica_funcionario_44_89_dias()
 	
 	$corpoEmail = '';
 	
-	$db->select($sql,'MYSQL',true);
+	$db->select($sql);
 	
 	if($db->erro!='')
 	{
@@ -1760,7 +1760,7 @@ function aprova_solicitacoes_escopo()
 		$sql .= "AND funcionarios.id_setor = setores.id_setor ";
 		$sql .= "AND funcionarios.situacao NOT IN ('DESLIGADO') ";
 	
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 	
 		if($db->erro!='')
 		{
@@ -1778,7 +1778,7 @@ function aprova_solicitacoes_escopo()
 		$sql = "SELECT id_formato, formato FROM ".DATABASE.".formatos ";
 		$sql .= "WHERE formatos.reg_del = 0 ";
 	
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 			
 		if($db->erro!='')
 		{
@@ -1793,7 +1793,7 @@ function aprova_solicitacoes_escopo()
 		$sql = "SELECT id_solicitacao_motivo, motivo_solicitacao FROM ".DATABASE.".solicitacao_hora_motivos ";
 		$sql .= "WHERE solicitacao_hora_motivos.reg_del = 0 ";
 		
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 		
 		if($db->erro!='')
 		{
@@ -1820,7 +1820,7 @@ function aprova_solicitacoes_escopo()
 		$sql .= "AND solicitacao_hora.id_aprovacao = 3 "; //APROVADO SUPERVISÃO
 		$sql .= "AND solicitacao_hora.data_aprovacao_supervisao <= '".php_mysql(checaDiasUteis(date("d/m/Y"),2,$ret,"sub"))."' ";
 		
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 		
 		if($db->erro!='')
 		{
@@ -1836,7 +1836,7 @@ function aprova_solicitacoes_escopo()
 			$sql .= "WHERE atividades.id_atividade = '".$cont["id_atividade"]."' ";
 			$sql .= "AND atividades.reg_del = 0 ";
 		
-			$db->select($sql,'MYSQL',true);
+			$db->select($sql);
 		
 			if($db->erro!='')
 			{

@@ -1001,7 +1001,7 @@ function insere($dados_form, $status = 0)
 						$isql .= "(id_nao_conformidade, item_acao, plano_acao, id_funcionario_responsavel, prazo, status_plano_acao) ";
 						$isql .= "VALUES ('" .$id_nc . "', ";
 						$isql .= "'" . $dados_form["numero"][$valor-1] . "', ";
-						$isql .= "'" . maiusculas(utf8_decode($dados_form["acao"][$valor-1])) . "', ";
+						$isql .= "'" . maiusculas(utf8_decode_string($dados_form["acao"][$valor-1])) . "', ";
 						$isql .= "'" . $dados_form["responsavel"][$valor-1] . "', ";
 						$isql .= "'" . php_mysql($dados_form["data"][$valor-1]) . "', ";
 						$isql .= "'" . $dados_form["status"][$valor-1] . "') ";						
@@ -1170,7 +1170,7 @@ function atualizar($dados_form, $status = 0)
 						{
 							$isql .= $sep."('" .$dados_form["id"] . "', ";
 							$isql .= "'" . $dados_form["numero"][$k] . "', ";
-							$isql .= "'" . maiusculas(utf8_decode($dados_form["acao"][$k])) . "', ";
+							$isql .= "'" . maiusculas(utf8_decode_string($dados_form["acao"][$k])) . "', ";
 							$isql .= "'" . $dados_form["responsavel"][$k] . "', ";
 							$isql .= "'" . php_mysql($dados_form["data"][$k]) . "', ";
 							$isql .= "'" . $dados_form["status"][$k] . "') ";						
@@ -1410,7 +1410,7 @@ function email($id)
 						$params['emails']['to'][] = array('email' => $regs1['email'], 'nome' => $regs1['funcionario']);
 					}
 					
-					$texto = explode("|",utf8_decode($regs1["plano_acao"]));
+					$texto = explode("|",utf8_decode_string($regs1["plano_acao"]));
 				
 					$body .= "<tr>
 								<td>".$regs1["item_acao"]." </td>

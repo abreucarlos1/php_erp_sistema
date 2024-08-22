@@ -602,7 +602,7 @@ class avaliacoes
                         else//Passou por todas as validacoes
                         {
                             $virgula = $i == (count($dados_form['selAvaliacao']) - 1) ? '' : ',';
-                            $isql .="(".$_SESSION['id_funcionario'].", ".$dados_form['selSubId'].", '".date('Y-m-d')."', ".$dados_form['avaId'].", ".$pergunta.", ".$nota.", '".strtoupper(AntiInjection::clean(tiraacentos(utf8_decode($dados_form['textarea'][$pergunta]))))."')".$virgula;
+                            $isql .="(".$_SESSION['id_funcionario'].", ".$dados_form['selSubId'].", '".date('Y-m-d')."', ".$dados_form['avaId'].", ".$pergunta.", ".$nota.", '".strtoupper(AntiInjection::clean(tiraacentos(utf8_decode_string($dados_form['textarea'][$pergunta]))))."')".$virgula;
                             $i++;
                         }
                     }
@@ -971,7 +971,7 @@ class avaliacoes
                 return $resposta;
             }
             
-            $isqlArr[] = "('".strtoupper(AntiInjection::clean(tiraacentos(utf8_decode($dados_form['txt_meta'][$i]))))."', {$peso}, '".$dados_form['txt_resultado'][$i]."', {$dados_form['metasAvaId']}, {$dados_form['codFuncionario']}, {$_SESSION['id_funcionario']})";
+            $isqlArr[] = "('".strtoupper(AntiInjection::clean(tiraacentos(utf8_decode_string($dados_form['txt_meta'][$i]))))."', {$peso}, '".$dados_form['txt_resultado'][$i]."', {$dados_form['metasAvaId']}, {$dados_form['codFuncionario']}, {$_SESSION['id_funcionario']})";
         }
         
         $isql = $isql.implode(',', $isqlArr);

@@ -58,7 +58,7 @@ function enviar($dados_form)
 		$sql .="WHERE id_usuario = '".$dados_form["id_usuario"]."' ";
 		$sql .= "AND reg_del = 0 ";
 
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 
 		if($db->erro!='')
 		{

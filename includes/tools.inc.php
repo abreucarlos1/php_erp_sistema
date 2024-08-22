@@ -2507,7 +2507,7 @@ function formataTamanho($tamanho)
 
 function isobug($str)
 {
-	//	$str = utf8_decode($str);
+	//	$str = utf8_decode_string($str);
 
 	/*
 	$array_padrao  = array("�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�","�");

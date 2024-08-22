@@ -124,7 +124,7 @@ function autenticacao($dados_form)
 			$sql .= "WHERE usuarios.login = '" . $login . "' ";
 			$sql .= "AND usuarios.reg_del = 0 ";
 
-			$db->select($sql,'MYSQL',true);
+			$db->select($sql);
 
 			if($db->erro!='')
 			{
@@ -250,7 +250,7 @@ function enviar($dados_form)
 		$sql .= "AND usuarios.login = '". minusculas(trim($dados_form["nome"])). "' ";
 		$sql .= "AND usuarios.email = '".minusculas(trim($dados_form["email"]))."' ";		
 
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 
 		if($db->erro!='')
 		{
@@ -374,7 +374,7 @@ function atualiza($dados_form)
 		$sql .="WHERE id_usuario = '".$dados_form["id_usuario"]."' ";
 		$sql .= "AND reg_del = 0 ";
 
-		$db->select($sql,'MYSQL',true);
+		$db->select($sql);
 
 		if($db->erro!='')
 		{

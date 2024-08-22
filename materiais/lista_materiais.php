@@ -115,7 +115,7 @@ WHERE
 		$idProduto 	 = explode('_', $idProduto);
 		$idProduto	 = is_array($idProduto) ? $idProduto[0] : $idProduto;
 
-		$unidade 	 = utf8_decode($dados_form["txtUnidade"][$keyProduto]);
+		$unidade 	 = utf8_decode_string($dados_form["txtUnidade"][$keyProduto]);
 		$qtd 		 = str_replace(',', '.', str_replace('.', '', $dados_form["qtd"][$keyProduto]));
 		$per 		 = $dados_form["txtPercentual"][$keyProduto] > 0 ? str_replace(',', '.', str_replace('.', '', $dados_form["txtPercentual"][$keyProduto])) : 0;
 		$data		 = date('Y-m-d H:i:s');
@@ -274,7 +274,7 @@ function salvarListaOs($dados_form, $versao_documento = 0)
 		$idProduto 	 = explode('_', $idProduto);
 		$idProduto	 = is_array($idProduto) ? $idProduto[0] : $idProduto;
 
-		$unidade 	 = utf8_decode($dados_form["txtUnidade"][$keyProduto]);
+		$unidade 	 = utf8_decode_string($dados_form["txtUnidade"][$keyProduto]);
 		$qtd 		 = str_replace(',', '.', str_replace('.', '', $dados_form["qtd"][$keyProduto]));
 		//$qtdComprada = $dados_form["comprado"][$keyProduto];
 		$per 		 = $dados_form["txtPercentual"][$keyProduto] > 0 ? str_replace(',', '.', str_replace('.', '', $dados_form["txtPercentual"][$keyProduto])) : 0;
@@ -404,7 +404,7 @@ function salvarListaEdicaoOs($dados_form, $versao_documento = 0)
 		$dadosListaAtual = $db->array_select[0];
 		$registrosEncontrados = $db->numero_registros;
 
-		$unidade 	 = utf8_decode($dados_form["txtUnidade"][$keyProduto]);
+		$unidade 	 = utf8_decode_string($dados_form["txtUnidade"][$keyProduto]);
 		$qtd 		 = str_replace(',', '.', str_replace('.', '', $dados_form["qtd"][$keyProduto]));
 		$qtdComprada = str_replace(',', '.', str_replace('.', '', $dados_form["comprado"][$keyProduto]));
 		$per 		 = $dados_form["txtPercentual"][$keyProduto] > 0 ? str_replace(',', '.', str_replace('.', '', $dados_form["txtPercentual"][$keyProduto])) : 0;
@@ -572,7 +572,7 @@ function salvarListaEdicao($dados_form)
 		$idListaCab	= $chave[2];
 
 		$revisao_documento		= $dados_form['revisao_documento'][$indice]+1;
-		$unidade 	= utf8_decode($dados_form["txtUnidade"][$indice]);
+		$unidade 	= utf8_decode_string($dados_form["txtUnidade"][$indice]);
 		$qtd 		= str_replace(',', '.', str_replace('.', '', $dados_form["qtd"][$indice]));
 		$qtdAnterior= str_replace(',', '.', str_replace('.', '', $dados_form["comprado"][$indice]));
 		$per 		= str_replace(',', '.', str_replace('.', '', $dados_form["txtPercentual"][$indice]));
