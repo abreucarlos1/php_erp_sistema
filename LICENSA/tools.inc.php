@@ -1326,21 +1326,23 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	//com intervalo de 30 minutos (1800s)
 	//$intervalo = 1800;
 	
-	$array_noturno = NULL;
-	$array_adicional = NULL;
-	$array_normal = NULL;
-	$array_ini_fim = NULL;
+	$array_noturno = array();
+	$array_adicional = array();
+	$array_normal = array();
+	$array_ini_fim = array();
 	
-	$array_almoco = NULL;
+	$array_almoco = array();
 	
-	$array_norm = NULL;
-	$array_adic_1 = NULL;
-	$array_adic_2 = NULL;
-	$array_not_1 = NULL;
-	$array_not_2 = NULL;
-	$array_alm = NULL;
+	$array_norm = array();
+	$array_adic_1 = array();
+	$array_adic_2 = array();
+	$array_not_1 = array();
+	$array_not_2 = array();
+	$array_alm = array();
 	
-	$horas = NULL;
+	$horas = array();
+
+	file_put_contents('teste.log',print_r($array_noturno,true));
 	
 	//cria os arrays de periodos conforme os batentes 
 	for($i=time_to_sec($ha_noturno_inicial);$i<=time_to_sec($ha_noturno_final);$i+=$intervalo)
@@ -1365,6 +1367,8 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 			$array_almoco[substr(sec_to_time($i),0,5)] = substr(sec_to_time($i),0,5);
 		}
 	}
+
+	
 	
 	//percorre as horas do periodo informado
 	for($j=time_to_sec($hora_i);$j<=time_to_sec($hora_f);$j+=$intervalo)
@@ -1421,7 +1425,8 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	$tmp2 = array_pop($array_norm);	
 	
 	//desconta o horario de almoco
-	if($hora_almoco && count($array_alm)>1)
+	//if($hora_almoco && count($array_alm)>1)
+	if($hora_almoco && !empty($array_alm))
 	{
 		//retira o 1ª elemento
 		$tmp3 = array_shift($array_alm);
@@ -1495,7 +1500,7 @@ function calc_horas($hora_i, $hora_f, $hora_almoco = TRUE, $intervalo = 1800)
 	{
 		$horas[2] += abs(time_to_sec($tmp1)-time_to_sec($tmp2));
 	}
-	
+
 	return $horas;	
 }
 
